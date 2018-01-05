@@ -45,16 +45,16 @@ class SelectAnOilServiceController @Inject()(
 
   val form = formProvider()
 
-  def onPageLoad(mode: Mode) = (authenticate) {
+  def onPageLoad(mode: Mode) = (authenticate andThen getData) {
     implicit request =>
-//      val preparedForm = request.userAnswers.selectAnOilService match {
-//        case None => form
-//        case Some(value) => form.fill(value)
-//      }
+      val preparedForm = request.userAnswers.flatMap(_.selectAnOilService) match {
+        case None => form
+        case Some(value) => form.fill(value)
+      }
       Ok(selectAnOilService(appConfig, form, mode))
   }
 
-  def onSubmit(mode: Mode) = (authenticate).async {
+  def onSubmit(mode: Mode) = (authenticate andThen getData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
