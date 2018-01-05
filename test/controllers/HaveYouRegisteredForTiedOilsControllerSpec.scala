@@ -23,26 +23,26 @@ import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
-import forms.SelectAnOilServiceFormProvider
-import identifiers.SelectAnOilServiceId
+import forms.HaveYouRegisteredForTiedOilsFormProvider
+import identifiers.HaveYouRegisteredForTiedOilsId
 import models.NormalMode
-import models.SelectAnOilService
-import views.html.selectAnOilService
+import models.HaveYouRegisteredForTiedOils
+import views.html.haveYouRegisteredForTiedOils
 
-class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
+class HaveYouRegisteredForTiedOilsControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = routes.HaveYouRegisteredForTiedOilsController.onPageLoad(NormalMode)
+  def onwardRoute = routes.IndexController.onPageLoad()
 
-  val formProvider = new SelectAnOilServiceFormProvider()
+  val formProvider = new HaveYouRegisteredForTiedOilsFormProvider()
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new SelectAnOilServiceController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
+    new HaveYouRegisteredForTiedOilsController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
       dataRetrievalAction, new DataRequiredActionImpl, formProvider)
 
-  def viewAsString(form: Form[_] = form) = selectAnOilService(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = haveYouRegisteredForTiedOils(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
 
-  "SelectAnOilService Controller" must {
+  "HaveYouRegisteredForTiedOils Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(NormalMode)(fakeRequest)
@@ -52,16 +52,16 @@ class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
     }
 
 //    "populate the view correctly on a GET when the question has previously been answered" in {
-//      val validData = Map(SelectAnOilServiceId.toString -> JsString(SelectAnOilService.values.head.toString))
+//      val validData = Map(HaveYouRegisteredForTiedOilsId.toString -> JsString(HaveYouRegisteredForTiedOils.values.head.toString))
 //      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 //
 //      val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 //
-//      contentAsString(result) mustBe viewAsString(form.fill(SelectAnOilService.values.head))
+//      contentAsString(result) mustBe viewAsString(form.fill(HaveYouRegisteredForTiedOils.values.head))
 //    }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", SelectAnOilService.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HaveYouRegisteredForTiedOils.options.head.value))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -87,7 +87,7 @@ class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
 //    }
 //
 //    "redirect to Session Expired for a POST if no existing data is found" in {
-//      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", SelectAnOilService.options.head.value))
+//      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HaveYouRegisteredForTiedOils.options.head.value))
 //      val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
 //
 //      status(result) mustBe SEE_OTHER

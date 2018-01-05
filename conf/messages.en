@@ -50,3 +50,10 @@ selectAnOilService.tiedOilsEnquiryService = Tied Oils Enquiry Service
 selectAnOilService.checkYourAnswersLabel = Select an oil service
 selectAnOilService.error.required = Select a service
 
+
+haveYouRegisteredForTiedOils.title = Have you already registered for Tied Oils Enquiry Service?
+haveYouRegisteredForTiedOils.heading = Have you already registered for Tied Oils Enquiry Service?
+haveYouRegisteredForTiedOils.yes = Yes - I have an approval number
+haveYouRegisteredForTiedOils.no = No - I haven’t registered yet
+haveYouRegisteredForTiedOils.checkYourAnswersLabel = Have you already registered for Tied Oils Enquiry Service?
+haveYouRegisteredForTiedOils.error.required = Select yes or no

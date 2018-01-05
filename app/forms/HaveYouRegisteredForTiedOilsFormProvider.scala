@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-package utils
+package forms
 
-import uk.gov.hmrc.http.cache.client.CacheMap
-import identifiers._
-import models._
+import javax.inject.Inject
 
-class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
-  def haveYouRegisteredForTiedOils: Option[HaveYouRegisteredForTiedOils] = cacheMap.getEntry[HaveYouRegisteredForTiedOils](HaveYouRegisteredForTiedOilsId.toString)
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.HaveYouRegisteredForTiedOils
 
-  def selectAnOilService: Option[SelectAnOilService] = cacheMap.getEntry[SelectAnOilService](SelectAnOilServiceId.toString)
+class HaveYouRegisteredForTiedOilsFormProvider @Inject() extends FormErrorHelper with Mappings {
 
+  def apply(): Form[HaveYouRegisteredForTiedOils] =
+    Form(
+      "value" -> enumerable[HaveYouRegisteredForTiedOils]("haveYouRegisteredForTiedOils.error.required")
+    )
 }
