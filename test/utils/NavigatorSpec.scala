@@ -36,7 +36,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         navigator.nextPage(UnknownIdentifier, NormalMode)(mock[UserAnswers]) mustBe routes.IndexController.onPageLoad()
       }
 
-      "go to Haye you registered page from Select oil Service when the user answers Tied Oil" in {
+      "go to 'Have You Registered Tied Oils?' page from 'Select Oil Service' when the user answers Tied Oil" in {
         val answers = mock[UserAnswers]
         when(answers.selectAnOilService) thenReturn Some(TiedOilsEnquiryService)
         navigator.nextPage(SelectAnOilServiceId, NormalMode)(answers) mustBe routes.HaveYouRegisteredForTiedOilsController.onPageLoad(NormalMode)
