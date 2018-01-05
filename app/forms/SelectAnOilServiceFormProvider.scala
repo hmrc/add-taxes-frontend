@@ -14,6 +14,18 @@
  * limitations under the License.
  */
 
-package viewmodels
+package forms
 
-case class AnswerRow(label: String, answer: String, answerIsMessageKey: Boolean, changeUrl: String)
+import javax.inject.Inject
+
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.SelectAnOilService
+
+class SelectAnOilServiceFormProvider @Inject() extends FormErrorHelper with Mappings {
+
+  def apply(): Form[SelectAnOilService] =
+    Form(
+      "value" -> enumerable[SelectAnOilService]("selectAnOilService.error.required")
+    )
+}

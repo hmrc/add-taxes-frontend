@@ -37,8 +37,16 @@ site.hidden-edit = Change {0}
 site.no = No
 site.yes = Yes
 site.save_and_continue = Save and continue
-site.service_name = add-taxes-frontend
+site.continue = Continue
+site.service_name = Business Tax Account
 site.textarea.char_limit = (Limit is {0} characters)
 
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
+
+selectAnOilService.heading = Select an oil service
+selectAnOilService.rebatedOilsEnquiryService = Rebated Oils Enquiry Service
+selectAnOilService.tiedOilsEnquiryService = Tied Oils Enquiry Service
+selectAnOilService.checkYourAnswersLabel = Select an oil service
+selectAnOilService.error.required = Select a service
+

@@ -14,13 +14,28 @@
  * limitations under the License.
  */
 
-package utils
+package forms
 
-import uk.gov.hmrc.http.cache.client.CacheMap
-import identifiers._
+import forms.behaviours.FormBehaviours
 import models._
 
-class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
-  def selectAnOilService: Option[SelectAnOilService] = cacheMap.getEntry[SelectAnOilService](SelectAnOilServiceId.toString)
+class SelectAnOilServiceFormProviderSpec extends FormBehaviours {
 
+  val validData: Map[String, String] = Map(
+    "value" -> SelectAnOilService.options.head.value
+  )
+
+  val form = new SelectAnOilServiceFormProvider()()
+
+  "SelectAnOilService form" must {
+
+    behave like questionForm[SelectAnOilService](SelectAnOilService.values.head)
+
+    behave like formWithOptionField(
+      Field(
+        "value",
+        Required -> "selectAnOilService.error.required",
+        Invalid -> "error.invalid"),
+      SelectAnOilService.options.toSeq.map(_.value): _*)
+  }
 }
