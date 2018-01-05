@@ -51,7 +51,7 @@ class SelectAnOilServiceController @Inject()(
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(selectAnOilService(appConfig, form, mode))
+      Ok(selectAnOilService(appConfig, preparedForm, mode))
   }
 
   def onSubmit(mode: Mode) = (authenticate andThen getData).async {

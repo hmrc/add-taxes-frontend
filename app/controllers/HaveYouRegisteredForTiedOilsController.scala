@@ -51,7 +51,7 @@ class HaveYouRegisteredForTiedOilsController @Inject()(
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(haveYouRegisteredForTiedOils(appConfig, form, mode))
+      Ok(haveYouRegisteredForTiedOils(appConfig, preparedForm, mode))
   }
 
   def onSubmit(mode: Mode) = (authenticate andThen getData andThen requireData).async {
