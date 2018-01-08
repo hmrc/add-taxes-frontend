@@ -51,14 +51,14 @@ class HaveYouRegisteredForTiedOilsControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString()
     }
 
-//    "populate the view correctly on a GET when the question has previously been answered" in {
-//      val validData = Map(HaveYouRegisteredForTiedOilsId.toString -> JsString(HaveYouRegisteredForTiedOils.values.head.toString))
-//      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
-//
-//      val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
-//
-//      contentAsString(result) mustBe viewAsString(form.fill(HaveYouRegisteredForTiedOils.values.head))
-//    }
+    "populate the view correctly on a GET when the question has previously been answered" in {
+      val validData = Map(HaveYouRegisteredForTiedOilsId.toString -> JsString(HaveYouRegisteredForTiedOils.values.head.toString))
+      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+      val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
+
+      contentAsString(result) mustBe viewAsString(form.fill(HaveYouRegisteredForTiedOils.values.head))
+    }
 
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HaveYouRegisteredForTiedOils.options.head.value))

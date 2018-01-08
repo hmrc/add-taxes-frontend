@@ -21,6 +21,7 @@ import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
 import controllers.routes
 import identifiers._
+import models.SelectAnOilService.TiedOilsEnquiryService
 import models._
 
 class NavigatorSpec extends SpecBase with MockitoSugar {
@@ -33,6 +34,12 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       "go to Index from an identifier that doesn't exist in the route map" in {
         case object UnknownIdentifier extends Identifier
         navigator.nextPage(UnknownIdentifier, NormalMode)(mock[UserAnswers]) mustBe routes.IndexController.onPageLoad()
+      }
+
+      "go to 'Have You Registered Tied Oils?' page from 'Select Oil Service' when the user answers Tied Oil" in {
+        val answers = mock[UserAnswers]
+        when(answers.selectAnOilService) thenReturn Some(TiedOilsEnquiryService)
+        navigator.nextPage(SelectAnOilServiceId, NormalMode)(answers) mustBe routes.HaveYouRegisteredForTiedOilsController.onPageLoad(NormalMode)
       }
     }
 

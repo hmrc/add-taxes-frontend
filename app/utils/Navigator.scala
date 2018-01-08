@@ -21,18 +21,25 @@ import javax.inject.{Inject, Singleton}
 import play.api.mvc.Call
 import controllers.routes
 import identifiers._
+import models.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.{CheckMode, Mode, NormalMode}
 
 @Singleton
 class Navigator @Inject()() {
 
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
-
+    SelectAnOilServiceId -> selectAnOilServiceRoute
   )
 
   private val editRouteMap: Map[Identifier, UserAnswers => Call] = Map(
 
   )
+
+  private def selectAnOilServiceRoute(answers: UserAnswers) = answers.selectAnOilService match {
+    case Some(RebatedOilsEnquiryService) => routes.IndexController.onPageLoad()
+    case Some(TiedOilsEnquiryService) => routes.HaveYouRegisteredForTiedOilsController.onPageLoad(NormalMode)
+    case None => routes.SessionExpiredController.onPageLoad()
+  }
 
   def nextPage(id: Identifier, mode: Mode): UserAnswers => Call = mode match {
     case NormalMode =>

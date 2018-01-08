@@ -45,16 +45,16 @@ class HaveYouRegisteredForTiedOilsController @Inject()(
 
   val form = formProvider()
 
-  def onPageLoad(mode: Mode) = (authenticate) {
+  def onPageLoad(mode: Mode) = (authenticate andThen getData andThen requireData) {
     implicit request =>
-//      val preparedForm = request.userAnswers.haveYouRegisteredForTiedOils match {
-//        case None => form
-//        case Some(value) => form.fill(value)
-//      }
-      Ok(haveYouRegisteredForTiedOils(appConfig, form, mode))
+      val preparedForm = request.userAnswers.haveYouRegisteredForTiedOils match {
+        case None => form
+        case Some(value) => form.fill(value)
+      }
+      Ok(haveYouRegisteredForTiedOils(appConfig, preparedForm, mode))
   }
 
-  def onSubmit(mode: Mode) = (authenticate).async {
+  def onSubmit(mode: Mode) = (authenticate andThen getData andThen requireData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
