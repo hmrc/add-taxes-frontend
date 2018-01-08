@@ -60,7 +60,14 @@
 }
 
 @footerTop = {}
-@footerLinks = {}
+@footerLinks = {
+    @if(appConfig.languageTranslationEnabled) {
+        @views.html.components.language_selection(
+        appConfig.languageMap,
+        appConfig.routeToSwitchLanguage
+        )
+    }
+}
 
 @serviceInfo = {
     @uiLayouts.serviceInfo(
@@ -70,13 +77,6 @@
 }
 
 @mainContentHeader = {
-
-    @if(appConfig.languageTranslationEnabled) {
-        @views.html.language_selection(
-            appConfig.languageMap,
-            appConfig.routeToSwitchLanguage,
-            Some("translate u-align--right"))
-    }
 
     @if(contentHeader.isDefined) {
         @uiLayouts.main_content_header(contentHeader = contentHeader.get)
@@ -96,4 +96,4 @@
       sidebar = sidebar)
 }
 
-@hmrcGovUkTemplate(Some(title), bodyClasses)(head, bodyEnd, insideHeader, afterHeader, footerTop, Some(uiLayouts.footer_links()), true)(content)
+@hmrcGovUkTemplate(Some(title), bodyClasses)(head, bodyEnd, insideHeader, afterHeader, footerTop, Some(uiLayouts.footer_links(Some(footerLinks))), true)(content)
