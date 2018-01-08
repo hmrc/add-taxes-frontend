@@ -28,6 +28,7 @@ private object AppDependencies {
   private val playConditionalFormMappingVersion = "0.2.0"
   private val playLanguageVersion = "3.4.0"
   private val bootstrapVersion = "1.0.0"
+  private val playPartialsVersion = "6.1.0"
 
   val compile = Seq(
     ws,
@@ -39,7 +40,8 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "http-caching-client" % httpCachingClientVersion,
     "uk.gov.hmrc" %% "play-conditional-form-mapping" % playConditionalFormMappingVersion,
     "uk.gov.hmrc" %% "bootstrap-play-25" % bootstrapVersion,
-    "uk.gov.hmrc" %% "play-language" % playLanguageVersion
+    "uk.gov.hmrc" %% "play-language" % playLanguageVersion,
+    "uk.gov.hmrc" %% "play-partials" % playPartialsVersion
   )
 
   trait TestDependencies {

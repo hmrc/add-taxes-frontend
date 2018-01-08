@@ -20,6 +20,7 @@ import play.api.data.Form
 import forms.SelectAnOilServiceFormProvider
 import models.NormalMode
 import models.SelectAnOilService
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.selectAnOilService
 
@@ -29,9 +30,11 @@ class SelectAnOilServiceViewSpec extends ViewBehaviours {
 
   val form = new SelectAnOilServiceFormProvider()()
 
-  def createView = () => selectAnOilService(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  val serviceInfoContent = HtmlFormat.empty
 
-  def createViewUsingForm = (form: Form[_]) => selectAnOilService(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createView = () => selectAnOilService(frontendAppConfig, form, NormalMode)(serviceInfoContent)(fakeRequest, messages)
+
+  def createViewUsingForm = (form: Form[_]) => selectAnOilService(frontendAppConfig, form, NormalMode)(serviceInfoContent)(fakeRequest, messages)
 
   "SelectAnOilService view" must {
     behave like normalPage(createView, messageKeyPrefix)

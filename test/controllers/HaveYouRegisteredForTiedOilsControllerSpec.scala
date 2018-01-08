@@ -16,17 +16,13 @@
 
 package controllers
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions._
-import play.api.test.Helpers._
 import forms.HaveYouRegisteredForTiedOilsFormProvider
-import identifiers.HaveYouRegisteredForTiedOilsId
-import models.NormalMode
-import models.HaveYouRegisteredForTiedOils
+import models.{HaveYouRegisteredForTiedOils, NormalMode}
+import play.api.data.Form
+import play.api.test.Helpers._
+import utils.FakeNavigator
 import views.html.haveYouRegisteredForTiedOils
 
 class HaveYouRegisteredForTiedOilsControllerSpec extends ControllerSpecBase {
@@ -38,7 +34,7 @@ class HaveYouRegisteredForTiedOilsControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new HaveYouRegisteredForTiedOilsController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
-      dataRetrievalAction, new DataRequiredActionImpl, formProvider)
+      dataRetrievalAction, new DataRequiredActionImpl, FakeServiceInfoAction, formProvider)
 
   def viewAsString(form: Form[_] = form) = haveYouRegisteredForTiedOils(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
 
@@ -49,15 +45,6 @@ class HaveYouRegisteredForTiedOilsControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
-    }
-
-    "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(HaveYouRegisteredForTiedOilsId.toString -> JsString(HaveYouRegisteredForTiedOils.values.head.toString))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
-
-      val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
-
-      contentAsString(result) mustBe viewAsString(form.fill(HaveYouRegisteredForTiedOils.values.head))
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -79,19 +66,5 @@ class HaveYouRegisteredForTiedOilsControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-//    "redirect to Session Expired for a GET if no existing data is found" in {
-//      val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
-//
-//      status(result) mustBe SEE_OTHER
-//      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
-//    }
-//
-//    "redirect to Session Expired for a POST if no existing data is found" in {
-//      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HaveYouRegisteredForTiedOils.options.head.value))
-//      val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
-//
-//      status(result) mustBe SEE_OTHER
-//      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
-//    }
   }
 }

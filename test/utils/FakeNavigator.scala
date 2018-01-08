@@ -21,5 +21,5 @@ import identifiers.Identifier
 import models.{Mode, NormalMode}
 
 class FakeNavigator(desiredRoute: Call, mode: Mode = NormalMode) extends Navigator {
-  override def nextPage(controllerId: Identifier, mode: Mode): (UserAnswers) => Call = (ua) => desiredRoute
+  override def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B]): Call = desiredRoute
 }
