@@ -22,6 +22,10 @@ import viewmodels.{AnswerRow, RepeaterAnswerRow, RepeaterAnswerSection}
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers) {
 
+  def haveYouRegisteredForRebatedOils: Option[AnswerRow] = userAnswers.haveYouRegisteredForRebatedOils map {
+    x => AnswerRow("haveYouRegisteredForRebatedOils.checkYourAnswersLabel", s"haveYouRegisteredForRebatedOils.$x", true, routes.HaveYouRegisteredForRebatedOilsController.onPageLoad(CheckMode).url)
+  }
+
   def haveYouRegisteredForTiedOils: Option[AnswerRow] = userAnswers.haveYouRegisteredForTiedOils map {
     x => AnswerRow("haveYouRegisteredForTiedOils.checkYourAnswersLabel", s"haveYouRegisteredForTiedOils.$x", true, routes.HaveYouRegisteredForTiedOilsController.onPageLoad(CheckMode).url)
   }

@@ -17,29 +17,29 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
 @import controllers.routes._
-@import models.HaveYouRegisteredForTiedOils
+@import models.HaveYouRegisteredForRebatedOils
 @import models.Mode
 
 @(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("haveYouRegisteredForTiedOils.title"),
+    title = messages("haveYouRegisteredForRebatedOils.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @helpers.form(action = HaveYouRegisteredForTiedOilsController.onSubmit(mode), 'autoComplete -> "off") {
+    @helpers.form(action = HaveYouRegisteredForRebatedOilsController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("haveYouRegisteredForTiedOils.heading")
+        @components.heading("haveYouRegisteredForRebatedOils.heading")
 
-        <p id="hint-message">@messages("haveYouRegisteredForTiedOils.message1")</p>
+        <p id="hint-message">@messages("haveYouRegisteredForRebatedOils.message1")</p>
 
         @components.input_radio(
             field = form("value"),
-            legend = messages("haveYouRegisteredForTiedOils.heading"),
+            legend = messages("haveYouRegisteredForRebatedOils.heading"),
             legendClass = Some("visually-hidden"),
-            inputs = HaveYouRegisteredForTiedOils.options.toSeq
+            inputs = HaveYouRegisteredForRebatedOils.options.toSeq
         )
 
         @components.submit_button()
