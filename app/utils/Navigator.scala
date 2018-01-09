@@ -45,19 +45,16 @@ class Navigator @Inject()() {
   }
 
   private def haveYouRegisteredForTiedOilsId(answers: UserAnswers) = answers.haveYouRegisteredForTiedOils match {
-    case Some(Yes) => Call("GET", "http://localhost:9555/enrolment-management-frontend/HMCE-TO/request-access-tax-scheme?continue=%2Fbusiness-account")
-    case Some(No) => routes.RegisterTiedOilsController.onPageLoad()
+    case Some(models.HaveYouRegisteredForTiedOils.Yes) => Call("GET", "http://localhost:9555/enrolment-management-frontend/HMCE-TO/request-access-tax-scheme?continue=%2Fbusiness-account")
+    case Some(models.HaveYouRegisteredForTiedOils.No) => routes.RegisterTiedOilsController.onPageLoad()
     case None => routes.SessionExpiredController.onPageLoad()
   }
 
-  private def haveYouRegisteredForRebatedOilsId(answers: UserAnswers) = answers.haveYouRegisteredForTiedOils match {
-    case Some(Yes) => Call("GET", "http://localhost:9555/enrolment-management-frontend/HMCE-RO/request-access-tax-scheme?continue=%2Fbusiness-account")
-    case Some(No) => routes.RegisterRebatedOilsController.onPageLoad()
+  private def haveYouRegisteredForRebatedOilsId(answers: UserAnswers) = answers.haveYouRegisteredForRebatedOils match {
+    case Some(models.HaveYouRegisteredForRebatedOils.Yes) => Call("GET", "http://localhost:9555/enrolment-management-frontend/HMCE-RO/request-access-tax-scheme?continue=%2Fbusiness-account")
+    case Some(models.HaveYouRegisteredForRebatedOils.No) => routes.RegisterRebatedOilsController.onPageLoad()
     case None => routes.SessionExpiredController.onPageLoad()
   }
-
-
-
 
   def nextPage(id: Identifier, mode: Mode): UserAnswers => Call = mode match {
     case NormalMode =>

@@ -21,8 +21,7 @@ import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
 import controllers.routes
 import identifiers._
-import models.HaveYouRegisteredForTiedOils.No
-import models.SelectAnOilService.TiedOilsEnquiryService
+import models.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models._
 
 class NavigatorSpec extends SpecBase with MockitoSugar {
@@ -45,8 +44,20 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
       "go to the 'Register for Tied Oils Enquiry Service' page from 'Have You Registered Tied Oils?' when the user answers No" in {
         val answers = mock[UserAnswers]
-        when(answers.haveYouRegisteredForTiedOils) thenReturn Some(No)
+        when(answers.haveYouRegisteredForTiedOils) thenReturn Some(models.HaveYouRegisteredForTiedOils.No)
         navigator.nextPage(HaveYouRegisteredForTiedOilsId, NormalMode)(answers) mustBe routes.RegisterTiedOilsController.onPageLoad()
+      }
+
+      "go to 'Have You Registered Rebated Oils?' page from 'Select Oil Service' when the user answers Rebated Oil" in {
+        val answers = mock[UserAnswers]
+        when(answers.selectAnOilService) thenReturn Some(RebatedOilsEnquiryService)
+        navigator.nextPage(SelectAnOilServiceId, NormalMode)(answers) mustBe routes.HaveYouRegisteredForRebatedOilsController.onPageLoad(NormalMode)
+      }
+
+      "go to the 'Register for Rebated Oils Enquiry Service' page from 'Have You Registered Rebated Oils?' when the user answers No" in {
+        val answers = mock[UserAnswers]
+        when(answers.haveYouRegisteredForRebatedOils) thenReturn Some(models.HaveYouRegisteredForRebatedOils.No)
+        navigator.nextPage(HaveYouRegisteredForRebatedOilsId, NormalMode)(answers) mustBe routes.RegisterRebatedOilsController.onPageLoad()
       }
     }
 
