@@ -6,6 +6,9 @@ date.day = Day
 date.month = Month
 date.year = Year
 
+#######################################################
+##  Common Error Messages
+#######################################################
 error.boolean = Please give an answer
 error.invalid_date = Give a correct date
 error.date.day_blank = Enter a day
@@ -44,12 +47,18 @@ site.textarea.char_limit = (Limit is {0} characters)
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
 
+#######################################################
+##  Select An Oil Service
+#######################################################
 selectAnOilService.heading = Dewis gwasanaeth olew
 selectAnOilService.rebatedOilsEnquiryService = Gwasanaeth Ymholiadau Olew Ad-daliedig
 selectAnOilService.tiedOilsEnquiryService = Gwasanaeth Ymholiadau Olew 'Tied'
 selectAnOilService.checkYourAnswersLabel = Select an oil service
 selectAnOilService.error.required = Dewis gwasanaeth
 
+#######################################################
+##  Have You Registered For Tied Oils
+#######################################################
 haveYouRegisteredForTiedOils.title = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Tied'?
 haveYouRegisteredForTiedOils.heading = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Tied'?
 haveYouRegisteredForTiedOils.message1 = Byddwn wedi anfon rhif cymeradwyo atoch
@@ -58,12 +67,18 @@ haveYouRegisteredForTiedOils.no = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
 haveYouRegisteredForTiedOils.checkYourAnswersLabel = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Tied'?
 haveYouRegisteredForTiedOils.error.required = Dewis iawn neu na
 
+#######################################################
+##  Register Tied Oils
+#######################################################
 registerTiedOils.title = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Tied'
 registerTiedOils.heading = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Tied'
 registerTiedOils.message1 = Mae'n rhaid i chi gofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Tied' cyn y gallwch ei ychwanegu i'ch cyfrif.
 registerTiedOils.message2 = Byddwn yn anfon rhif cymeradwyo atoch. Gallwch ei ddefnyddio i ychwanegu Gwasanaeth Ymholiadau Olew 'Tied' i'r cyfrif.
 registerTiedOils.button.text = Mynd yn eich blaen - cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Tied'
 
+#######################################################
+##  Have You Registered For Rebated Oils
+#######################################################
 haveYouRegisteredForRebatedOils.title = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Rebated'?
 haveYouRegisteredForRebatedOils.heading = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Rebated'?
 haveYouRegisteredForRebatedOils.message1 = Byddwn wedi anfon rhif cymeradwyo atoch
@@ -72,6 +87,9 @@ haveYouRegisteredForRebatedOils.no = Nac ydw - nid wyf wedi cofrestru ar hyn o b
 haveYouRegisteredForRebatedOils.checkYourAnswersLabel = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Rebated'?
 haveYouRegisteredForRebatedOils.error.required = Dewis iawn neu na
 
+#######################################################
+##  Register Rebated Oils
+#######################################################
 registerRebatedOils.title = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Rebated'
 registerRebatedOils.heading = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Rebated'
 registerRebatedOils.message1 = Mae'n rhaid i chi gofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Tied' cyn y gallwch ei ychwanegu i'ch cyfrif.
