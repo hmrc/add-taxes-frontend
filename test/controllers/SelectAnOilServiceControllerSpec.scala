@@ -16,17 +16,14 @@
 
 package controllers
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions._
-import play.api.test.Helpers._
 import forms.SelectAnOilServiceFormProvider
-import identifiers.SelectAnOilServiceId
-import models.NormalMode
-import models.SelectAnOilService
+import models.{NormalMode, SelectAnOilService}
+import play.api.data.Form
+import play.api.test.Helpers._
+import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.selectAnOilService
 
 class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
@@ -38,9 +35,9 @@ class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new SelectAnOilServiceController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
-      dataRetrievalAction, new DataRequiredActionImpl, formProvider)
+      dataRetrievalAction, new DataRequiredActionImpl, FakeServiceInfoAction, formProvider)
 
-  def viewAsString(form: Form[_] = form) = selectAnOilService(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = selectAnOilService(frontendAppConfig, form, NormalMode)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "SelectAnOilService Controller" must {
 
@@ -49,15 +46,6 @@ class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
-    }
-
-    "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(SelectAnOilServiceId.toString -> JsString(SelectAnOilService.values.head.toString))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
-
-      val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
-
-      contentAsString(result) mustBe viewAsString(form.fill(SelectAnOilService.values.head))
     }
 
     "redirect to the next page when valid data is submitted" in {

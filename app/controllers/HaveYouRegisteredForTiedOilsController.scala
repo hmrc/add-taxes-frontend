@@ -41,27 +41,23 @@ class HaveYouRegisteredForTiedOilsController @Inject()(
                                         authenticate: AuthAction,
                                         getData: DataRetrievalAction,
                                         requireData: DataRequiredAction,
+                                        serviceInfoData: ServiceInfoAction,
                                         formProvider: HaveYouRegisteredForTiedOilsFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
 
   val form = formProvider()
 
-  def onPageLoad(mode: Mode) = (authenticate andThen getData andThen requireData) {
+  def onPageLoad(mode: Mode) = (authenticate andThen serviceInfoData) {
     implicit request =>
-      val preparedForm = request.userAnswers.haveYouRegisteredForTiedOils match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-      Ok(haveYouRegisteredForTiedOils(appConfig, preparedForm, mode))
+      Ok(haveYouRegisteredForTiedOils(appConfig, form, mode)(request.serviceInfoContent))
   }
 
-  def onSubmit(mode: Mode) = (authenticate andThen getData andThen requireData).async {
+  def onSubmit(mode: Mode) = (authenticate andThen serviceInfoData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(haveYouRegisteredForTiedOils(appConfig, formWithErrors, mode))),
+          Future.successful(BadRequest(haveYouRegisteredForTiedOils(appConfig, formWithErrors, mode)(request.serviceInfoContent))),
         (value) =>
-          dataCacheConnector.save[HaveYouRegisteredForTiedOils](request.externalId, HaveYouRegisteredForTiedOilsId.toString, value).map(cacheMap =>
-            Redirect(navigator.nextPage(HaveYouRegisteredForTiedOilsId, mode)(new UserAnswers(cacheMap))))
+          Future.successful(Redirect(navigator.nextPage(HaveYouRegisteredForTiedOilsId, value)))
       )
   }
 }

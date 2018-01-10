@@ -21,8 +21,5 @@ import identifiers._
 import models._
 
 class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
-  def haveYouRegisteredForTiedOils: Option[HaveYouRegisteredForTiedOils] = cacheMap.getEntry[HaveYouRegisteredForTiedOils](HaveYouRegisteredForTiedOilsId.toString)
-
-  def selectAnOilService: Option[SelectAnOilService] = cacheMap.getEntry[SelectAnOilService](SelectAnOilServiceId.toString)
 
 }
