@@ -22,6 +22,7 @@ import forms.HaveYouRegisteredForTiedOilsFormProvider
 import models.{HaveYouRegisteredForTiedOils, NormalMode}
 import play.api.data.Form
 import play.api.test.Helpers._
+import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
 import views.html.haveYouRegisteredForTiedOils
 
@@ -36,7 +37,7 @@ class HaveYouRegisteredForTiedOilsControllerSpec extends ControllerSpecBase {
     new HaveYouRegisteredForTiedOilsController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
       dataRetrievalAction, new DataRequiredActionImpl, FakeServiceInfoAction, formProvider)
 
-  def viewAsString(form: Form[_] = form) = haveYouRegisteredForTiedOils(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = haveYouRegisteredForTiedOils(frontendAppConfig, form, NormalMode)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "HaveYouRegisteredForTiedOils Controller" must {
 
