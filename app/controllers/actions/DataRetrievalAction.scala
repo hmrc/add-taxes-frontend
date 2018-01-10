@@ -18,12 +18,11 @@ package controllers.actions
 
 
 import com.google.inject.{ImplementedBy, Inject}
-import play.api.mvc.ActionTransformer
 import connectors.DataCacheConnector
-import utils.UserAnswers
 import models.requests.{AuthenticatedRequest, OptionalDataRequest}
-import uk.gov.hmrc.http.HeaderCarrier
+import play.api.mvc.ActionTransformer
 import uk.gov.hmrc.play.HeaderCarrierConverter
+import utils.UserAnswers
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

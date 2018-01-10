@@ -16,6 +16,7 @@
 
 package views
 
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.registerRebatedOils
 
@@ -23,7 +24,7 @@ class RegisterRebatedOilsViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "registerRebatedOils"
 
-  def createView = () => registerRebatedOils(frontendAppConfig)(fakeRequest, messages)
+  def createView = () => registerRebatedOils(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "RegisterRebatedOils view" must {
     behave like normalPage(createView, messageKeyPrefix)

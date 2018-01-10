@@ -17,13 +17,13 @@
 package config
 
 import com.google.inject.{Inject, Singleton}
-import play.api.{Configuration, Environment}
-import play.api.i18n.Lang
 import controllers.routes
+import play.api.i18n.Lang
+import play.api.{Configuration, Environment}
 import uk.gov.hmrc.play.config.ServicesConfig
 
 @Singleton
-class FrontendAppConfig @Inject() (override val runModeConfiguration: Configuration, environment: Environment) extends ServicesConfig {
+class FrontendAppConfig @Inject()(override val runModeConfiguration: Configuration, environment: Environment) extends ServicesConfig {
 
   override protected def mode = environment.mode
 
@@ -46,8 +46,10 @@ class FrontendAppConfig @Inject() (override val runModeConfiguration: Configurat
   lazy val loginContinueUrl = loadConfig("urls.loginContinue")
 
   lazy val languageTranslationEnabled = runModeConfiguration.getBoolean("microservice.services.features.welsh-translation").getOrElse(true)
+
   def languageMap: Map[String, Lang] = Map(
     "english" -> Lang("en"),
     "cymraeg" -> Lang("cy"))
+
   def routeToSwitchLanguage = (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
 }

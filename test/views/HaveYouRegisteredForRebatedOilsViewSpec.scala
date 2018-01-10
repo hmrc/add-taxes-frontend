@@ -19,6 +19,7 @@ package views
 import forms.HaveYouRegisteredForRebatedOilsFormProvider
 import models.{HaveYouRegisteredForRebatedOils, NormalMode}
 import play.api.data.Form
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.haveYouRegisteredForRebatedOils
 
@@ -28,9 +29,10 @@ class HaveYouRegisteredForRebatedOilsViewSpec extends ViewBehaviours {
 
   val form = new HaveYouRegisteredForRebatedOilsFormProvider()()
 
-  def createView = () => haveYouRegisteredForRebatedOils(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createView = () => haveYouRegisteredForRebatedOils(frontendAppConfig, form, NormalMode)(HtmlFormat.empty)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => haveYouRegisteredForRebatedOils(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) =>
+    haveYouRegisteredForRebatedOils(frontendAppConfig, form, NormalMode)(HtmlFormat.empty)(fakeRequest, messages)
 
   "HaveYouRegisteredForRebatedOils view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -46,13 +48,13 @@ class HaveYouRegisteredForRebatedOilsViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- HaveYouRegisteredForRebatedOils.options) {
+    for (option <- HaveYouRegisteredForRebatedOils.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- HaveYouRegisteredForRebatedOils.options.filterNot(o => o == option)) {
+          for (unselectedOption <- HaveYouRegisteredForRebatedOils.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

@@ -35,7 +35,7 @@ class HaveYouRegisteredForTiedOilsControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new HaveYouRegisteredForTiedOilsController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
-      dataRetrievalAction, new DataRequiredActionImpl, FakeServiceInfoAction, formProvider)
+      FakeServiceInfoAction, formProvider)
 
   def viewAsString(form: Form[_] = form) = haveYouRegisteredForTiedOils(frontendAppConfig, form, NormalMode)(HtmlFormat.empty)(fakeRequest, messages).toString
 

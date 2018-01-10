@@ -18,49 +18,44 @@ package controllers
 
 import javax.inject.Inject
 
+import config.FrontendAppConfig
+import connectors.DataCacheConnector
+import controllers.actions._
+import forms.HaveYouRegisteredForRebatedOilsFormProvider
+import identifiers.HaveYouRegisteredForRebatedOilsId
+import models.Mode
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import connectors.DataCacheConnector
-import controllers.actions._
-import config.FrontendAppConfig
-import forms.HaveYouRegisteredForRebatedOilsFormProvider
-import identifiers.HaveYouRegisteredForRebatedOilsId
-import models.{HaveYouRegisteredForRebatedOils, Mode}
-import utils.{Enumerable, Navigator, UserAnswers}
+import utils.{Enumerable, Navigator}
 import views.html.haveYouRegisteredForRebatedOils
 
 import scala.concurrent.Future
 
 class HaveYouRegisteredForRebatedOilsController @Inject()(
-                                        appConfig: FrontendAppConfig,
-                                        override val messagesApi: MessagesApi,
-                                        dataCacheConnector: DataCacheConnector,
-                                        navigator: Navigator,
-                                        authenticate: AuthAction,
-                                        getData: DataRetrievalAction,
-                                        requireData: DataRequiredAction,
-                                        formProvider: HaveYouRegisteredForRebatedOilsFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+                                                           appConfig: FrontendAppConfig,
+                                                           override val messagesApi: MessagesApi,
+                                                           dataCacheConnector: DataCacheConnector,
+                                                           navigator: Navigator,
+                                                           authenticate: AuthAction,
+                                                           serviceInfo: ServiceInfoAction,
+                                                           formProvider: HaveYouRegisteredForRebatedOilsFormProvider
+                                                         ) extends FrontendController with I18nSupport with Enumerable.Implicits {
 
   val form = formProvider()
 
-  def onPageLoad(mode: Mode) = (authenticate andThen getData andThen requireData) {
+  def onPageLoad(mode: Mode) = (authenticate andThen serviceInfo) {
     implicit request =>
-      val preparedForm = request.userAnswers.haveYouRegisteredForRebatedOils match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-      Ok(haveYouRegisteredForRebatedOils(appConfig, preparedForm, mode))
+      Ok(haveYouRegisteredForRebatedOils(appConfig, form, mode)(request.serviceInfoContent))
   }
 
-  def onSubmit(mode: Mode) = (authenticate andThen getData andThen requireData).async {
+  def onSubmit(mode: Mode) = (authenticate andThen serviceInfo).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(haveYouRegisteredForRebatedOils(appConfig, formWithErrors, mode))),
+          Future.successful(BadRequest(haveYouRegisteredForRebatedOils(appConfig, formWithErrors, mode)(request.serviceInfoContent))),
         (value) =>
-          dataCacheConnector.save[HaveYouRegisteredForRebatedOils](request.externalId, HaveYouRegisteredForRebatedOilsId.toString, value).map(cacheMap =>
-            Redirect(navigator.nextPage(HaveYouRegisteredForRebatedOilsId, mode)(new UserAnswers(cacheMap))))
+          Future.successful(Redirect(navigator.nextPage(HaveYouRegisteredForRebatedOilsId, value)))
       )
   }
 }

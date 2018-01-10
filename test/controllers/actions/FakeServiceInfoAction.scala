@@ -15,6 +15,7 @@
  */
 
 package controllers.actions
+
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import play.api.mvc._
 import play.twirl.api.HtmlFormat
@@ -25,6 +26,6 @@ import scala.concurrent.Future
 object FakeServiceInfoAction extends ServiceInfoAction {
   override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
     implicit val r: Request[A] = request
-      Future.successful(ServiceInfoRequest(request, HtmlFormat.empty))
+    Future.successful(ServiceInfoRequest(request, HtmlFormat.empty))
   }
 }

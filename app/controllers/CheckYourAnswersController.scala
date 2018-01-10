@@ -17,13 +17,13 @@
 package controllers
 
 import com.google.inject.Inject
-import play.api.i18n.{I18nSupport, MessagesApi}
+import config.FrontendAppConfig
 import controllers.actions.{AuthAction, DataRequiredAction, DataRetrievalAction}
+import play.api.i18n.{I18nSupport, MessagesApi}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
 import views.html.check_your_answers
-import config.FrontendAppConfig
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
 class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
                                            override val messagesApi: MessagesApi,

@@ -16,10 +16,9 @@
 
 package views
 
-import play.api.data.Form
 import forms.SelectAnOilServiceFormProvider
-import models.NormalMode
-import models.SelectAnOilService
+import models.{NormalMode, SelectAnOilService}
+import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.selectAnOilService
@@ -50,13 +49,13 @@ class SelectAnOilServiceViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- SelectAnOilService.options) {
+    for (option <- SelectAnOilService.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- SelectAnOilService.options.filterNot(o => o == option)) {
+          for (unselectedOption <- SelectAnOilService.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

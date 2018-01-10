@@ -38,8 +38,6 @@ class SelectAnOilServiceController @Inject()(
                                               dataCacheConnector: DataCacheConnector,
                                               navigator: Navigator,
                                               authenticate: AuthAction,
-                                              getData: DataRetrievalAction,
-                                              requireData: DataRequiredAction,
                                               serviceInfoData: ServiceInfoAction,
                                               formProvider: SelectAnOilServiceFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
 

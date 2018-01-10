@@ -16,11 +16,10 @@
 
 package views
 
-import play.api.data.Form
 import forms.HaveYouRegisteredForTiedOilsFormProvider
-import models.NormalMode
-import models.HaveYouRegisteredForTiedOils
-import play.twirl.api.{Html, HtmlFormat}
+import models.{HaveYouRegisteredForTiedOils, NormalMode}
+import play.api.data.Form
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.haveYouRegisteredForTiedOils
 
@@ -48,13 +47,13 @@ class HaveYouRegisteredForTiedOilsViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- HaveYouRegisteredForTiedOils.options) {
+    for (option <- HaveYouRegisteredForTiedOils.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- HaveYouRegisteredForTiedOils.options.filterNot(o => o == option)) {
+          for (unselectedOption <- HaveYouRegisteredForTiedOils.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

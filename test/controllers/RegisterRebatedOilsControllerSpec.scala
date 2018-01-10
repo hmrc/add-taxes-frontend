@@ -18,15 +18,15 @@ package controllers
 
 import controllers.actions._
 import play.api.test.Helpers._
+import play.twirl.api.HtmlFormat
 import views.html.registerRebatedOils
 
 class RegisterRebatedOilsControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new RegisterRebatedOilsController(frontendAppConfig, messagesApi, FakeAuthAction,
-      dataRetrievalAction, new DataRequiredActionImpl)
+    new RegisterRebatedOilsController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
-  def viewAsString() = registerRebatedOils(frontendAppConfig)(fakeRequest, messages).toString
+  def viewAsString() = registerRebatedOils(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterRebatedOils Controller" must {
 

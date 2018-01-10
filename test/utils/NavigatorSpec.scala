@@ -17,12 +17,7 @@
 package utils
 
 import base.SpecBase
-import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
-import controllers.routes
-import identifiers._
-import models.SelectAnOilService.TiedOilsEnquiryService
-import models._
 
 class NavigatorSpec extends SpecBase with MockitoSugar {
 

@@ -18,31 +18,28 @@ package controllers
 
 import javax.inject.Inject
 
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import config.FrontendAppConfig
 import forms.HaveYouRegisteredForTiedOilsFormProvider
 import identifiers.HaveYouRegisteredForTiedOilsId
 import models.Mode
-import models.HaveYouRegisteredForTiedOils
-import utils.{Enumerable, Navigator, UserAnswers}
+import play.api.data.Form
+import play.api.i18n.{I18nSupport, MessagesApi}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.haveYouRegisteredForTiedOils
 
 import scala.concurrent.Future
 
 class HaveYouRegisteredForTiedOilsController @Inject()(
-                                        appConfig: FrontendAppConfig,
-                                        override val messagesApi: MessagesApi,
-                                        dataCacheConnector: DataCacheConnector,
-                                        navigator: Navigator,
-                                        authenticate: AuthAction,
-                                        getData: DataRetrievalAction,
-                                        requireData: DataRequiredAction,
-                                        serviceInfoData: ServiceInfoAction,
-                                        formProvider: HaveYouRegisteredForTiedOilsFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+                                                        appConfig: FrontendAppConfig,
+                                                        override val messagesApi: MessagesApi,
+                                                        dataCacheConnector: DataCacheConnector,
+                                                        navigator: Navigator,
+                                                        authenticate: AuthAction,
+                                                        serviceInfoData: ServiceInfoAction,
+                                                        formProvider: HaveYouRegisteredForTiedOilsFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
 
   val form = formProvider()
 

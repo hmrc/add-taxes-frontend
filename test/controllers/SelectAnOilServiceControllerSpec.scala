@@ -35,7 +35,7 @@ class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new SelectAnOilServiceController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
-      dataRetrievalAction, new DataRequiredActionImpl, FakeServiceInfoAction, formProvider)
+      FakeServiceInfoAction, formProvider)
 
   def viewAsString(form: Form[_] = form) = selectAnOilService(frontendAppConfig, form, NormalMode)(HtmlFormat.empty)(fakeRequest, messages).toString
 

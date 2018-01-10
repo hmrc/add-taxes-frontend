@@ -22,7 +22,7 @@ import views.html.components.language_selection
 
 class LanguageSelectionViewSpec extends ViewSpecBase {
 
-  val langMap =  Map(
+  val langMap = Map(
     "english" -> Lang("en"),
     "cymraeg" -> Lang("cy")
   )

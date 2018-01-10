@@ -17,18 +17,18 @@
 package controllers
 
 import com.google.inject.Inject
+import config.FrontendAppConfig
 import play.api.Configuration
 import play.api.i18n.{I18nSupport, Lang, MessagesApi}
 import play.api.mvc.{Action, AnyContent, Call, Controller}
-import config.FrontendAppConfig
 import uk.gov.hmrc.play.language.LanguageUtils
 
 // TODO, upstream this into play-language
-class LanguageSwitchController @Inject() (
-                                           configuration: Configuration,
-                                           appConfig: FrontendAppConfig,
-                                           implicit val messagesApi: MessagesApi
-                                         ) extends Controller with I18nSupport {
+class LanguageSwitchController @Inject()(
+                                          configuration: Configuration,
+                                          appConfig: FrontendAppConfig,
+                                          implicit val messagesApi: MessagesApi
+                                        ) extends Controller with I18nSupport {
 
   private def langToCall(lang: String): (String) => Call = appConfig.routeToSwitchLanguage
 

@@ -19,8 +19,8 @@ package forms
 import javax.inject.Inject
 
 import forms.mappings.Mappings
-import play.api.data.Form
 import models.HaveYouRegisteredForRebatedOils
+import play.api.data.Form
 
 class HaveYouRegisteredForRebatedOilsFormProvider @Inject() extends FormErrorHelper with Mappings {
 

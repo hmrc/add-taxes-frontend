@@ -18,22 +18,19 @@ package controllers
 
 import javax.inject.Inject
 
+import config.FrontendAppConfig
+import controllers.actions._
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import controllers.actions._
-import config.FrontendAppConfig
 import views.html.registerRebatedOils
 
-import scala.concurrent.Future
-
 class RegisterRebatedOilsController @Inject()(appConfig: FrontendAppConfig,
-                                         override val messagesApi: MessagesApi,
-                                         authenticate: AuthAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction) extends FrontendController with I18nSupport {
+                                              override val messagesApi: MessagesApi,
+                                              authenticate: AuthAction,
+                                              serviceInfo: ServiceInfoAction) extends FrontendController with I18nSupport {
 
-  def onPageLoad = (authenticate andThen getData andThen requireData) {
+  def onPageLoad = (authenticate andThen serviceInfo) {
     implicit request =>
-      Ok(registerRebatedOils(appConfig))
+      Ok(registerRebatedOils(appConfig)(request.serviceInfoContent))
   }
 }

@@ -34,7 +34,7 @@ trait QuestionViewBehaviours[A] extends ViewBehaviours {
 
     "behave like a question page" when {
       "rendered" must {
-        for(field <- fields) {
+        for (field <- fields) {
           s"contain an input for $field" in {
             val doc = asDocument(createView(form))
             assertRenderedById(doc, field)
@@ -47,7 +47,7 @@ trait QuestionViewBehaviours[A] extends ViewBehaviours {
         }
       }
 
-      for(field <- fields) {
+      for (field <- fields) {
         s"rendered with an error with field '$field'" must {
           "show an error summary" in {
             val doc = asDocument(createView(form.withError(FormError(field, "error"))))
