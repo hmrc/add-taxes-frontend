@@ -20,12 +20,13 @@
 @import models.HaveYouRegisteredForTiedOils
 @import models.Mode
 
-@(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("haveYouRegisteredForTiedOils.title"),
     appConfig = appConfig,
-    bodyClasses = None) {
+    bodyClasses = None,
+    serviceInfoContent = serviceInfoContent) {
 
     @helpers.form(action = HaveYouRegisteredForTiedOilsController.onSubmit(mode), 'autoComplete -> "off") {
 

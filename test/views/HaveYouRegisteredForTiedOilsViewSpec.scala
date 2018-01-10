@@ -20,6 +20,7 @@ import play.api.data.Form
 import forms.HaveYouRegisteredForTiedOilsFormProvider
 import models.NormalMode
 import models.HaveYouRegisteredForTiedOils
+import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.haveYouRegisteredForTiedOils
 
@@ -29,9 +30,9 @@ class HaveYouRegisteredForTiedOilsViewSpec extends ViewBehaviours {
 
   val form = new HaveYouRegisteredForTiedOilsFormProvider()()
 
-  def createView = () => haveYouRegisteredForTiedOils(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createView = () => haveYouRegisteredForTiedOils(frontendAppConfig, form, NormalMode)(HtmlFormat.empty)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => haveYouRegisteredForTiedOils(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => haveYouRegisteredForTiedOils(frontendAppConfig, form, NormalMode)(HtmlFormat.empty)(fakeRequest, messages)
 
   "HaveYouRegisteredForTiedOils view" must {
     behave like normalPage(createView, messageKeyPrefix)

@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package utils
+package controllers.actions
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
+import play.api.mvc._
+import play.twirl.api.HtmlFormat
 
-import javax.inject.{Inject, Singleton}
+import scala.concurrent.Future
 
-import play.api.mvc.Call
 
-@Singleton
-class Navigator @Inject()() {
-
-  def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B]): Call =
-    ev.get(b)
+object FakeServiceInfoAction extends ServiceInfoAction {
+  override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
+    implicit val r: Request[A] = request
+      Future.successful(ServiceInfoRequest(request, HtmlFormat.empty))
+  }
 }

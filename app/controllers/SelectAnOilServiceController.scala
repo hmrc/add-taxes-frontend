@@ -18,50 +18,45 @@ package controllers
 
 import javax.inject.Inject
 
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import config.FrontendAppConfig
 import forms.SelectAnOilServiceFormProvider
 import identifiers.SelectAnOilServiceId
 import models.Mode
-import models.SelectAnOilService
-import utils.{Enumerable, Navigator, UserAnswers}
+import play.api.data.Form
+import play.api.i18n.{I18nSupport, MessagesApi}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.selectAnOilService
 
 import scala.concurrent.Future
 
 class SelectAnOilServiceController @Inject()(
-                                        appConfig: FrontendAppConfig,
-                                        override val messagesApi: MessagesApi,
-                                        dataCacheConnector: DataCacheConnector,
-                                        navigator: Navigator,
-                                        authenticate: AuthAction,
-                                        getData: DataRetrievalAction,
-                                        requireData: DataRequiredAction,
-                                        formProvider: SelectAnOilServiceFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+                                              appConfig: FrontendAppConfig,
+                                              override val messagesApi: MessagesApi,
+                                              dataCacheConnector: DataCacheConnector,
+                                              navigator: Navigator,
+                                              authenticate: AuthAction,
+                                              getData: DataRetrievalAction,
+                                              requireData: DataRequiredAction,
+                                              serviceInfoData: ServiceInfoAction,
+                                              formProvider: SelectAnOilServiceFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
 
   val form = formProvider()
 
-  def onPageLoad(mode: Mode) = (authenticate andThen getData) {
+  def onPageLoad(mode: Mode) = (authenticate andThen serviceInfoData) {
     implicit request =>
-      val preparedForm = request.userAnswers.flatMap(_.selectAnOilService) match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-      Ok(selectAnOilService(appConfig, preparedForm, mode))
+      Ok(selectAnOilService(appConfig, form, mode)(request.serviceInfoContent))
   }
 
-  def onSubmit(mode: Mode) = (authenticate andThen getData).async {
+  def onSubmit(mode: Mode) = (authenticate andThen serviceInfoData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(selectAnOilService(appConfig, formWithErrors, mode))),
+          Future.successful(BadRequest(selectAnOilService(appConfig, formWithErrors, mode)(request.serviceInfoContent))),
         (value) =>
-          dataCacheConnector.save[SelectAnOilService](request.externalId, SelectAnOilServiceId.toString, value).map(cacheMap =>
-            Redirect(navigator.nextPage(SelectAnOilServiceId, mode)(new UserAnswers(cacheMap))))
+          Future.successful(Redirect(navigator.nextPage(SelectAnOilServiceId, value)))
       )
   }
 }

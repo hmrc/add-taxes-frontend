@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package utils
+package config
 
 import javax.inject.{Inject, Singleton}
 
-import play.api.mvc.Call
+import uk.gov.hmrc.crypto.PlainText
+import uk.gov.hmrc.play.bootstrap.filters.frontend.crypto.SessionCookieCrypto
+import uk.gov.hmrc.play.partials.HeaderCarrierForPartialsConverter
 
 @Singleton
-class Navigator @Inject()() {
-
-  def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B]): Call =
-    ev.get(b)
+class AddTaxesHeaderCarrierForPartialsConverter @Inject()(val sessionCookieCrypto: SessionCookieCrypto) extends HeaderCarrierForPartialsConverter {
+  override def crypto: String => String = cookie => sessionCookieCrypto.crypto.encrypt(PlainText(cookie)).value
 }

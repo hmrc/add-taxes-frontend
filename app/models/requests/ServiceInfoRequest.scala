@@ -14,15 +14,10 @@
  * limitations under the License.
  */
 
-package utils
+package models.requests
 
-import javax.inject.{Inject, Singleton}
+import play.api.mvc.{Request, WrappedRequest}
+import play.twirl.api.Html
 
-import play.api.mvc.Call
+case class ServiceInfoRequest[A](request: Request[A], serviceInfoContent: Html) extends WrappedRequest[A](request)
 
-@Singleton
-class Navigator @Inject()() {
-
-  def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B]): Call =
-    ev.get(b)
-}
