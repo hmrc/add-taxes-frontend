@@ -18,7 +18,7 @@ package connectors
 
 import javax.inject.{Inject, Singleton}
 
-import config.{AddTaxesHeaderCarrierForPartialsConverter, FrontendAppConfig}
+import config.FrontendAppConfig
 import play.api.Logger
 import play.twirl.api.Html
 import uk.gov.hmrc.play.bootstrap.http.HttpClient

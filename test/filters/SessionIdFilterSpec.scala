@@ -38,12 +38,13 @@ object SessionIdFilterSpec {
 
   val sessionId = "28836767-a008-46be-ac18-695ab140e705"
 
-  class Filters @Inject() (sessionId: SessionIdFilter) extends DefaultHttpFilters(sessionId)
+  class Filters @Inject()(sessionId: SessionIdFilter) extends DefaultHttpFilters(sessionId)
 
-  class TestSessionIdFilter @Inject() (
-                                        override val mat: Materializer,
-                                        ec: ExecutionContext
-                                      ) extends SessionIdFilter(mat, UUID.fromString(sessionId), ec)
+  class TestSessionIdFilter @Inject()(
+                                       override val mat: Materializer,
+                                       ec: ExecutionContext
+                                     ) extends SessionIdFilter(mat, UUID.fromString(sessionId), ec)
+
 }
 
 class SessionIdFilterSpec extends WordSpec with MustMatchers with OneAppPerSuite {

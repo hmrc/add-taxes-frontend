@@ -34,6 +34,8 @@
 
         @components.heading("haveYouRegisteredForTiedOils.heading")
 
+        <p id="hint-message">@messages("haveYouRegisteredForTiedOils.message1")</p>
+
         @components.input_radio(
             field = form("value"),
             legend = messages("haveYouRegisteredForTiedOils.heading"),

@@ -17,15 +17,14 @@
 package controllers.actions
 
 import com.google.inject.{ImplementedBy, Inject}
-import play.api.mvc.{ActionBuilder, ActionFunction, Request, Result}
-import play.api.mvc.Results._
-import uk.gov.hmrc.auth.core._
-import uk.gov.hmrc.auth.core.retrieve.Retrievals
 import config.FrontendAppConfig
 import controllers.routes
 import models.requests.AuthenticatedRequest
-import uk.gov.hmrc.http.UnauthorizedException
-import uk.gov.hmrc.http.HeaderCarrier
+import play.api.mvc.Results._
+import play.api.mvc.{ActionBuilder, ActionFunction, Request, Result}
+import uk.gov.hmrc.auth.core._
+import uk.gov.hmrc.auth.core.retrieve.Retrievals
+import uk.gov.hmrc.http.{HeaderCarrier, UnauthorizedException}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
 import scala.concurrent.{ExecutionContext, Future}

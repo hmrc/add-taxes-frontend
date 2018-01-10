@@ -23,6 +23,7 @@ sealed trait SelectAnOilService
 object SelectAnOilService {
 
   case object RebatedOilsEnquiryService extends WithName("rebatedOilsEnquiryService") with SelectAnOilService
+
   case object TiedOilsEnquiryService extends WithName("tiedOilsEnquiryService") with SelectAnOilService
 
   val values: Set[SelectAnOilService] = Set(

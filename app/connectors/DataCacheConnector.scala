@@ -18,11 +18,11 @@ package connectors
 
 import com.google.inject.{ImplementedBy, Inject}
 import play.api.libs.json.{Format, Json}
-import uk.gov.hmrc.http.cache.client.CacheMap
 import repositories.SessionRepository
+import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.CascadeUpsert
-import scala.concurrent.ExecutionContext.Implicits.global
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class DataCacheConnectorImpl @Inject()(val sessionRepository: SessionRepository, val cascadeUpsert: CascadeUpsert) extends DataCacheConnector {
@@ -30,7 +30,7 @@ class DataCacheConnectorImpl @Inject()(val sessionRepository: SessionRepository,
   def save[A](cacheId: String, key: String, value: A)(implicit fmt: Format[A]): Future[CacheMap] = {
     sessionRepository().get(cacheId).flatMap { optionalCacheMap =>
       val updatedCacheMap = cascadeUpsert(key, value, optionalCacheMap.getOrElse(new CacheMap(cacheId, Map())))
-      sessionRepository().upsert(updatedCacheMap).map {_ => updatedCacheMap}
+      sessionRepository().upsert(updatedCacheMap).map { _ => updatedCacheMap }
     }
   }
 
@@ -48,20 +48,20 @@ class DataCacheConnectorImpl @Inject()(val sessionRepository: SessionRepository,
 
   def getEntry[A](cacheId: String, key: String)(implicit fmt: Format[A]): Future[Option[A]] = {
     fetch(cacheId).map { optionalCacheMap =>
-      optionalCacheMap.flatMap { cacheMap => cacheMap.getEntry(key)}
+      optionalCacheMap.flatMap { cacheMap => cacheMap.getEntry(key) }
     }
   }
 
   def addToCollection[A](cacheId: String, collectionKey: String, value: A)(implicit fmt: Format[A]): Future[CacheMap] = {
     sessionRepository().get(cacheId).flatMap { optionalCacheMap =>
       val updatedCacheMap = cascadeUpsert.addRepeatedValue(collectionKey, value, optionalCacheMap.getOrElse(new CacheMap(cacheId, Map())))
-      sessionRepository().upsert(updatedCacheMap).map {_ => updatedCacheMap}
+      sessionRepository().upsert(updatedCacheMap).map { _ => updatedCacheMap }
     }
   }
 
   def removeFromCollection[A](cacheId: String, collectionKey: String, item: A)(implicit fmt: Format[A]): Future[CacheMap] = {
     sessionRepository().get(cacheId).flatMap { optionalCacheMap =>
-      optionalCacheMap.fold(throw new Exception(s"Couldn't find document with key $cacheId")) {cacheMap =>
+      optionalCacheMap.fold(throw new Exception(s"Couldn't find document with key $cacheId")) { cacheMap =>
         val newSeq = cacheMap.data(collectionKey).as[Seq[A]].filterNot(x => x == item)
         val newCacheMap = if (newSeq.isEmpty) {
           cacheMap copy (data = cacheMap.data - collectionKey)
@@ -69,17 +69,17 @@ class DataCacheConnectorImpl @Inject()(val sessionRepository: SessionRepository,
           cacheMap copy (data = cacheMap.data + (collectionKey -> Json.toJson(newSeq)))
         }
 
-        sessionRepository().upsert(newCacheMap).map {_ => newCacheMap}
+        sessionRepository().upsert(newCacheMap).map { _ => newCacheMap }
       }
     }
   }
 
   def replaceInCollection[A](cacheId: String, collectionKey: String, index: Int, item: A)(implicit fmt: Format[A]): Future[CacheMap] = {
     sessionRepository().get(cacheId).flatMap { optionalCacheMap =>
-      optionalCacheMap.fold(throw new Exception(s"Couldn't find document with key $cacheId")) {cacheMap =>
+      optionalCacheMap.fold(throw new Exception(s"Couldn't find document with key $cacheId")) { cacheMap =>
         val newSeq = cacheMap.data(collectionKey).as[Seq[A]].updated(index, item)
         val updatedCacheMap = cacheMap copy (data = cacheMap.data + (collectionKey -> Json.toJson(newSeq)))
-        sessionRepository().upsert(updatedCacheMap).map {_ => updatedCacheMap}
+        sessionRepository().upsert(updatedCacheMap).map { _ => updatedCacheMap }
       }
     }
   }

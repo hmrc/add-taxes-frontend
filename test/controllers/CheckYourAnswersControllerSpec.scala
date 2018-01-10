@@ -16,8 +16,8 @@
 
 package controllers
 
-import play.api.test.Helpers._
 import controllers.actions.{DataRequiredActionImpl, DataRetrievalAction, FakeAuthAction}
+import play.api.test.Helpers._
 import viewmodels.AnswerSection
 import views.html.check_your_answers
 

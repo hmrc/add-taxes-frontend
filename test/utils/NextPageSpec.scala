@@ -17,28 +17,51 @@
 package utils
 
 import base.SpecBase
-import identifiers.{HaveYouRegisteredForTiedOilsId, SelectAnOilServiceId}
-import models.HaveYouRegisteredForTiedOils.Yes
-import models.{HaveYouRegisteredForTiedOils, SelectAnOilService}
-import models.SelectAnOilService.TiedOilsEnquiryService
+import models.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
+import models.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
 
 
 class NextPageSpec extends SpecBase {
 
-  val navigator = new Navigator
 
-  "Next Page" when {
-    "given SelectAnOilService and TiedOilsEnquiryService type" should {
-      "direct to correct url" in {
-        val result = navigator.nextPage[SelectAnOilServiceId.type, SelectAnOilService](SelectAnOilServiceId, TiedOilsEnquiryService)(NextPage.selectAnOilService)
-        result.url mustBe "/add-taxes-frontend/haveYouRegisteredForTiedOils"
-      }
-    }
-    "given TiedOilsEnquiryService type" should {
-      "direct to correct url" in {
-        val result = navigator.nextPage[HaveYouRegisteredForTiedOilsId.type, HaveYouRegisteredForTiedOils](HaveYouRegisteredForTiedOilsId, Yes)(NextPage.haveYouRegisteredForTiedOils)
-        result.url mustBe "/add-taxes-frontend"
+  def nextPage[A, B](np: NextPage[A, B], userSelection: B, urlRedirect: String): Unit = {
+    s"$userSelection is selected" should {
+      s"redirect to $urlRedirect" in {
+        val result = np.get(userSelection)
+        result.url mustBe urlRedirect
       }
     }
   }
+
+  "SelectAnOilService" when {
+    behave like nextPage(NextPage.selectAnOilService, TiedOilsEnquiryService, "/add-taxes-frontend/haveYouRegisteredForTiedOils")
+    behave like nextPage(NextPage.selectAnOilService, RebatedOilsEnquiryService, "/add-taxes-frontend/haveYouRegisteredForRebatedOils")
+  }
+
+  "HaveYouRegisteredForTiedOils" when {
+    behave like nextPage(
+      NextPage.haveYouRegisteredForTiedOils,
+      HaveYouRegisteredForTiedOils.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMCE-TO/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.haveYouRegisteredForTiedOils, HaveYouRegisteredForTiedOils.No, "/add-taxes-frontend/registerTiedOils"
+    )
+  }
+
+
+  "HaveYouRegisteredForRebatedOils" when {
+    behave like nextPage(
+      NextPage.haveYouRegisteredForRebatedOils,
+      HaveYouRegisteredForRebatedOils.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMCE-RO/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.haveYouRegisteredForRebatedOils, HaveYouRegisteredForRebatedOils.No, "/add-taxes-frontend/registerRebatedOils"
+    )
+  }
+
+
 }

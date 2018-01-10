@@ -23,6 +23,7 @@ sealed trait HaveYouRegisteredForTiedOils
 object HaveYouRegisteredForTiedOils {
 
   case object Yes extends WithName("yes") with HaveYouRegisteredForTiedOils
+
   case object No extends WithName("no") with HaveYouRegisteredForTiedOils
 
   val values: Set[HaveYouRegisteredForTiedOils] = Set(

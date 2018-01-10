@@ -16,8 +16,8 @@
 
 package controllers.actions
 
-import play.api.mvc.{Request, Result}
 import models.requests.AuthenticatedRequest
+import play.api.mvc.{Request, Result}
 
 import scala.concurrent.Future
 

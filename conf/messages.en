@@ -6,6 +6,9 @@ date.day = Day
 date.month = Month
 date.year = Year
 
+#######################################################
+##  Common Error Messages
+#######################################################
 error.boolean = Please give an answer
 error.invalid_date = Give a correct date
 error.date.day_blank = Enter a day
@@ -44,16 +47,51 @@ site.textarea.char_limit = (Limit is {0} characters)
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
 
+#######################################################
+##  Select An Oil Service
+#######################################################
 selectAnOilService.heading = Select an oil service
 selectAnOilService.rebatedOilsEnquiryService = Rebated Oils Enquiry Service
 selectAnOilService.tiedOilsEnquiryService = Tied Oils Enquiry Service
 selectAnOilService.checkYourAnswersLabel = Select an oil service
 selectAnOilService.error.required = Select a service
 
-
+#######################################################
+##  Have You Registered For Tied Oils
+#######################################################
 haveYouRegisteredForTiedOils.title = Have you already registered for Tied Oils Enquiry Service?
 haveYouRegisteredForTiedOils.heading = Have you already registered for Tied Oils Enquiry Service?
+haveYouRegisteredForTiedOils.message1 = We’ll have sent you an approval number
 haveYouRegisteredForTiedOils.yes = Yes - I have an approval number
 haveYouRegisteredForTiedOils.no = No - I haven’t registered yet
 haveYouRegisteredForTiedOils.checkYourAnswersLabel = Have you already registered for Tied Oils Enquiry Service?
 haveYouRegisteredForTiedOils.error.required = Select yes or no
+
+#######################################################
+##  Register Tied Oils
+#######################################################
+registerTiedOils.title = Register for Tied Oils Enquiry Service
+registerTiedOils.heading = Register for Tied Oils Enquiry Service
+registerTiedOils.message1 = You need to register for Tied Oils Enquiry Service before you can add it to your account.
+registerTiedOils.message2 = We’ll send you an approval number, which you can use to add Tied Oils Enquiry Service to the account.
+registerTiedOils.button.text = Continue - register for Tied Oils Enquiry Service
+
+#######################################################
+##  Have You Registered For Rebated Oils
+#######################################################
+haveYouRegisteredForRebatedOils.title = Have you already registered for Rebated Oils Enquiry Service?
+haveYouRegisteredForRebatedOils.heading = Have you already registered for Rebated Oils Enquiry Service?
+haveYouRegisteredForRebatedOils.message1 = We’ll have sent you an approval number
+haveYouRegisteredForRebatedOils.yes = Yes - I have an approval number
+haveYouRegisteredForRebatedOils.no = No - I haven’t registered yet
+haveYouRegisteredForRebatedOils.checkYourAnswersLabel = Have you already registered for Rebated Oils Enquiry Service?
+haveYouRegisteredForRebatedOils.error.required = Select yes or no
+
+#######################################################
+##  Register Rebated Oils
+#######################################################
+registerRebatedOils.title = Register for Rebated Oils Enquiry Service
+registerRebatedOils.heading = Register for Rebated Oils Enquiry Service
+registerRebatedOils.message1 = You need to register for Rebated Oils Enquiry Service before you can add it to your account.
+registerRebatedOils.message2 = We’ll send you an approval number, which you can use to add Rebated Oils Enquiry Service to the account.
+registerRebatedOils.button.text = Continue - register for Rebated Oils Enquiry Service
