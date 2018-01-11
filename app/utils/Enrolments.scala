@@ -16,17 +16,12 @@
 
 package utils
 
-import base.SpecBase
+sealed trait Enrolments
+object Enrolments {
+ case object RebatedOils extends WithName("HMCE-RO") with Enrolments
+ case object TiedOils extends WithName("HMCE-TO") with Enrolments
 
-class EmacHelperSpec extends SpecBase {
-  "registerForTaxUrl" should {
-    "return enrolment-management-frontend/$enrolmentKey/request-access-tax-scheme?continue=%2Fbusiness-account" in {
-      val SUT = new EmacHelper(frontendAppConfig)
-      Enrolments.values.map { enrolment =>
-        SUT.registerForTaxUrl(enrolment) mustBe
-          (s"http://localhost:9555/enrolment-management-frontend/${enrolment.toString}/" +
-            "request-access-tax-scheme?continue=%2Fbusiness-account")
-      }
-    }
-  }
+  val values: Set[Enrolments] = Set(
+    RebatedOils, TiedOils
+  )
 }

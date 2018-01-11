@@ -24,8 +24,8 @@ import config.FrontendAppConfig
 class EmacHelper @Inject()(val appConfig: FrontendAppConfig) {
   private val host = appConfig.enrolmentManagementFrontendHost
 
-  def registerForTaxUrl(enrolmentKey: String): String = {
-    s"$host/enrolment-management-frontend/$enrolmentKey/request-access-tax-scheme?continue=%2Fbusiness-account"
+  def registerForTaxUrl(enrolment: Enrolments): String = {
+    s"$host/enrolment-management-frontend/${enrolment.toString}/request-access-tax-scheme?continue=%2Fbusiness-account"
   }
 
 }
