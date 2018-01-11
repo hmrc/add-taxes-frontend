@@ -23,7 +23,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.HaveYouRegisteredForTiedOilsFormProvider
 import identifiers.HaveYouRegisteredForTiedOilsId
-import models.Mode
+import models.NormalMode
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
@@ -43,16 +43,16 @@ class HaveYouRegisteredForTiedOilsController @Inject()(
 
   val form = formProvider()
 
-  def onPageLoad(mode: Mode) = (authenticate andThen serviceInfoData) {
+  def onPageLoad() = (authenticate andThen serviceInfoData) {
     implicit request =>
-      Ok(haveYouRegisteredForTiedOils(appConfig, form, mode)(request.serviceInfoContent))
+      Ok(haveYouRegisteredForTiedOils(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit(mode: Mode) = (authenticate andThen serviceInfoData).async {
+  def onSubmit() = (authenticate andThen serviceInfoData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(haveYouRegisteredForTiedOils(appConfig, formWithErrors, mode)(request.serviceInfoContent))),
+          Future.successful(BadRequest(haveYouRegisteredForTiedOils(appConfig, formWithErrors)(request.serviceInfoContent))),
         (value) =>
           Future.successful(Redirect(navigator.nextPage(HaveYouRegisteredForTiedOilsId, value)))
       )

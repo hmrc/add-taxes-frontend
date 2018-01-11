@@ -29,9 +29,9 @@ class HaveYouRegisteredForTiedOilsViewSpec extends ViewBehaviours {
 
   val form = new HaveYouRegisteredForTiedOilsFormProvider()()
 
-  def createView = () => haveYouRegisteredForTiedOils(frontendAppConfig, form, NormalMode)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView = () => haveYouRegisteredForTiedOils(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => haveYouRegisteredForTiedOils(frontendAppConfig, form, NormalMode)(HtmlFormat.empty)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => haveYouRegisteredForTiedOils(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages)
 
   "HaveYouRegisteredForTiedOils view" must {
     behave like normalPage(createView, messageKeyPrefix)

@@ -12,21 +12,15 @@ GET        /check-your-answers                          controllers.CheckYourAns
 
 GET        /unauthorised                                controllers.UnauthorisedController.onPageLoad
 
-GET        /selectAnOilService                          controllers.SelectAnOilServiceController.onPageLoad(mode: Mode = NormalMode)
-POST       /selectAnOilService                          controllers.SelectAnOilServiceController.onSubmit(mode: Mode = NormalMode)
-GET        /changeSelectAnOilService                    controllers.SelectAnOilServiceController.onPageLoad(mode: Mode = CheckMode)
-POST       /changeSelectAnOilService                    controllers.SelectAnOilServiceController.onSubmit(mode: Mode = CheckMode)
+GET        /other/oil                                   controllers.SelectAnOilServiceController.onPageLoad()
+POST       /other/oil                                   controllers.SelectAnOilServiceController.onSubmit()
 
-GET        /haveYouRegisteredForTiedOils                controllers.HaveYouRegisteredForTiedOilsController.onPageLoad(mode: Mode = NormalMode)
-POST       /haveYouRegisteredForTiedOils                controllers.HaveYouRegisteredForTiedOilsController.onSubmit(mode: Mode = NormalMode)
-GET        /changeHaveYouRegisteredForTiedOils          controllers.HaveYouRegisteredForTiedOilsController.onPageLoad(mode: Mode = CheckMode)
-POST       /changeHaveYouRegisteredForTiedOils          controllers.HaveYouRegisteredForTiedOilsController.onSubmit(mode: Mode = CheckMode)
+GET        /other/oil/tied                              controllers.HaveYouRegisteredForTiedOilsController.onPageLoad()
+POST       /other/oil/tied                              controllers.HaveYouRegisteredForTiedOilsController.onSubmit()
 
-GET        /registerTiedOils                            controllers.RegisterTiedOilsController.onPageLoad()
+GET        /other/oil/tied/register                     controllers.RegisterTiedOilsController.onPageLoad()
 
-GET        /haveYouRegisteredForRebatedOils             controllers.HaveYouRegisteredForRebatedOilsController.onPageLoad(mode: Mode = NormalMode)
-POST       /haveYouRegisteredForRebatedOils             controllers.HaveYouRegisteredForRebatedOilsController.onSubmit(mode: Mode = NormalMode)
-GET        /changeHaveYouRegisteredForRebatedOils       controllers.HaveYouRegisteredForRebatedOilsController.onPageLoad(mode: Mode = CheckMode)
-POST       /changeHaveYouRegisteredForRebatedOils       controllers.HaveYouRegisteredForRebatedOilsController.onSubmit(mode: Mode = CheckMode)
+GET        /other/oil/rebated                           controllers.HaveYouRegisteredForRebatedOilsController.onPageLoad()
+POST       /other/oil/rebated                           controllers.HaveYouRegisteredForRebatedOilsController.onSubmit()
 
-GET        /registerRebatedOils                         controllers.RegisterRebatedOilsController.onPageLoad()
+GET        /other/oil/rebated/register                   controllers.RegisterRebatedOilsController.onPageLoad()

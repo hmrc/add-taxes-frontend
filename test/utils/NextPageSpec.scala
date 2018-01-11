@@ -34,8 +34,8 @@ class NextPageSpec extends SpecBase {
   }
 
   "SelectAnOilService" when {
-    behave like nextPage(NextPage.selectAnOilService, TiedOilsEnquiryService, "/add-taxes-frontend/haveYouRegisteredForTiedOils")
-    behave like nextPage(NextPage.selectAnOilService, RebatedOilsEnquiryService, "/add-taxes-frontend/haveYouRegisteredForRebatedOils")
+    behave like nextPage(NextPage.selectAnOilService, TiedOilsEnquiryService, "/business-account/add-tax/other/oil/tied")
+    behave like nextPage(NextPage.selectAnOilService, RebatedOilsEnquiryService, "/business-account/add-tax/other/oil/rebated")
   }
 
   "HaveYouRegisteredForTiedOils" when {
@@ -46,7 +46,7 @@ class NextPageSpec extends SpecBase {
     )
 
     behave like nextPage(
-      NextPage.haveYouRegisteredForTiedOils, HaveYouRegisteredForTiedOils.No, "/add-taxes-frontend/registerTiedOils"
+      NextPage.haveYouRegisteredForTiedOils, HaveYouRegisteredForTiedOils.No, "/business-account/add-tax/other/oil/tied/register"
     )
   }
 
@@ -59,7 +59,7 @@ class NextPageSpec extends SpecBase {
     )
 
     behave like nextPage(
-      NextPage.haveYouRegisteredForRebatedOils, HaveYouRegisteredForRebatedOils.No, "/add-taxes-frontend/registerRebatedOils"
+      NextPage.haveYouRegisteredForRebatedOils, HaveYouRegisteredForRebatedOils.No, "/business-account/add-tax/other/oil/rebated/register"
     )
   }
 

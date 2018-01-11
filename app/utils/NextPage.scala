@@ -32,8 +32,8 @@ object NextPage {
     new NextPage[SelectAnOilServiceId.type, SelectAnOilService] {
       override def get(b: SelectAnOilService): Call =
         b match {
-          case RebatedOilsEnquiryService => routes.HaveYouRegisteredForRebatedOilsController.onPageLoad(NormalMode)
-          case TiedOilsEnquiryService => routes.HaveYouRegisteredForTiedOilsController.onPageLoad(NormalMode)
+          case RebatedOilsEnquiryService => routes.HaveYouRegisteredForRebatedOilsController.onPageLoad()
+          case TiedOilsEnquiryService => routes.HaveYouRegisteredForTiedOilsController.onPageLoad()
         }
     }
 
