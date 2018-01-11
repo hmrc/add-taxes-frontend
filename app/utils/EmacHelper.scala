@@ -14,24 +14,18 @@
  * limitations under the License.
  */
 
-package base
+package utils
+
+import javax.inject.{Inject, Singleton}
 
 import config.FrontendAppConfig
-import org.scalatestplus.play.PlaySpec
-import org.scalatestplus.play.guice._
-import play.api.i18n.{Messages, MessagesApi}
-import play.api.inject.Injector
-import play.api.test.FakeRequest
 
-trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
+@Singleton
+class EmacHelper @Inject()(val appConfig: FrontendAppConfig) {
+  private val host = appConfig.enrolmentManagementFrontendHost
 
-  def injector: Injector = app.injector
+  def registerForTaxUrl(enrolment: Enrolments): String = {
+    s"$host/enrolment-management-frontend/${enrolment.toString}/request-access-tax-scheme?continue=%2Fbusiness-account"
+  }
 
-  implicit def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
-
-  def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
-
-  def fakeRequest = FakeRequest("", "")
-
-  def messages: Messages = messagesApi.preferred(fakeRequest)
 }

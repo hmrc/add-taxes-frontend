@@ -16,9 +16,12 @@
 
 package utils
 
+import config.FrontendAppConfig
 import models.{Mode, NormalMode}
 import play.api.mvc.Call
 
-class FakeNavigator(desiredRoute: Call, mode: Mode = NormalMode) extends Navigator {
+class FakeNavigator(desiredRoute: Call, mode: Mode = NormalMode)
+                   (implicit config: FrontendAppConfig) extends Navigator(new EmacHelper(config)) {
+
   override def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B]): Call = desiredRoute
 }
