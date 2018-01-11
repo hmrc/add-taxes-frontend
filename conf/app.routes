@@ -12,15 +12,15 @@ GET        /check-your-answers                          controllers.CheckYourAns
 
 GET        /unauthorised                                controllers.UnauthorisedController.onPageLoad
 
-GET        /selectAnOilService                          controllers.SelectAnOilServiceController.onPageLoad()
-POST       /selectAnOilService                          controllers.SelectAnOilServiceController.onSubmit()
+GET        /other/oil                                   controllers.SelectAnOilServiceController.onPageLoad()
+POST       /other/oil                                   controllers.SelectAnOilServiceController.onSubmit()
 
-GET        /haveYouRegisteredForTiedOils                controllers.HaveYouRegisteredForTiedOilsController.onPageLoad()
-POST       /haveYouRegisteredForTiedOils                controllers.HaveYouRegisteredForTiedOilsController.onSubmit()
+GET        /other/oil/tied                              controllers.HaveYouRegisteredForTiedOilsController.onPageLoad()
+POST       /other/oil/tied                              controllers.HaveYouRegisteredForTiedOilsController.onSubmit()
 
-GET        /registerTiedOils                            controllers.RegisterTiedOilsController.onPageLoad()
+GET        /other/oil/tied/register                     controllers.RegisterTiedOilsController.onPageLoad()
 
-GET        /haveYouRegisteredForRebatedOils             controllers.HaveYouRegisteredForRebatedOilsController.onPageLoad()
-POST       /haveYouRegisteredForRebatedOils             controllers.HaveYouRegisteredForRebatedOilsController.onSubmit()
+GET        /other/oil/rebated                           controllers.HaveYouRegisteredForRebatedOilsController.onPageLoad()
+POST       /other/oil/rebated                           controllers.HaveYouRegisteredForRebatedOilsController.onSubmit()
 
-GET        /registerRebatedOils                         controllers.RegisterRebatedOilsController.onPageLoad()
+GET        /other/oil/rebated/register                   controllers.RegisterRebatedOilsController.onPageLoad()
