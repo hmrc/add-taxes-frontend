@@ -37,7 +37,9 @@
             field = form("value"),
             legend = messages("selectAnOilService.heading"),
             legendClass = Some("visually-hidden"),
-            inputs = SelectAnOilService.options.toSeq
+            inputs = SelectAnOilService.options.toSeq,
+            trackGa = true,
+            gaEvent = "AddOilTax"
         )
 
         @components.submit_button()

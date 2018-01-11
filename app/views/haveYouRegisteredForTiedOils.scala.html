@@ -39,7 +39,9 @@
             field = form("value"),
             legend = messages("haveYouRegisteredForTiedOils.heading"),
             legendClass = Some("visually-hidden"),
-            inputs = HaveYouRegisteredForTiedOils.options.toSeq
+            inputs = HaveYouRegisteredForTiedOils.options.toSeq,
+            trackGa = true,
+            gaEvent = "AddOilTax"
         )
 
         @components.submit_button()
