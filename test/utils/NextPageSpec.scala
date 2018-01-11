@@ -23,6 +23,8 @@ import models.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
 
 class NextPageSpec extends SpecBase {
 
+  implicit val emacHelper = new EmacHelper(frontendAppConfig)
+
 
   def nextPage[A, B](np: NextPage[A, B], userSelection: B, urlRedirect: String): Unit = {
     s"$userSelection is selected" should {

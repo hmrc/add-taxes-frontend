@@ -14,24 +14,17 @@
  * limitations under the License.
  */
 
-package base
+package utils
 
-import config.FrontendAppConfig
-import org.scalatestplus.play.PlaySpec
-import org.scalatestplus.play.guice._
-import play.api.i18n.{Messages, MessagesApi}
-import play.api.inject.Injector
-import play.api.test.FakeRequest
+import base.SpecBase
 
-trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
-
-  def injector: Injector = app.injector
-
-  implicit def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
-
-  def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
-
-  def fakeRequest = FakeRequest("", "")
-
-  def messages: Messages = messagesApi.preferred(fakeRequest)
+class EmacHelperSpec extends SpecBase {
+  "registerForTaxUrl" should {
+    "return enrolment-management-frontend/$enrolmentKey/request-access-tax-scheme?continue=%2Fbusiness-account" in {
+      val SUT = new EmacHelper(frontendAppConfig)
+      SUT.registerForTaxUrl("AN-ENROLMENT") mustBe
+        ("http://localhost:9555/enrolment-management-frontend/AN-ENROLMENT/" +
+          "request-access-tax-scheme?continue=%2Fbusiness-account")
+    }
+  }
 }
