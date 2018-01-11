@@ -18,9 +18,8 @@
 @import uk.gov.hmrc.play.views.html._
 @import controllers.routes._
 @import models.HaveYouRegisteredForTiedOils
-@import models.Mode
 
-@(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("haveYouRegisteredForTiedOils.title"),
@@ -28,7 +27,7 @@
     bodyClasses = None,
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = HaveYouRegisteredForTiedOilsController.onSubmit(mode), 'autoComplete -> "off") {
+    @helpers.form(action = HaveYouRegisteredForTiedOilsController.onSubmit(), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
