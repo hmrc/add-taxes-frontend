@@ -21,7 +21,7 @@ echo "$className;format="decap"$.checkYourAnswersLabel = $className;format="deca
 echo "$className;format="decap"$.error.required = Please give an answer for $className;format="decap"$" >> ../conf/messages.en
 
 echo "Adding messages to conf.messages"
-echo "" >> ../conf/messages.en
+echo "" >> ../conf/messages.cy
 echo "#######################################################" >> ../conf/messages.cy
 echo "##  $className$" >> ../conf/messages.cy
 echo "#######################################################" >> ../conf/messages.cy
