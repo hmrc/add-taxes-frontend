@@ -17,9 +17,9 @@
 package utils
 
 import controllers.routes
-import identifiers.{HaveYouRegisteredForRebatedOilsId, HaveYouRegisteredForTiedOilsId, SelectAnOilServiceId}
+import identifiers._
 import models.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
-import models.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils, SelectAnOilService}
+import models._
 import play.api.mvc.Call
 
 trait NextPage[A, B] {
