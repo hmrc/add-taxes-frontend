@@ -51,9 +51,10 @@ unauthorised.heading = You can’t access this service with this account
 ##  Select An Oil Service
 #######################################################
 selectAnOilService.heading = Dewis gwasanaeth olew
+selectAnOilService.title = Dewis gwasanaeth olew
 selectAnOilService.rebatedOilsEnquiryService = Gwasanaeth Ymholiadau Olew Ad-daliedig
 selectAnOilService.tiedOilsEnquiryService = Gwasanaeth Ymholiadau Olew 'Tied'
-selectAnOilService.checkYourAnswersLabel = Select an oil service
+selectAnOilService.checkYourAnswersLabel = Dewis gwasanaeth olew
 selectAnOilService.error.required = Dewis gwasanaeth
 
 #######################################################
