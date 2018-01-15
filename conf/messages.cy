@@ -54,7 +54,7 @@ selectAnOilService.heading = Dewis gwasanaeth olew
 selectAnOilService.title = Dewis gwasanaeth olew
 selectAnOilService.rebatedOilsEnquiryService = Gwasanaeth Ymholiadau Olew Ad-daliedig
 selectAnOilService.tiedOilsEnquiryService = Gwasanaeth Ymholiadau Olew 'Tied'
-selectAnOilService.checkYourAnswersLabel = Select an oil service
+selectAnOilService.checkYourAnswersLabel = Dewis gwasanaeth olew
 selectAnOilService.error.required = Dewis gwasanaeth
 
 #######################################################
