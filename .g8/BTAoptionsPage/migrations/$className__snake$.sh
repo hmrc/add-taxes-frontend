@@ -8,7 +8,7 @@ echo "" >> ../conf/app.routes
 echo "GET        /$className;format="decap"$               controllers.$className$Controller.onPageLoad()" >> ../conf/app.routes
 echo "POST       /$className;format="decap"$               controllers.$className$Controller.onSubmit()" >> ../conf/app.routes
 
-echo "Adding messages to conf.messages"
+echo "Adding messages to conf.messages (English)"
 echo "" >> ../conf/messages.en
 echo "#######################################################" >> ../conf/messages.en
 echo "##  $className$" >> ../conf/messages.en
@@ -20,7 +20,7 @@ echo "$className;format="decap"$.option2 = $className;format="decap"$" Option 2 
 echo "$className;format="decap"$.checkYourAnswersLabel = $className;format="decap"$" >> ../conf/messages.en
 echo "$className;format="decap"$.error.required = Please give an answer for $className;format="decap"$" >> ../conf/messages.en
 
-echo "Adding messages to conf.messages"
+echo "Adding messages to conf.messages (Welsh)"
 echo "" >> ../conf/messages.cy
 echo "#######################################################" >> ../conf/messages.cy
 echo "##  $className$" >> ../conf/messages.cy
