@@ -32,6 +32,9 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   private lazy val contactHost = runModeConfiguration.getString("contact-frontend.host").getOrElse("")
   private val contactFormServiceIdentifier = "addtaxesfrontend"
 
+  lazy val enrolmentManagementFrontendHost = runModeConfiguration.getString("enrolment-management-frontend.host").getOrElse("")
+
+
   lazy val analyticsToken = loadConfig(s"google-analytics.token")
   lazy val analyticsHost = loadConfig(s"google-analytics.host")
   lazy val reportAProblemPartialUrl = s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"

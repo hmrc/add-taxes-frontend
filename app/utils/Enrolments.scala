@@ -14,24 +14,14 @@
  * limitations under the License.
  */
 
-package base
+package utils
 
-import config.FrontendAppConfig
-import org.scalatestplus.play.PlaySpec
-import org.scalatestplus.play.guice._
-import play.api.i18n.{Messages, MessagesApi}
-import play.api.inject.Injector
-import play.api.test.FakeRequest
+sealed trait Enrolments
+object Enrolments {
+ case object RebatedOils extends WithName("HMCE-RO") with Enrolments
+ case object TiedOils extends WithName("HMCE-TO") with Enrolments
 
-trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
-
-  def injector: Injector = app.injector
-
-  implicit def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
-
-  def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
-
-  def fakeRequest = FakeRequest("", "")
-
-  def messages: Messages = messagesApi.preferred(fakeRequest)
+  val values: Set[Enrolments] = Set(
+    RebatedOils, TiedOils
+  )
 }

@@ -17,41 +17,44 @@
 package utils
 
 import controllers.routes
-import identifiers.{HaveYouRegisteredForRebatedOilsId, HaveYouRegisteredForTiedOilsId, SelectAnOilServiceId}
+import identifiers._
 import models.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
-import models.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils, NormalMode, SelectAnOilService}
+import models._
 import play.api.mvc.Call
 
 trait NextPage[A, B] {
-  def get(b: B): Call
+  def get(b: B)(implicit emacHelper: EmacHelper): Call
 }
+
 
 object NextPage {
 
   implicit val selectAnOilService: NextPage[SelectAnOilServiceId.type, SelectAnOilService] =
     new NextPage[SelectAnOilServiceId.type, SelectAnOilService] {
-      override def get(b: SelectAnOilService): Call =
+      override def get(b: SelectAnOilService)(implicit emacHelper: EmacHelper): Call =
         b match {
           case RebatedOilsEnquiryService => routes.HaveYouRegisteredForRebatedOilsController.onPageLoad()
           case TiedOilsEnquiryService => routes.HaveYouRegisteredForTiedOilsController.onPageLoad()
         }
     }
 
-  implicit val haveYouRegisteredForTiedOils: NextPage[HaveYouRegisteredForTiedOilsId.type, HaveYouRegisteredForTiedOils] = {
+  implicit val haveYouRegisteredForTiedOils: NextPage[HaveYouRegisteredForTiedOilsId.type,
+    HaveYouRegisteredForTiedOils] = {
     new NextPage[HaveYouRegisteredForTiedOilsId.type, HaveYouRegisteredForTiedOils] {
-      override def get(b: HaveYouRegisteredForTiedOils): Call =
+      override def get(b: HaveYouRegisteredForTiedOils)(implicit emacHelper: EmacHelper): Call =
         b match {
-          case models.HaveYouRegisteredForTiedOils.Yes => Call("GET", "http://localhost:9555/enrolment-management-frontend/HMCE-TO/request-access-tax-scheme?continue=%2Fbusiness-account")
+          case models.HaveYouRegisteredForTiedOils.Yes => Call("GET", emacHelper.registerForTaxUrl(Enrolments.TiedOils))
           case models.HaveYouRegisteredForTiedOils.No => routes.RegisterTiedOilsController.onPageLoad()
         }
     }
   }
 
-  implicit val haveYouRegisteredForRebatedOils: NextPage[HaveYouRegisteredForRebatedOilsId.type, HaveYouRegisteredForRebatedOils] = {
+  implicit val haveYouRegisteredForRebatedOils: NextPage[HaveYouRegisteredForRebatedOilsId.type,
+    HaveYouRegisteredForRebatedOils] = {
     new NextPage[HaveYouRegisteredForRebatedOilsId.type, HaveYouRegisteredForRebatedOils] {
-      override def get(b: HaveYouRegisteredForRebatedOils): Call =
+      override def get(b: HaveYouRegisteredForRebatedOils)(implicit emacHelper: EmacHelper): Call =
         b match {
-          case models.HaveYouRegisteredForRebatedOils.Yes => Call("GET", "http://localhost:9555/enrolment-management-frontend/HMCE-RO/request-access-tax-scheme?continue=%2Fbusiness-account")
+          case models.HaveYouRegisteredForRebatedOils.Yes => Call("GET", emacHelper.registerForTaxUrl(Enrolments.RebatedOils))
           case models.HaveYouRegisteredForRebatedOils.No => routes.RegisterRebatedOilsController.onPageLoad()
         }
     }
