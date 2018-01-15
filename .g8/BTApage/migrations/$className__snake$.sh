@@ -19,8 +19,8 @@ echo "" >> ../conf/messages.cy
 echo "#######################################################" >> ../conf/messages.cy
 echo "##  $className$" >> ../conf/messages.cy
 echo "#######################################################" >> ../conf/messages.cy
-echo "$className;format="decap"$.title = $className;format="decap"$" >> ../conf/messages.cy
-echo "$className;format="decap"$.heading = $className;format="decap"$" >> ../conf/messages.cy
+echo "$className;format="decap"$.title = WELSH NEEDED HERE" >> ../conf/messages.cy
+echo "$className;format="decap"$.heading = WELSH NEEDED HERE" >> ../conf/messages.cy
 
 echo "Moving test files from generated-test/ to test/"
 rsync -avm --include='*.scala' -f 'hide,! */' ../generated-test/ ../test/
