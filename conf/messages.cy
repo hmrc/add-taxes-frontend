@@ -95,4 +95,3 @@ registerRebatedOils.heading = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Reb
 registerRebatedOils.message1 = Mae'n rhaid i chi gofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Tied' cyn y gallwch ei ychwanegu i'ch cyfrif.
 registerRebatedOils.message2 = Byddwn yn anfon rhif cymeradwyo atoch. Gallwch ei ddefnyddio i ychwanegu Gwasanaeth Ymholiadau Olew 'Rebated' i'r cyfrif.
 registerRebatedOils.button.text = Mynd yn eich blaen - cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Rebated'
-
