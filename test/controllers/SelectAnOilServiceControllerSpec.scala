@@ -19,11 +19,15 @@ package controllers
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import forms.SelectAnOilServiceFormProvider
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.{NormalMode, SelectAnOilService}
 import play.api.data.Form
+import play.api.mvc.AnyContent
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
-import utils.FakeNavigator
+import play.twirl.api.{Html, HtmlFormat}
+import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
+import utils.{FakeNavigator, RadioOption}
 import views.html.selectAnOilService
 
 class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
@@ -33,11 +37,16 @@ class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
   val formProvider = new SelectAnOilServiceFormProvider()
   val form = formProvider()
 
+  def requestWithEnrolments(keys: String*): ServiceInfoRequest[AnyContent] = {
+    val enrolments = Enrolments(keys.map(Enrolment(_)).toSet)
+    ServiceInfoRequest[AnyContent](AuthenticatedRequest(FakeRequest(), "", enrolments), HtmlFormat.empty)
+  }
+
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new SelectAnOilServiceController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
       FakeServiceInfoAction, formProvider)
 
-  def viewAsString(form: Form[_] = form) = selectAnOilService(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = selectAnOilService(frontendAppConfig, form, SelectAnOilService.options.toSeq)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "SelectAnOilService Controller" must {
 
@@ -79,6 +88,29 @@ class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
+
+    "only display Rebated Oils if the user has Tied" in {
+      val request = requestWithEnrolments("HMCE-TO")
+      val result = controller(dontGetAnyData).getOptions(request)
+
+      result.length mustBe 1
+      result.head mustBe RadioOption("selectAnOilService", "rebatedOilsEnquiryService")
+    }
+
+    "only display Tied Oils if the user has Rebated" in {
+      val request = requestWithEnrolments("HMCE-RO")
+      val result = controller(dontGetAnyData).getOptions(request)
+
+      result.length mustBe 1
+      result.head mustBe RadioOption("selectAnOilService", "tiedOilsEnquiryService")
+    }
+
+    "display no options if the user has both oils" in {
+      val request = requestWithEnrolments("HMCE-RO", "HMCE-TO")
+      val result = controller(dontGetAnyData).getOptions(request)
+
+      result mustBe Seq()
     }
   }
 }

@@ -19,5 +19,5 @@ package models.requests
 import play.api.mvc.{Request, WrappedRequest}
 import play.twirl.api.Html
 
-case class ServiceInfoRequest[A](request: Request[A], serviceInfoContent: Html) extends WrappedRequest[A](request)
+case class ServiceInfoRequest[A](request: AuthenticatedRequest[A], serviceInfoContent: Html) extends WrappedRequest[A](request)
 

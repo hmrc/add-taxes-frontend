@@ -22,6 +22,7 @@ import models.requests.{AuthenticatedRequest, OptionalDataRequest}
 import org.mockito.Mockito._
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
+import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -40,7 +41,7 @@ class DataRetrievalActionSpec extends SpecBase with MockitoSugar with ScalaFutur
         when(dataCacheConnector.fetch("id")) thenReturn Future(None)
         val action = new Harness(dataCacheConnector)
 
-        val futureResult = action.callTransform(new AuthenticatedRequest(fakeRequest, "id"))
+        val futureResult = action.callTransform(new AuthenticatedRequest(fakeRequest, "id", Enrolments(Set())))
 
         whenReady(futureResult) { result =>
           result.userAnswers.isEmpty mustBe true
@@ -54,7 +55,7 @@ class DataRetrievalActionSpec extends SpecBase with MockitoSugar with ScalaFutur
         when(dataCacheConnector.fetch("id")) thenReturn Future(Some(new CacheMap("id", Map())))
         val action = new Harness(dataCacheConnector)
 
-        val futureResult = action.callTransform(new AuthenticatedRequest(fakeRequest, "id"))
+        val futureResult = action.callTransform(new AuthenticatedRequest(fakeRequest, "id", Enrolments(Set())))
 
         whenReady(futureResult) { result =>
           result.userAnswers.isDefined mustBe true
