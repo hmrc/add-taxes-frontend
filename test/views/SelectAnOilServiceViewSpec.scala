@@ -31,9 +31,9 @@ class SelectAnOilServiceViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => selectAnOilService(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView = () => selectAnOilService(frontendAppConfig, form, SelectAnOilService.options.toSeq)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => selectAnOilService(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => selectAnOilService(frontendAppConfig, form, SelectAnOilService.options.toSeq)(serviceInfoContent)(fakeRequest, messages)
 
   "SelectAnOilService view" must {
     behave like normalPage(createView, messageKeyPrefix)

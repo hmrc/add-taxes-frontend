@@ -23,10 +23,13 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.SelectAnOilServiceFormProvider
 import identifiers.SelectAnOilServiceId
+import models.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
+import models.requests.ServiceInfoRequest
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.AnyContent
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
+import utils.{Enrolments, Enumerable, Navigator, RadioOption}
 import views.html.selectAnOilService
 
 import scala.concurrent.Future
@@ -42,16 +45,30 @@ class SelectAnOilServiceController @Inject()(
 
   val form = formProvider()
 
+  def getOptions(implicit r: ServiceInfoRequest[AnyContent]): Seq[RadioOption] = {
+    val checks = Seq(checkRebatedOil, checkTiedOil)
+    checks.flatMap(_.apply(r.request.enrolments))
+  }
+
+  private def checkRebatedOil: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
+    _.getEnrolment(Enrolments.RebatedOils.toString)
+      .fold[Option[RadioOption]](Some(RebatedOilsEnquiryService.toRadioOption))(_ => None)
+
+  private def checkTiedOil: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
+    _.getEnrolment(Enrolments.TiedOils.toString)
+      .fold[Option[RadioOption]](Some(TiedOilsEnquiryService.toRadioOption))(_ => None)
+
+
   def onPageLoad() = (authenticate andThen serviceInfoData) {
     implicit request =>
-      Ok(selectAnOilService(appConfig, form)(request.serviceInfoContent))
+      Ok(selectAnOilService(appConfig, form, getOptions)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(selectAnOilService(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(selectAnOilService(appConfig, formWithErrors, getOptions)(request.serviceInfoContent))),
         (value) =>
           Future.successful(Redirect(navigator.nextPage(SelectAnOilServiceId, value)))
       )

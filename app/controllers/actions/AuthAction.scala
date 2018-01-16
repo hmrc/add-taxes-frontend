@@ -26,6 +26,8 @@ import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.retrieve.Retrievals
 import uk.gov.hmrc.http.{HeaderCarrier, UnauthorizedException}
 import uk.gov.hmrc.play.HeaderCarrierConverter
+import uk.gov.hmrc.auth.core.retrieve.~
+
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -35,9 +37,10 @@ class AuthActionImpl @Inject()(override val authConnector: AuthConnector, config
   override def invokeBlock[A](request: Request[A], block: (AuthenticatedRequest[A]) => Future[Result]): Future[Result] = {
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
-    authorised().retrieve(Retrievals.externalId) {
-      _.map {
-        externalId => block(AuthenticatedRequest(request, externalId))
+    authorised().retrieve(Retrievals.externalId and Retrievals.allEnrolments) {
+      case externalId ~ enrolments =>
+      externalId.map {
+        externalId => block(AuthenticatedRequest(request, externalId, enrolments))
       }.getOrElse(throw new UnauthorizedException("Unable to retrieve external Id"))
     } recover {
       case ex: NoActiveSession =>

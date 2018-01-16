@@ -18,7 +18,9 @@ package models
 
 import utils.{Enumerable, RadioOption, WithName}
 
-sealed trait SelectAnOilService
+sealed trait SelectAnOilService {
+  val toRadioOption = RadioOption("selectAnOilService", this.toString)
+}
 
 object SelectAnOilService {
 
@@ -31,8 +33,7 @@ object SelectAnOilService {
   )
 
   val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("selectAnOilService", value.toString)
+    _.toRadioOption
   }
 
   implicit val enumerable: Enumerable[SelectAnOilService] =
