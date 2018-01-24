@@ -18,14 +18,24 @@ package utils
 
 import base.SpecBase
 
-class EmacHelperSpec extends SpecBase {
+class UrlHelperSpec extends SpecBase {
   "registerForTaxUrl" should {
     "return enrolment-management-frontend/$enrolmentKey/request-access-tax-scheme?continue=%2Fbusiness-account" in {
-      val SUT = new EmacHelper(frontendAppConfig)
+      val SUT = new UrlHelper(frontendAppConfig)
       Enrolments.values.map { enrolment =>
         SUT.registerForTaxUrl(enrolment) mustBe
           (s"http://localhost:9555/enrolment-management-frontend/${enrolment.toString}/" +
             "request-access-tax-scheme?continue=%2Fbusiness-account")
+      }
+    }
+  }
+  "governmentGatewayLostCredentialsUrl" should {
+    "return correct url" in {
+      val SUT = new UrlHelper(frontendAppConfig)
+      ForgottenOptions.values.map { forgottenOption =>
+        SUT.governmentGatewayLostCredentialsUrl(forgottenOption) mustBe
+          s"http://localhost:9898/government-gateway-lost-credentials-frontend/" +
+            s"choose-your-account?continue=%2Fbusiness-account&origin=unknown&forgottenOption=${forgottenOption.toString}"
       }
     }
   }

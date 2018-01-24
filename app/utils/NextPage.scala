@@ -23,15 +23,27 @@ import models._
 import play.api.mvc.Call
 
 trait NextPage[A, B] {
-  def get(b: B)(implicit emacHelper: EmacHelper): Call
+  def get(b: B)(implicit urlHelper: UrlHelper): Call
 }
 
 
 object NextPage {
 
+  implicit val findingYourAccount: NextPage[FindingYourAccountId.type,
+    FindingYourAccount] = {
+    new NextPage[FindingYourAccountId.type, FindingYourAccount] {
+      override def get(b: FindingYourAccount)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case models.FindingYourAccount.DontKnowPassword => Call("GET", urlHelper.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenPassword))
+          case models.FindingYourAccount.DontKnowId => Call("GET", urlHelper.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenId))
+          case models.FindingYourAccount.DontKnowIdOrPassword => Call("GET", urlHelper.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenIdAndPassword))
+        }
+     }
+  }
+
   implicit val selectAnOilService: NextPage[SelectAnOilServiceId.type, SelectAnOilService] =
     new NextPage[SelectAnOilServiceId.type, SelectAnOilService] {
-      override def get(b: SelectAnOilService)(implicit emacHelper: EmacHelper): Call =
+      override def get(b: SelectAnOilService)(implicit urlHelper: UrlHelper): Call =
         b match {
           case RebatedOilsEnquiryService => routes.HaveYouRegisteredForRebatedOilsController.onPageLoad()
           case TiedOilsEnquiryService => routes.HaveYouRegisteredForTiedOilsController.onPageLoad()
@@ -41,9 +53,9 @@ object NextPage {
   implicit val haveYouRegisteredForTiedOils: NextPage[HaveYouRegisteredForTiedOilsId.type,
     HaveYouRegisteredForTiedOils] = {
     new NextPage[HaveYouRegisteredForTiedOilsId.type, HaveYouRegisteredForTiedOils] {
-      override def get(b: HaveYouRegisteredForTiedOils)(implicit emacHelper: EmacHelper): Call =
+      override def get(b: HaveYouRegisteredForTiedOils)(implicit urlHelper: UrlHelper): Call =
         b match {
-          case models.HaveYouRegisteredForTiedOils.Yes => Call("GET", emacHelper.registerForTaxUrl(Enrolments.TiedOils))
+          case models.HaveYouRegisteredForTiedOils.Yes => Call("GET", urlHelper.registerForTaxUrl(Enrolments.TiedOils))
           case models.HaveYouRegisteredForTiedOils.No => routes.RegisterTiedOilsController.onPageLoad()
         }
     }
@@ -52,9 +64,9 @@ object NextPage {
   implicit val haveYouRegisteredForRebatedOils: NextPage[HaveYouRegisteredForRebatedOilsId.type,
     HaveYouRegisteredForRebatedOils] = {
     new NextPage[HaveYouRegisteredForRebatedOilsId.type, HaveYouRegisteredForRebatedOils] {
-      override def get(b: HaveYouRegisteredForRebatedOils)(implicit emacHelper: EmacHelper): Call =
+      override def get(b: HaveYouRegisteredForRebatedOils)(implicit urlHelper: UrlHelper): Call =
         b match {
-          case models.HaveYouRegisteredForRebatedOils.Yes => Call("GET", emacHelper.registerForTaxUrl(Enrolments.RebatedOils))
+          case models.HaveYouRegisteredForRebatedOils.Yes => Call("GET", urlHelper.registerForTaxUrl(Enrolments.RebatedOils))
           case models.HaveYouRegisteredForRebatedOils.No => routes.RegisterRebatedOilsController.onPageLoad()
         }
     }

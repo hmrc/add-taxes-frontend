@@ -21,7 +21,7 @@ error.integer = Give an answer in whole numbers
 error.non_numeric = Give a value using only numbers
 error.number = Please enter a valid number
 error.required = Please enter a value
-error.summary.title = Mae yna broblem
+error.summary.title = Mae problem wedi codi
 error.summary.text = Check the following
 
 index.title = add-taxes-frontend
@@ -53,46 +53,58 @@ unauthorised.heading = You can’t access this service with this account
 selectAnOilService.heading = Dewis gwasanaeth olew
 selectAnOilService.title = Dewis gwasanaeth olew
 selectAnOilService.rebatedOilsEnquiryService = Gwasanaeth Ymholiadau Olew Ad-daliedig
-selectAnOilService.tiedOilsEnquiryService = Gwasanaeth Ymholiadau Olew 'Tied'
+selectAnOilService.tiedOilsEnquiryService = Gwasanaeth Ymholiadau Olew ‘Tied’
 selectAnOilService.checkYourAnswersLabel = Dewis gwasanaeth olew
 selectAnOilService.error.required = Dewis gwasanaeth
 
 #######################################################
 ##  Have You Registered For Tied Oils
 #######################################################
-haveYouRegisteredForTiedOils.title = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Tied'?
-haveYouRegisteredForTiedOils.heading = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Tied'?
+haveYouRegisteredForTiedOils.title = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’?
+haveYouRegisteredForTiedOils.heading = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’?
 haveYouRegisteredForTiedOils.message1 = Byddwn wedi anfon rhif cymeradwyo atoch
 haveYouRegisteredForTiedOils.yes = Ydw - mae gennyf rif cymeradwyo
 haveYouRegisteredForTiedOils.no = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
-haveYouRegisteredForTiedOils.checkYourAnswersLabel = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Tied'?
+haveYouRegisteredForTiedOils.checkYourAnswersLabel = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’?
 haveYouRegisteredForTiedOils.error.required = Dewis iawn neu na
 
 #######################################################
 ##  Register Tied Oils
 #######################################################
-registerTiedOils.title = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Tied'
-registerTiedOils.heading = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Tied'
-registerTiedOils.message1 = Mae'n rhaid i chi gofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Tied' cyn y gallwch ei ychwanegu i'ch cyfrif.
-registerTiedOils.message2 = Byddwn yn anfon rhif cymeradwyo atoch. Gallwch ei ddefnyddio i ychwanegu Gwasanaeth Ymholiadau Olew 'Tied' i'r cyfrif.
-registerTiedOils.button.text = Mynd yn eich blaen - cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Tied'
+registerTiedOils.title = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’
+registerTiedOils.heading = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’
+registerTiedOils.message1 = Mae’n rhaid i chi gofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’ cyn y gallwch ei ychwanegu i’ch cyfrif.
+registerTiedOils.message2 = Byddwn yn anfon rhif cymeradwyo atoch. Gallwch ei ddefnyddio i ychwanegu Gwasanaeth Ymholiadau Olew ‘Tied’ i’r cyfrif.
+registerTiedOils.button.text = Mynd yn eich blaen - cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’
 
 #######################################################
 ##  Have You Registered For Rebated Oils
 #######################################################
-haveYouRegisteredForRebatedOils.title = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Rebated'?
-haveYouRegisteredForRebatedOils.heading = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Rebated'?
+haveYouRegisteredForRebatedOils.title = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’?
+haveYouRegisteredForRebatedOils.heading = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’?
 haveYouRegisteredForRebatedOils.message1 = Byddwn wedi anfon rhif cymeradwyo atoch
 haveYouRegisteredForRebatedOils.yes = Ydw - mae gennyf rif cymeradwyo
 haveYouRegisteredForRebatedOils.no = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
-haveYouRegisteredForRebatedOils.checkYourAnswersLabel = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Rebated'?
+haveYouRegisteredForRebatedOils.checkYourAnswersLabel = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’?
 haveYouRegisteredForRebatedOils.error.required = Dewis iawn neu na
 
 #######################################################
 ##  Register Rebated Oils
 #######################################################
-registerRebatedOils.title = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Rebated'
-registerRebatedOils.heading = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Rebated'
-registerRebatedOils.message1 = Mae'n rhaid i chi gofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Tied' cyn y gallwch ei ychwanegu i'ch cyfrif.
-registerRebatedOils.message2 = Byddwn yn anfon rhif cymeradwyo atoch. Gallwch ei ddefnyddio i ychwanegu Gwasanaeth Ymholiadau Olew 'Rebated' i'r cyfrif.
-registerRebatedOils.button.text = Mynd yn eich blaen - cofrestru ar gyfer Gwasanaeth Ymholiadau Olew 'Rebated'
+registerRebatedOils.title = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’
+registerRebatedOils.heading = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’
+registerRebatedOils.message1 = Mae’n rhaid i chi gofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’ cyn y gallwch ei ychwanegu i’ch cyfrif.
+registerRebatedOils.message2 = Byddwn yn anfon rhif cymeradwyo atoch. Gallwch ei ddefnyddio i ychwanegu Gwasanaeth Ymholiadau Olew ‘Rebated’ i’r cyfrif.
+registerRebatedOils.button.text = Mynd yn eich blaen - cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’
+
+#######################################################
+##  FindingYourAccount
+#######################################################
+findingYourAccount.title = Dod o hyd i’ch cyfrif
+findingYourAccount.heading = Dod o hyd i’ch cyfrif
+findingYourAccount.guidance.text = Mae angen ychydig o wybodaeth arnom i’n helpu i ddod o hyd i’ch manylion mewngofnodi gwreiddiol.
+findingYourAccount.dontKnowPassword = Mae fy Nynodydd Defnyddiwr (ID) gen i ond nid wyf yn gwybod beth yw fy nghyfrinair
+findingYourAccount.dontKnowId = Mae fy nghyfrinair gen i ond nid wyf yn gwybod beth yw fy Nynodydd Defnyddiwr (ID)
+findingYourAccount.dontKnowIdOrPassword = Nid yw fy Nynodydd Defnyddiwr (ID) na’m cyfrinair gen i
+findingYourAccount.legend = Pa opsiwn sy’n disgrifio’ch problem orau?
+findingYourAccount.error.required = Dewiswch yr opsiwn sy’n disgrifio’ch problem orau

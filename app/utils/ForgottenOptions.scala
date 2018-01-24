@@ -16,12 +16,13 @@
 
 package utils
 
-import config.FrontendAppConfig
-import models.{Mode, NormalMode}
-import play.api.mvc.Call
+sealed trait ForgottenOptions
+object ForgottenOptions {
+  case object ForgottenPassword extends WithName("password") with ForgottenOptions
+  case object ForgottenId extends WithName("userId") with ForgottenOptions
+  case object ForgottenIdAndPassword extends WithName("UserIdAndPassword") with ForgottenOptions
 
-class FakeNavigator(desiredRoute: Call, mode: Mode = NormalMode)
-                   (implicit config: FrontendAppConfig) extends Navigator(new UrlHelper(config)) {
-
-  override def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B]): Call = desiredRoute
+  val values: Set[ForgottenOptions] = Set(
+    ForgottenPassword, ForgottenId, ForgottenIdAndPassword
+  )
 }

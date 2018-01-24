@@ -23,4 +23,7 @@ GET        /other/oil/tied/register                     controllers.RegisterTied
 GET        /other/oil/rebated                           controllers.HaveYouRegisteredForRebatedOilsController.onPageLoad()
 POST       /other/oil/rebated                           controllers.HaveYouRegisteredForRebatedOilsController.onSubmit()
 
-GET        /other/oil/rebated/register                   controllers.RegisterRebatedOilsController.onPageLoad()
+GET        /other/oil/rebated/register                  controllers.RegisterRebatedOilsController.onPageLoad()
+
+GET        /wrong-credentials/finding-your-account      controllers.FindingYourAccountController.onPageLoad()
+POST       /wrong-credentials/finding-your-account      controllers.FindingYourAccountController.onSubmit()

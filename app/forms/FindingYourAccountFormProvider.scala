@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package utils
+package forms
 
-import javax.inject.{Inject, Singleton}
+import javax.inject.Inject
 
-import config.FrontendAppConfig
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.FindingYourAccount
 
-@Singleton
-class EmacHelper @Inject()(val appConfig: FrontendAppConfig) {
-  private val host = appConfig.enrolmentManagementFrontendHost
+class FindingYourAccountFormProvider @Inject() extends FormErrorHelper with Mappings {
 
-  def registerForTaxUrl(enrolment: Enrolments): String = {
-    s"$host/enrolment-management-frontend/${enrolment.toString}/request-access-tax-scheme?continue=%2Fbusiness-account"
-  }
-
+  def apply(): Form[FindingYourAccount] =
+    Form(
+      "value" -> enumerable[FindingYourAccount]("findingYourAccount.error.required")
+    )
 }
