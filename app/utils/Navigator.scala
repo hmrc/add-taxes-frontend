@@ -21,9 +21,9 @@ import javax.inject.{Inject, Singleton}
 import play.api.mvc.Call
 
 @Singleton
-class Navigator @Inject()(emacHelper: EmacHelper) {
+class Navigator @Inject()(urlHelper: UrlHelper) {
 
   def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B]): Call =
-    ev.get(b)(emacHelper)
+    ev.get(b)(urlHelper)
 
 }

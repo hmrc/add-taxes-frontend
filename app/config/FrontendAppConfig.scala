@@ -33,7 +33,7 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   private val contactFormServiceIdentifier = "addtaxesfrontend"
 
   lazy val enrolmentManagementFrontendHost = runModeConfiguration.getString("enrolment-management-frontend.host").getOrElse("")
-
+  lazy val governmentGatewayLostCredentialsFrontendHost = runModeConfiguration.getString("government-gateway-lost-credentials-frontend.host").getOrElse("")
 
   lazy val analyticsToken = loadConfig(s"google-analytics.token")
   lazy val analyticsHost = loadConfig(s"google-analytics.host")

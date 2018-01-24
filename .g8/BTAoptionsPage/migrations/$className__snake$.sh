@@ -39,7 +39,7 @@ awk '/object/ {\
      print "  implicit val $className;format="decap"$: NextPage[$className$Id.type,";\
      print "    $className$] = {";\
      print "    new NextPage[$className$Id.type, $className$] {";\
-     print "      override def get(b: $className$)(implicit emacHelper: EmacHelper): Call =";\
+     print "      override def get(b: $className$)(implicit urlHelper: UrlHelper): Call =";\
      print "        b match {";\
      print "          case models.$className$.Option1 => routes.IndexController.onPageLoad()";\
      print "          case models.$className$.Option2 => routes.IndexController.onPageLoad()";\

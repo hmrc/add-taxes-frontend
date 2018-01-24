@@ -14,14 +14,8 @@
  * limitations under the License.
  */
 
-package utils
+package identifiers
 
-import config.FrontendAppConfig
-import models.{Mode, NormalMode}
-import play.api.mvc.Call
-
-class FakeNavigator(desiredRoute: Call, mode: Mode = NormalMode)
-                   (implicit config: FrontendAppConfig) extends Navigator(new UrlHelper(config)) {
-
-  override def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B]): Call = desiredRoute
+case object FindingYourAccountId extends Identifier {
+  override def toString: String = "findingYourAccount"
 }

@@ -18,12 +18,12 @@ package utils
 
 import base.SpecBase
 import models.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
-import models.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
+import models.{FindingYourAccount, HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
 
 
 class NextPageSpec extends SpecBase {
 
-  implicit val emacHelper = new EmacHelper(frontendAppConfig)
+  implicit val urlHelper = new UrlHelper(frontendAppConfig)
 
 
   def nextPage[A, B](np: NextPage[A, B], userSelection: B, urlRedirect: String): Unit = {
@@ -48,7 +48,9 @@ class NextPageSpec extends SpecBase {
     )
 
     behave like nextPage(
-      NextPage.haveYouRegisteredForTiedOils, HaveYouRegisteredForTiedOils.No, "/business-account/add-tax/other/oil/tied/register"
+      NextPage.haveYouRegisteredForTiedOils,
+      HaveYouRegisteredForTiedOils.No,
+      "/business-account/add-tax/other/oil/tied/register"
     )
   }
 
@@ -61,9 +63,23 @@ class NextPageSpec extends SpecBase {
     )
 
     behave like nextPage(
-      NextPage.haveYouRegisteredForRebatedOils, HaveYouRegisteredForRebatedOils.No, "/business-account/add-tax/other/oil/rebated/register"
+      NextPage.haveYouRegisteredForRebatedOils,
+      HaveYouRegisteredForRebatedOils.No,
+      "/business-account/add-tax/other/oil/rebated/register"
     )
   }
 
+  "FindingYourAccountFormProvider" when {
+    def governmentGatewayUrlGenerator(forgottenOption: String): String =
+      s"http://localhost:9898/government-gateway-lost-credentials-frontend/" +
+        s"choose-your-account?continue=%2Fbusiness-account&origin=unknown&forgottenOption=$forgottenOption"
 
+    behave like nextPage(NextPage.findingYourAccount, FindingYourAccount.DontKnowId, governmentGatewayUrlGenerator("userId"))
+
+    behave like nextPage(NextPage.findingYourAccount, FindingYourAccount.DontKnowPassword,
+      governmentGatewayUrlGenerator("password"))
+
+    behave like nextPage(NextPage.findingYourAccount, FindingYourAccount.DontKnowIdOrPassword,
+      governmentGatewayUrlGenerator("UserIdAndPassword"))
+  }
 }

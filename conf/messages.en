@@ -21,7 +21,7 @@ error.integer = Give an answer in whole numbers
 error.non_numeric = Give a value using only numbers
 error.number = Please enter a valid number
 error.required = Please enter a value
-error.summary.title = There’s been a problem
+error.summary.title = There is a problem
 error.summary.text = Check the following
 
 index.title = add-taxes-frontend
@@ -86,6 +86,7 @@ haveYouRegisteredForRebatedOils.message1 = We’ll have sent you an approval num
 haveYouRegisteredForRebatedOils.yes = Yes - I have an approval number
 haveYouRegisteredForRebatedOils.no = No - I haven’t registered yet
 haveYouRegisteredForRebatedOils.checkYourAnswersLabel = Have you already registered for Rebated Oils Enquiry Service?
+haveYouRegisteredForRebatedOils.checkYourAnswersLabel = Have you already registered for Rebated Oils Enquiry Service?
 haveYouRegisteredForRebatedOils.error.required = Select yes or no
 
 #######################################################
@@ -96,3 +97,15 @@ registerRebatedOils.heading = Register for Rebated Oils Enquiry Service
 registerRebatedOils.message1 = You need to register for Rebated Oils Enquiry Service before you can add it to your account.
 registerRebatedOils.message2 = We’ll send you an approval number, which you can use to add Rebated Oils Enquiry Service to the account.
 registerRebatedOils.button.text = Continue - register for Rebated Oils Enquiry Service
+
+#######################################################
+##  FindingYourAccount
+#######################################################
+findingYourAccount.title = Finding Your Account
+findingYourAccount.heading = Finding Your Account
+findingYourAccount.guidance.text = We need some information to help us find your original sign in details.
+findingYourAccount.dontKnowPassword = I have my user ID but I don't know my password
+findingYourAccount.dontKnowId = I have my password but I don't know my user ID
+findingYourAccount.dontKnowIdOrPassword = I don't have my user ID and password
+findingYourAccount.legend = Which option best describes your problem?
+findingYourAccount.error.required = Select the option that best describes your problem
