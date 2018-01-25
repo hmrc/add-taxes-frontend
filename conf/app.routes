@@ -12,18 +12,18 @@ GET        /check-your-answers                          controllers.CheckYourAns
 
 GET        /unauthorised                                controllers.UnauthorisedController.onPageLoad
 
-GET        /other/oil                                   controllers.SelectAnOilServiceController.onPageLoad()
-POST       /other/oil                                   controllers.SelectAnOilServiceController.onSubmit()
+GET        /other/oil                                   controllers.other.oil.SelectAnOilServiceController.onPageLoad()
+POST       /other/oil                                   controllers.other.oil.SelectAnOilServiceController.onSubmit()
 
-GET        /other/oil/tied                              controllers.HaveYouRegisteredForTiedOilsController.onPageLoad()
-POST       /other/oil/tied                              controllers.HaveYouRegisteredForTiedOilsController.onSubmit()
+GET        /other/oil/tied                              controllers.other.oil.HaveYouRegisteredForTiedOilsController.onPageLoad()
+POST       /other/oil/tied                              controllers.other.oil.HaveYouRegisteredForTiedOilsController.onSubmit()
 
-GET        /other/oil/tied/register                     controllers.RegisterTiedOilsController.onPageLoad()
+GET        /other/oil/tied/register                     controllers.other.oil.RegisterTiedOilsController.onPageLoad()
 
-GET        /other/oil/rebated                           controllers.HaveYouRegisteredForRebatedOilsController.onPageLoad()
-POST       /other/oil/rebated                           controllers.HaveYouRegisteredForRebatedOilsController.onSubmit()
+GET        /other/oil/rebated                           controllers.other.oil.HaveYouRegisteredForRebatedOilsController.onPageLoad()
+POST       /other/oil/rebated                           controllers.other.oil.HaveYouRegisteredForRebatedOilsController.onSubmit()
 
-GET        /other/oil/rebated/register                  controllers.RegisterRebatedOilsController.onPageLoad()
+GET        /other/oil/rebated/register                  controllers.other.oil.RegisterRebatedOilsController.onPageLoad()
 
-GET        /wrong-credentials/finding-your-account      controllers.FindingYourAccountController.onPageLoad()
-POST       /wrong-credentials/finding-your-account      controllers.FindingYourAccountController.onSubmit()
+GET        /wrong-credentials/finding-your-account      controllers.wrongcredentials.FindingYourAccountController.onPageLoad()
+POST       /wrong-credentials/finding-your-account      controllers.wrongcredentials.FindingYourAccountController.onSubmit()

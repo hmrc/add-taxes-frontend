@@ -5,8 +5,8 @@ echo "Applying migration FindingYourAccount"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /findingYourAccount               controllers.FindingYourAccountController.onPageLoad()" >> ../conf/app.routes
-echo "POST       /findingYourAccount               controllers.FindingYourAccountController.onSubmit()" >> ../conf/app.routes
+echo "GET        /findingYourAccount               controllers.wrongcredentials.FindingYourAccountController.onPageLoad()" >> ../conf/app.routes
+echo "POST       /findingYourAccount               controllers.wrongcredentials.FindingYourAccountController.onSubmit()" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages (English)"
 echo "" >> ../conf/messages.en
@@ -41,8 +41,8 @@ awk '/object/ {\
      print "    new NextPage[FindingYourAccountId.type, FindingYourAccount] {";\
      print "      override def get(b: FindingYourAccount)(implicit urlHelper: UrlHelper): Call =";\
      print "        b match {";\
-     print "          case models.FindingYourAccount.Option1 => routes.IndexController.onPageLoad()";\
-     print "          case models.FindingYourAccount.Option2 => routes.IndexController.onPageLoad()";\
+     print "          case models.wrongcredentials.FindingYourAccount.Option1 => routes.IndexController.onPageLoad()";\
+     print "          case models.wrongcredentials.FindingYourAccount.Option2 => routes.IndexController.onPageLoad()";\
      print "        }";\
      print "     }";\
      print "  }";\

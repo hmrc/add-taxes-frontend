@@ -5,11 +5,11 @@ echo "Applying migration HaveYouRegisteredForTiedOils"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /haveYouRegisteredForTiedOils               controllers.HaveYouRegisteredForTiedOilsController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /haveYouRegisteredForTiedOils               controllers.HaveYouRegisteredForTiedOilsController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /haveYouRegisteredForTiedOils               controllers.other.oil.HaveYouRegisteredForTiedOilsController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /haveYouRegisteredForTiedOils               controllers.other.oil.HaveYouRegisteredForTiedOilsController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeHaveYouRegisteredForTiedOils               controllers.HaveYouRegisteredForTiedOilsController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeHaveYouRegisteredForTiedOils               controllers.HaveYouRegisteredForTiedOilsController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeHaveYouRegisteredForTiedOils               controllers.other.oil.HaveYouRegisteredForTiedOilsController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeHaveYouRegisteredForTiedOils               controllers.other.oil.HaveYouRegisteredForTiedOilsController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

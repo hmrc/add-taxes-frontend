@@ -17,8 +17,9 @@
 package utils
 
 import base.SpecBase
-import models.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
-import models.{FindingYourAccount, HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
+import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
+import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
+import models.wrongcredentials.FindingYourAccount
 
 
 class NextPageSpec extends SpecBase {
