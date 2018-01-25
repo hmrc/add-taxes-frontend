@@ -4,7 +4,7 @@ echo "Applying migration RegisterTiedOils"
 
 echo "Adding routes to conf/app.routes"
 echo "" >> ../conf/app.routes
-echo "GET        /registerTiedOils                       controllers.RegisterTiedOilsController.onPageLoad()" >> ../conf/app.routes
+echo "GET        /registerTiedOils                       controllers.other.oil.RegisterTiedOilsController.onPageLoad()" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

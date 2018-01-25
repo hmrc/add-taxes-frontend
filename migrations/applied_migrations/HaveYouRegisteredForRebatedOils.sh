@@ -5,11 +5,11 @@ echo "Applying migration HaveYouRegisteredForRebatedOils"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /haveYouRegisteredForRebatedOils               controllers.HaveYouRegisteredForRebatedOilsController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /haveYouRegisteredForRebatedOils               controllers.HaveYouRegisteredForRebatedOilsController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /haveYouRegisteredForRebatedOils               controllers.other.oil.HaveYouRegisteredForRebatedOilsController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /haveYouRegisteredForRebatedOils               controllers.other.oil.HaveYouRegisteredForRebatedOilsController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeHaveYouRegisteredForRebatedOils               controllers.HaveYouRegisteredForRebatedOilsController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeHaveYouRegisteredForRebatedOils               controllers.HaveYouRegisteredForRebatedOilsController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeHaveYouRegisteredForRebatedOils               controllers.other.oil.HaveYouRegisteredForRebatedOilsController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeHaveYouRegisteredForRebatedOils               controllers.other.oil.HaveYouRegisteredForRebatedOilsController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

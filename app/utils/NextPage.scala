@@ -16,10 +16,11 @@
 
 package utils
 
-import controllers.routes
+import controllers.other.oil.routes
 import identifiers._
-import models.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
-import models._
+import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
+import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils, SelectAnOilService}
+import models.wrongcredentials.FindingYourAccount
 import play.api.mvc.Call
 
 trait NextPage[A, B] {
@@ -34,9 +35,9 @@ object NextPage {
     new NextPage[FindingYourAccountId.type, FindingYourAccount] {
       override def get(b: FindingYourAccount)(implicit urlHelper: UrlHelper): Call =
         b match {
-          case models.FindingYourAccount.DontKnowPassword => Call("GET", urlHelper.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenPassword))
-          case models.FindingYourAccount.DontKnowId => Call("GET", urlHelper.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenId))
-          case models.FindingYourAccount.DontKnowIdOrPassword => Call("GET", urlHelper.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenIdAndPassword))
+          case FindingYourAccount.DontKnowPassword => Call("GET", urlHelper.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenPassword))
+          case FindingYourAccount.DontKnowId => Call("GET", urlHelper.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenId))
+          case FindingYourAccount.DontKnowIdOrPassword => Call("GET", urlHelper.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenIdAndPassword))
         }
      }
   }
@@ -55,8 +56,8 @@ object NextPage {
     new NextPage[HaveYouRegisteredForTiedOilsId.type, HaveYouRegisteredForTiedOils] {
       override def get(b: HaveYouRegisteredForTiedOils)(implicit urlHelper: UrlHelper): Call =
         b match {
-          case models.HaveYouRegisteredForTiedOils.Yes => Call("GET", urlHelper.registerForTaxUrl(Enrolments.TiedOils))
-          case models.HaveYouRegisteredForTiedOils.No => routes.RegisterTiedOilsController.onPageLoad()
+          case HaveYouRegisteredForTiedOils.Yes => Call("GET", urlHelper.registerForTaxUrl(Enrolments.TiedOils))
+          case HaveYouRegisteredForTiedOils.No => routes.RegisterTiedOilsController.onPageLoad()
         }
     }
   }
@@ -66,8 +67,8 @@ object NextPage {
     new NextPage[HaveYouRegisteredForRebatedOilsId.type, HaveYouRegisteredForRebatedOils] {
       override def get(b: HaveYouRegisteredForRebatedOils)(implicit urlHelper: UrlHelper): Call =
         b match {
-          case models.HaveYouRegisteredForRebatedOils.Yes => Call("GET", urlHelper.registerForTaxUrl(Enrolments.RebatedOils))
-          case models.HaveYouRegisteredForRebatedOils.No => routes.RegisterRebatedOilsController.onPageLoad()
+          case HaveYouRegisteredForRebatedOils.Yes => Call("GET", urlHelper.registerForTaxUrl(Enrolments.RebatedOils))
+          case HaveYouRegisteredForRebatedOils.No => routes.RegisterRebatedOilsController.onPageLoad()
         }
     }
   }

@@ -5,11 +5,11 @@ echo "Applying migration SelectAnOilService"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /selectAnOilService               controllers.SelectAnOilServiceController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /selectAnOilService               controllers.SelectAnOilServiceController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /selectAnOilService               controllers.other.oil.SelectAnOilServiceController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /selectAnOilService               controllers.other.oil.SelectAnOilServiceController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeSelectAnOilService               controllers.SelectAnOilServiceController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeSelectAnOilService               controllers.SelectAnOilServiceController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeSelectAnOilService               controllers.other.oil.SelectAnOilServiceController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeSelectAnOilService               controllers.other.oil.SelectAnOilServiceController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en
