@@ -31,7 +31,8 @@ class UrlHelper @Inject()(val appConfig: FrontendAppConfig) {
   }
 
   def governmentGatewayLostCredentialsUrl(forgottenOption: ForgottenOptions): String = {
-    s"$lostCredentialsHost/government-gateway-lost-credentials-frontend/choose-your-account?continue=%2Fbusiness-account&origin=unknown&forgottenOption=$forgottenOption"
+    s"$lostCredentialsHost/government-gateway-lost-credentials-frontend/" +
+      s"choose-your-account?continue=%2Fbusiness-account&origin=business-tax-account&forgottenOption=$forgottenOption"
   }
 
 }

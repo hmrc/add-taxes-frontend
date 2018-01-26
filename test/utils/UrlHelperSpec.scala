@@ -35,7 +35,7 @@ class UrlHelperSpec extends SpecBase {
       ForgottenOptions.values.map { forgottenOption =>
         SUT.governmentGatewayLostCredentialsUrl(forgottenOption) mustBe
           s"http://localhost:9898/government-gateway-lost-credentials-frontend/" +
-            s"choose-your-account?continue=%2Fbusiness-account&origin=unknown&forgottenOption=${forgottenOption.toString}"
+            s"choose-your-account?continue=%2Fbusiness-account&origin=business-tax-account&forgottenOption=${forgottenOption.toString}"
       }
     }
   }
