@@ -101,11 +101,11 @@ registerRebatedOils.button.text = Continue - register for Rebated Oils Enquiry S
 #######################################################
 ##  FindingYourAccount
 #######################################################
-findingYourAccount.title = Finding Your Account
-findingYourAccount.heading = Finding Your Account
+findingYourAccount.title = Finding your account
+findingYourAccount.heading = Finding your account
 findingYourAccount.guidance.text = We need some information to help us find your original sign in details.
-findingYourAccount.dontKnowPassword = I have my user ID but I don't know my password
-findingYourAccount.dontKnowId = I have my password but I don't know my user ID
-findingYourAccount.dontKnowIdOrPassword = I don't have my user ID and password
+findingYourAccount.dontKnowPassword = I have my User ID but I don’t know my password
+findingYourAccount.dontKnowId = I have my password but I don’t know my User ID
+findingYourAccount.dontKnowIdOrPassword = I don’t have my User ID and password
 findingYourAccount.legend = Which option best describes your problem?
 findingYourAccount.error.required = Select the option that best describes your problem
