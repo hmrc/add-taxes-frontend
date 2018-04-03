@@ -109,3 +109,13 @@ findingYourAccount.dontKnowId = I have my password but I don’t know my user ID
 findingYourAccount.dontKnowIdOrPassword = I don’t have my user ID and password
 findingYourAccount.legend = Which option best describes your problem?
 findingYourAccount.error.required = Select the option that best describes your problem
+
+#######################################################
+##  OtherTaxes
+#######################################################
+otherTaxes.title = otherTaxes
+otherTaxes.heading = otherTaxes
+otherTaxes.option1 = otherTaxes Option 1
+otherTaxes.option2 = otherTaxes Option 2
+otherTaxes.checkYourAnswersLabel = otherTaxes
+otherTaxes.error.required = Please give an answer for otherTaxes
