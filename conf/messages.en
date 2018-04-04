@@ -113,15 +113,15 @@ findingYourAccount.error.required = Select the option that best describes your p
 #######################################################
 ##  OtherTaxes
 #######################################################
-otherTaxes.title = otherTaxes
-otherTaxes.heading = otherTaxes
+otherTaxes.title = Select a category
+otherTaxes.heading = Select a category
 otherTaxes.alcoholAndTobaccoWholesalingAndWarehousing = Alcohol and tobacco wholesaling and warehousing
-otherTaxes.automaticExchangeOfInformation = otherTaxes Option 2
-otherTaxes.charities = dsfj
-otherTaxes.gamblingAndGaming = asfdfdx
-otherTaxes.housingAndLand = ksjadf
-otherTaxes.importsExports = safaw
-otherTaxes.oilAndFuel = alkwsd
-otherTaxes.fulfilmentHouseDueDiligenceSchemeIntegration = asdw
-otherTaxes.checkYourAnswersLabel = otherTaxes
-otherTaxes.error.required = Please give an answer for otherTaxes
+otherTaxes.automaticExchangeOfInformation = Automatic Exchange of Information (AEOI)
+otherTaxes.charities = Charities - for Gift Aid repayment claims
+otherTaxes.gamblingAndGaming = Gambling and gaming
+otherTaxes.housingAndLand = Housing and land
+otherTaxes.importsExports = Imports and exports
+otherTaxes.oilAndFuel = Oil and fuel
+otherTaxes.fulfilmentHouseDueDiligenceSchemeIntegration = Fulfilment House Due Diligence Scheme
+otherTaxes.error.required = Select a tax or scheme type
+otherTaxes.legend = Select a tax or scheme type

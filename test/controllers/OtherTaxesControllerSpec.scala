@@ -16,17 +16,14 @@
 
 package controllers
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
-import play.api.test.Helpers._
 import forms.OtherTaxesFormProvider
-import identifiers.OtherTaxesId
 import models.OtherTaxes
+import play.api.data.Form
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.otherTaxes
 
 class OtherTaxesControllerSpec extends ControllerSpecBase {
@@ -77,7 +74,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to next page when valid data is submitted and no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (OtherTaxes.options.head.value)))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", OtherTaxes.options.head.value))
       val result = controller(dontGetAnyData).onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
