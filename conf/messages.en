@@ -115,7 +115,13 @@ findingYourAccount.error.required = Select the option that best describes your p
 #######################################################
 otherTaxes.title = otherTaxes
 otherTaxes.heading = otherTaxes
-otherTaxes.option1 = otherTaxes Option 1
-otherTaxes.option2 = otherTaxes Option 2
+otherTaxes.alcoholAndTobaccoWholesalingAndWarehousing = Alcohol and tobacco wholesaling and warehousing
+otherTaxes.automaticExchangeOfInformation = otherTaxes Option 2
+otherTaxes.charities = dsfj
+otherTaxes.gamblingAndGaming = asfdfdx
+otherTaxes.housingAndLand = ksjadf
+otherTaxes.importsExports = safaw
+otherTaxes.oilAndFuel = alkwsd
+otherTaxes.fulfilmentHouseDueDiligenceSchemeIntegration = asdw
 otherTaxes.checkYourAnswersLabel = otherTaxes
 otherTaxes.error.required = Please give an answer for otherTaxes

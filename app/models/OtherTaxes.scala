@@ -43,5 +43,5 @@ object OtherTaxes {
   }
 
   implicit val enumerable: Enumerable[OtherTaxes] =
-    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+    Enumerable(values.map(v => v.toString -> v): _*)
 }
