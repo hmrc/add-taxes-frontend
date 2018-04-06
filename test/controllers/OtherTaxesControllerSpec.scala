@@ -20,15 +20,24 @@ import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import forms.OtherTaxesFormProvider
 import models.OtherTaxes
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import play.api.data.Form
+import play.api.mvc.AnyContent
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import utils.FakeNavigator
+import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
+import utils.{FakeNavigator, RadioOption}
 import views.html.otherTaxes
 
 class OtherTaxesControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
+
+  def requestWithEnrolments(keys: String*): ServiceInfoRequest[AnyContent] = {
+    val enrolments = Enrolments(keys.map(Enrolment(_)).toSet)
+    ServiceInfoRequest[AnyContent](AuthenticatedRequest(FakeRequest(), "", enrolments), HtmlFormat.empty)
+  }
 
   val formProvider = new OtherTaxesFormProvider()
   val form = formProvider()
@@ -80,5 +89,19 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
+  }
+
+  "display None if the user has ATWD and AWRS " in {
+    val request = requestWithEnrolments("HMCE-ATWD-ORG", "HMRC-AWRS-ORG")
+    val result = controller(dontGetAnyData).getOptions(request)
+
+    result.length mustBe 0
+  }
+  "display all options" in {
+    val request = requestWithEnrolments()
+    val result = controller(dontGetAnyData).getOptions(request)
+
+    result.length mustBe 1
+    result.head mustBe RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing")
   }
 }

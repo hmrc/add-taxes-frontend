@@ -20,8 +20,10 @@ sealed trait Enrolments
 object Enrolments {
  case object RebatedOils extends WithName("HMCE-RO") with Enrolments
  case object TiedOils extends WithName("HMCE-TO") with Enrolments
+ case object AlcoholAndTobaccoWarehousingDeclarations extends WithName("HMCE-ATWD-ORG") with Enrolments
+ case object AnnualTaxOnEnvelopedDwellings extends WithName("HMRC-AWRS-ORG") with Enrolments
 
   val values: Set[Enrolments] = Set(
-    RebatedOils, TiedOils
+    RebatedOils, TiedOils, AlcoholAndTobaccoWarehousingDeclarations, AnnualTaxOnEnvelopedDwellings
   )
 }

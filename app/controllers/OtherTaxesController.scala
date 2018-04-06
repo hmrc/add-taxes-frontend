@@ -21,13 +21,16 @@ import javax.inject.Inject
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
-
 import forms.OtherTaxesFormProvider
 import identifiers.OtherTaxesId
+import models.OtherTaxes.AlcoholAndTobacco
+import models.requests.ServiceInfoRequest
+import play.api.data.Form
+import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.AnyContent
+import uk.gov.hmrc.auth.core.Enrolment
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enrolments, Enumerable, Navigator, RadioOption}
 import views.html.otherTaxes
 
 import scala.concurrent.Future
@@ -42,6 +45,25 @@ class OtherTaxesController @Inject()(
                                         formProvider: OtherTaxesFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
 
   val form = formProvider()
+
+  def getOptions(implicit r: ServiceInfoRequest[AnyContent]): Seq[RadioOption] = {
+    val checks = Seq(checkAlcohol)
+    checks.flatMap(_.apply(r.request.enrolments))
+  }
+
+  private def checkAlcohol: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
+    (enrolments: uk.gov.hmrc.auth.core.Enrolments) =>
+    if(checkAnnualTaxOnEnvelopedDwellings(enrolments) && checkAlcoholAndTobaccoWarehousingDeclarations(enrolments)) {
+      None
+    } else {
+      Some(AlcoholAndTobacco.toRadioOption)
+    }
+
+  private def checkAnnualTaxOnEnvelopedDwellings: (uk.gov.hmrc.auth.core.Enrolments) => Boolean =
+    _.getEnrolment(Enrolments.AnnualTaxOnEnvelopedDwellings.toString).isDefined
+
+  private def checkAlcoholAndTobaccoWarehousingDeclarations: (uk.gov.hmrc.auth.core.Enrolments) => Boolean =
+    _.getEnrolment(Enrolments.AlcoholAndTobaccoWarehousingDeclarations.toString).isDefined
 
   def onPageLoad() = (authenticate andThen serviceInfoData) {
     implicit request =>
