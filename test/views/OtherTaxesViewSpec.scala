@@ -32,9 +32,9 @@ class OtherTaxesViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => otherTaxes(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView = () => otherTaxes(frontendAppConfig, form, OtherTaxes.options)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => otherTaxes(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => otherTaxes(frontendAppConfig, form, OtherTaxes.options)(serviceInfoContent)(fakeRequest, messages)
 
   "OtherTaxes view" must {
     behave like normalPage(createView, messageKeyPrefix)

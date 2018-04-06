@@ -46,7 +46,23 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
     new OtherTaxesController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
       FakeServiceInfoAction, formProvider)
 
-  def viewAsString(form: Form[_] = form) = otherTaxes(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = otherTaxes(frontendAppConfig, form, removeRadioOptionFromList())(HtmlFormat.empty)(fakeRequest, messages).toString
+
+  def removeRadioOptionFromList(radioOptionToRemove: Option[RadioOption] = None): Seq[RadioOption] = {
+    val listOfAllRadioOptions: Seq[RadioOption] = Seq(
+      RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing"),
+      RadioOption("otherTaxes", "automaticExchangeOfInformation"),
+      RadioOption("otherTaxes", "charities"),
+      RadioOption("otherTaxes", "gamblingAndGaming"),
+      RadioOption("otherTaxes", "oilAndFuel"),
+      RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration"),
+      RadioOption("otherTaxes", "housingAndLand"),
+      RadioOption("otherTaxes", "importsExports")
+    )
+    radioOptionToRemove.fold(listOfAllRadioOptions)(radioOptionToRemove =>
+      listOfAllRadioOptions.filterNot(currentRadioOption => currentRadioOption.equals(radioOptionToRemove))
+    )
+  }
 
   "OtherTaxes Controller" must {
 
@@ -89,19 +105,51 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
-  }
 
-  "display None if the user has ATWD and AWRS " in {
-    val request = requestWithEnrolments("HMCE-ATWD-ORG", "HMRC-AWRS-ORG")
-    val result = controller(dontGetAnyData).getOptions(request)
+    "display all options" in {
+      val request = requestWithEnrolments()
+      val result = controller(dontGetAnyData).getOptions(request)
 
-    result.length mustBe 0
-  }
-  "display all options" in {
-    val request = requestWithEnrolments()
-    val result = controller(dontGetAnyData).getOptions(request)
+      result mustBe removeRadioOptionFromList()
+    }
 
-    result.length mustBe 1
-    result.head mustBe RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing")
+    "not display alcohol if the user has HMCE-ATWD-ORG, HMRC-AWRS-ORG " in {
+      val request = requestWithEnrolments("HMCE-ATWD-ORG", "HMRC-AWRS-ORG")
+      val result = controller(dontGetAnyData).getOptions(request)
+
+      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing")))
+    }
+
+    "not display AEOI if the user has HMRC-FATCA-ORG" in {
+      val request = requestWithEnrolments("HMRC-FATCA-ORG")
+      val result = controller(dontGetAnyData).getOptions(request)
+
+      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "automaticExchangeOfInformation")))
+    }
+
+    "not display Charities if the user has HMRC-CHAR-ORG" in {
+      val request = requestWithEnrolments("HMRC-CHAR-ORG")
+      val result = controller(dontGetAnyData).getOptions(request)
+
+      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "charities")))
+    }
+    "not display Gambling and Gaming if the user has HMRC-MGD-ORG, HMRC-GTS-GBD, HMRC-GTS-PBD, HMRC-GTS-RGD" in {
+      val request = requestWithEnrolments("HMRC-MGD-ORG", "HMRC-GTS-GBD", "HMRC-GTS-PBD", "HMRC-GTS-RGD")
+      val result = controller(dontGetAnyData).getOptions(request)
+
+      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "gamblingAndGaming")))
+    }
+    "not display Oil and Fuel if the user has HMCE-RO, HMCE-TO" in {
+      val request = requestWithEnrolments("HMCE-RO", "HMCE-TO")
+      val result = controller(dontGetAnyData).getOptions(request)
+
+      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "oilAndFuel")))
+    }
+    "not display Fulfilment House if the user has ETMPREGISTRATIONNUMBER" in {
+      val request = requestWithEnrolments("ETMPREGISTRATIONNUMBER")
+      val result = controller(dontGetAnyData).getOptions(request)
+
+      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration")))
+    }
   }
 }

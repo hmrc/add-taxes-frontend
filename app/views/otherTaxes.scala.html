@@ -18,9 +18,10 @@
 @import uk.gov.hmrc.play.views.html._
 @import controllers.routes._
 @import models.OtherTaxes
+@import utils.RadioOption
 
 
-@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_], options: Seq[RadioOption])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("otherTaxes.title"),
@@ -38,7 +39,7 @@
             field = form("value"),
             legend = messages("otherTaxes.legend"),
             legendClass = Some("visually-hidden"),
-            inputs = OtherTaxes.options.toSeq,
+            inputs = options,
             trackGa = true,
             gaEvent = "OtherTaxes"
         )
