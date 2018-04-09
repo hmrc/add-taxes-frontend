@@ -57,7 +57,6 @@ class OtherTaxesViewSpec extends ViewBehaviours {
         listOfElements.zip(listOfOptions).foreach {
           case (element, answer) => element.text mustBe answer
         }
-
       }
 
       "contain radio buttons for the value" in {

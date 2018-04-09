@@ -34,7 +34,8 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
 
   lazy val enrolmentManagementFrontendHost = runModeConfiguration.getString("enrolment-management-frontend.host").getOrElse("")
   lazy val governmentGatewayLostCredentialsFrontendHost = runModeConfiguration.getString("government-gateway-lost-credentials-frontend.host").getOrElse("")
-  lazy val fulfilmentHouse = runModeConfiguration.getString("fulfilment-house-frontend.schemeIntegration").getOrElse("")
+  lazy val fulfilmentHouseHost = runModeConfiguration.getString("urls.fulfilment-house.host").getOrElse("")
+  lazy val fulfilmentHouse = fulfilmentHouseHost + loadConfig("urls.fulfilment-house.schemeIntegration")
 
   lazy val analyticsToken = loadConfig(s"google-analytics.token")
   lazy val analyticsHost = loadConfig(s"google-analytics.host")

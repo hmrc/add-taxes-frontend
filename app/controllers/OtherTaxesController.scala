@@ -73,16 +73,19 @@ class OtherTaxesController @Inject()(
     _.getEnrolment(Enrolments.Charities.toString)
       .fold[Option[RadioOption]](Some(Charities.toRadioOption))(_ => None)
 
-  private def checkGamblingAndGaming: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
+  private def checkGamblingAndGaming: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] = {
     (enrolments: uk.gov.hmrc.auth.core.Enrolments) =>
-      if (checkMachineGamingDuty(enrolments) &&
-        checkGeneralBetting(enrolments) &&
-        checkRemoteGaming(enrolments) &&
-        checkPoolBetting(enrolments)) {
-        None
-      } else {
-        Some(GamblingAndGaming.toRadioOption)
-      }
+
+      val checks = List(
+        checkMachineGamingDuty,
+        checkGeneralBetting,
+        checkRemoteGaming,
+        checkPoolBetting
+      )
+
+      if (checks.map(_.apply(enrolments)).forall(_ == true)) None
+      else Some(GamblingAndGaming.toRadioOption)
+  }
 
   private def checkMachineGamingDuty: (uk.gov.hmrc.auth.core.Enrolments) => Boolean =
     _.getEnrolment(Enrolments.MachineGamingDuty.toString).isDefined
