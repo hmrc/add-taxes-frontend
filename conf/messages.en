@@ -43,6 +43,7 @@ site.save_and_continue = Save and continue
 site.continue = Continue
 site.service_name = Business tax account
 site.textarea.char_limit = (Limit is {0} characters)
+site.signout = Sign out
 
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
