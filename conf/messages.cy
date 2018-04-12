@@ -108,3 +108,13 @@ findingYourAccount.dontKnowId = Mae fy nghyfrinair gen i ond nid wyf yn gwybod b
 findingYourAccount.dontKnowIdOrPassword = Nid yw fy Nynodydd Defnyddiwr (ID) na’m cyfrinair gen i
 findingYourAccount.legend = Pa opsiwn sy’n disgrifio’ch problem orau?
 findingYourAccount.error.required = Dewiswch yr opsiwn sy’n disgrifio’ch problem orau
+
+#######################################################
+##  OtherTaxes
+#######################################################
+otherTaxes.title = WELSH NEEDED HERE
+otherTaxes.heading = WELSH NEEDED HERE
+otherTaxes.option1 = WELSH NEEDED HERE
+otherTaxes.option2 = WELSH NEEDED HERE
+otherTaxes.checkYourAnswersLabel = WELSH NEEDED HERE
+otherTaxes.error.required = WELSH NEEDED HERE

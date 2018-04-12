@@ -17,8 +17,9 @@
 package utils
 
 import base.SpecBase
-import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
+import models.OtherTaxes
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
+import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
 import models.wrongcredentials.FindingYourAccount
 
 
@@ -52,6 +53,50 @@ class NextPageSpec extends SpecBase {
       NextPage.haveYouRegisteredForTiedOils,
       HaveYouRegisteredForTiedOils.No,
       "/business-account/add-tax/other/oil/tied/register"
+    )
+  }
+
+  "OtherTaxes" when {
+    behave like nextPage(
+      NextPage.otherTaxes,
+      OtherTaxes.AlcoholAndTobacco,
+      "http://localhost:9020/business-account/add-tax/other/alcohol"
+    )
+
+    behave like nextPage(
+      NextPage.otherTaxes,
+      OtherTaxes.AutomaticExchangeOfInformation,
+      "http://localhost:9020/business-account/add-tax/other/aeoi"
+    )
+    behave like nextPage(
+      NextPage.otherTaxes,
+      OtherTaxes.Charities,
+      "http://localhost:9020/business-account/add-tax/other/charities"
+    )
+    behave like nextPage(
+      NextPage.otherTaxes,
+      OtherTaxes.GamblingAndGaming,
+      "http://localhost:9020/business-account/add-tax/other/gambling"
+    )
+    behave like nextPage(
+      NextPage.otherTaxes,
+      OtherTaxes.HousingAndLand,
+      "http://localhost:9020/business-account/add-tax/other/land"
+    )
+    behave like nextPage(
+      NextPage.otherTaxes,
+      OtherTaxes.ImportsExports,
+      "http://localhost:9020/business-account/add-tax/other/import-export"
+    )
+    behave like nextPage(
+      NextPage.otherTaxes,
+      OtherTaxes.OilAndFuel,
+      "/business-account/add-tax/other/oil"
+    )
+    behave like nextPage(
+      NextPage.otherTaxes,
+      OtherTaxes.FulfilmentHouseDueDiligenceSchemeIntegration,
+      "http://localhost:1118/fhdds"
     )
   }
 

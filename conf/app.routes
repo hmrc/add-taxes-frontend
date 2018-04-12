@@ -12,6 +12,9 @@ GET        /check-your-answers                          controllers.CheckYourAns
 
 GET        /unauthorised                                controllers.UnauthorisedController.onPageLoad
 
+GET        /other                                       controllers.OtherTaxesController.onPageLoad()
+POST       /other                                       controllers.OtherTaxesController.onSubmit()
+
 GET        /other/oil                                   controllers.other.oil.SelectAnOilServiceController.onPageLoad()
 POST       /other/oil                                   controllers.other.oil.SelectAnOilServiceController.onSubmit()
 

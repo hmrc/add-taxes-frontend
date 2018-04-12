@@ -18,6 +18,7 @@ package utils
 
 import controllers.other.oil.routes
 import identifiers._
+import models.OtherTaxes
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils, SelectAnOilService}
 import models.wrongcredentials.FindingYourAccount
@@ -29,6 +30,23 @@ trait NextPage[A, B] {
 
 
 object NextPage {
+
+  implicit val otherTaxes: NextPage[OtherTaxesId.type,
+    OtherTaxes] = {
+    new NextPage[OtherTaxesId.type, OtherTaxes] {
+      override def get(b: OtherTaxes)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case models.OtherTaxes.AlcoholAndTobacco => Call("GET", urlHelper.businessTaxAccountLink("alcohol"))
+          case models.OtherTaxes.AutomaticExchangeOfInformation => Call("GET", urlHelper.businessTaxAccountLink("aeoi"))
+          case models.OtherTaxes.Charities => Call("GET", urlHelper.businessTaxAccountLink("charities"))
+          case models.OtherTaxes.GamblingAndGaming => Call("GET", urlHelper.businessTaxAccountLink("gambling"))
+          case models.OtherTaxes.HousingAndLand => Call("GET", urlHelper.businessTaxAccountLink("land"))
+          case models.OtherTaxes.ImportsExports => Call("GET", urlHelper.businessTaxAccountLink("import-export"))
+          case models.OtherTaxes.OilAndFuel => routes.SelectAnOilServiceController.onPageLoad()
+          case models.OtherTaxes.FulfilmentHouseDueDiligenceSchemeIntegration => Call("GET", urlHelper.fulfilmentHouse())
+        }
+     }
+  }
 
   implicit val findingYourAccount: NextPage[FindingYourAccountId.type,
     FindingYourAccount] = {

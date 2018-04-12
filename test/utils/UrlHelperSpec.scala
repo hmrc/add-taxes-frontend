@@ -39,4 +39,18 @@ class UrlHelperSpec extends SpecBase {
       }
     }
   }
+  "businessTaxAccountLink" should {
+    "return correct url" in {
+      val SUT = new UrlHelper(frontendAppConfig)
+      val destination = "alcohol"
+        SUT.businessTaxAccountLink(destination) mustBe s"http://localhost:9020/business-account/add-tax/other/$destination"
+      }
+    }
+
+  "fulfilmentHouse" should {
+    "return correct url" in {
+      val SUT = new UrlHelper(frontendAppConfig)
+      SUT.fulfilmentHouse() mustBe "http://localhost:1118/fhdds"
+    }
+  }
 }

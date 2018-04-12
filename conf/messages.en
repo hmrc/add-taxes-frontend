@@ -109,3 +109,19 @@ findingYourAccount.dontKnowId = I have my password but I don’t know my user ID
 findingYourAccount.dontKnowIdOrPassword = I don’t have my user ID and password
 findingYourAccount.legend = Which option best describes your problem?
 findingYourAccount.error.required = Select the option that best describes your problem
+
+#######################################################
+##  OtherTaxes
+#######################################################
+otherTaxes.title = Select a category
+otherTaxes.heading = Select a category
+otherTaxes.alcoholAndTobaccoWholesalingAndWarehousing = Alcohol and tobacco wholesaling and warehousing
+otherTaxes.automaticExchangeOfInformation = Automatic Exchange of Information (AEOI)
+otherTaxes.charities = Charities - for Gift Aid repayment claims
+otherTaxes.gamblingAndGaming = Gambling and gaming
+otherTaxes.housingAndLand = Housing and land
+otherTaxes.importsExports = Imports and exports
+otherTaxes.oilAndFuel = Oil and fuel
+otherTaxes.fulfilmentHouseDueDiligenceSchemeIntegration = Fulfilment House Due Diligence Scheme
+otherTaxes.error.required = Select a tax or scheme type
+otherTaxes.legend = Select a tax or scheme type

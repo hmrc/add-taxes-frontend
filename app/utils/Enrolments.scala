@@ -17,11 +17,34 @@
 package utils
 
 sealed trait Enrolments
+
 object Enrolments {
- case object RebatedOils extends WithName("HMCE-RO") with Enrolments
- case object TiedOils extends WithName("HMCE-TO") with Enrolments
+
+  case object RebatedOils extends WithName("HMCE-RO") with Enrolments
+
+  case object TiedOils extends WithName("HMCE-TO") with Enrolments
+
+  case object AlcoholAndTobaccoWarehousingDeclarations extends WithName("HMCE-ATWD-ORG") with Enrolments
+
+  case object AlcoholWholesalerRegistrationScheme extends WithName("HMRC-AWRS-ORG") with Enrolments
+
+  case object AutomaticExchangeOfInformation extends WithName("HMRC-FATCA-ORG") with Enrolments
+
+  case object Charities extends WithName("HMRC-CHAR-ORG") with Enrolments
+
+  case object MachineGamingDuty extends WithName("HMRC-MGD-ORG") with Enrolments
+
+  case object GeneralBetting extends WithName("HMRC-GTS-GBD") with Enrolments
+
+  case object PoolBetting extends WithName("HMRC-GTS-PBD") with Enrolments
+
+  case object RemoteGaming extends WithName("HMRC-GTS-RGD") with Enrolments
+
+  case object FulfilmentHouseDueDiligenceSchemeIntegration extends WithName("ETMPREGISTRATIONNUMBER") with Enrolments
 
   val values: Set[Enrolments] = Set(
-    RebatedOils, TiedOils
+    RebatedOils, TiedOils, AlcoholAndTobaccoWarehousingDeclarations, AlcoholWholesalerRegistrationScheme,
+    AlcoholWholesalerRegistrationScheme, AutomaticExchangeOfInformation, Charities, MachineGamingDuty, GeneralBetting,
+    PoolBetting, RemoteGaming, FulfilmentHouseDueDiligenceSchemeIntegration
   )
 }

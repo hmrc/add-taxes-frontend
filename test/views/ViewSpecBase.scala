@@ -91,4 +91,6 @@ trait ViewSpecBase extends SpecBase {
       case _ => assert(!radio.hasAttr("checked") && radio.attr("checked") != "checked", s"\n\nElement $id is checked")
     }
   }
+
+
 }
