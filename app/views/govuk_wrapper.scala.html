@@ -37,7 +37,10 @@
     <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/addtaxesfrontend-app.css")' />
 }
 
-@headerNavLinks = {}
+@headerNavLinks = {
+<li><a id="logOutNavHref" href="@appConfig.getBusinessAccountUrl("signout")"
+       data-journey-click="primary-navigation:Click:Sign out">@Messages("site.signout")</a></li>
+}
 
 @insideHeader = {
     @uiLayouts.header_nav(

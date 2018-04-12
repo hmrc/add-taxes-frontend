@@ -43,6 +43,7 @@ site.save_and_continue = Save and continue
 site.continue = Parhau
 site.service_name = Cyfrif treth busnes
 site.textarea.char_limit = (Limit is {0} characters)
+site.signout = Allgofnodi
 
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
