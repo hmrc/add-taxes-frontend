@@ -48,7 +48,7 @@ class OrganisationOnlyViewSpec extends ViewBehaviours {
         val expectedText = List("Create an Organisation account on the Government Gateway website.",
           "Sign in to HMRC with the new sign in details.", "Add business taxes in that account.")
 
-        val bulletList = doc.getElementsByClass("numbers").first().getElementsByTag("li").asScala.toList
+        val bulletList = doc.getElementsByClass("list-number").first().getElementsByTag("li").asScala.toList
 
         bulletList.zip(expectedText).foreach {
           case (element, string) =>

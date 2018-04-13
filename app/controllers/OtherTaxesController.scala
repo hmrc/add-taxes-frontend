@@ -28,7 +28,7 @@ import models.requests.ServiceInfoRequest
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.AnyContent
-import uk.gov.hmrc.auth.core.AffinityGroup.Individual
+import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enrolments, Enumerable, Navigator, RadioOption}
 import views.html.{organisation_only, otherTaxes}
@@ -122,8 +122,8 @@ class OtherTaxesController @Inject()(
   def onPageLoad() = (authenticate andThen serviceInfoData) {
     implicit request =>
       request.request.affinityGroup match {
-        case Some(Individual) => Ok(organisation_only(appConfig)(request.serviceInfoContent))
-        case _ => Ok(otherTaxes(appConfig, form, getOptions)(request.serviceInfoContent))
+        case Some(Organisation) => Ok(otherTaxes(appConfig, form, getOptions)(request.serviceInfoContent))
+        case _ => Ok(organisation_only(appConfig)(request.serviceInfoContent))
       }
   }
 
