@@ -27,6 +27,7 @@ import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
 import utils.{FakeNavigator, RadioOption}
 import views.html.other.oil.selectAnOilService
@@ -40,7 +41,7 @@ class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
 
   def requestWithEnrolments(keys: String*): ServiceInfoRequest[AnyContent] = {
     val enrolments = Enrolments(keys.map(Enrolment(_)).toSet)
-    ServiceInfoRequest[AnyContent](AuthenticatedRequest(FakeRequest(), "", enrolments), HtmlFormat.empty)
+    ServiceInfoRequest[AnyContent](AuthenticatedRequest(FakeRequest(), "", enrolments, Some(Organisation)), HtmlFormat.empty)
   }
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =

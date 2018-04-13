@@ -26,7 +26,8 @@ import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
+import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
+import uk.gov.hmrc.auth.core.{AffinityGroup, Enrolment, Enrolments}
 import utils.{FakeNavigator, RadioOption}
 import views.html.otherTaxes
 
@@ -36,7 +37,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
 
   def requestWithEnrolments(keys: String*): ServiceInfoRequest[AnyContent] = {
     val enrolments = Enrolments(keys.map(Enrolment(_)).toSet)
-    ServiceInfoRequest[AnyContent](AuthenticatedRequest(FakeRequest(), "", enrolments), HtmlFormat.empty)
+    ServiceInfoRequest[AnyContent](AuthenticatedRequest(FakeRequest(), "", enrolments, Some(Organisation)), HtmlFormat.empty)
   }
 
   val formProvider = new OtherTaxesFormProvider()
@@ -71,6 +72,13 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
+    }
+    "When a user is an individual render the you can't add this bisiness account view" in {
+      val result = controller().onPageLoad()(AuthenticatedRequest(FakeRequest(), "id", Enrolments(Set()), Some(Individual)))
+      status(result) mustBe OK
+      val view = contentAsString(result)
+      view mustBe viewAsString()
+      view must include("Set up a new account")
     }
 
     "redirect to the next page when valid data is submitted" in {
