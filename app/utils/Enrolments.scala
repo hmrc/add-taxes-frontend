@@ -40,7 +40,7 @@ object Enrolments {
 
   case object RemoteGaming extends WithName("HMRC-GTS-RGD") with Enrolments
 
-  case object FulfilmentHouseDueDiligenceSchemeIntegration extends WithName("ETMPREGISTRATIONNUMBER") with Enrolments
+  case object FulfilmentHouseDueDiligenceSchemeIntegration extends WithName("EtmpRegistrationNumber") with Enrolments
 
   val values: Set[Enrolments] = Set(
     RebatedOils, TiedOils, AlcoholAndTobaccoWarehousingDeclarations, AlcoholWholesalerRegistrationScheme,
