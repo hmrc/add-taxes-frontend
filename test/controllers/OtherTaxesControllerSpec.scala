@@ -165,8 +165,8 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
 
       result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "oilAndFuel")))
     }
-    "not display Fulfilment House if the user has ETMPREGISTRATIONNUMBER" in {
-      val request = requestWithEnrolments("ETMPREGISTRATIONNUMBER")
+    "not display Fulfilment House if the user has EtmpRegistrationNumber" in {
+      val request = requestWithEnrolments("EtmpRegistrationNumber")
       val result = controller(dontGetAnyData).getOptions(request)
 
       result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration")))
