@@ -55,11 +55,11 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
       RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing"),
       RadioOption("otherTaxes", "automaticExchangeOfInformation"),
       RadioOption("otherTaxes", "charities"),
-      RadioOption("otherTaxes", "gamblingAndGaming"),
-      RadioOption("otherTaxes", "oilAndFuel"),
       RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration"),
+      RadioOption("otherTaxes", "gamblingAndGaming"),
       RadioOption("otherTaxes", "housingAndLand"),
-      RadioOption("otherTaxes", "importsExports")
+      RadioOption("otherTaxes", "importsExports"),
+      RadioOption("otherTaxes", "oilAndFuel")
     )
     radioOptionToRemove.fold(listOfAllRadioOptions)(radioOptionToRemove =>
       listOfAllRadioOptions.filterNot(currentRadioOption => currentRadioOption.equals(radioOptionToRemove))
