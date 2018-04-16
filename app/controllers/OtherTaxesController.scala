@@ -28,7 +28,7 @@ import models.requests.ServiceInfoRequest
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.AnyContent
-import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
+import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enrolments, Enumerable, Navigator, RadioOption}
 import views.html.{organisation_only, otherTaxes}
@@ -49,8 +49,9 @@ class OtherTaxesController @Inject()(
   def getOptions(implicit r: ServiceInfoRequest[AnyContent]): Seq[RadioOption] = {
     val checks = Seq(checkAlcohol, checkAutomaticExchangeOfInformation, checkCharities, checkGamblingAndGaming,
       checkOilAndFuel, checkFulfilmentHouse)
-    val unsortedList: Seq[RadioOption] = checks.flatMap(_.apply(r.request.enrolments)) ++ Some(HousingAndLand.toRadioOption) ++ Some(ImportsExports.toRadioOption)
-    unsortedList.sortBy(x => x.value)
+    val defaultRadioOptions: Seq[RadioOption] = Seq(HousingAndLand, ImportsExports).map(_.toRadioOption)
+    val unsortedRadioOptions: Seq[RadioOption] = checks.flatMap(_.apply(r.request.enrolments)) ++ defaultRadioOptions
+    unsortedRadioOptions.sortBy(_.value)
   }
 
   private def checkAlcohol: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
