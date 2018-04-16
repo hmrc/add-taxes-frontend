@@ -49,7 +49,8 @@ class OtherTaxesController @Inject()(
   def getOptions(implicit r: ServiceInfoRequest[AnyContent]): Seq[RadioOption] = {
     val checks = Seq(checkAlcohol, checkAutomaticExchangeOfInformation, checkCharities, checkGamblingAndGaming,
       checkOilAndFuel, checkFulfilmentHouse)
-    checks.flatMap(_.apply(r.request.enrolments)) ++ Some(HousingAndLand.toRadioOption) ++ Some(ImportsExports.toRadioOption)
+    val unsortedList: Seq[RadioOption] = checks.flatMap(_.apply(r.request.enrolments)) ++ Some(HousingAndLand.toRadioOption) ++ Some(ImportsExports.toRadioOption)
+    unsortedList.sortBy(x => x.value)
   }
 
   private def checkAlcohol: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
