@@ -126,3 +126,17 @@ otherTaxes.oilAndFuel = Oil and fuel
 otherTaxes.fulfilmentHouseDueDiligenceSchemeIntegration = Fulfilment House Due Diligence Scheme
 otherTaxes.error.required = Select a tax or scheme type
 otherTaxes.legend = Select a tax or scheme type
+
+#######################################################
+##  OrganisationOnly
+#######################################################
+organisationOnly.title = Set up a new account
+organisationOnly.heading = Set up a new account
+organisationOnly.p1 = You can’t add business taxes to this account.
+organisationOnly.bulletTitle = You need to:
+organisationOnly.bullet1 = Create an Organisation account on the Government Gateway website.
+organisationOnly.bullet2 = Sign in to HMRC with the new sign in details.
+organisationOnly.bullet3 = Add business taxes in that account.
+organisationOnly.panelIndent = Don’t try to add business taxes on the Government Gateway website.
+organisationOnly.signOut = Sign out and create ‘Organisation’ account
+organisationOnly.notNow = I don’t want to do this right now

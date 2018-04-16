@@ -26,9 +26,10 @@ import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual, Organisation}
 import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
 import utils.{FakeNavigator, RadioOption}
-import views.html.otherTaxes
+import views.html.{organisation_only, otherTaxes}
 
 class OtherTaxesControllerSpec extends ControllerSpecBase {
 
@@ -36,17 +37,18 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
 
   def requestWithEnrolments(keys: String*): ServiceInfoRequest[AnyContent] = {
     val enrolments = Enrolments(keys.map(Enrolment(_)).toSet)
-    ServiceInfoRequest[AnyContent](AuthenticatedRequest(FakeRequest(), "", enrolments), HtmlFormat.empty)
+    ServiceInfoRequest[AnyContent](AuthenticatedRequest(FakeRequest(), "", enrolments, Some(Organisation)), HtmlFormat.empty)
   }
 
   val formProvider = new OtherTaxesFormProvider()
   val form = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new OtherTaxesController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
+  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap, fakeAuthAction: AuthAction = FakeAuthAction) =
+    new OtherTaxesController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), fakeAuthAction,
       FakeServiceInfoAction, formProvider)
 
   def viewAsString(form: Form[_] = form) = otherTaxes(frontendAppConfig, form, removeRadioOptionFromList())(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsStringOrganisationOnly(request: ServiceInfoRequest[AnyContent]) = organisation_only(frontendAppConfig)(HtmlFormat.empty)(request, messages).toString()
 
   def removeRadioOptionFromList(radioOptionToRemove: Option[RadioOption] = None): Seq[RadioOption] = {
     val listOfAllRadioOptions: Seq[RadioOption] = Seq(
@@ -71,6 +73,24 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
+    }
+
+    "When a user is an individual, render the you can't add this business account view" in {
+      val request = ServiceInfoRequest[AnyContent](AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual)), HtmlFormat.empty)
+      val result = controller(fakeAuthAction = FakeAuthActionIndividual).onPageLoad()(request)
+
+      status(result) mustBe OK
+      val view = contentAsString(result)
+      view mustBe viewAsStringOrganisationOnly(request)
+    }
+
+    "When a user is an agent, render the you can't add this business account view" in {
+      val request = ServiceInfoRequest[AnyContent](AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Agent)), HtmlFormat.empty)
+      val result = controller(fakeAuthAction = FakeAuthActionAgent).onPageLoad()(request)
+
+      status(result) mustBe OK
+      val view = contentAsString(result)
+      view mustBe viewAsStringOrganisationOnly(request)
     }
 
     "redirect to the next page when valid data is submitted" in {

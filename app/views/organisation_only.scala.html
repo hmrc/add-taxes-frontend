@@ -1,0 +1,57 @@
+@*
+ * Copyright 2018 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.FrontendAppConfig
+
+@(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+title = messages("organisationOnly.title"),
+appConfig = appConfig,
+bodyClasses = None,
+serviceInfoContent = serviceInfoContent) {
+
+ <h1 class="heading-large">@messages("organisationOnly.heading")</h1>
+
+ <p>@messages("organisationOnly.p1")</p>
+
+ <p class="flush--bottom">@messages("organisationOnly.bulletTitle")</p>
+
+ <ol class="list list-number">
+  <li>@messages("organisationOnly.bullet1")</li>
+  <li>@messages("organisationOnly.bullet2")</li>
+  <li>@messages("organisationOnly.bullet3")</li>
+ </ol>
+
+ <div class="panel-indent">
+  <p>@messages("organisationOnly.panelIndent")</p>
+ </div>
+
+ <p class="padding-top-medium">
+  <a id="create-account"
+    type="submit"
+    class="button"
+    data-journey-click="SetUpAccountbusinesstaxes:Click:Register" href="@appConfig.getBusinessAccountUrl("signoutToOrganisationCreation")">
+    @messages("organisationOnly.signOut")
+ </a>
+ </p>
+
+ <p>
+  <a id="not-now" data-journey-click="SetUpAccountbusinesstaxes:Click:NotNow" href="@appConfig.getBusinessAccountUrl("home")">
+    @messages("organisationOnly.notNow")
+  </a>
+ </p>
+}
