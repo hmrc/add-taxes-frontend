@@ -17,7 +17,8 @@
 package utils
 
 import base.SpecBase
-import models.OtherTaxes
+import identifiers.RegisterEORIId
+import models.{EconomicOperatorsRegistrationAndIdentification, OtherTaxes}
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
 import models.wrongcredentials.FindingYourAccount
@@ -127,5 +128,27 @@ class NextPageSpec extends SpecBase {
 
     behave like nextPage(NextPage.findingYourAccount, FindingYourAccount.DontKnowIdOrPassword,
       governmentGatewayUrlGenerator("UserIdAndPassword"))
+  }
+
+  "EconomicOperatorsRegistrationAndIdentification" when {
+    behave like nextPage(
+      NextPage.economicOperatorsRegistrationAndIdentification,
+      EconomicOperatorsRegistrationAndIdentification.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-ICS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.economicOperatorsRegistrationAndIdentification,
+      EconomicOperatorsRegistrationAndIdentification.No,
+      "/business-account/add-tax/other/import-export/ics/register"
+    )
+  }
+
+  "RegisterEORI" when {
+    behave like nextPage(
+      NextPage.registerEORI,
+      (),
+      "https://www.gov.uk/eori#how-to-get-an-eori-number"
+    )
   }
 }

@@ -140,3 +140,21 @@ organisationOnly.bullet3 = Add business taxes in that account.
 organisationOnly.panelIndent = Don’t try to add business taxes on the Government Gateway website.
 organisationOnly.signOut = Sign out and create ‘Organisation’ account
 organisationOnly.notNow = I don’t want to do this right now
+
+#######################################################
+##  EconomicOperatorsRegistrationAndIdentification
+#######################################################
+economicOperatorsRegistrationAndIdentification.title = Do you have an Economic Operators Registration and Identification (EORI) number?
+economicOperatorsRegistrationAndIdentification.heading = Do you have an Economic Operators Registration and Identification (EORI) number?
+economicOperatorsRegistrationAndIdentification.yes = Yes - I have an EORI number
+economicOperatorsRegistrationAndIdentification.no = No - I don’t have an EORI number
+economicOperatorsRegistrationAndIdentification.error.required = Select yes or no
+
+#######################################################
+##  RegisterEORI
+#######################################################
+registerEORI.title = Get an EORI number first
+registerEORI.heading = Get an EORI number first
+registerEORI.p1 = You need an Economic Operators Registration and Identification (EORI) to add Import Control System (ICS) to your account.
+registerEORI.p2 = Come back to your account and add ICS once your EORI number arrives.
+registerEORI.continue = Continue - get an EORI number

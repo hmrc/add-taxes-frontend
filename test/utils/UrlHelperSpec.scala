@@ -23,7 +23,7 @@ class UrlHelperSpec extends SpecBase {
     "return enrolment-management-frontend/$enrolmentKey/request-access-tax-scheme?continue=%2Fbusiness-account" in {
       val SUT = new UrlHelper(frontendAppConfig)
       Enrolments.values.map { enrolment =>
-        SUT.registerForTaxUrl(enrolment) mustBe
+        SUT.emacEnrollmentsUrl(enrolment) mustBe
           (s"http://localhost:9555/enrolment-management-frontend/${enrolment.toString}/" +
             "request-access-tax-scheme?continue=%2Fbusiness-account")
       }

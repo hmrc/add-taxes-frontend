@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2018 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,8 +12,20 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(headingKey: String, headingSize: String = "heading-large")(implicit messages: Messages)
+package forms
 
-<h1 class="@headingSize">@messages(headingKey)</h1>
+import javax.inject.Inject
+
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.EconomicOperatorsRegistrationAndIdentification
+
+class EconomicOperatorsRegistrationAndIdentificationFormProvider @Inject() extends FormErrorHelper with Mappings {
+
+  def apply(): Form[EconomicOperatorsRegistrationAndIdentification] =
+    Form(
+      "value" -> enumerable[EconomicOperatorsRegistrationAndIdentification]("economicOperatorsRegistrationAndIdentification.error.required")
+    )
+}

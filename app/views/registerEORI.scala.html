@@ -14,6 +14,21 @@
  * limitations under the License.
  *@
 
-@(headingKey: String, headingSize: String = "heading-large")(implicit messages: Messages)
+@import config.FrontendAppConfig
 
-<h1 class="@headingSize">@messages(headingKey)</h1>
+@(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    title = messages("registerEORI.title"),
+    appConfig = appConfig,
+    bodyClasses = None,
+    serviceInfoContent = serviceInfoContent) {
+
+    @components.heading("registerEORI.heading")
+    <p>@messages("registerEORI.p1")</p>
+    <p>@messages("registerEORI.p2")</p>
+
+    <a href='@appConfig.getGovUKUrl("eori")' class="button" data-journey-click="RegisterICS:Click:Continue">
+        @messages("registerEORI.continue")
+    </a>
+}

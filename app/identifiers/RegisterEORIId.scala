@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2018 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,8 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(headingKey: String, headingSize: String = "heading-large")(implicit messages: Messages)
+package identifiers
 
-<h1 class="@headingSize">@messages(headingKey)</h1>
+case object RegisterEORIId extends Identifier {
+  override def toString: String = "registerEORI"
+}
