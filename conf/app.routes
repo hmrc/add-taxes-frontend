@@ -30,3 +30,5 @@ GET        /other/oil/rebated/register                  controllers.other.oil.Re
 
 GET        /wrong-credentials/finding-your-account      controllers.wrongcredentials.FindingYourAccountController.onPageLoad()
 POST       /wrong-credentials/finding-your-account      controllers.wrongcredentials.FindingYourAccountController.onSubmit()
+
+GET        /other/import-export/emcs/register           controllers.RegisterExciseMovementControlSystemController.onPageLoad()

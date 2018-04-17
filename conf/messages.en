@@ -140,3 +140,11 @@ organisationOnly.bullet3 = Add business taxes in that account.
 organisationOnly.panelIndent = Don’t try to add business taxes on the Government Gateway website.
 organisationOnly.signOut = Sign out and create ‘Organisation’ account
 organisationOnly.notNow = I don’t want to do this right now
+#######################################################
+##  RegisterExciseMovementControlSystem
+#######################################################
+registerExciseMovementControlSystem.title = Get a SEED excise ID first
+registerExciseMovementControlSystem.heading = Get a SEED excise ID first
+registerExciseMovementControlSystem.youNeedToRegister=You need to register for a SEED excise ID number before you can add Excise Movement and Control System (EMCS) to your account.
+registerExciseMovementControlSystem.comeBackToYourAccount=Come back to your account and add EMCS once your SEED number arrives.
+registerExciseMovementControlSystem.button=Continue - get a SEED number

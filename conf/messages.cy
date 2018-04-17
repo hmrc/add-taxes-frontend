@@ -125,3 +125,12 @@ otherTaxes.oilAndFuel = Olew a thanwydd
 otherTaxes.fulfilmentHouseDueDiligenceSchemeIntegration = Cynllun Diwydrwydd Dyladwy ar gyfer Busnesau Cyflawni
 otherTaxes.error.required = Dewis treth neu fath o gynllun
 otherTaxes.legend = Dewis treth neu fath o gynllun
+
+#######################################################
+##  RegisterExciseMovementControlSystem
+#######################################################
+registerExciseMovementControlSystem.title = Dylech gael ID SEED ecséis yn gyntaf
+registerExciseMovementControlSystem.heading = Dylech gael ID SEED ecséis yn gyntaf
+registerExciseMovementControlSystem.youNeedToRegister=Mae angen i chi gofrestru ar gyfer rhif ID SEED ecséis cyn y gallwch ychwanegu System Symudiadau a Rheolaeth Ecseis (EMCS) i’ch cyfrif.
+registerExciseMovementControlSystem.comeBackToYourAccount=Dychwelwch i’ch cyfrif ac ychwanegwch EMCS unwaith bod eich rhif SEED wedi cyrraedd.
+registerExciseMovementControlSystem.button=Mynd yn eich blaen - cael rhif SEED
