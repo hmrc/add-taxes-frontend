@@ -27,7 +27,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual, Organisation}
-import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
+import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier, Enrolments}
 import utils.{FakeNavigator, RadioOption}
 import views.html.{organisation_only, otherTaxes}
 
@@ -127,7 +127,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
     }
 
     "display all options" in {
-      val request = requestWithEnrolments()
+      val request = requestWithEnrolments(keys = "")
       val result = controller(dontGetAnyData).getOptions(request)
 
       result mustBe removeRadioOptionFromList()
@@ -165,11 +165,20 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
 
       result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "oilAndFuel")))
     }
-    "not display Fulfilment House if the user has EtmpRegistrationNumber" in {
-      val request = requestWithEnrolments("EtmpRegistrationNumber")
+
+    "not display Fulfilment House if the user has HMRC-OBTDS-ORG and an EtmpRegistrationNumber" in {
+      val enrolment = Enrolment("HMRC-OBTDS-ORG", Seq(EnrolmentIdentifier("EtmpRegistrationNumber", "123")), "Activated")
+      val request = ServiceInfoRequest[AnyContent](AuthenticatedRequest(FakeRequest(), "", Enrolments(Set(enrolment)), Some(Organisation)), HtmlFormat.empty)
       val result = controller(dontGetAnyData).getOptions(request)
 
       result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration")))
+    }
+
+    "display Fulfilment House if the user has HMRC-OBTDS-ORG but no EtmpRegistrationNumber" in {
+      val request = requestWithEnrolments("HMRC-OBTDS-ORG")
+      val result = controller(dontGetAnyData).getOptions(request)
+
+      result mustBe removeRadioOptionFromList(None)
     }
   }
 }

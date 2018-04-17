@@ -118,8 +118,9 @@ class OtherTaxesController @Inject()(
 
 
   private def checkFulfilmentHouse: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
-    _.getEnrolment(Enrolments.FulfilmentHouseDueDiligenceSchemeIntegration.toString)
-      .fold[Option[RadioOption]](Some(FulfilmentHouseDueDiligenceSchemeIntegration.toRadioOption))(_ => None)
+    _.getEnrolment(Enrolments.OtherBusinessTaxDutyScheme.toString)
+      .flatMap(_.getIdentifier(Enrolments.OtherBusinessTaxDutyScheme.FulfilmentHouseDueDiligenceSchemeIdentifier))
+      .fold(Option(FulfilmentHouseDueDiligenceSchemeIntegration.toRadioOption))(_ => None)
 
   def onPageLoad() = (authenticate andThen serviceInfoData) {
     implicit request =>
