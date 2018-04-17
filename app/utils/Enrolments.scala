@@ -44,6 +44,8 @@ object Enrolments {
     val FulfilmentHouseDueDiligenceSchemeIdentifier = "EtmpRegistrationNumber"
   }
 
+  case object ExciseMovementControlSystem extends WithName("HMRC-EMCS-ORG") with Enrolments
+
   val values: Set[Enrolments] = Set(
     RebatedOils, TiedOils, AlcoholAndTobaccoWarehousingDeclarations, AlcoholWholesalerRegistrationScheme,
     AlcoholWholesalerRegistrationScheme, AutomaticExchangeOfInformation, Charities, MachineGamingDuty, GeneralBetting,

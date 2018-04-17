@@ -134,3 +134,12 @@ registerExciseMovementControlSystem.heading = Dylech gael ID SEED ecséis yn gyn
 registerExciseMovementControlSystem.youNeedToRegister=Mae angen i chi gofrestru ar gyfer rhif ID SEED ecséis cyn y gallwch ychwanegu System Symudiadau a Rheolaeth Ecseis (EMCS) i’ch cyfrif.
 registerExciseMovementControlSystem.comeBackToYourAccount=Dychwelwch i’ch cyfrif ac ychwanegwch EMCS unwaith bod eich rhif SEED wedi cyrraedd.
 registerExciseMovementControlSystem.button=Mynd yn eich blaen - cael rhif SEED
+#######################################################
+##  DoYouHaveASEEDNumber
+#######################################################
+doYouHaveASEEDNumber.title = A oes gennych rif System ar gyfer Cyfnewid Data Ecséis (SEED)?
+doYouHaveASEEDNumber.heading = A oes gennych rif System ar gyfer Cyfnewid Data Ecséis (SEED)?
+doYouHaveASEEDNumber.option1 = WELSH NEEDED HERE
+doYouHaveASEEDNumber.option2 = WELSH NEEDED HERE
+doYouHaveASEEDNumber.checkYourAnswersLabel = WELSH NEEDED HERE
+doYouHaveASEEDNumber.error.required = Dewis iawn neu na

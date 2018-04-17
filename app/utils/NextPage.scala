@@ -18,7 +18,7 @@ package utils
 
 import controllers.other.oil.routes
 import identifiers._
-import models.OtherTaxes
+import models.{DoYouHaveASEEDNumber, OtherTaxes}
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils, SelectAnOilService}
 import models.wrongcredentials.FindingYourAccount
@@ -30,6 +30,17 @@ trait NextPage[A, B] {
 
 
 object NextPage {
+
+  implicit val doYouHaveASEEDNumber: NextPage[DoYouHaveASEEDNumberId.type,
+    DoYouHaveASEEDNumber] = {
+    new NextPage[DoYouHaveASEEDNumberId.type, DoYouHaveASEEDNumber] {
+      override def get(b: DoYouHaveASEEDNumber)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case models.DoYouHaveASEEDNumber.Yes => Call("GET", urlHelper.registerForTaxUrl(Enrolments.ExciseMovementControlSystem))
+          case models.DoYouHaveASEEDNumber.No => controllers.routes.RegisterExciseMovementControlSystemController.onPageLoad()
+        }
+     }
+  }
 
   implicit val otherTaxes: NextPage[OtherTaxesId.type,
     OtherTaxes] = {

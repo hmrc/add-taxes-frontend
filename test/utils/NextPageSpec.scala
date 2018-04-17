@@ -17,7 +17,7 @@
 package utils
 
 import base.SpecBase
-import models.OtherTaxes
+import models.{DoYouHaveASEEDNumber, OtherTaxes}
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
 import models.wrongcredentials.FindingYourAccount
@@ -127,5 +127,19 @@ class NextPageSpec extends SpecBase {
 
     behave like nextPage(NextPage.findingYourAccount, FindingYourAccount.DontKnowIdOrPassword,
       governmentGatewayUrlGenerator("UserIdAndPassword"))
+  }
+
+  "DoYouHaveSEEDNumber" when {
+    behave like nextPage(
+      NextPage.doYouHaveASEEDNumber,
+      DoYouHaveASEEDNumber.No,
+      "/business-account/add-tax/other/import-export/emcs/register"
+    )
+
+    behave like nextPage(
+      NextPage.doYouHaveASEEDNumber,
+      DoYouHaveASEEDNumber.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-EMCS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
   }
 }

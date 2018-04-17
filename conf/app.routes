@@ -32,3 +32,6 @@ GET        /wrong-credentials/finding-your-account      controllers.wrongcredent
 POST       /wrong-credentials/finding-your-account      controllers.wrongcredentials.FindingYourAccountController.onSubmit()
 
 GET        /other/import-export/emcs/register           controllers.RegisterExciseMovementControlSystemController.onPageLoad()
+
+GET        /other/import-export/emcs                    controllers.DoYouHaveASEEDNumberController.onPageLoad()
+POST       /other/import-export/emcs                    controllers.DoYouHaveASEEDNumberController.onSubmit()
