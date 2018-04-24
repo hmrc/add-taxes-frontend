@@ -6,6 +6,7 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
+import controllers._
 import play.api.test.Helpers._
 import forms.$package$.$className$FormProvider
 import identifiers.$className$Id

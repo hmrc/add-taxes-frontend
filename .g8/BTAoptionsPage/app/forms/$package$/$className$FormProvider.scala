@@ -2,6 +2,7 @@ package forms.$package$
 
 import javax.inject.Inject
 
+import forms.FormErrorHelper
 import forms.mappings.Mappings
 import play.api.data.Form
 import models.$package$.$className$
