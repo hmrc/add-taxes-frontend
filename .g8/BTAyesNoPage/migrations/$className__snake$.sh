@@ -35,12 +35,12 @@ awk '/object/ {\
      print;\
      print "";\
      print "  implicit val $className;format="decap"$: NextPage[$className$Id.type,";\
-     print "    $className$] = {";\
-     print "    new NextPage[$className$Id.type, $className$] {";\
-     print "      override def get(b: $className$)(implicit urlHelper: UrlHelper): Call =";\
+     print "    $package$.$className$] = {";\
+     print "    new NextPage[$className$Id.type, $package$.$className$] {";\
+     print "      override def get(b: $package$.$className$)(implicit urlHelper: UrlHelper): Call =";\
      print "        b match {";\
-     print "          case models.$className$.Yes => ???";\
-     print "          case models.$className$.No => ???";\
+     print "          case models.$package$.$className$.Yes => ???";\
+     print "          case models.$package$.$className$.No => ???";\
      print "        }";\
      print "     }";\
      print "  }";\
