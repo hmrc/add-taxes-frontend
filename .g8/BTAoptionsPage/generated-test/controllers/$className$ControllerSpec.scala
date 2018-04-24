@@ -60,12 +60,14 @@ class $className$ControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    "redirect to next page when valid data is submitted and no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ($className$.options.head.value)))
-      val result = controller(dontGetAnyData).onSubmit()(postRequest)
+    for(option <- $className$.options) {
+      s"redirect to next page when ${option.value} is submitted and no existing data is found" in {
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val result = controller(dontGetAnyData).onSubmit()(postRequest)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(onwardRoute.url)
+      }
     }
   }
 }

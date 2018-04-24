@@ -24,7 +24,7 @@
             legendClass = Some("visually-hidden"),
             inputs = $className$.options.toSeq,
             trackGa = true,
-            gaEvent = "$className$"
+            gaEvent = "$gaEventPrefix$"
         )
 
         @components.submit_button()
