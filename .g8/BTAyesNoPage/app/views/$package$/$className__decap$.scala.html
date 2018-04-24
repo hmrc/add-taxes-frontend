@@ -1,0 +1,32 @@
+@import config.FrontendAppConfig
+@import uk.gov.hmrc.play.views.html._
+@import controllers.routes._
+@import models.$package$.$className$
+
+
+@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    title = messages("$className;format="decap"$.title"),
+    appConfig = appConfig,
+    bodyClasses = None,
+    serviceInfoContent = serviceInfoContent) {
+
+    @helpers.form(action = $className$Controller.onSubmit(), 'autoComplete -> "off") {
+
+        @components.error_summary(form.errors)
+
+        @components.heading("$className;format="decap"$.heading")
+
+        @components.input_radio(
+            field = form("value"),
+            legend = messages("$className;format="decap"$.heading"),
+            legendClass = Some("visually-hidden"),
+            inputs = $className$.options.toSeq,
+            trackGa = true,
+            gaEvent = "$gaEventPrefix$"
+        )
+
+        @components.submit_button()
+    }
+}
