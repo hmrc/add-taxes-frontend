@@ -16,7 +16,7 @@ import views.html.$package$.$className;format="decap"$
 
 class $className$ControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controller.routes.IndexController.onPageLoad()
+  def onwardRoute = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new $className$FormProvider()
   val form = formProvider()
