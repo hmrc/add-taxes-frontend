@@ -8,7 +8,6 @@ import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import play.api.test.Helpers._
 import forms.other.oil.reverb.MyNewPageFormProvider
-import identifiers.MyNewPageId
 import models.other.oil.reverb.MyNewPage
 import play.twirl.api.HtmlFormat
 import views.html.myNewPage
