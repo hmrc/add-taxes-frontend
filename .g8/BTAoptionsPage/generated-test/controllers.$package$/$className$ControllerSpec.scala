@@ -1,4 +1,4 @@
-package controllers
+package controllers.$package$
 
 import play.api.data.Form
 import play.api.libs.json.JsString
@@ -7,9 +7,9 @@ import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import play.api.test.Helpers._
-import forms.$className$FormProvider
+import forms.$package$.$className$FormProvider
 import identifiers.$className$Id
-import models.$className$
+import models.$package$.$className$
 import play.twirl.api.HtmlFormat
 import views.html.$className;format="decap"$
 

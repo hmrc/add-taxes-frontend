@@ -1,4 +1,4 @@
-package models
+package models.$package$
 
 import utils.{Enumerable, RadioOption, WithName}
 
