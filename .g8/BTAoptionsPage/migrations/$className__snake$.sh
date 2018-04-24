@@ -28,7 +28,7 @@ echo "$className;format="decap"$.title = $welshPageTitle$" >> ../conf/messages.c
 echo "$className;format="decap"$.heading = $welshPageHeading$" >> ../conf/messages.cy
 echo "$className;format="decap"$.option1 = WELSH NEEDED HERE" >> ../conf/messages.cy
 echo "$className;format="decap"$.option2 = WELSH NEEDED HERE" >> ../conf/messages.cy
-echo "$className;format="decap"$.error.required = $$"welshErrorMessage >> ../conf/messages.cy
+echo "$className;format="decap"$.error.required = $welshErrorMessage$" >> ../conf/messages.cy
 
 echo "Adding navigation default to NextPage Object"
 awk '/object/ {\
