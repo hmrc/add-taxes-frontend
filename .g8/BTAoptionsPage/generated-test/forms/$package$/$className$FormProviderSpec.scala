@@ -1,6 +1,7 @@
 package forms.$package$
 
 import forms.behaviours.FormBehaviours
+import models._
 import models.$package$._
 
 class $className$FormProviderSpec extends FormBehaviours {
