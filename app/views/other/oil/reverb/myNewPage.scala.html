@@ -1,0 +1,32 @@
+@import config.FrontendAppConfig
+@import uk.gov.hmrc.play.views.html._
+@import controllers.routes._
+@import models.other.oil.reverb.MyNewPage
+
+
+@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    title = messages("myNewPage.title"),
+    appConfig = appConfig,
+    bodyClasses = None,
+    serviceInfoContent = serviceInfoContent) {
+
+    @helpers.form(action = MyNewPageController.onSubmit(), 'autoComplete -> "off") {
+
+        @components.error_summary(form.errors)
+
+        @components.heading("myNewPage.heading")
+
+        @components.input_radio(
+            field = form("value"),
+            legend = messages("myNewPage.heading"),
+            legendClass = Some("visually-hidden"),
+            inputs = MyNewPage.options.toSeq,
+            trackGa = true,
+            gaEvent = "GaEvent"
+        )
+
+        @components.submit_button()
+    }
+}
