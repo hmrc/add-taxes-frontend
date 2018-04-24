@@ -12,7 +12,7 @@ import forms.$package$.$className$FormProvider
 import identifiers.$className$Id
 import models.$package$.$className$
 import play.twirl.api.HtmlFormat
-import views.html.$className;format="decap"$
+import views.html.$package$.$className;format="decap"$
 
 class $className$ControllerSpec extends ControllerSpecBase {
 
