@@ -18,7 +18,8 @@ package utils
 
 import controllers.other.oil.routes
 import identifiers._
-import models.{EconomicOperatorsRegistrationAndIdentification, OtherTaxes}
+import models.other.importexports.ics.EORI
+import models.OtherTaxes
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils, SelectAnOilService}
 import models.wrongcredentials.FindingYourAccount
@@ -37,13 +38,13 @@ object NextPage {
     }
   }
 
-  implicit val economicOperatorsRegistrationAndIdentification: NextPage[EconomicOperatorsRegistrationAndIdentificationId.type,
-    EconomicOperatorsRegistrationAndIdentification] = {
-    new NextPage[EconomicOperatorsRegistrationAndIdentificationId.type, EconomicOperatorsRegistrationAndIdentification] {
-      override def get(b: EconomicOperatorsRegistrationAndIdentification)(implicit urlHelper: UrlHelper): Call =
+  implicit val economicOperatorsRegistrationAndIdentification: NextPage[EORIId.type,
+    EORI] = {
+    new NextPage[EORIId.type, EORI] {
+      override def get(b: EORI)(implicit urlHelper: UrlHelper): Call =
         b match {
-          case models.EconomicOperatorsRegistrationAndIdentification.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.EconomicOperatorsRegistration))
-          case models.EconomicOperatorsRegistrationAndIdentification.No => controllers.routes.RegisterEORIController.onPageLoad()
+          case EORI.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.EconomicOperatorsRegistration))
+          case EORI.No => controllers.other.importexports.ics.routes.RegisterEORIController.onPageLoad()
         }
      }
   }

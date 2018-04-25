@@ -16,8 +16,8 @@
 
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
-@import controllers.routes._
-@import models.EconomicOperatorsRegistrationAndIdentification
+@import controllers.other.importexports.ics.routes._
+@import models.other.importexports.ics.EORI
 
 
 @(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
@@ -28,7 +28,7 @@
     bodyClasses = None,
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = EconomicOperatorsRegistrationAndIdentificationController.onSubmit(), 'autoComplete -> "off") {
+    @helpers.form(action = EORIController.onSubmit(), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
@@ -38,9 +38,9 @@
             field = form("value"),
             legend = messages("economicOperatorsRegistrationAndIdentification.heading"),
             legendClass = Some("visually-hidden"),
-            inputs = EconomicOperatorsRegistrationAndIdentification.options.toSeq,
+            inputs = EORI.options.toSeq,
             trackGa = true,
-            gaEvent = "EconomicOperatorsRegistrationAndIdentification"
+            gaEvent = "AddICSTax"
         )
 
         @components.submit_button()

@@ -16,24 +16,24 @@
 
 package views
 
+import forms.other.importexports.ics.EORIFormProvider
 import play.api.data.Form
-import forms.EconomicOperatorsRegistrationAndIdentificationFormProvider
-import models.EconomicOperatorsRegistrationAndIdentification
+import models.other.importexports.ics.EORI
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.economicOperatorsRegistrationAndIdentification
+import views.html.other.importexports.ics.eori
 
-class EconomicOperatorsRegistrationAndIdentificationViewSpec extends ViewBehaviours {
+class EORIViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "economicOperatorsRegistrationAndIdentification"
 
-  val form = new EconomicOperatorsRegistrationAndIdentificationFormProvider()()
+  val form = new EORIFormProvider()()
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => economicOperatorsRegistrationAndIdentification(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView = () => eori(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => economicOperatorsRegistrationAndIdentification(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => eori(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "EconomicOperatorsRegistrationAndIdentification view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -43,19 +43,19 @@ class EconomicOperatorsRegistrationAndIdentificationViewSpec extends ViewBehavio
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- EconomicOperatorsRegistrationAndIdentification.options) {
+        for (option <- EORI.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
       }
     }
 
-    for(option <- EconomicOperatorsRegistrationAndIdentification.options) {
+    for(option <- EORI.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- EconomicOperatorsRegistrationAndIdentification.options.filterNot(o => o == option)) {
+          for(unselectedOption <- EORI.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

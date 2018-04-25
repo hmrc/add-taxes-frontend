@@ -14,17 +14,21 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.other.importexports.ics
 
 import controllers.actions._
+import controllers.ControllerSpecBase
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
-import views.html.registerEORI
+import views.html.other.importexports.ics.registerEORI
+import controllers.routes._
+
+
 
 class RegisterEORIControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute = IndexController.onPageLoad()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new RegisterEORIController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction, new FakeNavigator(desiredRoute = onwardRoute))

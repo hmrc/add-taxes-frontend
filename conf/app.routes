@@ -31,7 +31,7 @@ GET        /other/oil/rebated/register                  controllers.other.oil.Re
 GET        /wrong-credentials/finding-your-account      controllers.wrongcredentials.FindingYourAccountController.onPageLoad()
 POST       /wrong-credentials/finding-your-account      controllers.wrongcredentials.FindingYourAccountController.onSubmit()
 
-GET        /economic-operators-registration-and-identification   controllers.EconomicOperatorsRegistrationAndIdentificationController.onPageLoad()
-POST       /economic-operators-registration-and-identification   controllers.EconomicOperatorsRegistrationAndIdentificationController.onSubmit()
+GET        /other/import-export/ics                     controllers.other.importexports.ics.EORIController.onPageLoad()
+POST       /other/import-export/ics                     controllers.other.importexports.ics.EORIController.onSubmit()
 
-GET        /other/import-export/ics/register             controllers.RegisterEORIController.onPageLoad()
+GET        /other/import-export/ics/register            controllers.other.importexports.ics.RegisterEORIController.onPageLoad()

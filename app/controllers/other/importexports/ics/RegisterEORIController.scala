@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.other.importexports.ics
 
 import javax.inject.Inject
 
+import config.FrontendAppConfig
+import controllers.actions._
+import identifiers.RegisterEORIId
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import controllers.actions._
-import config.FrontendAppConfig
-import identifiers.RegisterEORIId
-import utils.{Navigator, NextPage}
-import views.html.registerEORI
+import utils.Navigator
+import views.html.other.importexports.ics.registerEORI
+
 
 class RegisterEORIController @Inject()(appConfig: FrontendAppConfig,
                                           override val messagesApi: MessagesApi,

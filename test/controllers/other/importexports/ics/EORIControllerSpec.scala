@@ -14,33 +14,34 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.other.importexports.ics
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
+import controllers.ControllerSpecBase
+import models.other.importexports.ics.EORI
+import play.api.data.Form
 import play.api.test.Helpers._
-import forms.EconomicOperatorsRegistrationAndIdentificationFormProvider
-import identifiers.EconomicOperatorsRegistrationAndIdentificationId
-import models.EconomicOperatorsRegistrationAndIdentification
 import play.twirl.api.HtmlFormat
-import views.html.economicOperatorsRegistrationAndIdentification
+import utils.FakeNavigator
+import views.html.other.importexports.ics.eori
+import controllers.routes._
+import forms.other.importexports.ics.EORIFormProvider
 
-class EconomicOperatorsRegistrationAndIdentificationControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
 
-  val formProvider = new EconomicOperatorsRegistrationAndIdentificationFormProvider()
+class EORIControllerSpec extends ControllerSpecBase {
+
+  def onwardRoute = IndexController.onPageLoad()
+
+  val formProvider = new EORIFormProvider()
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new EconomicOperatorsRegistrationAndIdentificationController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
+    new EORIController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
       FakeServiceInfoAction, formProvider)
 
-  def viewAsString(form: Form[_] = form) = economicOperatorsRegistrationAndIdentification(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = eori(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "EconomicOperatorsRegistrationAndIdentification Controller" must {
 
@@ -52,7 +53,7 @@ class EconomicOperatorsRegistrationAndIdentificationControllerSpec extends Contr
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", EconomicOperatorsRegistrationAndIdentification.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", EORI.options.head.value))
 
       val result = controller().onSubmit()(postRequest)
 
@@ -77,7 +78,7 @@ class EconomicOperatorsRegistrationAndIdentificationControllerSpec extends Contr
     }
 
     "redirect to next page when valid data is submitted and no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (EconomicOperatorsRegistrationAndIdentification.options.head.value)))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (EORI.options.head.value)))
       val result = controller(dontGetAnyData).onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER

@@ -4,7 +4,7 @@ echo "Applying migration RegisterEORI"
 
 echo "Adding routes to conf/app.routes"
 echo "" >> ../conf/app.routes
-echo "GET        /registerEORI                       controllers.RegisterEORIController.onPageLoad()" >> ../conf/app.routes
+echo "GET        /registerEORI                       controllers.other.importexports.ics.RegisterEORIController.onPageLoad()" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages (English)"
 echo "" >> ../conf/messages.en

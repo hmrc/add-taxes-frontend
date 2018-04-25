@@ -14,18 +14,26 @@
  * limitations under the License.
  */
 
-package forms
+package models.other.importexports.ics
 
-import javax.inject.Inject
+import utils.{Enumerable, RadioOption, WithName}
 
-import forms.mappings.Mappings
-import play.api.data.Form
-import models.EconomicOperatorsRegistrationAndIdentification
+sealed trait EORI
 
-class EconomicOperatorsRegistrationAndIdentificationFormProvider @Inject() extends FormErrorHelper with Mappings {
+object EORI {
 
-  def apply(): Form[EconomicOperatorsRegistrationAndIdentification] =
-    Form(
-      "value" -> enumerable[EconomicOperatorsRegistrationAndIdentification]("economicOperatorsRegistrationAndIdentification.error.required")
-    )
+  case object Yes extends WithName("Yes") with EORI
+  case object No extends WithName("No") with EORI
+
+  val values: Set[EORI] = Set(
+    Yes, No
+  )
+
+  val options: Set[RadioOption] = values.map {
+    value =>
+      RadioOption("economicOperatorsRegistrationAndIdentification", value.toString)
+  }
+
+  implicit val enumerable: Enumerable[EORI] =
+    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }

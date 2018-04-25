@@ -14,47 +14,46 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.other.importexports.ics
 
 import javax.inject.Inject
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
+import forms.other.importexports.ics.EORIFormProvider
+import identifiers.EORIId
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-
-import forms.EconomicOperatorsRegistrationAndIdentificationFormProvider
-import identifiers.EconomicOperatorsRegistrationAndIdentificationId
-import views.html.economicOperatorsRegistrationAndIdentification
+import views.html.other.importexports.ics.eori
 
 import scala.concurrent.Future
 
-class EconomicOperatorsRegistrationAndIdentificationController @Inject()(
+class EORIController @Inject()(
                                         appConfig: FrontendAppConfig,
                                         override val messagesApi: MessagesApi,
                                         dataCacheConnector: DataCacheConnector,
                                         navigator: Navigator,
                                         authenticate: AuthAction,
                                         serviceInfoData: ServiceInfoAction,
-                                        formProvider: EconomicOperatorsRegistrationAndIdentificationFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+                                        formProvider: EORIFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
 
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) {
     implicit request =>
-      Ok(economicOperatorsRegistrationAndIdentification(appConfig, form)(request.serviceInfoContent))
+      Ok(eori(appConfig, form)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(economicOperatorsRegistrationAndIdentification(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(eori(appConfig, formWithErrors)(request.serviceInfoContent))),
         (value) =>
-          Future.successful(Redirect(navigator.nextPage(EconomicOperatorsRegistrationAndIdentificationId, value)))
+          Future.successful(Redirect(navigator.nextPage(EORIId, value)))
       )
   }
 }

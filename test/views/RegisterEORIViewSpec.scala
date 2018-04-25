@@ -18,7 +18,8 @@ package views
 
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.registerEORI
+import views.html.other.importexports.ics.registerEORI
+
 
 class RegisterEORIViewSpec extends ViewBehaviours {
 

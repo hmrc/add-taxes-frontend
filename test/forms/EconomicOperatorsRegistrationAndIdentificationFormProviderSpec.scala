@@ -17,25 +17,27 @@
 package forms
 
 import forms.behaviours.FormBehaviours
+import forms.other.importexports.ics.EORIFormProvider
 import models._
+import models.other.importexports.ics.EORI
 
 class EconomicOperatorsRegistrationAndIdentificationFormProviderSpec extends FormBehaviours {
 
   val validData: Map[String, String] = Map(
-    "value" -> EconomicOperatorsRegistrationAndIdentification.options.head.value
+    "value" -> EORI.options.head.value
   )
 
-  val form = new EconomicOperatorsRegistrationAndIdentificationFormProvider()()
+  val form = new EORIFormProvider()()
 
   "EconomicOperatorsRegistrationAndIdentification form" must {
 
-    behave like questionForm[EconomicOperatorsRegistrationAndIdentification](EconomicOperatorsRegistrationAndIdentification.values.head)
+    behave like questionForm[EORI](EORI.values.head)
 
     behave like formWithOptionField(
       Field(
         "value",
         Required -> "economicOperatorsRegistrationAndIdentification.error.required",
         Invalid -> "error.invalid"),
-      EconomicOperatorsRegistrationAndIdentification.options.toSeq.map(_.value): _*)
+      EORI.options.toSeq.map(_.value): _*)
   }
 }

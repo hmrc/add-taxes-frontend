@@ -14,8 +14,19 @@
  * limitations under the License.
  */
 
-package identifiers
+package forms.other.importexports.ics
 
-case object EconomicOperatorsRegistrationAndIdentificationId extends Identifier {
-  override def toString: String = "economicOperatorsRegistrationAndIdentification"
+import javax.inject.Inject
+
+import forms.FormErrorHelper
+import forms.mappings.Mappings
+import models.other.importexports.ics.EORI
+import play.api.data.Form
+
+class EORIFormProvider @Inject() extends FormErrorHelper with Mappings {
+
+  def apply(): Form[EORI] =
+    Form(
+      "value" -> enumerable[EORI]("economicOperatorsRegistrationAndIdentification.error.required")
+    )
 }

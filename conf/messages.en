@@ -146,8 +146,8 @@ organisationOnly.notNow = I don’t want to do this right now
 #######################################################
 economicOperatorsRegistrationAndIdentification.title = Do you have an Economic Operators Registration and Identification (EORI) number?
 economicOperatorsRegistrationAndIdentification.heading = Do you have an Economic Operators Registration and Identification (EORI) number?
-economicOperatorsRegistrationAndIdentification.yes = Yes - I have an EORI number
-economicOperatorsRegistrationAndIdentification.no = No - I don’t have an EORI number
+economicOperatorsRegistrationAndIdentification.Yes = Yes - I have an EORI number
+economicOperatorsRegistrationAndIdentification.No = No - I don’t have an EORI number
 economicOperatorsRegistrationAndIdentification.error.required = Select yes or no
 
 #######################################################

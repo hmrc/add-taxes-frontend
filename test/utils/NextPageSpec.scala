@@ -18,7 +18,8 @@ package utils
 
 import base.SpecBase
 import identifiers.RegisterEORIId
-import models.{EconomicOperatorsRegistrationAndIdentification, OtherTaxes}
+import models.OtherTaxes
+import models.other.importexports.ics.EORI
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
 import models.wrongcredentials.FindingYourAccount
@@ -133,13 +134,13 @@ class NextPageSpec extends SpecBase {
   "EconomicOperatorsRegistrationAndIdentification" when {
     behave like nextPage(
       NextPage.economicOperatorsRegistrationAndIdentification,
-      EconomicOperatorsRegistrationAndIdentification.Yes,
+      EORI.Yes,
       "http://localhost:9555/enrolment-management-frontend/HMRC-ICS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
 
     behave like nextPage(
       NextPage.economicOperatorsRegistrationAndIdentification,
-      EconomicOperatorsRegistrationAndIdentification.No,
+      EORI.No,
       "/business-account/add-tax/other/import-export/ics/register"
     )
   }
