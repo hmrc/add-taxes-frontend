@@ -1,0 +1,16 @@
+@import config.FrontendAppConfig
+
+@(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    title = messages("$className;format="decap"$.title"),
+    appConfig = appConfig,
+    bodyClasses = None,
+    serviceInfoContent = serviceInfoContent) {
+
+    @components.heading("$className;format="decap"$.heading")
+
+    <a href='#' class="button" data-journey-click="$gaEventPrefix$:Click:Continue">
+        @messages("$className;format="decap"$.continue")
+    </a>
+}

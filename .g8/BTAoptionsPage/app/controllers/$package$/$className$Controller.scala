@@ -1,4 +1,4 @@
-package controllers
+package controllers.$package$
 
 import javax.inject.Inject
 
@@ -10,9 +10,9 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 
-import forms.$className$FormProvider
+import forms.$package$.$className$FormProvider
 import identifiers.$className$Id
-import views.html.$className;format="decap"$
+import views.html.$package$.$className;format="decap"$
 
 import scala.concurrent.Future
 

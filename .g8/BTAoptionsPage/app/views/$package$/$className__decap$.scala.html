@@ -1,7 +1,7 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
-@import controllers.routes._
-@import models.$className$
+@import controllers.$package$.routes._
+@import models.$package$.$className$
 
 
 @(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
@@ -24,7 +24,7 @@
             legendClass = Some("visually-hidden"),
             inputs = $className$.options.toSeq,
             trackGa = true,
-            gaEvent = "$className$"
+            gaEvent = "$gaEventPrefix$"
         )
 
         @components.submit_button()

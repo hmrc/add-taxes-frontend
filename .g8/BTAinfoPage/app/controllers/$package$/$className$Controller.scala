@@ -1,4 +1,4 @@
-package controllers
+package controllers.$package$
 
 import javax.inject.Inject
 
@@ -6,7 +6,7 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
-import views.html.$className;format="decap"$
+import views.html.$package$.$className;format="decap"$
 
 import scala.concurrent.Future
 
