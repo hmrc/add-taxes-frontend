@@ -1,4 +1,4 @@
-package controllers
+package controllers.$package$
 
 import controllers.actions._
 import play.api.test.Helpers._
