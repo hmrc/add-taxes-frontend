@@ -14,30 +14,29 @@
  * limitations under the License.
  */
 
-package forms
+package forms.other.importexports.emcs
 
 import forms.behaviours.FormBehaviours
-import forms.other.importexports.ics.EORIFormProvider
 import models._
-import models.other.importexports.ics.EORI
+import models.other.importexports.emcs.DoYouHaveASEEDNumber
 
-class EconomicOperatorsRegistrationAndIdentificationFormProviderSpec extends FormBehaviours {
+class DoYouHaveASEEDNumberFormProviderSpec extends FormBehaviours {
 
   val validData: Map[String, String] = Map(
-    "value" -> EORI.options.head.value
+    "value" -> DoYouHaveASEEDNumber.options.head.value
   )
 
-  val form = new EORIFormProvider()()
+  val form = new DoYouHaveASEEDNumberFormProvider()()
 
-  "EconomicOperatorsRegistrationAndIdentification form" must {
+  "DoYouHaveASEEDNumber form" must {
 
-    behave like questionForm[EORI](EORI.values.head)
+    behave like questionForm[DoYouHaveASEEDNumber](DoYouHaveASEEDNumber.values.head)
 
     behave like formWithOptionField(
       Field(
         "value",
-        Required -> "economicOperatorsRegistrationAndIdentification.error.required",
+        Required -> "doYouHaveASEEDNumber.error.required",
         Invalid -> "error.invalid"),
-      EORI.options.toSeq.map(_.value): _*)
+      DoYouHaveASEEDNumber.options.toSeq.map(_.value): _*)
   }
 }

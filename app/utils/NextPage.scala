@@ -19,6 +19,7 @@ package utils
 import controllers.other.oil.routes
 import identifiers._
 import models.other.importexports.ics.EORI
+import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.OtherTaxes
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils, SelectAnOilService}
@@ -32,10 +33,15 @@ trait NextPage[A, B] {
 
 object NextPage {
 
-  implicit val registerEORI: NextPage[RegisterEORIId.type, Unit] = {
-    new NextPage[RegisterEORIId.type, Unit] {
-      override def get(b: Unit)(implicit urlHelper: UrlHelper): Call = Call("GET", urlHelper.govUKUrl("eori"))
-    }
+  implicit val doYouHaveASEEDNumber: NextPage[DoYouHaveASEEDNumberId.type,
+    DoYouHaveASEEDNumber] = {
+    new NextPage[DoYouHaveASEEDNumberId.type, DoYouHaveASEEDNumber] {
+      override def get(b: DoYouHaveASEEDNumber)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case DoYouHaveASEEDNumber.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.ExciseMovementControlSystem))
+          case DoYouHaveASEEDNumber.No => controllers.other.importexports.emcs.routes.RegisterExciseMovementControlSystemController.onPageLoad()
+        }
+     }
   }
 
   implicit val economicOperatorsRegistrationAndIdentification: NextPage[EORIId.type,

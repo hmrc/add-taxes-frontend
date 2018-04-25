@@ -14,28 +14,24 @@
  * limitations under the License.
  */
 
-package controllers.other.importexports.ics
+package controllers.other.importexports.emcs
 
 import javax.inject.Inject
 
 import config.FrontendAppConfig
 import controllers.actions._
-import identifiers.RegisterEORIId
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.Navigator
-import views.html.other.importexports.ics.registerEORI
+import views.html.other.importexports.emcs.registerExciseMovementControlSystem
 
 
-class RegisterEORIController @Inject()(appConfig: FrontendAppConfig,
+class RegisterExciseMovementControlSystemController @Inject()(appConfig: FrontendAppConfig,
                                           override val messagesApi: MessagesApi,
                                           authenticate: AuthAction,
-                                          serviceInfo: ServiceInfoAction,
-                                          navigator: Navigator) extends FrontendController with I18nSupport {
+                                          serviceInfo: ServiceInfoAction ) extends FrontendController with I18nSupport {
 
   def onPageLoad = (authenticate andThen serviceInfo) {
     implicit request =>
-      Ok(registerEORI(appConfig)(request.serviceInfoContent))
+      Ok(registerExciseMovementControlSystem(appConfig)(request.serviceInfoContent))
   }
-
 }

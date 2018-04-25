@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package views
+package views.other.importexports.ics
 
 import forms.other.importexports.ics.EORIFormProvider
-import play.api.data.Form
 import models.other.importexports.ics.EORI
+import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.other.importexports.ics.eori

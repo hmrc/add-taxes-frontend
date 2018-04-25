@@ -14,28 +14,22 @@
  * limitations under the License.
  */
 
-package controllers.other.importexports.ics
+package controllers.other.importexports.emcs
 
-import controllers.actions._
 import controllers.ControllerSpecBase
+import controllers.actions._
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import utils.FakeNavigator
-import views.html.other.importexports.ics.registerEORI
-import controllers.routes._
+import views.html.other.importexports.emcs.registerExciseMovementControlSystem
 
-
-
-class RegisterEORIControllerSpec extends ControllerSpecBase {
-
-  def onwardRoute = IndexController.onPageLoad()
+class RegisterExciseMovementControlSystemControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new RegisterEORIController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction, new FakeNavigator(desiredRoute = onwardRoute))
+    new RegisterExciseMovementControlSystemController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
-  def viewAsString() = registerEORI(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString() = registerExciseMovementControlSystem(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  "RegisterEORI Controller" must {
+  "RegisterExciseMovementControlSystem Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(fakeRequest)
@@ -43,7 +37,6 @@ class RegisterEORIControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
-
   }
 }
 

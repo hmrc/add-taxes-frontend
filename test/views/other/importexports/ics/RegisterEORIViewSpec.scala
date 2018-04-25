@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package views
+package views.other.importexports.ics
 
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours

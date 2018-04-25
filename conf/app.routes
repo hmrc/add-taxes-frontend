@@ -31,7 +31,13 @@ GET        /other/oil/rebated/register                  controllers.other.oil.Re
 GET        /wrong-credentials/finding-your-account      controllers.wrongcredentials.FindingYourAccountController.onPageLoad()
 POST       /wrong-credentials/finding-your-account      controllers.wrongcredentials.FindingYourAccountController.onSubmit()
 
+GET        /other/import-export/emcs/register           controllers.other.importexports.emcs.RegisterExciseMovementControlSystemController.onPageLoad()
+
+GET        /other/import-export/emcs                    controllers.other.importexports.emcs.DoYouHaveASEEDNumberController.onPageLoad()
+POST       /other/import-export/emcs                    controllers.other.importexports.emcs.DoYouHaveASEEDNumberController.onSubmit()
+
 GET        /other/import-export/ics                     controllers.other.importexports.ics.EORIController.onPageLoad()
 POST       /other/import-export/ics                     controllers.other.importexports.ics.EORIController.onSubmit()
 
 GET        /other/import-export/ics/register            controllers.other.importexports.ics.RegisterEORIController.onPageLoad()
+
