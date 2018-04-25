@@ -15,8 +15,8 @@ echo "##  $className$" >> ../conf/messages.en
 echo "#######################################################" >> ../conf/messages.en
 echo "$className;format="decap"$.title = $pageTitle$" >> ../conf/messages.en
 echo "$className;format="decap"$.heading = $pageHeading$" >> ../conf/messages.en
-echo "$className;format="decap"$.option1 = $className;format="decap"$" Option 1 >> ../conf/messages.en
-echo "$className;format="decap"$.option2 = $className;format="decap"$" Option 2 >> ../conf/messages.en
+echo "$className;format="decap"$.Yes = $yesValue$" >> ../conf/messages.en
+echo "$className;format="decap"$.No = $noValue$" >> ../conf/messages.en
 echo "$className;format="decap"$.error.required = $errorMessage$" >> ../conf/messages.en
 
 echo "Adding messages to conf.messages (Welsh)"
@@ -26,8 +26,8 @@ echo "##  $className$" >> ../conf/messages.cy
 echo "#######################################################" >> ../conf/messages.cy
 echo "$className;format="decap"$.title = $welshPageTitle$" >> ../conf/messages.cy
 echo "$className;format="decap"$.heading = $welshPageHeading$" >> ../conf/messages.cy
-echo "$className;format="decap"$.option1 = WELSH NEEDED HERE" >> ../conf/messages.cy
-echo "$className;format="decap"$.option2 = WELSH NEEDED HERE" >> ../conf/messages.cy
+echo "$className;format="decap"$.Yes = $welshYesValue$" >> ../conf/messages.cy
+echo "$className;format="decap"$.No = $welshNoValue$" >> ../conf/messages.cy
 echo "$className;format="decap"$.error.required = $welshErrorMessage$" >> ../conf/messages.cy
 
 echo "Adding navigation default to NextPage Object"
@@ -39,8 +39,8 @@ awk '/object/ {\
      print "    new NextPage[$className$Id.type, models.$package$.$className$] {";\
      print "      override def get(b: models.$package$.$className$)(implicit urlHelper: UrlHelper): Call =";\
      print "        b match {";\
-     print "          case models.$package$.$className$.Option1 => ???";\
-     print "          case models.$package$.$className$.Option2 => ???";\
+     print "          case models.$package$.$className$.Yes => ???";\
+     print "          case models.$package$.$className$.No => ???";\
      print "        }";\
      print "     }";\
      print "  }";\

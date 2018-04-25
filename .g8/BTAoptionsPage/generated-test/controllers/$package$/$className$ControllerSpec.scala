@@ -1,4 +1,4 @@
-package controllers
+package controllers.$package$
 
 import play.api.data.Form
 import play.api.libs.json.JsString
@@ -6,16 +6,17 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
+import controllers._
 import play.api.test.Helpers._
-import forms.$className$FormProvider
+import forms.$package$.$className$FormProvider
 import identifiers.$className$Id
-import models.$className$
+import models.$package$.$className$
 import play.twirl.api.HtmlFormat
-import views.html.$className;format="decap"$
+import views.html.$package$.$className;format="decap"$
 
 class $className$ControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new $className$FormProvider()
   val form = formProvider()
@@ -60,12 +61,14 @@ class $className$ControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    "redirect to next page when valid data is submitted and no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ($className$.options.head.value)))
-      val result = controller(dontGetAnyData).onSubmit()(postRequest)
+    for(option <- $className$.options) {
+      s"redirect to next page when '\${option.value}' is submitted and no existing data is found" in {
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val result = controller(dontGetAnyData).onSubmit()(postRequest)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(onwardRoute.url)
+      }
     }
   }
 }

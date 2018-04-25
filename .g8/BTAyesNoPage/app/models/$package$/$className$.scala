@@ -1,4 +1,4 @@
-package models
+package models.$package$
 
 import utils.{Enumerable, RadioOption, WithName}
 
@@ -6,11 +6,11 @@ sealed trait $className$
 
 object $className$ {
 
-  case object Option1 extends WithName("option1") with $className$
-  case object Option2 extends WithName("option2") with $className$
+  case object Yes extends WithName("Yes") with $className$
+  case object No extends WithName("No") with $className$
 
   val values: Set[$className$] = Set(
-    Option1, Option2
+    Yes, No
   )
 
   val options: Set[RadioOption] = values.map {

@@ -1,11 +1,11 @@
-package views
+package views.$package$
 
 import play.api.data.Form
-import forms.$className$FormProvider
-import models.$className$
+import forms.$package$.$className$FormProvider
+import models.$package$.$className$
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.$className;format="decap"$
+import views.html.$package$.$className;format="decap"$
 
 class $className$ViewSpec extends ViewBehaviours {
 
