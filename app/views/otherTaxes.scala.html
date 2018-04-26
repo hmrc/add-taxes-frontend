@@ -26,7 +26,7 @@
 @main_template(
     title = messages("otherTaxes.title"),
     appConfig = appConfig,
-    bodyClasses = None,
+    form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
     @helpers.form(action = OtherTaxesController.onSubmit(), 'autoComplete -> "off") {

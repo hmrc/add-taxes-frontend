@@ -26,7 +26,7 @@
 @main_template(
     title = messages("haveYouRegisteredForRebatedOils.title"),
     appConfig = appConfig,
-    bodyClasses = None,
+    form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
     @helpers.form(action = HaveYouRegisteredForRebatedOilsController.onSubmit(), 'autoComplete -> "off") {

@@ -26,7 +26,7 @@
 @main_template(
     title = messages("selectAnOilService.title"),
     appConfig = appConfig,
-    bodyClasses = None,
+    form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
     @helpers.form(action = SelectAnOilServiceController.onSubmit(), 'autoComplete -> "off") {
