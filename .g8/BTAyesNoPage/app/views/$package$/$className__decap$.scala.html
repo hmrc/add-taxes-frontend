@@ -16,11 +16,9 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("$className;format="decap"$.heading")
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("$className;format="decap"$.heading"),
+            legend = components.heading("$className;format="decap"$.heading").body,
             legendClass = Some("visually-hidden"),
             inputs = $className$.options.toSeq,
             trackGa = true,
