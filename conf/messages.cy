@@ -23,7 +23,7 @@ error.number = Please enter a valid number
 error.required = Please enter a value
 error.summary.title = Mae problem wedi codi
 error.summary.text = Check the following
-error.browser.title = Error: {0}
+error.browser.title = Gwall: {0}
 
 index.title = add-taxes-frontend
 index.heading = add-taxes-frontend
