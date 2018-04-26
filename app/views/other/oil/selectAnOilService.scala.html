@@ -33,11 +33,9 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("selectAnOilService.heading")
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("selectAnOilService.heading"),
+            legend = components.heading("selectAnOilService.heading").body,
             legendClass = Some("visually-hidden"),
             inputs = options,
             trackGa = true,
