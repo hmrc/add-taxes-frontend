@@ -19,7 +19,6 @@
         @components.input_radio(
             field = form("value"),
             legend = components.heading("$className;format="decap"$.heading").body,
-            legendClass = Some("visually-hidden"),
             inputs = $className$.options.toSeq,
             trackGa = true,
             gaEvent = "$gaEventPrefix$"
