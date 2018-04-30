@@ -10,7 +10,11 @@
 
     @components.heading("$className;format="decap"$.heading")
 
-    <a href='#' class="button" data-journey-click="$gaEventPrefix$:Click:Continue">
+    <a id="continue"
+       href='#'
+       class="button"
+       data-journey-click="$gaEventPrefix$:Click:Continue">
+
         @messages("$className;format="decap"$.continue")
     </a>
 }
