@@ -29,6 +29,7 @@ class RegisterEORIViewSpec extends ViewBehaviours {
 
   "RegisterEORI view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
     "Render the correct content" in {
     val doc =  asDocument(createView()).text()
       doc must include("You need an Economic Operators Registration and Identification (EORI)" +

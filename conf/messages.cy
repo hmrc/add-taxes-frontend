@@ -162,3 +162,13 @@ registerEORI.heading = Dylech gael rhif EORI yn gyntaf
 registerEORI.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu System Rheoli Mewnforion (ICS) i’ch cyfrif.
 registerEORI.p2 = Dychwelwch i’ch cyfrif ac ychwanegu ICS unwaith bod eich rhif EORI wedi cyrraedd.
 registerEORI.continue = Mynd yn eich blaen - cael rhif EORI
+
+#######################################################
+##  RegisterDefermentApprovalNumber
+#######################################################
+registerDefermentApprovalNumber.title = Dylech gael Rhif Cymeradwyo Gohirio (DAN) yn gyntaf
+registerDefermentApprovalNumber.heading = Dylech gael Rhif Cymeradwyo Gohirio (DAN) yn gyntaf
+registerDefermentApprovalNumber.p1 = Mae angen i chi gael Rhif Cymeradwyo Gohirio (DAN) cyn y gallwch ychwanegu Datganiadau Electronig i Ohirio Tollau i’ch cyfrif.
+registerDefermentApprovalNumber.p2 = Dychwelwch i’ch cyfrif ac ychwanegu Datganiadau Electronig i Ohirio Tollau pan fydd eich Rhif Cymeradwyo Gohirio (DAN) yn cyrraedd.
+registerDefermentApprovalNumber.continue = Mynd yn eich blaen - cael DAN
+

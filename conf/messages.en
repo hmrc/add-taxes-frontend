@@ -178,3 +178,13 @@ registerEORI.heading = Get an EORI number first
 registerEORI.p1 = You need an Economic Operators Registration and Identification (EORI) to add Import Control System (ICS) to your account.
 registerEORI.p2 = Come back to your account and add ICS once your EORI number arrives.
 registerEORI.continue = Continue - get an EORI number
+
+#######################################################
+##  RegisterDefermentApprovalNumber
+#######################################################
+registerDefermentApprovalNumber.title = Get a Deferment Approval Number (DAN) first
+registerDefermentApprovalNumber.heading = Get a Deferment Approval Number (DAN) first
+registerDefermentApprovalNumber.p1 = You need to get a Deferment Approval Number (DAN) before you can add Duty Deferment Electronic Statements to your account.
+registerDefermentApprovalNumber.p2 = Come back to your account and add Duty Deferment Electronic Statements your Deferment Approval Number (DAN) arrives.
+registerDefermentApprovalNumber.continue = Continue - get a DAN
+

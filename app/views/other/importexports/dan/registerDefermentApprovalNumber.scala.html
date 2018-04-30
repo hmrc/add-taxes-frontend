@@ -19,16 +19,17 @@
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("registerEORI.title"),
+    title = messages("registerDefermentApprovalNumber.title"),
     appConfig = appConfig,
-    bodyClasses = None,
     serviceInfoContent = serviceInfoContent) {
 
-    @components.heading("registerEORI.heading")
-    <p>@messages("registerEORI.p1")</p>
-    <p>@messages("registerEORI.p2")</p>
+    @components.heading("registerDefermentApprovalNumber.heading")
 
-    <a id="register-for-ics" href='@appConfig.getGovUKUrl("eori")' class="button" data-journey-click="RegisterICS:Click:Continue">
-        @messages("registerEORI.continue")
+    <p>@messages("registerDefermentApprovalNumber.p1")</p>
+
+    <p>@messages("registerDefermentApprovalNumber.p2")</p>
+
+    <a id="register-for-ddes" href='@appConfig.getGovUKUrl("ddes")' class="button" data-journey-click="RegisterDDES:Click:Continue">
+        @messages("registerDefermentApprovalNumber.continue")
     </a>
 }
