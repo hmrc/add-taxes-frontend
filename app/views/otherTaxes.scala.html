@@ -26,19 +26,16 @@
 @main_template(
     title = messages("otherTaxes.title"),
     appConfig = appConfig,
-    bodyClasses = None,
+    form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
     @helpers.form(action = OtherTaxesController.onSubmit(), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("otherTaxes.heading")
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("otherTaxes.legend"),
-            legendClass = Some("visually-hidden"),
+            legend = components.heading("otherTaxes.heading").body,
             inputs = options,
             trackGa = true,
             gaEvent = "OtherTaxes"

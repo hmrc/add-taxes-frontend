@@ -9,19 +9,16 @@
 @main_template(
     title = messages("$className;format="decap"$.title"),
     appConfig = appConfig,
-    bodyClasses = None,
+    form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
     @helpers.form(action = $className$Controller.onSubmit(), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("$className;format="decap"$.heading")
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("$className;format="decap"$.heading"),
-            legendClass = Some("visually-hidden"),
+            legend = components.heading("$className;format="decap"$.heading").body,
             inputs = $className$.options.toSeq,
             trackGa = true,
             gaEvent = "$gaEventPrefix$"
