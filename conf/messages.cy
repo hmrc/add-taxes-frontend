@@ -172,3 +172,12 @@ registerDefermentApprovalNumber.p1 = Mae angen i chi gael Rhif Cymeradwyo Gohiri
 registerDefermentApprovalNumber.p2 = Dychwelwch i’ch cyfrif ac ychwanegu Datganiadau Electronig i Ohirio Tollau pan fydd eich Rhif Cymeradwyo Gohirio (DAN) yn cyrraedd.
 registerDefermentApprovalNumber.continue = Mynd yn eich blaen - cael DAN
 
+
+#######################################################
+##  DoYouHaveDAN
+#######################################################
+doYouHaveDAN.title = A oes gennych Rif Cymeradwyo Gohirio (DAN)?
+doYouHaveDAN.heading = A oes gennych Rif Cymeradwyo Gohirio (DAN)?
+doYouHaveDAN.Yes = Oes - mae gennyf Rif Cymeradwyo Gohirio
+doYouHaveDAN.No = Nac oes - nid oes gennyf DAN ar hyn o bryd
+doYouHaveDAN.error.required = Dewis iawn neu na

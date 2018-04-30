@@ -43,3 +43,6 @@ GET        /other/import-export/ics/register            controllers.other.import
 
 
 GET        /other/import-export/ddes/register           controllers.other.importexports.dan.RegisterDefermentApprovalNumberController.onPageLoad()
+
+GET        /other/import-export/ddes                  controllers.other.importexports.dan.DoYouHaveDANController.onPageLoad()
+POST       /other/import-export/ddes                  controllers.other.importexports.dan.DoYouHaveDANController.onSubmit()

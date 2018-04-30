@@ -188,3 +188,12 @@ registerDefermentApprovalNumber.p1 = You need to get a Deferment Approval Number
 registerDefermentApprovalNumber.p2 = Come back to your account and add Duty Deferment Electronic Statements your Deferment Approval Number (DAN) arrives.
 registerDefermentApprovalNumber.continue = Continue - get a DAN
 
+
+#######################################################
+##  DoYouHaveDAN
+#######################################################
+doYouHaveDAN.title = Do you have a Deferment Approval Number (DAN)?
+doYouHaveDAN.heading = Do you have a Deferment Approval Number (DAN)?
+doYouHaveDAN.Yes = Yes - I have a Deferment Approval Number
+doYouHaveDAN.No = No - I don’t have a DAN yet
+doYouHaveDAN.error.required = Select yes or no
