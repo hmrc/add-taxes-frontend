@@ -20,9 +20,9 @@ class $className$ViewSpec extends ViewBehaviours {
       assertLinkById(
         doc,
         "continue",
-        "$continueButton",
-        "#",
-        "$gaEventPrefix:Click:Continue")
+        "$continueButton$",
+        "???",
+        "$gaEventPrefix$:Click:Continue")
     }
   }
 }
