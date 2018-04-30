@@ -31,11 +31,20 @@ class RegisterEORIViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
-    val doc =  asDocument(createView()).text()
-      doc must include("You need an Economic Operators Registration and Identification (EORI)" +
+      val doc =  asDocument(createView())
+      val view = doc.text()
+
+      view must include("You need an Economic Operators Registration and Identification (EORI)" +
         " to add Import Control System (ICS) to your account.")
-      doc must include("Come back to your account and add ICS once your EORI number arrives.")
+
+      view must include("Come back to your account and add ICS once your EORI number arrives.")
+
+      assertLinkById(
+        doc,
+        "register-for-ics",
+        "Continue - get an EORI number",
+        "https://www.gov.uk/eori#how-to-get-an-eori-number",
+        "RegisterICS:Click:Continue")
     }
   }
-
 }
