@@ -125,3 +125,39 @@ otherTaxes.oilAndFuel = Olew a thanwydd
 otherTaxes.fulfilmentHouseDueDiligenceSchemeIntegration = Cynllun Diwydrwydd Dyladwy ar gyfer Busnesau Cyflawni
 otherTaxes.error.required = Dewis treth neu fath o gynllun
 otherTaxes.legend = Dewis treth neu fath o gynllun
+
+#######################################################
+##  RegisterExciseMovementControlSystem
+#######################################################
+registerExciseMovementControlSystem.title = Dylech gael ID SEED ecséis yn gyntaf
+registerExciseMovementControlSystem.heading = Dylech gael ID SEED ecséis yn gyntaf
+registerExciseMovementControlSystem.youNeedToRegister=Mae angen i chi gofrestru ar gyfer rhif ID SEED ecséis cyn y gallwch ychwanegu System Symudiadau a Rheolaeth Ecseis (EMCS) i’ch cyfrif.
+registerExciseMovementControlSystem.comeBackToYourAccount=Dychwelwch i’ch cyfrif ac ychwanegwch EMCS unwaith bod eich rhif SEED wedi cyrraedd.
+registerExciseMovementControlSystem.button=Mynd yn eich blaen - cael rhif SEED
+
+#######################################################
+##  DoYouHaveASEEDNumber
+#######################################################
+doYouHaveASEEDNumber.title = A oes gennych rif System ar gyfer Cyfnewid Data Ecséis (SEED)?
+doYouHaveASEEDNumber.heading = A oes gennych rif System ar gyfer Cyfnewid Data Ecséis (SEED)?
+doYouHaveASEEDNumber.Yes = Oes - mae gennyf rif SEED
+doYouHaveASEEDNumber.No = Nac oes - nid oes gennyf rif SEED
+doYouHaveASEEDNumber.error.required = Dewis iawn neu na
+
+#######################################################
+##  EconomicOperatorsRegistrationAndIdentification
+#######################################################
+economicOperatorsRegistrationAndIdentification.title = A oes gennych rif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI)?
+economicOperatorsRegistrationAndIdentification.heading = A oes gennych rif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI)?
+economicOperatorsRegistrationAndIdentification.Yes = Oes - mae gennyf rif EORI
+economicOperatorsRegistrationAndIdentification.No = Nac oes - nid oes gennyf rif EORI
+economicOperatorsRegistrationAndIdentification.error.required = Dewis iawn neu na
+
+#######################################################
+##  RegisterEORI
+#######################################################
+registerEORI.title = Dylech gael rhif EORI yn gyntaf
+registerEORI.heading = Dylech gael rhif EORI yn gyntaf
+registerEORI.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu System Rheoli Mewnforion (ICS) i’ch cyfrif.
+registerEORI.p2 = Dychwelwch i’ch cyfrif ac ychwanegu ICS unwaith bod eich rhif EORI wedi cyrraedd.
+registerEORI.continue = Mynd yn eich blaen - cael rhif EORI

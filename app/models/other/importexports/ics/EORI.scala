@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2018 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,8 +12,28 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(headingKey: String, headingSize: String = "heading-large")(implicit messages: Messages)
+package models.other.importexports.ics
 
-<h1 class="@headingSize">@messages(headingKey)</h1>
+import utils.{Enumerable, RadioOption, WithName}
+
+sealed trait EORI
+
+object EORI {
+
+  case object Yes extends WithName("Yes") with EORI
+  case object No extends WithName("No") with EORI
+
+  val values: Set[EORI] = Set(
+    Yes, No
+  )
+
+  val options: Set[RadioOption] = values.map {
+    value =>
+      RadioOption("economicOperatorsRegistrationAndIdentification", value.toString)
+  }
+
+  implicit val enumerable: Enumerable[EORI] =
+    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+}

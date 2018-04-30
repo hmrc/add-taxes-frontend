@@ -40,13 +40,17 @@ object Enrolments {
 
   case object RemoteGaming extends WithName("HMRC-GTS-RGD") with Enrolments
 
+  case object EconomicOperatorsRegistration extends WithName("HMRC-ICS-ORG") with Enrolments
+
   case object OtherBusinessTaxDutyScheme extends WithName("HMRC-OBTDS-ORG") with Enrolments {
     val FulfilmentHouseDueDiligenceSchemeIdentifier = "EtmpRegistrationNumber"
   }
 
+  case object ExciseMovementControlSystem extends WithName("HMRC-EMCS-ORG") with Enrolments
+
   val values: Set[Enrolments] = Set(
     RebatedOils, TiedOils, AlcoholAndTobaccoWarehousingDeclarations, AlcoholWholesalerRegistrationScheme,
     AlcoholWholesalerRegistrationScheme, AutomaticExchangeOfInformation, Charities, MachineGamingDuty, GeneralBetting,
-    PoolBetting, RemoteGaming, OtherBusinessTaxDutyScheme
+    PoolBetting, RemoteGaming, OtherBusinessTaxDutyScheme, EconomicOperatorsRegistration
   )
 }

@@ -18,6 +18,8 @@ package utils
 
 import controllers.other.oil.routes
 import identifiers._
+import models.other.importexports.ics.EORI
+import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.OtherTaxes
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils, SelectAnOilService}
@@ -30,6 +32,28 @@ trait NextPage[A, B] {
 
 
 object NextPage {
+
+  implicit val doYouHaveASEEDNumber: NextPage[DoYouHaveASEEDNumberId.type,
+    DoYouHaveASEEDNumber] = {
+    new NextPage[DoYouHaveASEEDNumberId.type, DoYouHaveASEEDNumber] {
+      override def get(b: DoYouHaveASEEDNumber)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case DoYouHaveASEEDNumber.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.ExciseMovementControlSystem))
+          case DoYouHaveASEEDNumber.No => controllers.other.importexports.emcs.routes.RegisterExciseMovementControlSystemController.onPageLoad()
+        }
+     }
+  }
+
+  implicit val economicOperatorsRegistrationAndIdentification: NextPage[EORIId.type,
+    EORI] = {
+    new NextPage[EORIId.type, EORI] {
+      override def get(b: EORI)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case EORI.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.EconomicOperatorsRegistration))
+          case EORI.No => controllers.other.importexports.ics.routes.RegisterEORIController.onPageLoad()
+        }
+     }
+  }
 
   implicit val otherTaxes: NextPage[OtherTaxesId.type,
     OtherTaxes] = {
@@ -74,7 +98,7 @@ object NextPage {
     new NextPage[HaveYouRegisteredForTiedOilsId.type, HaveYouRegisteredForTiedOils] {
       override def get(b: HaveYouRegisteredForTiedOils)(implicit urlHelper: UrlHelper): Call =
         b match {
-          case HaveYouRegisteredForTiedOils.Yes => Call("GET", urlHelper.registerForTaxUrl(Enrolments.TiedOils))
+          case HaveYouRegisteredForTiedOils.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.TiedOils))
           case HaveYouRegisteredForTiedOils.No => routes.RegisterTiedOilsController.onPageLoad()
         }
     }
@@ -85,7 +109,7 @@ object NextPage {
     new NextPage[HaveYouRegisteredForRebatedOilsId.type, HaveYouRegisteredForRebatedOils] {
       override def get(b: HaveYouRegisteredForRebatedOils)(implicit urlHelper: UrlHelper): Call =
         b match {
-          case HaveYouRegisteredForRebatedOils.Yes => Call("GET", urlHelper.registerForTaxUrl(Enrolments.RebatedOils))
+          case HaveYouRegisteredForRebatedOils.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.RebatedOils))
           case HaveYouRegisteredForRebatedOils.No => routes.RegisterRebatedOilsController.onPageLoad()
         }
     }

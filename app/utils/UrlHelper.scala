@@ -25,7 +25,7 @@ class UrlHelper @Inject()(val appConfig: FrontendAppConfig) {
   private val emacHost = appConfig.enrolmentManagementFrontendHost
   private val lostCredentialsHost = appConfig.governmentGatewayLostCredentialsFrontendHost
 
-  def registerForTaxUrl(enrolment: Enrolments): String = {
+  def emacEnrollmentsUrl(enrolment: Enrolments): String = {
     s"$emacHost/enrolment-management-frontend/${enrolment.toString}/request-access-tax-scheme?continue=%2Fbusiness-account"
   }
 
@@ -36,6 +36,10 @@ class UrlHelper @Inject()(val appConfig: FrontendAppConfig) {
 
   def businessTaxAccountLink(destination: String): String = {
     appConfig.getBusinessAccountUrl(destination)
+  }
+
+  def govUKUrl(destination: String): String = {
+    appConfig.getGovUKUrl(destination)
   }
 
   def fulfilmentHouse(): String = {
