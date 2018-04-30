@@ -32,12 +32,9 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("economicOperatorsRegistrationAndIdentification.heading")
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("economicOperatorsRegistrationAndIdentification.heading"),
-            legendClass = Some("visually-hidden"),
+            legend = components.heading("economicOperatorsRegistrationAndIdentification.heading").body,
             inputs = EORI.options.toSeq,
             trackGa = true,
             gaEvent = "AddICSTax"

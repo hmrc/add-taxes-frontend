@@ -32,12 +32,9 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("doYouHaveASEEDNumber.heading")
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("doYouHaveASEEDNumber.heading"),
-            legendClass = Some("visually-hidden"),
+            legend = components.heading("doYouHaveASEEDNumber.heading").body,
             inputs = DoYouHaveASEEDNumber.options.toSeq,
             trackGa = true,
             gaEvent = "AddEMCSTax"
