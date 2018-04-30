@@ -12,5 +12,17 @@ class $className$ViewSpec extends ViewBehaviours {
 
   "$className$ view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "Render the correct content" in {
+      val doc =  asDocument(createView())
+      val view = doc.text()
+
+      assertLinkById(
+        doc,
+        "continue",
+        "$continueButton",
+        "#",
+        "$gaEventPrefix:Click:Continue")
+    }
   }
 }
