@@ -33,6 +33,17 @@ trait NextPage[A, B] {
 
 object NextPage {
 
+  implicit val doYouHaveDAN: NextPage[DoYouHaveDANId.type,
+    models.other.importexports.dan.DoYouHaveDAN] = {
+    new NextPage[DoYouHaveDANId.type, models.other.importexports.dan.DoYouHaveDAN] {
+      override def get(b: models.other.importexports.dan.DoYouHaveDAN)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case models.other.importexports.dan.DoYouHaveDAN.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.DefermentApprovalNumber))
+          case models.other.importexports.dan.DoYouHaveDAN.No => controllers.other.importexports.dan.routes.RegisterDefermentApprovalNumberController.onPageLoad()
+        }
+     }
+  }
+
   implicit val doYouHaveASEEDNumber: NextPage[DoYouHaveASEEDNumberId.type,
     DoYouHaveASEEDNumber] = {
     new NextPage[DoYouHaveASEEDNumberId.type, DoYouHaveASEEDNumber] {

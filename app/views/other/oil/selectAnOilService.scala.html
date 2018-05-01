@@ -26,19 +26,16 @@
 @main_template(
     title = messages("selectAnOilService.title"),
     appConfig = appConfig,
-    bodyClasses = None,
+    form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
     @helpers.form(action = SelectAnOilServiceController.onSubmit(), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("selectAnOilService.heading")
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("selectAnOilService.heading"),
-            legendClass = Some("visually-hidden"),
+            legend = components.heading("selectAnOilService.heading").body,
             inputs = options,
             trackGa = true,
             gaEvent = "AddOilTax"

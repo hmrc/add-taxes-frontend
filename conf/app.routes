@@ -41,3 +41,8 @@ POST       /other/import-export/ics                     controllers.other.import
 
 GET        /other/import-export/ics/register            controllers.other.importexports.ics.RegisterEORIController.onPageLoad()
 
+
+GET        /other/import-export/ddes/register           controllers.other.importexports.dan.RegisterDefermentApprovalNumberController.onPageLoad()
+
+GET        /other/import-export/ddes                  controllers.other.importexports.dan.DoYouHaveDANController.onPageLoad()
+POST       /other/import-export/ddes                  controllers.other.importexports.dan.DoYouHaveDANController.onSubmit()
