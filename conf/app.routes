@@ -46,3 +46,6 @@ GET        /other/import-export/ddes/register           controllers.other.import
 
 GET        /other/import-export/ddes                  controllers.other.importexports.dan.DoYouHaveDANController.onPageLoad()
 POST       /other/import-export/ddes                  controllers.other.importexports.dan.DoYouHaveDANController.onSubmit()
+
+GET        /other/import-export/nes/has-eori                  controllers.other.importexports.nes.DoYouHaveCHIEFRoleController.onPageLoad()
+POST       /other/import-export/nes/has-eori                  controllers.other.importexports.nes.DoYouHaveCHIEFRoleController.onSubmit()

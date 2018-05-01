@@ -197,3 +197,13 @@ doYouHaveDAN.heading = Do you have a Deferment Approval Number (DAN)?
 doYouHaveDAN.Yes = Yes - I have a Deferment Approval Number
 doYouHaveDAN.No = No - I don’t have a DAN yet
 doYouHaveDAN.error.required = Select yes or no
+
+#######################################################
+##  DoYouHaveCHIEFRole
+#######################################################
+doYouHaveCHIEFRole.title = Do you have a CHIEF user role?
+doYouHaveCHIEFRole.heading = Do you have a CHIEF user role?
+doYouHaveCHIEFRole.p1 = This is a code you use to access the Customs Handling of Import and Export Freight system (CHIEF) to enter customs information electronically. It’s normally 5 letters, eg ABCDE.
+doYouHaveCHIEFRole.Yes = Yes - I have a CHIEF role
+doYouHaveCHIEFRole.No = No - I don’t have a CHIEF role yet
+doYouHaveCHIEFRole.error.required = Select yes or no

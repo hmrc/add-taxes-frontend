@@ -181,3 +181,13 @@ doYouHaveDAN.heading = A oes gennych Rif Cymeradwyo Gohirio (DAN)?
 doYouHaveDAN.Yes = Oes - mae gennyf Rif Cymeradwyo Gohirio
 doYouHaveDAN.No = Nac oes - nid oes gennyf DAN ar hyn o bryd
 doYouHaveDAN.error.required = Dewis iawn neu na
+
+#######################################################
+##  DoYouHaveCHIEFRole
+#######################################################
+doYouHaveCHIEFRole.title = A oes gennych rôl defnyddiwr CHIEF?
+doYouHaveCHIEFRole.heading = A oes gennych rôl defnyddiwr CHIEF?
+doYouHaveCHIEFRole.p1 = Cod yw hwn a ddefnyddiwch i gyrchu System y Tollau ar gyfer Trin Nwyddau a Gaiff eu Mewnforio a’u Hallforio (CHIEF) i roi gwybodaeth am dollau drwy ddull electronig. Fel arfer, 5 llythyren yw hwn, e.e. ABCDE.
+doYouHaveCHIEFRole.Yes = Oes - mae gennyf rôl CHIEF
+doYouHaveCHIEFRole.No = Nac oes - nid oes gennyf rôl CHIEF ar hyn o bryd
+doYouHaveCHIEFRole.error.required = Dewis iawn neu na

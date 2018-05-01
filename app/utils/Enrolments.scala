@@ -42,7 +42,6 @@ object Enrolments {
 
   case object EconomicOperatorsRegistration extends WithName("HMRC-ICS-ORG") with Enrolments
 
-
   case object OtherBusinessTaxDutyScheme extends WithName("HMRC-OBTDS-ORG") with Enrolments {
     val FulfilmentHouseDueDiligenceSchemeIdentifier = "EtmpRegistrationNumber"
   }
@@ -51,9 +50,12 @@ object Enrolments {
 
   case object DefermentApprovalNumber extends WithName("HMCE-DDES") with Enrolments
 
+  case object NewExportSystem extends WithName("HMCE-NES") with Enrolments
+
   val values: Set[Enrolments] = Set(
     RebatedOils, TiedOils, AlcoholAndTobaccoWarehousingDeclarations, AlcoholWholesalerRegistrationScheme,
     AlcoholWholesalerRegistrationScheme, AutomaticExchangeOfInformation, Charities, MachineGamingDuty, GeneralBetting,
-    PoolBetting, RemoteGaming, OtherBusinessTaxDutyScheme, EconomicOperatorsRegistration, DefermentApprovalNumber
+    PoolBetting, RemoteGaming, OtherBusinessTaxDutyScheme, EconomicOperatorsRegistration, DefermentApprovalNumber,
+    NewExportSystem
   )
 }
