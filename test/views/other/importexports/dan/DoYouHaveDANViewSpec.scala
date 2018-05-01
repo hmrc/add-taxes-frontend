@@ -14,46 +14,48 @@
  * limitations under the License.
  */
 
-package views.other.oil
+package views.other.importexports.dan
 
-import forms.other.oils.HaveYouRegisteredForTiedOilsFormProvider
-import models.other.oil.HaveYouRegisteredForTiedOils
 import play.api.data.Form
+import forms.other.importexports.dan.DoYouHaveDANFormProvider
+import models.other.importexports.dan.DoYouHaveDAN
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.other.oil.haveYouRegisteredForTiedOils
+import views.html.other.importexports.dan.doYouHaveDAN
 
-class HaveYouRegisteredForTiedOilsViewSpec extends ViewBehaviours {
+class DoYouHaveDANViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "haveYouRegisteredForTiedOils"
+  val messageKeyPrefix = "doYouHaveDAN"
 
-  val form = new HaveYouRegisteredForTiedOilsFormProvider()()
+  val form = new DoYouHaveDANFormProvider()()
 
-  def createView = () => haveYouRegisteredForTiedOils(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages)
+  val serviceInfoContent = HtmlFormat.empty
 
-  def createViewUsingForm = (form: Form[_]) => haveYouRegisteredForTiedOils(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView = () => doYouHaveDAN(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  "HaveYouRegisteredForTiedOils view" must {
+  def createViewUsingForm = (form: Form[_]) => doYouHaveDAN(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+
+  "DoYouHaveDAN view" must {
     behave like normalPage(createView, messageKeyPrefix)
   }
 
-  "HaveYouRegisteredForTiedOils view" when {
+  "DoYouHaveDAN view" when {
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- HaveYouRegisteredForTiedOils.options) {
+        for (option <- DoYouHaveDAN.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
       }
     }
 
-    for (option <- HaveYouRegisteredForTiedOils.options) {
+    for(option <- DoYouHaveDAN.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for (unselectedOption <- HaveYouRegisteredForTiedOils.options.filterNot(o => o == option)) {
+          for(unselectedOption <- DoYouHaveDAN.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

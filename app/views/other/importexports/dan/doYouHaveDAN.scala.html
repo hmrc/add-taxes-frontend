@@ -16,34 +16,28 @@
 
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
-@import controllers.routes._
-@import controllers.wrongcredentials.routes._
-@import models.wrongcredentials.FindingYourAccount
+@import controllers.other.importexports.dan.routes._
+@import models.other.importexports.dan.DoYouHaveDAN
 
 
 @(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("findingYourAccount.title"),
+    title = messages("doYouHaveDAN.title"),
     appConfig = appConfig,
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = FindingYourAccountController.onSubmit(), 'autoComplete -> "off") {
+    @helpers.form(action = DoYouHaveDANController.onSubmit(), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("findingYourAccount.heading")
-
-        <p>@messages("findingYourAccount.guidance.text")</p>
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("findingYourAccount.legend"),
-            legendClass = Some("heading-medium body-text"),
-            inputs = FindingYourAccount.options.toSeq,
+            legend = components.heading("doYouHaveDAN.heading").body,
+            inputs = DoYouHaveDAN.options.toSeq,
             trackGa = true,
-            gaEvent = "FindingYourAccount"
+            gaEvent = "AddDDESTax"
         )
 
         @components.submit_button()

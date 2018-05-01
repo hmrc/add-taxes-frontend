@@ -23,6 +23,7 @@ error.number = Please enter a valid number
 error.required = Please enter a value
 error.summary.title = Mae problem wedi codi
 error.summary.text = Check the following
+error.browser.title = Gwall: {0}
 
 index.title = add-taxes-frontend
 index.heading = add-taxes-frontend
@@ -162,6 +163,7 @@ registerEORI.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EO
 registerEORI.p2 = Dychwelwch i’ch cyfrif ac ychwanegu ICS unwaith bod eich rhif EORI wedi cyrraedd.
 registerEORI.continue = Mynd yn eich blaen - cael rhif EORI
 
+
 #######################################################
 ##  GetEORINumber
 #######################################################
@@ -178,3 +180,22 @@ haveAnEORINumber.heading = A oes gennych rif Cofrestru ac Adnabod Gweithredwr Ec
 haveAnEORINumber.Yes = Oes - mae gennyf rif EORI
 haveAnEORINumber.No = Nac oes - nid oes gennyf rif EORI
 haveAnEORINumber.error.required = Dewis iawn neu na
+
+#######################################################
+##  RegisterDefermentApprovalNumber
+#######################################################
+registerDefermentApprovalNumber.title = Dylech gael Rhif Cymeradwyo Gohirio (DAN) yn gyntaf
+registerDefermentApprovalNumber.heading = Dylech gael Rhif Cymeradwyo Gohirio (DAN) yn gyntaf
+registerDefermentApprovalNumber.p1 = Mae angen i chi gael Rhif Cymeradwyo Gohirio (DAN) cyn y gallwch ychwanegu Datganiadau Electronig i Ohirio Tollau i’ch cyfrif.
+registerDefermentApprovalNumber.p2 = Dychwelwch i’ch cyfrif ac ychwanegu Datganiadau Electronig i Ohirio Tollau pan fydd eich Rhif Cymeradwyo Gohirio (DAN) yn cyrraedd.
+registerDefermentApprovalNumber.continue = Mynd yn eich blaen - cael DAN
+
+
+#######################################################
+##  DoYouHaveDAN
+#######################################################
+doYouHaveDAN.title = A oes gennych Rif Cymeradwyo Gohirio (DAN)?
+doYouHaveDAN.heading = A oes gennych Rif Cymeradwyo Gohirio (DAN)?
+doYouHaveDAN.Yes = Oes - mae gennyf Rif Cymeradwyo Gohirio
+doYouHaveDAN.No = Nac oes - nid oes gennyf DAN ar hyn o bryd
+doYouHaveDAN.error.required = Dewis iawn neu na

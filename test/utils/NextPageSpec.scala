@@ -19,6 +19,7 @@ package utils
 import base.SpecBase
 import models.other.importexports.ics.EORI
 import models.OtherTaxes
+import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.other.importexports.ncts.HaveAnEORINumber
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
@@ -171,6 +172,20 @@ class NextPageSpec extends SpecBase {
       NextPage.haveAnEORINumber,
       HaveAnEORINumber.Yes,
       "http://localhost:9555/enrolment-management-frontend/HMRC-NCTS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+  }
+
+  "DoYouHaveDAN" when {
+    behave like nextPage(
+      NextPage.doYouHaveDAN,
+      DoYouHaveDAN.No,
+      "/business-account/add-tax/other/import-export/ddes/register"
+    )
+
+    behave like nextPage(
+      NextPage.doYouHaveDAN,
+      DoYouHaveDAN.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMCE-DDES/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
   }
 }
