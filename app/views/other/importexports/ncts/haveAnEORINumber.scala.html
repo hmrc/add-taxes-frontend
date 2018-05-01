@@ -25,19 +25,17 @@
 @main_template(
     title = messages("haveAnEORINumber.title"),
     appConfig = appConfig,
-    bodyClasses = None,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = serviceInfoContent,
+    form = Some(form)
+) {
 
     @helpers.form(action = HaveAnEORINumberController.onSubmit(), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("haveAnEORINumber.heading")
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("haveAnEORINumber.heading"),
-            legendClass = Some("visually-hidden"),
+            legend = components.heading("haveAnEORINumber.heading").body,
             inputs = HaveAnEORINumber.options.toSeq,
             trackGa = true,
             gaEvent = "AddNCTSTax"
