@@ -41,3 +41,4 @@ POST       /other/import-export/ics                     controllers.other.import
 
 GET        /other/import-export/ics/register            controllers.other.importexports.ics.RegisterEORIController.onPageLoad()
 
+GET        /other/import-export/ncts/register           controllers.other.importexports.ncts.GetEORINumberController.onPageLoad()

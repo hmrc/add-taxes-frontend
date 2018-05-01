@@ -177,3 +177,12 @@ registerEORI.heading = Get an EORI number first
 registerEORI.p1 = You need an Economic Operators Registration and Identification (EORI) to add Import Control System (ICS) to your account.
 registerEORI.p2 = Come back to your account and add ICS once your EORI number arrives.
 registerEORI.continue = Continue - get an EORI number
+
+#######################################################
+##  GetEORINumber
+#######################################################
+getEORINumber.title = Get an EORI number first
+getEORINumber.heading = Get an EORI number first
+getEORINumber.p1 = You need an Economic Operators Registration and Identification (EORI) to add New Computerised Transit System (NCTS) to your account.
+getEORINumber.p2 = Come back to your account and add NCTS once your EORI number arrives.
+getEORINumber.continue = Continue - get an EORI number
