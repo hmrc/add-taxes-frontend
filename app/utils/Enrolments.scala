@@ -49,7 +49,7 @@ object Enrolments {
 
   case object ExciseMovementControlSystem extends WithName("HMRC-EMCS-ORG") with Enrolments
 
-  case object DefermentApprovalNumber extends WithName("HMRC-DDES") with Enrolments
+  case object DefermentApprovalNumber extends WithName("HMCE-DDES") with Enrolments
 
   val values: Set[Enrolments] = Set(
     RebatedOils, TiedOils, AlcoholAndTobaccoWarehousingDeclarations, AlcoholWholesalerRegistrationScheme,

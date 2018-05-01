@@ -172,7 +172,7 @@ class NextPageSpec extends SpecBase {
     behave like nextPage(
       NextPage.doYouHaveDAN,
       DoYouHaveDAN.Yes,
-      "http://localhost:9555/enrolment-management-frontend/HMRC-DDES/request-access-tax-scheme?continue=%2Fbusiness-account"
+      "http://localhost:9555/enrolment-management-frontend/HMCE-DDES/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
   }
 }
