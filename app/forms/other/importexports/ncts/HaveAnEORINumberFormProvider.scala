@@ -14,15 +14,19 @@
  * limitations under the License.
  */
 
-package utils
+package forms.other.importexports.ncts
 
-import javax.inject.{Inject, Singleton}
+import javax.inject.Inject
 
-import play.api.mvc.Call
+import forms.FormErrorHelper
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.other.importexports.ncts.HaveAnEORINumber
 
-@Singleton
-class Navigator @Inject()(urlHelper: UrlHelper) {
+class HaveAnEORINumberFormProvider @Inject() extends FormErrorHelper with Mappings {
 
-  def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B]): Call =
-    ev.get(b)(urlHelper)
+  def apply(): Form[HaveAnEORINumber] =
+    Form(
+      "value" -> enumerable[HaveAnEORINumber]("haveAnEORINumber.error.required")
+    )
 }

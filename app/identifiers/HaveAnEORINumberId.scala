@@ -14,15 +14,8 @@
  * limitations under the License.
  */
 
-package utils
+package identifiers
 
-import javax.inject.{Inject, Singleton}
-
-import play.api.mvc.Call
-
-@Singleton
-class Navigator @Inject()(urlHelper: UrlHelper) {
-
-  def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B]): Call =
-    ev.get(b)(urlHelper)
+case object HaveAnEORINumberId extends Identifier {
+  override def toString: String = "haveAnEORINumber"
 }

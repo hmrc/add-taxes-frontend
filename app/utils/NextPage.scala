@@ -20,6 +20,7 @@ import controllers.other.oil.routes
 import identifiers._
 import models.other.importexports.ics.EORI
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
+import models.other.importexports.ncts.HaveAnEORINumber
 import models.OtherTaxes
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils, SelectAnOilService}
@@ -30,8 +31,18 @@ trait NextPage[A, B] {
   def get(b: B)(implicit urlHelper: UrlHelper): Call
 }
 
-
 object NextPage {
+
+  implicit val haveAnEORINumber: NextPage[HaveAnEORINumberId.type,
+    models.other.importexports.ncts.HaveAnEORINumber] = {
+    new NextPage[HaveAnEORINumberId.type, models.other.importexports.ncts.HaveAnEORINumber] {
+      override def get(b: models.other.importexports.ncts.HaveAnEORINumber)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case HaveAnEORINumber.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.NewComputerisedTransitSystem))
+          case HaveAnEORINumber.No => controllers.other.importexports.ncts.routes.GetEORINumberController.onPageLoad()
+        }
+    }
+  }
 
   implicit val doYouHaveDAN: NextPage[DoYouHaveDANId.type,
     models.other.importexports.dan.DoYouHaveDAN] = {
@@ -41,7 +52,7 @@ object NextPage {
           case models.other.importexports.dan.DoYouHaveDAN.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.DefermentApprovalNumber))
           case models.other.importexports.dan.DoYouHaveDAN.No => controllers.other.importexports.dan.routes.RegisterDefermentApprovalNumberController.onPageLoad()
         }
-     }
+    }
   }
 
   implicit val doYouHaveASEEDNumber: NextPage[DoYouHaveASEEDNumberId.type,

@@ -163,6 +163,24 @@ registerEORI.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EO
 registerEORI.p2 = Dychwelwch i’ch cyfrif ac ychwanegu ICS unwaith bod eich rhif EORI wedi cyrraedd.
 registerEORI.continue = Mynd yn eich blaen - cael rhif EORI
 
+
+#######################################################
+##  GetEORINumber
+#######################################################
+getEORINumber.title = Dylech gael rhif EORI yn gyntaf
+getEORINumber.heading = Dylech gael rhif EORI yn gyntaf
+getEORINumber.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu System Gludo Gyfrifiadurol Newydd (NCTS) i’ch cyfrif.
+getEORINumber.p2 = Dychwelwch i’ch cyfrif ac ychwanegwch NCTS unwaith bod eich rhif EORI wedi cyrraedd.
+getEORINumber.continue = Mynd yn eich blaen - cael rhif EORI
+#######################################################
+##  HaveAnEORINumber
+#######################################################
+haveAnEORINumber.title = A oes gennych rif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI)? - Cyfrif treth busnes - GOV.UK
+haveAnEORINumber.heading = A oes gennych rif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI)?
+haveAnEORINumber.Yes = Oes - mae gennyf rif EORI
+haveAnEORINumber.No = Nac oes - nid oes gennyf rif EORI
+haveAnEORINumber.error.required = Dewis iawn neu na
+
 #######################################################
 ##  RegisterDefermentApprovalNumber
 #######################################################

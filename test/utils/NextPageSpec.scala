@@ -21,6 +21,7 @@ import models.other.importexports.ics.EORI
 import models.OtherTaxes
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
+import models.other.importexports.ncts.HaveAnEORINumber
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
 import models.wrongcredentials.FindingYourAccount
@@ -160,7 +161,19 @@ class NextPageSpec extends SpecBase {
     )
   }
 
+  "HaveAnEORINumber" should {
+    behave like nextPage(
+      NextPage.haveAnEORINumber,
+      HaveAnEORINumber.No,
+      "/business-account/add-tax/other/import-export/ncts/register"
+    )
 
+    behave like nextPage(
+      NextPage.haveAnEORINumber,
+      HaveAnEORINumber.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-NCTS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+  }
 
   "DoYouHaveDAN" when {
     behave like nextPage(
