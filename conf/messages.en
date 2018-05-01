@@ -186,3 +186,11 @@ getEORINumber.heading = Get an EORI number first
 getEORINumber.p1 = You need an Economic Operators Registration and Identification (EORI) to add New Computerised Transit System (NCTS) to your account.
 getEORINumber.p2 = Come back to your account and add NCTS once your EORI number arrives.
 getEORINumber.continue = Continue - get an EORI number
+#######################################################
+##  HaveAnEORINumber
+#######################################################
+haveAnEORINumber.title = Do you have an Economic Operators Registration and Identification (EORI) number?
+haveAnEORINumber.heading = Do you have an Economic Operators Registration and Identification (EORI) number?
+haveAnEORINumber.Yes = Yes - I have an EORI number
+haveAnEORINumber.No = No - I don't have an EORI number
+haveAnEORINumber.error.required = Select yes or no

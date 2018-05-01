@@ -14,15 +14,26 @@
  * limitations under the License.
  */
 
-package utils
+package models.other.importexports.ncts
 
-import javax.inject.{Inject, Singleton}
+import utils.{Enumerable, RadioOption, WithName}
 
-import play.api.mvc.Call
+sealed trait HaveAnEORINumber
 
-@Singleton
-class Navigator @Inject()(urlHelper: UrlHelper) {
+object HaveAnEORINumber {
 
-  def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B]): Call =
-    ev.get(b)(urlHelper)
+  case object Yes extends WithName("Yes") with HaveAnEORINumber
+  case object No extends WithName("No") with HaveAnEORINumber
+
+  val values: Set[HaveAnEORINumber] = Set(
+    Yes, No
+  )
+
+  val options: Set[RadioOption] = values.map {
+    value =>
+      RadioOption("haveAnEORINumber", value.toString)
+  }
+
+  implicit val enumerable: Enumerable[HaveAnEORINumber] =
+    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }
