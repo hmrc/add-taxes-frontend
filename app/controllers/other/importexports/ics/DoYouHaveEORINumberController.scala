@@ -21,39 +21,39 @@ import javax.inject.Inject
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import forms.other.importexports.ics.EORIFormProvider
-import identifiers.EORIId
+import forms.other.importexports.DoYouHaveEORINumberFormProvider
+import identifiers.DoYouHaveEORINumberId
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-import views.html.other.importexports.ics.eori
+import views.html.other.importexports.doYouHaveEORINumber
 
 import scala.concurrent.Future
 
-class EORIController @Inject()(
+class DoYouHaveEORINumberController @Inject()(
                                         appConfig: FrontendAppConfig,
                                         override val messagesApi: MessagesApi,
                                         dataCacheConnector: DataCacheConnector,
                                         navigator: Navigator,
                                         authenticate: AuthAction,
                                         serviceInfoData: ServiceInfoAction,
-                                        formProvider: EORIFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+                                        formProvider: DoYouHaveEORINumberFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
 
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) {
     implicit request =>
-      Ok(eori(appConfig, form)(request.serviceInfoContent))
+      Ok(doYouHaveEORINumber(appConfig, form, controllers.other.importexports.ics.routes.DoYouHaveEORINumberController.onSubmit())(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(eori(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, controllers.other.importexports.ics.routes.DoYouHaveEORINumberController.onSubmit())(request.serviceInfoContent))),
         (value) =>
-          Future.successful(Redirect(navigator.nextPage(EORIId, value)))
+          Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.ICS, value)))
       )
   }
 }

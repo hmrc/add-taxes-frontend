@@ -146,7 +146,7 @@ doYouHaveASEEDNumber.No = Nac oes - nid oes gennyf rif SEED
 doYouHaveASEEDNumber.error.required = Dewis iawn neu na
 
 #######################################################
-##  EconomicOperatorsRegistrationAndIdentification
+##  DoYouHaveEORINumber
 #######################################################
 economicOperatorsRegistrationAndIdentification.title = A oes gennych rif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI)?
 economicOperatorsRegistrationAndIdentification.heading = A oes gennych rif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI)?
@@ -155,7 +155,7 @@ economicOperatorsRegistrationAndIdentification.No = Nac oes - nid oes gennyf rif
 economicOperatorsRegistrationAndIdentification.error.required = Dewis iawn neu na
 
 #######################################################
-##  RegisterEORI
+##  RegisterEORI - ICS
 #######################################################
 registerEORI.title = Dylech gael rhif EORI yn gyntaf
 registerEORI.heading = Dylech gael rhif EORI yn gyntaf
@@ -191,3 +191,10 @@ doYouHaveCHIEFRole.p1 = Cod yw hwn a ddefnyddiwch i gyrchu System y Tollau ar gy
 doYouHaveCHIEFRole.Yes = Oes - mae gennyf rôl CHIEF
 doYouHaveCHIEFRole.No = Nac oes - nid oes gennyf rôl CHIEF ar hyn o bryd
 doYouHaveCHIEFRole.error.required = Dewis iawn neu na
+
+#######################################################
+##  RegisterEORI - EBTI
+#######################################################
+registerEORIEBTI.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu Gwybodaeth Electronig am Dariff sy’n Rhwymo (eBTI) i’ch cyfrif.
+registerEORIEBTI.p2 = Dychwelwch i’ch cyfrif ac ychwanegu eBTI unwaith bod eich rhif EORI wedi cyrraedd.
+

@@ -36,11 +36,10 @@ GET        /other/import-export/emcs/register           controllers.other.import
 GET        /other/import-export/emcs                    controllers.other.importexports.emcs.DoYouHaveASEEDNumberController.onPageLoad()
 POST       /other/import-export/emcs                    controllers.other.importexports.emcs.DoYouHaveASEEDNumberController.onSubmit()
 
-GET        /other/import-export/ics                     controllers.other.importexports.ics.EORIController.onPageLoad()
-POST       /other/import-export/ics                     controllers.other.importexports.ics.EORIController.onSubmit()
+GET        /other/import-export/ics                     controllers.other.importexports.ics.DoYouHaveEORINumberController.onPageLoad()
+POST       /other/import-export/ics                     controllers.other.importexports.ics.DoYouHaveEORINumberController.onSubmit()
 
 GET        /other/import-export/ics/register            controllers.other.importexports.ics.RegisterEORIController.onPageLoad()
-
 
 GET        /other/import-export/ddes/register           controllers.other.importexports.dan.RegisterDefermentApprovalNumberController.onPageLoad()
 
@@ -49,3 +48,8 @@ POST       /other/import-export/ddes                  controllers.other.importex
 
 GET        /other/import-export/nes/has-eori                  controllers.other.importexports.nes.DoYouHaveCHIEFRoleController.onPageLoad()
 POST       /other/import-export/nes/has-eori                  controllers.other.importexports.nes.DoYouHaveCHIEFRoleController.onSubmit()
+
+GET        /other/import-export/ebti/register           controllers.other.importexports.ebti.RegisterEORIController.onPageLoad()
+
+GET        /other/import-export/ebti                    controllers.other.importexports.ebti.DoYouHaveEORINumberController.onPageLoad()
+POST       /other/import-export/ebti                    controllers.other.importexports.ebti.DoYouHaveEORINumberController.onSubmit()

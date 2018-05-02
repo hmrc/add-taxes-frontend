@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-package forms.other.importexports.ics
+package identifiers
 
-import javax.inject.Inject
+object DoYouHaveEORINumberId {
 
-import forms.FormErrorHelper
-import forms.mappings.Mappings
-import models.other.importexports.ics.EORI
-import play.api.data.Form
 
-class EORIFormProvider @Inject() extends FormErrorHelper with Mappings {
+  case object ICS extends Identifier {
+    override def toString: String = "ics-eori"
+  }
 
-  def apply(): Form[EORI] =
-    Form(
-      "value" -> enumerable[EORI]("economicOperatorsRegistrationAndIdentification.error.required")
-    )
+  case object EBTI extends Identifier {
+    override def toString: String = "ebti-eori"
+  }
+
 }

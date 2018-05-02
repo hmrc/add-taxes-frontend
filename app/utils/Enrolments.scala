@@ -52,6 +52,8 @@ object Enrolments {
 
   case object NewExportSystem extends WithName("HMCE-NES") with Enrolments
 
+  case object ElectronicBindingTariffInformation  extends WithName("HMCE-EBTI-ORG") with Enrolments
+
   val values: Set[Enrolments] = Set(
     RebatedOils, TiedOils, AlcoholAndTobaccoWarehousingDeclarations, AlcoholWholesalerRegistrationScheme,
     AlcoholWholesalerRegistrationScheme, AutomaticExchangeOfInformation, Charities, MachineGamingDuty, GeneralBetting,
