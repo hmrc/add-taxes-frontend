@@ -77,6 +77,17 @@ object NextPage {
     }
   }
 
+  implicit val nctsEori: NextPage[DoYouHaveEORINumberId.NCTS.type,
+    DoYouHaveEORINumber] = {
+    new NextPage[DoYouHaveEORINumberId.NCTS.type, DoYouHaveEORINumber] {
+      override def get(b: DoYouHaveEORINumber)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case DoYouHaveEORINumber.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.NewComputerisedTransitSystem))
+          case DoYouHaveEORINumber.No => controllers.other.importexports.ebti.routes.RegisterEORIController.onPageLoad()
+        }
+    }
+  }
+
   implicit val otherTaxes: NextPage[OtherTaxesId.type,
     OtherTaxes] = {
     new NextPage[OtherTaxesId.type, OtherTaxes] {

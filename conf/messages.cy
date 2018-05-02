@@ -155,13 +155,18 @@ economicOperatorsRegistrationAndIdentification.No = Nac oes - nid oes gennyf rif
 economicOperatorsRegistrationAndIdentification.error.required = Dewis iawn neu na
 
 #######################################################
-##  RegisterEORI - ICS
+##  RegisterEORI
 #######################################################
 registerEORI.title = Dylech gael rhif EORI yn gyntaf
 registerEORI.heading = Dylech gael rhif EORI yn gyntaf
-registerEORI.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu System Rheoli Mewnforion (ICS) i’ch cyfrif.
-registerEORI.p2 = Dychwelwch i’ch cyfrif ac ychwanegu ICS unwaith bod eich rhif EORI wedi cyrraedd.
 registerEORI.continue = Mynd yn eich blaen - cael rhif EORI
+
+#######################################################
+##  RegisterEORI - ICS
+#######################################################
+registerEORIICS.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu System Rheoli Mewnforion (ICS) i’ch cyfrif.
+registerEORIICS.p2 = Dychwelwch i’ch cyfrif ac ychwanegu ICS unwaith bod eich rhif EORI wedi cyrraedd.
+
 
 #######################################################
 ##  RegisterDefermentApprovalNumber
@@ -187,3 +192,9 @@ doYouHaveDAN.error.required = Dewis iawn neu na
 #######################################################
 registerEORIEBTI.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu Gwybodaeth Electronig am Dariff sy’n Rhwymo (eBTI) i’ch cyfrif.
 registerEORIEBTI.p2 = Dychwelwch i’ch cyfrif ac ychwanegu eBTI unwaith bod eich rhif EORI wedi cyrraedd.
+
+#######################################################
+##  RegisterEORI - NCTS
+#######################################################
+registerEORINCTS.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu System Gludo Gyfrifiadurol Newydd (NCTS) i’ch cyfrif.
+registerEORINCTS.p2 = Dychwelwch i’ch cyfrif ac ychwanegwch NCTS unwaith bod eich rhif EORI wedi cyrraedd.
