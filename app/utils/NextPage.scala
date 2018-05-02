@@ -83,7 +83,7 @@ object NextPage {
       override def get(b: DoYouHaveEORINumber)(implicit urlHelper: UrlHelper): Call =
         b match {
           case DoYouHaveEORINumber.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.NewComputerisedTransitSystem))
-          case DoYouHaveEORINumber.No => controllers.other.importexports.ebti.routes.RegisterEORIController.onPageLoad()
+          case DoYouHaveEORINumber.No => controllers.other.importexports.ncts.routes.RegisterEORIController.onPageLoad()
         }
     }
   }
