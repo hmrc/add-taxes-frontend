@@ -34,7 +34,7 @@ class RegisterEORIViewSpec extends ViewBehaviours {
       val view = doc.text()
 
       view must include("You need an Economic Operators Registration and Identification (EORI) to " +
-        "add electronic Binding Tarriff Information (eBTI) to your account.")
+        "add electronic Binding Tariff Information (eBTI) to your account.")
 
       view must include("Come back to your account and add eBTI once your EORI number arrives.")
 
