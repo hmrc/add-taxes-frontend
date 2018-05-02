@@ -205,7 +205,7 @@ doYouHaveDAN.error.required = Select yes or no
 #######################################################
 ##  RegisterEORI - EBTI
 #######################################################
-registerEORIEBTI.p1 = You need an Economic Operators Registration and Identification (EORI) to add electronic Binding Tarriff Information (eBTI) to your account.
+registerEORIEBTI.p1 = You need an Economic Operators Registration and Identification (EORI) to add electronic Binding Tariff Information (eBTI) to your account.
 registerEORIEBTI.p2 = Come back to your account and add eBTI once your EORI number arrives.
 
 #######################################################
