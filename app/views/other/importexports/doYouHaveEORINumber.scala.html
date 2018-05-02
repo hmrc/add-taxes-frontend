@@ -27,7 +27,8 @@
     title = messages("economicOperatorsRegistrationAndIdentification.title"),
     appConfig = appConfig,
     bodyClasses = None,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = serviceInfoContent,
+    form = Some(form)) {
 
     @helpers.form(action = viewState.call, 'autoComplete -> "off") {
 
