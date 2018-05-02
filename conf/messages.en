@@ -162,7 +162,7 @@ doYouHaveASEEDNumber.checkYourAnswersLabel = doYouHaveASEEDNumber
 doYouHaveASEEDNumber.error.required = Select yes or no
 
 #######################################################
-##  EconomicOperatorsRegistrationAndIdentification
+##  DoYouHaveEORINumber
 #######################################################
 economicOperatorsRegistrationAndIdentification.title = Do you have an Economic Operators Registration and Identification (EORI) number?
 economicOperatorsRegistrationAndIdentification.heading = Do you have an Economic Operators Registration and Identification (EORI) number?
@@ -171,7 +171,7 @@ economicOperatorsRegistrationAndIdentification.No = No - I don’t have an EORI 
 economicOperatorsRegistrationAndIdentification.error.required = Select yes or no
 
 #######################################################
-##  RegisterEORI
+##  RegisterEORI - ICS
 #######################################################
 registerEORI.title = Get an EORI number first
 registerEORI.heading = Get an EORI number first
@@ -197,3 +197,9 @@ doYouHaveDAN.heading = Do you have a Deferment Approval Number (DAN)?
 doYouHaveDAN.Yes = Yes - I have a Deferment Approval Number
 doYouHaveDAN.No = No - I don’t have a DAN yet
 doYouHaveDAN.error.required = Select yes or no
+
+#######################################################
+##  RegisterEORI - EBTI
+#######################################################
+registerEORIEBTI.p1 = You need an Economic Operators Registration and Identification (EORI) to add electronic Binding Tarriff Information (eBTI) to your account.
+registerEORIEBTI.p2 = Come back to your account and add eBTI once your EORI number arrives.

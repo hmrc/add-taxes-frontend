@@ -19,21 +19,19 @@
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("registerExciseMovementControlSystem.title"),
+    title = messages("registerEORI.title"),
     appConfig = appConfig,
-    bodyClasses = None,
     serviceInfoContent = serviceInfoContent) {
 
-    @components.heading("registerExciseMovementControlSystem.heading")
+    @components.heading("registerEORI.heading")
 
-    <p>@messages("registerExciseMovementControlSystem.youNeedToRegister")</p>
+    <p>@messages("registerEORIEBTI.p1")</p>
+    <p>@messages("registerEORIEBTI.p2")</p>
 
-    <p>@messages("registerExciseMovementControlSystem.comeBackToYourAccount")</p>
-
-    <a id="register-for-emcs"
-       href='@appConfig.getGovUKUrl("emcs")'
+    <a id="continue"
+       href='@appConfig.getGovUKUrl("eori")'
        class="button"
-       data-journey-click="RegisterEMCS:Click:Continue">
-        @messages("registerExciseMovementControlSystem.button")
+       data-journey-click="RegisterEBTIEori:Click:Continue">
+        @messages("registerEORI.continue")
     </a>
 }
