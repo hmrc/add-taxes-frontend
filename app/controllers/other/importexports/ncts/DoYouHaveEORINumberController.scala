@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package controllers.other.importexports.ics
+package controllers.other.importexports.ncts
 
 import javax.inject.Inject
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
+import controllers.other.importexports.ncts.routes._
 import forms.other.importexports.DoYouHaveEORINumberFormProvider
 import identifiers.DoYouHaveEORINumberId
 import play.api.data.Form
@@ -29,33 +30,32 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import viewmodels.ViewState
 import views.html.other.importexports.doYouHaveEORINumber
-import controllers.other.importexports.ics.routes._
 
 import scala.concurrent.Future
 
 class DoYouHaveEORINumberController @Inject()(
-                                        appConfig: FrontendAppConfig,
-                                        override val messagesApi: MessagesApi,
-                                        dataCacheConnector: DataCacheConnector,
-                                        navigator: Navigator,
-                                        authenticate: AuthAction,
-                                        serviceInfoData: ServiceInfoAction,
-                                        formProvider: DoYouHaveEORINumberFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+                                               appConfig: FrontendAppConfig,
+                                               override val messagesApi: MessagesApi,
+                                               dataCacheConnector: DataCacheConnector,
+                                               navigator: Navigator,
+                                               authenticate: AuthAction,
+                                               serviceInfoData: ServiceInfoAction,
+                                               formProvider: DoYouHaveEORINumberFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
 
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) {
     implicit request =>
-      Ok(doYouHaveEORINumber(appConfig, form, ViewState(DoYouHaveEORINumberController.onSubmit(), "AddICSTax"))(request.serviceInfoContent))
+      Ok(doYouHaveEORINumber(appConfig, form, ViewState(DoYouHaveEORINumberController.onSubmit(), "AddNCTSTax"))(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, ViewState(DoYouHaveEORINumberController.onSubmit(), "AddICSTax"))(request.serviceInfoContent))),
+          Future.successful(BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, ViewState(DoYouHaveEORINumberController.onSubmit(), "AddNCTSTax"))(request.serviceInfoContent))),
         (value) =>
-          Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.ICS, value)))
+          Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.NCTS, value)))
       )
   }
 }
