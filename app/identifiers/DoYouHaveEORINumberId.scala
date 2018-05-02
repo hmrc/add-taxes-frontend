@@ -28,7 +28,7 @@ object DoYouHaveEORINumberId {
   }
 
   case object NCTS extends Identifier {
-    override def toString: String = "ebti-eori"
+    override def toString: String = "ncts-eori"
   }
 
 }
