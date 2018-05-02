@@ -27,4 +27,7 @@ object DoYouHaveEORINumberId {
     override def toString: String = "ebti-eori"
   }
 
+  case object NES extends Identifier {
+    override def toString: String = "nes-eori"
+  }
 }

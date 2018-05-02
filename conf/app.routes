@@ -43,13 +43,16 @@ GET        /other/import-export/ics/register            controllers.other.import
 
 GET        /other/import-export/ddes/register           controllers.other.importexports.dan.RegisterDefermentApprovalNumberController.onPageLoad()
 
-GET        /other/import-export/ddes                  controllers.other.importexports.dan.DoYouHaveDANController.onPageLoad()
-POST       /other/import-export/ddes                  controllers.other.importexports.dan.DoYouHaveDANController.onSubmit()
-
-GET        /other/import-export/nes/has-eori                  controllers.other.importexports.nes.DoYouHaveCHIEFRoleController.onPageLoad()
-POST       /other/import-export/nes/has-eori                  controllers.other.importexports.nes.DoYouHaveCHIEFRoleController.onSubmit()
+GET        /other/import-export/ddes                    controllers.other.importexports.dan.DoYouHaveDANController.onPageLoad()
+POST       /other/import-export/ddes                    controllers.other.importexports.dan.DoYouHaveDANController.onSubmit()
 
 GET        /other/import-export/ebti/register           controllers.other.importexports.ebti.RegisterEORIController.onPageLoad()
 
 GET        /other/import-export/ebti                    controllers.other.importexports.ebti.DoYouHaveEORINumberController.onPageLoad()
 POST       /other/import-export/ebti                    controllers.other.importexports.ebti.DoYouHaveEORINumberController.onSubmit()
+
+GET        /other/import-export/nes/has-eori            controllers.other.importexports.nes.DoYouHaveCHIEFRoleController.onPageLoad()
+POST       /other/import-export/nes/has-eori            controllers.other.importexports.nes.DoYouHaveCHIEFRoleController.onSubmit()
+
+GET        /other/import-export/nes                     controllers.other.importexports.nes.DoYouHaveEORINumberController.onPageLoad()
+POST       /other/import-export/nes                     controllers.other.importexports.nes.DoYouHaveEORINumberController.onSubmit()

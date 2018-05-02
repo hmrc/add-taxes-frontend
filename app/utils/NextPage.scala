@@ -17,10 +17,13 @@
 package utils
 
 import controllers.other.oil.routes
+import controllers.other.importexports.nes.{routes => nesRoutes}
 import identifiers._
 import models.other.importexports.DoYouHaveEORINumber
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.OtherTaxes
+import models.other.importexports.dan.DoYouHaveDAN
+import models.other.importexports.nes.DoYouHaveCHIEFRole
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils, SelectAnOilService}
 import models.wrongcredentials.FindingYourAccount
@@ -34,23 +37,23 @@ trait NextPage[A, B] {
 object NextPage {
 
   implicit val doYouHaveCHIEFRole: NextPage[DoYouHaveCHIEFRoleId.type,
-    models.other.importexports.nes.DoYouHaveCHIEFRole] = {
-    new NextPage[DoYouHaveCHIEFRoleId.type, models.other.importexports.nes.DoYouHaveCHIEFRole] {
-      override def get(b: models.other.importexports.nes.DoYouHaveCHIEFRole)(implicit urlHelper: UrlHelper): Call =
+    DoYouHaveCHIEFRole] = {
+    new NextPage[DoYouHaveCHIEFRoleId.type, DoYouHaveCHIEFRole] {
+      override def get(b: DoYouHaveCHIEFRole)(implicit urlHelper: UrlHelper): Call =
         b match {
-          case models.other.importexports.nes.DoYouHaveCHIEFRole.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.NewExportSystem))
-          case models.other.importexports.nes.DoYouHaveCHIEFRole.No => ???
+          case DoYouHaveCHIEFRole.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.NewExportSystem))
+          case DoYouHaveCHIEFRole.No => ???
         }
      }
   }
 
   implicit val doYouHaveDAN: NextPage[DoYouHaveDANId.type,
-    models.other.importexports.dan.DoYouHaveDAN] = {
-    new NextPage[DoYouHaveDANId.type, models.other.importexports.dan.DoYouHaveDAN] {
-      override def get(b: models.other.importexports.dan.DoYouHaveDAN)(implicit urlHelper: UrlHelper): Call =
+    DoYouHaveDAN] = {
+    new NextPage[DoYouHaveDANId.type, DoYouHaveDAN] {
+      override def get(b: DoYouHaveDAN)(implicit urlHelper: UrlHelper): Call =
         b match {
-          case models.other.importexports.dan.DoYouHaveDAN.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.DefermentApprovalNumber))
-          case models.other.importexports.dan.DoYouHaveDAN.No => controllers.other.importexports.dan.routes.RegisterDefermentApprovalNumberController.onPageLoad()
+          case DoYouHaveDAN.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.DefermentApprovalNumber))
+          case DoYouHaveDAN.No => controllers.other.importexports.dan.routes.RegisterDefermentApprovalNumberController.onPageLoad()
         }
      }
   }
@@ -75,7 +78,7 @@ object NextPage {
           case DoYouHaveEORINumber.No => controllers.other.importexports.ics.routes.RegisterEORIController.onPageLoad()
         }
      }
-  }
+  };
 
   implicit val ebtiEori: NextPage[DoYouHaveEORINumberId.EBTI.type,
     DoYouHaveEORINumber] = {
@@ -84,6 +87,17 @@ object NextPage {
         b match {
           case DoYouHaveEORINumber.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.ElectronicBindingTariffInformation))
           case DoYouHaveEORINumber.No => controllers.other.importexports.ebti.routes.RegisterEORIController.onPageLoad()
+        }
+    }
+  }
+
+  implicit val nesEori: NextPage[DoYouHaveEORINumberId.NES.type,
+    DoYouHaveEORINumber] = {
+    new NextPage[DoYouHaveEORINumberId.NES.type, DoYouHaveEORINumber] {
+      override def get(b: DoYouHaveEORINumber)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case DoYouHaveEORINumber.Yes => nesRoutes.DoYouHaveCHIEFRoleController.onPageLoad()
+          case DoYouHaveEORINumber.No => ???
         }
     }
   }
