@@ -52,7 +52,7 @@ object NextPage {
     new NextPage[DoYouHaveCHIEFRoleId.NoEORI.type, DoYouHaveCHIEFRole] {
       override def get(b: DoYouHaveCHIEFRole)(implicit urlHelper: UrlHelper): Call =
         b match {
-          case DoYouHaveCHIEFRole.Yes =>  ??? //Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.NewExportSystem))
+          case DoYouHaveCHIEFRole.Yes =>  nesRoutes.RegisterEORIController.onPageLoad()
           case DoYouHaveCHIEFRole.No => ??? //nesRoutes.GetCHIEFRoleController.onPageLoad()
         }
     }

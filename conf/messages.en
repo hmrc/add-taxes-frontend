@@ -233,3 +233,9 @@ getCHIEFRole.p1=You need a CHIEF role to add National Export System (NES) to you
 getCHIEFRole.p2=Email {0} your business details to request a CHIEF role.
 getCHIEFRole.p3=Come back to your account and add NES once your CHIEF role arrives.
 
+
+#######################################################
+##  RegisterEORI - NES
+#######################################################
+registerEORINES.p1 = You need an Economic Operators Registration and Identification (EORI) to add National Export System (NES) to your account.
+registerEORINES.p2 = Come back to your account and add (NES) once your EORI number arrives.

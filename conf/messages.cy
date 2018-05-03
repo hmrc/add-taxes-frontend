@@ -218,3 +218,9 @@ getCHIEFRole.heading = Dylech gael rôl CHIEF yn gyntaf
 getCHIEFRole.p1=Mae angen rôl CHIEF arnoch i ychwanegu System Allforio Genedlaethol (NES) i’ch cyfrif.
 getCHIEFRole.p2=E-bostiwch {0} gan roi manylion eich busnes i wneud cais am rôl CHIEF.
 getCHIEFRole.p3=Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rôl CHIEF wedi cyrraedd.
+
+#######################################################
+##  RegisterEORI - NES
+#######################################################
+registerEORINES.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu System Allforio Genedlaethol (NES) i’ch cyfrif.
+registerEORINES.p2 = Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rhif EORI wedi cyrraedd.
