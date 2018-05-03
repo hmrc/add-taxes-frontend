@@ -56,10 +56,13 @@ POST       /other/import-export/ncts                    controllers.other.import
 
 GET        /other/import-export/ncts/register           controllers.other.importexports.ncts.RegisterEORIController.onPageLoad()
 
-GET        /other/import-export/nes/has-eori            controllers.other.importexports.nes.DoYouHaveCHIEFRoleController.onPageLoad()
-POST       /other/import-export/nes/has-eori            controllers.other.importexports.nes.DoYouHaveCHIEFRoleController.onSubmit()
+GET        /other/import-export/nes/has-eori            controllers.other.importexports.nes.DoYouHaveCHIEFRoleHasEORIController.onPageLoad()
+POST       /other/import-export/nes/has-eori            controllers.other.importexports.nes.DoYouHaveCHIEFRoleHasEORIController.onSubmit()
 
 GET        /other/import-export/nes                     controllers.other.importexports.nes.DoYouHaveEORINumberController.onPageLoad()
 POST       /other/import-export/nes                     controllers.other.importexports.nes.DoYouHaveEORINumberController.onSubmit()
 
-GET        /other/import-export/nes/has-eori/register-chief                       controllers.other.importexports.nes.GetCHIEFRoleController.onPageLoad()
+GET        /other/import-export/nes/has-eori/register-chief     controllers.other.importexports.nes.GetCHIEFRoleController.onPageLoad()
+
+GET        /other/import-export/nes/no-eori            controllers.other.importexports.nes.DoYouHaveCHIEFRoleNoEORIController.onPageLoad()
+POST       /other/import-export/nes/no-eori            controllers.other.importexports.nes.DoYouHaveCHIEFRoleNoEORIController.onSubmit()

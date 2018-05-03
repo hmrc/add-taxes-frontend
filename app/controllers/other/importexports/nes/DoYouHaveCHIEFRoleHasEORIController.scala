@@ -25,14 +25,15 @@ import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-
 import forms.other.importexports.nes.DoYouHaveCHIEFRoleFormProvider
 import identifiers.DoYouHaveCHIEFRoleId
+import viewmodels.ViewAction
 import views.html.other.importexports.nes.doYouHaveCHIEFRole
+import controllers.other.importexports.nes.routes._
 
 import scala.concurrent.Future
 
-class DoYouHaveCHIEFRoleController @Inject()(
+class DoYouHaveCHIEFRoleHasEORIController @Inject()(
                                         appConfig: FrontendAppConfig,
                                         override val messagesApi: MessagesApi,
                                         dataCacheConnector: DataCacheConnector,
@@ -45,16 +46,16 @@ class DoYouHaveCHIEFRoleController @Inject()(
 
   def onPageLoad() = (authenticate andThen serviceInfoData) {
     implicit request =>
-      Ok(doYouHaveCHIEFRole(appConfig, form)(request.serviceInfoContent))
+      Ok(doYouHaveCHIEFRole(appConfig, form, ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit() , "AddNESHasEori"))(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(doYouHaveCHIEFRole(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(doYouHaveCHIEFRole(appConfig, formWithErrors, ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit() , "AddNESHasEori"))(request.serviceInfoContent))),
         (value) =>
-          Future.successful(Redirect(navigator.nextPage(DoYouHaveCHIEFRoleId, value)))
+          Future.successful(Redirect(navigator.nextPage(DoYouHaveCHIEFRoleId.HasEORI, value)))
       )
   }
 }
