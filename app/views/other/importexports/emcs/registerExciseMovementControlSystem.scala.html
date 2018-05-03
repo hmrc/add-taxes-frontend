@@ -30,9 +30,10 @@
 
     <p>@messages("registerExciseMovementControlSystem.comeBackToYourAccount")</p>
 
-    <a id="register-for-emcs" data-journey-click="RegisterEMCS:Click:Continue"
+    <a id="register-for-emcs"
+       href='@appConfig.getGovUKUrl("emcs")'
        class="button"
-       href="https://www.gov.uk/guidance/excise-movement-and-control-system-how-to-register-and-use#register-and-enrol">
+       data-journey-click="RegisterEMCS:Click:Continue">
         @messages("registerExciseMovementControlSystem.button")
     </a>
 }

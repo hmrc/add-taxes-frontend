@@ -51,9 +51,16 @@ object Enrolments {
 
   case object DefermentApprovalNumber extends WithName("HMCE-DDES") with Enrolments
 
+  case object ElectronicBindingTariffInformation  extends WithName("HMCE-EBTI-ORG") with Enrolments
+
+  case object NewComputerisedTransitSystem extends WithName("HMRC-NCTS-ORG") with Enrolments
+
+
+
   val values: Set[Enrolments] = Set(
     RebatedOils, TiedOils, AlcoholAndTobaccoWarehousingDeclarations, AlcoholWholesalerRegistrationScheme,
     AlcoholWholesalerRegistrationScheme, AutomaticExchangeOfInformation, Charities, MachineGamingDuty, GeneralBetting,
-    PoolBetting, RemoteGaming, OtherBusinessTaxDutyScheme, EconomicOperatorsRegistration, DefermentApprovalNumber
+    PoolBetting, RemoteGaming, OtherBusinessTaxDutyScheme, EconomicOperatorsRegistration, DefermentApprovalNumber,
+    NewComputerisedTransitSystem
   )
 }

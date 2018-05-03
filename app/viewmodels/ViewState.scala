@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package identifiers
+package viewmodels
 
-case object EORIId extends Identifier {
-  override def toString: String = "eori"
-}
+import play.api.mvc.Call
+
+
+case class ViewState(call: Call, gaEvent: String)
+

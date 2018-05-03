@@ -21,17 +21,17 @@
 @main_template(
     title = messages("registerEORI.title"),
     appConfig = appConfig,
-    bodyClasses = None,
     serviceInfoContent = serviceInfoContent) {
 
     @components.heading("registerEORI.heading")
-    <p>@messages("registerEORIICS.p1")</p>
-    <p>@messages("registerEORIICS.p2")</p>
 
-    <a id="register-for-ics"
+    <p>@messages("registerEORIEBTI.p1")</p>
+    <p>@messages("registerEORIEBTI.p2")</p>
+
+    <a id="continue"
        href='@appConfig.getGovUKUrl("eori")'
        class="button"
-       data-journey-click="RegisterICS:Click:Continue">
+       data-journey-click="RegisterEBTIEori:Click:Continue">
         @messages("registerEORI.continue")
     </a>
 }

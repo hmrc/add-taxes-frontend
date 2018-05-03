@@ -21,39 +21,41 @@ import javax.inject.Inject
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import forms.other.importexports.ics.EORIFormProvider
-import identifiers.EORIId
+import forms.other.importexports.DoYouHaveEORINumberFormProvider
+import identifiers.DoYouHaveEORINumberId
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-import views.html.other.importexports.ics.eori
+import viewmodels.ViewState
+import views.html.other.importexports.doYouHaveEORINumber
+import controllers.other.importexports.ics.routes._
 
 import scala.concurrent.Future
 
-class EORIController @Inject()(
+class DoYouHaveEORINumberController @Inject()(
                                         appConfig: FrontendAppConfig,
                                         override val messagesApi: MessagesApi,
                                         dataCacheConnector: DataCacheConnector,
                                         navigator: Navigator,
                                         authenticate: AuthAction,
                                         serviceInfoData: ServiceInfoAction,
-                                        formProvider: EORIFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+                                        formProvider: DoYouHaveEORINumberFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
 
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) {
     implicit request =>
-      Ok(eori(appConfig, form)(request.serviceInfoContent))
+      Ok(doYouHaveEORINumber(appConfig, form, ViewState(DoYouHaveEORINumberController.onSubmit(), "AddICSTax"))(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(eori(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, ViewState(DoYouHaveEORINumberController.onSubmit(), "AddICSTax"))(request.serviceInfoContent))),
         (value) =>
-          Future.successful(Redirect(navigator.nextPage(EORIId, value)))
+          Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.ICS, value)))
       )
   }
 }

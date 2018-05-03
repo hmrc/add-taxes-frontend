@@ -14,36 +14,36 @@
  * limitations under the License.
  */
 
-package controllers.other.importexports.ics
+package controllers.other.importexports.ncts
 
 import connectors.FakeDataCacheConnector
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers.ControllerSpecBase
-import models.other.importexports.ics.EORI
+import controllers.actions.{FakeServiceInfoAction, _}
+import controllers.routes._
+import forms.other.importexports.DoYouHaveEORINumberFormProvider
+import models.other.importexports.DoYouHaveEORINumber
 import play.api.data.Form
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
-import views.html.other.importexports.ics.eori
-import controllers.routes._
-import forms.other.importexports.ics.EORIFormProvider
+import viewmodels.ViewState
+import views.html.other.importexports.doYouHaveEORINumber
 
 
-
-class EORIControllerSpec extends ControllerSpecBase {
+class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = IndexController.onPageLoad()
 
-  val formProvider = new EORIFormProvider()
+  val formProvider = new DoYouHaveEORINumberFormProvider()
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new EORIController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
+    new DoYouHaveEORINumberController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
       FakeServiceInfoAction, formProvider)
 
-  def viewAsString(form: Form[_] = form) = eori(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = doYouHaveEORINumber(frontendAppConfig, form, ViewState(controllers.other.importexports.ncts.routes.DoYouHaveEORINumberController.onSubmit(), "AddNCTSTax"))(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  "EconomicOperatorsRegistrationAndIdentification Controller" must {
+  "EBTI EORI Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad()(fakeRequest)
@@ -53,7 +53,7 @@ class EORIControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", EORI.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveEORINumber.options.head.value))
 
       val result = controller().onSubmit()(postRequest)
 
@@ -78,7 +78,7 @@ class EORIControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to next page when valid data is submitted and no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (EORI.options.head.value)))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (DoYouHaveEORINumber.options.head.value)))
       val result = controller(dontGetAnyData).onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER

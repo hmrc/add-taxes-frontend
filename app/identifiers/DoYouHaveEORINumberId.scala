@@ -14,26 +14,21 @@
  * limitations under the License.
  */
 
-package models.other.importexports.ics
+package identifiers
 
-import utils.{Enumerable, RadioOption, WithName}
+object DoYouHaveEORINumberId {
 
-sealed trait EORI
 
-object EORI {
-
-  case object Yes extends WithName("Yes") with EORI
-  case object No extends WithName("No") with EORI
-
-  val values: Set[EORI] = Set(
-    Yes, No
-  )
-
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("economicOperatorsRegistrationAndIdentification", value.toString)
+  case object ICS extends Identifier {
+    override def toString: String = "ics-eori"
   }
 
-  implicit val enumerable: Enumerable[EORI] =
-    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+  case object EBTI extends Identifier {
+    override def toString: String = "ebti-eori"
+  }
+
+  case object NCTS extends Identifier {
+    override def toString: String = "ncts-eori"
+  }
+
 }

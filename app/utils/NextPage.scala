@@ -18,7 +18,7 @@ package utils
 
 import controllers.other.oil.routes
 import identifiers._
-import models.other.importexports.ics.EORI
+import models.other.importexports.DoYouHaveEORINumber
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.OtherTaxes
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
@@ -55,15 +55,37 @@ object NextPage {
      }
   }
 
-  implicit val economicOperatorsRegistrationAndIdentification: NextPage[EORIId.type,
-    EORI] = {
-    new NextPage[EORIId.type, EORI] {
-      override def get(b: EORI)(implicit urlHelper: UrlHelper): Call =
+  implicit val icsEori: NextPage[DoYouHaveEORINumberId.ICS.type,
+    DoYouHaveEORINumber] = {
+    new NextPage[DoYouHaveEORINumberId.ICS.type, DoYouHaveEORINumber] {
+      override def get(b: DoYouHaveEORINumber)(implicit urlHelper: UrlHelper): Call =
         b match {
-          case EORI.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.EconomicOperatorsRegistration))
-          case EORI.No => controllers.other.importexports.ics.routes.RegisterEORIController.onPageLoad()
+          case DoYouHaveEORINumber.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.EconomicOperatorsRegistration))
+          case DoYouHaveEORINumber.No => controllers.other.importexports.ics.routes.RegisterEORIController.onPageLoad()
         }
      }
+  }
+
+  implicit val ebtiEori: NextPage[DoYouHaveEORINumberId.EBTI.type,
+    DoYouHaveEORINumber] = {
+    new NextPage[DoYouHaveEORINumberId.EBTI.type, DoYouHaveEORINumber] {
+      override def get(b: DoYouHaveEORINumber)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case DoYouHaveEORINumber.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.ElectronicBindingTariffInformation))
+          case DoYouHaveEORINumber.No => controllers.other.importexports.ebti.routes.RegisterEORIController.onPageLoad()
+        }
+    }
+  }
+
+  implicit val nctsEori: NextPage[DoYouHaveEORINumberId.NCTS.type,
+    DoYouHaveEORINumber] = {
+    new NextPage[DoYouHaveEORINumberId.NCTS.type, DoYouHaveEORINumber] {
+      override def get(b: DoYouHaveEORINumber)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case DoYouHaveEORINumber.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.NewComputerisedTransitSystem))
+          case DoYouHaveEORINumber.No => controllers.other.importexports.ncts.routes.RegisterEORIController.onPageLoad()
+        }
+    }
   }
 
   implicit val otherTaxes: NextPage[OtherTaxesId.type,

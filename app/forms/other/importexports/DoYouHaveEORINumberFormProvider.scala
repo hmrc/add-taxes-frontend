@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package forms.other.importexports.ics
+package forms.other.importexports
 
 import javax.inject.Inject
 
 import forms.FormErrorHelper
 import forms.mappings.Mappings
-import models.other.importexports.ics.EORI
+import models.other.importexports.DoYouHaveEORINumber
 import play.api.data.Form
 
-class EORIFormProvider @Inject() extends FormErrorHelper with Mappings {
+class DoYouHaveEORINumberFormProvider @Inject() extends FormErrorHelper with Mappings {
 
-  def apply(): Form[EORI] =
+  def apply(): Form[DoYouHaveEORINumber] =
     Form(
-      "value" -> enumerable[EORI]("economicOperatorsRegistrationAndIdentification.error.required")
+      "value" -> enumerable[DoYouHaveEORINumber]("economicOperatorsRegistrationAndIdentification.error.required")
     )
 }
