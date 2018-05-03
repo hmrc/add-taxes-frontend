@@ -56,3 +56,5 @@ POST       /other/import-export/nes/has-eori            controllers.other.import
 
 GET        /other/import-export/nes                     controllers.other.importexports.nes.DoYouHaveEORINumberController.onPageLoad()
 POST       /other/import-export/nes                     controllers.other.importexports.nes.DoYouHaveEORINumberController.onSubmit()
+
+GET        /other/import-export/nes/has-eori/register-chief                       controllers.other.importexports.nes.GetCHIEFRoleController.onPageLoad()
