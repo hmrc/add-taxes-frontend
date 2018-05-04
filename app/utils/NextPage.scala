@@ -53,7 +53,7 @@ object NextPage {
       override def get(b: DoYouHaveCHIEFRole)(implicit urlHelper: UrlHelper): Call =
         b match {
           case DoYouHaveCHIEFRole.Yes =>  nesRoutes.RegisterEORIController.onPageLoad()
-          case DoYouHaveCHIEFRole.No => ??? //nesRoutes.GetCHIEFRoleController.onPageLoad()
+          case DoYouHaveCHIEFRole.No => nesRoutes.GetEoriAndChiefRoleController.onPageLoad()
         }
     }
   }
