@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package views.other.importexports.ebti
+package views.other.importexports.ncts
 
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.other.importexports.ebti.registerEORI
+import views.html.other.importexports.ncts.registerEORI
 
 class RegisterEORIViewSpec extends ViewBehaviours {
 
@@ -34,16 +34,16 @@ class RegisterEORIViewSpec extends ViewBehaviours {
       val view = doc.text()
 
       view must include("You need an Economic Operators Registration and Identification (EORI) to " +
-        "add electronic Binding Tariff Information (eBTI) to your account.")
+        "add New Computerised Transit System (NCTS) to your account.")
 
-      view must include("Come back to your account and add eBTI once your EORI number arrives.")
+      view must include("Come back to your account and add NCTS once your EORI number arrives.")
 
       assertLinkById(
         doc,
         "continue",
         "Continue - get an EORI number",
         "https://www.gov.uk/eori#how-to-get-an-eori-number",
-        "RegisterEBTIEori:Click:Continue")
+        "RegisterNCTSEori:Click:Continue")
     }
   }
 }

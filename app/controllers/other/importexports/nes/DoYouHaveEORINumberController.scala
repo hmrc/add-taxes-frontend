@@ -25,6 +25,7 @@ import forms.other.importexports.DoYouHaveEORINumberFormProvider
 import identifiers.DoYouHaveEORINumberId
 import play.api.data.Form
 import utils.Navigator
+import viewmodels.ViewState
 import views.html.other.importexports.doYouHaveEORINumber
 
 import scala.concurrent.Future
@@ -38,9 +39,11 @@ class DoYouHaveEORINumberController @Inject()(appConfig: FrontendAppConfig,
 
   val form = formProvider()
 
+  val viewState = ViewState(routes.DoYouHaveEORINumberController.onSubmit(), "AddNESTax")
+
   def onPageLoad = (authenticate andThen serviceInfo) {
     implicit request =>
-      Ok(doYouHaveEORINumber(appConfig, form, routes.DoYouHaveEORINumberController.onSubmit())(request.serviceInfoContent))
+      Ok(doYouHaveEORINumber(appConfig, form, viewState)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfo).async {
@@ -48,7 +51,7 @@ class DoYouHaveEORINumberController @Inject()(appConfig: FrontendAppConfig,
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
           Future.successful(
-            BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, routes.DoYouHaveEORINumberController.onSubmit())(request.serviceInfoContent))
+            BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, viewState)(request.serviceInfoContent))
           ),
         value => Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.NES, value)))
       )

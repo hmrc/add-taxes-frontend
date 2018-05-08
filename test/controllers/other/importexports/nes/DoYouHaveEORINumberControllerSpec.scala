@@ -24,6 +24,7 @@ import play.api.data.Form
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
+import viewmodels.ViewState
 import views.html.other.importexports.doYouHaveEORINumber
 
 class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
@@ -32,13 +33,14 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
 
   val formProvider = new DoYouHaveEORINumberFormProvider()
   val form = formProvider()
+  val viewState = ViewState(routes.DoYouHaveEORINumberController.onSubmit(), "AddNESTax")
 
   def controller =
     new DoYouHaveEORINumberController(frontendAppConfig, messagesApi, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
       FakeServiceInfoAction, formProvider)
 
   def viewAsString(form: Form[_] = form) =
-    doYouHaveEORINumber(frontendAppConfig, form, routes.DoYouHaveEORINumberController.onSubmit())(HtmlFormat.empty)(fakeRequest, messages).toString
+    doYouHaveEORINumber(frontendAppConfig, form, viewState)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouHaveEORINumber Controller" must {
 

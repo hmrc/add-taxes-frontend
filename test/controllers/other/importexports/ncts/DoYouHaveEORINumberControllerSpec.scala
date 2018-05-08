@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
-package controllers.other.importexports.ics
+package controllers.other.importexports.ncts
 
 import connectors.FakeDataCacheConnector
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers.ControllerSpecBase
+import controllers.actions.{FakeServiceInfoAction, _}
+import controllers.routes._
+import forms.other.importexports.DoYouHaveEORINumberFormProvider
 import models.other.importexports.DoYouHaveEORINumber
 import play.api.data.Form
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
-import views.html.other.importexports.doYouHaveEORINumber
-import controllers.routes._
-import forms.other.importexports.DoYouHaveEORINumberFormProvider
 import viewmodels.ViewState
-import controllers.other.importexports.ics.routes._
+import views.html.other.importexports.doYouHaveEORINumber
 
 
 class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
@@ -42,9 +41,9 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
     new DoYouHaveEORINumberController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
       FakeServiceInfoAction, formProvider)
 
-  def viewAsString(form: Form[_] = form) = doYouHaveEORINumber(frontendAppConfig, form, ViewState(DoYouHaveEORINumberController.onSubmit(), "AddICSTax"))(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = doYouHaveEORINumber(frontendAppConfig, form, ViewState(controllers.other.importexports.ncts.routes.DoYouHaveEORINumberController.onSubmit(), "AddNCTSTax"))(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  "EconomicOperatorsRegistrationAndIdentification Controller" must {
+  "EBTI EORI Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad()(fakeRequest)

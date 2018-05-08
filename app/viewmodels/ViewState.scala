@@ -14,23 +14,10 @@
  * limitations under the License.
  */
 
-package identifiers
+package viewmodels
 
-object DoYouHaveEORINumberId {
+import play.api.mvc.Call
 
-  case object ICS extends Identifier {
-    override def toString: String = "ics-eori"
-  }
 
-  case object EBTI extends Identifier {
-    override def toString: String = "ebti-eori"
-  }
+case class ViewState(call: Call, gaEvent: String)
 
-  case object NES extends Identifier {
-    override def toString: String = "nes-eori"
-  }
-
-  case object NCTS extends Identifier {
-    override def toString: String = "ncts-eori"
-  }
-}

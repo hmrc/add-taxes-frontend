@@ -26,7 +26,8 @@
     title = messages("doYouHaveASEEDNumber.title"),
     appConfig = appConfig,
     bodyClasses = None,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = serviceInfoContent,
+    form = Some(form)) {
 
     @helpers.form(action = DoYouHaveASEEDNumberController.onSubmit(), 'autoComplete -> "off") {
 
