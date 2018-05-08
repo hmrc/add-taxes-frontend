@@ -43,7 +43,7 @@ class DoYouHaveCHIEFRoleNoEORIController @Inject()(
                                         formProvider: DoYouHaveCHIEFRoleFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
 
   val form = formProvider()
-  val viewAction = ViewAction(DoYouHaveCHIEFRoleNoEORIController.onSubmit(), "AddNESNoEori")
+  lazy val viewAction = ViewAction(DoYouHaveCHIEFRoleNoEORIController.onSubmit(), "AddNESNoEori")
 
 
   def onPageLoad() = (authenticate andThen serviceInfoData) {
