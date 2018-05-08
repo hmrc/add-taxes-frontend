@@ -177,7 +177,7 @@ class NextPageSpec extends SpecBase {
 
   "DoYouHaveCHIEFRole" when {
     behave like nextPage(
-      NextPage.doYouHaveCHIEFRole,
+      NextPage.doYouHaveCHIEFHasEORIRole,
       DoYouHaveCHIEFRole.Yes,
       "http://localhost:9555/enrolment-management-frontend/HMCE-NES/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
@@ -188,6 +188,12 @@ class NextPageSpec extends SpecBase {
       NextPage.nesEori,
       DoYouHaveEORINumber.Yes,
       "/business-account/add-tax/other/import-export/nes/has-eori"
+    )
+
+    behave like nextPage(
+      NextPage.nesEori,
+      DoYouHaveEORINumber.No,
+      "/business-account/add-tax/other/import-export/nes/no-eori"
     )
   }
 }

@@ -16,10 +16,12 @@
 
 package views.other.importexports.nes
 
+import controllers.other.importexports.nes.routes._
 import play.api.data.Form
 import forms.other.importexports.nes.DoYouHaveCHIEFRoleFormProvider
 import models.other.importexports.nes.DoYouHaveCHIEFRole
 import play.twirl.api.HtmlFormat
+import viewmodels.ViewAction
 import views.behaviours.ViewBehaviours
 import views.html.other.importexports.nes.doYouHaveCHIEFRole
 
@@ -31,9 +33,9 @@ class DoYouHaveCHIEFRoleViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => doYouHaveCHIEFRole(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView = () => doYouHaveCHIEFRole(frontendAppConfig, form, ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit(), "AddNESHasEori"))(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => doYouHaveCHIEFRole(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => doYouHaveCHIEFRole(frontendAppConfig, form, ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit(), "AddNESHasEori"))(serviceInfoContent)(fakeRequest, messages)
 
   "DoYouHaveCHIEFRole view" must {
     behave like normalPage(createView, messageKeyPrefix)

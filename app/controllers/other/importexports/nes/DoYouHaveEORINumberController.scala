@@ -17,6 +17,7 @@
 package controllers.other.importexports.nes
 
 import javax.inject.Inject
+
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
@@ -49,10 +50,9 @@ class DoYouHaveEORINumberController @Inject()(appConfig: FrontendAppConfig,
   def onSubmit() = (authenticate andThen serviceInfo).async {
     implicit request =>
       form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, action)(request.serviceInfoContent))
-          ),
+        (formWithErrors: Form[_]) => Future.successful(
+          BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, action)(request.serviceInfoContent))
+        ),
         value => Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.NES, value)))
       )
   }
