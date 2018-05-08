@@ -28,7 +28,7 @@
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = HaveYouRegisteredForTiedOilsController.onSubmit(), 'autoComplete -> "off") {
+    @helpers.form(action = HaveYouRegisteredForTiedOilsController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
@@ -40,11 +40,9 @@
             field = form("value"),
             legend = messages("haveYouRegisteredForTiedOils.heading"),
             legendClass = Some("visually-hidden"),
-            inputs = HaveYouRegisteredForTiedOils.options.toSeq,
-            trackGa = true,
-            gaEvent = "AddOilTax"
+            inputs = HaveYouRegisteredForTiedOils.options.toSeq
         )
 
-        @components.submit_button()
+        @components.submit_button(gaEvent = "AddOilTax")
     }
 }

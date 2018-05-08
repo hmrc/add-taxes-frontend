@@ -30,18 +30,16 @@
     serviceInfoContent = serviceInfoContent,
     form = Some(form)) {
 
-    @helpers.form(action = viewAction.call, 'autoComplete -> "off") {
+    @helpers.form(action = viewAction.call, 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
         @components.input_radio(
             field = form("value"),
             legend = components.heading("economicOperatorsRegistrationAndIdentification.heading").body,
-            inputs = DoYouHaveEORINumber.options.toSeq,
-            trackGa = true,
-            gaEvent = viewAction.gaEvent
+            inputs = DoYouHaveEORINumber.options.toSeq
         )
 
-        @components.submit_button()
+        @components.submit_button(gaEvent = viewAction.gaEvent)
     }
 }
