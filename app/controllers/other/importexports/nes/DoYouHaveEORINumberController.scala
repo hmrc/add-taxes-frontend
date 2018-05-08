@@ -17,7 +17,6 @@
 package controllers.other.importexports.nes
 
 import javax.inject.Inject
-
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
@@ -40,9 +39,11 @@ class DoYouHaveEORINumberController @Inject()(appConfig: FrontendAppConfig,
 
   val form = formProvider()
 
+  val action = ViewAction(routes.DoYouHaveEORINumberController.onSubmit(), "AddNESTax")
+
   def onPageLoad = (authenticate andThen serviceInfo) {
     implicit request =>
-      Ok(doYouHaveEORINumber(appConfig, form, ViewAction(routes.DoYouHaveEORINumberController.onSubmit(), "AddNESTax"))(request.serviceInfoContent))
+      Ok(doYouHaveEORINumber(appConfig, form, action)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfo).async {
@@ -50,7 +51,7 @@ class DoYouHaveEORINumberController @Inject()(appConfig: FrontendAppConfig,
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
           Future.successful(
-            BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, ViewAction(routes.DoYouHaveEORINumberController.onSubmit(), "AddNESTax"))(request.serviceInfoContent))
+            BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, action)(request.serviceInfoContent))
           ),
         value => Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.NES, value)))
       )

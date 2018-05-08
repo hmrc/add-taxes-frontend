@@ -18,7 +18,6 @@ package identifiers
 
 object DoYouHaveEORINumberId {
 
-
   case object ICS extends Identifier {
     override def toString: String = "ics-eori"
   }
@@ -27,11 +26,11 @@ object DoYouHaveEORINumberId {
     override def toString: String = "ebti-eori"
   }
 
-  case object NCTS extends Identifier {
-    override def toString: String = "ncts-eori"
-  }
-
   case object NES extends Identifier {
     override def toString: String = "nes-eori"
+  }
+
+  case object NCTS extends Identifier {
+    override def toString: String = "ncts-eori"
   }
 }

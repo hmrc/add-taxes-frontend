@@ -56,12 +56,10 @@ object Enrolments {
 
   case object NewComputerisedTransitSystem extends WithName("HMRC-NCTS-ORG") with Enrolments
 
-
-
   val values: Set[Enrolments] = Set(
     RebatedOils, TiedOils, AlcoholAndTobaccoWarehousingDeclarations, AlcoholWholesalerRegistrationScheme,
     AlcoholWholesalerRegistrationScheme, AutomaticExchangeOfInformation, Charities, MachineGamingDuty, GeneralBetting,
     PoolBetting, RemoteGaming, OtherBusinessTaxDutyScheme, EconomicOperatorsRegistration, DefermentApprovalNumber,
-    NewComputerisedTransitSystem, NewExportSystem
+    NewExportSystem, ElectronicBindingTariffInformation, NewComputerisedTransitSystem, NewExportSystem
   )
 }
