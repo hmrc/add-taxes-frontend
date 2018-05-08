@@ -21,6 +21,7 @@ import models.other.importexports.DoYouHaveEORINumber
 import models.OtherTaxes
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
+import models.other.importexports.nes.DoYouHaveCHIEFRole
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
 import models.wrongcredentials.FindingYourAccount
@@ -160,8 +161,6 @@ class NextPageSpec extends SpecBase {
     )
   }
 
-
-
   "DoYouHaveDAN" when {
     behave like nextPage(
       NextPage.doYouHaveDAN,
@@ -173,6 +172,22 @@ class NextPageSpec extends SpecBase {
       NextPage.doYouHaveDAN,
       DoYouHaveDAN.Yes,
       "http://localhost:9555/enrolment-management-frontend/HMCE-DDES/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+  }
+
+  "DoYouHaveCHIEFRole" when {
+    behave like nextPage(
+      NextPage.doYouHaveCHIEFRole,
+      DoYouHaveCHIEFRole.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMCE-NES/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+  }
+
+  "nesEori" when {
+    behave like nextPage(
+      NextPage.nesEori,
+      DoYouHaveEORINumber.Yes,
+      "/business-account/add-tax/other/import-export/nes/has-eori"
     )
   }
 }

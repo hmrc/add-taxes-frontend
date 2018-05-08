@@ -14,23 +14,26 @@
  * limitations under the License.
  */
 
-package identifiers
+package models.other.importexports.nes
 
-object DoYouHaveEORINumberId {
+import utils.{Enumerable, RadioOption, WithName}
 
-  case object ICS extends Identifier {
-    override def toString: String = "ics-eori"
+sealed trait DoYouHaveCHIEFRole
+
+object DoYouHaveCHIEFRole {
+
+  case object Yes extends WithName("Yes") with DoYouHaveCHIEFRole
+  case object No extends WithName("No") with DoYouHaveCHIEFRole
+
+  val values: Set[DoYouHaveCHIEFRole] = Set(
+    Yes, No
+  )
+
+  val options: Set[RadioOption] = values.map {
+    value =>
+      RadioOption("doYouHaveCHIEFRole", value.toString)
   }
 
-  case object EBTI extends Identifier {
-    override def toString: String = "ebti-eori"
-  }
-
-  case object NES extends Identifier {
-    override def toString: String = "nes-eori"
-  }
-
-  case object NCTS extends Identifier {
-    override def toString: String = "ncts-eori"
-  }
+  implicit val enumerable: Enumerable[DoYouHaveCHIEFRole] =
+    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }

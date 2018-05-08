@@ -14,23 +14,19 @@
  * limitations under the License.
  */
 
-package identifiers
+package forms.other.importexports.nes
 
-object DoYouHaveEORINumberId {
+import javax.inject.Inject
 
-  case object ICS extends Identifier {
-    override def toString: String = "ics-eori"
-  }
+import forms.FormErrorHelper
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.other.importexports.nes.DoYouHaveCHIEFRole
 
-  case object EBTI extends Identifier {
-    override def toString: String = "ebti-eori"
-  }
+class DoYouHaveCHIEFRoleFormProvider @Inject() extends FormErrorHelper with Mappings {
 
-  case object NES extends Identifier {
-    override def toString: String = "nes-eori"
-  }
-
-  case object NCTS extends Identifier {
-    override def toString: String = "ncts-eori"
-  }
+  def apply(): Form[DoYouHaveCHIEFRole] =
+    Form(
+      "value" -> enumerable[DoYouHaveCHIEFRole]("doYouHaveCHIEFRole.error.required")
+    )
 }
