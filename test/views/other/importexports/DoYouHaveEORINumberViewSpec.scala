@@ -20,7 +20,7 @@ import forms.other.importexports.DoYouHaveEORINumberFormProvider
 import models.other.importexports.DoYouHaveEORINumber
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
-import viewmodels.ViewState
+import viewmodels.ViewAction
 import views.behaviours.ViewBehaviours
 import views.html.other.importexports.doYouHaveEORINumber
 
@@ -32,9 +32,9 @@ class DoYouHaveEORINumberViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => doYouHaveEORINumber(frontendAppConfig, form, ViewState(controllers.other.importexports.ics.routes.DoYouHaveEORINumberController.onSubmit(), ""))(serviceInfoContent)(fakeRequest, messages)
+  def createView = () => doYouHaveEORINumber(frontendAppConfig, form, ViewAction(controllers.other.importexports.ics.routes.DoYouHaveEORINumberController.onSubmit(), ""))(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => doYouHaveEORINumber(frontendAppConfig, form, ViewState(controllers.other.importexports.ics.routes.DoYouHaveEORINumberController.onSubmit(), ""))(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => doYouHaveEORINumber(frontendAppConfig, form, ViewAction(controllers.other.importexports.ics.routes.DoYouHaveEORINumberController.onSubmit(), ""))(serviceInfoContent)(fakeRequest, messages)
 
   "EconomicOperatorsRegistrationAndIdentification view" must {
     behave like normalPage(createView, messageKeyPrefix)

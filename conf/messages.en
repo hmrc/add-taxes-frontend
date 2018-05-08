@@ -223,3 +223,13 @@ registerEORIEBTI.p2 = Come back to your account and add eBTI once your EORI numb
 #######################################################
 registerEORINCTS.p1 = You need an Economic Operators Registration and Identification (EORI) to add New Computerised Transit System (NCTS) to your account.
 registerEORINCTS.p2 = Come back to your account and add NCTS once your EORI number arrives.
+
+#######################################################
+##  GetCHIEFRole
+#######################################################
+getCHIEFRole.title = Get a CHIEF role first
+getCHIEFRole.heading = Get a CHIEF role first
+getCHIEFRole.p1=You need a CHIEF role to add National Export System (NES) to your account.
+getCHIEFRole.p2=Email {0} your business details to request a CHIEF role.
+getCHIEFRole.p3=Come back to your account and add NES once your CHIEF role arrives.
+

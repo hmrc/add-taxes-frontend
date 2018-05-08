@@ -26,7 +26,7 @@ import play.api.data.Form
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
-import viewmodels.ViewState
+import viewmodels.ViewAction
 import views.html.other.importexports.doYouHaveEORINumber
 import controllers.other.importexports.ebti.routes._
 
@@ -42,7 +42,7 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
     new DoYouHaveEORINumberController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
       FakeServiceInfoAction, formProvider)
 
-  def viewAsString(form: Form[_] = form) = doYouHaveEORINumber(frontendAppConfig, form, ViewState(DoYouHaveEORINumberController.onSubmit(), "AddEBTITax"))(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = doYouHaveEORINumber(frontendAppConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddEBTITax"))(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "EBTI EORI Controller" must {
 

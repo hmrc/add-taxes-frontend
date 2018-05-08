@@ -27,7 +27,7 @@ import utils.FakeNavigator
 import views.html.other.importexports.doYouHaveEORINumber
 import controllers.routes._
 import forms.other.importexports.DoYouHaveEORINumberFormProvider
-import viewmodels.ViewState
+import viewmodels.ViewAction
 import controllers.other.importexports.ics.routes._
 
 
@@ -42,7 +42,7 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
     new DoYouHaveEORINumberController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
       FakeServiceInfoAction, formProvider)
 
-  def viewAsString(form: Form[_] = form) = doYouHaveEORINumber(frontendAppConfig, form, ViewState(DoYouHaveEORINumberController.onSubmit(), "AddICSTax"))(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = doYouHaveEORINumber(frontendAppConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddICSTax"))(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "EconomicOperatorsRegistrationAndIdentification Controller" must {
 

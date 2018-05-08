@@ -28,7 +28,7 @@ import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-import viewmodels.ViewState
+import viewmodels.ViewAction
 import views.html.other.importexports.doYouHaveEORINumber
 
 import scala.concurrent.Future
@@ -46,14 +46,14 @@ class DoYouHaveEORINumberController @Inject()(
 
   def onPageLoad() = (authenticate andThen serviceInfoData) {
     implicit request =>
-      Ok(doYouHaveEORINumber(appConfig, form, ViewState(DoYouHaveEORINumberController.onSubmit(), "AddEBTITax"))(request.serviceInfoContent))
+      Ok(doYouHaveEORINumber(appConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddEBTITax"))(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, ViewState(DoYouHaveEORINumberController.onSubmit(), "AddEBTITax"))(request.serviceInfoContent))),
+          Future.successful(BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddEBTITax"))(request.serviceInfoContent))),
         (value) =>
           Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.EBTI, value)))
       )
