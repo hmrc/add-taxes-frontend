@@ -29,7 +29,7 @@
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = viewState.call, 'autoComplete -> "off") {
+    @helpers.form(action = viewState.call, 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
@@ -43,11 +43,9 @@
             field = form("value"),
             legend = messages("doYouHaveCHIEFRole.heading"),
             legendClass = Some("visuallyhidden"),
-            inputs = DoYouHaveCHIEFRole.options.toSeq,
-            trackGa = true,
-            gaEvent = viewState.gaEvent
+            inputs = DoYouHaveCHIEFRole.options.toSeq
         )
 
-        @components.submit_button()
+        @components.submit_button(gaEvent = viewState.gaEvent)
     }
 }

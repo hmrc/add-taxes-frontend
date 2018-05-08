@@ -72,5 +72,6 @@ POST       /other/import-export/nes/no-eori             controllers.other.import
 
 GET        /other/import-export/nes/no-eori/register-eori       controllers.other.importexports.nes.RegisterEORIController.onPageLoad()
 
-GET        /other/import-export/nes/has-eori/register-chief     controllers.other.importexports.nes.GetCHIEFRoleController.onPageLoad()
+GET        /other/import-export/nes/no-eori/register-both       controllers.other.importexports.nes.GetEoriAndChiefRoleController.onPageLoad()
 
+GET        /other/import-export/nes/has-eori/register-chief     controllers.other.importexports.nes.GetCHIEFRoleController.onPageLoad()

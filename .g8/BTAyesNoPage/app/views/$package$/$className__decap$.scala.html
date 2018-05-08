@@ -12,18 +12,16 @@
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = $className$Controller.onSubmit(), 'autoComplete -> "off") {
+    @helpers.form(action = $className$Controller.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
         @components.input_radio(
             field = form("value"),
             legend = components.heading("$className;format="decap"$.heading").body,
-            inputs = $className$.options.toSeq,
-            trackGa = true,
-            gaEvent = "$gaEventPrefix$"
+            inputs = $className$.options.toSeq
         )
 
-        @components.submit_button()
+        @components.submit_button(gaEvent = "$gaEventPrefix$")
     }
 }

@@ -39,7 +39,6 @@ class DoYouHaveEORINumberController @Inject()(appConfig: FrontendAppConfig,
                                               formProvider: DoYouHaveEORINumberFormProvider) extends FrontendController with I18nSupport {
 
   val form = formProvider()
-
   val action = ViewAction(routes.DoYouHaveEORINumberController.onSubmit(), "AddNESTax")
 
   def onPageLoad = (authenticate andThen serviceInfo) {
