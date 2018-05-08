@@ -16,21 +16,20 @@
 
 package controllers.other.importexports.nes
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.{FakeServiceInfoAction, _}
+import controllers.other.importexports.nes.routes._
 import forms.other.importexports.nes.DoYouHaveCHIEFRoleFormProvider
-import identifiers.DoYouHaveCHIEFRoleId
 import models.other.importexports.nes.DoYouHaveCHIEFRole
+import play.api.data.Form
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
+import viewmodels.ViewAction
 import views.html.other.importexports.nes.doYouHaveCHIEFRole
 
-class DoYouHaveCHIEFRoleControllerSpec extends ControllerSpecBase {
+class DoYouHaveCHIEFRoleNoEORIControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = controllers.routes.IndexController.onPageLoad()
 
@@ -38,10 +37,10 @@ class DoYouHaveCHIEFRoleControllerSpec extends ControllerSpecBase {
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new DoYouHaveCHIEFRoleController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
+    new DoYouHaveCHIEFRoleNoEORIController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
       FakeServiceInfoAction, formProvider)
 
-  def viewAsString(form: Form[_] = form) = doYouHaveCHIEFRole(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = doYouHaveCHIEFRole(frontendAppConfig, form, ViewAction(DoYouHaveCHIEFRoleNoEORIController.onSubmit(), "AddNESNoEori"))(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouHaveCHIEFRole Controller" must {
 

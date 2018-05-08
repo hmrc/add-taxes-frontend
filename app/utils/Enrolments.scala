@@ -60,6 +60,6 @@ object Enrolments {
     RebatedOils, TiedOils, AlcoholAndTobaccoWarehousingDeclarations, AlcoholWholesalerRegistrationScheme,
     AlcoholWholesalerRegistrationScheme, AutomaticExchangeOfInformation, Charities, MachineGamingDuty, GeneralBetting,
     PoolBetting, RemoteGaming, OtherBusinessTaxDutyScheme, EconomicOperatorsRegistration, DefermentApprovalNumber,
-    NewExportSystem, ElectronicBindingTariffInformation, NewComputerisedTransitSystem
+    NewExportSystem, ElectronicBindingTariffInformation, NewComputerisedTransitSystem, NewExportSystem
   )
 }

@@ -49,6 +49,7 @@ site.signout = Allgofnodi
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
 
+
 #######################################################
 ##  Select An Oil Service
 #######################################################
@@ -58,6 +59,7 @@ selectAnOilService.rebatedOilsEnquiryService = Gwasanaeth Ymholiadau Olew Ad-dal
 selectAnOilService.tiedOilsEnquiryService = Gwasanaeth Ymholiadau Olew ‘Tied’
 selectAnOilService.checkYourAnswersLabel = Dewis gwasanaeth olew
 selectAnOilService.error.required = Dewis gwasanaeth
+
 
 #######################################################
 ##  Have You Registered For Tied Oils
@@ -70,6 +72,7 @@ haveYouRegisteredForTiedOils.no = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
 haveYouRegisteredForTiedOils.checkYourAnswersLabel = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’?
 haveYouRegisteredForTiedOils.error.required = Dewis iawn neu na
 
+
 #######################################################
 ##  Register Tied Oils
 #######################################################
@@ -78,6 +81,7 @@ registerTiedOils.heading = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied
 registerTiedOils.message1 = Mae’n rhaid i chi gofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’ cyn y gallwch ei ychwanegu i’ch cyfrif.
 registerTiedOils.message2 = Byddwn yn anfon rhif cymeradwyo atoch. Gallwch ei ddefnyddio i ychwanegu Gwasanaeth Ymholiadau Olew ‘Tied’ i’r cyfrif.
 registerTiedOils.button.text = Mynd yn eich blaen - cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’
+
 
 #######################################################
 ##  Have You Registered For Rebated Oils
@@ -90,6 +94,7 @@ haveYouRegisteredForRebatedOils.no = Nac ydw - nid wyf wedi cofrestru ar hyn o b
 haveYouRegisteredForRebatedOils.checkYourAnswersLabel = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’?
 haveYouRegisteredForRebatedOils.error.required = Dewis iawn neu na
 
+
 #######################################################
 ##  Register Rebated Oils
 #######################################################
@@ -98,6 +103,7 @@ registerRebatedOils.heading = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘R
 registerRebatedOils.message1 = Mae’n rhaid i chi gofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’ cyn y gallwch ei ychwanegu i’ch cyfrif.
 registerRebatedOils.message2 = Byddwn yn anfon rhif cymeradwyo atoch. Gallwch ei ddefnyddio i ychwanegu Gwasanaeth Ymholiadau Olew ‘Rebated’ i’r cyfrif.
 registerRebatedOils.button.text = Mynd yn eich blaen - cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’
+
 
 #######################################################
 ##  FindingYourAccount
@@ -110,6 +116,7 @@ findingYourAccount.dontKnowId = Mae fy nghyfrinair gen i ond nid wyf yn gwybod b
 findingYourAccount.dontKnowIdOrPassword = Nid yw fy Nynodydd Defnyddiwr (ID) na’m cyfrinair gen i
 findingYourAccount.legend = Pa opsiwn sy’n disgrifio’ch problem orau?
 findingYourAccount.error.required = Dewiswch yr opsiwn sy’n disgrifio’ch problem orau
+
 
 #######################################################
 ##  OtherTaxes
@@ -127,6 +134,7 @@ otherTaxes.fulfilmentHouseDueDiligenceSchemeIntegration = Cynllun Diwydrwydd Dyl
 otherTaxes.error.required = Dewis treth neu fath o gynllun
 otherTaxes.legend = Dewis treth neu fath o gynllun
 
+
 #######################################################
 ##  RegisterExciseMovementControlSystem
 #######################################################
@@ -135,6 +143,7 @@ registerExciseMovementControlSystem.heading = Dylech gael ID SEED ecséis yn gyn
 registerExciseMovementControlSystem.youNeedToRegister=Mae angen i chi gofrestru ar gyfer rhif ID SEED ecséis cyn y gallwch ychwanegu System Symudiadau a Rheolaeth Ecseis (EMCS) i’ch cyfrif.
 registerExciseMovementControlSystem.comeBackToYourAccount=Dychwelwch i’ch cyfrif ac ychwanegwch EMCS unwaith bod eich rhif SEED wedi cyrraedd.
 registerExciseMovementControlSystem.button=Mynd yn eich blaen - cael rhif SEED
+
 
 #######################################################
 ##  DoYouHaveASEEDNumber
@@ -145,6 +154,7 @@ doYouHaveASEEDNumber.Yes = Oes - mae gennyf rif SEED
 doYouHaveASEEDNumber.No = Nac oes - nid oes gennyf rif SEED
 doYouHaveASEEDNumber.error.required = Dewis iawn neu na
 
+
 #######################################################
 ##  DoYouHaveEORINumber
 #######################################################
@@ -154,12 +164,14 @@ economicOperatorsRegistrationAndIdentification.Yes = Oes - mae gennyf rif EORI
 economicOperatorsRegistrationAndIdentification.No = Nac oes - nid oes gennyf rif EORI
 economicOperatorsRegistrationAndIdentification.error.required = Dewis iawn neu na
 
+
 #######################################################
 ##  RegisterEORI
 #######################################################
 registerEORI.title = Dylech gael rhif EORI yn gyntaf
 registerEORI.heading = Dylech gael rhif EORI yn gyntaf
 registerEORI.continue = Mynd yn eich blaen - cael rhif EORI
+
 
 #######################################################
 ##  RegisterEORI - ICS
@@ -187,6 +199,7 @@ doYouHaveDAN.Yes = Oes - mae gennyf Rif Cymeradwyo Gohirio
 doYouHaveDAN.No = Nac oes - nid oes gennyf DAN ar hyn o bryd
 doYouHaveDAN.error.required = Dewis iawn neu na
 
+
 #######################################################
 ##  DoYouHaveCHIEFRole
 #######################################################
@@ -197,11 +210,24 @@ doYouHaveCHIEFRole.Yes = Oes - mae gennyf rôl CHIEF
 doYouHaveCHIEFRole.No = Nac oes - nid oes gennyf rôl CHIEF ar hyn o bryd
 doYouHaveCHIEFRole.error.required = Dewis iawn neu na
 
+
+#######################################################
+##  DoYouHaveCHIEFRole
+#######################################################
+doYouHaveCHIEFRole.title = A oes gennych rôl defnyddiwr CHIEF?
+doYouHaveCHIEFRole.heading = A oes gennych rôl defnyddiwr CHIEF?
+doYouHaveCHIEFRole.p1 = Cod yw hwn a ddefnyddiwch i gyrchu System y Tollau ar gyfer Trin Nwyddau a Gaiff eu Mewnforio a’u Hallforio (CHIEF) i roi gwybodaeth am dollau drwy ddull electronig. Fel arfer, 5 llythyren yw hwn, e.e. ABCDE.
+doYouHaveCHIEFRole.Yes = Oes - mae gennyf rôl CHIEF
+doYouHaveCHIEFRole.No = Nac oes - nid oes gennyf rôl CHIEF ar hyn o bryd
+doYouHaveCHIEFRole.error.required = Dewis iawn neu na
+
+
 #######################################################
 ##  RegisterEORI - EBTI
 #######################################################
 registerEORIEBTI.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu Gwybodaeth Electronig am Dariff sy’n Rhwymo (eBTI) i’ch cyfrif.
 registerEORIEBTI.p2 = Dychwelwch i’ch cyfrif ac ychwanegu eBTI unwaith bod eich rhif EORI wedi cyrraedd.
+
 
 #######################################################
 ##  RegisterEORI - NCTS
@@ -223,3 +249,31 @@ doYouWantToAddImportExport.eBTI = Gwybodaeth Electronig am Dariff sy'n Rhwymo (e
 doYouWantToAddImportExport.NES = System Allforio Newydd (NES)
 doYouWantToAddImportExport.Intrastat = Datganiad Atodol Intrastat
 doYouWantToAddImportExport.error.required = Dewis cynllun
+
+#######################################################
+##  GetCHIEFRole
+#######################################################
+getCHIEFRole.title = Dylech gael rôl CHIEF yn gyntaf
+getCHIEFRole.heading = Dylech gael rôl CHIEF yn gyntaf
+getCHIEFRole.p1=Mae angen rôl CHIEF arnoch i ychwanegu System Allforio Genedlaethol (NES) i’ch cyfrif.
+getCHIEFRole.p2=E-bostiwch {0} gan roi manylion eich busnes i wneud cais am rôl CHIEF.
+getCHIEFRole.p3=Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rôl CHIEF wedi cyrraedd.
+
+
+#######################################################
+##  RegisterEORI - NES
+#######################################################
+registerEORINES.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu System Allforio Genedlaethol (NES) i’ch cyfrif.
+registerEORINES.p2 = Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rhif EORI wedi cyrraedd.
+
+
+#######################################################
+##  GetEoriAndChiefRole
+#######################################################
+getEoriAndChiefRole.title = Dylech gael rhif EORI a rôl CHIEF
+getEoriAndChiefRole.heading = Dylech gael rhif EORI a rôl CHIEF
+getEoriAndChiefRole.p1=Mae angen rhif EORI a rôl CHIEF arnoch i ychwanegu System Allforio Genedlaethol (NES) i’ch cyfrif.
+getEoriAndChiefRole.p2=Mae angen i chi wneud y canlynol:
+getEoriAndChiefRole.p2.li1=E-bostiwch {0} gan roi manylion eich busnes i wneud cais am rôl CHIEF.
+getEoriAndChiefRole.p2.li2=llenwch ffurflen gais EORI
+getEoriAndChiefRole.p3=Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rhif EORI a’ch rôl CHIEF wedi cyrraedd.

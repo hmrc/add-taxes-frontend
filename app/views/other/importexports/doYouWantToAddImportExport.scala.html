@@ -28,18 +28,16 @@
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = DoYouWantToAddImportExportController.onSubmit(), 'autoComplete -> "off") {
+    @helpers.form(action = DoYouWantToAddImportExportController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
         @components.input_radio(
             field = form("value"),
             legend = components.heading("doYouWantToAddImportExport.heading").body,
-            inputs = DoYouWantToAddImportExport.options.toSeq,
-            trackGa = true,
-            gaEvent = "AddImportExportTax"
+            inputs = DoYouWantToAddImportExport.options.toSeq
         )
 
-        @components.submit_button()
+        @components.submit_button(gaEvent = "AddImportExportTax")
     }
 }

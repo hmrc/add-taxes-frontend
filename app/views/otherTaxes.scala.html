@@ -29,18 +29,16 @@
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = OtherTaxesController.onSubmit(), 'autoComplete -> "off") {
+    @helpers.form(action = OtherTaxesController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
         @components.input_radio(
             field = form("value"),
             legend = components.heading("otherTaxes.heading").body,
-            inputs = options,
-            trackGa = true,
-            gaEvent = "OtherTaxes"
+            inputs = options
         )
 
-        @components.submit_button()
+        @components.submit_button(gaEvent = "OtherTaxes")
     }
 }

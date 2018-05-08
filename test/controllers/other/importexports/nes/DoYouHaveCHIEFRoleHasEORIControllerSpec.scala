@@ -14,37 +14,35 @@
  * limitations under the License.
  */
 
-package controllers.other.importexports.ebti
+package controllers.other.importexports.nes
 
-import connectors.FakeDataCacheConnector
-import controllers.ControllerSpecBase
-import controllers.actions.{FakeServiceInfoAction, _}
-import controllers.routes._
-import forms.other.importexports.DoYouHaveEORINumberFormProvider
-import models.other.importexports.DoYouHaveEORINumber
 import play.api.data.Form
-import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
+import connectors.FakeDataCacheConnector
+import controllers.actions.{FakeServiceInfoAction, _}
+import controllers._
+import play.api.test.Helpers._
+import forms.other.importexports.nes.DoYouHaveCHIEFRoleFormProvider
+import models.other.importexports.nes.DoYouHaveCHIEFRole
+import play.twirl.api.HtmlFormat
 import viewmodels.ViewAction
-import views.html.other.importexports.doYouHaveEORINumber
-import controllers.other.importexports.ebti.routes._
+import views.html.other.importexports.nes.doYouHaveCHIEFRole
+import controllers.other.importexports.nes.routes._
 
+class DoYouHaveCHIEFRoleHasEORIControllerSpec extends ControllerSpecBase {
 
-class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
+  def onwardRoute = controllers.routes.IndexController.onPageLoad()
 
-  def onwardRoute = IndexController.onPageLoad()
-
-  val formProvider = new DoYouHaveEORINumberFormProvider()
+  val formProvider = new DoYouHaveCHIEFRoleFormProvider()
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new DoYouHaveEORINumberController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
+    new DoYouHaveCHIEFRoleHasEORIController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
       FakeServiceInfoAction, formProvider)
 
-  def viewAsString(form: Form[_] = form) = doYouHaveEORINumber(frontendAppConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddEBTITax"))(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = doYouHaveCHIEFRole(frontendAppConfig, form, ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit(), "AddNESHasEori"))(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  "EBTI EORI Controller" must {
+  "DoYouHaveCHIEFRole Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad()(fakeRequest)
@@ -54,7 +52,7 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveEORINumber.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveCHIEFRole.options.head.value))
 
       val result = controller().onSubmit()(postRequest)
 
@@ -78,12 +76,14 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    "redirect to next page when valid data is submitted and no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (DoYouHaveEORINumber.options.head.value)))
-      val result = controller(dontGetAnyData).onSubmit()(postRequest)
+    for(option <- DoYouHaveCHIEFRole.options) {
+      s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val result = controller(dontGetAnyData).onSubmit()(postRequest)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(onwardRoute.url)
+      }
     }
   }
 }

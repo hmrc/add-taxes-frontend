@@ -19,5 +19,5 @@ package viewmodels
 import play.api.mvc.Call
 
 
-case class ViewState(call: Call, gaEvent: String)
+case class ViewAction(call: Call, gaEvent: String)
 

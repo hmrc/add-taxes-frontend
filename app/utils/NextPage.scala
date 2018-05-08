@@ -58,15 +58,26 @@ object NextPage {
   }
 
 
-  implicit val doYouHaveCHIEFRole: NextPage[DoYouHaveCHIEFRoleId.type,
+  implicit val doYouHaveCHIEFHasEORIRole: NextPage[DoYouHaveCHIEFRoleId.HasEORI.type,
     DoYouHaveCHIEFRole] = {
-    new NextPage[DoYouHaveCHIEFRoleId.type, DoYouHaveCHIEFRole] {
+    new NextPage[DoYouHaveCHIEFRoleId.HasEORI.type, DoYouHaveCHIEFRole] {
       override def get(b: DoYouHaveCHIEFRole)(implicit urlHelper: UrlHelper): Call =
         b match {
           case DoYouHaveCHIEFRole.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.NewExportSystem))
-          case DoYouHaveCHIEFRole.No => ???
+          case DoYouHaveCHIEFRole.No => nesRoutes.GetCHIEFRoleController.onPageLoad()
         }
      }
+  }
+
+  implicit val doYouHaveCHIEFNoEORIRole: NextPage[DoYouHaveCHIEFRoleId.NoEORI.type,
+    DoYouHaveCHIEFRole] = {
+    new NextPage[DoYouHaveCHIEFRoleId.NoEORI.type, DoYouHaveCHIEFRole] {
+      override def get(b: DoYouHaveCHIEFRole)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case DoYouHaveCHIEFRole.Yes =>  nesRoutes.RegisterEORIController.onPageLoad()
+          case DoYouHaveCHIEFRole.No => nesRoutes.GetEoriAndChiefRoleController.onPageLoad()
+        }
+    }
   }
 
   implicit val doYouHaveDAN: NextPage[DoYouHaveDANId.type,
@@ -113,17 +124,6 @@ object NextPage {
     }
   }
 
-  implicit val nesEori: NextPage[DoYouHaveEORINumberId.NES.type,
-    DoYouHaveEORINumber] = {
-    new NextPage[DoYouHaveEORINumberId.NES.type, DoYouHaveEORINumber] {
-      override def get(b: DoYouHaveEORINumber)(implicit urlHelper: UrlHelper): Call =
-        b match {
-          case DoYouHaveEORINumber.Yes => nesRoutes.DoYouHaveCHIEFRoleController.onPageLoad()
-          case DoYouHaveEORINumber.No => ???
-        }
-    }
-  }
-
   implicit val nctsEori: NextPage[DoYouHaveEORINumberId.NCTS.type,
     DoYouHaveEORINumber] = {
     new NextPage[DoYouHaveEORINumberId.NCTS.type, DoYouHaveEORINumber] {
@@ -131,6 +131,17 @@ object NextPage {
         b match {
           case DoYouHaveEORINumber.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.NewComputerisedTransitSystem))
           case DoYouHaveEORINumber.No => nctsRoutes.RegisterEORIController.onPageLoad()
+        }
+    }
+  }
+
+  implicit val nesEori: NextPage[DoYouHaveEORINumberId.NES.type,
+    DoYouHaveEORINumber] = {
+    new NextPage[DoYouHaveEORINumberId.NES.type, DoYouHaveEORINumber] {
+      override def get(b: DoYouHaveEORINumber)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case DoYouHaveEORINumber.Yes => nesRoutes.DoYouHaveCHIEFRoleHasEORIController.onPageLoad()
+          case DoYouHaveEORINumber.No => nesRoutes.DoYouHaveCHIEFRoleNoEORIController.onPageLoad()
         }
     }
   }

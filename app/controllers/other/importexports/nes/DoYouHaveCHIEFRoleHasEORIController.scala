@@ -14,48 +14,48 @@
  * limitations under the License.
  */
 
-package controllers.other.importexports.ebti
+package controllers.other.importexports.nes
 
 import javax.inject.Inject
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import controllers.other.importexports.ebti.routes._
-import forms.other.importexports.DoYouHaveEORINumberFormProvider
-import identifiers.DoYouHaveEORINumberId
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
+import forms.other.importexports.nes.DoYouHaveCHIEFRoleFormProvider
+import identifiers.DoYouHaveCHIEFRoleId
 import viewmodels.ViewAction
-import views.html.other.importexports.doYouHaveEORINumber
+import views.html.other.importexports.nes.doYouHaveCHIEFRole
+import controllers.other.importexports.nes.routes._
 
 import scala.concurrent.Future
 
-class DoYouHaveEORINumberController @Inject()(
+class DoYouHaveCHIEFRoleHasEORIController @Inject()(
                                         appConfig: FrontendAppConfig,
                                         override val messagesApi: MessagesApi,
                                         dataCacheConnector: DataCacheConnector,
                                         navigator: Navigator,
                                         authenticate: AuthAction,
                                         serviceInfoData: ServiceInfoAction,
-                                        formProvider: DoYouHaveEORINumberFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+                                        formProvider: DoYouHaveCHIEFRoleFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
 
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) {
     implicit request =>
-      Ok(doYouHaveEORINumber(appConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddEBTITax"))(request.serviceInfoContent))
+      Ok(doYouHaveCHIEFRole(appConfig, form, ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit() , "AddNESHasEori"))(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddEBTITax"))(request.serviceInfoContent))),
+          Future.successful(BadRequest(doYouHaveCHIEFRole(appConfig, formWithErrors, ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit() , "AddNESHasEori"))(request.serviceInfoContent))),
         (value) =>
-          Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.EBTI, value)))
+          Future.successful(Redirect(navigator.nextPage(DoYouHaveCHIEFRoleId.HasEORI, value)))
       )
   }
 }

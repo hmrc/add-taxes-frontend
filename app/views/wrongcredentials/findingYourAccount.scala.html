@@ -29,7 +29,7 @@
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = FindingYourAccountController.onSubmit(), 'autoComplete -> "off") {
+    @helpers.form(action = FindingYourAccountController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
@@ -41,11 +41,9 @@
             field = form("value"),
             legend = messages("findingYourAccount.legend"),
             legendClass = Some("heading-medium body-text"),
-            inputs = FindingYourAccount.options.toSeq,
-            trackGa = true,
-            gaEvent = "FindingYourAccount"
+            inputs = FindingYourAccount.options.toSeq
         )
 
-        @components.submit_button()
+        @components.submit_button(gaEvent = "FindingYourAccount")
     }
 }

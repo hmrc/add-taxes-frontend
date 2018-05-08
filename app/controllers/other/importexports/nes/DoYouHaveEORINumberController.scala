@@ -17,6 +17,7 @@
 package controllers.other.importexports.nes
 
 import javax.inject.Inject
+
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
@@ -25,7 +26,7 @@ import forms.other.importexports.DoYouHaveEORINumberFormProvider
 import identifiers.DoYouHaveEORINumberId
 import play.api.data.Form
 import utils.Navigator
-import viewmodels.ViewState
+import viewmodels.ViewAction
 import views.html.other.importexports.doYouHaveEORINumber
 
 import scala.concurrent.Future
@@ -38,21 +39,19 @@ class DoYouHaveEORINumberController @Inject()(appConfig: FrontendAppConfig,
                                               formProvider: DoYouHaveEORINumberFormProvider) extends FrontendController with I18nSupport {
 
   val form = formProvider()
-
-  val viewState = ViewState(routes.DoYouHaveEORINumberController.onSubmit(), "AddNESTax")
+  val action = ViewAction(routes.DoYouHaveEORINumberController.onSubmit(), "AddNESTax")
 
   def onPageLoad = (authenticate andThen serviceInfo) {
     implicit request =>
-      Ok(doYouHaveEORINumber(appConfig, form, viewState)(request.serviceInfoContent))
+      Ok(doYouHaveEORINumber(appConfig, form, action)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfo).async {
     implicit request =>
       form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, viewState)(request.serviceInfoContent))
-          ),
+        (formWithErrors: Form[_]) => Future.successful(
+          BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, action)(request.serviceInfoContent))
+        ),
         value => Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.NES, value)))
       )
   }

@@ -14,8 +14,18 @@
  * limitations under the License.
  *@
 
-@(gaEvent: String)(implicit messages: Messages)
+@import config.FrontendAppConfig
 
-<div class="section">
-    <button id="continue-button" class="button" data-journey-click="@gaEvent:Click:" data-journey-target>@messages("site.continue")</button>
-</div>
+@(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    title = messages("getCHIEFRole.title"),
+    appConfig = appConfig,
+    serviceInfoContent = serviceInfoContent) {
+
+    @components.heading("getCHIEFRole.heading")
+
+    <p>@messages("getCHIEFRole.p1")</p>
+    <p>@Html(messages("getCHIEFRole.p2", s"""<a id="mail-chief" href="mailto:${appConfig.chiefOperationsEmail}?Subject=CHIEF%20request">${appConfig.chiefOperationsEmail}</a>"""))</p>
+    <p>@messages("getCHIEFRole.p3")</p>
+}

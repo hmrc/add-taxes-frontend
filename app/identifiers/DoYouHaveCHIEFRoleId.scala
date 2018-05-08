@@ -16,6 +16,13 @@
 
 package identifiers
 
-case object DoYouHaveCHIEFRoleId extends Identifier {
-  override def toString: String = "doYouHaveCHIEFRole"
+object DoYouHaveCHIEFRoleId {
+
+  case object HasEORI extends Identifier {
+    override def toString: String = "doYouHaveCHIEFRoleHasEori"
+  }
+
+  case object NoEORI extends Identifier {
+    override def toString: String = "doYouHaveCHIEFRoleNoEori"
+  }
 }
