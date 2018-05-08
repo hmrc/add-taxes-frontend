@@ -46,4 +46,7 @@ class UrlHelper @Inject()(val appConfig: FrontendAppConfig) {
     appConfig.fulfilmentHouse
   }
 
+  def getPortalURL(key: String) = {
+    appConfig.getPortalUrl(key)
+  }
 }

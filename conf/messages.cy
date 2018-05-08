@@ -214,6 +214,12 @@ registerEORINCTS.p2 = Dychwelwch i’ch cyfrif ac ychwanegwch NCTS unwaith bod e
 #######################################################
 doYouWantToAddImportExport.title = Beth ydych am ei ychwanegu?
 doYouWantToAddImportExport.heading = Beth ydych am ei ychwanegu?
-doYouWantToAddImportExport.option1 = WELSH NEEDED HERE
-doYouWantToAddImportExport.option2 = WELSH NEEDED HERE
+doYouWantToAddImportExport.EMCS = System Symudiadau a Rheolaeth Ecseis (EMCS)
+doYouWantToAddImportExport.ICS= System Rheoli Mewnforion (ICS)
+doYouWantToAddImportExport.DDES = Datganiadau Electronig i Ohirio Tollau (DDES)
+doYouWantToAddImportExport.NOVA = Hysbysiad o Gerbydau'n Cyrraedd (NOVA)
+doYouWantToAddImportExport.NCTS = System Gludo Gyfrifiadurol Newydd (NCTS)
+doYouWantToAddImportExport.eBTI = Gwybodaeth Electronig am Dariff sy'n Rhwymo (eBTI)
+doYouWantToAddImportExport.NES = System Allforio Newydd (NES)
+doYouWantToAddImportExport.Intrastat = Datganiad Atodol Intrastat
 doYouWantToAddImportExport.error.required = Dewis cynllun

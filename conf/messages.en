@@ -229,6 +229,12 @@ registerEORINCTS.p2 = Come back to your account and add NCTS once your EORI numb
 #######################################################
 doYouWantToAddImportExport.title = What do you want to add?
 doYouWantToAddImportExport.heading = What do you want to add?
-doYouWantToAddImportExport.option1 = Excise Movement and Control System (EMCS)
-doYouWantToAddImportExport.option2 = doYouWantToAddImportExport Option 2
+doYouWantToAddImportExport.EMCS = Excise Movement and Control System (EMCS)
+doYouWantToAddImportExport.ICS = Import Control System (ICS)
+doYouWantToAddImportExport.DDES = Duty Deferment Electronic Statements (DDES)
+doYouWantToAddImportExport.NOVA = Notification of Vehicle Arrivals (NOVA)
+doYouWantToAddImportExport.NCTS = New Computerised Transit System (NCTS)
+doYouWantToAddImportExport.eBTI = Electronic Binding Tariff Information (eBTI)
+doYouWantToAddImportExport.NES = New Export System (NES)
+doYouWantToAddImportExport.Intrastat = Intrastat Supplementary Declaration
 doYouWantToAddImportExport.error.required = Select a scheme

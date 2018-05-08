@@ -63,4 +63,7 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
     "cymraeg" -> Lang("cy"))
 
   def routeToSwitchLanguage = (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
+
+  private lazy val portalHost = loadConfig(s"urls.external.portal.host")
+  def getPortalUrl(key: String): String = portalHost + loadConfig(s"urls.external.portal.$key")
 }

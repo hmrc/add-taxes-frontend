@@ -22,14 +22,20 @@ sealed trait DoYouWantToAddImportExport
 
 object DoYouWantToAddImportExport {
 
-  case object Option1 extends WithName("option1") with DoYouWantToAddImportExport
-  case object Option2 extends WithName("option2") with DoYouWantToAddImportExport
+  case object EMCS extends WithName("EMCS") with DoYouWantToAddImportExport
+  case object ICS extends WithName("ICS") with DoYouWantToAddImportExport
+  case object DDES extends WithName("DDES") with DoYouWantToAddImportExport
+  case object NOVA extends WithName("NOVA") with DoYouWantToAddImportExport
+  case object NCTS extends WithName("NCTS") with DoYouWantToAddImportExport
+  case object eBTI extends WithName("eBTI") with DoYouWantToAddImportExport
+  case object NES extends WithName("NES") with DoYouWantToAddImportExport
+  case object Intrastat extends WithName("Intrastat") with DoYouWantToAddImportExport
 
-  val values: Set[DoYouWantToAddImportExport] = Set(
-    Option1, Option2
+  val values: List[DoYouWantToAddImportExport] = List(
+    EMCS, ICS, DDES, NOVA, NCTS, eBTI, NES, Intrastat
   )
 
-  val options: Set[RadioOption] = values.map {
+  val options: List[RadioOption] = values.map {
     value =>
       RadioOption("doYouWantToAddImportExport", value.toString)
   }

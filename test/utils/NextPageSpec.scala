@@ -17,7 +17,7 @@
 package utils
 
 import base.SpecBase
-import models.other.importexports.DoYouHaveEORINumber
+import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.OtherTaxes
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
@@ -188,6 +188,56 @@ class NextPageSpec extends SpecBase {
       NextPage.nesEori,
       DoYouHaveEORINumber.Yes,
       "/business-account/add-tax/other/import-export/nes/has-eori"
+    )
+  }
+
+  "DoYouWantToAddImportExport" when {
+    behave like nextPage(
+      NextPage.doYouWantToAddImportExport,
+      DoYouWantToAddImportExport.EMCS,
+      "/business-account/add-tax/other/import-export/emcs"
+    )
+
+    behave like nextPage(
+      NextPage.doYouWantToAddImportExport,
+      DoYouWantToAddImportExport.ICS,
+      "/business-account/add-tax/other/import-export/ics"
+    )
+
+    behave like nextPage(
+      NextPage.doYouWantToAddImportExport,
+      DoYouWantToAddImportExport.DDES,
+      "/business-account/add-tax/other/import-export/ddes"
+    )
+
+    behave like nextPage(
+      NextPage.doYouWantToAddImportExport,
+      DoYouWantToAddImportExport.NOVA,
+      "http://localhost:8080/portal/nova/normal"
+    )
+
+    behave like nextPage(
+      NextPage.doYouWantToAddImportExport,
+      DoYouWantToAddImportExport.NCTS,
+      "/business-account/add-tax/other/import-export/ncts"
+    )
+
+    behave like nextPage(
+      NextPage.doYouWantToAddImportExport,
+      DoYouWantToAddImportExport.eBTI,
+      "/business-account/add-tax/other/import-export/ebti"
+    )
+
+    behave like nextPage(
+      NextPage.doYouWantToAddImportExport,
+      DoYouWantToAddImportExport.NES,
+      "/business-account/add-tax/other/import-export/nes"
+    )
+
+    behave like nextPage(
+      NextPage.doYouWantToAddImportExport,
+      DoYouWantToAddImportExport.Intrastat,
+      "https://secure.hmce.gov.uk/ecom/is2/static/is2.html"
     )
   }
 }
