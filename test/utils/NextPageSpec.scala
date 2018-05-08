@@ -183,20 +183,17 @@ class NextPageSpec extends SpecBase {
     )
   }
 
-  "nesHasEori" when {
+  "nesEori" when {
     behave like nextPage(
       NextPage.nesEori,
       DoYouHaveEORINumber.Yes,
       "/business-account/add-tax/other/import-export/nes/has-eori"
     )
-  }
 
-  "nesNoEori" when {
     behave like nextPage(
       NextPage.nesEori,
       DoYouHaveEORINumber.No,
       "/business-account/add-tax/other/import-export/nes/no-eori"
     )
   }
-
 }

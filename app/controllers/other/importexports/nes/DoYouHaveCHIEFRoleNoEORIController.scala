@@ -43,17 +43,20 @@ class DoYouHaveCHIEFRoleNoEORIController @Inject()(
                                         formProvider: DoYouHaveCHIEFRoleFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
 
   val form = formProvider()
+  val viewAction = ViewAction(DoYouHaveCHIEFRoleNoEORIController.onSubmit(), "AddNESNoEori")
+
 
   def onPageLoad() = (authenticate andThen serviceInfoData) {
     implicit request =>
-      Ok(doYouHaveCHIEFRole(appConfig, form, ViewAction(DoYouHaveCHIEFRoleNoEORIController.onSubmit(), "AddNESNoEori"))(request.serviceInfoContent))
+      Ok(doYouHaveCHIEFRole(appConfig, form, viewAction)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async {
     implicit request =>
       form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(doYouHaveCHIEFRole(appConfig, formWithErrors, ViewAction(DoYouHaveCHIEFRoleNoEORIController.onSubmit(), "AddNESNoEori"))(request.serviceInfoContent))),
+        (formWithErrors: Form[_]) => Future.successful(
+          BadRequest(doYouHaveCHIEFRole(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))
+        ),
         (value) =>
           Future.successful(Redirect(navigator.nextPage(DoYouHaveCHIEFRoleId.NoEORI, value)))
       )

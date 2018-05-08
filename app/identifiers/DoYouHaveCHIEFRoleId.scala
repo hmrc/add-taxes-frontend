@@ -25,5 +25,4 @@ object DoYouHaveCHIEFRoleId {
   case object NoEORI extends Identifier {
     override def toString: String = "doYouHaveCHIEFRoleNoEori"
   }
-
 }
