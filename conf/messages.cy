@@ -198,3 +198,12 @@ registerEORIEBTI.p2 = Dychwelwch i’ch cyfrif ac ychwanegu eBTI unwaith bod eic
 #######################################################
 registerEORINCTS.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu System Gludo Gyfrifiadurol Newydd (NCTS) i’ch cyfrif.
 registerEORINCTS.p2 = Dychwelwch i’ch cyfrif ac ychwanegwch NCTS unwaith bod eich rhif EORI wedi cyrraedd.
+
+#######################################################
+##  DoYouWantToAddImportExport
+#######################################################
+doYouWantToAddImportExport.title = Beth ydych am ei ychwanegu?
+doYouWantToAddImportExport.heading = Beth ydych am ei ychwanegu?
+doYouWantToAddImportExport.option1 = WELSH NEEDED HERE
+doYouWantToAddImportExport.option2 = WELSH NEEDED HERE
+doYouWantToAddImportExport.error.required = Dewis cynllun

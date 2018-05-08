@@ -55,3 +55,6 @@ GET        /other/import-export/ncts                    controllers.other.import
 POST       /other/import-export/ncts                    controllers.other.importexports.ncts.DoYouHaveEORINumberController.onSubmit()
 
 GET        /other/import-export/ncts/register           controllers.other.importexports.ncts.RegisterEORIController.onPageLoad()
+
+GET        /other/import-export                  controllers.other.importexports.DoYouWantToAddImportExportController.onPageLoad()
+POST       /other/import-export                  controllers.other.importexports.DoYouWantToAddImportExportController.onSubmit()
