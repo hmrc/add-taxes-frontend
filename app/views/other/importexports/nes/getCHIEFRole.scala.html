@@ -26,6 +26,6 @@
     @components.heading("getCHIEFRole.heading")
 
     <p>@messages("getCHIEFRole.p1")</p>
-    <p>@Html(messages("getCHIEFRole.p2", "<a id=\"mail-chief\" href=\"mailto:chief.operations@hmrc.gsi.gov.uk?Subject=CHIEF%20request\">chief.operations@hmrc.gsi.gov.uk</a>"))</p>
+    <p>@Html(messages("getCHIEFRole.p2", s"""<a id="mail-chief" href="mailto:${appConfig.chiefOperationsEmail}?Subject=CHIEF%20request">${appConfig.chiefOperationsEmail}</a>"""))</p>
     <p>@messages("getCHIEFRole.p3")</p>
 }

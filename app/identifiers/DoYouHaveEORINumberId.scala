@@ -18,7 +18,6 @@ package identifiers
 
 object DoYouHaveEORINumberId {
 
-
   case object ICS extends Identifier {
     override def toString: String = "ics-eori"
   }

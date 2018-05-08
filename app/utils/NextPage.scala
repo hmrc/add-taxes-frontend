@@ -17,6 +17,11 @@
 package utils
 
 import controllers.other.oil.routes
+import controllers.other.importexports.dan.{routes => danRoutes}
+import controllers.other.importexports.ebti.{routes => ebtiRoutes}
+import controllers.other.importexports.emcs.{routes => emcsRoutes}
+import controllers.other.importexports.ics.{routes => icsRoutes}
+import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
 import identifiers._
 import models.other.importexports.DoYouHaveEORINumber
@@ -64,7 +69,7 @@ object NextPage {
       override def get(b: DoYouHaveDAN)(implicit urlHelper: UrlHelper): Call =
         b match {
           case DoYouHaveDAN.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.DefermentApprovalNumber))
-          case DoYouHaveDAN.No => controllers.other.importexports.dan.routes.RegisterDefermentApprovalNumberController.onPageLoad()
+          case DoYouHaveDAN.No => danRoutes.RegisterDefermentApprovalNumberController.onPageLoad()
         }
      }
   }
@@ -75,7 +80,7 @@ object NextPage {
       override def get(b: DoYouHaveASEEDNumber)(implicit urlHelper: UrlHelper): Call =
         b match {
           case DoYouHaveASEEDNumber.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.ExciseMovementControlSystem))
-          case DoYouHaveASEEDNumber.No => controllers.other.importexports.emcs.routes.RegisterExciseMovementControlSystemController.onPageLoad()
+          case DoYouHaveASEEDNumber.No => emcsRoutes.RegisterExciseMovementControlSystemController.onPageLoad()
         }
      }
   }
@@ -86,7 +91,7 @@ object NextPage {
       override def get(b: DoYouHaveEORINumber)(implicit urlHelper: UrlHelper): Call =
         b match {
           case DoYouHaveEORINumber.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.EconomicOperatorsRegistration))
-          case DoYouHaveEORINumber.No => controllers.other.importexports.ics.routes.RegisterEORIController.onPageLoad()
+          case DoYouHaveEORINumber.No => icsRoutes.RegisterEORIController.onPageLoad()
         }
      }
   };
@@ -97,7 +102,7 @@ object NextPage {
       override def get(b: DoYouHaveEORINumber)(implicit urlHelper: UrlHelper): Call =
         b match {
           case DoYouHaveEORINumber.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.ElectronicBindingTariffInformation))
-          case DoYouHaveEORINumber.No => controllers.other.importexports.ebti.routes.RegisterEORIController.onPageLoad()
+          case DoYouHaveEORINumber.No => ebtiRoutes.RegisterEORIController.onPageLoad()
         }
     }
   }
@@ -108,7 +113,7 @@ object NextPage {
       override def get(b: DoYouHaveEORINumber)(implicit urlHelper: UrlHelper): Call =
         b match {
           case DoYouHaveEORINumber.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.NewComputerisedTransitSystem))
-          case DoYouHaveEORINumber.No => controllers.other.importexports.ncts.routes.RegisterEORIController.onPageLoad()
+          case DoYouHaveEORINumber.No => nctsRoutes.RegisterEORIController.onPageLoad()
         }
     }
   }

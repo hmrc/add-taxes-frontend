@@ -32,7 +32,9 @@
     <ul class="bullets">
 
         <li>
-            @Html(messages("getEoriAndChiefRole.p2.li1", "<a id=\"mail-chief\" href=\"mailto:chief.operations@hmrc.gsi.gov.uk?Subject=CHIEF%20request\">chief.operations@hmrc.gsi.gov.uk</a>"))
+            @Html(
+                messages("getEoriAndChiefRole.p2.li1",
+                s"<a id=\"mail-chief\" href=\"mailto:${appConfig.chiefOperationsEmail}?Subject=CHIEF%20request\">${appConfig.chiefOperationsEmail}</a>"))
         </li>
 
         <li>

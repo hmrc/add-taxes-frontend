@@ -49,6 +49,7 @@ site.signout = Sign out
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
 
+
 #######################################################
 ##  Select An Oil Service
 #######################################################
@@ -58,6 +59,7 @@ selectAnOilService.rebatedOilsEnquiryService = Rebated Oils Enquiry Service
 selectAnOilService.tiedOilsEnquiryService = Tied Oils Enquiry Service
 selectAnOilService.checkYourAnswersLabel = Select an oil service
 selectAnOilService.error.required = Select a service
+
 
 #######################################################
 ##  Have You Registered For Tied Oils
@@ -70,6 +72,7 @@ haveYouRegisteredForTiedOils.no = No - I haven’t registered yet
 haveYouRegisteredForTiedOils.checkYourAnswersLabel = Have you already registered for Tied Oils Enquiry Service?
 haveYouRegisteredForTiedOils.error.required = Select yes or no
 
+
 #######################################################
 ##  Register Tied Oils
 #######################################################
@@ -78,6 +81,7 @@ registerTiedOils.heading = Register for Tied Oils Enquiry Service
 registerTiedOils.message1 = You need to register for Tied Oils Enquiry Service before you can add it to your account.
 registerTiedOils.message2 = We’ll send you an approval number, which you can use to add Tied Oils Enquiry Service to the account.
 registerTiedOils.button.text = Continue - register for Tied Oils Enquiry Service
+
 
 #######################################################
 ##  Have You Registered For Rebated Oils
@@ -91,6 +95,7 @@ haveYouRegisteredForRebatedOils.checkYourAnswersLabel = Have you already registe
 haveYouRegisteredForRebatedOils.checkYourAnswersLabel = Have you already registered for Rebated Oils Enquiry Service?
 haveYouRegisteredForRebatedOils.error.required = Select yes or no
 
+
 #######################################################
 ##  Register Rebated Oils
 #######################################################
@@ -99,6 +104,7 @@ registerRebatedOils.heading = Register for Rebated Oils Enquiry Service
 registerRebatedOils.message1 = You need to register for Rebated Oils Enquiry Service before you can add it to your account.
 registerRebatedOils.message2 = We’ll send you an approval number, which you can use to add Rebated Oils Enquiry Service to the account.
 registerRebatedOils.button.text = Continue - register for Rebated Oils Enquiry Service
+
 
 #######################################################
 ##  FindingYourAccount
@@ -111,6 +117,7 @@ findingYourAccount.dontKnowId = I have my password but I don’t know my user ID
 findingYourAccount.dontKnowIdOrPassword = I don’t have my user ID and password
 findingYourAccount.legend = Which option best describes your problem?
 findingYourAccount.error.required = Select the option that best describes your problem
+
 
 #######################################################
 ##  OtherTaxes
@@ -128,6 +135,7 @@ otherTaxes.fulfilmentHouseDueDiligenceSchemeIntegration = Fulfilment House Due D
 otherTaxes.error.required = Select a tax or scheme type
 otherTaxes.legend = Select a tax or scheme type
 
+
 #######################################################
 ##  OrganisationOnly
 #######################################################
@@ -142,6 +150,7 @@ organisationOnly.panelIndent = Don’t try to add business taxes on the Governme
 organisationOnly.signOut = Sign out and create ‘Organisation’ account
 organisationOnly.notNow = I don’t want to do this right now
 
+
 #######################################################
 ##  RegisterExciseMovementControlSystem
 #######################################################
@@ -150,6 +159,7 @@ registerExciseMovementControlSystem.heading = Get a SEED excise ID first
 registerExciseMovementControlSystem.youNeedToRegister=You need to register for a SEED excise ID number before you can add Excise Movement and Control System (EMCS) to your account.
 registerExciseMovementControlSystem.comeBackToYourAccount=Come back to your account and add EMCS once your SEED number arrives.
 registerExciseMovementControlSystem.button=Continue - get a SEED number
+
 
 #######################################################
 ##  DoYouHaveASEEDNumber
@@ -161,6 +171,7 @@ doYouHaveASEEDNumber.No = No - I don’t have a SEED number
 doYouHaveASEEDNumber.checkYourAnswersLabel = doYouHaveASEEDNumber
 doYouHaveASEEDNumber.error.required = Select yes or no
 
+
 #######################################################
 ##  DoYouHaveEORINumber
 #######################################################
@@ -170,6 +181,7 @@ economicOperatorsRegistrationAndIdentification.Yes = Yes - I have an EORI number
 economicOperatorsRegistrationAndIdentification.No = No - I don’t have an EORI number
 economicOperatorsRegistrationAndIdentification.error.required = Select yes or no
 
+
 #######################################################
 ##  RegisterEORI
 #######################################################
@@ -177,11 +189,13 @@ registerEORI.title = Get an EORI number first
 registerEORI.heading = Get an EORI number first
 registerEORI.continue = Continue - get an EORI number
 
+
 #######################################################
 ##  RegisterEORI - ICS
 #######################################################
 registerEORIICS.p1 = You need an Economic Operators Registration and Identification (EORI) to add Import Control System (ICS) to your account.
 registerEORIICS.p2 = Come back to your account and add ICS once your EORI number arrives.
+
 
 #######################################################
 ##  RegisterDefermentApprovalNumber
@@ -202,6 +216,18 @@ doYouHaveDAN.Yes = Yes - I have a Deferment Approval Number
 doYouHaveDAN.No = No - I don’t have a DAN yet
 doYouHaveDAN.error.required = Select yes or no
 
+
+#######################################################
+##  DoYouHaveCHIEFRole
+#######################################################
+doYouHaveCHIEFRole.title = Do you have a CHIEF user role?
+doYouHaveCHIEFRole.heading = Do you have a CHIEF user role?
+doYouHaveCHIEFRole.p1 = This is a code you use to access the Customs Handling of Import and Export Freight system (CHIEF) to enter customs information electronically. It’s normally 5 letters, eg ABCDE.
+doYouHaveCHIEFRole.Yes = Yes - I have a CHIEF role
+doYouHaveCHIEFRole.No = No - I don’t have a CHIEF role yet
+doYouHaveCHIEFRole.error.required = Select yes or no
+
+
 #######################################################
 ##  DoYouHaveCHIEFRole
 #######################################################
@@ -218,11 +244,13 @@ doYouHaveCHIEFRole.error.required = Select yes or no
 registerEORIEBTI.p1 = You need an Economic Operators Registration and Identification (EORI) to add electronic Binding Tariff Information (eBTI) to your account.
 registerEORIEBTI.p2 = Come back to your account and add eBTI once your EORI number arrives.
 
+
 #######################################################
 ##  RegisterEORI - NCTS
 #######################################################
 registerEORINCTS.p1 = You need an Economic Operators Registration and Identification (EORI) to add New Computerised Transit System (NCTS) to your account.
 registerEORINCTS.p2 = Come back to your account and add NCTS once your EORI number arrives.
+
 
 #######################################################
 ##  GetCHIEFRole
@@ -240,6 +268,7 @@ getCHIEFRole.p3=Come back to your account and add NES once your CHIEF role arriv
 registerEORINES.p1 = You need an Economic Operators Registration and Identification (EORI) to add National Export System (NES) to your account.
 registerEORINES.p2 = Come back to your account and add (NES) once your EORI number arrives.
 
+
 #######################################################
 ##  GetEoriAndChiefRole
 #######################################################
@@ -250,4 +279,3 @@ getEoriAndChiefRole.p2=You need to:
 getEoriAndChiefRole.p2.li1=email {0} your business details to request a CHIEF role
 getEoriAndChiefRole.p2.li2=complete an EORI request form
 getEoriAndChiefRole.p3=Come back to your account and add NES once your EORI number and CHIEF role arrive.
-

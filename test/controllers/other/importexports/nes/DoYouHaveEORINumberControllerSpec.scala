@@ -33,13 +33,14 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
 
   val formProvider = new DoYouHaveEORINumberFormProvider()
   val form = formProvider()
+  val viewAction = ViewAction(routes.DoYouHaveEORINumberController.onSubmit(), "AddNESTax")
 
   def controller =
     new DoYouHaveEORINumberController(frontendAppConfig, messagesApi, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
       FakeServiceInfoAction, formProvider)
 
   def viewAsString(form: Form[_] = form) =
-    doYouHaveEORINumber(frontendAppConfig, form, ViewAction(routes.DoYouHaveEORINumberController.onSubmit(), "AddNESTax"))(HtmlFormat.empty)(fakeRequest, messages).toString
+    doYouHaveEORINumber(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouHaveEORINumber Controller" must {
 
