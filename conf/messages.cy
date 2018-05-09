@@ -247,7 +247,7 @@ doYouWantToAddImportExport.NOVA = Hysbysiad o Gerbydau'n Cyrraedd (NOVA)
 doYouWantToAddImportExport.NCTS = System Gludo Gyfrifiadurol Newydd (NCTS)
 doYouWantToAddImportExport.eBTI = Gwybodaeth Electronig am Dariff sy'n Rhwymo (eBTI)
 doYouWantToAddImportExport.NES = System Allforio Newydd (NES)
-doYouWantToAddImportExport.Intrastat = Datganiad Atodol Intrastat
+doYouWantToAddImportExport.ISD = Datganiad Atodol Intrastat
 doYouWantToAddImportExport.error.required = Dewis cynllun
 
 #######################################################

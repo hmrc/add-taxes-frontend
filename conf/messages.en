@@ -263,7 +263,7 @@ doYouWantToAddImportExport.NOVA = Notification of Vehicle Arrivals (NOVA)
 doYouWantToAddImportExport.NCTS = New Computerised Transit System (NCTS)
 doYouWantToAddImportExport.eBTI = Electronic Binding Tariff Information (eBTI)
 doYouWantToAddImportExport.NES = New Export System (NES)
-doYouWantToAddImportExport.Intrastat = Intrastat Supplementary Declaration
+doYouWantToAddImportExport.ISD = Intrastat Supplementary Declaration
 doYouWantToAddImportExport.error.required = Select a scheme
 
 #######################################################

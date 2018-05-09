@@ -29,10 +29,10 @@ object DoYouWantToAddImportExport {
   case object NCTS extends WithName("NCTS") with DoYouWantToAddImportExport
   case object eBTI extends WithName("eBTI") with DoYouWantToAddImportExport
   case object NES extends WithName("NES") with DoYouWantToAddImportExport
-  case object Intrastat extends WithName("Intrastat") with DoYouWantToAddImportExport
+  case object ISD extends WithName("ISD") with DoYouWantToAddImportExport
 
   val values: List[DoYouWantToAddImportExport] = List(
-    EMCS, ICS, DDES, NOVA, NCTS, eBTI, NES, Intrastat
+    EMCS, ICS, DDES, NOVA, NCTS, eBTI, NES, ISD
   )
 
   val options: List[RadioOption] = values.map {
@@ -41,5 +41,5 @@ object DoYouWantToAddImportExport {
   }
 
   implicit val enumerable: Enumerable[DoYouWantToAddImportExport] =
-    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+    Enumerable(values.map(v => v.toString -> v): _*)
 }

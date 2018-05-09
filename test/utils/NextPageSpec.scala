@@ -242,7 +242,7 @@ class NextPageSpec extends SpecBase {
 
     behave like nextPage(
       NextPage.doYouWantToAddImportExport,
-      DoYouWantToAddImportExport.Intrastat,
+      DoYouWantToAddImportExport.ISD,
       "https://secure.hmce.gov.uk/ecom/is2/static/is2.html"
     )
   }
