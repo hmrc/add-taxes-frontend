@@ -49,4 +49,8 @@ class UrlHelper @Inject()(val appConfig: FrontendAppConfig) {
   def getPortalURL(key: String) = {
     appConfig.getPortalUrl(key)
   }
+
+  def getExternalUrl(key: String) = {
+    appConfig.getExternalURL(key)
+  }
 }
