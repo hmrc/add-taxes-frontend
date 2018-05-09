@@ -50,7 +50,7 @@ class UrlHelper @Inject()(val appConfig: FrontendAppConfig) {
     appConfig.getPortalUrl(key)
   }
 
-  def getExternalUrl(key: String) = {
-    appConfig.getExternalURL(key)
+  def getHmceURL(key: String) = {
+    appConfig.getHmceURL(key)
   }
 }

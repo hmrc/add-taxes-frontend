@@ -68,6 +68,6 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   private lazy val portalHost = loadConfig(s"urls.external.portal.host")
   def getPortalUrl(key: String): String = portalHost + loadConfig(s"urls.external.portal.$key")
 
-  lazy val externalHmceHost = loadConfig(s"urls.externalHmce.host")
-  def getExternalURL(key: String): String = externalHmceHost + loadConfig(s"urls.externalHmce.$key")
+  lazy val hmceHost = loadConfig(s"urls.external.hmce.host")
+  def getHmceURL(key: String): String = hmceHost + loadConfig(s"urls.external.hmce.$key")
 }

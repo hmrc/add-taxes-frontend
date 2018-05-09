@@ -52,7 +52,7 @@ object NextPage {
           case models.other.importexports.DoYouWantToAddImportExport.NCTS => nctsRoutes.DoYouHaveEORINumberController.onPageLoad()
           case models.other.importexports.DoYouWantToAddImportExport.eBTI => ebtiRoutes.DoYouHaveEORINumberController.onPageLoad()
           case models.other.importexports.DoYouWantToAddImportExport.NES => nesRoutes.DoYouHaveEORINumberController.onPageLoad()
-          case models.other.importexports.DoYouWantToAddImportExport.ISD => Call("GET", urlHelper.appConfig.getExternalURL("isd"))
+          case models.other.importexports.DoYouWantToAddImportExport.ISD => Call("GET", urlHelper.getHmceURL("isd"))
         }
     }
   }
