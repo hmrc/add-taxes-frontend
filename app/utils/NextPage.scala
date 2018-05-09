@@ -38,8 +38,25 @@ trait NextPage[A, B] {
   def get(b: B)(implicit urlHelper: UrlHelper): Call
 }
 
-
 object NextPage {
+
+  implicit val doYouWantToAddImportExport: NextPage[DoYouWantToAddImportExportId.type,
+    models.other.importexports.DoYouWantToAddImportExport] = {
+    new NextPage[DoYouWantToAddImportExportId.type, models.other.importexports.DoYouWantToAddImportExport] {
+      override def get(b: models.other.importexports.DoYouWantToAddImportExport)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case models.other.importexports.DoYouWantToAddImportExport.EMCS => emcsRoutes.DoYouHaveASEEDNumberController.onPageLoad()
+          case models.other.importexports.DoYouWantToAddImportExport.ICS => icsRoutes.DoYouHaveEORINumberController.onPageLoad()
+          case models.other.importexports.DoYouWantToAddImportExport.DDES => danRoutes.DoYouHaveDANController.onPageLoad()
+          case models.other.importexports.DoYouWantToAddImportExport.NOVA => Call("GET", urlHelper.getPortalURL("novaEnrolment"))
+          case models.other.importexports.DoYouWantToAddImportExport.NCTS => nctsRoutes.DoYouHaveEORINumberController.onPageLoad()
+          case models.other.importexports.DoYouWantToAddImportExport.eBTI => ebtiRoutes.DoYouHaveEORINumberController.onPageLoad()
+          case models.other.importexports.DoYouWantToAddImportExport.NES => nesRoutes.DoYouHaveEORINumberController.onPageLoad()
+          case models.other.importexports.DoYouWantToAddImportExport.ISD => Call("GET", urlHelper.getHmceURL("isd"))
+        }
+    }
+  }
+
 
   implicit val doYouHaveCHIEFHasEORIRole: NextPage[DoYouHaveCHIEFRoleId.HasEORI.type,
     DoYouHaveCHIEFRole] = {

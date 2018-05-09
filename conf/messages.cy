@@ -235,6 +235,20 @@ registerEORIEBTI.p2 = Dychwelwch i’ch cyfrif ac ychwanegu eBTI unwaith bod eic
 registerEORINCTS.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu System Gludo Gyfrifiadurol Newydd (NCTS) i’ch cyfrif.
 registerEORINCTS.p2 = Dychwelwch i’ch cyfrif ac ychwanegwch NCTS unwaith bod eich rhif EORI wedi cyrraedd.
 
+#######################################################
+##  DoYouWantToAddImportExport
+#######################################################
+doYouWantToAddImportExport.title = Beth ydych am ei ychwanegu?
+doYouWantToAddImportExport.heading = Beth ydych am ei ychwanegu?
+doYouWantToAddImportExport.EMCS = System Symudiadau a Rheolaeth Ecseis (EMCS)
+doYouWantToAddImportExport.ICS= System Rheoli Mewnforion (ICS)
+doYouWantToAddImportExport.DDES = Datganiadau Electronig i Ohirio Tollau (DDES)
+doYouWantToAddImportExport.NOVA = Hysbysiad o Gerbydau’n Cyrraedd (NOVA)
+doYouWantToAddImportExport.NCTS = System Gludo Gyfrifiadurol Newydd (NCTS)
+doYouWantToAddImportExport.eBTI = Gwybodaeth Electronig am Dariff sy’n Rhwymo (eBTI)
+doYouWantToAddImportExport.NES = System Allforio Newydd (NES)
+doYouWantToAddImportExport.ISD = Datganiad Atodol Intrastat
+doYouWantToAddImportExport.error.required = Dewis cynllun
 
 #######################################################
 ##  GetCHIEFRole
@@ -263,4 +277,3 @@ getEoriAndChiefRole.p2=Mae angen i chi wneud y canlynol:
 getEoriAndChiefRole.p2.li1=E-bostiwch {0} gan roi manylion eich busnes i wneud cais am rôl CHIEF.
 getEoriAndChiefRole.p2.li2=llenwch ffurflen gais EORI
 getEoriAndChiefRole.p3=Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rhif EORI a’ch rôl CHIEF wedi cyrraedd.
-

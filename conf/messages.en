@@ -251,6 +251,20 @@ registerEORIEBTI.p2 = Come back to your account and add eBTI once your EORI numb
 registerEORINCTS.p1 = You need an Economic Operators Registration and Identification (EORI) to add New Computerised Transit System (NCTS) to your account.
 registerEORINCTS.p2 = Come back to your account and add NCTS once your EORI number arrives.
 
+#######################################################
+##  DoYouWantToAddImportExport
+#######################################################
+doYouWantToAddImportExport.title = What do you want to add?
+doYouWantToAddImportExport.heading = What do you want to add?
+doYouWantToAddImportExport.EMCS = Excise Movement and Control System (EMCS)
+doYouWantToAddImportExport.ICS = Import Control System (ICS)
+doYouWantToAddImportExport.DDES = Duty Deferment Electronic Statements (DDES)
+doYouWantToAddImportExport.NOVA = Notification of Vehicle Arrivals (NOVA)
+doYouWantToAddImportExport.NCTS = New Computerised Transit System (NCTS)
+doYouWantToAddImportExport.eBTI = Electronic Binding Tariff Information (eBTI)
+doYouWantToAddImportExport.NES = New Export System (NES)
+doYouWantToAddImportExport.ISD = Intrastat Supplementary Declaration
+doYouWantToAddImportExport.error.required = Select a scheme
 
 #######################################################
 ##  GetCHIEFRole
