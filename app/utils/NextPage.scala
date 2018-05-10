@@ -32,6 +32,7 @@ import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.nes.DoYouHaveCHIEFRole
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils, SelectAnOilService}
+import models.sa.partnership.DoYouWantToAddPartner
 import models.wrongcredentials.FindingYourAccount
 import play.api.mvc.Call
 
@@ -42,12 +43,12 @@ trait NextPage[A, B] {
 object NextPage {
 
   implicit val doYouWantToAddPartner: NextPage[DoYouWantToAddPartnerId.type,
-    models.sa.partnership.DoYouWantToAddPartner] = {
-    new NextPage[DoYouWantToAddPartnerId.type, models.sa.partnership.DoYouWantToAddPartner] {
-      override def get(b: models.sa.partnership.DoYouWantToAddPartner)(implicit urlHelper: UrlHelper): Call =
+    DoYouWantToAddPartner] = {
+    new NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartner] {
+      override def get(b: DoYouWantToAddPartner)(implicit urlHelper: UrlHelper): Call =
         b match {
-          case models.sa.partnership.DoYouWantToAddPartner.Yes => Call("GET", urlHelper.getPublishedAssetsURL("partnership"))
-          case models.sa.partnership.DoYouWantToAddPartner.No => saPartnerRoutes.HaveYouRegisteredPartnershipController.onPageLoad()
+          case DoYouWantToAddPartner.Yes => Call("GET", urlHelper.getPublishedAssetsURL("partnership"))
+          case DoYouWantToAddPartner.No => saPartnerRoutes.HaveYouRegisteredPartnershipController.onPageLoad()
         }
      }
   }
