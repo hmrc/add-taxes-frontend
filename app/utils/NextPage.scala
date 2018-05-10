@@ -32,6 +32,7 @@ import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.nes.DoYouHaveCHIEFRole
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils, SelectAnOilService}
+import models.sa.trust.HaveYouRegisteredTrust
 import models.wrongcredentials.FindingYourAccount
 import play.api.mvc.Call
 
@@ -42,12 +43,12 @@ trait NextPage[A, B] {
 object NextPage {
 
   implicit val haveYouRegisteredTrust: NextPage[HaveYouRegisteredTrustId.type,
-    models.sa.trust.HaveYouRegisteredTrust] = {
-    new NextPage[HaveYouRegisteredTrustId.type, models.sa.trust.HaveYouRegisteredTrust] {
-      override def get(b: models.sa.trust.HaveYouRegisteredTrust)(implicit urlHelper: UrlHelper): Call =
+    HaveYouRegisteredTrust] = {
+    new NextPage[HaveYouRegisteredTrustId.type, HaveYouRegisteredTrust] {
+      override def get(b: HaveYouRegisteredTrust)(implicit urlHelper: UrlHelper): Call =
         b match {
-          case models.sa.trust.HaveYouRegisteredTrust.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.RegisterTrusts))
-          case models.sa.trust.HaveYouRegisteredTrust.No => trustRoutes.RegisterTrustController.onPageLoad()
+          case HaveYouRegisteredTrust.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.RegisterTrusts))
+          case HaveYouRegisteredTrust.No => trustRoutes.RegisterTrustController.onPageLoad()
         }
      }
   }
