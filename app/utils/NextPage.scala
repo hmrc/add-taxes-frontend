@@ -23,6 +23,7 @@ import controllers.other.importexports.emcs.{routes => emcsRoutes}
 import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
+import controllers.sa.trust.{routes => trustRoutes}
 import identifiers._
 import models.other.importexports.DoYouHaveEORINumber
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
@@ -39,6 +40,17 @@ trait NextPage[A, B] {
 }
 
 object NextPage {
+
+  implicit val haveYouRegisteredTrust: NextPage[HaveYouRegisteredTrustId.type,
+    models.sa.trust.HaveYouRegisteredTrust] = {
+    new NextPage[HaveYouRegisteredTrustId.type, models.sa.trust.HaveYouRegisteredTrust] {
+      override def get(b: models.sa.trust.HaveYouRegisteredTrust)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case models.sa.trust.HaveYouRegisteredTrust.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.RegisterTrusts))
+          case models.sa.trust.HaveYouRegisteredTrust.No => trustRoutes.RegisterTrustController.onPageLoad()
+        }
+     }
+  }
 
   implicit val doYouWantToAddImportExport: NextPage[DoYouWantToAddImportExportId.type,
     models.other.importexports.DoYouWantToAddImportExport] = {

@@ -77,3 +77,6 @@ GET        /other/import-export/nes/no-eori/register-both       controllers.othe
 GET        /other/import-export/nes/has-eori/register-chief     controllers.other.importexports.nes.GetCHIEFRoleController.onPageLoad()
 
 GET        /self-assessment/trust/not-registered                       controllers.sa.trust.RegisterTrustController.onPageLoad()
+
+GET        /self-assessment/trust                  controllers.sa.trust.HaveYouRegisteredTrustController.onPageLoad()
+POST       /self-assessment/trust                  controllers.sa.trust.HaveYouRegisteredTrustController.onSubmit()

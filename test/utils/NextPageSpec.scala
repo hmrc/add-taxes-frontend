@@ -24,6 +24,7 @@ import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.other.importexports.nes.DoYouHaveCHIEFRole
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
+import models.sa.trust.HaveYouRegisteredTrust
 import models.wrongcredentials.FindingYourAccount
 
 
@@ -244,6 +245,20 @@ class NextPageSpec extends SpecBase {
       NextPage.doYouWantToAddImportExport,
       DoYouWantToAddImportExport.ISD,
       "https://secure.hmce.gov.uk/ecom/is2/static/is2.html"
+    )
+  }
+
+  "SA Trusts" when {
+    behave like nextPage(
+      NextPage.haveYouRegisteredTrust,
+      HaveYouRegisteredTrust.Yes,
+      "http://localhost:9555/enrolment-management-frontend/IR-SA-TRUST-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.haveYouRegisteredTrust,
+      HaveYouRegisteredTrust.No,
+      "/business-account/add-tax/self-assessment/trust/not-registered"
     )
   }
 }
