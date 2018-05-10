@@ -293,3 +293,14 @@ getEoriAndChiefRole.p2=You need to:
 getEoriAndChiefRole.p2.li1=email {0} your business details to request a CHIEF role
 getEoriAndChiefRole.p2.li2=complete an EORI request form
 getEoriAndChiefRole.p3=Come back to your account and add NES once your EORI number and CHIEF role arrive.
+
+#######################################################
+##  AddVATMOSS
+#######################################################
+addVATMOSS.title = Add VAT MOSS to your VAT account
+addVATMOSS.heading = Add VAT MOSS to your VAT account
+addVATMOSS.p1 = You need to manage VAT MOSS in the account where you manage VAT.
+addVATMOSS.p2 = Sign in to your VAT account and add VAT MOSS there.
+addVATMOSS.p3 = If that doesn’t work, call us and we’ll do it for you manually.
+addVATMOSS.continue = Sign in to your VAT account
+addVATMOSS.notnow = I don’t want to do this right now

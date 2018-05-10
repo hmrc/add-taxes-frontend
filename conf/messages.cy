@@ -277,3 +277,14 @@ getEoriAndChiefRole.p2=Mae angen i chi wneud y canlynol:
 getEoriAndChiefRole.p2.li1=E-bostiwch {0} gan roi manylion eich busnes i wneud cais am rôl CHIEF.
 getEoriAndChiefRole.p2.li2=llenwch ffurflen gais EORI
 getEoriAndChiefRole.p3=Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rhif EORI a’ch rôl CHIEF wedi cyrraedd.
+
+#######################################################
+##  AddVATMOSS
+#######################################################
+addVATMOSS.title = Ychwanegu GUC TAW i'ch cyfrif TAW
+addVATMOSS.heading = Ychwanegu GUC TAW i'ch cyfrif TAW
+addVATMOSS.p1 = Mae angen i chi reoli GUC TAW yn y cyfrif lle’r ydych yn rheoli TAW.
+addVATMOSS.p2 = Mewngofnodwch i’ch cyfrif TAW ac ychwanegwch GUC TAW yn y fan honno.
+addVATMOSS.p3 = Os nad yw hynny’n gweithio, ffoniwch ni a byddwn yn ei wneud i chi â llaw.
+addVATMOSS.continue = Mewngofnodi i'ch cyfrif TAW
+addVATMOSS.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
