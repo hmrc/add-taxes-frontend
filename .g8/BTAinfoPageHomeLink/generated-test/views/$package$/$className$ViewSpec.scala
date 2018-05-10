@@ -19,7 +19,7 @@ class $className$ViewSpec extends ViewBehaviours {
 
       assertLinkById(
         doc,
-        "$buttonId$",
+        "continue",
         "$continueButton$",
         "???",
         "$gaEventPrefix$:Click:$gaEventButtonSuffix$"
