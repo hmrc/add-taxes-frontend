@@ -14,7 +14,6 @@ class $className$ControllerSpec extends ControllerSpecBase {
   def viewAsString() = $className;format="decap"$(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "$className$ Controller" must {
-
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(fakeRequest)
 
@@ -23,7 +22,3 @@ class $className$ControllerSpec extends ControllerSpecBase {
     }
   }
 }
-
-
-
-

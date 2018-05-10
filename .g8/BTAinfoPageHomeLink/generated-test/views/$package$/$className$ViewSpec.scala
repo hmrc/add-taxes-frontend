@@ -14,7 +14,7 @@ class $className$ViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
-      val doc = asDocument(createView())
+      val doc =  asDocument(createView())
       val view = doc.text()
 
       assertLinkById(
@@ -32,9 +32,6 @@ class $className$ViewSpec extends ViewBehaviours {
         "http://localhost:9020/business-account",
         "$gaEventPrefix$:Click:NotNow"
       )
-
     }
-
   }
-
 }

@@ -13,7 +13,7 @@ echo "##  $className$" >> ../conf/messages.en
 echo "#######################################################" >> ../conf/messages.en
 echo "$className;format="decap"$.title = $pageTitle$" >> ../conf/messages.en
 echo "$className;format="decap"$.heading = $pageHeading$" >> ../conf/messages.en
-echo "$className;format="decap"$.continue = $continueButton$" >> ../conf/messages.en
+echo "$className;format="decap"$.register = $continueButton$" >> ../conf/messages.en
 echo "$className;format="decap"$.notnow = $btaLink$" >> ../conf/messages.en
 
 echo "Adding messages to conf.messages (Welsh)"
@@ -23,7 +23,7 @@ echo "##  $className$" >> ../conf/messages.cy
 echo "#######################################################" >> ../conf/messages.cy
 echo "$className;format="decap"$.title = $welshPageTitle$" >> ../conf/messages.cy
 echo "$className;format="decap"$.heading = $welshPageHeading$" >> ../conf/messages.cy
-echo "$className;format="decap"$.continue = $welshContinueButton$" >> ../conf/messages.cy
+echo "$className;format="decap"$.register = $welshContinueButton$" >> ../conf/messages.cy
 echo "$className;format="decap"$.notnow = $welshBtaLink$" >> ../conf/messages.cy
 
 echo "Moving test files from generated-test/ to test/"

@@ -5,7 +5,8 @@
 @main_template(
     title = messages("$className;format="decap"$.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = serviceInfoContent
+) {
 
     @components.heading("$className;format="decap"$.heading")
 
@@ -15,15 +16,15 @@
            class="button"
            data-journey-click="$gaEventPrefix$:Click:Register">
 
-            @messages("$className;format="decap"$.continue")
+            @messages("$className;format="decap"$.register")
         </a>
     </p>
+
     <p>
         <a id="not-now"
            href='@appConfig.getBusinessAccountUrl("home")'
            data-journey-click="$gaEventPrefix$:Click:NotNow">
-           @messages("$className;format="decap"$.notnow")
+            @messages("$className;format="decap"$.notnow")
         </a>
     </p>
-
 }
