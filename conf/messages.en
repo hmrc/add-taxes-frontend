@@ -299,7 +299,7 @@ getEoriAndChiefRole.p3=Come back to your account and add NES once your EORI numb
 #######################################################
 registerTrust.title = Register your trust
 registerTrust.heading = Register your trust
-registerTrust.register = Register your trust
+registerTrust.continue = Register your trust
 registerTrust.notnow = I don’t want to do this right now
 registerTrust.p1=You need to register your trust before you can add it to this account.
 registerTrust.p2=We’ll send you a Unique Taxpayer Reference (UTR) for the trust in the post once it’s registered.

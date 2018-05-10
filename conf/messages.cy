@@ -283,7 +283,7 @@ getEoriAndChiefRole.p3=Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod e
 #######################################################
 registerTrust.title = Cofrestru eich ymddiriedolaeth
 registerTrust.heading = Cofrestru eich ymddiriedolaeth
-registerTrust.register = Cofrestru eich ymddiriedolaeth
+registerTrust.continue = Cofrestru eich ymddiriedolaeth
 registerTrust.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 registerTrust.p1=Mae’n rhaid i chi gofrestru eich ymddiriedolaeth cyn y gallwch ei hychwanegu i’r cyfrif hwn.
 registerTrust.p2=Byddwn yn anfon Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth drwy’r post, ar ôl iddi gael ei chofrestru.
