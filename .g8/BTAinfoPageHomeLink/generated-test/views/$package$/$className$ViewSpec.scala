@@ -19,18 +19,19 @@ class $className$ViewSpec extends ViewBehaviours {
 
       assertLinkById(
         doc,
-        "continue",
+        "$buttonId$",
         "$continueButton$",
         "???",
-        "$gaEventPrefix$:Click:Continue")
-    }
+        "$gaEventPrefix$:Click:Register"
+      )
 
-    assertLinkById(
-      doc,
-      "not-now",
-      "$btaLink$",
-      "http://localhost:9020/business-account",
-      "$gaEventPrefix$:Click:NotNow")
-  }
+      assertLinkById(
+        doc,
+        "not-now",
+        "$btaLink$",
+        "http://localhost:9020/business-account",
+        "$gaEventPrefix$:Click:NotNow"
+      )
+    }
   }
 }
