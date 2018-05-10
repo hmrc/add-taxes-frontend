@@ -288,3 +288,11 @@ addVATMOSS.p2 = Mewngofnodwch i’ch cyfrif TAW ac ychwanegwch GUC TAW yn y fan 
 addVATMOSS.p3 = Os nad yw hynny’n gweithio, ffoniwch ni a byddwn yn ei wneud i chi â llaw.
 addVATMOSS.continue = Mewngofnodi i'ch cyfrif TAW
 addVATMOSS.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  AddVATFirst
+#######################################################
+addVATFirst.title = Ychwanegwch TAW yn gyntaf
+addVATFirst.heading = Ychwanegwch TAW yn gyntaf
+addVATFirst.continue = Ychwanegu TAW i'r cyfrif hwn
+addVATFirst.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd

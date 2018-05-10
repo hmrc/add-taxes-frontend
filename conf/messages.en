@@ -304,3 +304,11 @@ addVATMOSS.p2 = Sign in to your VAT account and add VAT MOSS there.
 addVATMOSS.p3 = If that doesn’t work, call us and we’ll do it for you manually.
 addVATMOSS.continue = Sign in to your VAT account
 addVATMOSS.notnow = I don’t want to do this right now
+
+#######################################################
+##  AddVATFirst
+#######################################################
+addVATFirst.title = Add VAT first
+addVATFirst.heading = Add VAT first
+addVATFirst.continue = Add VAT to this account
+addVATFirst.notnow = I don't want to do this right now
