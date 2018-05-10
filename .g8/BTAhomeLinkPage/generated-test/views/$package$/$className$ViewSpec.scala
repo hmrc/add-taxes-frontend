@@ -14,23 +14,27 @@ class $className$ViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
-      val doc =  asDocument(createView())
+      val doc = asDocument(createView())
       val view = doc.text()
 
       assertLinkById(
         doc,
-        "continue",
+        "$buttonId$",
         "$continueButton$",
         "???",
-        "$gaEventPrefix$:Click:Continue")
+        "$gaEventPrefix$:Click:Register"
+      )
+
+      assertLinkById(
+        doc,
+        "not-now",
+        "$btaLink$",
+        "http://localhost:9020/business-account",
+        "$gaEventPrefix$:Click:NotNow"
+      )
+
     }
 
-    assertLinkById(
-      doc,
-      "not-now",
-      "$btaLink$",
-      "http://localhost:9020/business-account",
-      "$gaEventPrefix$:Click:NotNow")
   }
-  }
+
 }

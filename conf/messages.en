@@ -293,3 +293,14 @@ getEoriAndChiefRole.p2=You need to:
 getEoriAndChiefRole.p2.li1=email {0} your business details to request a CHIEF role
 getEoriAndChiefRole.p2.li2=complete an EORI request form
 getEoriAndChiefRole.p3=Come back to your account and add NES once your EORI number and CHIEF role arrive.
+
+#######################################################
+##  RegisterTrust
+#######################################################
+registerTrust.title = Register your trust
+registerTrust.heading = Register your trust
+registerTrust.register = Register your trust
+registerTrust.notnow = I don’t want to do this right now
+registerTrust.p1=You need to register your trust before you can add it to this account.
+registerTrust.p2=We’ll send you a Unique Taxpayer Reference (UTR) for the trust in the post once it’s registered.
+registerTrust.p3=You’ll be able to add the trust to this account using the UTR.
