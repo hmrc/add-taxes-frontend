@@ -277,3 +277,12 @@ getEoriAndChiefRole.p2=Mae angen i chi wneud y canlynol:
 getEoriAndChiefRole.p2.li1=E-bostiwch {0} gan roi manylion eich busnes i wneud cais am rôl CHIEF.
 getEoriAndChiefRole.p2.li2=llenwch ffurflen gais EORI
 getEoriAndChiefRole.p3=Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rhif EORI a’ch rôl CHIEF wedi cyrraedd.
+
+#######################################################
+##  RegisterGBD
+#######################################################
+registerGBD.title = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
+registerGBD.heading = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
+registerGBD.p1 = Mae angen i chi gofrestru ar gyfer y System Treth Hapchwarae cyn y gallwch ychwanegu Toll Fetio Gyffredinol i’ch cyfrif.
+registerGBD.p2 = Byddwn yn anfon cyfeirnod System Treth Hapchwarae atoch. Dychwelwch i’ch cyfrif ac ychwanegwch Toll Fetio Gyffredinol pan fyddwch yn ei gael.
+registerGBD.continue = Continue - register for the Gambling Tax System
