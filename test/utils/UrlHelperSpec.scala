@@ -17,8 +17,10 @@
 package utils
 
 import base.SpecBase
+import play.api.mvc.Cookie
 
 class UrlHelperSpec extends SpecBase {
+
   "registerForTaxUrl" should {
     "return enrolment-management-frontend/$enrolmentKey/request-access-tax-scheme?continue=%2Fbusiness-account" in {
       val SUT = new UrlHelper(frontendAppConfig)
@@ -51,6 +53,22 @@ class UrlHelperSpec extends SpecBase {
     "return correct url" in {
       val SUT = new UrlHelper(frontendAppConfig)
       SUT.fulfilmentHouse() mustBe "http://localhost:1118/fhdds"
+    }
+  }
+
+  "build portal url" when {
+    val fakeRequestWithWelsh = fakeRequest.withCookies(Cookie("PLAY_LANG", "cy"))
+
+    "the user is in english" should {
+      "append ?lang=eng to given url" in {
+        new UrlHelper(frontendAppConfig).getPortalURL("novaEnrolment")(fakeRequest) mustBe "http://localhost:8080/portal/nova/normal?lang=eng"
+      }
+    }
+
+    "the user is in welsh" should {
+      "append ?lang=cym to given url" in {
+        new UrlHelper(frontendAppConfig).getPortalURL("novaEnrolment")(fakeRequestWithWelsh) mustBe "http://localhost:8080/portal/nova/normal?lang=cym"
+      }
     }
   }
 }

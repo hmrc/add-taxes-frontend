@@ -75,3 +75,6 @@ GET        /other/import-export/nes/no-eori/register-eori       controllers.othe
 GET        /other/import-export/nes/no-eori/register-both       controllers.other.importexports.nes.GetEoriAndChiefRoleController.onPageLoad()
 
 GET        /other/import-export/nes/has-eori/register-chief     controllers.other.importexports.nes.GetCHIEFRoleController.onPageLoad()
+
+GET        /employer/pension                            controllers.employer.pension.WhichPensionSchemeToAddController.onPageLoad()
+POST       /employer/pension                            controllers.employer.pension.WhichPensionSchemeToAddController.onSubmit()

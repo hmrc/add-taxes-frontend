@@ -277,3 +277,12 @@ getEoriAndChiefRole.p2=Mae angen i chi wneud y canlynol:
 getEoriAndChiefRole.p2.li1=E-bostiwch {0} gan roi manylion eich busnes i wneud cais am rôl CHIEF.
 getEoriAndChiefRole.p2.li2=llenwch ffurflen gais EORI
 getEoriAndChiefRole.p3=Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rhif EORI a’ch rôl CHIEF wedi cyrraedd.
+
+#######################################################
+##  WhichPensionSchemeToAdd
+#######################################################
+whichPensionSchemeToAdd.title = Pa gynllun pensiwn ydych eisiau ei ychwanegu?
+whichPensionSchemeToAdd.heading = Pa gynllun pensiwn ydych eisiau ei ychwanegu?
+whichPensionSchemeToAdd.administrators = Cynlluniau Pensiwn Ar-lein ar gyfer Gweinyddwyr
+whichPensionSchemeToAdd.practitioners = Cynlluniau Pensiwn Ar-lein ar gyfer Ymarferwyr
+whichPensionSchemeToAdd.error.required = Dewis cynllun
