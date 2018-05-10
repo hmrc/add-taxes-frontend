@@ -22,7 +22,7 @@ class $className$ViewSpec extends ViewBehaviours {
         "$buttonId$",
         "$continueButton$",
         "???",
-        "$gaEventPrefix$:Click:Register"
+        "$gaEventPrefix$:Click:$gaEventButtonSuffix$"
       )
 
       assertLinkById(
