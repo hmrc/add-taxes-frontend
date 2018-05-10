@@ -16,10 +16,10 @@
 
         @messages("$className;format="decap"$.continue")
     </a>
-    <p>
-        <a id="not-now"
-           href='@appConfig.getBusinessAccountUrl("home")'
-           data-journey-click="$gaEventPrefix$:Click:NotNow">
-            "$className;format="decap"$.notnow"</a>
-    </p>
+    <a id="not-now"
+       href='@appConfig.getBusinessAccountUrl("home")'
+       data-journey-click="$gaEventPrefix$:Click:NotNow">
+       @messages("$className;format="decap"$.notnow")
+    </a>
+
 }

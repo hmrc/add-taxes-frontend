@@ -24,5 +24,13 @@ class $className$ViewSpec extends ViewBehaviours {
         "???",
         "$gaEventPrefix$:Click:Continue")
     }
+
+    assertLinkById(
+      doc,
+      "not-now",
+      "$btaLink$",
+      "http://localhost:9020/business-account",
+      "$gaEventPrefix$:Click:NotNow")
+  }
   }
 }
