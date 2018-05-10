@@ -70,4 +70,8 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
 
   lazy val hmceHost = loadConfig(s"urls.external.hmce.host")
   def getHmceURL(key: String): String = hmceHost + loadConfig(s"urls.external.hmce.$key")
+
+  lazy val publishedAssets = loadConfig(s"urls.external.assets.host")
+  def getPublishedAssetsUrl(key: String): String = publishedAssets + loadConfig(s"urls.external.assets.$key")
+
 }

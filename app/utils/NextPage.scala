@@ -23,6 +23,7 @@ import controllers.other.importexports.emcs.{routes => emcsRoutes}
 import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
+import controllers.sa.partnership.{routes => saPartnerRoutes}
 import identifiers._
 import models.other.importexports.DoYouHaveEORINumber
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
@@ -39,6 +40,28 @@ trait NextPage[A, B] {
 }
 
 object NextPage {
+
+  implicit val doYouWantToAddPartner: NextPage[DoYouWantToAddPartnerId.type,
+    models.sa.partnership.DoYouWantToAddPartner] = {
+    new NextPage[DoYouWantToAddPartnerId.type, models.sa.partnership.DoYouWantToAddPartner] {
+      override def get(b: models.sa.partnership.DoYouWantToAddPartner)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case models.sa.partnership.DoYouWantToAddPartner.Yes => Call("GET", urlHelper.getPublishedAssetsURL("partnership"))
+          case models.sa.partnership.DoYouWantToAddPartner.No => saPartnerRoutes.HaveYouRegisteredPartnershipController.onPageLoad()
+        }
+     }
+  }
+
+  implicit val haveYouRegisteredPartnership: NextPage[HaveYouRegisteredPartnershipId.type,
+    models.sa.partnership.HaveYouRegisteredPartnership] = {
+    new NextPage[HaveYouRegisteredPartnershipId.type, models.sa.partnership.HaveYouRegisteredPartnership] {
+      override def get(b: models.sa.partnership.HaveYouRegisteredPartnership)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case models.sa.partnership.HaveYouRegisteredPartnership.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.SAPartnership))
+          case models.sa.partnership.HaveYouRegisteredPartnership.No => Call("GET", urlHelper.getPublishedAssetsURL("partnershipOther"))
+        }
+     }
+  }
 
   implicit val doYouWantToAddImportExport: NextPage[DoYouWantToAddImportExportId.type,
     models.other.importexports.DoYouWantToAddImportExport] = {

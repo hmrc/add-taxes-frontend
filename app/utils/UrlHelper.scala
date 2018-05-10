@@ -53,4 +53,9 @@ class UrlHelper @Inject()(val appConfig: FrontendAppConfig) {
   def getHmceURL(key: String) = {
     appConfig.getHmceURL(key)
   }
+
+  def getPublishedAssetsURL(key: String) = {
+    appConfig.getPublishedAssetsUrl(key)
+  }
+
 }
