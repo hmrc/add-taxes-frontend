@@ -20,6 +20,7 @@ import base.SpecBase
 import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.OtherTaxes
 import models.employer.pension.WhichPensionSchemeToAdd
+import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.other.importexports.nes.DoYouHaveCHIEFRole
@@ -260,6 +261,20 @@ class NextPageSpec extends SpecBase {
       NextPage.whichPensionSchemeToAdd,
       WhichPensionSchemeToAdd.Practitioners,
       "http://localhost:8080/portal/service/pensions-practitioners?action=enrol&step=hasid&lang=eng"
+    )
+  }
+
+  "AreYouRegisteredGTS" when {
+    behave like nextPage(
+      NextPage.areYouRegisteredGTS,
+      AreYouRegisteredGTS.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-GTS-GBD/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.areYouRegisteredGTS,
+      AreYouRegisteredGTS.No,
+      "/business-account/add-tax/other/gambling/gbd/register"
     )
   }
 }

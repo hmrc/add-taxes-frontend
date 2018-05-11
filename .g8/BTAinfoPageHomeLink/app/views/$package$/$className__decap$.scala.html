@@ -1,0 +1,30 @@
+@import config.FrontendAppConfig
+
+@(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    title = messages("$className;format="decap"$.title"),
+    appConfig = appConfig,
+    serviceInfoContent = serviceInfoContent
+) {
+
+    @components.heading("$className;format="decap"$.heading")
+
+    <p>
+        <a id="continue"
+           href='#'
+           class="button"
+           data-journey-click="$gaEventPrefix$:Click:$gaEventButtonSuffix$">
+
+            @messages("$className;format="decap"$.continue")
+        </a>
+    </p>
+
+    <p>
+        <a id="not-now"
+           href='@appConfig.getBusinessAccountUrl("home")'
+           data-journey-click="$gaEventPrefix$:Click:NotNow">
+            @messages("$className;format="decap"$.notnow")
+        </a>
+    </p>
+}

@@ -20,13 +20,15 @@ import controllers.other.oil.routes
 import controllers.other.importexports.dan.{routes => danRoutes}
 import controllers.other.importexports.ebti.{routes => ebtiRoutes}
 import controllers.other.importexports.emcs.{routes => emcsRoutes}
+import controllers.other.gambling.gbd.{routes => gbdRoutes}
 import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
 import identifiers._
-import models.other.importexports.DoYouHaveEORINumber
+import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.OtherTaxes
+import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.nes.DoYouHaveCHIEFRole
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
@@ -56,15 +58,30 @@ object NextPage {
     models.other.importexports.DoYouWantToAddImportExport] = {
     new NextPage[DoYouWantToAddImportExportId.type, models.other.importexports.DoYouWantToAddImportExport] {
       override def get(b: models.other.importexports.DoYouWantToAddImportExport)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
+  private val GET: String = "GET"
+
+  implicit val areYouRegisteredGTS: NextPage[AreYouRegisteredGTSId.type, AreYouRegisteredGTS] = {
+    new NextPage[AreYouRegisteredGTSId.type, AreYouRegisteredGTS] {
+      override def get(b: AreYouRegisteredGTS)(implicit urlHelper: UrlHelper): Call =
         b match {
-          case models.other.importexports.DoYouWantToAddImportExport.EMCS => emcsRoutes.DoYouHaveASEEDNumberController.onPageLoad()
-          case models.other.importexports.DoYouWantToAddImportExport.ICS => icsRoutes.DoYouHaveEORINumberController.onPageLoad()
-          case models.other.importexports.DoYouWantToAddImportExport.DDES => danRoutes.DoYouHaveDANController.onPageLoad()
-          case models.other.importexports.DoYouWantToAddImportExport.NOVA => Call("GET", urlHelper.getPortalURL("novaEnrolment"))
-          case models.other.importexports.DoYouWantToAddImportExport.NCTS => nctsRoutes.DoYouHaveEORINumberController.onPageLoad()
-          case models.other.importexports.DoYouWantToAddImportExport.eBTI => ebtiRoutes.DoYouHaveEORINumberController.onPageLoad()
-          case models.other.importexports.DoYouWantToAddImportExport.NES => nesRoutes.DoYouHaveEORINumberController.onPageLoad()
-          case models.other.importexports.DoYouWantToAddImportExport.ISD => Call("GET", urlHelper.getHmceURL("isd"))
+          case AreYouRegisteredGTS.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.GeneralBetting))
+          case AreYouRegisteredGTS.No => gbdRoutes.RegisterGBDController.onPageLoad()
+        }
+     }
+  }
+
+  implicit val doYouWantToAddImportExport: NextPage[DoYouWantToAddImportExportId.type, DoYouWantToAddImportExport] = {
+    new NextPage[DoYouWantToAddImportExportId.type, DoYouWantToAddImportExport] {
+      override def get(b: DoYouWantToAddImportExport)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case DoYouWantToAddImportExport.EMCS => emcsRoutes.DoYouHaveASEEDNumberController.onPageLoad()
+          case DoYouWantToAddImportExport.ICS => icsRoutes.DoYouHaveEORINumberController.onPageLoad()
+          case DoYouWantToAddImportExport.DDES => danRoutes.DoYouHaveDANController.onPageLoad()
+          case DoYouWantToAddImportExport.NOVA => Call("GET", urlHelper.getPortalURL("novaEnrolment"))
+          case DoYouWantToAddImportExport.NCTS => nctsRoutes.DoYouHaveEORINumberController.onPageLoad()
+          case DoYouWantToAddImportExport.eBTI => ebtiRoutes.DoYouHaveEORINumberController.onPageLoad()
+          case DoYouWantToAddImportExport.NES => nesRoutes.DoYouHaveEORINumberController.onPageLoad()
+          case DoYouWantToAddImportExport.ISD => Call("GET", urlHelper.getHmceURL("isd"))
         }
     }
   }
