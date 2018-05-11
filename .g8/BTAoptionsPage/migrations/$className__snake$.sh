@@ -37,7 +37,7 @@ awk '/object/ {\
      print "  implicit val $className;format="decap"$: NextPage[$className$Id.type,";\
      print "    models.$package$.$className$] = {";\
      print "    new NextPage[$className$Id.type, models.$package$.$className$] {";\
-     print "      override def get(b: models.$package$.$className$)(implicit urlHelper: UrlHelper): Call =";\
+     print "      override def get(b: models.$package$.$className$)(implicit urlHelper: UrlHelper, request: Request[_]): Call =";\
      print "        b match {";\
      print "          case models.$package$.$className$.Option1 => ???";\
      print "          case models.$package$.$className$.Option2 => ???";\
