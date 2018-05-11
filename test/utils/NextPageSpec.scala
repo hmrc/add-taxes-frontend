@@ -19,6 +19,7 @@ package utils
 import base.SpecBase
 import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.OtherTaxes
+import models.employer.pension.WhichPensionSchemeToAdd
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
@@ -33,6 +34,7 @@ import models.wrongcredentials.FindingYourAccount
 class NextPageSpec extends SpecBase {
 
   implicit val urlHelper = new UrlHelper(frontendAppConfig)
+  implicit val request = fakeRequest
 
 
   def nextPage[A, B](np: NextPage[A, B], userSelection: B, urlRedirect: String): Unit = {
@@ -222,7 +224,7 @@ class NextPageSpec extends SpecBase {
     behave like nextPage(
       NextPage.doYouWantToAddImportExport,
       DoYouWantToAddImportExport.NOVA,
-      "http://localhost:8080/portal/nova/normal"
+      "http://localhost:8080/portal/nova/normal?lang=eng"
     )
 
     behave like nextPage(
@@ -247,6 +249,20 @@ class NextPageSpec extends SpecBase {
       NextPage.doYouWantToAddImportExport,
       DoYouWantToAddImportExport.ISD,
       "https://secure.hmce.gov.uk/ecom/is2/static/is2.html"
+    )
+  }
+
+  "WhichPensionSchemeToAdd" when {
+    behave like nextPage(
+      NextPage.whichPensionSchemeToAdd,
+      WhichPensionSchemeToAdd.Administrators,
+      "http://localhost:8080/portal/service/pensions-administrators?action=enrol&step=hasid&lang=eng"
+    )
+
+    behave like nextPage(
+      NextPage.whichPensionSchemeToAdd,
+      WhichPensionSchemeToAdd.Practitioners,
+      "http://localhost:8080/portal/service/pensions-practitioners?action=enrol&step=hasid&lang=eng"
     )
   }
 

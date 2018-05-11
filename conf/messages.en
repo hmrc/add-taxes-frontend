@@ -317,6 +317,15 @@ haveYouRegisteredTrust.hintText = Your trust is registered if you sent us a {0} 
 haveYouRegisteredTrust.form.g41=form G41
 
 #######################################################
+##  WhichPensionSchemeToAdd
+#######################################################
+whichPensionSchemeToAdd.title = Which pension scheme do you want to add?
+whichPensionSchemeToAdd.heading = Which pension scheme do you want to add?
+whichPensionSchemeToAdd.administrators = Pension Schemes Online for Administrators
+whichPensionSchemeToAdd.practitioners = Pension Schemes Online for Practitioners
+whichPensionSchemeToAdd.error.required = Select a scheme
+
+#######################################################
 ##  RegisterGBD
 #######################################################
 registerGBD.title = Register for the Gambling Tax System first
