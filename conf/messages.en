@@ -295,6 +295,15 @@ getEoriAndChiefRole.p2.li2=complete an EORI request form
 getEoriAndChiefRole.p3=Come back to your account and add NES once your EORI number and CHIEF role arrive.
 
 #######################################################
+##  WhichPensionSchemeToAdd
+#######################################################
+whichPensionSchemeToAdd.title = Which pension scheme do you want to add?
+whichPensionSchemeToAdd.heading = Which pension scheme do you want to add?
+whichPensionSchemeToAdd.administrators = Pension Schemes Online for Administrators
+whichPensionSchemeToAdd.practitioners = Pension Schemes Online for Practitioners
+whichPensionSchemeToAdd.error.required = Select a scheme
+
+#######################################################
 ##  RegisterGBD
 #######################################################
 registerGBD.title = Register for the Gambling Tax System first

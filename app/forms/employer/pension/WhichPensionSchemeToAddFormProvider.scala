@@ -14,16 +14,19 @@
  * limitations under the License.
  */
 
-package utils
+package forms.employer.pension
 
-import javax.inject.{Inject, Singleton}
-import play.api.mvc.Request
-import play.api.mvc.Call
+import javax.inject.Inject
 
-@Singleton
-class Navigator @Inject()(urlHelper: UrlHelper) {
+import forms.FormErrorHelper
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.employer.pension.WhichPensionSchemeToAdd
 
-  def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B], request: Request[_]): Call =
-    ev.get(b)(urlHelper, request)
+class WhichPensionSchemeToAddFormProvider @Inject() extends FormErrorHelper with Mappings {
 
+  def apply(): Form[WhichPensionSchemeToAdd] =
+    Form(
+      "value" -> enumerable[WhichPensionSchemeToAdd]("whichPensionSchemeToAdd.error.required")
+    )
 }
