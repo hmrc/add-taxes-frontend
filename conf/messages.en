@@ -312,3 +312,12 @@ areYouRegisteredGTS.p1 = We’ll have sent you a Gambling Tax System reference n
 areYouRegisteredGTS.Yes = Yes - I have a Gambling Tax System reference number
 areYouRegisteredGTS.No = No - I haven't registered yet
 areYouRegisteredGTS.error.required = Select yes or no
+
+#######################################################
+##  RegisterRGD
+#######################################################
+registerRGD.title = Register for the Gambling Tax System first
+registerRGD.heading = Register for the Gambling Tax System first
+registerRGD.p1 = You need to register for the Gambling Tax System before you can add Remote Gaming Duty to your account.
+registerRGD.p2 = We’ll send you a Gambling Tax System reference number. Come back to your account and add Remote Gaming Duty when you get it.
+registerRGD.continue = Continue - register for the Gambling Tax System
