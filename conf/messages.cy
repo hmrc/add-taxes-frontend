@@ -318,3 +318,22 @@ haveYouRegisteredTrust.No = Nac ydw - nid yw’r ymddiriedolaeth wedi’i chofre
 haveYouRegisteredTrust.error.required = Dewis iawn neu na
 haveYouRegisteredTrust.hintText = Mae eich ymddiriedolaeth wedi’i chofrestru os gwnaethoch anfon {0} atom, a’ch bod wedi cael Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth drwy’r post
 haveYouRegisteredTrust.form.g41=ffurflen G41
+
+#######################################################
+##  HaveYouRegisteredPartnership
+#######################################################
+haveYouRegisteredPartnership.title = A ydych eisoes wedi cofrestru eich partneriaeth?
+haveYouRegisteredPartnership.heading = A ydych eisoes wedi cofrestru eich partneriaeth?
+haveYouRegisteredPartnership.Yes = Ydw - rwyf wedi cofrestru’r bartneriaeth ac mae gennyf UTR
+haveYouRegisteredPartnership.No = Nac ydw - nid wyf wedi cofrestru’r bartneriaeth
+haveYouRegisteredPartnership.error.required = Dewis iawn neu na
+haveYouRegisteredPartnership.hintText = Byddwn wedi anfon Cyfeirnod Unigryw y Trethdalwr (UTR) atoch ar gyfer eich partneriaeth, os ydych eisoes wedi’i chofrestru
+
+#######################################################
+##  DoYouWantToAddPartner
+#######################################################
+doYouWantToAddPartner.title = A ydych eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes?
+doYouWantToAddPartner.heading = A ydych eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes?
+doYouWantToAddPartner.Yes = Ydw - rwyf eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes
+doYouWantToAddPartner.No = Nac ydw - rwyf eisiau gwneud rhywbeth arall
+doYouWantToAddPartner.error.required = Dewis iawn neu na
