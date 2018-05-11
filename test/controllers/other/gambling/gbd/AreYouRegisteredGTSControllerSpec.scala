@@ -28,7 +28,8 @@ import forms.other.gambling.gbd.AreYouRegisteredGTSFormProvider
 import identifiers.AreYouRegisteredGTSId
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import play.twirl.api.HtmlFormat
-import views.html.other.gambling.gbd.areYouRegisteredGTS
+import viewmodels.ViewAction
+import views.html.other.gambling.areYouRegisteredGTS
 
 class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
 
@@ -36,12 +37,14 @@ class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
 
   val formProvider = new AreYouRegisteredGTSFormProvider()
   val form = formProvider()
+  lazy val viewAction = ViewAction(routes.AreYouRegisteredGTSController.onSubmit(), "AddGbdGamblingTax")
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new AreYouRegisteredGTSController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
       FakeServiceInfoAction, formProvider)
 
-  def viewAsString(form: Form[_] = form) = areYouRegisteredGTS(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) =
+    areYouRegisteredGTS(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "AreYouRegisteredGTS Controller" must {
 
