@@ -332,7 +332,7 @@ areYouRegisteredGTS.title = Are you registered for the Gambling Tax System?
 areYouRegisteredGTS.heading = Are you registered for the Gambling Tax System?
 areYouRegisteredGTS.p1 = We’ll have sent you a Gambling Tax System reference number if you’re registered
 areYouRegisteredGTS.Yes = Yes - I have a Gambling Tax System reference number
-areYouRegisteredGTS.No = No - I haven't registered yet
+areYouRegisteredGTS.No = No - I haven’t registered yet
 areYouRegisteredGTS.error.required = Select yes or no
 
 #######################################################
