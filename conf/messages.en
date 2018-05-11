@@ -312,3 +312,12 @@ areYouRegisteredGTS.p1 = We’ll have sent you a Gambling Tax System reference n
 areYouRegisteredGTS.Yes = Yes - I have a Gambling Tax System reference number
 areYouRegisteredGTS.No = No - I haven't registered yet
 areYouRegisteredGTS.error.required = Select yes or no
+
+#######################################################
+##  RegisterGTSFirst
+#######################################################
+registerGTSFirst.title = Register for the Gambling Tax System first
+registerGTSFirst.heading = Register for the Gambling Tax System first
+registerGTSFirst.detail.1 = You need to register for the Gambling Tax System before you can add Pool Betting Duty to your account.
+registerGTSFirst.detail.2 = We’ll send you a Gambling Tax System reference number. Come back to your account and add Pool Betting Duty when you get it.
+registerGTSFirst.continue = Continue - register for the Gambling Tax System
