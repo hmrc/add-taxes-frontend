@@ -17,9 +17,13 @@
 package utils
 
 import base.SpecBase
+import config.FrontendAppConfig
 import play.api.mvc.Cookie
+import org.mockito.Matchers._
+import org.mockito.Mockito._
+import org.scalatest.mockito.MockitoSugar
 
-class UrlHelperSpec extends SpecBase {
+class UrlHelperSpec extends SpecBase with MockitoSugar {
 
   "registerForTaxUrl" should {
     "return enrolment-management-frontend/$enrolmentKey/request-access-tax-scheme?continue=%2Fbusiness-account" in {
@@ -62,6 +66,14 @@ class UrlHelperSpec extends SpecBase {
     "the user is in english" should {
       "append ?lang=eng to given url" in {
         new UrlHelper(frontendAppConfig).getPortalURL("novaEnrolment")(fakeRequest) mustBe "http://localhost:8080/portal/nova/normal?lang=eng"
+      }
+    }
+
+    "for any language" should {
+      "remove ? if its only character at the end" in {
+        val config = mock[FrontendAppConfig]
+        when(config.getPortalUrl(any())).thenReturn("http://portal.com?")
+        new UrlHelper(config).getPortalURL("")(fakeRequest) mustBe "http://portal.com?lang=eng"
       }
     }
 
