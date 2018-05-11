@@ -287,7 +287,7 @@ class NextPageSpec extends SpecBase {
     behave like nextPage(
       NextPage.haveYouRegisteredPartnership,
       HaveYouRegisteredPartnership.No,
-      "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/607225/SA400__No_fields__04_17.pdf"
+      "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/359500/sa400-static.pdf"
     )
   }
 }
