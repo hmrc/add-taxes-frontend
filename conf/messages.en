@@ -315,3 +315,22 @@ haveYouRegisteredTrust.No = No - the trust isn't registered yet
 haveYouRegisteredTrust.error.required = Select yes or no
 haveYouRegisteredTrust.hintText = Your trust is registered if you sent us a {0} and received a Unique Taxpayer Reference (UTR) for the trust in the post
 haveYouRegisteredTrust.form.g41=form G41
+
+#######################################################
+##  RegisterGBD
+#######################################################
+registerGBD.title = Register for the Gambling Tax System first
+registerGBD.heading = Register for the Gambling Tax System first
+registerGBD.p1 = You need to register for the Gambling Tax System before you can add General Betting Duty to your account.
+registerGBD.p2 = We’ll send you a Gambling Tax System reference number. Come back to your account and add General Betting Duty when you get it.
+registerGBD.continue = Continue - register for the Gambling Tax System
+
+#######################################################
+##  AreYouRegisteredGTS
+#######################################################
+areYouRegisteredGTS.title = Are you registered for the Gambling Tax System?
+areYouRegisteredGTS.heading = Are you registered for the Gambling Tax System?
+areYouRegisteredGTS.p1 = We’ll have sent you a Gambling Tax System reference number if you’re registered
+areYouRegisteredGTS.Yes = Yes - I have a Gambling Tax System reference number
+areYouRegisteredGTS.No = No - I haven't registered yet
+areYouRegisteredGTS.error.required = Select yes or no
