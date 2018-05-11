@@ -4,11 +4,18 @@ import controllers._
 import controllers.actions._
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 
 class $className$ControllerSpec extends ControllerSpecBase {
 
+  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+
+  val formProvider = new $formProvider$()
+  val form = formProvider()
+
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new $className$Controller(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+    new $className$Controller(frontendAppConfig, messagesApi, FakeAuthAction,
+      new FakeNavigator(desiredRoute = onwardRoute), FakeServiceInfoAction, formProvider)
 
   def viewAsString() = ???
 
