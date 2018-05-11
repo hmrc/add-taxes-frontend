@@ -20,14 +20,16 @@ import controllers.other.oil.routes
 import controllers.other.importexports.dan.{routes => danRoutes}
 import controllers.other.importexports.ebti.{routes => ebtiRoutes}
 import controllers.other.importexports.emcs.{routes => emcsRoutes}
+import controllers.other.gambling.gbd.{routes => gbdRoutes}
 import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
 import controllers.sa.partnership.{routes => saPartnerRoutes}
 import identifiers._
-import models.other.importexports.DoYouHaveEORINumber
+import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.OtherTaxes
+import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.nes.DoYouHaveCHIEFRole
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
@@ -42,6 +44,18 @@ trait NextPage[A, B] {
 
 object NextPage {
 
+  private val GET: String = "GET"
+
+  implicit val areYouRegisteredGTS: NextPage[AreYouRegisteredGTSId.type, AreYouRegisteredGTS] = {
+    new NextPage[AreYouRegisteredGTSId.type, AreYouRegisteredGTS] {
+      override def get(b: AreYouRegisteredGTS)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case AreYouRegisteredGTS.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.GeneralBetting))
+          case AreYouRegisteredGTS.No => gbdRoutes.RegisterGBDController.onPageLoad()
+        }
+     }
+  }
+
   implicit val doYouWantToAddPartner: NextPage[DoYouWantToAddPartnerId.type,
     DoYouWantToAddPartner] = {
     new NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartner] {
@@ -50,7 +64,7 @@ object NextPage {
           case DoYouWantToAddPartner.Yes => Call("GET", urlHelper.getPublishedAssetsURL("partnership"))
           case DoYouWantToAddPartner.No => saPartnerRoutes.HaveYouRegisteredPartnershipController.onPageLoad()
         }
-     }
+    }
   }
 
   implicit val haveYouRegisteredPartnership: NextPage[HaveYouRegisteredPartnershipId.type,
@@ -61,22 +75,21 @@ object NextPage {
           case models.sa.partnership.HaveYouRegisteredPartnership.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.SAPartnership))
           case models.sa.partnership.HaveYouRegisteredPartnership.No => Call("GET", urlHelper.getPublishedAssetsURL("partnershipOther"))
         }
-     }
+    }
   }
 
-  implicit val doYouWantToAddImportExport: NextPage[DoYouWantToAddImportExportId.type,
-    models.other.importexports.DoYouWantToAddImportExport] = {
-    new NextPage[DoYouWantToAddImportExportId.type, models.other.importexports.DoYouWantToAddImportExport] {
-      override def get(b: models.other.importexports.DoYouWantToAddImportExport)(implicit urlHelper: UrlHelper): Call =
+  implicit val doYouWantToAddImportExport: NextPage[DoYouWantToAddImportExportId.type, DoYouWantToAddImportExport] = {
+    new NextPage[DoYouWantToAddImportExportId.type, DoYouWantToAddImportExport] {
+      override def get(b: DoYouWantToAddImportExport)(implicit urlHelper: UrlHelper): Call =
         b match {
-          case models.other.importexports.DoYouWantToAddImportExport.EMCS => emcsRoutes.DoYouHaveASEEDNumberController.onPageLoad()
-          case models.other.importexports.DoYouWantToAddImportExport.ICS => icsRoutes.DoYouHaveEORINumberController.onPageLoad()
-          case models.other.importexports.DoYouWantToAddImportExport.DDES => danRoutes.DoYouHaveDANController.onPageLoad()
-          case models.other.importexports.DoYouWantToAddImportExport.NOVA => Call("GET", urlHelper.getPortalURL("novaEnrolment"))
-          case models.other.importexports.DoYouWantToAddImportExport.NCTS => nctsRoutes.DoYouHaveEORINumberController.onPageLoad()
-          case models.other.importexports.DoYouWantToAddImportExport.eBTI => ebtiRoutes.DoYouHaveEORINumberController.onPageLoad()
-          case models.other.importexports.DoYouWantToAddImportExport.NES => nesRoutes.DoYouHaveEORINumberController.onPageLoad()
-          case models.other.importexports.DoYouWantToAddImportExport.ISD => Call("GET", urlHelper.getHmceURL("isd"))
+          case DoYouWantToAddImportExport.EMCS => emcsRoutes.DoYouHaveASEEDNumberController.onPageLoad()
+          case DoYouWantToAddImportExport.ICS => icsRoutes.DoYouHaveEORINumberController.onPageLoad()
+          case DoYouWantToAddImportExport.DDES => danRoutes.DoYouHaveDANController.onPageLoad()
+          case DoYouWantToAddImportExport.NOVA => Call("GET", urlHelper.getPortalURL("novaEnrolment"))
+          case DoYouWantToAddImportExport.NCTS => nctsRoutes.DoYouHaveEORINumberController.onPageLoad()
+          case DoYouWantToAddImportExport.eBTI => ebtiRoutes.DoYouHaveEORINumberController.onPageLoad()
+          case DoYouWantToAddImportExport.NES => nesRoutes.DoYouHaveEORINumberController.onPageLoad()
+          case DoYouWantToAddImportExport.ISD => Call("GET", urlHelper.getHmceURL("isd"))
         }
     }
   }

@@ -19,6 +19,7 @@ package utils
 import base.SpecBase
 import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.OtherTaxes
+import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.other.importexports.nes.DoYouHaveCHIEFRole
@@ -245,6 +246,20 @@ class NextPageSpec extends SpecBase {
       NextPage.doYouWantToAddImportExport,
       DoYouWantToAddImportExport.ISD,
       "https://secure.hmce.gov.uk/ecom/is2/static/is2.html"
+    )
+  }
+
+  "AreYouRegisteredGTS" when {
+    behave like nextPage(
+      NextPage.areYouRegisteredGTS,
+      AreYouRegisteredGTS.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-GTS-GBD/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.areYouRegisteredGTS,
+      AreYouRegisteredGTS.No,
+      "/business-account/add-tax/other/gambling/gbd/register"
     )
   }
 
