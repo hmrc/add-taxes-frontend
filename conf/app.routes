@@ -78,3 +78,8 @@ GET        /other/import-export/nes/has-eori/register-chief     controllers.othe
 
 GET        /employer/pension                            controllers.employer.pension.WhichPensionSchemeToAddController.onPageLoad()
 POST       /employer/pension                            controllers.employer.pension.WhichPensionSchemeToAddController.onSubmit()
+
+GET        /other/gambling/gbd/register                 controllers.other.gambling.gbd.RegisterGBDController.onPageLoad()
+
+GET        /other/gambling/gbd                  controllers.other.gambling.gbd.AreYouRegisteredGTSController.onPageLoad()
+POST       /other/gambling/gbd                  controllers.other.gambling.gbd.AreYouRegisteredGTSController.onSubmit()

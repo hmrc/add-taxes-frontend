@@ -286,3 +286,22 @@ whichPensionSchemeToAdd.heading = Pa gynllun pensiwn ydych eisiau ei ychwanegu?
 whichPensionSchemeToAdd.administrators = Cynlluniau Pensiwn Ar-lein ar gyfer Gweinyddwyr
 whichPensionSchemeToAdd.practitioners = Cynlluniau Pensiwn Ar-lein ar gyfer Ymarferwyr
 whichPensionSchemeToAdd.error.required = Dewis cynllun
+
+#######################################################
+##  RegisterGBD
+#######################################################
+registerGBD.title = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
+registerGBD.heading = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
+registerGBD.p1 = Mae angen i chi gofrestru ar gyfer y System Treth Hapchwarae cyn y gallwch ychwanegu Toll Fetio Gyffredinol i’ch cyfrif.
+registerGBD.p2 = Byddwn yn anfon cyfeirnod System Treth Hapchwarae atoch. Dychwelwch i’ch cyfrif ac ychwanegwch Toll Fetio Gyffredinol pan fyddwch yn ei gael.
+registerGBD.continue = Mynd yn eich blaen - cofrestru ar gyfer y System Treth Hapchwarae
+
+#######################################################
+##  AreYouRegisteredGTS
+#######################################################
+areYouRegisteredGTS.title = A ydych wedi cofrestru ar gyfer y System Treth Hapchwarae?
+areYouRegisteredGTS.heading = A ydych wedi cofrestru ar gyfer y System Treth Hapchwarae?
+areYouRegisteredGTS.p1 = Byddwn wedi anfon cyfeirnod System Treth Hapchwarae atoch os ydych wedi cofrestru
+areYouRegisteredGTS.Yes = Ydw - mae gennyf gyfeirnod System Treth Hapchwarae
+areYouRegisteredGTS.No = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
+areYouRegisteredGTS.error.required = Dewis iawn neu na

@@ -19,17 +19,20 @@
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("registerDefermentApprovalNumber.title"),
+    title = messages("registerGBD.title"),
     appConfig = appConfig,
     serviceInfoContent = serviceInfoContent) {
 
-    @components.heading("registerDefermentApprovalNumber.heading")
+    @components.heading("registerGBD.heading")
 
-    <p>@messages("registerDefermentApprovalNumber.p1")</p>
+    <p>@messages("registerGBD.p1")</p>
+    <p>@messages("registerGBD.p2")</p>
 
-    <p>@messages("registerDefermentApprovalNumber.p2")</p>
+    <a id="continue"
+       href='@appConfig.getCustomsUrl("gts")'
+       class="button"
+       data-journey-click="GamblingGBD:Click:Register">
 
-        <a id="register-for-ddes" href='@appConfig.getGovUKUrl("ddes")' class="button" data-journey-click="RegisterDDES:Click:Continue">
-        @messages("registerDefermentApprovalNumber.continue")
+        @messages("registerGBD.continue")
     </a>
 }
