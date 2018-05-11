@@ -25,6 +25,7 @@ import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.other.importexports.nes.DoYouHaveCHIEFRole
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
+import models.sa.partnership.{DoYouWantToAddPartner, HaveYouRegisteredPartnership}
 import models.wrongcredentials.FindingYourAccount
 
 
@@ -259,6 +260,34 @@ class NextPageSpec extends SpecBase {
       NextPage.areYouRegisteredGTS,
       AreYouRegisteredGTS.No,
       "/business-account/add-tax/other/gambling/gbd/register"
+    )
+  }
+
+  "SA Partnership" when {
+    behave like nextPage(
+      NextPage.doYouWantToAddPartner,
+      DoYouWantToAddPartner.Yes,
+      "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/359508/sa401-static.pdf"
+    )
+
+    behave like nextPage(
+      NextPage.doYouWantToAddPartner,
+      DoYouWantToAddPartner.No,
+      "/business-account/add-tax/self-assessment/partnership/other"
+    )
+  }
+
+  "SA Partnership Other" when {
+    behave like nextPage(
+      NextPage.haveYouRegisteredPartnership,
+      HaveYouRegisteredPartnership.Yes,
+      "http://localhost:9555/enrolment-management-frontend/IR-SA-PART-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.haveYouRegisteredPartnership,
+      HaveYouRegisteredPartnership.No,
+      "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/359500/sa400-static.pdf"
     )
   }
 }

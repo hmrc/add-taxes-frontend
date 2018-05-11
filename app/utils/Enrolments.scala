@@ -56,10 +56,12 @@ object Enrolments {
 
   case object NewComputerisedTransitSystem extends WithName("HMRC-NCTS-ORG") with Enrolments
 
+  case object SAPartnership extends WithName("IR-SA-PART-ORG") with Enrolments
+
   val values: Set[Enrolments] = Set(
     RebatedOils, TiedOils, AlcoholAndTobaccoWarehousingDeclarations, AlcoholWholesalerRegistrationScheme,
     AlcoholWholesalerRegistrationScheme, AutomaticExchangeOfInformation, Charities, MachineGamingDuty, GeneralBetting,
     PoolBetting, RemoteGaming, OtherBusinessTaxDutyScheme, EconomicOperatorsRegistration, DefermentApprovalNumber,
-    NewExportSystem, ElectronicBindingTariffInformation, NewComputerisedTransitSystem, NewExportSystem
+    NewExportSystem, ElectronicBindingTariffInformation, NewComputerisedTransitSystem, NewExportSystem, SAPartnership
   )
 }

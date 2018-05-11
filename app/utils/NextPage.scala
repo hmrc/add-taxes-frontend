@@ -24,6 +24,7 @@ import controllers.other.gambling.gbd.{routes => gbdRoutes}
 import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
+import controllers.sa.partnership.{routes => saPartnerRoutes}
 import identifiers._
 import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
@@ -33,6 +34,7 @@ import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.nes.DoYouHaveCHIEFRole
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils, SelectAnOilService}
+import models.sa.partnership.DoYouWantToAddPartner
 import models.wrongcredentials.FindingYourAccount
 import play.api.mvc.Call
 
@@ -52,6 +54,28 @@ object NextPage {
           case AreYouRegisteredGTS.No => gbdRoutes.RegisterGBDController.onPageLoad()
         }
      }
+  }
+
+  implicit val doYouWantToAddPartner: NextPage[DoYouWantToAddPartnerId.type,
+    DoYouWantToAddPartner] = {
+    new NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartner] {
+      override def get(b: DoYouWantToAddPartner)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case DoYouWantToAddPartner.Yes => Call("GET", urlHelper.getPublishedAssetsURL("partnership"))
+          case DoYouWantToAddPartner.No => saPartnerRoutes.HaveYouRegisteredPartnershipController.onPageLoad()
+        }
+    }
+  }
+
+  implicit val haveYouRegisteredPartnership: NextPage[HaveYouRegisteredPartnershipId.type,
+    models.sa.partnership.HaveYouRegisteredPartnership] = {
+    new NextPage[HaveYouRegisteredPartnershipId.type, models.sa.partnership.HaveYouRegisteredPartnership] {
+      override def get(b: models.sa.partnership.HaveYouRegisteredPartnership)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case models.sa.partnership.HaveYouRegisteredPartnership.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.SAPartnership))
+          case models.sa.partnership.HaveYouRegisteredPartnership.No => Call("GET", urlHelper.getPublishedAssetsURL("partnershipOther"))
+        }
+    }
   }
 
   implicit val doYouWantToAddImportExport: NextPage[DoYouWantToAddImportExportId.type, DoYouWantToAddImportExport] = {

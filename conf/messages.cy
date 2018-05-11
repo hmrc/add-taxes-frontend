@@ -296,3 +296,22 @@ areYouRegisteredGTS.p1 = Byddwn wedi anfon cyfeirnod System Treth Hapchwarae ato
 areYouRegisteredGTS.Yes = Ydw - mae gennyf gyfeirnod System Treth Hapchwarae
 areYouRegisteredGTS.No = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
 areYouRegisteredGTS.error.required = Dewis iawn neu na
+
+#######################################################
+##  HaveYouRegisteredPartnership
+#######################################################
+haveYouRegisteredPartnership.title = A ydych eisoes wedi cofrestru eich partneriaeth?
+haveYouRegisteredPartnership.heading = A ydych eisoes wedi cofrestru eich partneriaeth?
+haveYouRegisteredPartnership.Yes = Ydw - rwyf wedi cofrestru’r bartneriaeth ac mae gennyf UTR
+haveYouRegisteredPartnership.No = Nac ydw - nid wyf wedi cofrestru’r bartneriaeth
+haveYouRegisteredPartnership.error.required = Dewis iawn neu na
+haveYouRegisteredPartnership.hintText = Byddwn wedi anfon Cyfeirnod Unigryw y Trethdalwr (UTR) atoch ar gyfer eich partneriaeth, os ydych eisoes wedi’i chofrestru
+
+#######################################################
+##  DoYouWantToAddPartner
+#######################################################
+doYouWantToAddPartner.title = A ydych eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes?
+doYouWantToAddPartner.heading = A ydych eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes?
+doYouWantToAddPartner.Yes = Ydw - rwyf eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes
+doYouWantToAddPartner.No = Nac ydw - rwyf eisiau gwneud rhywbeth arall
+doYouWantToAddPartner.error.required = Dewis iawn neu na
