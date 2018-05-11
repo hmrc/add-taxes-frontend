@@ -17,10 +17,11 @@
 package utils
 
 import controllers.other.oil.routes
+import controllers.other.gambling.gbd.{routes => gbdRoutes}
+import controllers.other.gambling.rgd.{routes => rgdRoutes}
 import controllers.other.importexports.dan.{routes => danRoutes}
 import controllers.other.importexports.ebti.{routes => ebtiRoutes}
 import controllers.other.importexports.emcs.{routes => emcsRoutes}
-import controllers.other.gambling.gbd.{routes => gbdRoutes}
 import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
@@ -44,8 +45,18 @@ object NextPage {
 
   private val GET: String = "GET"
 
-  implicit val areYouRegisteredGTS: NextPage[AreYouRegisteredGTSId.type, AreYouRegisteredGTS] = {
-    new NextPage[AreYouRegisteredGTSId.type, AreYouRegisteredGTS] {
+  implicit val gtsRGD: NextPage[AreYouRegisteredGTSId.RGD.type, AreYouRegisteredGTS] = {
+    new NextPage[AreYouRegisteredGTSId.RGD.type, AreYouRegisteredGTS] {
+      override def get(b: AreYouRegisteredGTS)(implicit urlHelper: UrlHelper): Call =
+        b match {
+          case AreYouRegisteredGTS.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.RemoteGaming))
+          case AreYouRegisteredGTS.No => rgdRoutes.RegisterRGDController.onPageLoad()
+        }
+    }
+  }
+
+  implicit val gtsGBD: NextPage[AreYouRegisteredGTSId.GBD.type, AreYouRegisteredGTS] = {
+    new NextPage[AreYouRegisteredGTSId.GBD.type, AreYouRegisteredGTS] {
       override def get(b: AreYouRegisteredGTS)(implicit urlHelper: UrlHelper): Call =
         b match {
           case AreYouRegisteredGTS.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.GeneralBetting))
