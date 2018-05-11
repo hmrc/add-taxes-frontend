@@ -21,6 +21,7 @@ import controllers.other.importexports.dan.{routes => danRoutes}
 import controllers.other.importexports.ebti.{routes => ebtiRoutes}
 import controllers.other.importexports.emcs.{routes => emcsRoutes}
 import controllers.other.gambling.gbd.{routes => gbdRoutes}
+import controllers.other.gambling.pbd.register.{routes => pbdRoutes}
 import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
@@ -62,6 +63,16 @@ object NextPage {
           case AreYouRegisteredGTS.No => gbdRoutes.RegisterGBDController.onPageLoad()
         }
      }
+  }
+
+  implicit val areYouRegisteredForGTSPBD: NextPage[AreYouRegisteredForGTSPBDId.type, AreYouRegisteredGTS] = {
+    new NextPage[AreYouRegisteredForGTSPBDId.type, AreYouRegisteredGTS] {
+      override def get(b: AreYouRegisteredGTS)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
+        b match {
+          case AreYouRegisteredGTS.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.PoolBetting))
+          case AreYouRegisteredGTS.No => pbdRoutes.RegisterGTSFirstController.onPageLoad()
+        }
+    }
   }
 
   implicit val doYouWantToAddImportExport: NextPage[DoYouWantToAddImportExportId.type, DoYouWantToAddImportExport] = {

@@ -18,20 +18,46 @@ package controllers.other.gambling.pbd
 
 import javax.inject.Inject
 
+import config.FrontendAppConfig
+import connectors.DataCacheConnector
+import controllers.actions._
+import forms.other.gambling.gbd.AreYouRegisteredGTSFormProvider
+import identifiers.AreYouRegisteredForGTSPBDId
+import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import controllers.actions._
-import config.FrontendAppConfig
+import utils.{Enumerable, Navigator}
+import viewmodels.ViewAction
+import views.html.other.gambling.areYouRegisteredGTS
 
 import scala.concurrent.Future
 
-class AreYouRegisteredForGTSPBDController @Inject()(appConfig: FrontendAppConfig,
-                                          override val messagesApi: MessagesApi,
-                                          authenticate: AuthAction,
-                                          serviceInfo: ServiceInfoAction ) extends FrontendController with I18nSupport {
+class AreYouRegisteredForGTSPBDController @Inject()(
+                                                     appConfig: FrontendAppConfig,
+                                                     override val messagesApi: MessagesApi,
+                                                     dataCacheConnector: DataCacheConnector,
+                                                     navigator: Navigator,
+                                                     authenticate: AuthAction,
+                                                     serviceInfoData: ServiceInfoAction,
+                                                     formProvider: AreYouRegisteredGTSFormProvider) extends FrontendController with I18nSupport  with Enumerable.Implicits {
 
-  def onPageLoad = (authenticate andThen serviceInfo) {
+
+  val form = formProvider()
+
+  lazy val viewAction = ViewAction(routes.AreYouRegisteredForGTSPBDController.onSubmit(), "AddPbdGamblingTax")
+
+  def onPageLoad() = (authenticate andThen serviceInfoData) {
     implicit request =>
-      ???
+      Ok(areYouRegisteredGTS(appConfig, form, viewAction)(request.serviceInfoContent))
+  }
+
+  def onSubmit() = (authenticate andThen serviceInfoData).async {
+    implicit request =>
+      form.bindFromRequest().fold(
+        (formWithErrors: Form[_]) =>
+          Future.successful(BadRequest(areYouRegisteredGTS(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
+        (value) =>
+          Future.successful(Redirect(navigator.nextPage(AreYouRegisteredForGTSPBDId, value)))
+      )
   }
 }

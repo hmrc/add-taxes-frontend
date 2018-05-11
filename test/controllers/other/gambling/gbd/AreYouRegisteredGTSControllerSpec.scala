@@ -16,18 +16,15 @@
 
 package controllers.other.gambling.gbd
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.{FakeServiceInfoAction, _}
 import forms.other.gambling.gbd.AreYouRegisteredGTSFormProvider
-import identifiers.AreYouRegisteredGTSId
 import models.other.gambling.gbd.AreYouRegisteredGTS
+import play.api.data.Form
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import viewmodels.ViewAction
 import views.html.other.gambling.areYouRegisteredGTS
 
