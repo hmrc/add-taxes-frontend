@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package views.other.gambling.gbd
+package views.other.gambling
 
-import play.api.data.Form
 import forms.other.gambling.gbd.AreYouRegisteredGTSFormProvider
 import models.other.gambling.gbd.AreYouRegisteredGTS
+import play.api.data.Form
 import play.twirl.api.HtmlFormat
+import viewmodels.ViewAction
 import views.behaviours.ViewBehaviours
-import views.html.other.gambling.gbd.areYouRegisteredGTS
+import views.html.other.gambling.areYouRegisteredGTS
 
 class AreYouRegisteredGTSViewSpec extends ViewBehaviours {
 
@@ -31,9 +32,13 @@ class AreYouRegisteredGTSViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => areYouRegisteredGTS(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  val viewAction = ViewAction(controllers.routes.IndexController.onPageLoad(), "")
 
-  def createViewUsingForm = (form: Form[_]) => areYouRegisteredGTS(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView =
+    () => areYouRegisteredGTS(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
+
+  def createViewUsingForm =
+    (form: Form[_]) => areYouRegisteredGTS(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
 
   "AreYouRegisteredGTS view" must {
     behave like normalPage(createView, messageKeyPrefix)
