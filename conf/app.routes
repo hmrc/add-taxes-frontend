@@ -75,3 +75,8 @@ GET        /other/import-export/nes/no-eori/register-eori       controllers.othe
 GET        /other/import-export/nes/no-eori/register-both       controllers.other.importexports.nes.GetEoriAndChiefRoleController.onPageLoad()
 
 GET        /other/import-export/nes/has-eori/register-chief     controllers.other.importexports.nes.GetCHIEFRoleController.onPageLoad()
+
+GET        /other/gambling/gbd/register                 controllers.other.gambling.gbd.RegisterGBDController.onPageLoad()
+
+GET        /other/gambling/gbd                  controllers.other.gambling.gbd.AreYouRegisteredGTSController.onPageLoad()
+POST       /other/gambling/gbd                  controllers.other.gambling.gbd.AreYouRegisteredGTSController.onSubmit()
