@@ -17,7 +17,6 @@
 package controllers.other.gambling.gbd
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
@@ -25,10 +24,10 @@ import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-
 import forms.other.gambling.gbd.AreYouRegisteredGTSFormProvider
 import identifiers.AreYouRegisteredGTSId
-import views.html.other.gambling.gbd.areYouRegisteredGTS
+import viewmodels.ViewAction
+import views.html.other.gambling.areYouRegisteredGTS
 
 import scala.concurrent.Future
 
@@ -43,16 +42,18 @@ class AreYouRegisteredGTSController @Inject()(
 
   val form = formProvider()
 
+  lazy val viewAction = ViewAction(routes.AreYouRegisteredGTSController.onSubmit(), "AddGbdGamblingTax")
+
   def onPageLoad() = (authenticate andThen serviceInfoData) {
     implicit request =>
-      Ok(areYouRegisteredGTS(appConfig, form)(request.serviceInfoContent))
+      Ok(areYouRegisteredGTS(appConfig, form, viewAction)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(areYouRegisteredGTS(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(areYouRegisteredGTS(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
         (value) =>
           Future.successful(Redirect(navigator.nextPage(AreYouRegisteredGTSId, value)))
       )
