@@ -248,7 +248,7 @@ class NextPageSpec extends SpecBase {
     behave like nextPage(
       NextPage.doYouWantToAddImportExport,
       DoYouWantToAddImportExport.ISD,
-      "https://secure.hmce.gov.uk/ecom/is2/static/is2.html"
+      "http://localhost:8080/hmce/ecom/is2/static/is2.html"
     )
   }
 
@@ -277,6 +277,20 @@ class NextPageSpec extends SpecBase {
       NextPage.gbdGTS,
       AreYouRegisteredGTS.No,
       "/business-account/add-tax/other/gambling/gbd/register"
+    )
+  }
+
+  "AreYouRegisteredForGTSPBD" when {
+    behave like nextPage(
+      NextPage.pbdGTS,
+      AreYouRegisteredGTS.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-GTS-PBD/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.pbdGTS,
+      AreYouRegisteredGTS.No,
+      "/business-account/add-tax/other/gambling/pbd/register"
     )
   }
 

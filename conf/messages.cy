@@ -307,6 +307,14 @@ areYouRegisteredGTS.No = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
 areYouRegisteredGTS.error.required = Dewis iawn neu na
 
 #######################################################
+##  RegisterGTSFirst
+#######################################################
+registerGTSFirst.title = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
+registerGTSFirst.heading = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
+registerGTSFirst.detail.1 = Mae angen i chi gofrestru ar gyfer y System Treth Hapchwarae cyn y gallwch ychwanegu Toll Cronfa Fetio i’ch cyfrif.
+registerGTSFirst.detail.2 = Byddwn yn anfon cyfeirnod System Treth Hapchwarae atoch. Dychwelwch i’ch cyfrif ac ychwanegwch Toll Cronfa Fetio pan fyddwch yn ei gael.
+registerGTSFirst.continue = Mynd yn eich blaen - cofrestru ar gyfer y System Treth Hapchwarae
+
 ##  RegisterRGD
 #######################################################
 registerRGD.title = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf

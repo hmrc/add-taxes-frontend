@@ -17,8 +17,9 @@
 package utils
 
 import controllers.other.oil.routes
-import controllers.other.gambling.gbd.{routes => gbdRoutes}
 import controllers.other.gambling.rgd.{routes => rgdRoutes}
+import controllers.other.gambling.gbd.{routes => gbdRoutes}
+import controllers.other.gambling.pbd.register.{routes => pbdRoutes}
 import controllers.other.importexports.dan.{routes => danRoutes}
 import controllers.other.importexports.ebti.{routes => ebtiRoutes}
 import controllers.other.importexports.emcs.{routes => emcsRoutes}
@@ -77,6 +78,16 @@ object NextPage {
           case AreYouRegisteredGTS.No => gbdRoutes.RegisterGBDController.onPageLoad()
         }
      }
+  }
+
+  implicit val pbdGTS: NextPage[AreYouRegisteredGTSId.PBD.type, AreYouRegisteredGTS] = {
+    new NextPage[AreYouRegisteredGTSId.PBD.type, AreYouRegisteredGTS] {
+      override def get(b: AreYouRegisteredGTS)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
+        b match {
+          case AreYouRegisteredGTS.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.PoolBetting))
+          case AreYouRegisteredGTS.No => pbdRoutes.RegisterGTSFirstController.onPageLoad()
+        }
+    }
   }
 
   implicit val doYouWantToAddPartner: NextPage[DoYouWantToAddPartnerId.type,
@@ -182,7 +193,7 @@ object NextPage {
           case DoYouHaveEORINumber.No => icsRoutes.RegisterEORIController.onPageLoad()
         }
      }
-  };
+  }
 
   implicit val ebtiEori: NextPage[DoYouHaveEORINumberId.EBTI.type,
     DoYouHaveEORINumber] = {

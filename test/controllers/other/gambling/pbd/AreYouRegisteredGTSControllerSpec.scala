@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package controllers.other.gambling.gbd
+package controllers.other.gambling.pbd
 
 import connectors.FakeDataCacheConnector
 import controllers._
-import controllers.actions.{FakeServiceInfoAction, _}
+import controllers.actions._
 import forms.other.gambling.gbd.AreYouRegisteredGTSFormProvider
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import play.api.data.Form
@@ -34,16 +34,16 @@ class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
 
   val formProvider = new AreYouRegisteredGTSFormProvider()
   val form = formProvider()
-  lazy val viewAction = ViewAction(routes.AreYouRegisteredGTSController.onSubmit(), "AddGbdGamblingTax")
+  lazy val viewAction = ViewAction(routes.AreYouRegisteredGTSController.onSubmit(), "AddPbdGamblingTax")
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new AreYouRegisteredGTSController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
-      FakeServiceInfoAction, formProvider)
+    new AreYouRegisteredGTSController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
+      FakeAuthAction, FakeServiceInfoAction, formProvider)
 
   def viewAsString(form: Form[_] = form) =
     areYouRegisteredGTS(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  "AreYouRegisteredGTS Controller" must {
+  "AreYouRegisteredForGTSPBD Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad()(fakeRequest)
@@ -86,5 +86,10 @@ class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
         redirectLocation(result) mustBe Some(onwardRoute.url)
       }
     }
+
   }
 }
+
+
+
+
