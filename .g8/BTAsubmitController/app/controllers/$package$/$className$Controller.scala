@@ -4,7 +4,8 @@ import javax.inject.Inject
 
 import controllers.actions._
 import config.FrontendAppConfig
-import identifiers._
+import forms.$modelPackage$
+import identifiers.$className$Id
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
@@ -17,7 +18,7 @@ class $className;format="cap"$Controller @Inject()(appConfig: FrontendAppConfig,
                                           authenticate: AuthAction,
                                           navigator: Navigator,
                                           serviceInfo: ServiceInfoAction,
-                                          formProvider: $formProvider$) extends FrontendController with I18nSupport {
+                                          formProvider: $model$FormProvider) extends FrontendController with I18nSupport {
 
   val form = formProvider()
 
@@ -30,7 +31,7 @@ class $className;format="cap"$Controller @Inject()(appConfig: FrontendAppConfig,
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) => ???,
-        (value) => Future.successful(Redirect(navigator.nextPage($nextPageId$, value)))
+        (value) => Future.successful(Redirect(navigator.nextPage($className$Id, value)))
       )
   }
 }
