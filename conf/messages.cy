@@ -355,3 +355,13 @@ registerWarehousekeeper.heading = Cofrestrwch fel ceidwad warws ecséis yn gynta
 registerWarehousekeeper.p1 = Mae angen i chi gofrestru fel ceidwad warws ecséis cyn y gallwch ychwanegu ATWD i’ch cyfrif.
 registerWarehousekeeper.p2 = Byddwn yn anfon ID warws atoch. Dychwelwch i’ch cyfrif ac ychwanegu ATWD pan fyddwch yn ei gael.
 registerWarehousekeeper.continue = Mynd yn eich blaen - cofrestru fel ceidwad warws ecséis
+
+#######################################################
+##  AreYouRegisteredWarehousekeeper
+#######################################################
+areYouRegisteredWarehousekeeper.title = A ydych yn geidwad warws ecséis cofrestredig?
+areYouRegisteredWarehousekeeper.heading = A ydych yn geidwad warws ecséis cofrestredig?
+areYouRegisteredWarehousekeeper.p1 = Byddwn wedi anfon llythyr yn cymeradwyo’r warws, gydag ID warws, atoch os ydych yn geidwad warws ecséis cofrestredig.
+areYouRegisteredWarehousekeeper.Yes = Ydw - mae gennyf ID warws
+areYouRegisteredWarehousekeeper.No = Nac ydw - nid wyf yn geidwad warws cofrestredig
+areYouRegisteredWarehousekeeper.error.required = Dewis iawn neu na
