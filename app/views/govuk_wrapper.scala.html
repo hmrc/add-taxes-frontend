@@ -56,7 +56,7 @@
     @uiLayouts.footer(
       analyticsToken = Some(appConfig.analyticsToken),
       analyticsHost = appConfig.analyticsHost,
-      ssoUrl = None,
+      ssoUrl = Some(appConfig.ssoUrl),
       scriptElem = scriptElem,
       gaCalls = None)
       <script src='@routes.Assets.versioned("javascripts/addtaxesfrontend-app.min.js")'> </script>
