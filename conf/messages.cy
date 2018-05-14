@@ -305,3 +305,44 @@ areYouRegisteredGTS.p1 = Byddwn wedi anfon cyfeirnod System Treth Hapchwarae ato
 areYouRegisteredGTS.Yes = Ydw - mae gennyf gyfeirnod System Treth Hapchwarae
 areYouRegisteredGTS.No = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
 areYouRegisteredGTS.error.required = Dewis iawn neu na
+
+#######################################################
+##  RegisterTrust
+#######################################################
+registerTrust.title = Cofrestru eich ymddiriedolaeth
+registerTrust.heading = Cofrestru eich ymddiriedolaeth
+registerTrust.continue = Cofrestru eich ymddiriedolaeth
+registerTrust.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+registerTrust.p1=Mae’n rhaid i chi gofrestru eich ymddiriedolaeth cyn y gallwch ei hychwanegu i’r cyfrif hwn.
+registerTrust.p2=Byddwn yn anfon Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth drwy’r post, ar ôl iddi gael ei chofrestru.
+registerTrust.p3=Byddwch yn gallu ychwanegu’r ymddiriedolaeth i’r cyfrif hwn gan ddefnyddio’r UTR.
+
+#######################################################
+##  HaveYouRegisteredTrust
+#######################################################
+haveYouRegisteredTrust.title = A ydych wedi cofrestru eich ymddiriedolaeth?
+haveYouRegisteredTrust.heading = A ydych wedi cofrestru eich ymddiriedolaeth?
+haveYouRegisteredTrust.Yes = Ydw - mae’r ymddiriedolaeth eisoes wedi’i chofrestru
+haveYouRegisteredTrust.No = Nac ydw - nid yw’r ymddiriedolaeth wedi’i chofrestru ar hyn o bryd
+haveYouRegisteredTrust.error.required = Dewis iawn neu na
+haveYouRegisteredTrust.hintText = Mae eich ymddiriedolaeth wedi’i chofrestru os gwnaethoch anfon {0} atom, a’ch bod wedi cael Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth drwy’r post
+haveYouRegisteredTrust.form.g41=ffurflen G41
+
+#######################################################
+##  HaveYouRegisteredPartnership
+#######################################################
+haveYouRegisteredPartnership.title = A ydych eisoes wedi cofrestru eich partneriaeth?
+haveYouRegisteredPartnership.heading = A ydych eisoes wedi cofrestru eich partneriaeth?
+haveYouRegisteredPartnership.Yes = Ydw - rwyf wedi cofrestru’r bartneriaeth ac mae gennyf UTR
+haveYouRegisteredPartnership.No = Nac ydw - nid wyf wedi cofrestru’r bartneriaeth
+haveYouRegisteredPartnership.error.required = Dewis iawn neu na
+haveYouRegisteredPartnership.hintText = Byddwn wedi anfon Cyfeirnod Unigryw y Trethdalwr (UTR) atoch ar gyfer eich partneriaeth, os ydych eisoes wedi’i chofrestru
+
+#######################################################
+##  DoYouWantToAddPartner
+#######################################################
+doYouWantToAddPartner.title = A ydych eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes?
+doYouWantToAddPartner.heading = A ydych eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes?
+doYouWantToAddPartner.Yes = Ydw - rwyf eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes
+doYouWantToAddPartner.No = Nac ydw - rwyf eisiau gwneud rhywbeth arall
+doYouWantToAddPartner.error.required = Dewis iawn neu na

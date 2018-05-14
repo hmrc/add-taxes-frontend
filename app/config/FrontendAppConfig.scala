@@ -73,4 +73,8 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
 
   lazy val customsHost = loadConfig("urls.external.customs.host")
   def getCustomsUrl(key: String): String = customsHost + loadConfig(s"urls.external.customs.$key")
+
+  lazy val publishedAssets = loadConfig(s"urls.external.assets.host")
+  def getPublishedAssetsUrl(key: String): String = publishedAssets + loadConfig(s"urls.external.assets.$key")
+
 }
