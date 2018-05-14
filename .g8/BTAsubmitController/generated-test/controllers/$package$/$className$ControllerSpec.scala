@@ -2,10 +2,10 @@ package controllers.$package$
 
 import controllers._
 import controllers.actions._
+import forms.$modelPackage$.$model$FormProvider
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
-import forms.$modelPackage$
 
 class $className$ControllerSpec extends ControllerSpecBase {
 

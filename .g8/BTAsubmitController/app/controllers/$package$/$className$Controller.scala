@@ -4,7 +4,7 @@ import javax.inject.Inject
 
 import controllers.actions._
 import config.FrontendAppConfig
-import forms.$modelPackage$
+import forms.$modelPackage$.$model$FormProvider
 import identifiers.$className$Id
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
