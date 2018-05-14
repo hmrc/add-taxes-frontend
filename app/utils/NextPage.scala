@@ -20,6 +20,7 @@ import controllers.other.oil.routes
 import controllers.other.gambling.rgd.{routes => rgdRoutes}
 import controllers.other.gambling.gbd.{routes => gbdRoutes}
 import controllers.other.gambling.pbd.register.{routes => pbdRoutes}
+import controllers.other.gambling.mgd.register.{routes => mgdRoutes}
 import controllers.other.importexports.dan.{routes => danRoutes}
 import controllers.other.importexports.ebti.{routes => ebtiRoutes}
 import controllers.other.importexports.emcs.{routes => emcsRoutes}
@@ -48,6 +49,17 @@ trait NextPage[A, B] {
 }
 
 object NextPage {
+
+  implicit val doYouHaveMGDRegistrationNo: NextPage[DoYouHaveMGDRegistrationNoId.type,
+    models.other.gambling.mgd.DoYouHaveMGDRegistrationNo] = {
+    new NextPage[DoYouHaveMGDRegistrationNoId.type, models.other.gambling.mgd.DoYouHaveMGDRegistrationNo] {
+      override def get(b: models.other.gambling.mgd.DoYouHaveMGDRegistrationNo)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
+        b match {
+          case models.other.gambling.mgd.DoYouHaveMGDRegistrationNo.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.MachineGamingDuty))
+          case models.other.gambling.mgd.DoYouHaveMGDRegistrationNo.No => mgdRoutes.RegisterMGDController.onPageLoad()
+        }
+     }
+  }
 
   implicit val whichPensionSchemeToAdd: NextPage[WhichPensionSchemeToAddId.type,
     models.employer.pension.WhichPensionSchemeToAdd] = {
