@@ -15,7 +15,7 @@ awk '/object/ {\
      print "    new NextPage[$className$Id.type, model.$modelPackage$.$model$] {";\
      print "      override def get(b: $model$)(implicit urlHelper: UrlHelper, request: Request[_]): Call =";\
      print "        b match {";\
-     print "          case _ => ???
+     print "          case _ => ???";\
      print "        }";\
      print "     }";\
      print "  }";\
