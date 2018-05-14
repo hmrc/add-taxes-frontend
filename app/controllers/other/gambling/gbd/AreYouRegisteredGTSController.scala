@@ -55,7 +55,7 @@ class AreYouRegisteredGTSController @Inject()(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(areYouRegisteredGTS(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
         (value) =>
-          Future.successful(Redirect(navigator.nextPage(AreYouRegisteredGTSId, value)))
+          Future.successful(Redirect(navigator.nextPage(AreYouRegisteredGTSId.GBD, value)))
       )
   }
 }

@@ -266,17 +266,31 @@ class NextPageSpec extends SpecBase {
     )
   }
 
-  "AreYouRegisteredGTS" when {
+  "gtsGBD" when {
     behave like nextPage(
-      NextPage.areYouRegisteredGTS,
+      NextPage.gbdGTS,
       AreYouRegisteredGTS.Yes,
       "http://localhost:9555/enrolment-management-frontend/HMRC-GTS-GBD/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
 
     behave like nextPage(
-      NextPage.areYouRegisteredGTS,
+      NextPage.gbdGTS,
       AreYouRegisteredGTS.No,
       "/business-account/add-tax/other/gambling/gbd/register"
+    )
+  }
+
+  "gtsRGD" when {
+    behave like nextPage(
+      NextPage.rgdGTS,
+      AreYouRegisteredGTS.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-GTS-RGD/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.rgdGTS,
+      AreYouRegisteredGTS.No,
+      "/business-account/add-tax/other/gambling/rgd/register"
     )
   }
 

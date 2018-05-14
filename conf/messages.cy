@@ -307,6 +307,15 @@ areYouRegisteredGTS.No = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
 areYouRegisteredGTS.error.required = Dewis iawn neu na
 
 #######################################################
+##  RegisterRGD
+#######################################################
+registerRGD.title = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
+registerRGD.heading = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
+registerRGD.p1 = Mae angen i chi gofrestru ar gyfer y System Treth Hapchwarae cyn y gallwch ychwanegu Toll Hapchwarae o Bell i’ch cyfrif.
+registerRGD.p2 = Byddwn yn anfon cyfeirnod System Treth Hapchwarae atoch. Dychwelwch i’ch cyfrif ac ychwanegwch Toll Hapchwarae o Bell pan fyddwch yn ei gael.
+registerRGD.continue = Mynd yn eich blaen - cofrestru ar gyfer y System Treth Hapchwarae
+
+#######################################################
 ##  RegisterTrust
 #######################################################
 registerTrust.title = Cofrestru eich ymddiriedolaeth
