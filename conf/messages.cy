@@ -281,12 +281,12 @@ getEoriAndChiefRole.p3=Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod e
 #######################################################
 ##  AddVATMOSS
 #######################################################
-addVATMOSS.title = Ychwanegu GUC TAW i'ch cyfrif TAW
+addVATMOSS.title = Ychwanegu GUC TAW i’ch cyfrif TAW
 addVATMOSS.heading = Ychwanegu GUC TAW i'ch cyfrif TAW
 addVATMOSS.p1 = Mae angen i chi reoli GUC TAW yn y cyfrif lle’r ydych yn rheoli TAW.
 addVATMOSS.p2 = Mewngofnodwch i’ch cyfrif TAW ac ychwanegwch GUC TAW yn y fan honno.
 addVATMOSS.p3 = Os nad yw hynny’n gweithio, ffoniwch ni a byddwn yn ei wneud i chi â llaw.
-addVATMOSS.continue = Mewngofnodi i'ch cyfrif TAW
+addVATMOSS.continue = Mewngofnodi i’ch cyfrif TAW
 addVATMOSS.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
 #######################################################
@@ -294,5 +294,6 @@ addVATMOSS.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 #######################################################
 addVATFirst.title = Ychwanegwch TAW yn gyntaf
 addVATFirst.heading = Ychwanegwch TAW yn gyntaf
-addVATFirst.continue = Ychwanegu TAW i'r cyfrif hwn
+addVATFirst.p1 = Mae angen i chi reoli TAW ar-lein cyn y gallwch ychwanegu GUC TAW i’ch cyfrif.
+addVATFirst.continue = Ychwanegu TAW i’r cyfrif hwn
 addVATFirst.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd

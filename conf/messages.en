@@ -310,5 +310,6 @@ addVATMOSS.notnow = I don’t want to do this right now
 #######################################################
 addVATFirst.title = Add VAT first
 addVATFirst.heading = Add VAT first
+addVATFirst.p1 = You need to manage VAT online before you can add VAT MOSS to your account.
 addVATFirst.continue = Add VAT to this account
 addVATFirst.notnow = I don't want to do this right now
