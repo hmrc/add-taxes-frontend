@@ -19,6 +19,9 @@ package utils
 import javax.inject.{Inject, Singleton}
 
 import config.FrontendAppConfig
+import play.api.i18n.Lang
+import play.api.mvc.Request
+import uk.gov.hmrc.play.language.LanguageUtils
 
 @Singleton
 class UrlHelper @Inject()(val appConfig: FrontendAppConfig) {
@@ -46,11 +49,24 @@ class UrlHelper @Inject()(val appConfig: FrontendAppConfig) {
     appConfig.fulfilmentHouse
   }
 
-  def getPortalURL(key: String) = {
-    appConfig.getPortalUrl(key)
-  }
-
   def getHmceURL(key: String) = {
     appConfig.getHmceURL(key)
   }
+
+  def getPortalURL(key: String)(implicit request: Request[_]): String = {
+    val portalUrl = appConfig.getPortalUrl(key)
+    appendLanguage(portalUrl)(request)
+  }
+
+  private def appendLanguage(url: String)(implicit request: Request[_]) = {
+    val lang = if (LanguageUtils.getCurrentLang == LanguageUtils.Welsh) "lang=cym" else "lang=eng"
+    val token = if(url.endsWith("?")) ""
+                else if (url.contains("?")) "&" else "?"
+    s"$url$token$lang"
+  }
+
+  def getPublishedAssetsURL(key: String) = {
+    appConfig.getPublishedAssetsUrl(key)
+  }
+
 }

@@ -295,6 +295,85 @@ getEoriAndChiefRole.p2.li2=complete an EORI request form
 getEoriAndChiefRole.p3=Come back to your account and add NES once your EORI number and CHIEF role arrive.
 
 #######################################################
+##  RegisterTrust
+#######################################################
+registerTrust.title = Register your trust
+registerTrust.heading = Register your trust
+registerTrust.continue = Register your trust
+registerTrust.notnow = I don’t want to do this right now
+registerTrust.p1=You need to register your trust before you can add it to this account.
+registerTrust.p2=We’ll send you a Unique Taxpayer Reference (UTR) for the trust in the post once it’s registered.
+registerTrust.p3=You’ll be able to add the trust to this account using the UTR.
+
+#######################################################
+##  HaveYouRegisteredTrust
+#######################################################
+haveYouRegisteredTrust.title = Have you registered your trust?
+haveYouRegisteredTrust.heading = Have you registered your trust?
+haveYouRegisteredTrust.Yes = Yes - the trust is already registered
+haveYouRegisteredTrust.No = No - the trust isn’t registered yet
+haveYouRegisteredTrust.error.required = Select yes or no
+haveYouRegisteredTrust.hintText = Your trust is registered if you sent us a {0} and received a Unique Taxpayer Reference (UTR) for the trust in the post
+haveYouRegisteredTrust.form.g41=form G41
+
+#######################################################
+##  WhichPensionSchemeToAdd
+#######################################################
+whichPensionSchemeToAdd.title = Which pension scheme do you want to add?
+whichPensionSchemeToAdd.heading = Which pension scheme do you want to add?
+whichPensionSchemeToAdd.administrators = Pension Schemes Online for Administrators
+whichPensionSchemeToAdd.practitioners = Pension Schemes Online for Practitioners
+whichPensionSchemeToAdd.error.required = Select a scheme
+
+#######################################################
+##  RegisterGBD
+#######################################################
+registerGBD.title = Register for the Gambling Tax System first
+registerGBD.heading = Register for the Gambling Tax System first
+registerGBD.p1 = You need to register for the Gambling Tax System before you can add General Betting Duty to your account.
+registerGBD.p2 = We’ll send you a Gambling Tax System reference number. Come back to your account and add General Betting Duty when you get it.
+registerGBD.continue = Continue - register for the Gambling Tax System
+
+#######################################################
+##  AreYouRegisteredGTS
+#######################################################
+areYouRegisteredGTS.title = Are you registered for the Gambling Tax System?
+areYouRegisteredGTS.heading = Are you registered for the Gambling Tax System?
+areYouRegisteredGTS.p1 = We’ll have sent you a Gambling Tax System reference number if you’re registered
+areYouRegisteredGTS.Yes = Yes - I have a Gambling Tax System reference number
+areYouRegisteredGTS.No = No - I haven’t registered yet
+areYouRegisteredGTS.error.required = Select yes or no
+
+#######################################################
+##  RegisterRGD
+#######################################################
+registerRGD.title = Register for the Gambling Tax System first
+registerRGD.heading = Register for the Gambling Tax System first
+registerRGD.p1 = You need to register for the Gambling Tax System before you can add Remote Gaming Duty to your account.
+registerRGD.p2 = We’ll send you a Gambling Tax System reference number. Come back to your account and add Remote Gaming Duty when you get it.
+registerRGD.continue = Continue - register for the Gambling Tax System
+
+#######################################################
+##  HaveYouRegisteredPartnership
+#######################################################
+haveYouRegisteredPartnership.title = Have you already registered your partnership?
+haveYouRegisteredPartnership.heading = Have you already registered your partnership?
+haveYouRegisteredPartnership.Yes = Yes - I’ve registered the partnership and have a UTR
+haveYouRegisteredPartnership.No = No - I haven’t registered the partnership
+haveYouRegisteredPartnership.error.required = Select yes or no
+haveYouRegisteredPartnership.hintText = We’ll have sent you a Unique Taxpayer Reference (UTR) for your partnership, if you’ve already registered it
+
+#######################################################
+##  DoYouWantToAddPartner
+#######################################################
+doYouWantToAddPartner.title = Do you want to add a partner to an existing partnership?
+doYouWantToAddPartner.heading = Do you want to add a partner to an existing partnership?
+doYouWantToAddPartner.Yes = Yes - I want to add a partner to an existing partnership
+doYouWantToAddPartner.No = No - I want to do something else
+doYouWantToAddPartner.error.required = Select yes or no
+
+
+#######################################################
 ##  AddVATMOSS
 #######################################################
 addVATMOSS.title = Add VAT MOSS to your VAT account

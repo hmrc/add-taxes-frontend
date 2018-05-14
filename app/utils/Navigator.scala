@@ -17,13 +17,13 @@
 package utils
 
 import javax.inject.{Inject, Singleton}
-
+import play.api.mvc.Request
 import play.api.mvc.Call
 
 @Singleton
 class Navigator @Inject()(urlHelper: UrlHelper) {
 
-  def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B]): Call =
-    ev.get(b)(urlHelper)
+  def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B], request: Request[_]): Call =
+    ev.get(b)(urlHelper, request)
 
 }

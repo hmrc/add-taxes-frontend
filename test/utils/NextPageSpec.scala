@@ -19,17 +19,22 @@ package utils
 import base.SpecBase
 import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.OtherTaxes
+import models.employer.pension.WhichPensionSchemeToAdd
+import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.other.importexports.nes.DoYouHaveCHIEFRole
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
+import models.sa.trust.HaveYouRegisteredTrust
+import models.sa.partnership.{DoYouWantToAddPartner, HaveYouRegisteredPartnership}
 import models.wrongcredentials.FindingYourAccount
 
 
 class NextPageSpec extends SpecBase {
 
   implicit val urlHelper = new UrlHelper(frontendAppConfig)
+  implicit val request = fakeRequest
 
 
   def nextPage[A, B](np: NextPage[A, B], userSelection: B, urlRedirect: String): Unit = {
@@ -219,7 +224,7 @@ class NextPageSpec extends SpecBase {
     behave like nextPage(
       NextPage.doYouWantToAddImportExport,
       DoYouWantToAddImportExport.NOVA,
-      "http://localhost:8080/portal/nova/normal"
+      "http://localhost:8080/portal/nova/normal?lang=eng"
     )
 
     behave like nextPage(
@@ -244,6 +249,90 @@ class NextPageSpec extends SpecBase {
       NextPage.doYouWantToAddImportExport,
       DoYouWantToAddImportExport.ISD,
       "https://secure.hmce.gov.uk/ecom/is2/static/is2.html"
+    )
+  }
+
+  "WhichPensionSchemeToAdd" when {
+    behave like nextPage(
+      NextPage.whichPensionSchemeToAdd,
+      WhichPensionSchemeToAdd.Administrators,
+      "http://localhost:8080/portal/service/pensions-administrators?action=enrol&step=hasid&lang=eng"
+    )
+
+    behave like nextPage(
+      NextPage.whichPensionSchemeToAdd,
+      WhichPensionSchemeToAdd.Practitioners,
+      "http://localhost:8080/portal/service/pensions-practitioners?action=enrol&step=hasid&lang=eng"
+    )
+  }
+
+  "gtsGBD" when {
+    behave like nextPage(
+      NextPage.gbdGTS,
+      AreYouRegisteredGTS.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-GTS-GBD/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.gbdGTS,
+      AreYouRegisteredGTS.No,
+      "/business-account/add-tax/other/gambling/gbd/register"
+    )
+  }
+
+  "gtsRGD" when {
+    behave like nextPage(
+      NextPage.rgdGTS,
+      AreYouRegisteredGTS.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-GTS-RGD/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.rgdGTS,
+      AreYouRegisteredGTS.No,
+      "/business-account/add-tax/other/gambling/rgd/register"
+    )
+  }
+
+  "SA Partnership" when {
+    behave like nextPage(
+      NextPage.doYouWantToAddPartner,
+      DoYouWantToAddPartner.Yes,
+      "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/359508/sa401-static.pdf"
+    )
+
+    behave like nextPage(
+      NextPage.doYouWantToAddPartner,
+      DoYouWantToAddPartner.No,
+      "/business-account/add-tax/self-assessment/partnership/other"
+    )
+  }
+
+  "SA Partnership Other" when {
+    behave like nextPage(
+      NextPage.haveYouRegisteredPartnership,
+      HaveYouRegisteredPartnership.Yes,
+      "http://localhost:9555/enrolment-management-frontend/IR-SA-PART-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.haveYouRegisteredPartnership,
+      HaveYouRegisteredPartnership.No,
+      "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/359500/sa400-static.pdf"
+    )
+  }
+
+  "SA Trusts" when {
+    behave like nextPage(
+      NextPage.haveYouRegisteredTrust,
+      HaveYouRegisteredTrust.Yes,
+      "http://localhost:9555/enrolment-management-frontend/IR-SA-TRUST-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.haveYouRegisteredTrust,
+      HaveYouRegisteredTrust.No,
+      "/business-account/add-tax/self-assessment/trust/not-registered"
     )
   }
 }
