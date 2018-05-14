@@ -3,6 +3,7 @@ package controllers.$package$
 import controllers._
 import controllers.actions._
 import forms.$modelPackage$.$model$FormProvider
+import play.api.data.Form
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
@@ -11,7 +12,7 @@ class $className$ControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = controllers.routes.IndexController.onPageLoad()
 
-  val formProvider = new $className$FormProvider()
+  val formProvider = new $model$FormProvider()
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
