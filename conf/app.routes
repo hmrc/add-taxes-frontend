@@ -94,3 +94,5 @@ GET        /self-assessment/trust/not-registered                       controlle
 
 GET        /self-assessment/trust                  controllers.sa.trust.HaveYouRegisteredTrustController.onPageLoad()
 POST       /self-assessment/trust                  controllers.sa.trust.HaveYouRegisteredTrustController.onSubmit()
+
+GET        /other/alcohol/atwd/register                       controllers.other.alcohol.atwd.RegisterWarehousekeeperController.onPageLoad()
