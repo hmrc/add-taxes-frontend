@@ -94,3 +94,5 @@ GET        /self-assessment/trust/not-registered                       controlle
 
 GET        /self-assessment/trust                  controllers.sa.trust.HaveYouRegisteredTrustController.onPageLoad()
 POST       /self-assessment/trust                  controllers.sa.trust.HaveYouRegisteredTrustController.onSubmit()
+
+GET        /other/gambling/mgd/register                       controllers.other.gambling.mgd.register.RegisterMGDController.onPageLoad()
