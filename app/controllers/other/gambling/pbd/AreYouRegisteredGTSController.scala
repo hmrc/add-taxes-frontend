@@ -14,35 +14,37 @@
  * limitations under the License.
  */
 
-package controllers.other.gambling.gbd
+package controllers.other.gambling.pbd
 
 import javax.inject.Inject
+
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
+import forms.other.gambling.gbd.AreYouRegisteredGTSFormProvider
+import identifiers.AreYouRegisteredGTSId
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-import forms.other.gambling.gbd.AreYouRegisteredGTSFormProvider
-import identifiers.AreYouRegisteredGTSId
 import viewmodels.ViewAction
 import views.html.other.gambling.areYouRegisteredGTS
 
 import scala.concurrent.Future
 
 class AreYouRegisteredGTSController @Inject()(
-                                        appConfig: FrontendAppConfig,
-                                        override val messagesApi: MessagesApi,
-                                        dataCacheConnector: DataCacheConnector,
-                                        navigator: Navigator,
-                                        authenticate: AuthAction,
-                                        serviceInfoData: ServiceInfoAction,
-                                        formProvider: AreYouRegisteredGTSFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+                                                     appConfig: FrontendAppConfig,
+                                                     override val messagesApi: MessagesApi,
+                                                     dataCacheConnector: DataCacheConnector,
+                                                     navigator: Navigator,
+                                                     authenticate: AuthAction,
+                                                     serviceInfoData: ServiceInfoAction,
+                                                     formProvider: AreYouRegisteredGTSFormProvider
+                                             ) extends FrontendController with I18nSupport with Enumerable.Implicits {
 
   val form = formProvider()
 
-  lazy val viewAction = ViewAction(routes.AreYouRegisteredGTSController.onSubmit(), "AddGbdGamblingTax")
+  lazy val viewAction = ViewAction(routes.AreYouRegisteredGTSController.onSubmit(), "AddPbdGamblingTax")
 
   def onPageLoad() = (authenticate andThen serviceInfoData) {
     implicit request =>
@@ -55,7 +57,7 @@ class AreYouRegisteredGTSController @Inject()(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(areYouRegisteredGTS(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
         (value) =>
-          Future.successful(Redirect(navigator.nextPage(AreYouRegisteredGTSId.GBD, value)))
+          Future.successful(Redirect(navigator.nextPage(AreYouRegisteredGTSId.PBD, value)))
       )
   }
 }
