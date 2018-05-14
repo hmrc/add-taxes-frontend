@@ -52,8 +52,8 @@ object NextPage {
     new NextPage[WhichPensionSchemeToAddId.type, models.employer.pension.WhichPensionSchemeToAdd] {
       override def get(b: models.employer.pension.WhichPensionSchemeToAdd)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
-          case models.employer.pension.WhichPensionSchemeToAdd.Administrators => Call("GET", urlHelper.getPortalURL("pensionAdministrators"))
-          case models.employer.pension.WhichPensionSchemeToAdd.Practitioners => Call("GET", urlHelper.getPortalURL("pensionPractitioners"))
+          case models.employer.pension.WhichPensionSchemeToAdd.Administrators => Call(GET, urlHelper.getPortalURL("pensionAdministrators"))
+          case models.employer.pension.WhichPensionSchemeToAdd.Practitioners => Call(GET, urlHelper.getPortalURL("pensionPractitioners"))
         }
     }
   }
@@ -73,7 +73,7 @@ object NextPage {
     new NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartner] {
       override def get(b: DoYouWantToAddPartner)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
-          case DoYouWantToAddPartner.Yes => Call("GET", urlHelper.getPublishedAssetsURL("partnership"))
+          case DoYouWantToAddPartner.Yes => Call(GET, urlHelper.getPublishedAssetsURL("partnership"))
           case DoYouWantToAddPartner.No => saPartnerRoutes.HaveYouRegisteredPartnershipController.onPageLoad()
         }
     }
@@ -84,8 +84,8 @@ object NextPage {
     new NextPage[HaveYouRegisteredPartnershipId.type, models.sa.partnership.HaveYouRegisteredPartnership] {
       override def get(b: models.sa.partnership.HaveYouRegisteredPartnership)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
-          case models.sa.partnership.HaveYouRegisteredPartnership.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.SAPartnership))
-          case models.sa.partnership.HaveYouRegisteredPartnership.No => Call("GET", urlHelper.getPublishedAssetsURL("partnershipOther"))
+          case models.sa.partnership.HaveYouRegisteredPartnership.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.SAPartnership))
+          case models.sa.partnership.HaveYouRegisteredPartnership.No => Call(GET, urlHelper.getPublishedAssetsURL("partnershipOther"))
         }
     }
   }
@@ -95,7 +95,7 @@ object NextPage {
     new NextPage[HaveYouRegisteredTrustId.type, HaveYouRegisteredTrust] {
       override def get(b: HaveYouRegisteredTrust)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
-          case HaveYouRegisteredTrust.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.RegisterTrusts))
+          case HaveYouRegisteredTrust.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.RegisterTrusts))
           case HaveYouRegisteredTrust.No => trustRoutes.RegisterTrustController.onPageLoad()
         }
     }
@@ -108,11 +108,11 @@ object NextPage {
           case DoYouWantToAddImportExport.EMCS => emcsRoutes.DoYouHaveASEEDNumberController.onPageLoad()
           case DoYouWantToAddImportExport.ICS => icsRoutes.DoYouHaveEORINumberController.onPageLoad()
           case DoYouWantToAddImportExport.DDES => danRoutes.DoYouHaveDANController.onPageLoad()
-          case DoYouWantToAddImportExport.NOVA => Call("GET", urlHelper.getPortalURL("novaEnrolment"))
+          case DoYouWantToAddImportExport.NOVA => Call(GET, urlHelper.getPortalURL("novaEnrolment"))
           case DoYouWantToAddImportExport.NCTS => nctsRoutes.DoYouHaveEORINumberController.onPageLoad()
           case DoYouWantToAddImportExport.eBTI => ebtiRoutes.DoYouHaveEORINumberController.onPageLoad()
           case DoYouWantToAddImportExport.NES => nesRoutes.DoYouHaveEORINumberController.onPageLoad()
-          case DoYouWantToAddImportExport.ISD => Call("GET", urlHelper.getHmceURL("isd"))
+          case DoYouWantToAddImportExport.ISD => Call(GET, urlHelper.getHmceURL("isd"))
         }
     }
   }
@@ -123,7 +123,7 @@ object NextPage {
     new NextPage[DoYouHaveCHIEFRoleId.HasEORI.type, DoYouHaveCHIEFRole] {
       override def get(b: DoYouHaveCHIEFRole)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
-          case DoYouHaveCHIEFRole.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.NewExportSystem))
+          case DoYouHaveCHIEFRole.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.NewExportSystem))
           case DoYouHaveCHIEFRole.No => nesRoutes.GetCHIEFRoleController.onPageLoad()
         }
      }
@@ -145,7 +145,7 @@ object NextPage {
     new NextPage[DoYouHaveDANId.type, DoYouHaveDAN] {
       override def get(b: DoYouHaveDAN)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
-          case DoYouHaveDAN.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.DefermentApprovalNumber))
+          case DoYouHaveDAN.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.DefermentApprovalNumber))
           case DoYouHaveDAN.No => danRoutes.RegisterDefermentApprovalNumberController.onPageLoad()
         }
      }
@@ -156,7 +156,7 @@ object NextPage {
     new NextPage[DoYouHaveASEEDNumberId.type, DoYouHaveASEEDNumber] {
       override def get(b: DoYouHaveASEEDNumber)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
-          case DoYouHaveASEEDNumber.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.ExciseMovementControlSystem))
+          case DoYouHaveASEEDNumber.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.ExciseMovementControlSystem))
           case DoYouHaveASEEDNumber.No => emcsRoutes.RegisterExciseMovementControlSystemController.onPageLoad()
         }
      }
@@ -167,7 +167,7 @@ object NextPage {
     new NextPage[DoYouHaveEORINumberId.ICS.type, DoYouHaveEORINumber] {
       override def get(b: DoYouHaveEORINumber)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
-          case DoYouHaveEORINumber.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.EconomicOperatorsRegistration))
+          case DoYouHaveEORINumber.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.EconomicOperatorsRegistration))
           case DoYouHaveEORINumber.No => icsRoutes.RegisterEORIController.onPageLoad()
         }
      }
@@ -178,7 +178,7 @@ object NextPage {
     new NextPage[DoYouHaveEORINumberId.EBTI.type, DoYouHaveEORINumber] {
       override def get(b: DoYouHaveEORINumber)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
-          case DoYouHaveEORINumber.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.ElectronicBindingTariffInformation))
+          case DoYouHaveEORINumber.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.ElectronicBindingTariffInformation))
           case DoYouHaveEORINumber.No => ebtiRoutes.RegisterEORIController.onPageLoad()
         }
     }
@@ -189,7 +189,7 @@ object NextPage {
     new NextPage[DoYouHaveEORINumberId.NCTS.type, DoYouHaveEORINumber] {
       override def get(b: DoYouHaveEORINumber)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
-          case DoYouHaveEORINumber.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.NewComputerisedTransitSystem))
+          case DoYouHaveEORINumber.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.NewComputerisedTransitSystem))
           case DoYouHaveEORINumber.No => nctsRoutes.RegisterEORIController.onPageLoad()
         }
     }
@@ -211,14 +211,14 @@ object NextPage {
     new NextPage[OtherTaxesId.type, OtherTaxes] {
       override def get(b: OtherTaxes)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
-          case models.OtherTaxes.AlcoholAndTobacco => Call("GET", urlHelper.businessTaxAccountLink("alcohol"))
-          case models.OtherTaxes.AutomaticExchangeOfInformation => Call("GET", urlHelper.businessTaxAccountLink("aeoi"))
-          case models.OtherTaxes.Charities => Call("GET", urlHelper.businessTaxAccountLink("charities"))
-          case models.OtherTaxes.GamblingAndGaming => Call("GET", urlHelper.businessTaxAccountLink("gambling"))
-          case models.OtherTaxes.HousingAndLand => Call("GET", urlHelper.businessTaxAccountLink("land"))
-          case models.OtherTaxes.ImportsExports => Call("GET", urlHelper.businessTaxAccountLink("import-export"))
+          case models.OtherTaxes.AlcoholAndTobacco => Call(GET, urlHelper.businessTaxAccountLink("alcohol"))
+          case models.OtherTaxes.AutomaticExchangeOfInformation => Call(GET, urlHelper.businessTaxAccountLink("aeoi"))
+          case models.OtherTaxes.Charities => Call(GET, urlHelper.businessTaxAccountLink("charities"))
+          case models.OtherTaxes.GamblingAndGaming => Call(GET, urlHelper.businessTaxAccountLink("gambling"))
+          case models.OtherTaxes.HousingAndLand => Call(GET, urlHelper.businessTaxAccountLink("land"))
+          case models.OtherTaxes.ImportsExports => Call(GET, urlHelper.businessTaxAccountLink("import-export"))
           case models.OtherTaxes.OilAndFuel => routes.SelectAnOilServiceController.onPageLoad()
-          case models.OtherTaxes.FulfilmentHouseDueDiligenceSchemeIntegration => Call("GET", urlHelper.fulfilmentHouse())
+          case models.OtherTaxes.FulfilmentHouseDueDiligenceSchemeIntegration => Call(GET, urlHelper.fulfilmentHouse())
         }
      }
   }
@@ -228,9 +228,9 @@ object NextPage {
     new NextPage[FindingYourAccountId.type, FindingYourAccount] {
       override def get(b: FindingYourAccount)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
-          case FindingYourAccount.DontKnowPassword => Call("GET", urlHelper.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenPassword))
-          case FindingYourAccount.DontKnowId => Call("GET", urlHelper.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenId))
-          case FindingYourAccount.DontKnowIdOrPassword => Call("GET", urlHelper.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenIdAndPassword))
+          case FindingYourAccount.DontKnowPassword => Call(GET, urlHelper.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenPassword))
+          case FindingYourAccount.DontKnowId => Call(GET, urlHelper.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenId))
+          case FindingYourAccount.DontKnowIdOrPassword => Call(GET, urlHelper.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenIdAndPassword))
         }
      }
   }
@@ -249,7 +249,7 @@ object NextPage {
     new NextPage[HaveYouRegisteredForTiedOilsId.type, HaveYouRegisteredForTiedOils] {
       override def get(b: HaveYouRegisteredForTiedOils)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
-          case HaveYouRegisteredForTiedOils.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.TiedOils))
+          case HaveYouRegisteredForTiedOils.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.TiedOils))
           case HaveYouRegisteredForTiedOils.No => routes.RegisterTiedOilsController.onPageLoad()
         }
     }
@@ -260,7 +260,7 @@ object NextPage {
     new NextPage[HaveYouRegisteredForRebatedOilsId.type, HaveYouRegisteredForRebatedOils] {
       override def get(b: HaveYouRegisteredForRebatedOils)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
-          case HaveYouRegisteredForRebatedOils.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.RebatedOils))
+          case HaveYouRegisteredForRebatedOils.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.RebatedOils))
           case HaveYouRegisteredForRebatedOils.No => routes.RegisterRebatedOilsController.onPageLoad()
         }
     }
