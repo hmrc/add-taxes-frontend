@@ -14,8 +14,26 @@
  * limitations under the License.
  */
 
-package identifiers
+package models.sa.partnership
 
-case object AreYouRegisteredForGTSPBDId extends Identifier {
-  override def toString: String = "areYouRegisteredForGTSPBD"
+import utils.{Enumerable, RadioOption, WithName}
+
+sealed trait DoYouWantToAddPartner
+
+object DoYouWantToAddPartner {
+
+  case object Yes extends WithName("Yes") with DoYouWantToAddPartner
+  case object No extends WithName("No") with DoYouWantToAddPartner
+
+  val values: Set[DoYouWantToAddPartner] = Set(
+    Yes, No
+  )
+
+  val options: Set[RadioOption] = values.map {
+    value =>
+      RadioOption("doYouWantToAddPartner", value.toString)
+  }
+
+  implicit val enumerable: Enumerable[DoYouWantToAddPartner] =
+    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }

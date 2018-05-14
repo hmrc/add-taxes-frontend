@@ -22,7 +22,7 @@ import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.other.gambling.gbd.AreYouRegisteredGTSFormProvider
-import identifiers.AreYouRegisteredForGTSPBDId
+import identifiers.AreYouRegisteredGTSId
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
@@ -57,7 +57,7 @@ class AreYouRegisteredForGTSPBDController @Inject()(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(areYouRegisteredGTS(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
         (value) =>
-          Future.successful(Redirect(navigator.nextPage(AreYouRegisteredForGTSPBDId, value)))
+          Future.successful(Redirect(navigator.nextPage(AreYouRegisteredGTSId.PBD, value)))
       )
   }
 }

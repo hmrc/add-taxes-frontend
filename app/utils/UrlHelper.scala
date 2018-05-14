@@ -65,4 +65,8 @@ class UrlHelper @Inject()(val appConfig: FrontendAppConfig) {
     s"$url$token$lang"
   }
 
+  def getPublishedAssetsURL(key: String) = {
+    appConfig.getPublishedAssetsUrl(key)
+  }
+
 }

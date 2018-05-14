@@ -17,14 +17,17 @@
 package utils
 
 import controllers.other.oil.routes
+import controllers.other.gambling.rgd.{routes => rgdRoutes}
+import controllers.other.gambling.gbd.{routes => gbdRoutes}
+import controllers.other.gambling.pbd.register.{routes => pbdRoutes}
 import controllers.other.importexports.dan.{routes => danRoutes}
 import controllers.other.importexports.ebti.{routes => ebtiRoutes}
 import controllers.other.importexports.emcs.{routes => emcsRoutes}
-import controllers.other.gambling.gbd.{routes => gbdRoutes}
-import controllers.other.gambling.pbd.register.{routes => pbdRoutes}
 import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
+import controllers.sa.trust.{routes => trustRoutes}
+import controllers.sa.partnership.{routes => saPartnerRoutes}
 import identifiers._
 import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
@@ -34,6 +37,8 @@ import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.nes.DoYouHaveCHIEFRole
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils, SelectAnOilService}
+import models.sa.partnership.DoYouWantToAddPartner
+import models.sa.trust.HaveYouRegisteredTrust
 import models.wrongcredentials.FindingYourAccount
 import play.api.mvc.Call
 import play.api.mvc.Request
@@ -55,8 +60,18 @@ object NextPage {
     }
   }
 
-  implicit val areYouRegisteredGTS: NextPage[AreYouRegisteredGTSId.type, AreYouRegisteredGTS] = {
-    new NextPage[AreYouRegisteredGTSId.type, AreYouRegisteredGTS] {
+  implicit val rgdGTS: NextPage[AreYouRegisteredGTSId.RGD.type, AreYouRegisteredGTS] = {
+    new NextPage[AreYouRegisteredGTSId.RGD.type, AreYouRegisteredGTS] {
+      override def get(b: AreYouRegisteredGTS)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
+        b match {
+          case AreYouRegisteredGTS.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.RemoteGaming))
+          case AreYouRegisteredGTS.No => rgdRoutes.RegisterRGDController.onPageLoad()
+        }
+    }
+  }
+
+  implicit val gbdGTS: NextPage[AreYouRegisteredGTSId.GBD.type, AreYouRegisteredGTS] = {
+    new NextPage[AreYouRegisteredGTSId.GBD.type, AreYouRegisteredGTS] {
       override def get(b: AreYouRegisteredGTS)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
           case AreYouRegisteredGTS.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.GeneralBetting))
@@ -65,12 +80,45 @@ object NextPage {
      }
   }
 
-  implicit val areYouRegisteredForGTSPBD: NextPage[AreYouRegisteredForGTSPBDId.type, AreYouRegisteredGTS] = {
-    new NextPage[AreYouRegisteredForGTSPBDId.type, AreYouRegisteredGTS] {
+  implicit val pbdGTS: NextPage[AreYouRegisteredGTSId.PBD.type, AreYouRegisteredGTS] = {
+    new NextPage[AreYouRegisteredGTSId.PBD.type, AreYouRegisteredGTS] {
       override def get(b: AreYouRegisteredGTS)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
           case AreYouRegisteredGTS.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.PoolBetting))
           case AreYouRegisteredGTS.No => pbdRoutes.RegisterGTSFirstController.onPageLoad()
+        }
+    }
+  }
+
+  implicit val doYouWantToAddPartner: NextPage[DoYouWantToAddPartnerId.type,
+    DoYouWantToAddPartner] = {
+    new NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartner] {
+      override def get(b: DoYouWantToAddPartner)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
+        b match {
+          case DoYouWantToAddPartner.Yes => Call("GET", urlHelper.getPublishedAssetsURL("partnership"))
+          case DoYouWantToAddPartner.No => saPartnerRoutes.HaveYouRegisteredPartnershipController.onPageLoad()
+        }
+    }
+  }
+
+  implicit val haveYouRegisteredPartnership: NextPage[HaveYouRegisteredPartnershipId.type,
+    models.sa.partnership.HaveYouRegisteredPartnership] = {
+    new NextPage[HaveYouRegisteredPartnershipId.type, models.sa.partnership.HaveYouRegisteredPartnership] {
+      override def get(b: models.sa.partnership.HaveYouRegisteredPartnership)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
+        b match {
+          case models.sa.partnership.HaveYouRegisteredPartnership.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.SAPartnership))
+          case models.sa.partnership.HaveYouRegisteredPartnership.No => Call("GET", urlHelper.getPublishedAssetsURL("partnershipOther"))
+        }
+    }
+  }
+
+  implicit val haveYouRegisteredTrust: NextPage[HaveYouRegisteredTrustId.type,
+    HaveYouRegisteredTrust] = {
+    new NextPage[HaveYouRegisteredTrustId.type, HaveYouRegisteredTrust] {
+      override def get(b: HaveYouRegisteredTrust)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
+        b match {
+          case HaveYouRegisteredTrust.Yes => Call("GET", urlHelper.emacEnrollmentsUrl(Enrolments.RegisterTrusts))
+          case HaveYouRegisteredTrust.No => trustRoutes.RegisterTrustController.onPageLoad()
         }
     }
   }
@@ -145,7 +193,7 @@ object NextPage {
           case DoYouHaveEORINumber.No => icsRoutes.RegisterEORIController.onPageLoad()
         }
      }
-  };
+  }
 
   implicit val ebtiEori: NextPage[DoYouHaveEORINumberId.EBTI.type,
     DoYouHaveEORINumber] = {
