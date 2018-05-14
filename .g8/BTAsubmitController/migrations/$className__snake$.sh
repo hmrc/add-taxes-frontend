@@ -11,9 +11,9 @@ echo "Adding navigation default to NextPage Object"
 awk '/object/ {\
      print;\
      print "";\
-     print "  implicit val $className;format="decap"$: NextPage[$className$Id.type, model.$modelPackage$.$model$] = {";\
-     print "    new NextPage[$className$Id.type, model.$modelPackage$.$model$] {";\
-     print "      override def get(b: $model$)(implicit urlHelper: UrlHelper, request: Request[_]): Call =";\
+     print "  implicit val $className;format="decap"$: NextPage[$className$Id.type, models.$modelPackage$.$model$] = {";\
+     print "    new NextPage[$className$Id.type, models.$modelPackage$.$model$] {";\
+     print "      override def get(b: models.$modelPackage$.$model$)(implicit urlHelper: UrlHelper, request: Request[_]): Call =";\
      print "        b match {";\
      print "          case _ => ???";\
      print "        }";\
