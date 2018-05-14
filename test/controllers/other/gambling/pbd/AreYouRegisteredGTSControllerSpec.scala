@@ -28,16 +28,16 @@ import utils.FakeNavigator
 import viewmodels.ViewAction
 import views.html.other.gambling.areYouRegisteredGTS
 
-class AreYouRegisteredForGTSPBDControllerSpec extends ControllerSpecBase {
+class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new AreYouRegisteredGTSFormProvider()
   val form = formProvider()
-  lazy val viewAction = ViewAction(routes.AreYouRegisteredForGTSPBDController.onSubmit(), "AddPbdGamblingTax")
+  lazy val viewAction = ViewAction(routes.AreYouRegisteredGTSController.onSubmit(), "AddPbdGamblingTax")
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new AreYouRegisteredForGTSPBDController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
+    new AreYouRegisteredGTSController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction, FakeServiceInfoAction, formProvider)
 
   def viewAsString(form: Form[_] = form) =

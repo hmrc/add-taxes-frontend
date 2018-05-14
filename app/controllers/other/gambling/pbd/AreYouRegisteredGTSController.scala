@@ -32,19 +32,19 @@ import views.html.other.gambling.areYouRegisteredGTS
 
 import scala.concurrent.Future
 
-class AreYouRegisteredForGTSPBDController @Inject()(
+class AreYouRegisteredGTSController @Inject()(
                                                      appConfig: FrontendAppConfig,
                                                      override val messagesApi: MessagesApi,
                                                      dataCacheConnector: DataCacheConnector,
                                                      navigator: Navigator,
                                                      authenticate: AuthAction,
                                                      serviceInfoData: ServiceInfoAction,
-                                                     formProvider: AreYouRegisteredGTSFormProvider) extends FrontendController with I18nSupport  with Enumerable.Implicits {
-
+                                                     formProvider: AreYouRegisteredGTSFormProvider
+                                             ) extends FrontendController with I18nSupport with Enumerable.Implicits {
 
   val form = formProvider()
 
-  lazy val viewAction = ViewAction(routes.AreYouRegisteredForGTSPBDController.onSubmit(), "AddPbdGamblingTax")
+  lazy val viewAction = ViewAction(routes.AreYouRegisteredGTSController.onSubmit(), "AddPbdGamblingTax")
 
   def onPageLoad() = (authenticate andThen serviceInfoData) {
     implicit request =>

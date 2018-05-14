@@ -86,8 +86,8 @@ POST       /other/gambling/gbd                          controllers.other.gambli
 
 GET        /other/gambling/pbd/register                 controllers.other.gambling.pbd.register.RegisterGTSFirstController.onPageLoad()
 
-GET        /other/gambling/pbd                          controllers.other.gambling.pbd.AreYouRegisteredForGTSPBDController.onPageLoad()
-POST       /other/gambling/pbd                          controllers.other.gambling.pbd.AreYouRegisteredForGTSPBDController.onSubmit()
+GET        /other/gambling/pbd                          controllers.other.gambling.pbd.AreYouRegisteredGTSController.onPageLoad()
+POST       /other/gambling/pbd                          controllers.other.gambling.pbd.AreYouRegisteredGTSController.onSubmit()
 
 GET        /other/gambling/rgd/register                 controllers.other.gambling.rgd.RegisterRGDController.onPageLoad()
 
