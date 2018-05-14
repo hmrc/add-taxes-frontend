@@ -313,3 +313,13 @@ addVATFirst.heading = Add VAT first
 addVATFirst.p1 = You need to manage VAT online before you can add VAT MOSS to your account.
 addVATFirst.continue = Add VAT to this account
 addVATFirst.notnow = I don't want to do this right now
+
+#######################################################
+##  RegisterForVAT
+#######################################################
+registerForVAT.title = Register for VAT - Business tax account - GOV.UK
+registerForVAT.heading = Register for VAT
+registerForVAT.p1 = You must be VAT registered before you can register for VAT MOSS.
+registerForVAT.p2 = Come back to this account and add VAT MOSS once you’ve received a VAT registration number (VRN).
+registerForVAT.continue = Register for VAT
+registerForVAT.notnow = I don’t want to do this right now

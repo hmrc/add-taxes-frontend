@@ -297,3 +297,13 @@ addVATFirst.heading = Ychwanegwch TAW yn gyntaf
 addVATFirst.p1 = Mae angen i chi reoli TAW ar-lein cyn y gallwch ychwanegu GUC TAW i’ch cyfrif.
 addVATFirst.continue = Ychwanegu TAW i’r cyfrif hwn
 addVATFirst.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  RegisterForVAT
+#######################################################
+registerForVAT.title = Cofrestru ar gyfer TAW - Cyfrif treth busnes - GOV.UK
+registerForVAT.heading = Cofrestru ar gyfer TAW
+registerForVAT.p1 = Mae’n rhaid eich bod wedi cofrestru ar gyfer TAW cyn y gallwch gofrestru ar gyfer GUC TAW.
+registerForVAT.p2 = Dychwelwch i’r cyfrif hwn ac ychwanegwch GUC TAW unwaith eich bod wedi cael rhif cofrestru TAW (VRN).
+registerForVAT.continue = Cofrestru ar gyfer TAW
+registerForVAT.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd

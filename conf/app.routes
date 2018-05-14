@@ -79,3 +79,5 @@ GET        /other/import-export/nes/has-eori/register-chief     controllers.othe
 GET        /vat/moss/uk/vat-registered/other-account            controllers.vat.moss.uk.AddVATMOSSController.onPageLoad()
 
 GET        /vat/moss/uk/vat-registered/no-other-account         controllers.vat.moss.uk.AddVATFirstController.onPageLoad()
+
+GET        /vat/moss/uk/not-vat-registered                      controllers.vat.moss.uk.RegisterForVATController.onPageLoad()
