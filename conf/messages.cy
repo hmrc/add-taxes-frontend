@@ -363,3 +363,20 @@ doYouWantToAddPartner.heading = A ydych eisiau ychwanegu partner i bartneriaeth 
 doYouWantToAddPartner.Yes = Ydw - rwyf eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes
 doYouWantToAddPartner.No = Nac ydw - rwyf eisiau gwneud rhywbeth arall
 doYouWantToAddPartner.error.required = Dewis iawn neu na
+
+#######################################################
+##  RegisterMGD
+#######################################################
+registerMGD.title = Cofrestru ar gyfer Toll Peiriannau Hapchwarae
+registerMGD.heading = Cofrestru ar gyfer Toll Peiriannau Hapchwarae
+registerMGD.continue = Mynd yn eich blaen - cofrestru ar gyfer Toll Peiriannau Hapchwarae
+registerMGD.detail.1= Mae’n rhaid i chi gofrestru ar gyfer Toll Peiriannau Hapchwarae cyn y gallwch ei ychwanegu i’ch cyfrif.
+registerMGD.detail.2= Byddwn yn anfon rhif cofrestru atoch. Gallwch ei ddefnyddio i ychwanegu Toll Peiriannau Hapchwarae i’r cyfrif.
+#######################################################
+##  DoYouHaveMGDRegistrationNo
+#######################################################
+doYouHaveMGDRegistrationNo.title = A oes gennych rif cofrestru Toll Peiriannau Hapchwarae?
+doYouHaveMGDRegistrationNo.heading = A oes gennych rif cofrestru Toll Peiriannau Hapchwarae?
+doYouHaveMGDRegistrationNo.Yes = Oes - mae gennyf rif cofrestru Toll Peiriannau Hapchwarae
+doYouHaveMGDRegistrationNo.No = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
+doYouHaveMGDRegistrationNo.error.required = Dewis iawn neu na

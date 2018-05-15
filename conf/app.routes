@@ -91,6 +91,11 @@ POST       /other/gambling/pbd                          controllers.other.gambli
 
 GET        /other/gambling/rgd/register                 controllers.other.gambling.rgd.RegisterRGDController.onPageLoad()
 
+GET        /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onPageLoad()
+POST       /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onSubmit()
+
+GET        /other/gambling/mgd/register                 controllers.other.gambling.mgd.register.RegisterMGDController.onPageLoad()
+
 GET        /other/gambling/rgd                          controllers.other.gambling.rgd.AreYouRegisteredGTSController.onPageLoad()
 POST       /other/gambling/rgd                          controllers.other.gambling.rgd.AreYouRegisteredGTSController.onSubmit()
 
@@ -104,3 +109,6 @@ GET        /self-assessment/trust/not-registered        controllers.sa.trust.Reg
 
 GET        /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onPageLoad()
 POST       /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onSubmit()
+
+GET        /other/gambling/mgd                          controllers.other.gambling.mgd.DoYouHaveMGDRegistrationNoController.onPageLoad()
+POST       /other/gambling/mgd                          controllers.other.gambling.mgd.DoYouHaveMGDRegistrationNoController.onSubmit()

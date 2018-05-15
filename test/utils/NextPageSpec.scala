@@ -17,10 +17,12 @@
 package utils
 
 import base.SpecBase
+import identifiers.DoYouHaveMGDRegistrationNoId
 import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.OtherTaxes
 import models.employer.pension.WhichPensionSchemeToAdd
 import models.other.gambling.gbd.AreYouRegisteredGTS
+import models.other.gambling.mgd.DoYouHaveMGDRegistrationNo
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.other.importexports.nes.DoYouHaveCHIEFRole
@@ -280,7 +282,7 @@ class NextPageSpec extends SpecBase {
     )
   }
 
-  "AreYouRegisteredForGTSPBD" when {
+  "gtsPBD" when {
     behave like nextPage(
       NextPage.pbdGTS,
       AreYouRegisteredGTS.Yes,
@@ -305,6 +307,20 @@ class NextPageSpec extends SpecBase {
       NextPage.rgdGTS,
       AreYouRegisteredGTS.No,
       "/business-account/add-tax/other/gambling/rgd/register"
+    )
+  }
+
+  "Maching Gaming Duty Registration" when {
+    behave like nextPage(
+      NextPage.doYouHaveMGDRegistrationNo,
+      DoYouHaveMGDRegistrationNo.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-MGD-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.doYouHaveMGDRegistrationNo,
+      DoYouHaveMGDRegistrationNo.No,
+      "/business-account/add-tax/other/gambling/mgd/register"
     )
   }
 
