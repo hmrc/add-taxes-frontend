@@ -100,11 +100,14 @@ GET        /self-assessment/trust/not-registered        controllers.sa.trust.Reg
 GET        /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onPageLoad()
 POST       /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onSubmit()
 
-GET        /vat/moss/uk/vat-registered/other-account     controllers.vat.moss.uk.AddVATMOSSController.onPageLoad()
+GET        /vat/moss/uk                                 controllers.vat.moss.uk.RegisteredForVATUkController.onPageLoad()
+POST       /vat/moss/uk                                 controllers.vat.moss.uk.RegisteredForVATUkController.onSubmit()
+
+GET        /vat/moss/uk/vat-registered                  controllers.vat.moss.uk.OnlineVATAccountController.onPageLoad()
+POST       /vat/moss/uk/vat-registered                  controllers.vat.moss.uk.OnlineVATAccountController.onSubmit()
+
+GET        /vat/moss/uk/not-vat-registered              controllers.vat.moss.uk.RegisterForVATController.onPageLoad()
+
+GET        /vat/moss/uk/vat-registered/other-account    controllers.vat.moss.uk.AddVATMOSSController.onPageLoad()
 
 GET        /vat/moss/uk/vat-registered/no-other-account  controllers.vat.moss.uk.AddVATFirstController.onPageLoad()
-
-GET        /vat/moss/uk/not-vat-registered               controllers.vat.moss.uk.RegisterForVATController.onPageLoad()
-
-GET        /vat/moss/uk/vat-registered                   controllers.vat.moss.uk.OnlineVATAccountController.onPageLoad()
-POST       /vat/moss/uk/vat-registered                   controllers.vat.moss.uk.OnlineVATAccountController.onSubmit()

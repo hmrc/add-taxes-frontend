@@ -39,6 +39,8 @@ import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsE
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils, SelectAnOilService}
 import models.sa.partnership.DoYouWantToAddPartner
 import models.sa.trust.HaveYouRegisteredTrust
+import models.vat.moss.uk.OnlineVATAccount
+import models.vat.moss.uk.RegisteredForVATUk
 import models.wrongcredentials.FindingYourAccount
 import play.api.mvc.Call
 import play.api.mvc.Request
@@ -49,12 +51,22 @@ trait NextPage[A, B] {
 
 object NextPage {
 
+  implicit val registeredForVATUk: NextPage[RegisteredForVATUkId.type, models.vat.moss.uk.RegisteredForVATUk] = {
+    new NextPage[RegisteredForVATUkId.type, models.vat.moss.uk.RegisteredForVATUk] {
+      override def get(b: models.vat.moss.uk.RegisteredForVATUk)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
+        b match {
+          case RegisteredForVATUk.Yes => vatMossUkRoutes.OnlineVATAccountController.onPageLoad()
+          case RegisteredForVATUk.No => vatMossUkRoutes.RegisterForVATController.onPageLoad()
+        }
+     }
+  }
+
   implicit val onlineVATAccount: NextPage[OnlineVATAccountId.type, models.vat.moss.uk.OnlineVATAccount] = {
     new NextPage[OnlineVATAccountId.type, models.vat.moss.uk.OnlineVATAccount] {
       override def get(b: models.vat.moss.uk.OnlineVATAccount)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
-          case models.vat.moss.uk.OnlineVATAccount.Yes => vatMossUkRoutes.AddVATMOSSController.onPageLoad()
-          case models.vat.moss.uk.OnlineVATAccount.No => vatMossUkRoutes.AddVATFirstController.onPageLoad()
+          case OnlineVATAccount.Yes => vatMossUkRoutes.AddVATMOSSController.onPageLoad()
+          case OnlineVATAccount.No => vatMossUkRoutes.AddVATFirstController.onPageLoad()
         }
      }
   }

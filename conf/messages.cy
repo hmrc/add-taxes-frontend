@@ -395,3 +395,13 @@ onlineVATAccount.p1 = Bydd gennych ID Defnyddiwr a chyfrinair ar wahân os oes g
 onlineVATAccount.Yes = Oes - mae cyfrif ar-lein arall ar gyfer TAW
 onlineVATAccount.No = Nac oes - does dim cyfrif ar-lein arall ar gyfer TAW
 onlineVATAccount.error.required = Dewis iawn neu na
+
+#######################################################
+##  RegisteredForVATUk
+#######################################################
+registeredForVATUk.title = A yw eich busnes wedi’i gofrestru ar gyfer TAW yn y DU?
+registeredForVATUk.heading = A yw eich busnes wedi’i gofrestru ar gyfer TAW yn y DU?
+registeredForVATUk.p1 = Byddwch wedi cael rhif cofrestru TAW (VRN) oddi wrth CThEM os ydych wedi cofrestru ar gyfer TAW yn y DU
+registeredForVATUk.Yes = Ydy - mae’r busnes wedi’i gofrestru ar gyfer TAW yn y DU
+registeredForVATUk.No = Nac ydy - nid yw’r busnes wedi’i gofrestru ar gyfer TAW yn y DU
+registeredForVATUk.error.required = Dewis iawn neu na
