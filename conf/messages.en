@@ -389,6 +389,7 @@ registerMGD.heading = Register for Machine Games Duty
 registerMGD.continue = Continue - register for Machine Games Duty
 registerMGD.detail.1 =You need to register for Machine Games Duty before you can add it to your account.
 registerMGD.detail.2 =We’ll send you a registration number, which you can use to add Machine Games Duty to the account.
+
 #######################################################
 ##  DoYouHaveMGDRegistration
 #######################################################
@@ -397,3 +398,22 @@ doYouHaveMGDRegistration.heading = Do you have a Machine Games Duty registration
 doYouHaveMGDRegistration.Yes = Yes - I have a Machine Games Duty registration number
 doYouHaveMGDRegistration.No = No - I haven’t registered yet
 doYouHaveMGDRegistration.error.required = Select yes or no
+
+#######################################################
+##  RegisterWarehousekeeper
+#######################################################
+registerWarehousekeeper.title = Register as an excise warehousekeeper first
+registerWarehousekeeper.heading = Register as an excise warehousekeeper first
+registerWarehousekeeper.p1 = You need to register as an excise warehousekeeper before you can add ATWD to your account.
+registerWarehousekeeper.p2 = We’ll send you a warehouse ID. Come back to your account and add ATWD when you get it.
+registerWarehousekeeper.continue = Continue - register as an excise warehousekeeper
+
+#######################################################
+##  AreYouRegisteredWarehousekeeper
+#######################################################
+areYouRegisteredWarehousekeeper.title = Are you a registered excise warehousekeeper?
+areYouRegisteredWarehousekeeper.heading = Are you a registered excise warehousekeeper?
+areYouRegisteredWarehousekeeper.p1 = We’ll have sent you a warehouse approval letter with a warehouse ID if you’re a registered excise warehousekeeper.
+areYouRegisteredWarehousekeeper.Yes = Yes - I have a warehouse ID
+areYouRegisteredWarehousekeeper.No = No - I’m not a registered warehousekeeper
+areYouRegisteredWarehousekeeper.error.required = Select yes or no

@@ -372,6 +372,7 @@ registerMGD.heading = Cofrestru ar gyfer Toll Peiriannau Hapchwarae
 registerMGD.continue = Mynd yn eich blaen - cofrestru ar gyfer Toll Peiriannau Hapchwarae
 registerMGD.detail.1 = Mae’n rhaid i chi gofrestru ar gyfer Toll Peiriannau Hapchwarae cyn y gallwch ei ychwanegu i’ch cyfrif.
 registerMGD.detail.2 = Byddwn yn anfon rhif cofrestru atoch. Gallwch ei ddefnyddio i ychwanegu Toll Peiriannau Hapchwarae i’r cyfrif.
+
 #######################################################
 ##  DoYouHaveMGDRegistration
 #######################################################
@@ -380,3 +381,22 @@ doYouHaveMGDRegistration.heading = A oes gennych rif cofrestru Toll Peiriannau H
 doYouHaveMGDRegistration.Yes = Oes - mae gennyf rif cofrestru Toll Peiriannau Hapchwarae
 doYouHaveMGDRegistration.No = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
 doYouHaveMGDRegistration.error.required = Dewis iawn neu na
+
+#######################################################
+##  RegisterWarehousekeeper
+#######################################################
+registerWarehousekeeper.title = Cofrestrwch fel ceidwad warws ecséis yn gyntaf
+registerWarehousekeeper.heading = Cofrestrwch fel ceidwad warws ecséis yn gyntaf
+registerWarehousekeeper.p1 = Mae angen i chi gofrestru fel ceidwad warws ecséis cyn y gallwch ychwanegu ATWD i’ch cyfrif.
+registerWarehousekeeper.p2 = Byddwn yn anfon ID warws atoch. Dychwelwch i’ch cyfrif ac ychwanegu ATWD pan fyddwch yn ei gael.
+registerWarehousekeeper.continue = Mynd yn eich blaen - cofrestru fel ceidwad warws ecséis
+
+#######################################################
+##  AreYouRegisteredWarehousekeeper
+#######################################################
+areYouRegisteredWarehousekeeper.title = A ydych yn geidwad warws ecséis cofrestredig?
+areYouRegisteredWarehousekeeper.heading = A ydych yn geidwad warws ecséis cofrestredig?
+areYouRegisteredWarehousekeeper.p1 = Byddwn wedi anfon llythyr yn cymeradwyo’r warws, gydag ID warws, atoch os ydych yn geidwad warws ecséis cofrestredig.
+areYouRegisteredWarehousekeeper.Yes = Ydw - mae gennyf ID warws
+areYouRegisteredWarehousekeeper.No = Nac ydw - nid wyf yn geidwad warws cofrestredig
+areYouRegisteredWarehousekeeper.error.required = Dewis iawn neu na
