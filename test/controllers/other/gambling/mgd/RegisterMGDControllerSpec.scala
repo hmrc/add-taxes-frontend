@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-package controllers.other.gambling.pbd.register
+package controllers.other.gambling.mgd
 
 import controllers._
 import controllers.actions._
-import controllers.other.gambling.pbd.RegisterGTSFirstController
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import views.html.other.gambling.pbd.register.registerGTSFirst
+import views.html.other.gambling.mgd.registerMGD
 
-class RegisterGTSFirstControllerSpec extends ControllerSpecBase {
+class RegisterMGDControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new RegisterGTSFirstController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+    new RegisterMGDController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
-  def viewAsString() = registerGTSFirst(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString() = registerMGD(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  "RegisterGTSFirst Controller" must {
+  "RegisterMGD Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(fakeRequest)
