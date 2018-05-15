@@ -33,11 +33,12 @@ class RegisterForVATViewSpec extends ViewBehaviours {
       val doc =  asDocument(createView())
       val view = doc.text()
 
+      //TODO : Implement routing
       assertLinkById(
         doc,
         "continue",
         "Register for VAT",
-        "???",
+        "#",
         "VatMossUkNotVatRegistered:Click:Register"
       )
 

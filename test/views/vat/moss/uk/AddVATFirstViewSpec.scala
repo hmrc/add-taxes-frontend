@@ -33,11 +33,12 @@ class AddVATFirstViewSpec extends ViewBehaviours {
       val doc =  asDocument(createView())
       val view = doc.text()
 
+      //TODO : Implement routing
       assertLinkById(
         doc,
         "continue",
         "Add VAT to this account",
-        "???",
+        "#",
         "VatMossUkAddVatToAccount:Click:AddVat"
       )
 
