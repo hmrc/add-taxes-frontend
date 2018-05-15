@@ -385,3 +385,13 @@ registerForVAT.p1 = Mae’n rhaid eich bod wedi cofrestru ar gyfer TAW cyn y gal
 registerForVAT.p2 = Dychwelwch i’r cyfrif hwn ac ychwanegwch GUC TAW unwaith eich bod wedi cael rhif cofrestru TAW (VRN).
 registerForVAT.continue = Cofrestru ar gyfer TAW
 registerForVAT.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  OnlineVATAccount
+#######################################################
+onlineVATAccount.title = A oes gan eich busnes gyfrif CThEM ar-lein arall ar gyfer TAW?
+onlineVATAccount.heading = A oes gan eich busnes gyfrif CThEM ar-lein arall ar gyfer TAW?
+onlineVATAccount.p1 = Bydd gennych ID Defnyddiwr a chyfrinair ar wahân os oes gennych gyfrif arall ar gyfer TAW
+onlineVATAccount.Yes = Oes - mae cyfrif ar-lein arall ar gyfer TAW
+onlineVATAccount.No = Nac oes - does dim cyfrif ar-lein arall ar gyfer TAW
+onlineVATAccount.error.required = Dewis iawn neu na

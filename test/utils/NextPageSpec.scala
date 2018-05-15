@@ -28,6 +28,7 @@ import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsE
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
 import models.sa.trust.HaveYouRegisteredTrust
 import models.sa.partnership.{DoYouWantToAddPartner, HaveYouRegisteredPartnership}
+import models.vat.moss.uk.OnlineVATAccount
 import models.wrongcredentials.FindingYourAccount
 
 
@@ -333,6 +334,20 @@ class NextPageSpec extends SpecBase {
       NextPage.haveYouRegisteredTrust,
       HaveYouRegisteredTrust.No,
       "/business-account/add-tax/self-assessment/trust/not-registered"
+    )
+  }
+
+  "VAT MOSS UK online VAT Account" when {
+    behave like nextPage(
+      NextPage.onlineVATAccount,
+      OnlineVATAccount.Yes,
+      "/business-account/add-tax/vat/moss/uk/vat-registered/other-account"
+    )
+
+    behave like nextPage(
+      NextPage.onlineVATAccount,
+      OnlineVATAccount.No,
+      "/business-account/add-tax/vat/moss/uk/vat-registered/no-other-account"
     )
   }
 }

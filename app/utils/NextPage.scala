@@ -25,6 +25,7 @@ import controllers.other.importexports.emcs.{routes => emcsRoutes}
 import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
+import controllers.vat.moss.uk.{routes => vatMossUkRoutes}
 import controllers.sa.trust.{routes => trustRoutes}
 import controllers.sa.partnership.{routes => saPartnerRoutes}
 import identifiers._
@@ -47,6 +48,16 @@ trait NextPage[A, B] {
 }
 
 object NextPage {
+
+  implicit val onlineVATAccount: NextPage[OnlineVATAccountId.type, models.vat.moss.uk.OnlineVATAccount] = {
+    new NextPage[OnlineVATAccountId.type, models.vat.moss.uk.OnlineVATAccount] {
+      override def get(b: models.vat.moss.uk.OnlineVATAccount)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
+        b match {
+          case models.vat.moss.uk.OnlineVATAccount.Yes => vatMossUkRoutes.AddVATMOSSController.onPageLoad()
+          case models.vat.moss.uk.OnlineVATAccount.No => vatMossUkRoutes.AddVATFirstController.onPageLoad()
+        }
+     }
+  }
 
   implicit val whichPensionSchemeToAdd: NextPage[WhichPensionSchemeToAddId.type,
     models.employer.pension.WhichPensionSchemeToAdd] = {
