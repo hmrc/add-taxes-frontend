@@ -19,21 +19,21 @@
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("registerGBD.title"),
+    title = messages("registerRGD.title"),
     appConfig = appConfig,
     serviceInfoContent = serviceInfoContent) {
 
-    @components.heading("registerGBD.heading")
+    @components.heading("registerRGD.heading")
 
-    <p>@messages("registerGBD.p1")</p>
-    <p>@messages("registerGBD.p2")</p>
+    <p>@messages("registerRGD.p1")</p>
+    <p>@messages("registerRGD.p2")</p>
 
     <a id="continue"
        href='@appConfig.getCustomsUrl("gts")'
        class="button"
-       data-journey-click="GamblingGBD:Click:Register"
+       data-journey-click="GamblingRGD:Click:Register"
        data-sso="client">
 
-        @messages("registerGBD.continue")
+        @messages("registerRGD.continue")
     </a>
 }
