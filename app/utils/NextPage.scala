@@ -52,7 +52,7 @@ trait NextPage[A, B] {
 
 object NextPage {
 
-  implicit val doYouHaveMGDRegistrationNo: NextPage[DoYouHaveMGDRegistrationId.type,
+  implicit val doYouHaveMGDRegistration: NextPage[DoYouHaveMGDRegistrationId.type,
     models.other.gambling.mgd.DoYouHaveMGDRegistration] = {
     new NextPage[DoYouHaveMGDRegistrationId.type, models.other.gambling.mgd.DoYouHaveMGDRegistration] {
       override def get(b: models.other.gambling.mgd.DoYouHaveMGDRegistration)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
