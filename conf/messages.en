@@ -380,3 +380,12 @@ doYouWantToAddPartner.heading = Do you want to add a partner to an existing part
 doYouWantToAddPartner.Yes = Yes - I want to add a partner to an existing partnership
 doYouWantToAddPartner.No = No - I want to do something else
 doYouWantToAddPartner.error.required = Select yes or no
+
+#######################################################
+##  RegisterAEOI
+#######################################################
+registerAEOI.title = Register for Automatic Exchange of Information (AEOI)
+registerAEOI.heading = Register for Automatic Exchange of Information (AEOI)
+registerAEOI.continue = Continue - register for AEOI
+registerAEOI.detail.1 = You need to register for AEOI before you can add it to your account.
+registerAEOI.detail.2 = We’ll send you an Automatic Exchange of Information ID, which you can use to add AEOI to the account.

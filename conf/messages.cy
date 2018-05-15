@@ -363,3 +363,12 @@ doYouWantToAddPartner.heading = A ydych eisiau ychwanegu partner i bartneriaeth 
 doYouWantToAddPartner.Yes = Ydw - rwyf eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes
 doYouWantToAddPartner.No = Nac ydw - rwyf eisiau gwneud rhywbeth arall
 doYouWantToAddPartner.error.required = Dewis iawn neu na
+
+#######################################################
+##  RegisterAEOI
+#######################################################
+registerAEOI.title = Cofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig (AEOI)
+registerAEOI.heading = Cofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig (AEOI)
+registerAEOI.continue = Mynd yn eich blaen - cofrestru ar gyfer AEOI
+registerAEOI.detail.1 = Mae’n rhaid i chi gofrestru ar gyfer AEOI cyn y gallwch ei ychwanegu i’ch cyfrif.
+registerAEOI.detail.2 = Byddwn yn anfon ID Cyfnewid Gwybodaeth yn Awtomatig atoch. Gallwch ei ddefnyddio i ychwanegu AEOI i’r cyfrif.

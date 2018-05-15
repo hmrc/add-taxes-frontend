@@ -21,9 +21,11 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.{Configuration, Environment}
 import uk.gov.hmrc.play.config.ServicesConfig
+import utils.{Enrolments, ForgottenOptions, PortalUrlBuilder}
+import play.api.mvc.Request
 
 @Singleton
-class FrontendAppConfig @Inject()(override val runModeConfiguration: Configuration, environment: Environment) extends ServicesConfig {
+class FrontendAppConfig @Inject()(override val runModeConfiguration: Configuration, environment: Environment) extends ServicesConfig with PortalUrlBuilder{
 
   override protected def mode = environment.mode
 
@@ -39,7 +41,7 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
 
   lazy val analyticsToken = loadConfig(s"google-analytics.token")
   lazy val analyticsHost = loadConfig(s"google-analytics.host")
-  lazy val ssoUrl = getPortalUrl("sso")
+  lazy val ssoUrl = portalHost + loadConfig(s"urls.external.portal.sso")
   lazy val reportAProblemPartialUrl = s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
   lazy val reportAProblemNonJSUrl = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
   lazy val betaFeedbackUrl = s"$contactHost/contact/beta-feedback"
@@ -66,8 +68,9 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
 
   def routeToSwitchLanguage = (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
 
+
   private lazy val portalHost = loadConfig(s"urls.external.portal.host")
-  def getPortalUrl(key: String): String = portalHost + loadConfig(s"urls.external.portal.$key")
+  def getPortalUrl(key: String)(implicit request: Request[_]): String = appendLanguage(portalHost + loadConfig(s"urls.external.portal.$key"))
 
   lazy val hmceHost = loadConfig(s"urls.external.hmce.host")
   def getHmceURL(key: String): String = hmceHost + loadConfig(s"urls.external.hmce.$key")
@@ -78,4 +81,12 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   lazy val publishedAssets = loadConfig(s"urls.external.assets.host")
   def getPublishedAssetsUrl(key: String): String = publishedAssets + loadConfig(s"urls.external.assets.$key")
 
+  def emacEnrollmentsUrl(enrolment: Enrolments): String = {
+    s"$enrolmentManagementFrontendHost/enrolment-management-frontend/${enrolment.toString}/request-access-tax-scheme?continue=%2Fbusiness-account"
+  }
+
+  def governmentGatewayLostCredentialsUrl(forgottenOption: ForgottenOptions): String = {
+    s"$governmentGatewayLostCredentialsFrontendHost/government-gateway-lost-credentials-frontend/" +
+      s"choose-your-account?continue=%2Fbusiness-account&origin=business-tax-account&forgottenOption=$forgottenOption"
+  }
 }

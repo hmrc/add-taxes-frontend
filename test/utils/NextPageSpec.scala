@@ -33,7 +33,6 @@ import models.wrongcredentials.FindingYourAccount
 
 class NextPageSpec extends SpecBase {
 
-  implicit val urlHelper = new UrlHelper(frontendAppConfig)
   implicit val request = fakeRequest
 
 
