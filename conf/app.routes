@@ -91,6 +91,11 @@ POST       /other/gambling/pbd                          controllers.other.gambli
 
 GET        /other/gambling/rgd/register                 controllers.other.gambling.rgd.RegisterRGDController.onPageLoad()
 
+GET        /other/alcohol/atwd/register                 controllers.other.alcohol.atwd.RegisterWarehousekeeperController.onPageLoad()
+
+GET        /other/alcohol/atwd                          controllers.other.alcohol.atwd.AreYouRegisteredWarehousekeeperController.onPageLoad()
+POST       /other/alcohol/atwd                          controllers.other.alcohol.atwd.AreYouRegisteredWarehousekeeperController.onSubmit()
+
 GET        /other/gambling/rgd                          controllers.other.gambling.rgd.AreYouRegisteredGTSController.onPageLoad()
 POST       /other/gambling/rgd                          controllers.other.gambling.rgd.AreYouRegisteredGTSController.onSubmit()
 

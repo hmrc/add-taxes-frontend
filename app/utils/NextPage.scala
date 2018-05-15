@@ -17,9 +17,10 @@
 package utils
 
 import controllers.other.oil.routes
-import controllers.other.gambling.rgd.{routes => rgdRoutes}
+import controllers.other.alcohol.atwd.{routes => atwdRoutes}
 import controllers.other.gambling.gbd.{routes => gbdRoutes}
 import controllers.other.gambling.pbd.register.{routes => pbdRoutes}
+import controllers.other.gambling.rgd.{routes => rgdRoutes}
 import controllers.other.importexports.dan.{routes => danRoutes}
 import controllers.other.importexports.ebti.{routes => ebtiRoutes}
 import controllers.other.importexports.emcs.{routes => emcsRoutes}
@@ -32,6 +33,7 @@ import identifiers._
 import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.OtherTaxes
+import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.nes.DoYouHaveCHIEFRole
@@ -49,6 +51,18 @@ trait NextPage[A, B] {
 }
 
 object NextPage {
+
+  implicit val areYouRegisteredWarehousekeeper: NextPage[AreYouRegisteredWarehousekeeperId.type, AreYouRegisteredWarehousekeeper] = {
+    new NextPage[AreYouRegisteredWarehousekeeperId.type, AreYouRegisteredWarehousekeeper] {
+      override def get(b: AreYouRegisteredWarehousekeeper)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
+        b match {
+          case AreYouRegisteredWarehousekeeper.Yes =>
+            Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.AlcoholAndTobaccoWarehousingDeclarations))
+
+          case AreYouRegisteredWarehousekeeper.No => atwdRoutes.RegisterWarehousekeeperController.onPageLoad()
+        }
+     }
+  }
 
   implicit val selectSACategory: NextPage[SelectSACategoryId.type,
     models.sa.SelectSACategory] = {

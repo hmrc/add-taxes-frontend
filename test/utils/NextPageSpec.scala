@@ -20,6 +20,7 @@ import base.SpecBase
 import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.OtherTaxes
 import models.employer.pension.WhichPensionSchemeToAdd
+import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
@@ -348,6 +349,20 @@ class NextPageSpec extends SpecBase {
       NextPage.haveYouRegisteredTrust,
       HaveYouRegisteredTrust.No,
       "/business-account/add-tax/self-assessment/trust/not-registered"
+    )
+  }
+
+  "AreYouRegisteredWarehousekeeper" when {
+    behave like nextPage(
+      NextPage.areYouRegisteredWarehousekeeper,
+      AreYouRegisteredWarehousekeeper.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMCE-ATWD-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.areYouRegisteredWarehousekeeper,
+      AreYouRegisteredWarehousekeeper.No,
+      "/business-account/add-tax/other/alcohol/atwd/register"
     )
   }
 

@@ -382,6 +382,25 @@ doYouWantToAddPartner.No = No - I want to do something else
 doYouWantToAddPartner.error.required = Select yes or no
 
 #######################################################
+##  RegisterWarehousekeeper
+#######################################################
+registerWarehousekeeper.title = Register as an excise warehousekeeper first
+registerWarehousekeeper.heading = Register as an excise warehousekeeper first
+registerWarehousekeeper.p1 = You need to register as an excise warehousekeeper before you can add ATWD to your account.
+registerWarehousekeeper.p2 = We’ll send you a warehouse ID. Come back to your account and add ATWD when you get it.
+registerWarehousekeeper.continue = Continue - register as an excise warehousekeeper
+
+#######################################################
+##  AreYouRegisteredWarehousekeeper
+#######################################################
+areYouRegisteredWarehousekeeper.title = Are you a registered excise warehousekeeper?
+areYouRegisteredWarehousekeeper.heading = Are you a registered excise warehousekeeper?
+areYouRegisteredWarehousekeeper.p1 = We’ll have sent you a warehouse approval letter with a warehouse ID if you’re a registered excise warehousekeeper.
+areYouRegisteredWarehousekeeper.Yes = Yes - I have a warehouse ID
+areYouRegisteredWarehousekeeper.No = No - I’m not a registered warehousekeeper
+areYouRegisteredWarehousekeeper.error.required = Select yes or no
+
+#######################################################
 ##  SelectSACategory
 #######################################################
 selectSACategory.title = Select a Self Assessment category
