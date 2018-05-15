@@ -16,18 +16,15 @@
 
 package controllers.other.gambling.mgd
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.{FakeServiceInfoAction, _}
 import forms.other.gambling.mgd.DoYouHaveMGDRegistrationFormProvider
-import identifiers.DoYouHaveMGDRegistrationId
 import models.other.gambling.mgd.DoYouHaveMGDRegistration
+import play.api.data.Form
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.other.gambling.mgd.doYouHaveMGDRegistration
 
 class DoYouHaveMGDRegistrationControllerSpec extends ControllerSpecBase {

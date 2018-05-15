@@ -14,31 +14,19 @@
  * limitations under the License.
  */
 
-package views.other.gambling.mgd.register
+package views.other.gambling.pbd
 
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.other.gambling.mgd.registerMGD
+import views.html.other.gambling.pbd.register.registerGTSFirst
 
-class RegisterMGDViewSpec extends ViewBehaviours {
+class RegisterGTSFirstViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "registerMGD"
+  val messageKeyPrefix = "registerGTSFirst"
 
-  def createView = () => registerMGD(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView = () => registerGTSFirst(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
-  "RegisterMGD view" must {
+  "RegisterGTSFirst view" must {
     behave like normalPage(createView, messageKeyPrefix)
-
-    "Render the correct content" in {
-      val doc =  asDocument(createView())
-      val view = doc.text()
-
-      assertLinkById(
-        doc,
-        "continue",
-        "Continue - register for Machine Games Duty",
-        "http://localhost:8080/portal/business-registration/mgd/type-of-business",
-        "RegisterMgd:Click:Continue")
-    }
   }
 }

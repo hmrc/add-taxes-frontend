@@ -395,5 +395,5 @@ registerMGD.detail.2 =We’ll send you a registration number, which you can use 
 doYouHaveMGDRegistration.title = Do you have a Machine Games Duty registration number?
 doYouHaveMGDRegistration.heading = Do you have a Machine Games Duty registration number?
 doYouHaveMGDRegistration.Yes = Yes - I have a Machine Games Duty registration number
-doYouHaveMGDRegistration.No = No - I haven't registered yet
+doYouHaveMGDRegistration.No = No - I haven’t registered yet
 doYouHaveMGDRegistration.error.required = Select yes or no

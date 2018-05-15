@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package controllers.other.gambling.mgd.register
+package controllers.other.gambling.mgd
 
 import controllers._
 import controllers.actions._
-import controllers.other.gambling.mgd.RegisterMGDController
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import views.html.other.gambling.mgd.registerMGD
