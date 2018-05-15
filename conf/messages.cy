@@ -363,3 +363,13 @@ doYouWantToAddPartner.heading = A ydych eisiau ychwanegu partner i bartneriaeth 
 doYouWantToAddPartner.Yes = Ydw - rwyf eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes
 doYouWantToAddPartner.No = Nac ydw - rwyf eisiau gwneud rhywbeth arall
 doYouWantToAddPartner.error.required = Dewis iawn neu na
+
+#######################################################
+##  SelectSACategory
+#######################################################
+selectSACategory.title = Dewiswch gategori Hunanasesiad
+selectSACategory.heading = Dewiswch gategori Hunanasesiad
+selectSACategory.Sa = Unigolyn neu unig fasnachwr
+selectSACategory.Partnership = Partneriaeth
+selectSACategory.Trust = Ymddiriedolaeth
+selectSACategory.error.required = Dewis categori

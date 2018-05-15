@@ -37,6 +37,7 @@ import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.nes.DoYouHaveCHIEFRole
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils, SelectAnOilService}
+import models.sa.SelectSACategory
 import models.sa.partnership.DoYouWantToAddPartner
 import models.sa.trust.HaveYouRegisteredTrust
 import models.wrongcredentials.FindingYourAccount
@@ -48,6 +49,18 @@ trait NextPage[A, B] {
 }
 
 object NextPage {
+
+  implicit val selectSACategory: NextPage[SelectSACategoryId.type,
+    models.sa.SelectSACategory] = {
+    new NextPage[SelectSACategoryId.type, models.sa.SelectSACategory] {
+      override def get(b: models.sa.SelectSACategory)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
+        b match {
+          case SelectSACategory.Sa => Call(GET, urlHelper.getPortalURL("selfAssessmnt"))
+          case SelectSACategory.Partnership => saPartnerRoutes.DoYouWantToAddPartnerController.onPageLoad()
+          case SelectSACategory.Trust => trustRoutes.HaveYouRegisteredTrustController.onPageLoad()
+        }
+     }
+  }
 
   implicit val whichPensionSchemeToAdd: NextPage[WhichPensionSchemeToAddId.type,
     models.employer.pension.WhichPensionSchemeToAdd] = {
