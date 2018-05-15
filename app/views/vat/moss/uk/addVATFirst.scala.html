@@ -15,8 +15,13 @@
  *@
 
 @import config.FrontendAppConfig
+@import utils.UrlHelper
+@import utils.Enrolments
 
-@(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(
+    appConfig: FrontendAppConfig,
+    urlHelper: UrlHelper
+)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("addVATFirst.title"),
@@ -32,7 +37,7 @@
 
     <p>
         <a id="continue"
-           href='#'
+           href='@urlHelper.emacEnrollmentsUrl(Enrolments.VAT)'
            class="button"
            data-journey-click="VatMossUkAddVatToAccount:Click:AddVat">
 

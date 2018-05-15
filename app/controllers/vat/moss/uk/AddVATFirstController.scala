@@ -22,19 +22,19 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
+import utils.UrlHelper
 import views.html.vat.moss.uk.addVATFirst
-
-import scala.concurrent.Future
 
 class AddVATFirstController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   authenticate: AuthAction,
-  serviceInfo: ServiceInfoAction
+  serviceInfo: ServiceInfoAction,
+  urlHelper: UrlHelper
 ) extends FrontendController with I18nSupport {
 
   def onPageLoad = (authenticate andThen serviceInfo) {
     implicit request =>
-      Ok(addVATFirst(appConfig)(request.serviceInfoContent))
+      Ok(addVATFirst(appConfig, urlHelper)(request.serviceInfoContent))
   }
 }

@@ -33,12 +33,11 @@ class AddVATMOSSViewSpec extends ViewBehaviours {
       val doc =  asDocument(createView())
       val view = doc.text()
 
-      //TODO : Implement routing
       assertLinkById(
         doc,
         "continue",
         "Sign in to your VAT account",
-        "#",
+        "http://localhost:9020/business-account/sso-sign-out",
         "VatMossUkAddToOtherAccount:Click:SignIn"
       )
 
