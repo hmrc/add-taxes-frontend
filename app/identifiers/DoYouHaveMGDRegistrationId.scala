@@ -14,19 +14,8 @@
  * limitations under the License.
  */
 
-package forms.other.gambling.mgd
+package identifiers
 
-import javax.inject.Inject
-
-import forms.FormErrorHelper
-import forms.mappings.Mappings
-import play.api.data.Form
-import models.other.gambling.mgd.DoYouHaveMGDRegistrationNo
-
-class DoYouHaveMGDRegistrationNoFormProvider @Inject() extends FormErrorHelper with Mappings {
-
-  def apply(): Form[DoYouHaveMGDRegistrationNo] =
-    Form(
-      "value" -> enumerable[DoYouHaveMGDRegistrationNo]("doYouHaveMGDRegistrationNo.error.required")
-    )
+case object DoYouHaveMGDRegistrationId extends Identifier {
+  override def toString: String = "doYouHaveMGDRegistration"
 }

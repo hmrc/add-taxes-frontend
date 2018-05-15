@@ -20,23 +20,23 @@ import forms.behaviours.FormBehaviours
 import models._
 import models.other.gambling.mgd._
 
-class DoYouHaveMGDRegistrationNoFormProviderSpec extends FormBehaviours {
+class DoYouHaveMGDRegistrationFormProviderSpec extends FormBehaviours {
 
   val validData: Map[String, String] = Map(
-    "value" -> DoYouHaveMGDRegistrationNo.options.head.value
+    "value" -> DoYouHaveMGDRegistration.options.head.value
   )
 
-  val form = new DoYouHaveMGDRegistrationNoFormProvider()()
+  val form = new DoYouHaveMGDRegistrationFormProvider()()
 
-  "DoYouHaveMGDRegistrationNo form" must {
+  "DoYouHaveMGDRegistration form" must {
 
-    behave like questionForm[DoYouHaveMGDRegistrationNo](DoYouHaveMGDRegistrationNo.values.head)
+    behave like questionForm[DoYouHaveMGDRegistration](DoYouHaveMGDRegistration.values.head)
 
     behave like formWithOptionField(
       Field(
         "value",
-        Required -> "doYouHaveMGDRegistrationNo.error.required",
+        Required -> "doYouHaveMGDRegistration.error.required",
         Invalid -> "error.invalid"),
-      DoYouHaveMGDRegistrationNo.options.toSeq.map(_.value): _*)
+      DoYouHaveMGDRegistration.options.toSeq.map(_.value): _*)
   }
 }

@@ -24,26 +24,26 @@ import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import play.api.test.Helpers._
-import forms.other.gambling.mgd.DoYouHaveMGDRegistrationNoFormProvider
-import identifiers.DoYouHaveMGDRegistrationNoId
-import models.other.gambling.mgd.DoYouHaveMGDRegistrationNo
+import forms.other.gambling.mgd.DoYouHaveMGDRegistrationFormProvider
+import identifiers.DoYouHaveMGDRegistrationId
+import models.other.gambling.mgd.DoYouHaveMGDRegistration
 import play.twirl.api.HtmlFormat
-import views.html.other.gambling.mgd.doYouHaveMGDRegistrationNo
+import views.html.other.gambling.mgd.doYouHaveMGDRegistration
 
-class DoYouHaveMGDRegistrationNoControllerSpec extends ControllerSpecBase {
+class DoYouHaveMGDRegistrationControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = controllers.routes.IndexController.onPageLoad()
 
-  val formProvider = new DoYouHaveMGDRegistrationNoFormProvider()
+  val formProvider = new DoYouHaveMGDRegistrationFormProvider()
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new DoYouHaveMGDRegistrationNoController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
+    new DoYouHaveMGDRegistrationController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
       FakeServiceInfoAction, formProvider)
 
-  def viewAsString(form: Form[_] = form) = doYouHaveMGDRegistrationNo(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = doYouHaveMGDRegistration(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  "DoYouHaveMGDRegistrationNo Controller" must {
+  "DoYouHaveMGDRegistration Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad()(fakeRequest)
@@ -53,7 +53,7 @@ class DoYouHaveMGDRegistrationNoControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveMGDRegistrationNo.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveMGDRegistration.options.head.value))
 
       val result = controller().onSubmit()(postRequest)
 
@@ -77,7 +77,7 @@ class DoYouHaveMGDRegistrationNoControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    for(option <- DoYouHaveMGDRegistrationNo.options) {
+    for(option <- DoYouHaveMGDRegistration.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
         val result = controller(dontGetAnyData).onSubmit()(postRequest)

@@ -387,13 +387,13 @@ doYouWantToAddPartner.error.required = Select yes or no
 registerMGD.title = Register for Machine Games Duty
 registerMGD.heading = Register for Machine Games Duty
 registerMGD.continue = Continue - register for Machine Games Duty
-registerMGD.detail.1=You need to register for Machine Games Duty before you can add it to your account.
-registerMGD.detail.2=We’ll send you a registration number, which you can use to add Machine Games Duty to the account.
+registerMGD.detail.1 =You need to register for Machine Games Duty before you can add it to your account.
+registerMGD.detail.2 =We’ll send you a registration number, which you can use to add Machine Games Duty to the account.
 #######################################################
-##  DoYouHaveMGDRegistrationNo
+##  DoYouHaveMGDRegistration
 #######################################################
-doYouHaveMGDRegistrationNo.title = Do you have a Machine Games Duty registration number?
-doYouHaveMGDRegistrationNo.heading = Do you have a Machine Games Duty registration number?
-doYouHaveMGDRegistrationNo.Yes = Yes - I have a Machine Games Duty registration number
-doYouHaveMGDRegistrationNo.No = No - I haven't registered yet
-doYouHaveMGDRegistrationNo.error.required = Select yes or no
+doYouHaveMGDRegistration.title = Do you have a Machine Games Duty registration number?
+doYouHaveMGDRegistration.heading = Do you have a Machine Games Duty registration number?
+doYouHaveMGDRegistration.Yes = Yes - I have a Machine Games Duty registration number
+doYouHaveMGDRegistration.No = No - I haven't registered yet
+doYouHaveMGDRegistration.error.required = Select yes or no

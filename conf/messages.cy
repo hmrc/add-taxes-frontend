@@ -370,13 +370,13 @@ doYouWantToAddPartner.error.required = Dewis iawn neu na
 registerMGD.title = Cofrestru ar gyfer Toll Peiriannau Hapchwarae
 registerMGD.heading = Cofrestru ar gyfer Toll Peiriannau Hapchwarae
 registerMGD.continue = Mynd yn eich blaen - cofrestru ar gyfer Toll Peiriannau Hapchwarae
-registerMGD.detail.1= Mae’n rhaid i chi gofrestru ar gyfer Toll Peiriannau Hapchwarae cyn y gallwch ei ychwanegu i’ch cyfrif.
-registerMGD.detail.2= Byddwn yn anfon rhif cofrestru atoch. Gallwch ei ddefnyddio i ychwanegu Toll Peiriannau Hapchwarae i’r cyfrif.
+registerMGD.detail.1 = Mae’n rhaid i chi gofrestru ar gyfer Toll Peiriannau Hapchwarae cyn y gallwch ei ychwanegu i’ch cyfrif.
+registerMGD.detail.2 = Byddwn yn anfon rhif cofrestru atoch. Gallwch ei ddefnyddio i ychwanegu Toll Peiriannau Hapchwarae i’r cyfrif.
 #######################################################
-##  DoYouHaveMGDRegistrationNo
+##  DoYouHaveMGDRegistration
 #######################################################
-doYouHaveMGDRegistrationNo.title = A oes gennych rif cofrestru Toll Peiriannau Hapchwarae?
-doYouHaveMGDRegistrationNo.heading = A oes gennych rif cofrestru Toll Peiriannau Hapchwarae?
-doYouHaveMGDRegistrationNo.Yes = Oes - mae gennyf rif cofrestru Toll Peiriannau Hapchwarae
-doYouHaveMGDRegistrationNo.No = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
-doYouHaveMGDRegistrationNo.error.required = Dewis iawn neu na
+doYouHaveMGDRegistration.title = A oes gennych rif cofrestru Toll Peiriannau Hapchwarae?
+doYouHaveMGDRegistration.heading = A oes gennych rif cofrestru Toll Peiriannau Hapchwarae?
+doYouHaveMGDRegistration.Yes = Oes - mae gennyf rif cofrestru Toll Peiriannau Hapchwarae
+doYouHaveMGDRegistration.No = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
+doYouHaveMGDRegistration.error.required = Dewis iawn neu na

@@ -26,35 +26,35 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 
-import forms.other.gambling.mgd.DoYouHaveMGDRegistrationNoFormProvider
-import identifiers.DoYouHaveMGDRegistrationNoId
-import views.html.other.gambling.mgd.doYouHaveMGDRegistrationNo
+import forms.other.gambling.mgd.DoYouHaveMGDRegistrationFormProvider
+import identifiers.DoYouHaveMGDRegistrationId
+import views.html.other.gambling.mgd.doYouHaveMGDRegistration
 
 import scala.concurrent.Future
 
-class DoYouHaveMGDRegistrationNoController @Inject()(
+class DoYouHaveMGDRegistrationController @Inject()(
                                         appConfig: FrontendAppConfig,
                                         override val messagesApi: MessagesApi,
                                         dataCacheConnector: DataCacheConnector,
                                         navigator: Navigator,
                                         authenticate: AuthAction,
                                         serviceInfoData: ServiceInfoAction,
-                                        formProvider: DoYouHaveMGDRegistrationNoFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+                                        formProvider: DoYouHaveMGDRegistrationFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
 
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) {
     implicit request =>
-      Ok(doYouHaveMGDRegistrationNo(appConfig, form)(request.serviceInfoContent))
+      Ok(doYouHaveMGDRegistration(appConfig, form)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(doYouHaveMGDRegistrationNo(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(doYouHaveMGDRegistration(appConfig, formWithErrors)(request.serviceInfoContent))),
         (value) =>
-          Future.successful(Redirect(navigator.nextPage(DoYouHaveMGDRegistrationNoId, value)))
+          Future.successful(Redirect(navigator.nextPage(DoYouHaveMGDRegistrationId, value)))
       )
   }
 }

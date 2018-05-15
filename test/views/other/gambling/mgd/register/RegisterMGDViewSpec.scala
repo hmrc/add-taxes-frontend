@@ -18,7 +18,7 @@ package views.other.gambling.mgd.register
 
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.other.gambling.mgd.register.registerMGD
+import views.html.other.gambling.mgd.registerMGD
 
 class RegisterMGDViewSpec extends ViewBehaviours {
 

@@ -17,12 +17,12 @@
 package utils
 
 import base.SpecBase
-import identifiers.DoYouHaveMGDRegistrationNoId
+import identifiers.DoYouHaveMGDRegistrationId
 import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.OtherTaxes
 import models.employer.pension.WhichPensionSchemeToAdd
 import models.other.gambling.gbd.AreYouRegisteredGTS
-import models.other.gambling.mgd.DoYouHaveMGDRegistrationNo
+import models.other.gambling.mgd.DoYouHaveMGDRegistration
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.other.importexports.nes.DoYouHaveCHIEFRole
@@ -313,13 +313,13 @@ class NextPageSpec extends SpecBase {
   "Maching Gaming Duty Registration" when {
     behave like nextPage(
       NextPage.doYouHaveMGDRegistrationNo,
-      DoYouHaveMGDRegistrationNo.Yes,
+      DoYouHaveMGDRegistration.Yes,
       "http://localhost:9555/enrolment-management-frontend/HMRC-MGD-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
 
     behave like nextPage(
       NextPage.doYouHaveMGDRegistrationNo,
-      DoYouHaveMGDRegistrationNo.No,
+      DoYouHaveMGDRegistration.No,
       "/business-account/add-tax/other/gambling/mgd/register"
     )
   }

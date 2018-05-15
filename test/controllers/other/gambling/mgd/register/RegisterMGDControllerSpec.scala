@@ -18,9 +18,10 @@ package controllers.other.gambling.mgd.register
 
 import controllers._
 import controllers.actions._
+import controllers.other.gambling.mgd.RegisterMGDController
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import views.html.other.gambling.mgd.register.registerMGD
+import views.html.other.gambling.mgd.registerMGD
 
 class RegisterMGDControllerSpec extends ControllerSpecBase {
 

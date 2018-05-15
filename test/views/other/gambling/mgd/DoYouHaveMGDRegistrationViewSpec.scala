@@ -17,45 +17,45 @@
 package views.other.gambling.mgd
 
 import play.api.data.Form
-import forms.other.gambling.mgd.DoYouHaveMGDRegistrationNoFormProvider
-import models.other.gambling.mgd.DoYouHaveMGDRegistrationNo
+import forms.other.gambling.mgd.DoYouHaveMGDRegistrationFormProvider
+import models.other.gambling.mgd.DoYouHaveMGDRegistration
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.other.gambling.mgd.doYouHaveMGDRegistrationNo
+import views.html.other.gambling.mgd.doYouHaveMGDRegistration
 
-class DoYouHaveMGDRegistrationNoViewSpec extends ViewBehaviours {
+class DoYouHaveMGDRegistrationViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "doYouHaveMGDRegistrationNo"
+  val messageKeyPrefix = "doYouHaveMGDRegistration"
 
-  val form = new DoYouHaveMGDRegistrationNoFormProvider()()
+  val form = new DoYouHaveMGDRegistrationFormProvider()()
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => doYouHaveMGDRegistrationNo(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView = () => doYouHaveMGDRegistration(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => doYouHaveMGDRegistrationNo(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => doYouHaveMGDRegistration(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  "DoYouHaveMGDRegistrationNo view" must {
+  "DoYouHaveMGDRegistration view" must {
     behave like normalPage(createView, messageKeyPrefix)
   }
 
-  "DoYouHaveMGDRegistrationNo view" when {
+  "DoYouHaveMGDRegistration view" when {
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- DoYouHaveMGDRegistrationNo.options) {
+        for (option <- DoYouHaveMGDRegistration.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
       }
     }
 
-    for(option <- DoYouHaveMGDRegistrationNo.options) {
+    for(option <- DoYouHaveMGDRegistration.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- DoYouHaveMGDRegistrationNo.options.filterNot(o => o == option)) {
+          for(unselectedOption <- DoYouHaveMGDRegistration.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

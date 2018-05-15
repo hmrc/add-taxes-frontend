@@ -17,25 +17,25 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
 @import controllers.other.gambling.mgd.routes._
-@import models.other.gambling.mgd.DoYouHaveMGDRegistrationNo
+@import models.other.gambling.mgd.DoYouHaveMGDRegistration
 
 
 @(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("doYouHaveMGDRegistrationNo.title"),
+    title = messages("doYouHaveMGDRegistration.title"),
     appConfig = appConfig,
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = DoYouHaveMGDRegistrationNoController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    @helpers.form(action = DoYouHaveMGDRegistrationController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("doYouHaveMGDRegistrationNo.heading").body,
-            inputs = DoYouHaveMGDRegistrationNo.options.toSeq
+            legend = components.heading("doYouHaveMGDRegistration.heading").body,
+            inputs = DoYouHaveMGDRegistration.options.toSeq
         )
 
         @components.submit_button(gaEvent = "AddMgdGamblingTax")

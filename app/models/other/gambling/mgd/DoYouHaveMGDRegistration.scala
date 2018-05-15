@@ -18,22 +18,22 @@ package models.other.gambling.mgd
 
 import utils.{Enumerable, RadioOption, WithName}
 
-sealed trait DoYouHaveMGDRegistrationNo
+sealed trait DoYouHaveMGDRegistration
 
-object DoYouHaveMGDRegistrationNo {
+object DoYouHaveMGDRegistration {
 
-  case object Yes extends WithName("Yes") with DoYouHaveMGDRegistrationNo
-  case object No extends WithName("No") with DoYouHaveMGDRegistrationNo
+  case object Yes extends WithName("Yes") with DoYouHaveMGDRegistration
+  case object No extends WithName("No") with DoYouHaveMGDRegistration
 
-  val values: Set[DoYouHaveMGDRegistrationNo] = Set(
+  val values: Set[DoYouHaveMGDRegistration] = Set(
     Yes, No
   )
 
   val options: Set[RadioOption] = values.map {
     value =>
-      RadioOption("doYouHaveMGDRegistrationNo", value.toString)
+      RadioOption("doYouHaveMGDRegistration", value.toString)
   }
 
-  implicit val enumerable: Enumerable[DoYouHaveMGDRegistrationNo] =
+  implicit val enumerable: Enumerable[DoYouHaveMGDRegistration] =
     Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }
