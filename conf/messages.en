@@ -397,5 +397,5 @@ areYouRegisteredWarehousekeeper.title = Are you a registered excise warehousekee
 areYouRegisteredWarehousekeeper.heading = Are you a registered excise warehousekeeper?
 areYouRegisteredWarehousekeeper.p1 = We’ll have sent you a warehouse approval letter with a warehouse ID if you’re a registered excise warehousekeeper.
 areYouRegisteredWarehousekeeper.Yes = Yes - I have a warehouse ID
-areYouRegisteredWarehousekeeper.No = No - I'm not a registered warehousekeeper
+areYouRegisteredWarehousekeeper.No = No - I’m not a registered warehousekeeper
 areYouRegisteredWarehousekeeper.error.required = Select yes or no
