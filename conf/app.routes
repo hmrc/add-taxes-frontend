@@ -115,10 +115,7 @@ GET        /self-assessment/trust/not-registered        controllers.sa.trust.Reg
 GET        /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onPageLoad()
 POST       /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onSubmit()
 
+GET        /other/charities                             controllers.other.charity.DoYouHaveCharityReferenceController.onPageLoad()
+POST       /other/charities                             controllers.other.charity.DoYouHaveCharityReferenceController.onSubmit()
 
-
-
-
-
-GET        /other/charities                  controllers.other.charity.DoYouHaveCharityReferenceController.onPageLoad()
-POST       /other/charities                  controllers.other.charity.DoYouHaveCharityReferenceController.onSubmit()
+GET        /other/charities/register                    controllers.other.charity.RegisterForCharityController.onPageLoad()

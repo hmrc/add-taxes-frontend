@@ -409,3 +409,12 @@ doYouHaveCharityReference.heading = A oes gennych gyfeirnod Elusennau CThEM?
 doYouHaveCharityReference.Yes = Oes - mae gennym gyfeirnod Elusennau CThEM
 doYouHaveCharityReference.No = Nac oes - nid oes gennym gyfeirnod Elusennau CThEM ar hyn o bryd
 doYouHaveCharityReference.error.required = Dewis iawn neu na
+
+#######################################################
+##  RegisterForCharity
+#######################################################
+registerForCharity.title = Cofrestru fel Elusen gyda CThEM
+registerForCharity.heading = Cofrestru fel Elusen gyda CThEM
+registerForCharity.p1 = Mae angen i chi gofrestru fel elusen gyda CThEM cyn y gallwch ychwanegu’r gwasanaeth Rhodd Cymorth i’ch cyfrif.
+registerForCharity.p2 = Byddwn yn anfon cyfeirnod atoch. Gallwch ei ddefnyddio, wedyn, i ychwanegu’r gwasanaeth i’ch cyfrif.
+registerForCharity.continue = Mynd yn eich blaen - cofrestru fel Elusen gyda CThEM

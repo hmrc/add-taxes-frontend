@@ -18,6 +18,7 @@ package utils
 
 import controllers.other.oil.routes
 import controllers.other.alcohol.atwd.{routes => atwdRoutes}
+import controllers.other.charity.{routes => charityRoutes}
 import controllers.other.gambling.gbd.{routes => gbdRoutes}
 import controllers.other.gambling.pbd.{routes => pbdRoutes}
 import controllers.other.gambling.mgd.{routes => mgdRoutes}
@@ -58,7 +59,7 @@ object NextPage {
       override def get(b: models.other.charity.DoYouHaveCharityReference)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
           case models.other.charity.DoYouHaveCharityReference.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.Charity))
-          case models.other.charity.DoYouHaveCharityReference.No => ???
+          case models.other.charity.DoYouHaveCharityReference.No => charityRoutes.RegisterForCharityController.onPageLoad()
         }
      }
   }
