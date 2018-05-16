@@ -20,6 +20,7 @@ import base.SpecBase
 import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.OtherTaxes
 import models.employer.pension.WhichPensionSchemeToAdd
+import models.other.aeoi.HaveYouRegisteredAEOI
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
@@ -346,6 +347,20 @@ class NextPageSpec extends SpecBase {
       NextPage.haveYouRegisteredTrust,
       HaveYouRegisteredTrust.No,
       "/business-account/add-tax/self-assessment/trust/not-registered"
+    )
+  }
+
+  "haveYouRegisteredAEOI" when {
+    behave like nextPage(
+      NextPage.haveYouRegisteredAEOI,
+      HaveYouRegisteredAEOI.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-FATCA-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.haveYouRegisteredAEOI,
+      HaveYouRegisteredAEOI.No,
+      "/business-account/add-tax/other/aeoi/register"
     )
   }
 }

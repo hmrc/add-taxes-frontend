@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package controllers.other.aeio.register
+package controllers.other.aeoi
 
 import javax.inject.Inject
 
+import config.FrontendAppConfig
+import controllers.actions._
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import controllers.actions._
-import config.FrontendAppConfig
 import views.html.other.aeio.register.registerAEOI
-
-import scala.concurrent.Future
 
 class RegisterAEOIController @Inject()(appConfig: FrontendAppConfig,
                                           override val messagesApi: MessagesApi,

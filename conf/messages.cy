@@ -372,3 +372,12 @@ registerAEOI.heading = Cofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig (AEOI
 registerAEOI.continue = Mynd yn eich blaen - cofrestru ar gyfer AEOI
 registerAEOI.detail.1 = Mae’n rhaid i chi gofrestru ar gyfer AEOI cyn y gallwch ei ychwanegu i’ch cyfrif.
 registerAEOI.detail.2 = Byddwn yn anfon ID Cyfnewid Gwybodaeth yn Awtomatig atoch. Gallwch ei ddefnyddio i ychwanegu AEOI i’r cyfrif.
+#######################################################
+##  HaveYouRegisteredAEOI
+#######################################################
+haveYouRegisteredAEOI.title = A ydych eisoes wedi cofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig (AEOI)?
+haveYouRegisteredAEOI.heading = A ydych eisoes wedi cofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig (AEOI)?
+haveYouRegisteredAEOI.Yes = Ydw - mae gennyf ID
+haveYouRegisteredAEOI.No = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
+haveYouRegisteredAEOI.error.required = Dewis iawn neu na
+haveYouRegisteredAEOI.p1 = Byddwn wedi anfon ID Cyfnewid Gwybodaeth yn Awtomatig atoch

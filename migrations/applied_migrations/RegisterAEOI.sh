@@ -4,7 +4,7 @@ echo "Applying migration RegisterAEOI"
 
 echo "Adding routes to conf/app.routes"
 echo "" >> ../conf/app.routes
-echo "GET        /other/aeoi/register                       controllers.other.aeio.register.RegisterAEOIController.onPageLoad()" >> ../conf/app.routes
+echo "GET        /other/aeoi/register                       controllers.other.aeoi.RegisterAEOIController.onPageLoad()" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages (English)"
 echo "" >> ../conf/messages.en

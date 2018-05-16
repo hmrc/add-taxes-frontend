@@ -105,4 +105,7 @@ GET        /self-assessment/trust/not-registered        controllers.sa.trust.Reg
 GET        /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onPageLoad()
 POST       /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onSubmit()
 
-GET        /other/aeoi/register                       controllers.other.aeio.register.RegisterAEOIController.onPageLoad()
+GET        /other/aeoi/register                         controllers.other.aeoi.RegisterAEOIController.onPageLoad()
+
+GET        /other/aeoi                                  controllers.other.aeoi.HaveYouRegisteredAEOIController.onPageLoad()
+POST       /other/aeoi                                  controllers.other.aeoi.HaveYouRegisteredAEOIController.onSubmit()

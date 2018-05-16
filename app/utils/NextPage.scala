@@ -21,6 +21,7 @@ import controllers.other.oil.routes
 import controllers.other.gambling.rgd.{routes => rgdRoutes}
 import controllers.other.gambling.gbd.{routes => gbdRoutes}
 import controllers.other.gambling.pbd.register.{routes => pbdRoutes}
+import controllers.other.aeoi.{routes => aeoiRoutes}
 import controllers.other.importexports.dan.{routes => danRoutes}
 import controllers.other.importexports.ebti.{routes => ebtiRoutes}
 import controllers.other.importexports.emcs.{routes => emcsRoutes}
@@ -49,6 +50,17 @@ trait NextPage[A, B] {
 }
 
 object NextPage {
+
+  implicit val haveYouRegisteredAEOI: NextPage[HaveYouRegisteredAEOIId.type,
+    models.other.aeoi.HaveYouRegisteredAEOI] = {
+    new NextPage[HaveYouRegisteredAEOIId.type, models.other.aeoi.HaveYouRegisteredAEOI] {
+      override def get(b: models.other.aeoi.HaveYouRegisteredAEOI)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+        b match {
+          case models.other.aeoi.HaveYouRegisteredAEOI.Yes => Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.AutomaticExchangeOfInformation))
+          case models.other.aeoi.HaveYouRegisteredAEOI.No => aeoiRoutes.RegisterAEOIController.onPageLoad()
+        }
+     }
+  }
 
   implicit val whichPensionSchemeToAdd: NextPage[WhichPensionSchemeToAddId.type,
     models.employer.pension.WhichPensionSchemeToAdd] = {
