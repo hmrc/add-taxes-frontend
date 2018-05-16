@@ -307,6 +307,14 @@ areYouRegisteredGTS.No = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
 areYouRegisteredGTS.error.required = Dewis iawn neu na
 
 #######################################################
+##  RegisterGTSFirst
+#######################################################
+registerGTSFirst.title = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
+registerGTSFirst.heading = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
+registerGTSFirst.detail.1 = Mae angen i chi gofrestru ar gyfer y System Treth Hapchwarae cyn y gallwch ychwanegu Toll Cronfa Fetio i’ch cyfrif.
+registerGTSFirst.detail.2 = Byddwn yn anfon cyfeirnod System Treth Hapchwarae atoch. Dychwelwch i’ch cyfrif ac ychwanegwch Toll Cronfa Fetio pan fyddwch yn ei gael.
+registerGTSFirst.continue = Mynd yn eich blaen - cofrestru ar gyfer y System Treth Hapchwarae
+
 ##  RegisterRGD
 #######################################################
 registerRGD.title = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
@@ -405,3 +413,41 @@ registeredForVATUk.p1 = Byddwch wedi cael rhif cofrestru TAW (VRN) oddi wrth CTh
 registeredForVATUk.Yes = Ydy - mae’r busnes wedi’i gofrestru ar gyfer TAW yn y DU
 registeredForVATUk.No = Nac ydy - nid yw’r busnes wedi’i gofrestru ar gyfer TAW yn y DU
 registeredForVATUk.error.required = Dewis iawn neu na
+
+
+#######################################################
+##  RegisterMGD
+#######################################################
+registerMGD.title = Cofrestru ar gyfer Toll Peiriannau Hapchwarae
+registerMGD.heading = Cofrestru ar gyfer Toll Peiriannau Hapchwarae
+registerMGD.continue = Mynd yn eich blaen - cofrestru ar gyfer Toll Peiriannau Hapchwarae
+registerMGD.detail.1 = Mae’n rhaid i chi gofrestru ar gyfer Toll Peiriannau Hapchwarae cyn y gallwch ei ychwanegu i’ch cyfrif.
+registerMGD.detail.2 = Byddwn yn anfon rhif cofrestru atoch. Gallwch ei ddefnyddio i ychwanegu Toll Peiriannau Hapchwarae i’r cyfrif.
+
+#######################################################
+##  DoYouHaveMGDRegistration
+#######################################################
+doYouHaveMGDRegistration.title = A oes gennych rif cofrestru Toll Peiriannau Hapchwarae?
+doYouHaveMGDRegistration.heading = A oes gennych rif cofrestru Toll Peiriannau Hapchwarae?
+doYouHaveMGDRegistration.Yes = Oes - mae gennyf rif cofrestru Toll Peiriannau Hapchwarae
+doYouHaveMGDRegistration.No = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
+doYouHaveMGDRegistration.error.required = Dewis iawn neu na
+
+#######################################################
+##  RegisterWarehousekeeper
+#######################################################
+registerWarehousekeeper.title = Cofrestrwch fel ceidwad warws ecséis yn gyntaf
+registerWarehousekeeper.heading = Cofrestrwch fel ceidwad warws ecséis yn gyntaf
+registerWarehousekeeper.p1 = Mae angen i chi gofrestru fel ceidwad warws ecséis cyn y gallwch ychwanegu ATWD i’ch cyfrif.
+registerWarehousekeeper.p2 = Byddwn yn anfon ID warws atoch. Dychwelwch i’ch cyfrif ac ychwanegu ATWD pan fyddwch yn ei gael.
+registerWarehousekeeper.continue = Mynd yn eich blaen - cofrestru fel ceidwad warws ecséis
+
+#######################################################
+##  AreYouRegisteredWarehousekeeper
+#######################################################
+areYouRegisteredWarehousekeeper.title = A ydych yn geidwad warws ecséis cofrestredig?
+areYouRegisteredWarehousekeeper.heading = A ydych yn geidwad warws ecséis cofrestredig?
+areYouRegisteredWarehousekeeper.p1 = Byddwn wedi anfon llythyr yn cymeradwyo’r warws, gydag ID warws, atoch os ydych yn geidwad warws ecséis cofrestredig.
+areYouRegisteredWarehousekeeper.Yes = Ydw - mae gennyf ID warws
+areYouRegisteredWarehousekeeper.No = Nac ydw - nid wyf yn geidwad warws cofrestredig
+areYouRegisteredWarehousekeeper.error.required = Dewis iawn neu na

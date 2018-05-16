@@ -345,6 +345,15 @@ areYouRegisteredGTS.No = No - I haven’t registered yet
 areYouRegisteredGTS.error.required = Select yes or no
 
 #######################################################
+
+##  RegisterGTSFirst
+#######################################################
+registerGTSFirst.title = Register for the Gambling Tax System first
+registerGTSFirst.heading = Register for the Gambling Tax System first
+registerGTSFirst.detail.1 = You need to register for the Gambling Tax System before you can add Pool Betting Duty to your account.
+registerGTSFirst.detail.2 = We’ll send you a Gambling Tax System reference number. Come back to your account and add Pool Betting Duty when you get it.
+registerGTSFirst.continue = Continue - register for the Gambling Tax System
+
 ##  RegisterRGD
 #######################################################
 registerRGD.title = Register for the Gambling Tax System first
@@ -422,3 +431,40 @@ registeredForVATUk.p1 = You’ll have received a VAT registration number (VRN) f
 registeredForVATUk.Yes = Yes - the business is registered for VAT in the UK
 registeredForVATUk.No = No - the business isn’t VAT registered in the UK
 registeredForVATUk.error.required = Select yes or no
+
+#######################################################
+##  RegisterMGD
+#######################################################
+registerMGD.title = Register for Machine Games Duty
+registerMGD.heading = Register for Machine Games Duty
+registerMGD.continue = Continue - register for Machine Games Duty
+registerMGD.detail.1 =You need to register for Machine Games Duty before you can add it to your account.
+registerMGD.detail.2 =We’ll send you a registration number, which you can use to add Machine Games Duty to the account.
+
+#######################################################
+##  DoYouHaveMGDRegistration
+#######################################################
+doYouHaveMGDRegistration.title = Do you have a Machine Games Duty registration number?
+doYouHaveMGDRegistration.heading = Do you have a Machine Games Duty registration number?
+doYouHaveMGDRegistration.Yes = Yes - I have a Machine Games Duty registration number
+doYouHaveMGDRegistration.No = No - I haven’t registered yet
+doYouHaveMGDRegistration.error.required = Select yes or no
+
+#######################################################
+##  RegisterWarehousekeeper
+#######################################################
+registerWarehousekeeper.title = Register as an excise warehousekeeper first
+registerWarehousekeeper.heading = Register as an excise warehousekeeper first
+registerWarehousekeeper.p1 = You need to register as an excise warehousekeeper before you can add ATWD to your account.
+registerWarehousekeeper.p2 = We’ll send you a warehouse ID. Come back to your account and add ATWD when you get it.
+registerWarehousekeeper.continue = Continue - register as an excise warehousekeeper
+
+#######################################################
+##  AreYouRegisteredWarehousekeeper
+#######################################################
+areYouRegisteredWarehousekeeper.title = Are you a registered excise warehousekeeper?
+areYouRegisteredWarehousekeeper.heading = Are you a registered excise warehousekeeper?
+areYouRegisteredWarehousekeeper.p1 = We’ll have sent you a warehouse approval letter with a warehouse ID if you’re a registered excise warehousekeeper.
+areYouRegisteredWarehousekeeper.Yes = Yes - I have a warehouse ID
+areYouRegisteredWarehousekeeper.No = No - I’m not a registered warehousekeeper
+areYouRegisteredWarehousekeeper.error.required = Select yes or no

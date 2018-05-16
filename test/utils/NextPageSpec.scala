@@ -17,10 +17,13 @@
 package utils
 
 import base.SpecBase
+import identifiers.DoYouHaveMGDRegistrationId
 import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.OtherTaxes
 import models.employer.pension.WhichPensionSchemeToAdd
+import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
 import models.other.gambling.gbd.AreYouRegisteredGTS
+import models.other.gambling.mgd.DoYouHaveMGDRegistration
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.other.importexports.nes.DoYouHaveCHIEFRole
@@ -249,7 +252,7 @@ class NextPageSpec extends SpecBase {
     behave like nextPage(
       NextPage.doYouWantToAddImportExport,
       DoYouWantToAddImportExport.ISD,
-      "https://secure.hmce.gov.uk/ecom/is2/static/is2.html"
+      "http://localhost:8080/hmce/ecom/is2/static/is2.html"
     )
   }
 
@@ -281,6 +284,20 @@ class NextPageSpec extends SpecBase {
     )
   }
 
+  "gtsPBD" when {
+    behave like nextPage(
+      NextPage.pbdGTS,
+      AreYouRegisteredGTS.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-GTS-PBD/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.pbdGTS,
+      AreYouRegisteredGTS.No,
+      "/business-account/add-tax/other/gambling/pbd/register"
+    )
+  }
+
   "gtsRGD" when {
     behave like nextPage(
       NextPage.rgdGTS,
@@ -292,6 +309,20 @@ class NextPageSpec extends SpecBase {
       NextPage.rgdGTS,
       AreYouRegisteredGTS.No,
       "/business-account/add-tax/other/gambling/rgd/register"
+    )
+  }
+
+  "Maching Gaming Duty Registration" when {
+    behave like nextPage(
+      NextPage.doYouHaveMGDRegistration,
+      DoYouHaveMGDRegistration.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-MGD-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.doYouHaveMGDRegistration,
+      DoYouHaveMGDRegistration.No,
+      "/business-account/add-tax/other/gambling/mgd/register"
     )
   }
 
@@ -362,6 +393,20 @@ class NextPageSpec extends SpecBase {
       NextPage.onlineVATAccount,
       OnlineVATAccount.No,
       "/business-account/add-tax/vat/moss/uk/vat-registered/no-other-account"
+    )
+  }
+
+  "AreYouRegisteredWarehousekeeper" when {
+    behave like nextPage(
+      NextPage.areYouRegisteredWarehousekeeper,
+      AreYouRegisteredWarehousekeeper.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMCE-ATWD-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.areYouRegisteredWarehousekeeper,
+      AreYouRegisteredWarehousekeeper.No,
+      "/business-account/add-tax/other/alcohol/atwd/register"
     )
   }
 }

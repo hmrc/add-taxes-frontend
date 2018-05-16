@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package identifiers
+package views.other.gambling.pbd
 
-object AreYouRegisteredGTSId {
+import play.twirl.api.HtmlFormat
+import views.behaviours.ViewBehaviours
+import views.html.other.gambling.pbd.register.registerGTSFirst
 
-  case object GBD extends Identifier {
-    override def toString: String = "areYouRegisteredGTSGBD"
-  }
+class RegisterGTSFirstViewSpec extends ViewBehaviours {
 
-  case object PBD extends Identifier {
-    override def toString: String = "areYouRegisteredGTSPBD"
-  }
+  val messageKeyPrefix = "registerGTSFirst"
 
-  case object RGD extends Identifier {
-    override def toString: String = "areYouRegisteredGTSRGD"
+  def createView = () => registerGTSFirst(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+
+  "RegisterGTSFirst view" must {
+    behave like normalPage(createView, messageKeyPrefix)
   }
 }
