@@ -52,6 +52,17 @@ trait NextPage[A, B] {
 
 object NextPage {
 
+  implicit val doYouHaveCharityReference: NextPage[DoYouHaveCharityReferenceId.type,
+    models.other.charity.DoYouHaveCharityReference] = {
+    new NextPage[DoYouHaveCharityReferenceId.type, models.other.charity.DoYouHaveCharityReference] {
+      override def get(b: models.other.charity.DoYouHaveCharityReference)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
+        b match {
+          case models.other.charity.DoYouHaveCharityReference.Yes => Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.Charity))
+          case models.other.charity.DoYouHaveCharityReference.No => ???
+        }
+     }
+  }
+
   implicit val doYouHaveMGDRegistration: NextPage[DoYouHaveMGDRegistrationId.type,
     models.other.gambling.mgd.DoYouHaveMGDRegistration] = {
     new NextPage[DoYouHaveMGDRegistrationId.type, models.other.gambling.mgd.DoYouHaveMGDRegistration] {

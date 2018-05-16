@@ -400,3 +400,12 @@ areYouRegisteredWarehousekeeper.p1 = Byddwn wedi anfon llythyr yn cymeradwyo’r
 areYouRegisteredWarehousekeeper.Yes = Ydw - mae gennyf ID warws
 areYouRegisteredWarehousekeeper.No = Nac ydw - nid wyf yn geidwad warws cofrestredig
 areYouRegisteredWarehousekeeper.error.required = Dewis iawn neu na
+
+#######################################################
+##  DoYouHaveCharityReference
+#######################################################
+doYouHaveCharityReference.title = A oes gennych gyfeirnod Elusennau CThEM?
+doYouHaveCharityReference.heading = A oes gennych gyfeirnod Elusennau CThEM?
+doYouHaveCharityReference.Yes = Oes - mae gennym gyfeirnod Elusennau CThEM
+doYouHaveCharityReference.No = Nac oes - nid oes gennym gyfeirnod Elusennau CThEM ar hyn o bryd
+doYouHaveCharityReference.error.required = Dewis iawn neu na

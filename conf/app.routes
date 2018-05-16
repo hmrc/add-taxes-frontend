@@ -119,3 +119,6 @@ POST       /self-assessment/trust                       controllers.sa.trust.Hav
 
 
 
+
+GET        /other/charities                  controllers.other.charity.DoYouHaveCharityReferenceController.onPageLoad()
+POST       /other/charities                  controllers.other.charity.DoYouHaveCharityReferenceController.onSubmit()
