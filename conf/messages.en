@@ -420,5 +420,5 @@ registeredForVATUk.title = Is your business registered for VAT in the UK?
 registeredForVATUk.heading = Is your business registered for VAT in the UK?
 registeredForVATUk.p1 = You’ll have received a VAT registration number (VRN) from HMRC if you’re VAT registered in the UK
 registeredForVATUk.Yes = Yes - the business is registered for VAT in the UK
-registeredForVATUk.No = No - the business isn't VAT registered in the UK
+registeredForVATUk.No = No - the business isn’t VAT registered in the UK
 registeredForVATUk.error.required = Select yes or no
