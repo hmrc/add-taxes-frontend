@@ -400,3 +400,40 @@ areYouRegisteredWarehousekeeper.p1 = Byddwn wedi anfon llythyr yn cymeradwyo’r
 areYouRegisteredWarehousekeeper.Yes = Ydw - mae gennyf ID warws
 areYouRegisteredWarehousekeeper.No = Nac ydw - nid wyf yn geidwad warws cofrestredig
 areYouRegisteredWarehousekeeper.error.required = Dewis iawn neu na
+
+#######################################################
+##  UsePAYEEmployerAccount
+#######################################################
+usePAYEEmployerAccount.title = Defnyddio eich cyfrif TWE i gyflogwyr
+usePAYEEmployerAccount.heading = Defnyddio eich cyfrif TWE i gyflogwyr
+usePAYEEmployerAccount.continue = Mewngofnodi i’ch cyfrif TWE i gyflogwyr
+usePAYEEmployerAccount.addAccount = Rwyf eisiau ychwanegu CIS yn y cyfrif hwn
+usePAYEEmployerAccount.p1 = Dylech reoli CIS yn yr un cyfrif ag yr ydych yn rheoli TWE i gyflogwyr.
+
+#######################################################
+##  DoesBusinessManagePAYE
+#######################################################
+doesBusinessManagePAYE.title = A yw eich busnes yn rheoli TWE i gyflogwyr ar-lein?
+doesBusinessManagePAYE.heading = A yw eich busnes yn rheoli TWE i gyflogwyr ar-lein?
+doesBusinessManagePAYE.p1 = Bydd gennych gyfrif CThEM ar-lein fel yr un hwn, ond bydd yn defnyddio ID Defnyddiwr a chyfrinair gwahanol
+doesBusinessManagePAYE.Yes = Ydym - rydym yn rheoli TWE i gyflogwyr ar-lein
+doesBusinessManagePAYE.No = Nac ydym - nid ydym yn rheoli TWE i gyflogwyr ar-lein
+doesBusinessManagePAYE.error.required = Dewis iawn neu na
+
+#######################################################
+##  RegisterForPAYE
+#######################################################
+registerForPAYE.title = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
+registerForPAYE.heading = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
+registerForPAYE.p1 = Mae angen i chi fod wedi cofrestru ar gyfer TWE i gyflogwyr os ydych eisiau cofrestru ar gyfer CIS fel contractwr.
+registerForPAYE.continue = Cofrestru ar gyfer TWE i gyflogwyr
+registerForPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  IsBusinessRegisteredForPAYE
+#######################################################
+isBusinessRegisteredForPAYE.title = A yw eich busnes wedi'i gofrestru ar gyfer TWE i gyflogwyr?
+isBusinessRegisteredForPAYE.heading = A yw eich busnes wedi'i gofrestru ar gyfer TWE i gyflogwyr?
+isBusinessRegisteredForPAYE.Yes = Ydy - mae'r busnes wedi'i gofrestru ar gyfer TWE i gyflogwyr
+isBusinessRegisteredForPAYE.No = Nac ydy - nid yw'r busnes wedi'i gofrestru ar gyfer TWE i gyflogwyr
+isBusinessRegisteredForPAYE.error.required = Dewis iawn neu na
