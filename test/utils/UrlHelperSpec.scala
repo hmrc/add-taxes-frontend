@@ -82,5 +82,6 @@ class UrlHelperSpec extends SpecBase with MockitoSugar {
         new UrlHelper(frontendAppConfig).getPortalURL("novaEnrolment")(fakeRequestWithWelsh) mustBe "http://localhost:8080/portal/nova/normal?lang=cym"
       }
     }
+
   }
 }

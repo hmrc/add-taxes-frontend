@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package views.other.gambling.pbd.register
+package views.other.gambling.pbd
 
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
