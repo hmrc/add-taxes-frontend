@@ -37,7 +37,7 @@ class AddVATMOSSViewSpec extends ViewBehaviours {
         doc,
         "continue",
         "Sign in to your VAT account",
-        "http://localhost:9020/business-account/sso-sign-out",
+        "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fbusiness-account",
         "VatMossUkAddToOtherAccount:Click:SignIn"
       )
 
