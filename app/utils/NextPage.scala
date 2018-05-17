@@ -16,6 +16,7 @@
 
 package utils
 
+import controllers.other.alcohol.atwd.{routes => atwdRoutes}
 import controllers.other.oil.routes
 import controllers.other.alcohol.atwd.{routes => atwdRoutes}
 import controllers.other.gambling.gbd.{routes => gbdRoutes}
@@ -36,6 +37,7 @@ import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExpo
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.OtherTaxes
 import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
+import models.other.alcohol.awrs._
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.nes.DoYouHaveCHIEFRole
@@ -55,6 +57,17 @@ trait NextPage[A, B] {
 }
 
 object NextPage {
+
+  implicit val selectAlcoholScheme: NextPage[SelectAlcoholSchemeId.type,
+    models.other.alcohol.awrs.SelectAlcoholScheme] = {
+    new NextPage[SelectAlcoholSchemeId.type, models.other.alcohol.awrs.SelectAlcoholScheme] {
+      override def get(b: models.other.alcohol.awrs.SelectAlcoholScheme)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
+        b match {
+          case SelectAlcoholScheme.ATWD => atwdRoutes.AreYouRegisteredWarehousekeeperController.onPageLoad()
+          case SelectAlcoholScheme.AWRS => Call(GET, urlHelper.businessTaxAccountLink("awrs"))
+        }
+     }
+  }
 
   implicit val doYouHaveMGDRegistration: NextPage[DoYouHaveMGDRegistrationId.type,
     models.other.gambling.mgd.DoYouHaveMGDRegistration] = {

@@ -461,3 +461,12 @@ selectSACategory.Sa = Unigolyn neu unig fasnachwr
 selectSACategory.Partnership = Partneriaeth
 selectSACategory.Trust = Ymddiriedolaeth
 selectSACategory.error.required = Dewis categori
+
+#######################################################
+##  SelectAlcoholScheme
+#######################################################
+selectAlcoholScheme.title = Dewis cynllun alcohol
+selectAlcoholScheme.heading = Dewis cynllun alcohol
+selectAlcoholScheme.atwd = Datganiadau Warysu Alcohol a Thybaco (ATWD)
+selectAlcoholScheme.awrs = Cynllun Cofrestru Cyfanwerthwyr Alcohol (AWRS)
+selectAlcoholScheme.error.required = Dewis cynllun

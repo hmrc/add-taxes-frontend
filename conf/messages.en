@@ -478,3 +478,12 @@ selectSACategory.Sa = Individual or sole trader
 selectSACategory.Partnership = Partnership
 selectSACategory.Trust = Trust
 selectSACategory.error.required = Select a category
+
+#######################################################
+##  SelectAlcoholScheme
+#######################################################
+selectAlcoholScheme.title = Select an alcohol scheme
+selectAlcoholScheme.heading = Select an alcohol scheme
+selectAlcoholScheme.atwd = Alcohol & Tobacco Warehousing Declarations (ATWD)
+selectAlcoholScheme.awrs = Alcohol Wholesaler Registration Scheme (AWRS)
+selectAlcoholScheme.error.required = Select a scheme

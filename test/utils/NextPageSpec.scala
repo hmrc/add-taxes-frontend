@@ -22,6 +22,7 @@ import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExpo
 import models.OtherTaxes
 import models.employer.pension.WhichPensionSchemeToAdd
 import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
+import models.other.alcohol.awrs.SelectAlcoholScheme
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.gambling.mgd.DoYouHaveMGDRegistration
 import models.other.importexports.dan.DoYouHaveDAN
@@ -429,6 +430,20 @@ class NextPageSpec extends SpecBase {
       NextPage.selectSACategory,
       SelectSACategory.Trust,
       "/business-account/add-tax/self-assessment/trust"
+    )
+  }
+
+  "Select an Alcohol Scheme" when {
+    behave like nextPage(
+      NextPage.selectAlcoholScheme,
+      SelectAlcoholScheme.ATWD,
+      "/business-account/add-tax/other/alcohol/atwd"
+    )
+
+    behave like nextPage(
+      NextPage.selectAlcoholScheme,
+      SelectAlcoholScheme.AWRS,
+      "http://localhost:9020/business-customer/business-verification/awrs"
     )
   }
 }
