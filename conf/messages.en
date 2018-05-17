@@ -468,3 +468,13 @@ areYouRegisteredWarehousekeeper.p1 = We’ll have sent you a warehouse approval 
 areYouRegisteredWarehousekeeper.Yes = Yes - I have a warehouse ID
 areYouRegisteredWarehousekeeper.No = No - I’m not a registered warehousekeeper
 areYouRegisteredWarehousekeeper.error.required = Select yes or no
+
+#######################################################
+##  SelectSACategory
+#######################################################
+selectSACategory.title = Select a Self Assessment category
+selectSACategory.heading = Select a Self Assessment category
+selectSACategory.Sa = Individual or sole trader
+selectSACategory.Partnership = Partnership
+selectSACategory.Trust = Trust
+selectSACategory.error.required = Select a category
