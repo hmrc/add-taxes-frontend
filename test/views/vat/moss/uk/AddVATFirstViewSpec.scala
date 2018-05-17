@@ -35,8 +35,6 @@ class AddVATFirstViewSpec extends ViewBehaviours with MockitoSugar with BeforeAn
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
-//      when(frontendAppConfig.emacEnrollmentsUrl(Enrolments.VAT))
-//        .thenReturn("http://localhost:9555/enrolment-management-frontend/HMCE-VATDEC-ORG/request-access-tax-scheme?continue=%2Fbusiness-account")
 
       val doc =  asDocument(createView())
       val view = doc.text()
