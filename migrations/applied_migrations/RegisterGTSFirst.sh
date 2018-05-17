@@ -4,7 +4,7 @@ echo "Applying migration RegisterGTSFirst"
 
 echo "Adding routes to conf/app.routes"
 echo "" >> ../conf/app.routes
-echo "GET        /other/gambling/pbd/register                       controllers.other.gambling.pbd.register.RegisterGTSFirstController.onPageLoad()" >> ../conf/app.routes
+echo "GET        /other/gambling/pbd/register                       controllers.other.gambling.pbd.RegisterGTSFirstController.onPageLoad()" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages (English)"
 echo "" >> ../conf/messages.en

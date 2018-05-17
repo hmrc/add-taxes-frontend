@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package views.other.gambling.pbd.register
+package forms.vat.moss.uk
 
-import play.twirl.api.HtmlFormat
-import views.behaviours.ViewBehaviours
-import views.html.other.gambling.pbd.register.registerGTSFirst
+import javax.inject.Inject
 
-class RegisterGTSFirstViewSpec extends ViewBehaviours {
+import forms.FormErrorHelper
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.vat.moss.uk.RegisteredForVATUk
 
-  val messageKeyPrefix = "registerGTSFirst"
+class RegisteredForVATUkFormProvider @Inject() extends FormErrorHelper with Mappings {
 
-  def createView = () => registerGTSFirst(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
-
-  "RegisterGTSFirst view" must {
-    behave like normalPage(createView, messageKeyPrefix)
-  }
+  def apply(): Form[RegisteredForVATUk] =
+    Form(
+      "value" -> enumerable[RegisteredForVATUk]("registeredForVATUk.error.required")
+    )
 }

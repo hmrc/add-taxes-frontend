@@ -17,18 +17,23 @@
 package utils
 
 import base.SpecBase
+import identifiers.DoYouHaveMGDRegistrationId
 import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.OtherTaxes
 import models.employer.pension.WhichPensionSchemeToAdd
 import models.other.aeoi.HaveYouRegisteredAEOI
+import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
 import models.other.gambling.gbd.AreYouRegisteredGTS
+import models.other.gambling.mgd.DoYouHaveMGDRegistration
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.other.importexports.nes.DoYouHaveCHIEFRole
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
+import models.sa.SelectSACategory
 import models.sa.trust.HaveYouRegisteredTrust
 import models.sa.partnership.{DoYouWantToAddPartner, HaveYouRegisteredPartnership}
+import models.vat.moss.uk.{OnlineVATAccount, RegisteredForVATUk}
 import models.wrongcredentials.FindingYourAccount
 
 
@@ -280,7 +285,7 @@ class NextPageSpec extends SpecBase {
     )
   }
 
-  "AreYouRegisteredForGTSPBD" when {
+  "gtsPBD" when {
     behave like nextPage(
       NextPage.pbdGTS,
       AreYouRegisteredGTS.Yes,
@@ -305,6 +310,20 @@ class NextPageSpec extends SpecBase {
       NextPage.rgdGTS,
       AreYouRegisteredGTS.No,
       "/business-account/add-tax/other/gambling/rgd/register"
+    )
+  }
+
+  "Maching Gaming Duty Registration" when {
+    behave like nextPage(
+      NextPage.doYouHaveMGDRegistration,
+      DoYouHaveMGDRegistration.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-MGD-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.doYouHaveMGDRegistration,
+      DoYouHaveMGDRegistration.No,
+      "/business-account/add-tax/other/gambling/mgd/register"
     )
   }
 
@@ -361,6 +380,69 @@ class NextPageSpec extends SpecBase {
       NextPage.haveYouRegisteredAEOI,
       HaveYouRegisteredAEOI.No,
       "/business-account/add-tax/other/aeoi/register"
+    )
+  }
+
+  "VAT MOSS UK" when {
+    behave like nextPage(
+      NextPage.registeredForVATUk,
+      RegisteredForVATUk.No,
+      "/business-account/add-tax/vat/moss/uk/not-vat-registered"
+    )
+
+    behave like nextPage(
+      NextPage.registeredForVATUk,
+      RegisteredForVATUk.Yes,
+      "/business-account/add-tax/vat/moss/uk/vat-registered"
+    )
+  }
+
+  "VAT MOSS UK online VAT Account" when {
+    behave like nextPage(
+      NextPage.onlineVATAccount,
+      OnlineVATAccount.Yes,
+      "/business-account/add-tax/vat/moss/uk/vat-registered/other-account"
+    )
+
+    behave like nextPage(
+      NextPage.onlineVATAccount,
+      OnlineVATAccount.No,
+      "/business-account/add-tax/vat/moss/uk/vat-registered/no-other-account"
+    )
+  }
+
+  "AreYouRegisteredWarehousekeeper" when {
+    behave like nextPage(
+      NextPage.areYouRegisteredWarehousekeeper,
+      AreYouRegisteredWarehousekeeper.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMCE-ATWD-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.areYouRegisteredWarehousekeeper,
+      AreYouRegisteredWarehousekeeper.No,
+      "/business-account/add-tax/other/alcohol/atwd/register"
+    )
+  }
+
+
+  "Self Assessment" when {
+    behave like nextPage(
+      NextPage.selectSACategory,
+      SelectSACategory.Sa,
+      "http://localhost:8080/portal/business-registration/introduction?lang=eng"
+    )
+
+    behave like nextPage(
+      NextPage.selectSACategory,
+      SelectSACategory.Partnership,
+      "/business-account/add-tax/self-assessment/partnership"
+    )
+
+    behave like nextPage(
+      NextPage.selectSACategory,
+      SelectSACategory.Trust,
+      "/business-account/add-tax/self-assessment/trust"
     )
   }
 }

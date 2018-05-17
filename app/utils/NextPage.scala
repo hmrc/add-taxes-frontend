@@ -17,33 +17,38 @@
 package utils
 
 import config.FrontendAppConfig
-import controllers.other.oil.routes
-import controllers.other.gambling.rgd.{routes => rgdRoutes}
-import controllers.other.gambling.gbd.{routes => gbdRoutes}
-import controllers.other.gambling.pbd.register.{routes => pbdRoutes}
 import controllers.other.aeoi.{routes => aeoiRoutes}
+import controllers.other.alcohol.atwd.{routes => atwdRoutes}
+import controllers.other.gambling.gbd.{routes => gbdRoutes}
+import controllers.other.gambling.mgd.{routes => mgdRoutes}
+import controllers.other.gambling.pbd.{routes => pbdRoutes}
+import controllers.other.gambling.rgd.{routes => rgdRoutes}
 import controllers.other.importexports.dan.{routes => danRoutes}
 import controllers.other.importexports.ebti.{routes => ebtiRoutes}
 import controllers.other.importexports.emcs.{routes => emcsRoutes}
 import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
-import controllers.sa.trust.{routes => trustRoutes}
+import controllers.other.oil.routes
 import controllers.sa.partnership.{routes => saPartnerRoutes}
+import controllers.sa.trust.{routes => trustRoutes}
+import controllers.vat.moss.uk.{routes => vatMossUkRoutes}
 import identifiers._
-import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
-import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.OtherTaxes
+import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.importexports.dan.DoYouHaveDAN
+import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.other.importexports.nes.DoYouHaveCHIEFRole
+import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils, SelectAnOilService}
+import models.sa.SelectSACategory
 import models.sa.partnership.DoYouWantToAddPartner
 import models.sa.trust.HaveYouRegisteredTrust
+import models.vat.moss.uk.{OnlineVATAccount, RegisteredForVATUk}
 import models.wrongcredentials.FindingYourAccount
-import play.api.mvc.Call
-import play.api.mvc.Request
+import play.api.mvc.{Call, Request}
 
 trait NextPage[A, B] {
   def get(b: B)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call
@@ -58,6 +63,62 @@ object NextPage {
         b match {
           case models.other.aeoi.HaveYouRegisteredAEOI.Yes => Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.AutomaticExchangeOfInformation))
           case models.other.aeoi.HaveYouRegisteredAEOI.No => aeoiRoutes.RegisterAEOIController.onPageLoad()
+        }
+    }
+  }
+
+
+  implicit val doYouHaveMGDRegistration: NextPage[DoYouHaveMGDRegistrationId.type,
+    models.other.gambling.mgd.DoYouHaveMGDRegistration] = {
+    new NextPage[DoYouHaveMGDRegistrationId.type, models.other.gambling.mgd.DoYouHaveMGDRegistration] {
+      override def get(b: models.other.gambling.mgd.DoYouHaveMGDRegistration)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+        b match {
+          case models.other.gambling.mgd.DoYouHaveMGDRegistration.Yes => Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.MachineGamingDuty))
+          case models.other.gambling.mgd.DoYouHaveMGDRegistration.No => mgdRoutes.RegisterMGDController.onPageLoad()
+        }
+    }
+  }
+
+  implicit val areYouRegisteredWarehousekeeper: NextPage[AreYouRegisteredWarehousekeeperId.type, AreYouRegisteredWarehousekeeper] = {
+    new NextPage[AreYouRegisteredWarehousekeeperId.type, AreYouRegisteredWarehousekeeper] {
+      override def get(b: AreYouRegisteredWarehousekeeper)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+        b match {
+          case AreYouRegisteredWarehousekeeper.Yes =>
+            Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.AlcoholAndTobaccoWarehousingDeclarations))
+
+          case AreYouRegisteredWarehousekeeper.No => atwdRoutes.RegisterWarehousekeeperController.onPageLoad()
+        }
+    }
+  }
+
+  implicit val registeredForVATUk: NextPage[RegisteredForVATUkId.type, models.vat.moss.uk.RegisteredForVATUk] = {
+    new NextPage[RegisteredForVATUkId.type, models.vat.moss.uk.RegisteredForVATUk] {
+      override def get(b: models.vat.moss.uk.RegisteredForVATUk)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+        b match {
+          case RegisteredForVATUk.Yes => vatMossUkRoutes.OnlineVATAccountController.onPageLoad()
+          case RegisteredForVATUk.No => vatMossUkRoutes.RegisterForVATController.onPageLoad()
+        }
+     }
+  }
+
+  implicit val onlineVATAccount: NextPage[OnlineVATAccountId.type, models.vat.moss.uk.OnlineVATAccount] = {
+    new NextPage[OnlineVATAccountId.type, models.vat.moss.uk.OnlineVATAccount] {
+      override def get(b: models.vat.moss.uk.OnlineVATAccount)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+        b match {
+          case OnlineVATAccount.Yes => vatMossUkRoutes.AddVATMOSSController.onPageLoad()
+          case OnlineVATAccount.No => vatMossUkRoutes.AddVATFirstController.onPageLoad()
+        }
+     }
+  }
+
+  implicit val selectSACategory: NextPage[SelectSACategoryId.type,
+    models.sa.SelectSACategory] = {
+    new NextPage[SelectSACategoryId.type, models.sa.SelectSACategory] {
+      override def get(b: models.sa.SelectSACategory)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+        b match {
+          case SelectSACategory.Sa => Call(GET, appConfig.getPortalUrl("selfAssessmnt"))
+          case SelectSACategory.Partnership => saPartnerRoutes.DoYouWantToAddPartnerController.onPageLoad()
+          case SelectSACategory.Trust => trustRoutes.HaveYouRegisteredTrustController.onPageLoad()
         }
      }
   }

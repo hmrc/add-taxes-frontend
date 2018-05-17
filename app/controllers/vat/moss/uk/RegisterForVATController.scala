@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.other.gambling.pbd.register
+package controllers.vat.moss.uk
 
 import javax.inject.Inject
 
@@ -22,17 +22,19 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
-import views.html.other.gambling.pbd.register.registerGTSFirst
+import views.html.vat.moss.uk.registerForVAT
 
 import scala.concurrent.Future
 
-class RegisterGTSFirstController @Inject()(appConfig: FrontendAppConfig,
-                                          override val messagesApi: MessagesApi,
-                                          authenticate: AuthAction,
-                                          serviceInfo: ServiceInfoAction ) extends FrontendController with I18nSupport {
+class RegisterForVATController @Inject()(
+  appConfig: FrontendAppConfig,
+  override val messagesApi: MessagesApi,
+  authenticate: AuthAction,
+  serviceInfo: ServiceInfoAction
+) extends FrontendController with I18nSupport {
 
   def onPageLoad = (authenticate andThen serviceInfo) {
     implicit request =>
-      Ok(registerGTSFirst(appConfig)(request.serviceInfoContent))
+      Ok(registerForVAT(appConfig)(request.serviceInfoContent))
   }
 }

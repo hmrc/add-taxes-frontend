@@ -18,6 +18,7 @@ package controllers.other.gambling.pbd.register
 
 import controllers._
 import controllers.actions._
+import controllers.other.gambling.pbd.RegisterGTSFirstController
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import views.html.other.gambling.pbd.register.registerGTSFirst

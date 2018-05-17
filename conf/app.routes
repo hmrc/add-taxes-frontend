@@ -67,8 +67,8 @@ POST       /other/import-export/nes                     controllers.other.import
 
 GET        /other/import-export/nes/has-eori/register-chief     controllers.other.importexports.nes.GetCHIEFRoleController.onPageLoad()
 
-GET        /other/import-export/nes/no-eori             controllers.other.importexports.nes.DoYouHaveCHIEFRoleNoEORIController.onPageLoad()
-POST       /other/import-export/nes/no-eori             controllers.other.importexports.nes.DoYouHaveCHIEFRoleNoEORIController.onSubmit()
+GET        /other/import-export/nes/no-eori                     controllers.other.importexports.nes.DoYouHaveCHIEFRoleNoEORIController.onPageLoad()
+POST       /other/import-export/nes/no-eori                     controllers.other.importexports.nes.DoYouHaveCHIEFRoleNoEORIController.onSubmit()
 
 GET        /other/import-export/nes/no-eori/register-eori       controllers.other.importexports.nes.RegisterEORIController.onPageLoad()
 
@@ -84,12 +84,22 @@ GET        /other/gambling/gbd/register                 controllers.other.gambli
 GET        /other/gambling/gbd                          controllers.other.gambling.gbd.AreYouRegisteredGTSController.onPageLoad()
 POST       /other/gambling/gbd                          controllers.other.gambling.gbd.AreYouRegisteredGTSController.onSubmit()
 
-GET        /other/gambling/pbd/register                 controllers.other.gambling.pbd.register.RegisterGTSFirstController.onPageLoad()
+GET        /other/gambling/pbd/register                 controllers.other.gambling.pbd.RegisterGTSFirstController.onPageLoad()
 
 GET        /other/gambling/pbd                          controllers.other.gambling.pbd.AreYouRegisteredGTSController.onPageLoad()
 POST       /other/gambling/pbd                          controllers.other.gambling.pbd.AreYouRegisteredGTSController.onSubmit()
 
 GET        /other/gambling/rgd/register                 controllers.other.gambling.rgd.RegisterRGDController.onPageLoad()
+
+GET        /other/gambling/mgd/register                 controllers.other.gambling.mgd.RegisterMGDController.onPageLoad()
+
+GET        /other/gambling/mgd                          controllers.other.gambling.mgd.DoYouHaveMGDRegistrationController.onPageLoad()
+POST       /other/gambling/mgd                          controllers.other.gambling.mgd.DoYouHaveMGDRegistrationController.onSubmit()
+
+GET        /other/alcohol/atwd/register                 controllers.other.alcohol.atwd.RegisterWarehousekeeperController.onPageLoad()
+
+GET        /other/alcohol/atwd                          controllers.other.alcohol.atwd.AreYouRegisteredWarehousekeeperController.onPageLoad()
+POST       /other/alcohol/atwd                          controllers.other.alcohol.atwd.AreYouRegisteredWarehousekeeperController.onSubmit()
 
 GET        /other/gambling/rgd                          controllers.other.gambling.rgd.AreYouRegisteredGTSController.onPageLoad()
 POST       /other/gambling/rgd                          controllers.other.gambling.rgd.AreYouRegisteredGTSController.onSubmit()
@@ -109,3 +119,18 @@ GET        /other/aeoi/register                         controllers.other.aeoi.R
 
 GET        /other/aeoi                                  controllers.other.aeoi.HaveYouRegisteredAEOIController.onPageLoad()
 POST       /other/aeoi                                  controllers.other.aeoi.HaveYouRegisteredAEOIController.onSubmit()
+
+GET        /self-assessment                             controllers.sa.SelectSACategoryController.onPageLoad()
+POST       /self-assessment                             controllers.sa.SelectSACategoryController.onSubmit()
+
+GET        /vat/moss/uk                                 controllers.vat.moss.uk.RegisteredForVATUkController.onPageLoad()
+POST       /vat/moss/uk                                 controllers.vat.moss.uk.RegisteredForVATUkController.onSubmit()
+
+GET        /vat/moss/uk/vat-registered                  controllers.vat.moss.uk.OnlineVATAccountController.onPageLoad()
+POST       /vat/moss/uk/vat-registered                  controllers.vat.moss.uk.OnlineVATAccountController.onSubmit()
+
+GET        /vat/moss/uk/not-vat-registered              controllers.vat.moss.uk.RegisterForVATController.onPageLoad()
+
+GET        /vat/moss/uk/vat-registered/other-account    controllers.vat.moss.uk.AddVATMOSSController.onPageLoad()
+
+GET        /vat/moss/uk/vat-registered/no-other-account  controllers.vat.moss.uk.AddVATFirstController.onPageLoad()

@@ -398,3 +398,100 @@ haveYouRegisteredAEOI.Yes = Yes - I have an ID
 haveYouRegisteredAEOI.No = No - I haven’t registered yet
 haveYouRegisteredAEOI.error.required = Select yes or no
 haveYouRegisteredAEOI.p1 = We’ll have sent you an Automatic Exchange of Information ID
+
+#######################################################
+##  AddVATMOSS
+#######################################################
+addVATMOSS.title = Add VAT MOSS to your VAT account
+addVATMOSS.heading = Add VAT MOSS to your VAT account
+addVATMOSS.p1 = You need to manage VAT MOSS in the account where you manage VAT.
+addVATMOSS.p2 = Sign in to your VAT account and add VAT MOSS there.
+addVATMOSS.p3 = If that doesn’t work, call us and we’ll do it for you manually.
+addVATMOSS.continue = Sign in to your VAT account
+addVATMOSS.notnow = I don’t want to do this right now
+
+#######################################################
+##  AddVATFirst
+#######################################################
+addVATFirst.title = Add VAT first
+addVATFirst.heading = Add VAT first
+addVATFirst.p1 = You need to manage VAT online before you can add VAT MOSS to your account.
+addVATFirst.continue = Add VAT to this account
+addVATFirst.notnow = I don’t want to do this right now
+
+#######################################################
+##  RegisterForVAT
+#######################################################
+registerForVAT.title = Register for VAT - Business tax account - GOV.UK
+registerForVAT.heading = Register for VAT
+registerForVAT.p1 = You must be VAT registered before you can register for VAT MOSS.
+registerForVAT.p2 = Come back to this account and add VAT MOSS once you’ve received a VAT registration number (VRN).
+registerForVAT.continue = Register for VAT
+registerForVAT.notnow = I don’t want to do this right now
+
+#######################################################
+##  OnlineVATAccount
+#######################################################
+onlineVATAccount.title = Does your business have another online HMRC account for VAT?
+onlineVATAccount.heading = Does your business have another online HMRC account for VAT?
+onlineVATAccount.p1 = You’ll have a separate User ID and password if you have another account for VAT
+onlineVATAccount.Yes = Yes - there’s another online account for VAT
+onlineVATAccount.No = No - there isn’t another online account for VAT
+onlineVATAccount.error.required = Select yes or no
+
+#######################################################
+##  RegisteredForVATUk
+#######################################################
+registeredForVATUk.title = Is your business registered for VAT in the UK?
+registeredForVATUk.heading = Is your business registered for VAT in the UK?
+registeredForVATUk.p1 = You’ll have received a VAT registration number (VRN) from HMRC if you’re VAT registered in the UK
+registeredForVATUk.Yes = Yes - the business is registered for VAT in the UK
+registeredForVATUk.No = No - the business isn’t VAT registered in the UK
+registeredForVATUk.error.required = Select yes or no
+
+#######################################################
+##  RegisterMGD
+#######################################################
+registerMGD.title = Register for Machine Games Duty
+registerMGD.heading = Register for Machine Games Duty
+registerMGD.continue = Continue - register for Machine Games Duty
+registerMGD.detail.1 =You need to register for Machine Games Duty before you can add it to your account.
+registerMGD.detail.2 =We’ll send you a registration number, which you can use to add Machine Games Duty to the account.
+
+#######################################################
+##  DoYouHaveMGDRegistration
+#######################################################
+doYouHaveMGDRegistration.title = Do you have a Machine Games Duty registration number?
+doYouHaveMGDRegistration.heading = Do you have a Machine Games Duty registration number?
+doYouHaveMGDRegistration.Yes = Yes - I have a Machine Games Duty registration number
+doYouHaveMGDRegistration.No = No - I haven’t registered yet
+doYouHaveMGDRegistration.error.required = Select yes or no
+
+#######################################################
+##  RegisterWarehousekeeper
+#######################################################
+registerWarehousekeeper.title = Register as an excise warehousekeeper first
+registerWarehousekeeper.heading = Register as an excise warehousekeeper first
+registerWarehousekeeper.p1 = You need to register as an excise warehousekeeper before you can add ATWD to your account.
+registerWarehousekeeper.p2 = We’ll send you a warehouse ID. Come back to your account and add ATWD when you get it.
+registerWarehousekeeper.continue = Continue - register as an excise warehousekeeper
+
+#######################################################
+##  AreYouRegisteredWarehousekeeper
+#######################################################
+areYouRegisteredWarehousekeeper.title = Are you a registered excise warehousekeeper?
+areYouRegisteredWarehousekeeper.heading = Are you a registered excise warehousekeeper?
+areYouRegisteredWarehousekeeper.p1 = We’ll have sent you a warehouse approval letter with a warehouse ID if you’re a registered excise warehousekeeper.
+areYouRegisteredWarehousekeeper.Yes = Yes - I have a warehouse ID
+areYouRegisteredWarehousekeeper.No = No - I’m not a registered warehousekeeper
+areYouRegisteredWarehousekeeper.error.required = Select yes or no
+
+#######################################################
+##  SelectSACategory
+#######################################################
+selectSACategory.title = Select a Self Assessment category
+selectSACategory.heading = Select a Self Assessment category
+selectSACategory.Sa = Individual or sole trader
+selectSACategory.Partnership = Partnership
+selectSACategory.Trust = Trust
+selectSACategory.error.required = Select a category
