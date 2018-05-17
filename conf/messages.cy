@@ -402,6 +402,16 @@ areYouRegisteredWarehousekeeper.No = Nac ydw - nid wyf yn geidwad warws cofrestr
 areYouRegisteredWarehousekeeper.error.required = Dewis iawn neu na
 
 #######################################################
+##  SelectSACategory
+#######################################################
+selectSACategory.title = Dewiswch gategori Hunanasesiad
+selectSACategory.heading = Dewiswch gategori Hunanasesiad
+selectSACategory.Sa = Unigolyn neu unig fasnachwr
+selectSACategory.Partnership = Partneriaeth
+selectSACategory.Trust = Ymddiriedolaeth
+selectSACategory.error.required = Dewis categori
+
+#######################################################
 ##  UsePAYEEmployerAccount
 #######################################################
 usePAYEEmployerAccount.title = Defnyddio eich cyfrif TWE i gyflogwyr

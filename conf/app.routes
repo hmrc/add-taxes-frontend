@@ -115,6 +115,8 @@ GET        /self-assessment/trust/not-registered        controllers.sa.trust.Reg
 GET        /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onPageLoad()
 POST       /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onSubmit()
 
+GET        /self-assessment                             controllers.sa.SelectSACategoryController.onPageLoad()
+POST       /self-assessment                             controllers.sa.SelectSACategoryController.onSubmit()
 
 GET        /employer/cis/uk/contractor/epaye/other-account    controllers.employer.cis.uk.contractor.UsePAYEEmployerAccountController.onPageLoad()
 
