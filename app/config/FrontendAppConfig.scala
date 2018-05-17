@@ -82,7 +82,7 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   def getPublishedAssetsUrl(key: String): String = publishedAssets + loadConfig(s"urls.external.assets.$key")
 
   def emacEnrollmentsUrl(enrolment: Enrolments): String = {
-    s"$enrolmentManagementFrontendHost/enrolment-management-frontend/${enrolment.toString}/request-access-tax-scheme?continue=%2Fbusiness-account"
+    s"$enrolmentManagementFrontendHost/enrolment-management-frontend/$enrolment/request-access-tax-scheme?continue=%2Fbusiness-account"
   }
 
   def governmentGatewayLostCredentialsUrl(forgottenOption: ForgottenOptions): String = {
