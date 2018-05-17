@@ -400,3 +400,13 @@ areYouRegisteredWarehousekeeper.p1 = Byddwn wedi anfon llythyr yn cymeradwyo’r
 areYouRegisteredWarehousekeeper.Yes = Ydw - mae gennyf ID warws
 areYouRegisteredWarehousekeeper.No = Nac ydw - nid wyf yn geidwad warws cofrestredig
 areYouRegisteredWarehousekeeper.error.required = Dewis iawn neu na
+
+#######################################################
+##  SelectSACategory
+#######################################################
+selectSACategory.title = Dewiswch gategori Hunanasesiad
+selectSACategory.heading = Dewiswch gategori Hunanasesiad
+selectSACategory.Sa = Unigolyn neu unig fasnachwr
+selectSACategory.Partnership = Partneriaeth
+selectSACategory.Trust = Ymddiriedolaeth
+selectSACategory.error.required = Dewis categori

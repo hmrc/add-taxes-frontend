@@ -29,6 +29,7 @@ import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.other.importexports.nes.DoYouHaveCHIEFRole
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
+import models.sa.SelectSACategory
 import models.sa.trust.HaveYouRegisteredTrust
 import models.sa.partnership.{DoYouWantToAddPartner, HaveYouRegisteredPartnership}
 import models.wrongcredentials.FindingYourAccount
@@ -378,6 +379,27 @@ class NextPageSpec extends SpecBase {
       NextPage.areYouRegisteredWarehousekeeper,
       AreYouRegisteredWarehousekeeper.No,
       "/business-account/add-tax/other/alcohol/atwd/register"
+    )
+  }
+
+
+  "Self Assessment" when {
+    behave like nextPage(
+      NextPage.selectSACategory,
+      SelectSACategory.Sa,
+      "http://localhost:8080/portal/business-registration/introduction?lang=eng"
+    )
+
+    behave like nextPage(
+      NextPage.selectSACategory,
+      SelectSACategory.Partnership,
+      "/business-account/add-tax/self-assessment/partnership"
+    )
+
+    behave like nextPage(
+      NextPage.selectSACategory,
+      SelectSACategory.Trust,
+      "/business-account/add-tax/self-assessment/trust"
     )
   }
 }
