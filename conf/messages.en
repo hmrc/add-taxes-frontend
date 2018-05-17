@@ -381,6 +381,57 @@ doYouWantToAddPartner.Yes = Yes - I want to add a partner to an existing partner
 doYouWantToAddPartner.No = No - I want to do something else
 doYouWantToAddPartner.error.required = Select yes or no
 
+
+#######################################################
+##  AddVATMOSS
+#######################################################
+addVATMOSS.title = Add VAT MOSS to your VAT account
+addVATMOSS.heading = Add VAT MOSS to your VAT account
+addVATMOSS.p1 = You need to manage VAT MOSS in the account where you manage VAT.
+addVATMOSS.p2 = Sign in to your VAT account and add VAT MOSS there.
+addVATMOSS.p3 = If that doesn’t work, call us and we’ll do it for you manually.
+addVATMOSS.continue = Sign in to your VAT account
+addVATMOSS.notnow = I don’t want to do this right now
+
+#######################################################
+##  AddVATFirst
+#######################################################
+addVATFirst.title = Add VAT first
+addVATFirst.heading = Add VAT first
+addVATFirst.p1 = You need to manage VAT online before you can add VAT MOSS to your account.
+addVATFirst.continue = Add VAT to this account
+addVATFirst.notnow = I don’t want to do this right now
+
+#######################################################
+##  RegisterForVAT
+#######################################################
+registerForVAT.title = Register for VAT - Business tax account - GOV.UK
+registerForVAT.heading = Register for VAT
+registerForVAT.p1 = You must be VAT registered before you can register for VAT MOSS.
+registerForVAT.p2 = Come back to this account and add VAT MOSS once you’ve received a VAT registration number (VRN).
+registerForVAT.continue = Register for VAT
+registerForVAT.notnow = I don’t want to do this right now
+
+#######################################################
+##  OnlineVATAccount
+#######################################################
+onlineVATAccount.title = Does your business have another online HMRC account for VAT?
+onlineVATAccount.heading = Does your business have another online HMRC account for VAT?
+onlineVATAccount.p1 = You’ll have a separate User ID and password if you have another account for VAT
+onlineVATAccount.Yes = Yes - there’s another online account for VAT
+onlineVATAccount.No = No - there isn’t another online account for VAT
+onlineVATAccount.error.required = Select yes or no
+
+#######################################################
+##  RegisteredForVATUk
+#######################################################
+registeredForVATUk.title = Is your business registered for VAT in the UK?
+registeredForVATUk.heading = Is your business registered for VAT in the UK?
+registeredForVATUk.p1 = You’ll have received a VAT registration number (VRN) from HMRC if you’re VAT registered in the UK
+registeredForVATUk.Yes = Yes - the business is registered for VAT in the UK
+registeredForVATUk.No = No - the business isn’t VAT registered in the UK
+registeredForVATUk.error.required = Select yes or no
+
 #######################################################
 ##  RegisterMGD
 #######################################################
@@ -417,6 +468,16 @@ areYouRegisteredWarehousekeeper.p1 = We’ll have sent you a warehouse approval 
 areYouRegisteredWarehousekeeper.Yes = Yes - I have a warehouse ID
 areYouRegisteredWarehousekeeper.No = No - I’m not a registered warehousekeeper
 areYouRegisteredWarehousekeeper.error.required = Select yes or no
+
+#######################################################
+##  SelectSACategory
+#######################################################
+selectSACategory.title = Select a Self Assessment category
+selectSACategory.heading = Select a Self Assessment category
+selectSACategory.Sa = Individual or sole trader
+selectSACategory.Partnership = Partnership
+selectSACategory.Trust = Trust
+selectSACategory.error.required = Select a category
 
 #######################################################
 ##  DoYouHaveCharityReference

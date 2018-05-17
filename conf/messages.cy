@@ -365,6 +365,57 @@ doYouWantToAddPartner.No = Nac ydw - rwyf eisiau gwneud rhywbeth arall
 doYouWantToAddPartner.error.required = Dewis iawn neu na
 
 #######################################################
+##  AddVATMOSS
+#######################################################
+addVATMOSS.title = Ychwanegu GUC TAW i’ch cyfrif TAW
+addVATMOSS.heading = Ychwanegu GUC TAW i'ch cyfrif TAW
+addVATMOSS.p1 = Mae angen i chi reoli GUC TAW yn y cyfrif lle’r ydych yn rheoli TAW.
+addVATMOSS.p2 = Mewngofnodwch i’ch cyfrif TAW ac ychwanegwch GUC TAW yn y fan honno.
+addVATMOSS.p3 = Os nad yw hynny’n gweithio, ffoniwch ni a byddwn yn ei wneud i chi â llaw.
+addVATMOSS.continue = Mewngofnodi i’ch cyfrif TAW
+addVATMOSS.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  AddVATFirst
+#######################################################
+addVATFirst.title = Ychwanegwch TAW yn gyntaf
+addVATFirst.heading = Ychwanegwch TAW yn gyntaf
+addVATFirst.p1 = Mae angen i chi reoli TAW ar-lein cyn y gallwch ychwanegu GUC TAW i’ch cyfrif.
+addVATFirst.continue = Ychwanegu TAW i’r cyfrif hwn
+addVATFirst.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  RegisterForVAT
+#######################################################
+registerForVAT.title = Cofrestru ar gyfer TAW - Cyfrif treth busnes - GOV.UK
+registerForVAT.heading = Cofrestru ar gyfer TAW
+registerForVAT.p1 = Mae’n rhaid eich bod wedi cofrestru ar gyfer TAW cyn y gallwch gofrestru ar gyfer GUC TAW.
+registerForVAT.p2 = Dychwelwch i’r cyfrif hwn ac ychwanegwch GUC TAW unwaith eich bod wedi cael rhif cofrestru TAW (VRN).
+registerForVAT.continue = Cofrestru ar gyfer TAW
+registerForVAT.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  OnlineVATAccount
+#######################################################
+onlineVATAccount.title = A oes gan eich busnes gyfrif CThEM ar-lein arall ar gyfer TAW?
+onlineVATAccount.heading = A oes gan eich busnes gyfrif CThEM ar-lein arall ar gyfer TAW?
+onlineVATAccount.p1 = Bydd gennych ID Defnyddiwr a chyfrinair ar wahân os oes gennych gyfrif arall ar gyfer TAW
+onlineVATAccount.Yes = Oes - mae cyfrif ar-lein arall ar gyfer TAW
+onlineVATAccount.No = Nac oes - does dim cyfrif ar-lein arall ar gyfer TAW
+onlineVATAccount.error.required = Dewis iawn neu na
+
+#######################################################
+##  RegisteredForVATUk
+#######################################################
+registeredForVATUk.title = A yw eich busnes wedi’i gofrestru ar gyfer TAW yn y DU?
+registeredForVATUk.heading = A yw eich busnes wedi’i gofrestru ar gyfer TAW yn y DU?
+registeredForVATUk.p1 = Byddwch wedi cael rhif cofrestru TAW (VRN) oddi wrth CThEM os ydych wedi cofrestru ar gyfer TAW yn y DU
+registeredForVATUk.Yes = Ydy - mae’r busnes wedi’i gofrestru ar gyfer TAW yn y DU
+registeredForVATUk.No = Nac ydy - nid yw’r busnes wedi’i gofrestru ar gyfer TAW yn y DU
+registeredForVATUk.error.required = Dewis iawn neu na
+
+
+#######################################################
 ##  RegisterMGD
 #######################################################
 registerMGD.title = Cofrestru ar gyfer Toll Peiriannau Hapchwarae
@@ -400,6 +451,16 @@ areYouRegisteredWarehousekeeper.p1 = Byddwn wedi anfon llythyr yn cymeradwyo’r
 areYouRegisteredWarehousekeeper.Yes = Ydw - mae gennyf ID warws
 areYouRegisteredWarehousekeeper.No = Nac ydw - nid wyf yn geidwad warws cofrestredig
 areYouRegisteredWarehousekeeper.error.required = Dewis iawn neu na
+
+#######################################################
+##  SelectSACategory
+#######################################################
+selectSACategory.title = Dewiswch gategori Hunanasesiad
+selectSACategory.heading = Dewiswch gategori Hunanasesiad
+selectSACategory.Sa = Unigolyn neu unig fasnachwr
+selectSACategory.Partnership = Partneriaeth
+selectSACategory.Trust = Ymddiriedolaeth
+selectSACategory.error.required = Dewis categori
 
 #######################################################
 ##  DoYouHaveCharityReference
