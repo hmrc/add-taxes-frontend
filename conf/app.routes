@@ -116,16 +116,12 @@ GET        /self-assessment/trust                       controllers.sa.trust.Hav
 POST       /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onSubmit()
 
 
-
-
-
-
-GET        /employer/cis/uk/contractor/epaye/other-account                       controllers.employer.cis.uk.contractor.UsePAYEEmployerAccountController.onPageLoad()
+GET        /employer/cis/uk/contractor/epaye/other-account    controllers.employer.cis.uk.contractor.UsePAYEEmployerAccountController.onPageLoad()
 
 GET        /employer/cis/uk/contractor/epaye                  controllers.employer.cis.uk.contractor.DoesBusinessManagePAYEController.onPageLoad()
 POST       /employer/cis/uk/contractor/epaye                  controllers.employer.cis.uk.contractor.DoesBusinessManagePAYEController.onSubmit()
 
-GET        /employer/cis/uk/contractor/register-epaye                       controllers.employer.cis.uk.contractor.RegisterForPAYEController.onPageLoad()
+GET        /employer/cis/uk/contractor/register-epaye         controllers.employer.cis.uk.contractor.RegisterForPAYEController.onPageLoad()
 
-GET        /employer/cis/uk/contractor                  controllers.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEController.onPageLoad()
-POST       /employer/cis/uk/contractor                  controllers.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEController.onSubmit()
+GET        /employer/cis/uk/contractor                        controllers.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEController.onPageLoad()
+POST       /employer/cis/uk/contractor                        controllers.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEController.onSubmit()
