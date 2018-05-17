@@ -28,6 +28,7 @@ import controllers.other.importexports.emcs.{routes => emcsRoutes}
 import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
+import controllers.vat.moss.uk.{routes => vatMossUkRoutes}
 import controllers.employer.cis.uk.contractor.{routes => payeAccountRoutes}
 import controllers.sa.trust.{routes => trustRoutes}
 import controllers.sa.partnership.{routes => saPartnerRoutes}
@@ -45,6 +46,8 @@ import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTi
 import models.sa.SelectSACategory
 import models.sa.partnership.DoYouWantToAddPartner
 import models.sa.trust.HaveYouRegisteredTrust
+import models.vat.moss.uk.OnlineVATAccount
+import models.vat.moss.uk.RegisteredForVATUk
 import models.wrongcredentials.FindingYourAccount
 import play.api.mvc.Call
 import play.api.mvc.Request
@@ -96,6 +99,26 @@ object NextPage {
             Call(GET, urlHelper.emacEnrollmentsUrl(Enrolments.AlcoholAndTobaccoWarehousingDeclarations))
 
           case AreYouRegisteredWarehousekeeper.No => atwdRoutes.RegisterWarehousekeeperController.onPageLoad()
+        }
+    }
+  }
+
+  implicit val registeredForVATUk: NextPage[RegisteredForVATUkId.type, models.vat.moss.uk.RegisteredForVATUk] = {
+    new NextPage[RegisteredForVATUkId.type, models.vat.moss.uk.RegisteredForVATUk] {
+      override def get(b: models.vat.moss.uk.RegisteredForVATUk)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
+        b match {
+          case RegisteredForVATUk.Yes => vatMossUkRoutes.OnlineVATAccountController.onPageLoad()
+          case RegisteredForVATUk.No => vatMossUkRoutes.RegisterForVATController.onPageLoad()
+        }
+     }
+  }
+
+  implicit val onlineVATAccount: NextPage[OnlineVATAccountId.type, models.vat.moss.uk.OnlineVATAccount] = {
+    new NextPage[OnlineVATAccountId.type, models.vat.moss.uk.OnlineVATAccount] {
+      override def get(b: models.vat.moss.uk.OnlineVATAccount)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
+        b match {
+          case OnlineVATAccount.Yes => vatMossUkRoutes.AddVATMOSSController.onPageLoad()
+          case OnlineVATAccount.No => vatMossUkRoutes.AddVATFirstController.onPageLoad()
         }
      }
   }
