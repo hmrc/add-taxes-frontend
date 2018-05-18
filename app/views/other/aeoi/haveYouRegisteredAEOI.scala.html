@@ -33,10 +33,14 @@ bodyClasses = None,
 
         @components.error_summary(form.errors)
 
+        @components.heading("haveYouRegisteredAEOI.heading")
+
+        <p>@messages("haveYouRegisteredAEOI.p1")</p>
+
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("haveYouRegisteredAEOI.heading").body,
-            text = Some(messages("haveYouRegisteredAEOI.p1")),
+            legend = messages("haveYouRegisteredAEOI.heading"),
+            legendClass = Some("visuallyhidden"),
             inputs = HaveYouRegisteredAEOI.options.toSeq
         )
 
