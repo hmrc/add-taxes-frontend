@@ -128,7 +128,7 @@ object NextPage {
     new NextPage[SelectSACategoryId.type, models.sa.SelectSACategory] {
       override def get(b: models.sa.SelectSACategory)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
         b match {
-          case SelectSACategory.Sa => Call(GET, urlHelper.getPortalURL("selfAssessmnt"))
+          case SelectSACategory.Sa => Call(GET, urlHelper.getPortalURL("businessRegistration"))
           case SelectSACategory.Partnership => saPartnerRoutes.DoYouWantToAddPartnerController.onPageLoad()
           case SelectSACategory.Trust => trustRoutes.HaveYouRegisteredTrustController.onPageLoad()
         }
