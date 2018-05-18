@@ -62,6 +62,8 @@ object Enrolments {
 
   case object VAT extends WithName("HMCE-VATDEC-ORG") with Enrolments
 
+  case object Charity extends WithName("HMRC-CHAR-ORG") with Enrolments
+
   case object AddCis extends WithName("HMRC-CIS-ORG") with Enrolments
 
   val values: Set[Enrolments] = Set(
@@ -69,6 +71,6 @@ object Enrolments {
     AlcoholWholesalerRegistrationScheme, AutomaticExchangeOfInformation, Charities, MachineGamingDuty, GeneralBetting,
     PoolBetting, RemoteGaming, OtherBusinessTaxDutyScheme, EconomicOperatorsRegistration, DefermentApprovalNumber,
     NewExportSystem, ElectronicBindingTariffInformation, NewComputerisedTransitSystem, NewExportSystem, SAPartnership,
-    RegisterTrusts, VAT, AddCis
+    RegisterTrusts, VAT, Charity, AddCis
   )
 }

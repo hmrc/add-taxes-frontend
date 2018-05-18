@@ -23,6 +23,7 @@ import models.OtherTaxes
 import models.employer.cis.uk.contractor.{DoesBusinessManagePAYE, IsBusinessRegisteredForPAYE}
 import models.employer.pension.WhichPensionSchemeToAdd
 import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
+import models.other.charity.DoYouHaveCharityReference
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.gambling.mgd.DoYouHaveMGDRegistration
 import models.other.importexports.dan.DoYouHaveDAN
@@ -430,6 +431,20 @@ class NextPageSpec extends SpecBase {
       NextPage.selectSACategory,
       SelectSACategory.Trust,
       "/business-account/add-tax/self-assessment/trust"
+    )
+  }
+
+  "Charities" when {
+    behave like nextPage(
+      NextPage.doYouHaveCharityReference,
+      DoYouHaveCharityReference.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-CHAR-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.doYouHaveCharityReference,
+      DoYouHaveCharityReference.No,
+      "/business-account/add-tax/other/charities/register"
     )
   }
 
