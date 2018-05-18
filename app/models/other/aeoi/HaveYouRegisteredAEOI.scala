@@ -14,20 +14,26 @@
  * limitations under the License.
  */
 
-package utils
+package models.other.aeoi
 
-import base.SpecBase
-import org.scalatest.mockito.MockitoSugar
+import utils.{Enumerable, RadioOption, WithName}
 
-class NavigatorSpec extends SpecBase with MockitoSugar {
+sealed trait HaveYouRegisteredAEOI
 
-  val navigator = new Navigator(frontendAppConfig)
+object HaveYouRegisteredAEOI {
 
-  "Navigator" when {
+  case object Yes extends WithName("Yes") with HaveYouRegisteredAEOI
+  case object No extends WithName("No") with HaveYouRegisteredAEOI
 
-    "in Normal mode" must {
+  val values: Set[HaveYouRegisteredAEOI] = Set(
+    Yes, No
+  )
 
-    }
-
+  val options: Set[RadioOption] = values.map {
+    value =>
+      RadioOption("haveYouRegisteredAEOI", value.toString)
   }
+
+  implicit val enumerable: Enumerable[HaveYouRegisteredAEOI] =
+    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }

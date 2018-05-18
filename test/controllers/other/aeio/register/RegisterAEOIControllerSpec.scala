@@ -14,26 +14,24 @@
  * limitations under the License.
  */
 
-package controllers.vat.moss.uk
+package controllers.other.aeio.register
 
 import controllers._
 import controllers.actions._
+import controllers.other.aeoi.RegisterAEOIController
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import utils.Enrolments
-import views.html.vat.moss.uk.addVATFirst
-import org.scalatest.mockito.MockitoSugar
-import org.mockito.Mockito._
-import org.scalatest.BeforeAndAfterEach
+import views.html.other.aeio.register.registerAEOI
 
-class AddVATFirstControllerSpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach {
+class RegisterAEOIControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new AddVATFirstController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+    new RegisterAEOIController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
-  def viewAsString() = addVATFirst(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString() = registerAEOI(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  "AddVATFirst Controller" must {
+  "RegisterAEOI Controller" must {
+
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(fakeRequest)
 
@@ -42,3 +40,7 @@ class AddVATFirstControllerSpec extends ControllerSpecBase with MockitoSugar wit
     }
   }
 }
+
+
+
+

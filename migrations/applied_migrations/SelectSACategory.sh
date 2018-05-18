@@ -37,7 +37,7 @@ awk '/object/ {\
      print "  implicit val selectSACategory: NextPage[SelectSACategoryId.type,";\
      print "    models.sa.SelectSACategory] = {";\
      print "    new NextPage[SelectSACategoryId.type, models.sa.SelectSACategory] {";\
-     print "      override def get(b: models.sa.SelectSACategory)(implicit urlHelper: UrlHelper, request: Request[_]): Call =";\
+     print "      override def get(b: models.sa.SelectSACategory)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =";\
      print "        b match {";\
      print "          case models.sa.SelectSACategory.Option1 => ???";\
      print "          case models.sa.SelectSACategory.Option2 => ???";\

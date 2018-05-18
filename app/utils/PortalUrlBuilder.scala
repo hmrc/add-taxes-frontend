@@ -16,18 +16,16 @@
 
 package utils
 
-import base.SpecBase
-import org.scalatest.mockito.MockitoSugar
+import play.api.mvc.Request
+import uk.gov.hmrc.play.language.LanguageUtils
 
-class NavigatorSpec extends SpecBase with MockitoSugar {
+trait PortalUrlBuilder {
 
-  val navigator = new Navigator(frontendAppConfig)
-
-  "Navigator" when {
-
-    "in Normal mode" must {
-
-    }
-
+  def appendLanguage(url: String)(implicit request: Request[_]) = {
+    val lang = if (LanguageUtils.getCurrentLang == LanguageUtils.Welsh) "lang=cym" else "lang=eng"
+    val token = if (url.endsWith("?")) ""
+    else if (url.contains("?")) "&" else "?"
+    s"$url$token$lang"
   }
+
 }

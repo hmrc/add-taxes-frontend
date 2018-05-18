@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package views.vat.moss.uk
+package views.other.aeio.register
 
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.vat.moss.uk.registerForVAT
+import views.html.other.aeio.register.registerAEOI
 
-class RegisterForVATViewSpec extends ViewBehaviours {
+class RegisterAEOIViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "registerForVAT"
+  val messageKeyPrefix = "registerAEOI"
 
-  def createView = () => registerForVAT(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView = () => registerAEOI(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
-  "RegisterForVAT view" must {
+  "RegisterAEOI view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
@@ -36,21 +36,13 @@ class RegisterForVATViewSpec extends ViewBehaviours {
       assertLinkById(
         doc,
         "continue",
-        "Register for VAT",
-        "http://localhost:8080/portal/business-registration/introduction?lang=eng",
-        "VatMossUkNotVatRegistered:Click:Register"
-      )
+        "Continue - register for AEOI",
+        "http://localhost:8080/portal/fatca-registration?lang=eng",
+        "RegisterAeoi:Click:Continue")
 
-      assertLinkById(
-        doc,
-        "not-now",
-        "I don’t want to do this right now",
-        "http://localhost:9020/business-account",
-        "VatMossUkNotVatRegistered:Click:NotNow"
-      )
+      assertContainsText(doc, "You need to register for AEOI before you can add it to your account.")
+      assertContainsText(doc, "We’ll send you an Automatic Exchange of Information ID, which you can use to add AEOI to the account.")
 
-      view must include("You must be VAT registered before you can register for VAT MOSS.")
-      view must include("Come back to this account and add VAT MOSS once you’ve received a VAT registration number (VRN).")
     }
   }
 }

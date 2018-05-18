@@ -14,20 +14,8 @@
  * limitations under the License.
  */
 
-package utils
+package identifiers
 
-import base.SpecBase
-import org.scalatest.mockito.MockitoSugar
-
-class NavigatorSpec extends SpecBase with MockitoSugar {
-
-  val navigator = new Navigator(frontendAppConfig)
-
-  "Navigator" when {
-
-    "in Normal mode" must {
-
-    }
-
-  }
+case object HaveYouRegisteredAEOIId extends Identifier {
+  override def toString: String = "haveYouRegisteredAEOI"
 }
