@@ -34,10 +34,7 @@ class SelectAnOilServiceFormProviderSpec extends FormBehaviours {
     behave like questionForm[SelectAnOilService](SelectAnOilService.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "selectAnOilService.error.required",
-        Invalid -> "error.invalid"),
+      Field("value", Required -> "selectAnOilService.error.required", Invalid -> "error.invalid"),
       SelectAnOilService.options.toSeq.map(_.value): _*)
   }
 }

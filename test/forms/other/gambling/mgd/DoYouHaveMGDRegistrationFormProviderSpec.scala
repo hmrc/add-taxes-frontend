@@ -33,10 +33,7 @@ class DoYouHaveMGDRegistrationFormProviderSpec extends FormBehaviours {
     behave like questionForm[DoYouHaveMGDRegistration](DoYouHaveMGDRegistration.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "doYouHaveMGDRegistration.error.required",
-        Invalid -> "error.invalid"),
+      Field("value", Required -> "doYouHaveMGDRegistration.error.required", Invalid -> "error.invalid"),
       DoYouHaveMGDRegistration.options.toSeq.map(_.value): _*)
   }
 }

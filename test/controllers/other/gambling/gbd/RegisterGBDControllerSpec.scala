@@ -39,7 +39,3 @@ class RegisterGBDControllerSpec extends ControllerSpecBase {
     }
   }
 }
-
-
-
-

@@ -31,28 +31,31 @@ import views.html.other.gambling.areYouRegisteredGTS
 
 import scala.concurrent.Future
 
-class AreYouRegisteredGTSController @Inject()(appConfig: FrontendAppConfig,
-                                          override val messagesApi: MessagesApi,
-                                          authenticate: AuthAction,
-                                          navigator: Navigator,
-                                          serviceInfo: ServiceInfoAction,
-                                          formProvider: AreYouRegisteredGTSFormProvider) extends FrontendController with I18nSupport {
+class AreYouRegisteredGTSController @Inject()(
+  appConfig: FrontendAppConfig,
+  override val messagesApi: MessagesApi,
+  authenticate: AuthAction,
+  navigator: Navigator,
+  serviceInfo: ServiceInfoAction,
+  formProvider: AreYouRegisteredGTSFormProvider)
+    extends FrontendController
+    with I18nSupport {
 
   val form = formProvider()
   lazy val viewAction = ViewAction(routes.AreYouRegisteredGTSController.onSubmit(), "AddRgdGamblingTax")
 
-  def onPageLoad = (authenticate andThen serviceInfo) {
-    implicit request =>
-      Ok(areYouRegisteredGTS(appConfig, form, viewAction)(request.serviceInfoContent))
+  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
+    Ok(areYouRegisteredGTS(appConfig, form, viewAction)(request.serviceInfoContent))
   }
 
-  def onSubmit = (authenticate andThen serviceInfo).async {
-    implicit request =>
-      form.bindFromRequest().fold(
+  def onSubmit = (authenticate andThen serviceInfo).async { implicit request =>
+    form
+      .bindFromRequest()
+      .fold(
         (formWithErrors: Form[_]) =>
           Future.successful(
             BadRequest(areYouRegisteredGTS(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))
-          ),
+        ),
         (value) => Future.successful(Redirect(navigator.nextPage(AreYouRegisteredGTSId.RGD, value)))
       )
   }

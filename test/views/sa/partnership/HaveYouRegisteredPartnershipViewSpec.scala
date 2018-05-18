@@ -31,21 +31,24 @@ class HaveYouRegisteredPartnershipViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => haveYouRegisteredPartnership(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView =
+    () => haveYouRegisteredPartnership(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => haveYouRegisteredPartnership(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm =
+    (form: Form[_]) => haveYouRegisteredPartnership(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "HaveYouRegisteredPartnership view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
-            val doc = asDocument(createView())
-            val view = doc.text()
+      val doc = asDocument(createView())
+      val view = doc.text()
 
-            view must include("Have you already registered your partnership?")
+      view must include("Have you already registered your partnership?")
 
-            view must include("We’ll have sent you a Unique Taxpayer Reference (UTR) for your partnership, if you’ve already registered it")
-      }
+      view must include(
+        "We’ll have sent you a Unique Taxpayer Reference (UTR) for your partnership, if you’ve already registered it")
+    }
   }
 
   "HaveYouRegisteredPartnership view" when {
@@ -58,13 +61,13 @@ class HaveYouRegisteredPartnershipViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- HaveYouRegisteredPartnership.options) {
+    for (option <- HaveYouRegisteredPartnership.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- HaveYouRegisteredPartnership.options.filterNot(o => o == option)) {
+          for (unselectedOption <- HaveYouRegisteredPartnership.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

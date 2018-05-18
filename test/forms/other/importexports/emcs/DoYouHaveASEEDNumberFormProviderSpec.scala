@@ -33,10 +33,7 @@ class DoYouHaveASEEDNumberFormProviderSpec extends FormBehaviours {
     behave like questionForm[DoYouHaveASEEDNumber](DoYouHaveASEEDNumber.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "doYouHaveASEEDNumber.error.required",
-        Invalid -> "error.invalid"),
+      Field("value", Required -> "doYouHaveASEEDNumber.error.required", Invalid -> "error.invalid"),
       DoYouHaveASEEDNumber.options.toSeq.map(_.value): _*)
   }
 }

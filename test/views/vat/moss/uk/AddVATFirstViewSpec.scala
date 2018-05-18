@@ -24,7 +24,6 @@ import utils.{Enrolments, UrlHelper}
 import views.behaviours.ViewBehaviours
 import views.html.vat.moss.uk.addVATFirst
 
-
 class AddVATFirstViewSpec extends ViewBehaviours with MockitoSugar with BeforeAndAfterEach {
 
   val messageKeyPrefix = "addVATFirst"
@@ -42,9 +41,10 @@ class AddVATFirstViewSpec extends ViewBehaviours with MockitoSugar with BeforeAn
 
     "Render the correct content" in {
       when(mockUrlHelper.emacEnrollmentsUrl(Enrolments.VAT))
-        .thenReturn("http://localhost:9555/enrolment-management-frontend/HMCE-VATDEC-ORG/request-access-tax-scheme?continue=%2Fbusiness-account")
+        .thenReturn(
+          "http://localhost:9555/enrolment-management-frontend/HMCE-VATDEC-ORG/request-access-tax-scheme?continue=%2Fbusiness-account")
 
-      val doc =  asDocument(createView())
+      val doc = asDocument(createView())
       val view = doc.text()
 
       assertLinkById(

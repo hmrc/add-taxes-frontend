@@ -33,10 +33,7 @@ class DoYouHaveDANFormProviderSpec extends FormBehaviours {
     behave like questionForm[DoYouHaveDAN](DoYouHaveDAN.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "doYouHaveDAN.error.required",
-        Invalid -> "error.invalid"),
+      Field("value", Required -> "doYouHaveDAN.error.required", Invalid -> "error.invalid"),
       DoYouHaveDAN.options.toSeq.map(_.value): _*)
   }
 }

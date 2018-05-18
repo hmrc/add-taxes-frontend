@@ -36,7 +36,8 @@ class EORIFormProviderSpec extends FormBehaviours {
       Field(
         "value",
         Required -> "economicOperatorsRegistrationAndIdentification.error.required",
-        Invalid -> "error.invalid"),
-      DoYouHaveEORINumber.options.toSeq.map(_.value): _*)
+        Invalid  -> "error.invalid"),
+      DoYouHaveEORINumber.options.toSeq.map(_.value): _*
+    )
   }
 }

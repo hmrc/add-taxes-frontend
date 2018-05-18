@@ -30,7 +30,7 @@ class RegisterWarehousekeeperViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
-      val doc =  asDocument(createView())
+      val doc = asDocument(createView())
       val view = doc.text()
 
       view must include("You need to register as an excise warehousekeeper before you can add ATWD to your account.")
@@ -42,7 +42,8 @@ class RegisterWarehousekeeperViewSpec extends ViewBehaviours {
         "continue",
         "Continue - register as an excise warehousekeeper",
         "https://www.gov.uk/government/publications/excise-warehousing-application-to-be-an-excise-warehousekeeper-ex61",
-        "RegisterAtwd:Click:Continue")
+        "RegisterAtwd:Click:Continue"
+      )
     }
   }
 }

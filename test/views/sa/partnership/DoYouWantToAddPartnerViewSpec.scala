@@ -33,7 +33,8 @@ class DoYouWantToAddPartnerViewSpec extends ViewBehaviours {
 
   def createView = () => doYouWantToAddPartner(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => doYouWantToAddPartner(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm =
+    (form: Form[_]) => doYouWantToAddPartner(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "DoYouWantToAddPartner view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -49,13 +50,13 @@ class DoYouWantToAddPartnerViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- DoYouWantToAddPartner.options) {
+    for (option <- DoYouWantToAddPartner.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- DoYouWantToAddPartner.options.filterNot(o => o == option)) {
+          for (unselectedOption <- DoYouWantToAddPartner.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

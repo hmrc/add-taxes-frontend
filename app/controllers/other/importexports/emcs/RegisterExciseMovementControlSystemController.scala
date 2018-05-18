@@ -24,14 +24,15 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.other.importexports.emcs.registerExciseMovementControlSystem
 
+class RegisterExciseMovementControlSystemController @Inject()(
+  appConfig: FrontendAppConfig,
+  override val messagesApi: MessagesApi,
+  authenticate: AuthAction,
+  serviceInfo: ServiceInfoAction)
+    extends FrontendController
+    with I18nSupport {
 
-class RegisterExciseMovementControlSystemController @Inject()(appConfig: FrontendAppConfig,
-                                          override val messagesApi: MessagesApi,
-                                          authenticate: AuthAction,
-                                          serviceInfo: ServiceInfoAction ) extends FrontendController with I18nSupport {
-
-  def onPageLoad = (authenticate andThen serviceInfo) {
-    implicit request =>
-      Ok(registerExciseMovementControlSystem(appConfig)(request.serviceInfoContent))
+  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
+    Ok(registerExciseMovementControlSystem(appConfig)(request.serviceInfoContent))
   }
 }

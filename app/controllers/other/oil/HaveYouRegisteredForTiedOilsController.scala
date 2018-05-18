@@ -32,28 +32,31 @@ import views.html.other.oil.haveYouRegisteredForTiedOils
 import scala.concurrent.Future
 
 class HaveYouRegisteredForTiedOilsController @Inject()(
-                                                        appConfig: FrontendAppConfig,
-                                                        override val messagesApi: MessagesApi,
-                                                        dataCacheConnector: DataCacheConnector,
-                                                        navigator: Navigator,
-                                                        authenticate: AuthAction,
-                                                        serviceInfoData: ServiceInfoAction,
-                                                        formProvider: HaveYouRegisteredForTiedOilsFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+  appConfig: FrontendAppConfig,
+  override val messagesApi: MessagesApi,
+  dataCacheConnector: DataCacheConnector,
+  navigator: Navigator,
+  authenticate: AuthAction,
+  serviceInfoData: ServiceInfoAction,
+  formProvider: HaveYouRegisteredForTiedOilsFormProvider)
+    extends FrontendController
+    with I18nSupport
+    with Enumerable.Implicits {
 
   val form = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) {
-    implicit request =>
-      Ok(haveYouRegisteredForTiedOils(appConfig, form)(request.serviceInfoContent))
+  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+    Ok(haveYouRegisteredForTiedOils(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async {
-    implicit request =>
-      form.bindFromRequest().fold(
+  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+    form
+      .bindFromRequest()
+      .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(haveYouRegisteredForTiedOils(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) =>
-          Future.successful(Redirect(navigator.nextPage(HaveYouRegisteredForTiedOilsId, value)))
+          Future.successful(
+            BadRequest(haveYouRegisteredForTiedOils(appConfig, formWithErrors)(request.serviceInfoContent))),
+        (value) => Future.successful(Redirect(navigator.nextPage(HaveYouRegisteredForTiedOilsId, value)))
       )
   }
 }

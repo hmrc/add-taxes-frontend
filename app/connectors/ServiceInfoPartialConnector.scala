@@ -27,18 +27,16 @@ import uk.gov.hmrc.play.partials.HtmlPartial._
 import uk.gov.hmrc.play.partials.{HeaderCarrierForPartials, HtmlPartial}
 
 import scala.concurrent.{ExecutionContext, Future}
-
-
 @Singleton
-class ServiceInfoPartialConnector @Inject()(val http: HttpClient,
-                                            val config: FrontendAppConfig) {
+class ServiceInfoPartialConnector @Inject()(val http: HttpClient, val config: FrontendAppConfig) {
 
   lazy val btaUrl: String = config.btaUrl + "/business-account/partial/service-info"
 
   def getServiceInfoPartial()(implicit hcwc: HeaderCarrierForPartials): Future[Html] = {
     implicit val executionContext: ExecutionContext = fromLoggingDetails(hcwc.hc)
-    http.GET[HtmlPartial](s"$btaUrl")(hc = hcwc.toHeaderCarrier, rds = readsPartial, ec = executionContext) recover connectionExceptionsAsHtmlPartialFailure map { p =>
-      p.successfulContentOrEmpty
+    http.GET[HtmlPartial](s"$btaUrl")(hc = hcwc.toHeaderCarrier, rds = readsPartial, ec = executionContext) recover connectionExceptionsAsHtmlPartialFailure map {
+      p =>
+        p.successfulContentOrEmpty
     } recover {
       case _ =>
         Logger.warn(s"[ServiceInfoPartialConnector][getServiceInfoPartial] - Unexpected future failed error")

@@ -30,7 +30,7 @@ class RegisterMGDViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
-      val doc =  asDocument(createView())
+      val doc = asDocument(createView())
       val view = doc.text()
 
       assertLinkById(
@@ -38,10 +38,13 @@ class RegisterMGDViewSpec extends ViewBehaviours {
         "continue",
         "Continue - register for Machine Games Duty",
         "http://localhost:8080/portal/business-registration/mgd/type-of-business",
-        "RegisterMgd:Click:Continue")
+        "RegisterMgd:Click:Continue"
+      )
 
       assertContainsText(doc, "You need to register for Machine Games Duty before you can add it to your account.")
-      assertContainsText(doc, "We’ll send you a registration number, which you can use to add Machine Games Duty to the account.")
+      assertContainsText(
+        doc,
+        "We’ll send you a registration number, which you can use to add Machine Games Duty to the account.")
     }
   }
 }

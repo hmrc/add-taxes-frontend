@@ -38,10 +38,17 @@ class RegisteredForVATUkControllerSpec extends ControllerSpecBase {
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new RegisteredForVATUkController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
-      FakeServiceInfoAction, formProvider)
+    new RegisteredForVATUkController(
+      frontendAppConfig,
+      messagesApi,
+      FakeDataCacheConnector,
+      new FakeNavigator(desiredRoute = onwardRoute),
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      formProvider)
 
-  def viewAsString(form: Form[_] = form) = registeredForVATUk(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) =
+    registeredForVATUk(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisteredForVATUk Controller" must {
 
@@ -77,7 +84,7 @@ class RegisteredForVATUkControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    for(option <- RegisteredForVATUk.options) {
+    for (option <- RegisteredForVATUk.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
         val result = controller(dontGetAnyData).onSubmit()(postRequest)

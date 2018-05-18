@@ -30,14 +30,16 @@ class RegisterGBDViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
-      val doc =  asDocument(createView())
+      val doc = asDocument(createView())
       val view = doc.text()
 
-      view must include("You need to register for the Gambling Tax System before you can add " +
-        "General Betting Duty to your account.")
+      view must include(
+        "You need to register for the Gambling Tax System before you can add " +
+          "General Betting Duty to your account.")
 
-      view must include("We’ll send you a Gambling Tax System reference number. Come back to " +
-        "your account and add General Betting Duty when you get it.")
+      view must include(
+        "We’ll send you a Gambling Tax System reference number. Come back to " +
+          "your account and add General Betting Duty when you get it.")
 
       assertLinkById(
         doc,

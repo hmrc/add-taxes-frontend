@@ -35,13 +35,16 @@ import views.html.other.oil.selectAnOilService
 import scala.concurrent.Future
 
 class SelectAnOilServiceController @Inject()(
-                                              appConfig: FrontendAppConfig,
-                                              override val messagesApi: MessagesApi,
-                                              dataCacheConnector: DataCacheConnector,
-                                              navigator: Navigator,
-                                              authenticate: AuthAction,
-                                              serviceInfoData: ServiceInfoAction,
-                                              formProvider: SelectAnOilServiceFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+  appConfig: FrontendAppConfig,
+  override val messagesApi: MessagesApi,
+  dataCacheConnector: DataCacheConnector,
+  navigator: Navigator,
+  authenticate: AuthAction,
+  serviceInfoData: ServiceInfoAction,
+  formProvider: SelectAnOilServiceFormProvider)
+    extends FrontendController
+    with I18nSupport
+    with Enumerable.Implicits {
 
   val form = formProvider()
 
@@ -58,19 +61,18 @@ class SelectAnOilServiceController @Inject()(
     _.getEnrolment(Enrolments.TiedOils.toString)
       .fold[Option[RadioOption]](Some(TiedOilsEnquiryService.toRadioOption))(_ => None)
 
-
-  def onPageLoad() = (authenticate andThen serviceInfoData) {
-    implicit request =>
-      Ok(selectAnOilService(appConfig, form, getOptions)(request.serviceInfoContent))
+  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+    Ok(selectAnOilService(appConfig, form, getOptions)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async {
-    implicit request =>
-      form.bindFromRequest().fold(
+  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+    form
+      .bindFromRequest()
+      .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(selectAnOilService(appConfig, formWithErrors, getOptions)(request.serviceInfoContent))),
-        (value) =>
-          Future.successful(Redirect(navigator.nextPage(SelectAnOilServiceId, value)))
+          Future.successful(
+            BadRequest(selectAnOilService(appConfig, formWithErrors, getOptions)(request.serviceInfoContent))),
+        (value) => Future.successful(Redirect(navigator.nextPage(SelectAnOilServiceId, value)))
       )
   }
 }

@@ -38,10 +38,17 @@ class HaveYouRegisteredTrustControllerSpec extends ControllerSpecBase {
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new HaveYouRegisteredTrustController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
-      FakeServiceInfoAction, formProvider)
+    new HaveYouRegisteredTrustController(
+      frontendAppConfig,
+      messagesApi,
+      FakeDataCacheConnector,
+      new FakeNavigator(desiredRoute = onwardRoute),
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      formProvider)
 
-  def viewAsString(form: Form[_] = form) = haveYouRegisteredTrust(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) =
+    haveYouRegisteredTrust(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "HaveYouRegisteredTrust Controller" must {
 
@@ -77,7 +84,7 @@ class HaveYouRegisteredTrustControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    for(option <- HaveYouRegisteredTrust.options) {
+    for (option <- HaveYouRegisteredTrust.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
         val result = controller(dontGetAnyData).onSubmit()(postRequest)

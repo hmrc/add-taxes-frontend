@@ -26,12 +26,12 @@ object AreYouRegisteredWarehousekeeper {
   case object No extends WithName("No") with AreYouRegisteredWarehousekeeper
 
   val values: Set[AreYouRegisteredWarehousekeeper] = Set(
-    Yes, No
+    Yes,
+    No
   )
 
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("areYouRegisteredWarehousekeeper", value.toString)
+  val options: Set[RadioOption] = values.map { value =>
+    RadioOption("areYouRegisteredWarehousekeeper", value.toString)
   }
 
   implicit val enumerable: Enumerable[AreYouRegisteredWarehousekeeper] =

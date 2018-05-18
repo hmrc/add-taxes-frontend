@@ -29,7 +29,6 @@ import utils.FakeNavigator
 import viewmodels.ViewAction
 import views.html.other.importexports.doYouHaveEORINumber
 
-
 class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = IndexController.onPageLoad()
@@ -38,10 +37,21 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new DoYouHaveEORINumberController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
-      FakeServiceInfoAction, formProvider)
+    new DoYouHaveEORINumberController(
+      frontendAppConfig,
+      messagesApi,
+      FakeDataCacheConnector,
+      new FakeNavigator(desiredRoute = onwardRoute),
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      formProvider)
 
-  def viewAsString(form: Form[_] = form) = doYouHaveEORINumber(frontendAppConfig, form, ViewAction(controllers.other.importexports.ncts.routes.DoYouHaveEORINumberController.onSubmit(), "AddNCTSTax"))(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) =
+    doYouHaveEORINumber(
+      frontendAppConfig,
+      form,
+      ViewAction(controllers.other.importexports.ncts.routes.DoYouHaveEORINumberController.onSubmit(), "AddNCTSTax"))(
+      HtmlFormat.empty)(fakeRequest, messages).toString
 
   "EBTI EORI Controller" must {
 

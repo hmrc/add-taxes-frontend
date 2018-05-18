@@ -25,9 +25,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
   "Navigator" when {
 
-    "in Normal mode" must {
-
-    }
+    "in Normal mode" must {}
 
   }
 }

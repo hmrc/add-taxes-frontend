@@ -39,7 +39,3 @@ class GetEoriAndChiefRoleControllerSpec extends ControllerSpecBase {
     }
   }
 }
-
-
-
-

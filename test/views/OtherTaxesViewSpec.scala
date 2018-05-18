@@ -32,9 +32,12 @@ class OtherTaxesViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => otherTaxes(frontendAppConfig, form, OtherTaxes.options)(serviceInfoContent)(fakeRequest, messages)
+  def createView =
+    () => otherTaxes(frontendAppConfig, form, OtherTaxes.options)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => otherTaxes(frontendAppConfig, form, OtherTaxes.options)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm =
+    (form: Form[_]) =>
+      otherTaxes(frontendAppConfig, form, OtherTaxes.options)(serviceInfoContent)(fakeRequest, messages)
 
   "OtherTaxes view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -46,13 +49,19 @@ class OtherTaxesViewSpec extends ViewBehaviours {
         val doc = asDocument(createView())
         doc.getElementsByTag("h1").first().text() mustBe "Select a category"
 
-        val listOfOptions: List[String] = List("Alcohol and tobacco wholesaling and warehousing",
-          "Automatic Exchange of Information (AEOI)", "Charities - for Gift Aid repayment claims",
-          "Gambling and gaming", "Housing and land", "Imports and exports", "Oil and fuel",
+        val listOfOptions: List[String] = List(
+          "Alcohol and tobacco wholesaling and warehousing",
+          "Automatic Exchange of Information (AEOI)",
+          "Charities - for Gift Aid repayment claims",
+          "Gambling and gaming",
+          "Housing and land",
+          "Imports and exports",
+          "Oil and fuel",
           "Fulfilment House Due Diligence Scheme"
         )
 
-        val listOfElements = doc.getElementsByClass("form-group").first().getElementsByClass("multiple-choice").asScala.toList
+        val listOfElements =
+          doc.getElementsByClass("form-group").first().getElementsByClass("multiple-choice").asScala.toList
 
         listOfElements.zip(listOfOptions).foreach {
           case (element, answer) => element.text mustBe answer

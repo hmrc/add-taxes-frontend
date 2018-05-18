@@ -31,10 +31,10 @@ class AddVATFirstController @Inject()(
   authenticate: AuthAction,
   serviceInfo: ServiceInfoAction,
   urlHelper: UrlHelper
-) extends FrontendController with I18nSupport {
+) extends FrontendController
+    with I18nSupport {
 
-  def onPageLoad = (authenticate andThen serviceInfo) {
-    implicit request =>
-      Ok(addVATFirst(appConfig, urlHelper)(request.serviceInfoContent))
+  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
+    Ok(addVATFirst(appConfig, urlHelper)(request.serviceInfoContent))
   }
 }

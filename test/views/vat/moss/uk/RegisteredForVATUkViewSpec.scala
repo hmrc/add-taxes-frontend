@@ -33,7 +33,8 @@ class RegisteredForVATUkViewSpec extends ViewBehaviours {
 
   def createView = () => registeredForVATUk(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => registeredForVATUk(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm =
+    (form: Form[_]) => registeredForVATUk(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "RegisteredForVATUk view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -44,7 +45,8 @@ class RegisteredForVATUkViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
 
-        doc.text() must include("You’ll have received a VAT registration number (VRN) from HMRC if you’re VAT registered in the UK")
+        doc.text() must include(
+          "You’ll have received a VAT registration number (VRN) from HMRC if you’re VAT registered in the UK")
 
         for (option <- RegisteredForVATUk.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
@@ -52,13 +54,13 @@ class RegisteredForVATUkViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- RegisteredForVATUk.options) {
+    for (option <- RegisteredForVATUk.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- RegisteredForVATUk.options.filterNot(o => o == option)) {
+          for (unselectedOption <- RegisteredForVATUk.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

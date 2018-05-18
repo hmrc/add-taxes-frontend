@@ -49,9 +49,9 @@ class UrlHelperSpec extends SpecBase with MockitoSugar {
     "return correct url" in {
       val SUT = new UrlHelper(frontendAppConfig)
       val destination = "alcohol"
-        SUT.businessTaxAccountLink(destination) mustBe s"http://localhost:9020/business-account/add-tax/other/$destination"
-      }
+      SUT.businessTaxAccountLink(destination) mustBe s"http://localhost:9020/business-account/add-tax/other/$destination"
     }
+  }
 
   "fulfilmentHouse" should {
     "return correct url" in {
@@ -65,7 +65,8 @@ class UrlHelperSpec extends SpecBase with MockitoSugar {
 
     "the user is in english" should {
       "append ?lang=eng to given url" in {
-        new UrlHelper(frontendAppConfig).getPortalURL("novaEnrolment")(fakeRequest) mustBe "http://localhost:8080/portal/nova/normal?lang=eng"
+        new UrlHelper(frontendAppConfig)
+          .getPortalURL("novaEnrolment")(fakeRequest) mustBe "http://localhost:8080/portal/nova/normal?lang=eng"
       }
     }
 
@@ -79,7 +80,8 @@ class UrlHelperSpec extends SpecBase with MockitoSugar {
 
     "the user is in welsh" should {
       "append ?lang=cym to given url" in {
-        new UrlHelper(frontendAppConfig).getPortalURL("novaEnrolment")(fakeRequestWithWelsh) mustBe "http://localhost:8080/portal/nova/normal?lang=cym"
+        new UrlHelper(frontendAppConfig)
+          .getPortalURL("novaEnrolment")(fakeRequestWithWelsh) mustBe "http://localhost:8080/portal/nova/normal?lang=cym"
       }
     }
 

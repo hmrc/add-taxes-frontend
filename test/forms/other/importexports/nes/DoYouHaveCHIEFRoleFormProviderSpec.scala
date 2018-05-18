@@ -33,10 +33,7 @@ class DoYouHaveCHIEFRoleFormProviderSpec extends FormBehaviours {
     behave like questionForm[DoYouHaveCHIEFRole](DoYouHaveCHIEFRole.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "doYouHaveCHIEFRole.error.required",
-        Invalid -> "error.invalid"),
+      Field("value", Required -> "doYouHaveCHIEFRole.error.required", Invalid -> "error.invalid"),
       DoYouHaveCHIEFRole.options.toSeq.map(_.value): _*)
   }
 }
