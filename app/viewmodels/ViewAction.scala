@@ -18,6 +18,4 @@ package viewmodels
 
 import play.api.mvc.Call
 
-
 case class ViewAction(call: Call, gaEvent: String)
-

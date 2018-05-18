@@ -26,12 +26,12 @@ object WhichPensionSchemeToAdd {
   case object Practitioners extends WithName("practitioners") with WhichPensionSchemeToAdd
 
   val values: Set[WhichPensionSchemeToAdd] = Set(
-    Administrators, Practitioners
+    Administrators,
+    Practitioners
   )
 
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("whichPensionSchemeToAdd", value.toString)
+  val options: Set[RadioOption] = values.map { value =>
+    RadioOption("whichPensionSchemeToAdd", value.toString)
   }
 
   implicit val enumerable: Enumerable[WhichPensionSchemeToAdd] =

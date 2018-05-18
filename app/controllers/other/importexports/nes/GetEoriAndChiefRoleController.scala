@@ -26,13 +26,15 @@ import views.html.other.importexports.nes.getEoriAndChiefRole
 
 import scala.concurrent.Future
 
-class GetEoriAndChiefRoleController @Inject()(appConfig: FrontendAppConfig,
-                                          override val messagesApi: MessagesApi,
-                                          authenticate: AuthAction,
-                                          serviceInfo: ServiceInfoAction ) extends FrontendController with I18nSupport {
+class GetEoriAndChiefRoleController @Inject()(
+  appConfig: FrontendAppConfig,
+  override val messagesApi: MessagesApi,
+  authenticate: AuthAction,
+  serviceInfo: ServiceInfoAction)
+    extends FrontendController
+    with I18nSupport {
 
-  def onPageLoad = (authenticate andThen serviceInfo) {
-    implicit request =>
-      Ok(getEoriAndChiefRole(appConfig)(request.serviceInfoContent))
+  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
+    Ok(getEoriAndChiefRole(appConfig)(request.serviceInfoContent))
   }
 }

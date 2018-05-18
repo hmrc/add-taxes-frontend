@@ -39,7 +39,3 @@ class RegisterEORIControllerSpec extends ControllerSpecBase {
     }
   }
 }
-
-
-
-

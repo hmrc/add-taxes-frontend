@@ -33,7 +33,8 @@ class FindingYourAccountViewSpec extends ViewBehaviours {
 
   def createView = () => findingYourAccount(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => findingYourAccount(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm =
+    (form: Form[_]) => findingYourAccount(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "FindingYourAccount view" must {
     behave like normalPage(createView, messageKeyPrefix, "legend")
@@ -49,13 +50,13 @@ class FindingYourAccountViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- FindingYourAccount.options) {
+    for (option <- FindingYourAccount.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- FindingYourAccount.options.filterNot(o => o == option)) {
+          for (unselectedOption <- FindingYourAccount.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

@@ -33,10 +33,7 @@ class FindingYourAccountFormProviderSpec extends FormBehaviours {
     behave like questionForm[FindingYourAccount](FindingYourAccount.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "findingYourAccount.error.required",
-        Invalid -> "error.invalid"),
+      Field("value", Required -> "findingYourAccount.error.required", Invalid -> "error.invalid"),
       FindingYourAccount.options.toSeq.map(_.value): _*)
   }
 }

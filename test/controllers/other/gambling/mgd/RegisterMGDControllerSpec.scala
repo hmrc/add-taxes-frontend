@@ -39,7 +39,3 @@ class RegisterMGDControllerSpec extends ControllerSpecBase {
     }
   }
 }
-
-
-
-

@@ -35,4 +35,3 @@ object FakeAuthActionAgent extends AuthAction {
   override def invokeBlock[A](request: Request[A], block: (AuthenticatedRequest[A]) => Future[Result]): Future[Result] =
     block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Agent)))
 }
-

@@ -21,10 +21,10 @@ import play.twirl.api.HtmlFormat
 
 trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
 
-  def yesNoPage(createView: (Form[Boolean]) => HtmlFormat.Appendable,
-                messageKeyPrefix: String,
-                expectedFormAction: String) = {
-
+  def yesNoPage(
+    createView: (Form[Boolean]) => HtmlFormat.Appendable,
+    messageKeyPrefix: String,
+    expectedFormAction: String) =
     "behave like a page with a Yes/No question" when {
       "rendered" must {
         "contain a legend for the question" in {
@@ -73,8 +73,6 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
         }
       }
     }
-  }
-
 
   def answeredYesNoPage(createView: (Form[Boolean]) => HtmlFormat.Appendable, answer: Boolean) = {
 

@@ -25,16 +25,17 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.Navigator
 import views.html.other.importexports.ncts.registerEORI
 
+class RegisterEORIController @Inject()(
+  appConfig: FrontendAppConfig,
+  override val messagesApi: MessagesApi,
+  authenticate: AuthAction,
+  serviceInfo: ServiceInfoAction,
+  navigator: Navigator)
+    extends FrontendController
+    with I18nSupport {
 
-class RegisterEORIController @Inject()(appConfig: FrontendAppConfig,
-                                       override val messagesApi: MessagesApi,
-                                       authenticate: AuthAction,
-                                       serviceInfo: ServiceInfoAction,
-                                       navigator: Navigator) extends FrontendController with I18nSupport {
-
-  def onPageLoad = (authenticate andThen serviceInfo) {
-    implicit request =>
-      Ok(registerEORI(appConfig)(request.serviceInfoContent))
+  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
+    Ok(registerEORI(appConfig)(request.serviceInfoContent))
   }
 
 }

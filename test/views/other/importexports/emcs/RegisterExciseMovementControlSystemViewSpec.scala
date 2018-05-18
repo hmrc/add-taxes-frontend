@@ -20,7 +20,6 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.other.importexports.emcs.registerExciseMovementControlSystem
 
-
 class RegisterExciseMovementControlSystemViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "registerExciseMovementControlSystem"
@@ -47,7 +46,8 @@ class RegisterExciseMovementControlSystemViewSpec extends ViewBehaviours {
         "register-for-emcs",
         "Continue - get a SEED number",
         "https://www.gov.uk/guidance/excise-movement-and-control-system-how-to-register-and-use#register-and-enrol",
-        "RegisterEMCS:Click:Continue")
+        "RegisterEMCS:Click:Continue"
+      )
     }
   }
 }

@@ -37,8 +37,14 @@ class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
   lazy val viewAction = ViewAction(routes.AreYouRegisteredGTSController.onSubmit(), "AddGbdGamblingTax")
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new AreYouRegisteredGTSController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
-      FakeServiceInfoAction, formProvider)
+    new AreYouRegisteredGTSController(
+      frontendAppConfig,
+      messagesApi,
+      FakeDataCacheConnector,
+      new FakeNavigator(desiredRoute = onwardRoute),
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      formProvider)
 
   def viewAsString(form: Form[_] = form) =
     areYouRegisteredGTS(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
@@ -77,7 +83,7 @@ class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    for(option <- AreYouRegisteredGTS.options) {
+    for (option <- AreYouRegisteredGTS.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
         val result = controller(dontGetAnyData).onSubmit()(postRequest)

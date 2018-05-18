@@ -37,18 +37,30 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
 
   def requestWithEnrolments(keys: String*): ServiceInfoRequest[AnyContent] = {
     val enrolments = Enrolments(keys.map(Enrolment(_)).toSet)
-    ServiceInfoRequest[AnyContent](AuthenticatedRequest(FakeRequest(), "", enrolments, Some(Organisation)), HtmlFormat.empty)
+    ServiceInfoRequest[AnyContent](
+      AuthenticatedRequest(FakeRequest(), "", enrolments, Some(Organisation)),
+      HtmlFormat.empty)
   }
 
   val formProvider = new OtherTaxesFormProvider()
   val form = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap, fakeAuthAction: AuthAction = FakeAuthAction) =
-    new OtherTaxesController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), fakeAuthAction,
-      FakeServiceInfoAction, formProvider)
+  def controller(
+    dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap,
+    fakeAuthAction: AuthAction = FakeAuthAction) =
+    new OtherTaxesController(
+      frontendAppConfig,
+      messagesApi,
+      FakeDataCacheConnector,
+      new FakeNavigator(desiredRoute = onwardRoute),
+      fakeAuthAction,
+      FakeServiceInfoAction,
+      formProvider)
 
-  def viewAsString(form: Form[_] = form) = otherTaxes(frontendAppConfig, form, removeRadioOptionFromList())(HtmlFormat.empty)(fakeRequest, messages).toString
-  def viewAsStringOrganisationOnly(request: ServiceInfoRequest[AnyContent]) = organisation_only(frontendAppConfig)(HtmlFormat.empty)(request, messages).toString()
+  def viewAsString(form: Form[_] = form) =
+    otherTaxes(frontendAppConfig, form, removeRadioOptionFromList())(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsStringOrganisationOnly(request: ServiceInfoRequest[AnyContent]) =
+    organisation_only(frontendAppConfig)(HtmlFormat.empty)(request, messages).toString()
 
   def removeRadioOptionFromList(radioOptionToRemove: Option[RadioOption] = None): Seq[RadioOption] = {
     val listOfAllRadioOptions: Seq[RadioOption] = Seq(
@@ -62,8 +74,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
       RadioOption("otherTaxes", "oilAndFuel")
     )
     radioOptionToRemove.fold(listOfAllRadioOptions)(radioOptionToRemove =>
-      listOfAllRadioOptions.filterNot(currentRadioOption => currentRadioOption.equals(radioOptionToRemove))
-    )
+      listOfAllRadioOptions.filterNot(currentRadioOption => currentRadioOption.equals(radioOptionToRemove)))
   }
 
   "OtherTaxes Controller" must {
@@ -76,7 +87,9 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
     }
 
     "When a user is an individual, render the you can't add this business account view" in {
-      val request = ServiceInfoRequest[AnyContent](AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual)), HtmlFormat.empty)
+      val request = ServiceInfoRequest[AnyContent](
+        AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual)),
+        HtmlFormat.empty)
       val result = controller(fakeAuthAction = FakeAuthActionIndividual).onPageLoad()(request)
 
       status(result) mustBe OK
@@ -85,7 +98,9 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
     }
 
     "When a user is an agent, render the you can't add this business account view" in {
-      val request = ServiceInfoRequest[AnyContent](AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Agent)), HtmlFormat.empty)
+      val request = ServiceInfoRequest[AnyContent](
+        AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Agent)),
+        HtmlFormat.empty)
       val result = controller(fakeAuthAction = FakeAuthActionAgent).onPageLoad()(request)
 
       status(result) mustBe OK
@@ -137,7 +152,8 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
       val request = requestWithEnrolments("HMCE-ATWD-ORG", "HMRC-AWRS-ORG")
       val result = controller(dontGetAnyData).getOptions(request)
 
-      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing")))
+      result mustBe removeRadioOptionFromList(
+        Some(RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing")))
     }
 
     "not display AEOI if the user has HMRC-FATCA-ORG" in {
@@ -167,11 +183,15 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
     }
 
     "not display Fulfilment House if the user has HMRC-OBTDS-ORG and an EtmpRegistrationNumber" in {
-      val enrolment = Enrolment("HMRC-OBTDS-ORG", Seq(EnrolmentIdentifier("EtmpRegistrationNumber", "123")), "Activated")
-      val request = ServiceInfoRequest[AnyContent](AuthenticatedRequest(FakeRequest(), "", Enrolments(Set(enrolment)), Some(Organisation)), HtmlFormat.empty)
+      val enrolment =
+        Enrolment("HMRC-OBTDS-ORG", Seq(EnrolmentIdentifier("EtmpRegistrationNumber", "123")), "Activated")
+      val request = ServiceInfoRequest[AnyContent](
+        AuthenticatedRequest(FakeRequest(), "", Enrolments(Set(enrolment)), Some(Organisation)),
+        HtmlFormat.empty)
       val result = controller(dontGetAnyData).getOptions(request)
 
-      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration")))
+      result mustBe removeRadioOptionFromList(
+        Some(RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration")))
     }
 
     "display Fulfilment House if the user has HMRC-OBTDS-ORG but no EtmpRegistrationNumber" in {

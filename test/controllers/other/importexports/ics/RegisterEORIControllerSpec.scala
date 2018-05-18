@@ -24,14 +24,17 @@ import utils.FakeNavigator
 import views.html.other.importexports.ics.registerEORI
 import controllers.routes._
 
-
-
 class RegisterEORIControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = IndexController.onPageLoad()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new RegisterEORIController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction, new FakeNavigator(desiredRoute = onwardRoute))
+    new RegisterEORIController(
+      frontendAppConfig,
+      messagesApi,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      new FakeNavigator(desiredRoute = onwardRoute))
 
   def viewAsString() = registerEORI(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
@@ -46,7 +49,3 @@ class RegisterEORIControllerSpec extends ControllerSpecBase {
 
   }
 }
-
-
-
-

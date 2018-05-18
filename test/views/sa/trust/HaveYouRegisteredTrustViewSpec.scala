@@ -33,7 +33,8 @@ class HaveYouRegisteredTrustViewSpec extends ViewBehaviours {
 
   def createView = () => haveYouRegisteredTrust(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => haveYouRegisteredTrust(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm =
+    (form: Form[_]) => haveYouRegisteredTrust(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "HaveYouRegisteredTrust view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -42,7 +43,8 @@ class HaveYouRegisteredTrustViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       val view = doc.text()
 
-      view must include("Your trust is registered if you sent us a form G41 and received a Unique Taxpayer Reference (UTR) for the trust in the post")
+      view must include(
+        "Your trust is registered if you sent us a form G41 and received a Unique Taxpayer Reference (UTR) for the trust in the post")
 
       view must include("Have you registered your trust?")
     }
@@ -58,13 +60,13 @@ class HaveYouRegisteredTrustViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- HaveYouRegisteredTrust.options) {
+    for (option <- HaveYouRegisteredTrust.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- HaveYouRegisteredTrust.options.filterNot(o => o == option)) {
+          for (unselectedOption <- HaveYouRegisteredTrust.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

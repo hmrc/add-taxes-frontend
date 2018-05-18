@@ -38,7 +38,8 @@ class AreYouRegisteredGTSViewSpec extends ViewBehaviours {
     () => areYouRegisteredGTS(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm =
-    (form: Form[_]) => areYouRegisteredGTS(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
+    (form: Form[_]) =>
+      areYouRegisteredGTS(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
 
   "AreYouRegisteredGTS view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -60,13 +61,13 @@ class AreYouRegisteredGTSViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- AreYouRegisteredGTS.options) {
+    for (option <- AreYouRegisteredGTS.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- AreYouRegisteredGTS.options.filterNot(o => o == option)) {
+          for (unselectedOption <- AreYouRegisteredGTS.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

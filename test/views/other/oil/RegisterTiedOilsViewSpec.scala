@@ -35,13 +35,17 @@ class RegisterTiedOilsViewSpec extends ViewBehaviours {
       "contain 'You need to register for Tied Oils Enquiry Service before you can add it to your account.' for the first paragraph" in {
         val doc = asDocument(createView())
 
-        doc.getElementById("hint-message").text() mustBe "You need to register for Tied Oils Enquiry Service before you can add it to your account."
+        doc
+          .getElementById("hint-message")
+          .text() mustBe "You need to register for Tied Oils Enquiry Service before you can add it to your account."
       }
 
       "contain 'We’ll send you an approval number, which you can use to add Tied Oils Enquiry Service to the account.' for the second paragraph" in {
         val doc = asDocument(createView())
 
-        doc.getElementById("hint-message-2").text() mustBe "We’ll send you an approval number, which you can use to add Tied Oils Enquiry Service to the account."
+        doc
+          .getElementById("hint-message-2")
+          .text() mustBe "We’ll send you an approval number, which you can use to add Tied Oils Enquiry Service to the account."
       }
 
       "contain 'Continue - register for Tied Oils Enquiry Service' for the button text" in {

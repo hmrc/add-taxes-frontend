@@ -30,10 +30,11 @@ class RegisterForCharityViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
-      val doc =  asDocument(createView())
+      val doc = asDocument(createView())
       val view = doc.text()
 
-      view must include("You need to register with HMRC as a charity before you can add the Gift Aid service to your account.")
+      view must include(
+        "You need to register with HMRC as a charity before you can add the Gift Aid service to your account.")
       view must include("We’ll send you a reference, which you can then use to add the service to your account.")
 
       assertLinkById(

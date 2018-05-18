@@ -39,7 +39,3 @@ class GetCHIEFRoleControllerSpec extends ControllerSpecBase {
     }
   }
 }
-
-
-
-

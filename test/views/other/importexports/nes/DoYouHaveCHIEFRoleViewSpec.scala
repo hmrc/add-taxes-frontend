@@ -33,9 +33,23 @@ class DoYouHaveCHIEFRoleViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => doYouHaveCHIEFRole(frontendAppConfig, form, ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit(), "AddNESHasEori"))(serviceInfoContent)(fakeRequest, messages)
+  def createView =
+    () =>
+      doYouHaveCHIEFRole(
+        frontendAppConfig,
+        form,
+        ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit(), "AddNESHasEori"))(serviceInfoContent)(
+        fakeRequest,
+        messages)
 
-  def createViewUsingForm = (form: Form[_]) => doYouHaveCHIEFRole(frontendAppConfig, form, ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit(), "AddNESHasEori"))(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm =
+    (form: Form[_]) =>
+      doYouHaveCHIEFRole(
+        frontendAppConfig,
+        form,
+        ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit(), "AddNESHasEori"))(serviceInfoContent)(
+        fakeRequest,
+        messages)
 
   "DoYouHaveCHIEFRole view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -54,18 +68,19 @@ class DoYouHaveCHIEFRoleViewSpec extends ViewBehaviours {
         val doc = asDocument(createView())
         val view = doc.text()
 
-        view must include("This is a code you use to access the Customs Handling of Import and Export " +
-          "Freight system (CHIEF) to enter customs information electronically. It’s normally 5 letters, eg ABCDE.")
+        view must include(
+          "This is a code you use to access the Customs Handling of Import and Export " +
+            "Freight system (CHIEF) to enter customs information electronically. It’s normally 5 letters, eg ABCDE.")
       }
     }
 
-    for(option <- DoYouHaveCHIEFRole.options) {
+    for (option <- DoYouHaveCHIEFRole.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- DoYouHaveCHIEFRole.options.filterNot(o => o == option)) {
+          for (unselectedOption <- DoYouHaveCHIEFRole.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

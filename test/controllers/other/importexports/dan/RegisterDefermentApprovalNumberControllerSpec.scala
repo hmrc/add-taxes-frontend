@@ -27,7 +27,8 @@ class RegisterDefermentApprovalNumberControllerSpec extends ControllerSpecBase {
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new RegisterDefermentApprovalNumberController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
-  def viewAsString() = registerDefermentApprovalNumber(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString() =
+    registerDefermentApprovalNumber(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterDefermentApprovalNumber Controller" must {
 
@@ -39,7 +40,3 @@ class RegisterDefermentApprovalNumberControllerSpec extends ControllerSpecBase {
     }
   }
 }
-
-
-
-

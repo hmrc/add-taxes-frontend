@@ -30,7 +30,6 @@ import forms.other.importexports.DoYouHaveEORINumberFormProvider
 import viewmodels.ViewAction
 import controllers.other.importexports.ics.routes._
 
-
 class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = IndexController.onPageLoad()
@@ -39,10 +38,18 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new DoYouHaveEORINumberController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
-      FakeServiceInfoAction, formProvider)
+    new DoYouHaveEORINumberController(
+      frontendAppConfig,
+      messagesApi,
+      FakeDataCacheConnector,
+      new FakeNavigator(desiredRoute = onwardRoute),
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      formProvider)
 
-  def viewAsString(form: Form[_] = form) = doYouHaveEORINumber(frontendAppConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddICSTax"))(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) =
+    doYouHaveEORINumber(frontendAppConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddICSTax"))(
+      HtmlFormat.empty)(fakeRequest, messages).toString
 
   "EconomicOperatorsRegistrationAndIdentification Controller" must {
 

@@ -21,10 +21,7 @@ import views.ViewSpecBase
 
 trait ViewBehaviours extends ViewSpecBase {
 
-  def normalPage(view: () => HtmlFormat.Appendable,
-                 messageKeyPrefix: String,
-                 expectedGuidanceKeys: String*) = {
-
+  def normalPage(view: () => HtmlFormat.Appendable, messageKeyPrefix: String, expectedGuidanceKeys: String*) =
     "behave like a normal page" when {
       "rendered" must {
         "have the correct banner title" in {
@@ -56,19 +53,21 @@ trait ViewBehaviours extends ViewSpecBase {
 
         "display the sign out link" in {
           val doc = asDocument(view())
-          assertLinkById(doc, "logOutNavHref", "Sign out", "http://localhost:9020/business-account/sso-sign-out", "primary-navigation:Click:Sign out")
+          assertLinkById(
+            doc,
+            "logOutNavHref",
+            "Sign out",
+            "http://localhost:9020/business-account/sso-sign-out",
+            "primary-navigation:Click:Sign out")
         }
       }
     }
-  }
 
-  def pageWithBackLink(view: () => HtmlFormat.Appendable) = {
-
+  def pageWithBackLink(view: () => HtmlFormat.Appendable) =
     "behave like a page with a back link" must {
       "have a back link" in {
         val doc = asDocument(view())
         assertRenderedById(doc, "back-link")
       }
     }
-  }
 }

@@ -39,7 +39,3 @@ class RegisterWarehousekeeperControllerSpec extends ControllerSpecBase {
     }
   }
 }
-
-
-
-

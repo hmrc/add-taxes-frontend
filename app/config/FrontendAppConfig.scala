@@ -23,17 +23,21 @@ import play.api.{Configuration, Environment}
 import uk.gov.hmrc.play.config.ServicesConfig
 
 @Singleton
-class FrontendAppConfig @Inject()(override val runModeConfiguration: Configuration, environment: Environment) extends ServicesConfig {
+class FrontendAppConfig @Inject()(override val runModeConfiguration: Configuration, environment: Environment)
+    extends ServicesConfig {
 
   override protected def mode = environment.mode
 
-  private def loadConfig(key: String) = runModeConfiguration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
+  private def loadConfig(key: String) =
+    runModeConfiguration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
 
   private lazy val contactHost = runModeConfiguration.getString("contact-frontend.host").getOrElse("")
   private val contactFormServiceIdentifier = "addtaxesfrontend"
 
-  lazy val enrolmentManagementFrontendHost = runModeConfiguration.getString("enrolment-management-frontend.host").getOrElse("")
-  lazy val governmentGatewayLostCredentialsFrontendHost = runModeConfiguration.getString("government-gateway-lost-credentials-frontend.host").getOrElse("")
+  lazy val enrolmentManagementFrontendHost =
+    runModeConfiguration.getString("enrolment-management-frontend.host").getOrElse("")
+  lazy val governmentGatewayLostCredentialsFrontendHost =
+    runModeConfiguration.getString("government-gateway-lost-credentials-frontend.host").getOrElse("")
   lazy val fulfilmentHouseHost = runModeConfiguration.getString("urls.fulfilment-house.host").getOrElse("")
   lazy val fulfilmentHouse = fulfilmentHouseHost + loadConfig("urls.fulfilment-house.schemeIntegration")
 
@@ -58,11 +62,10 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   lazy val loginUrl = loadConfig("urls.login")
   lazy val loginContinueUrl = loadConfig("urls.loginContinue")
 
-  lazy val languageTranslationEnabled = runModeConfiguration.getBoolean("microservice.services.features.welsh-translation").getOrElse(true)
+  lazy val languageTranslationEnabled =
+    runModeConfiguration.getBoolean("microservice.services.features.welsh-translation").getOrElse(true)
 
-  def languageMap: Map[String, Lang] = Map(
-    "english" -> Lang("en"),
-    "cymraeg" -> Lang("cy"))
+  def languageMap: Map[String, Lang] = Map("english" -> Lang("en"), "cymraeg" -> Lang("cy"))
 
   def routeToSwitchLanguage = (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
 

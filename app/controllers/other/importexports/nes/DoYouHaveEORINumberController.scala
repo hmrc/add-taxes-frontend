@@ -31,26 +31,30 @@ import views.html.other.importexports.doYouHaveEORINumber
 
 import scala.concurrent.Future
 
-class DoYouHaveEORINumberController @Inject()(appConfig: FrontendAppConfig,
-                                              override val messagesApi: MessagesApi,
-                                              navigator: Navigator,
-                                              authenticate: AuthAction,
-                                              serviceInfo: ServiceInfoAction,
-                                              formProvider: DoYouHaveEORINumberFormProvider) extends FrontendController with I18nSupport {
+class DoYouHaveEORINumberController @Inject()(
+  appConfig: FrontendAppConfig,
+  override val messagesApi: MessagesApi,
+  navigator: Navigator,
+  authenticate: AuthAction,
+  serviceInfo: ServiceInfoAction,
+  formProvider: DoYouHaveEORINumberFormProvider)
+    extends FrontendController
+    with I18nSupport {
 
   val form = formProvider()
   lazy val action = ViewAction(routes.DoYouHaveEORINumberController.onSubmit(), "AddNESTax")
 
-  def onPageLoad = (authenticate andThen serviceInfo) {
-    implicit request =>
-      Ok(doYouHaveEORINumber(appConfig, form, action)(request.serviceInfoContent))
+  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
+    Ok(doYouHaveEORINumber(appConfig, form, action)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfo).async {
-    implicit request =>
-      form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) => Future.successful(
-          BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, action)(request.serviceInfoContent))
+  def onSubmit() = (authenticate andThen serviceInfo).async { implicit request =>
+    form
+      .bindFromRequest()
+      .fold(
+        (formWithErrors: Form[_]) =>
+          Future.successful(
+            BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, action)(request.serviceInfoContent))
         ),
         value => Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.NES, value)))
       )

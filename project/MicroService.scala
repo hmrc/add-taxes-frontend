@@ -8,6 +8,7 @@ import net.ground5hark.sbt.concat.Import._
 import com.typesafe.sbt.uglify.Import._
 import com.typesafe.sbt.digest.Import._
 import play.sbt.routes.RoutesKeys
+import com.lucidchart.sbt.scalafmt.ScalafmtCorePlugin.autoImport._
 
 trait MicroService {
 
@@ -58,7 +59,9 @@ trait MicroService {
       unmanagedSourceDirectories in IntegrationTest <<= (baseDirectory in IntegrationTest)(base => Seq(base / "it")),
       addTestReportOption(IntegrationTest, "int-test-reports"),
       testGrouping in IntegrationTest := oneForkedJvmPerTest((definedTests in IntegrationTest).value),
-      parallelExecution in IntegrationTest := false)
+      parallelExecution in IntegrationTest := false,
+      scalafmtOnCompile in ThisBuild := true
+    )
       .settings(resolvers ++= Seq(
         Resolver.bintrayRepo("hmrc", "releases"),
         Resolver.jcenterRepo,

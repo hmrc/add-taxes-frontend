@@ -25,9 +25,14 @@ import views.html.other.importexports.emcs.registerExciseMovementControlSystem
 class RegisterExciseMovementControlSystemControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new RegisterExciseMovementControlSystemController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+    new RegisterExciseMovementControlSystemController(
+      frontendAppConfig,
+      messagesApi,
+      FakeAuthAction,
+      FakeServiceInfoAction)
 
-  def viewAsString() = registerExciseMovementControlSystem(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString() =
+    registerExciseMovementControlSystem(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterExciseMovementControlSystem Controller" must {
 
@@ -39,7 +44,3 @@ class RegisterExciseMovementControlSystemControllerSpec extends ControllerSpecBa
     }
   }
 }
-
-
-
-
