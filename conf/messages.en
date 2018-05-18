@@ -513,3 +513,14 @@ registerForCharity.heading = Register with HMRC as a Charity
 registerForCharity.p1 = You need to register with HMRC as a charity before you can add the Gift Aid service to your account.
 registerForCharity.p2 = We’ll send you a reference, which you can then use to add the service to your account.
 registerForCharity.continue = Continue - register with HMRC as a Charity
+
+#######################################################
+##  SelectGamblingOrGamingDuty
+#######################################################
+selectGamblingOrGamingDuty.title = Select a gambling or gaming duty
+selectGamblingOrGamingDuty.heading = Select a gambling or gaming duty
+selectGamblingOrGamingDuty.MGD = Machine Games Duty (MGD)
+selectGamblingOrGamingDuty.GBD = General Betting Duty (GBD)
+selectGamblingOrGamingDuty.PBD = Pool Betting Duty (PBD)
+selectGamblingOrGamingDuty.RGD = Remote Gaming Duty (RGD)
+selectGamblingOrGamingDuty.error.required = Select a duty

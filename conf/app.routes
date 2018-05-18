@@ -139,3 +139,5 @@ GET        /other/charities                             controllers.other.charit
 POST       /other/charities                             controllers.other.charity.DoYouHaveCharityReferenceController.onSubmit()
 
 GET        /other/charities/register                    controllers.other.charity.RegisterForCharityController.onPageLoad()
+GET        /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onPageLoad()
+POST       /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onSubmit()

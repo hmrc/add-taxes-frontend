@@ -496,3 +496,14 @@ registerForCharity.heading = Cofrestru fel Elusen gyda CThEM
 registerForCharity.p1 = Mae angen i chi gofrestru fel elusen gyda CThEM cyn y gallwch ychwanegu’r gwasanaeth Rhodd Cymorth i’ch cyfrif.
 registerForCharity.p2 = Byddwn yn anfon cyfeirnod atoch. Gallwch ei ddefnyddio, wedyn, i ychwanegu’r gwasanaeth i’ch cyfrif.
 registerForCharity.continue = Mynd yn eich blaen - cofrestru fel Elusen gyda CThEM
+
+#######################################################
+##  SelectGamblingOrGamingDuty
+#######################################################
+selectGamblingOrGamingDuty.title = Dewiswch doll fetio neu hapchwarae
+selectGamblingOrGamingDuty.heading = Dewiswch doll fetio neu hapchwarae
+selectGamblingOrGamingDuty.MGD = Toll Peiriannau Hapchwarae (MGD)
+selectGamblingOrGamingDuty.GBD = Toll Fetio Gyffredinol (GBD)
+selectGamblingOrGamingDuty.PBD = Toll Cronfa Fetio (PBD)
+selectGamblingOrGamingDuty.RGD = Toll Hapchwarae o Bell (RGD)
+selectGamblingOrGamingDuty.error.required = Dewis toll
