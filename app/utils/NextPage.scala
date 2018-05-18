@@ -19,6 +19,7 @@ package utils
 import config.FrontendAppConfig
 import controllers.other.aeoi.{routes => aeoiRoutes}
 import controllers.other.alcohol.atwd.{routes => atwdRoutes}
+import controllers.other.charity.{routes => charityRoutes}
 import controllers.other.gambling.gbd.{routes => gbdRoutes}
 import controllers.other.gambling.mgd.{routes => mgdRoutes}
 import controllers.other.gambling.pbd.{routes => pbdRoutes}
@@ -67,6 +68,16 @@ object NextPage {
     }
   }
 
+  implicit val doYouHaveCharityReference: NextPage[DoYouHaveCharityReferenceId.type,
+    models.other.charity.DoYouHaveCharityReference] = {
+    new NextPage[DoYouHaveCharityReferenceId.type, models.other.charity.DoYouHaveCharityReference] {
+      override def get(b: models.other.charity.DoYouHaveCharityReference)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+        b match {
+          case models.other.charity.DoYouHaveCharityReference.Yes => Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.Charity))
+          case models.other.charity.DoYouHaveCharityReference.No => charityRoutes.RegisterForCharityController.onPageLoad()
+        }
+     }
+  }
 
   implicit val doYouHaveMGDRegistration: NextPage[DoYouHaveMGDRegistrationId.type,
     models.other.gambling.mgd.DoYouHaveMGDRegistration] = {

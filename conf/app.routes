@@ -134,3 +134,8 @@ GET        /vat/moss/uk/not-vat-registered              controllers.vat.moss.uk.
 GET        /vat/moss/uk/vat-registered/other-account    controllers.vat.moss.uk.AddVATMOSSController.onPageLoad()
 
 GET        /vat/moss/uk/vat-registered/no-other-account  controllers.vat.moss.uk.AddVATFirstController.onPageLoad()
+
+GET        /other/charities                             controllers.other.charity.DoYouHaveCharityReferenceController.onPageLoad()
+POST       /other/charities                             controllers.other.charity.DoYouHaveCharityReferenceController.onSubmit()
+
+GET        /other/charities/register                    controllers.other.charity.RegisterForCharityController.onPageLoad()
