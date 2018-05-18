@@ -478,3 +478,21 @@ selectSACategory.Sa = Individual or sole trader
 selectSACategory.Partnership = Partnership
 selectSACategory.Trust = Trust
 selectSACategory.error.required = Select a category
+
+#######################################################
+##  DoYouHaveCharityReference
+#######################################################
+doYouHaveCharityReference.title = Do you have an HMRC Charities reference?
+doYouHaveCharityReference.heading = Do you have an HMRC Charities reference?
+doYouHaveCharityReference.Yes = Yes - we have an HMRC Charities reference
+doYouHaveCharityReference.No = No - we haven’t got an HMRC charities reference yet
+doYouHaveCharityReference.error.required = Select yes or no
+
+#######################################################
+##  RegisterForCharity
+#######################################################
+registerForCharity.title = Register with HMRC as a Charity
+registerForCharity.heading = Register with HMRC as a Charity
+registerForCharity.p1 = You need to register with HMRC as a charity before you can add the Gift Aid service to your account.
+registerForCharity.p2 = We’ll send you a reference, which you can then use to add the service to your account.
+registerForCharity.continue = Continue - register with HMRC as a Charity
