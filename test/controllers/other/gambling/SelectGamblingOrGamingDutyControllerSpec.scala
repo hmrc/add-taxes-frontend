@@ -38,10 +38,17 @@ class SelectGamblingOrGamingDutyControllerSpec extends ControllerSpecBase {
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new SelectGamblingOrGamingDutyController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
-      FakeServiceInfoAction, formProvider)
+    new SelectGamblingOrGamingDutyController(
+      frontendAppConfig,
+      messagesApi,
+      FakeDataCacheConnector,
+      new FakeNavigator(desiredRoute = onwardRoute),
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      formProvider)
 
-  def viewAsString(form: Form[_] = form) = selectGamblingOrGamingDuty(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) =
+    selectGamblingOrGamingDuty(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "SelectGamblingOrGamingDuty Controller" must {
 
@@ -77,7 +84,7 @@ class SelectGamblingOrGamingDutyControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    for(option <- SelectGamblingOrGamingDuty.options) {
+    for (option <- SelectGamblingOrGamingDuty.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
         val result = controller(dontGetAnyData).onSubmit()(postRequest)

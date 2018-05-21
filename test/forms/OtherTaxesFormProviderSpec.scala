@@ -32,10 +32,7 @@ class OtherTaxesFormProviderSpec extends FormBehaviours {
     behave like questionForm[OtherTaxes](OtherTaxes.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "otherTaxes.error.required",
-        Invalid -> "error.invalid"),
+      Field("value", Required -> "otherTaxes.error.required", Invalid -> "error.invalid"),
       OtherTaxes.options.map(_.value): _*)
   }
 }

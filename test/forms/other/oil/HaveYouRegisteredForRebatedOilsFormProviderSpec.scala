@@ -34,10 +34,8 @@ class HaveYouRegisteredForRebatedOilsFormProviderSpec extends FormBehaviours {
     behave like questionForm[HaveYouRegisteredForRebatedOils](HaveYouRegisteredForRebatedOils.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "haveYouRegisteredForRebatedOils.error.required",
-        Invalid -> "error.invalid"),
-      HaveYouRegisteredForRebatedOils.options.toSeq.map(_.value): _*)
+      Field("value", Required -> "haveYouRegisteredForRebatedOils.error.required", Invalid -> "error.invalid"),
+      HaveYouRegisteredForRebatedOils.options.toSeq.map(_.value): _*
+    )
   }
 }

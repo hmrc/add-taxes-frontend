@@ -52,7 +52,7 @@ object Enrolments {
 
   case object NewExportSystem extends WithName("HMCE-NES") with Enrolments
 
-  case object ElectronicBindingTariffInformation  extends WithName("HMCE-EBTI-ORG") with Enrolments
+  case object ElectronicBindingTariffInformation extends WithName("HMCE-EBTI-ORG") with Enrolments
 
   case object NewComputerisedTransitSystem extends WithName("HMRC-NCTS-ORG") with Enrolments
 
@@ -67,10 +67,28 @@ object Enrolments {
   case object AddCis extends WithName("HMRC-CIS-ORG") with Enrolments
 
   val values: Set[Enrolments] = Set(
-    RebatedOils, TiedOils, AlcoholAndTobaccoWarehousingDeclarations, AlcoholWholesalerRegistrationScheme,
-    AlcoholWholesalerRegistrationScheme, AutomaticExchangeOfInformation, Charities, MachineGamingDuty, GeneralBetting,
-    PoolBetting, RemoteGaming, OtherBusinessTaxDutyScheme, EconomicOperatorsRegistration, DefermentApprovalNumber,
-    NewExportSystem, ElectronicBindingTariffInformation, NewComputerisedTransitSystem, NewExportSystem, SAPartnership,
-    RegisterTrusts, VAT, Charity, AddCis
+    RebatedOils,
+    TiedOils,
+    AlcoholAndTobaccoWarehousingDeclarations,
+    AlcoholWholesalerRegistrationScheme,
+    AlcoholWholesalerRegistrationScheme,
+    AutomaticExchangeOfInformation,
+    Charities,
+    MachineGamingDuty,
+    GeneralBetting,
+    PoolBetting,
+    RemoteGaming,
+    OtherBusinessTaxDutyScheme,
+    EconomicOperatorsRegistration,
+    DefermentApprovalNumber,
+    NewExportSystem,
+    ElectronicBindingTariffInformation,
+    NewComputerisedTransitSystem,
+    NewExportSystem,
+    SAPartnership,
+    RegisterTrusts,
+    VAT,
+    Charity,
+    AddCis
   )
 }

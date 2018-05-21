@@ -26,14 +26,13 @@ trait FormBehaviours extends FormSpec {
 
   val form: Form[_]
 
-  def questionForm[A](expectedResult: A) = {
+  def questionForm[A](expectedResult: A) =
     "bind valid values correctly" in {
       val boundForm = form.bind(validData)
       boundForm.get shouldBe expectedResult
     }
-  }
 
-  def formWithOptionalTextFields(fields: String*) = {
+  def formWithOptionalTextFields(fields: String*) =
     for (field <- fields) {
       s"bind when $field is omitted" in {
         val data = validData - field
@@ -41,9 +40,8 @@ trait FormBehaviours extends FormSpec {
         boundForm.errors.isEmpty shouldBe true
       }
     }
-  }
 
-  def formWithMandatoryTextFields(fields: Field*) = {
+  def formWithMandatoryTextFields(fields: Field*) =
     for (field <- fields) {
       s"fail to bind when ${field.name} is omitted" in {
         val data = validData - field.name
@@ -57,7 +55,6 @@ trait FormBehaviours extends FormSpec {
         checkForError(form, data, expectedError)
       }
     }
-  }
 
   def formWithConditionallyMandatoryField(booleanField: String, field: String) = {
     s"bind when $booleanField is false and $field is omitted" in {
@@ -73,7 +70,7 @@ trait FormBehaviours extends FormSpec {
     }
   }
 
-  def formWithBooleans(fields: String*) = {
+  def formWithBooleans(fields: String*) =
     for (field <- fields) {
       s"fail to bind when $field is omitted" in {
         val data = validData - field
@@ -87,7 +84,6 @@ trait FormBehaviours extends FormSpec {
         checkForError(form, data, expectedError)
       }
     }
-  }
 
   def formWithOptionField(field: Field, validValues: String*) = {
     for (validValue <- validValues) {

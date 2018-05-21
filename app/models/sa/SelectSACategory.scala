@@ -27,12 +27,13 @@ object SelectSACategory {
   case object Trust extends WithName("Trust") with SelectSACategory
 
   val values: Set[SelectSACategory] = Set(
-    Sa, Partnership, Trust
+    Sa,
+    Partnership,
+    Trust
   )
 
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("selectSACategory", value.toString)
+  val options: Set[RadioOption] = values.map { value =>
+    RadioOption("selectSACategory", value.toString)
   }
 
   implicit val enumerable: Enumerable[SelectSACategory] =

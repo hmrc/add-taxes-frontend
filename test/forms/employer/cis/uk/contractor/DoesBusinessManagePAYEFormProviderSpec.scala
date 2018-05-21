@@ -33,10 +33,7 @@ class DoesBusinessManagePAYEFormProviderSpec extends FormBehaviours {
     behave like questionForm[DoesBusinessManagePAYE](DoesBusinessManagePAYE.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "doesBusinessManagePAYE.error.required",
-        Invalid -> "error.invalid"),
+      Field("value", Required -> "doesBusinessManagePAYE.error.required", Invalid -> "error.invalid"),
       DoesBusinessManagePAYE.options.toSeq.map(_.value): _*)
   }
 }

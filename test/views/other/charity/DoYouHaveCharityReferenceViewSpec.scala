@@ -33,7 +33,8 @@ class DoYouHaveCharityReferenceViewSpec extends ViewBehaviours {
 
   def createView = () => doYouHaveCharityReference(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => doYouHaveCharityReference(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm =
+    (form: Form[_]) => doYouHaveCharityReference(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "DoYouHaveCharityReference view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -49,13 +50,13 @@ class DoYouHaveCharityReferenceViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- DoYouHaveCharityReference.options) {
+    for (option <- DoYouHaveCharityReference.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- DoYouHaveCharityReference.options.filterNot(o => o == option)) {
+          for (unselectedOption <- DoYouHaveCharityReference.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

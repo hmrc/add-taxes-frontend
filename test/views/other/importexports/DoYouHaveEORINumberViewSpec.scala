@@ -32,9 +32,21 @@ class DoYouHaveEORINumberViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => doYouHaveEORINumber(frontendAppConfig, form, ViewAction(controllers.other.importexports.ics.routes.DoYouHaveEORINumberController.onSubmit(), ""))(serviceInfoContent)(fakeRequest, messages)
+  def createView =
+    () =>
+      doYouHaveEORINumber(
+        frontendAppConfig,
+        form,
+        ViewAction(controllers.other.importexports.ics.routes.DoYouHaveEORINumberController.onSubmit(), ""))(
+        serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => doYouHaveEORINumber(frontendAppConfig, form, ViewAction(controllers.other.importexports.ics.routes.DoYouHaveEORINumberController.onSubmit(), ""))(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm =
+    (form: Form[_]) =>
+      doYouHaveEORINumber(
+        frontendAppConfig,
+        form,
+        ViewAction(controllers.other.importexports.ics.routes.DoYouHaveEORINumberController.onSubmit(), ""))(
+        serviceInfoContent)(fakeRequest, messages)
 
   "EconomicOperatorsRegistrationAndIdentification view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -50,13 +62,13 @@ class DoYouHaveEORINumberViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- DoYouHaveEORINumber.options) {
+    for (option <- DoYouHaveEORINumber.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- DoYouHaveEORINumber.options.filterNot(o => o == option)) {
+          for (unselectedOption <- DoYouHaveEORINumber.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

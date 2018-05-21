@@ -34,28 +34,37 @@ import views.html.other.importexports.doYouHaveEORINumber
 import scala.concurrent.Future
 
 class DoYouHaveEORINumberController @Inject()(
-                                               appConfig: FrontendAppConfig,
-                                               override val messagesApi: MessagesApi,
-                                               dataCacheConnector: DataCacheConnector,
-                                               navigator: Navigator,
-                                               authenticate: AuthAction,
-                                               serviceInfoData: ServiceInfoAction,
-                                               formProvider: DoYouHaveEORINumberFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+  appConfig: FrontendAppConfig,
+  override val messagesApi: MessagesApi,
+  dataCacheConnector: DataCacheConnector,
+  navigator: Navigator,
+  authenticate: AuthAction,
+  serviceInfoData: ServiceInfoAction,
+  formProvider: DoYouHaveEORINumberFormProvider)
+    extends FrontendController
+    with I18nSupport
+    with Enumerable.Implicits {
 
   val form = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) {
-    implicit request =>
-      Ok(doYouHaveEORINumber(appConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddNCTSTax"))(request.serviceInfoContent))
+  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+    Ok(
+      doYouHaveEORINumber(appConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddNCTSTax"))(
+        request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async {
-    implicit request =>
-      form.bindFromRequest().fold(
+  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+    form
+      .bindFromRequest()
+      .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddNCTSTax"))(request.serviceInfoContent))),
-        (value) =>
-          Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.NCTS, value)))
+          Future.successful(
+            BadRequest(
+              doYouHaveEORINumber(
+                appConfig,
+                formWithErrors,
+                ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddNCTSTax"))(request.serviceInfoContent))),
+        (value) => Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.NCTS, value)))
       )
   }
 }

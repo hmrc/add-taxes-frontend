@@ -20,19 +20,18 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.employer.cis.uk.contractor.usePAYEEmployerAccount
 
-class UsePAYEEmployerAccountViewSpec extends ViewBehaviours{
+class UsePAYEEmployerAccountViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "usePAYEEmployerAccount"
 
   def createView = () => usePAYEEmployerAccount(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
-
 
   "UsePAYEEmployerAccount view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
 
-      val doc =  asDocument(createView())
+      val doc = asDocument(createView())
       val view = doc.text()
 
       view must include("You should manage CIS in the same account that you manage PAYE for employers.")

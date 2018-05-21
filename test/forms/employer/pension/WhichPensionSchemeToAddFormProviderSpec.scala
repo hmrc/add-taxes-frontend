@@ -33,10 +33,7 @@ class WhichPensionSchemeToAddFormProviderSpec extends FormBehaviours {
     behave like questionForm[WhichPensionSchemeToAdd](WhichPensionSchemeToAdd.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "whichPensionSchemeToAdd.error.required",
-        Invalid -> "error.invalid"),
+      Field("value", Required -> "whichPensionSchemeToAdd.error.required", Invalid -> "error.invalid"),
       WhichPensionSchemeToAdd.options.toSeq.map(_.value): _*)
   }
 }

@@ -39,7 +39,3 @@ class RegisterRGDControllerSpec extends ControllerSpecBase {
     }
   }
 }
-
-
-
-

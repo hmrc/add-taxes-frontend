@@ -33,10 +33,7 @@ class DoYouWantToAddPartnerFormProviderSpec extends FormBehaviours {
     behave like questionForm[DoYouWantToAddPartner](DoYouWantToAddPartner.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "doYouWantToAddPartner.error.required",
-        Invalid -> "error.invalid"),
+      Field("value", Required -> "doYouWantToAddPartner.error.required", Invalid -> "error.invalid"),
       DoYouWantToAddPartner.options.toSeq.map(_.value): _*)
   }
 }

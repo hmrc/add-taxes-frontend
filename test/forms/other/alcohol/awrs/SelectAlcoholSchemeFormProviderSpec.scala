@@ -33,10 +33,7 @@ class SelectAlcoholSchemeFormProviderSpec extends FormBehaviours {
     behave like questionForm[SelectAlcoholScheme](SelectAlcoholScheme.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "selectAlcoholScheme.error.required",
-        Invalid -> "error.invalid"),
+      Field("value", Required -> "selectAlcoholScheme.error.required", Invalid -> "error.invalid"),
       SelectAlcoholScheme.options.toSeq.map(_.value): _*)
   }
 }

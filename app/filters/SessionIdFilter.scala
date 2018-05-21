@@ -27,10 +27,10 @@ import uk.gov.hmrc.http.{SessionKeys, HeaderNames => HMRCHeaderNames}
 import scala.concurrent.{ExecutionContext, Future}
 
 class SessionIdFilter(
-                       override val mat: Materializer,
-                       uuid: => UUID,
-                       implicit val ec: ExecutionContext
-                     ) extends Filter {
+  override val mat: Materializer,
+  uuid: => UUID,
+  implicit val ec: ExecutionContext
+) extends Filter {
 
   @Inject
   def this(mat: Materializer, ec: ExecutionContext) {
@@ -56,26 +56,25 @@ class SessionIdFilter(
 
       val headers = rh.headers.add(
         HMRCHeaderNames.xSessionId -> sessionId,
-        HeaderNames.COOKIE -> cookies
+        HeaderNames.COOKIE         -> cookies
       )
 
-      f(rh.copy(headers = headers)).map {
-        result =>
+      f(rh.copy(headers = headers)).map { result =>
+        val cookies =
+          Cookies.fromSetCookieHeader(result.header.headers.get(HeaderNames.SET_COOKIE))
 
-          val cookies =
-            Cookies.fromSetCookieHeader(result.header.headers.get(HeaderNames.SET_COOKIE))
+        val session = Session
+          .decodeFromCookie(cookies.get(Session.COOKIE_NAME))
+          .data
+          .foldLeft(rh.session) {
+            case (m, n) =>
+              m + n
+          }
 
-          val session = Session.decodeFromCookie(cookies.get(Session.COOKIE_NAME)).data
-            .foldLeft(rh.session) {
-              case (m, n) =>
-                m + n
-            }
-
-          result.withSession(session + (SessionKeys.sessionId -> sessionId))
+        result.withSession(session + (SessionKeys.sessionId -> sessionId))
       }
     } else {
       f(rh)
     }
   }
 }
-

@@ -32,12 +32,18 @@ object DoYouWantToAddImportExport {
   case object ISD extends WithName("ISD") with DoYouWantToAddImportExport
 
   val values: List[DoYouWantToAddImportExport] = List(
-    EMCS, ICS, DDES, NOVA, NCTS, eBTI, NES, ISD
+    EMCS,
+    ICS,
+    DDES,
+    NOVA,
+    NCTS,
+    eBTI,
+    NES,
+    ISD
   )
 
-  val options: List[RadioOption] = values.map {
-    value =>
-      RadioOption("doYouWantToAddImportExport", value.toString)
+  val options: List[RadioOption] = values.map { value =>
+    RadioOption("doYouWantToAddImportExport", value.toString)
   }
 
   implicit val enumerable: Enumerable[DoYouWantToAddImportExport] =

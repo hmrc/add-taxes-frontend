@@ -33,10 +33,8 @@ class HaveYouRegisteredPartnershipFormProviderSpec extends FormBehaviours {
     behave like questionForm[HaveYouRegisteredPartnership](HaveYouRegisteredPartnership.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "haveYouRegisteredPartnership.error.required",
-        Invalid -> "error.invalid"),
-      HaveYouRegisteredPartnership.options.toSeq.map(_.value): _*)
+      Field("value", Required -> "haveYouRegisteredPartnership.error.required", Invalid -> "error.invalid"),
+      HaveYouRegisteredPartnership.options.toSeq.map(_.value): _*
+    )
   }
 }

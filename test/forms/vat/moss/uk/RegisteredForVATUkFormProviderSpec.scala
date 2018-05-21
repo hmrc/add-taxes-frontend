@@ -33,10 +33,7 @@ class RegisteredForVATUkFormProviderSpec extends FormBehaviours {
     behave like questionForm[RegisteredForVATUk](RegisteredForVATUk.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "registeredForVATUk.error.required",
-        Invalid -> "error.invalid"),
+      Field("value", Required -> "registeredForVATUk.error.required", Invalid -> "error.invalid"),
       RegisteredForVATUk.options.toSeq.map(_.value): _*)
   }
 }

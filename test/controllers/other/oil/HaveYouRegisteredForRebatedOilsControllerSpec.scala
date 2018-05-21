@@ -35,10 +35,17 @@ class HaveYouRegisteredForRebatedOilsControllerSpec extends ControllerSpecBase {
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new HaveYouRegisteredForRebatedOilsController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
-      FakeServiceInfoAction, formProvider)
+    new HaveYouRegisteredForRebatedOilsController(
+      frontendAppConfig,
+      messagesApi,
+      FakeDataCacheConnector,
+      new FakeNavigator(desiredRoute = onwardRoute),
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      formProvider)
 
-  def viewAsString(form: Form[_] = form) = haveYouRegisteredForRebatedOils(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) =
+    haveYouRegisteredForRebatedOils(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "HaveYouRegisteredForRebatedOils Controller" must {
 
@@ -50,7 +57,8 @@ class HaveYouRegisteredForRebatedOilsControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HaveYouRegisteredForRebatedOils.options.head.value))
+      val postRequest =
+        fakeRequest.withFormUrlEncodedBody(("value", HaveYouRegisteredForRebatedOils.options.head.value))
 
       val result = controller().onSubmit()(postRequest)
 

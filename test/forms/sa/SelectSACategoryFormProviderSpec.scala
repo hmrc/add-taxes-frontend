@@ -33,10 +33,7 @@ class SelectSACategoryFormProviderSpec extends FormBehaviours {
     behave like questionForm[SelectSACategory](SelectSACategory.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "selectSACategory.error.required",
-        Invalid -> "error.invalid"),
+      Field("value", Required -> "selectSACategory.error.required", Invalid -> "error.invalid"),
       SelectSACategory.options.toSeq.map(_.value): _*)
   }
 }

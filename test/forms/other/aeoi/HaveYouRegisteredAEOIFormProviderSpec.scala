@@ -33,10 +33,7 @@ class HaveYouRegisteredAEOIFormProviderSpec extends FormBehaviours {
     behave like questionForm[HaveYouRegisteredAEOI](HaveYouRegisteredAEOI.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "haveYouRegisteredAEOI.error.required",
-        Invalid -> "error.invalid"),
+      Field("value", Required -> "haveYouRegisteredAEOI.error.required", Invalid -> "error.invalid"),
       HaveYouRegisteredAEOI.options.toSeq.map(_.value): _*)
   }
 }

@@ -33,16 +33,18 @@ class DoesBusinessManagePAYEViewSpec extends ViewBehaviours {
 
   def createView = () => doesBusinessManagePAYE(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => doesBusinessManagePAYE(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm =
+    (form: Form[_]) => doesBusinessManagePAYE(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "DoesBusinessManagePAYE view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
-      val doc =  asDocument(createView())
+      val doc = asDocument(createView())
       val view = doc.text()
 
-      view must include("You’ll have an online HMRC account like this one, but it will use a different User ID and password")
+      view must include(
+        "You’ll have an online HMRC account like this one, but it will use a different User ID and password")
 
     }
   }
@@ -57,13 +59,13 @@ class DoesBusinessManagePAYEViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- DoesBusinessManagePAYE.options) {
+    for (option <- DoesBusinessManagePAYE.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- DoesBusinessManagePAYE.options.filterNot(o => o == option)) {
+          for (unselectedOption <- DoesBusinessManagePAYE.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

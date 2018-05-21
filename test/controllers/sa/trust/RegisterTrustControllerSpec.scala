@@ -39,7 +39,3 @@ class RegisterTrustControllerSpec extends ControllerSpecBase {
     }
   }
 }
-
-
-
-

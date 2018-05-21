@@ -26,12 +26,12 @@ object DoYouHaveASEEDNumber {
   case object No extends WithName("No") with DoYouHaveASEEDNumber
 
   val values: Set[DoYouHaveASEEDNumber] = Set(
-    Yes, No
+    Yes,
+    No
   )
 
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("doYouHaveASEEDNumber", value.toString)
+  val options: Set[RadioOption] = values.map { value =>
+    RadioOption("doYouHaveASEEDNumber", value.toString)
   }
 
   implicit val enumerable: Enumerable[DoYouHaveASEEDNumber] =

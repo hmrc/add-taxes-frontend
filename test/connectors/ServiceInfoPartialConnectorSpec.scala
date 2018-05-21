@@ -31,7 +31,6 @@ import uk.gov.hmrc.play.partials.{HeaderCarrierForPartials, HtmlPartial}
 
 import scala.concurrent.Future
 
-
 class ServiceInfoPartialConnectorSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures {
 
   "The ServiceInfoPartialConnector.getServiceInfoPartial() method" when {
@@ -79,7 +78,6 @@ class ServiceInfoPartialConnectorSpec extends SpecBase with MockitoSugar with Be
 
         when(mockHttpGet.GET[HtmlPartial](Matchers.eq(btaUrl))(Matchers.any(), Matchers.any(), Matchers.any()))
           .thenReturn(Future.failed(new Exception))
-
 
         whenReady(result) { response =>
           response mustBe Html("")

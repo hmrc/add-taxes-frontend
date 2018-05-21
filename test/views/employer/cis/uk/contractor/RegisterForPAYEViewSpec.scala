@@ -20,10 +20,9 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.employer.cis.uk.contractor.registerForPAYE
 
-class RegisterForPAYEViewSpec extends ViewBehaviours{
+class RegisterForPAYEViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "registerForPAYE"
-
 
   def createView = () => registerForPAYE(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
@@ -32,13 +31,13 @@ class RegisterForPAYEViewSpec extends ViewBehaviours{
 
     "Render the correct content" in {
 
-
-      val doc =  asDocument(createView())
+      val doc = asDocument(createView())
       val view = doc.text()
 
       view must include("Register for PAYE for employers first")
 
-      view must include("You need to be registered for PAYE for employers if you want to register for CIS as a contractor.")
+      view must include(
+        "You need to be registered for PAYE for employers if you want to register for CIS as a contractor.")
 
       view must include("Register for PAYE for employers")
 

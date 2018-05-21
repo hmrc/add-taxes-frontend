@@ -16,6 +16,4 @@
 
 package utils
 
-class CheckYourAnswersHelper(userAnswers: UserAnswers) {
-
-}
+class CheckYourAnswersHelper(userAnswers: UserAnswers) {}

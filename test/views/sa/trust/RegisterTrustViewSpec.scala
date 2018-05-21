@@ -30,12 +30,13 @@ class RegisterTrustViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
-      val doc =  asDocument(createView())
+      val doc = asDocument(createView())
       val view = doc.text()
 
       view must include("You need to register your trust before you can add it to this account.")
 
-      view must include("We’ll send you a Unique Taxpayer Reference (UTR) for the trust in the post once it’s registered.")
+      view must include(
+        "We’ll send you a Unique Taxpayer Reference (UTR) for the trust in the post once it’s registered.")
 
       view must include("You’ll be able to add the trust to this account using the UTR.")
 

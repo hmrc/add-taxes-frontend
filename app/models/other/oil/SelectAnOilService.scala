@@ -29,7 +29,8 @@ object SelectAnOilService {
   case object TiedOilsEnquiryService extends WithName("tiedOilsEnquiryService") with SelectAnOilService
 
   val values: Set[SelectAnOilService] = Set(
-    RebatedOilsEnquiryService, TiedOilsEnquiryService
+    RebatedOilsEnquiryService,
+    TiedOilsEnquiryService
   )
 
   val options: Set[RadioOption] = values.map {

@@ -33,10 +33,8 @@ class SelectGamblingOrGamingDutyFormProviderSpec extends FormBehaviours {
     behave like questionForm[SelectGamblingOrGamingDuty](SelectGamblingOrGamingDuty.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "selectGamblingOrGamingDuty.error.required",
-        Invalid -> "error.invalid"),
-      SelectGamblingOrGamingDuty.options.toSeq.map(_.value): _*)
+      Field("value", Required -> "selectGamblingOrGamingDuty.error.required", Invalid -> "error.invalid"),
+      SelectGamblingOrGamingDuty.options.toSeq.map(_.value): _*
+    )
   }
 }

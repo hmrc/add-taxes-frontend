@@ -36,19 +36,27 @@ import views.html.{organisation_only, otherTaxes}
 import scala.concurrent.Future
 
 class OtherTaxesController @Inject()(
-                                      appConfig: FrontendAppConfig,
-                                      override val messagesApi: MessagesApi,
-                                      dataCacheConnector: DataCacheConnector,
-                                      navigator: Navigator,
-                                      authenticate: AuthAction,
-                                      serviceInfoData: ServiceInfoAction,
-                                      formProvider: OtherTaxesFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+  appConfig: FrontendAppConfig,
+  override val messagesApi: MessagesApi,
+  dataCacheConnector: DataCacheConnector,
+  navigator: Navigator,
+  authenticate: AuthAction,
+  serviceInfoData: ServiceInfoAction,
+  formProvider: OtherTaxesFormProvider)
+    extends FrontendController
+    with I18nSupport
+    with Enumerable.Implicits {
 
   val form = formProvider()
 
   def getOptions(implicit r: ServiceInfoRequest[AnyContent]): Seq[RadioOption] = {
-    val checks = Seq(checkAlcohol, checkAutomaticExchangeOfInformation, checkCharities, checkGamblingAndGaming,
-      checkOilAndFuel, checkFulfilmentHouse)
+    val checks = Seq(
+      checkAlcohol,
+      checkAutomaticExchangeOfInformation,
+      checkCharities,
+      checkGamblingAndGaming,
+      checkOilAndFuel,
+      checkFulfilmentHouse)
     val defaultRadioOptions: Seq[RadioOption] = Seq(HousingAndLand, ImportsExports).map(_.toRadioOption)
     val unsortedRadioOptions: Seq[RadioOption] = checks.flatMap(_.apply(r.request.enrolments)) ++ defaultRadioOptions
     unsortedRadioOptions.sortBy(_.value)
@@ -56,11 +64,12 @@ class OtherTaxesController @Inject()(
 
   private def checkAlcohol: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
     (enrolments: uk.gov.hmrc.auth.core.Enrolments) =>
-      if (checkAlcoholWholesalerRegistrationScheme(enrolments) && checkAlcoholAndTobaccoWarehousingDeclarations(enrolments)) {
+      if (checkAlcoholWholesalerRegistrationScheme(enrolments) && checkAlcoholAndTobaccoWarehousingDeclarations(
+            enrolments)) {
         None
       } else {
         Some(AlcoholAndTobacco.toRadioOption)
-      }
+    }
 
   private def checkAlcoholWholesalerRegistrationScheme: (uk.gov.hmrc.auth.core.Enrolments) => Boolean =
     _.getEnrolment(Enrolments.AlcoholWholesalerRegistrationScheme.toString).isDefined
@@ -78,7 +87,6 @@ class OtherTaxesController @Inject()(
 
   private def checkGamblingAndGaming: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] = {
     (enrolments: uk.gov.hmrc.auth.core.Enrolments) =>
-
       val checks = List(
         checkMachineGamingDuty,
         checkGeneralBetting,
@@ -108,7 +116,7 @@ class OtherTaxesController @Inject()(
         None
       } else {
         Some(OilAndFuel.toRadioOption)
-      }
+    }
 
   private def checkRebatedOils: (uk.gov.hmrc.auth.core.Enrolments) => Boolean =
     _.getEnrolment(Enrolments.RebatedOils.toString).isDefined
@@ -116,27 +124,25 @@ class OtherTaxesController @Inject()(
   private def checkTiedOils: (uk.gov.hmrc.auth.core.Enrolments) => Boolean =
     _.getEnrolment(Enrolments.TiedOils.toString).isDefined
 
-
   private def checkFulfilmentHouse: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
     _.getEnrolment(Enrolments.OtherBusinessTaxDutyScheme.toString)
       .flatMap(_.getIdentifier(Enrolments.OtherBusinessTaxDutyScheme.FulfilmentHouseDueDiligenceSchemeIdentifier))
       .fold(Option(FulfilmentHouseDueDiligenceSchemeIntegration.toRadioOption))(_ => None)
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) {
-    implicit request =>
-      request.request.affinityGroup match {
-        case Some(Organisation) => Ok(otherTaxes(appConfig, form, getOptions)(request.serviceInfoContent))
-        case _ => Ok(organisation_only(appConfig)(request.serviceInfoContent))
-      }
+  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+    request.request.affinityGroup match {
+      case Some(Organisation) => Ok(otherTaxes(appConfig, form, getOptions)(request.serviceInfoContent))
+      case _                  => Ok(organisation_only(appConfig)(request.serviceInfoContent))
+    }
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async {
-    implicit request =>
-      form.bindFromRequest().fold(
+  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+    form
+      .bindFromRequest()
+      .fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(otherTaxes(appConfig, formWithErrors, getOptions)(request.serviceInfoContent))),
-        (value) =>
-          Future.successful(Redirect(navigator.nextPage(OtherTaxesId, value)))
+        (value) => Future.successful(Redirect(navigator.nextPage(OtherTaxesId, value)))
       )
   }
 }

@@ -38,7 +38,9 @@ class LanguageSelectionViewSpec extends ViewSpecBase {
     val link = doc.getElementById("cymraeg-switch")
     assert(link.text() == "Cymraeg", "cymraeg-switch did not contain Cymraeg")
     assert(link.attr("href").endsWith("/language/cymraeg"), "cymraeg-switch end with a link to cymraeg")
-    assert(link.attr("data-journey-click") == "Language:Click:Welsh", "cymraeg-switch did not have the right data-journey attribute")
+    assert(
+      link.attr("data-journey-click") == "Language:Click:Welsh",
+      "cymraeg-switch did not have the right data-journey attribute")
   }
 
   "render an English link if the language is set to Cymraeg" in {
@@ -47,7 +49,9 @@ class LanguageSelectionViewSpec extends ViewSpecBase {
     val link = doc.getElementById("english-switch")
     assert(link.text() == "English", "english-switch did not contain Cymraeg")
     assert(link.attr("href").endsWith("/language/english"), "english-switch end with a link to english")
-    assert(link.attr("data-journey-click") == "Language:Click:English", "english-switch did not have the right data-journey attribute")
+    assert(
+      link.attr("data-journey-click") == "Language:Click:English",
+      "english-switch did not have the right data-journey attribute")
 
   }
 
