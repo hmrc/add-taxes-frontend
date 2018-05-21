@@ -36,6 +36,20 @@ class AreYouRegisteredGTSNextPageSpec extends NextPageSpecBase {
     )
   }
 
+  "gtsGBD" when {
+    behave like nextPage(
+      NextPage.gbdGTS,
+      AreYouRegisteredGTS.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-GTS-GBD/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.gbdGTS,
+      AreYouRegisteredGTS.No,
+      "/business-account/add-tax/other/gambling/gbd/register"
+    )
+  }
+
   "gtsRGD" when {
     behave like nextPage(
       NextPage.rgdGTS,

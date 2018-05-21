@@ -42,20 +42,6 @@ import utils.nextpage.NextPageSpecBase
 
 class NextPageSpec extends NextPageSpecBase {
 
-  "DoYouHaveSEEDNumber" when {
-    behave like nextPage(
-      NextPage.doYouHaveASEEDNumber,
-      DoYouHaveASEEDNumber.No,
-      "/business-account/add-tax/other/import-export/emcs/register"
-    )
-
-    behave like nextPage(
-      NextPage.doYouHaveASEEDNumber,
-      DoYouHaveASEEDNumber.Yes,
-      "http://localhost:9555/enrolment-management-frontend/HMRC-EMCS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-  }
-
   "DoYouHaveDAN" when {
     behave like nextPage(
       NextPage.doYouHaveDAN,
@@ -125,20 +111,6 @@ class NextPageSpec extends NextPageSpecBase {
       NextPage.doYouWantToAddImportExport,
       DoYouWantToAddImportExport.ISD,
       "http://localhost:8080/hmce/ecom/is2/static/is2.html"
-    )
-  }
-
-  "gtsGBD" when {
-    behave like nextPage(
-      NextPage.gbdGTS,
-      AreYouRegisteredGTS.Yes,
-      "http://localhost:9555/enrolment-management-frontend/HMRC-GTS-GBD/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-
-    behave like nextPage(
-      NextPage.gbdGTS,
-      AreYouRegisteredGTS.No,
-      "/business-account/add-tax/other/gambling/gbd/register"
     )
   }
 

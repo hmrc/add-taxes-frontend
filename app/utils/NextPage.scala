@@ -49,6 +49,7 @@ import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
 import utils.nextpage.other.gambling.{AreYouRegisteredGTSNextPage, SelectGamblingOrGamingDutyNextPage}
 import utils.nextpage.other.gambling.mgd.DoYouHaveMGDRegistrationNextPage
 import utils.nextpage.other.importexports.DoYouHaveEORINumberNextPage
+import utils.nextpage.other.importexports.emcs.DoYouHaveASEEDNumberNextPage
 import utils.nextpage.other.oil.{HaveYouRegisteredForRebatedOilsNextPage, HaveYouRegisteredForTiedOilsNextPage, SelectAnOilServiceNextPage}
 import utils.nextpage.sa.SelectSACategoryNextPage
 import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
@@ -77,7 +78,8 @@ object NextPage
     with SelectSACategoryNextPage
     with DoYouHaveEORINumberNextPage
     with WhichPensionSchemeToAddNextPage
-    with AreYouRegisteredGTSNextPage {
+    with AreYouRegisteredGTSNextPage
+    with DoYouHaveASEEDNumberNextPage {
 
   implicit val doYouWantToAddPartner: NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartner] = {
     new NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartner] {
@@ -158,17 +160,6 @@ object NextPage
         b match {
           case DoYouHaveDAN.Yes => Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.DefermentApprovalNumber))
           case DoYouHaveDAN.No  => danRoutes.RegisterDefermentApprovalNumberController.onPageLoad()
-        }
-    }
-  }
-
-  implicit val doYouHaveASEEDNumber: NextPage[DoYouHaveASEEDNumberId.type, DoYouHaveASEEDNumber] = {
-    new NextPage[DoYouHaveASEEDNumberId.type, DoYouHaveASEEDNumber] {
-      override def get(b: DoYouHaveASEEDNumber)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case DoYouHaveASEEDNumber.Yes =>
-            Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.ExciseMovementControlSystem))
-          case DoYouHaveASEEDNumber.No => emcsRoutes.RegisterExciseMovementControlSystemController.onPageLoad()
         }
     }
   }
