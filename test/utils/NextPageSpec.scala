@@ -42,17 +42,6 @@ import utils.nextpage.NextPageSpecBase
 
 class NextPageSpec extends NextPageSpecBase {
 
-  "SelectAnOilService" when {
-    behave like nextPage(
-      NextPage.selectAnOilService,
-      TiedOilsEnquiryService,
-      "/business-account/add-tax/other/oil/tied")
-    behave like nextPage(
-      NextPage.selectAnOilService,
-      RebatedOilsEnquiryService,
-      "/business-account/add-tax/other/oil/rebated")
-  }
-
   "OtherTaxes" when {
     behave like nextPage(
       NextPage.otherTaxes,

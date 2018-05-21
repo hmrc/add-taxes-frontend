@@ -17,6 +17,7 @@
 package utils
 
 import config.FrontendAppConfig
+import controllers.employer.cis.uk.contractor.{routes => payeAccountRoutes}
 import controllers.other.alcohol.atwd.{routes => atwdRoutes}
 import controllers.other.gambling.gbd.{routes => gbdRoutes}
 import controllers.other.gambling.pbd.{routes => pbdRoutes}
@@ -28,7 +29,6 @@ import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
 import controllers.other.oil.routes
-import controllers.employer.cis.uk.contractor.{routes => payeAccountRoutes}
 import controllers.sa.partnership.{routes => saPartnerRoutes}
 import controllers.sa.trust.{routes => trustRoutes}
 import controllers.vat.moss.uk.{routes => vatMossUkRoutes}
@@ -41,8 +41,6 @@ import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import models.other.importexports.nes.DoYouHaveCHIEFRole
 import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
-import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
-import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils, SelectAnOilService}
 import models.sa.SelectSACategory
 import models.sa.partnership.DoYouWantToAddPartner
 import models.sa.trust.HaveYouRegisteredTrust
@@ -55,7 +53,7 @@ import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage
 import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
 import utils.nextpage.other.gambling.SelectGamblingOrGamingDutyNextPage
 import utils.nextpage.other.gambling.mgd.DoYouHaveMGDRegistrationNextPage
-import utils.nextpage.other.oil.{HaveYouRegisteredForRebatedOilsNextPage, HaveYouRegisteredForTiedOilsNextPage}
+import utils.nextpage.other.oil.{HaveYouRegisteredForRebatedOilsNextPage, HaveYouRegisteredForTiedOilsNextPage, SelectAnOilServiceNextPage}
 
 trait NextPage[A, B] {
   def get(b: B)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call
@@ -69,7 +67,8 @@ object NextPage
     with SelectGamblingOrGamingDutyNextPage
     with HaveYouRegisteredForRebatedOilsNextPage
     with IsBusinessRegisteredForPAYENextPage
-    with HaveYouRegisteredForTiedOilsNextPage {
+    with HaveYouRegisteredForTiedOilsNextPage
+    with SelectAnOilServiceNextPage {
 
   implicit val doesBusinessManagePAYE: NextPage[DoesBusinessManagePAYEId.type, DoesBusinessManagePAYE] = {
     new NextPage[DoesBusinessManagePAYEId.type, DoesBusinessManagePAYE] {
@@ -339,15 +338,6 @@ object NextPage
         }
     }
   }
-
-  implicit val selectAnOilService: NextPage[SelectAnOilServiceId.type, SelectAnOilService] =
-    new NextPage[SelectAnOilServiceId.type, SelectAnOilService] {
-      override def get(b: SelectAnOilService)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case RebatedOilsEnquiryService => routes.HaveYouRegisteredForRebatedOilsController.onPageLoad()
-          case TiedOilsEnquiryService    => routes.HaveYouRegisteredForTiedOilsController.onPageLoad()
-        }
-    }
 
   private val GET: String = "GET"
 }
