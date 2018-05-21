@@ -17,11 +17,8 @@
 package utils
 
 import config.FrontendAppConfig
-import controllers.other.aeoi.{routes => aeoiRoutes}
 import controllers.other.alcohol.atwd.{routes => atwdRoutes}
-import controllers.other.charity.{routes => charityRoutes}
 import controllers.other.gambling.gbd.{routes => gbdRoutes}
-import controllers.other.gambling.mgd.{routes => mgdRoutes}
 import controllers.other.gambling.pbd.{routes => pbdRoutes}
 import controllers.other.gambling.rgd.{routes => rgdRoutes}
 import controllers.other.importexports.dan.{routes => danRoutes}
@@ -31,16 +28,13 @@ import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
 import controllers.other.oil.routes
-import controllers.vat.moss.uk.{routes => vatMossUkRoutes}
 import controllers.employer.cis.uk.contractor.{routes => payeAccountRoutes}
-import controllers.sa.trust.{routes => trustRoutes}
 import controllers.sa.partnership.{routes => saPartnerRoutes}
 import controllers.sa.trust.{routes => trustRoutes}
 import controllers.vat.moss.uk.{routes => vatMossUkRoutes}
 import identifiers._
 import models.OtherTaxes
 import models.employer.cis.uk.contractor.DoesBusinessManagePAYE
-import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
 import models.other.alcohol.awrs._
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.importexports.dan.DoYouHaveDAN
@@ -58,6 +52,7 @@ import play.api.mvc.{Call, Request}
 import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
 import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage
 import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
+import utils.nextpage.other.gambling.SelectGamblingOrGamingDutyNextPage
 import utils.nextpage.other.gambling.mgd.DoYouHaveMGDRegistrationNextPage
 
 trait NextPage[A, B] {
@@ -68,26 +63,8 @@ object NextPage
     extends HaveYouRegisteredAEOINextPage
     with DoYouHaveCharityReferenceNextPage
     with DoYouHaveMGDRegistrationNextPage
-    with AreYouRegisteredWarehousekeeperNextPage {
-
-  implicit val selectGamblingOrGamingDuty
-    : NextPage[SelectGamblingOrGamingDutyId.type, models.other.gambling.SelectGamblingOrGamingDuty] = {
-    new NextPage[SelectGamblingOrGamingDutyId.type, models.other.gambling.SelectGamblingOrGamingDuty] {
-      override def get(b: models.other.gambling.SelectGamblingOrGamingDuty)(
-        implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
-        b match {
-          case models.other.gambling.SelectGamblingOrGamingDuty.MGD =>
-            mgdRoutes.DoYouHaveMGDRegistrationController.onPageLoad()
-          case models.other.gambling.SelectGamblingOrGamingDuty.GBD =>
-            gbdRoutes.AreYouRegisteredGTSController.onPageLoad()
-          case models.other.gambling.SelectGamblingOrGamingDuty.PBD =>
-            pbdRoutes.AreYouRegisteredGTSController.onPageLoad()
-          case models.other.gambling.SelectGamblingOrGamingDuty.RGD =>
-            rgdRoutes.AreYouRegisteredGTSController.onPageLoad()
-        }
-    }
-  }
+    with AreYouRegisteredWarehousekeeperNextPage
+    with SelectGamblingOrGamingDutyNextPage {
 
   implicit val isBusinessRegisteredForPAYE
     : NextPage[IsBusinessRegisteredForPAYEId.type, models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE] = {
