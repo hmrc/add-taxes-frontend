@@ -114,20 +114,6 @@ class NextPageSpec extends NextPageSpecBase {
     )
   }
 
-  "SA Partnership Other" when {
-    behave like nextPage(
-      NextPage.haveYouRegisteredPartnership,
-      HaveYouRegisteredPartnership.Yes,
-      "http://localhost:9555/enrolment-management-frontend/IR-SA-PART-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-
-    behave like nextPage(
-      NextPage.haveYouRegisteredPartnership,
-      HaveYouRegisteredPartnership.No,
-      "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/359500/sa400-static.pdf"
-    )
-  }
-
   "SA Trusts" when {
     behave like nextPage(
       NextPage.haveYouRegisteredTrust,

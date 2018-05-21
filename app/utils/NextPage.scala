@@ -51,7 +51,7 @@ import utils.nextpage.other.importexports.DoYouHaveEORINumberNextPage
 import utils.nextpage.other.importexports.emcs.DoYouHaveASEEDNumberNextPage
 import utils.nextpage.other.oil.{HaveYouRegisteredForRebatedOilsNextPage, HaveYouRegisteredForTiedOilsNextPage, SelectAnOilServiceNextPage}
 import utils.nextpage.sa.SelectSACategoryNextPage
-import utils.nextpage.sa.partnership.DoYouWantToAddPartnerNextPage
+import utils.nextpage.sa.partnership.{DoYouWantToAddPartnerNextPage, HaveYouRegisteredPartnershipNextPage}
 import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 
@@ -80,22 +80,8 @@ object NextPage
     with WhichPensionSchemeToAddNextPage
     with AreYouRegisteredGTSNextPage
     with DoYouWantToAddPartnerNextPage
-    with DoYouHaveASEEDNumberNextPage {
-
-  implicit val haveYouRegisteredPartnership
-    : NextPage[HaveYouRegisteredPartnershipId.type, models.sa.partnership.HaveYouRegisteredPartnership] = {
-    new NextPage[HaveYouRegisteredPartnershipId.type, models.sa.partnership.HaveYouRegisteredPartnership] {
-      override def get(b: models.sa.partnership.HaveYouRegisteredPartnership)(
-        implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
-        b match {
-          case models.sa.partnership.HaveYouRegisteredPartnership.Yes =>
-            Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.SAPartnership))
-          case models.sa.partnership.HaveYouRegisteredPartnership.No =>
-            Call(GET, appConfig.getPublishedAssetsUrl("partnershipOther"))
-        }
-    }
-  }
+    with DoYouHaveASEEDNumberNextPage
+    with HaveYouRegisteredPartnershipNextPage {
 
   implicit val haveYouRegisteredTrust: NextPage[HaveYouRegisteredTrustId.type, HaveYouRegisteredTrust] = {
     new NextPage[HaveYouRegisteredTrustId.type, HaveYouRegisteredTrust] {
