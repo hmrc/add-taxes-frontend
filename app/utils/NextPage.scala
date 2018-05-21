@@ -28,7 +28,6 @@ import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
 import controllers.other.oil.routes
-import controllers.employer.cis.uk.contractor.{routes => payeAccountRoutes}
 import controllers.sa.partnership.{routes => saPartnerRoutes}
 import controllers.sa.trust.{routes => trustRoutes}
 import controllers.vat.moss.uk.{routes => vatMossUkRoutes}
@@ -49,7 +48,7 @@ import models.sa.trust.HaveYouRegisteredTrust
 import models.vat.moss.uk.{OnlineVATAccount, RegisteredForVATUk}
 import models.wrongcredentials.FindingYourAccount
 import play.api.mvc.{Call, Request}
-import utils.nextpage.employer.cis.uk.contractor.IsBusinessRegisteredForPAYENextPage
+import utils.nextpage.employer.cis.uk.contractor.{DoesBusinessManagePAYENextPage, IsBusinessRegisteredForPAYENextPage}
 import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
 import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage
 import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
@@ -69,17 +68,8 @@ object NextPage
     with SelectGamblingOrGamingDutyNextPage
     with HaveYouRegisteredForRebatedOilsNextPage
     with IsBusinessRegisteredForPAYENextPage
-    with HaveYouRegisteredForTiedOilsNextPage {
-
-  implicit val doesBusinessManagePAYE: NextPage[DoesBusinessManagePAYEId.type, DoesBusinessManagePAYE] = {
-    new NextPage[DoesBusinessManagePAYEId.type, DoesBusinessManagePAYE] {
-      override def get(b: DoesBusinessManagePAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case DoesBusinessManagePAYE.Yes => payeAccountRoutes.UsePAYEEmployerAccountController.onPageLoad()
-          case DoesBusinessManagePAYE.No  => Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.AddCis))
-        }
-    }
-  }
+    with HaveYouRegisteredForTiedOilsNextPage
+    with DoesBusinessManagePAYENextPage {
 
   implicit val selectAlcoholScheme
     : NextPage[SelectAlcoholSchemeId.type, models.other.alcohol.awrs.SelectAlcoholScheme] = {
