@@ -43,6 +43,7 @@ import models.sa.trust.HaveYouRegisteredTrust
 import models.vat.moss.uk.{OnlineVATAccount, RegisteredForVATUk}
 import models.wrongcredentials.FindingYourAccount
 import play.api.mvc.{Call, Request}
+import utils.nextpage.OtherTaxesNextPage
 import utils.nextpage.employer.cis.uk.contractor.{DoesBusinessManagePAYENextPage, IsBusinessRegisteredForPAYENextPage}
 import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
 import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage
@@ -69,7 +70,8 @@ object NextPage
     with DoesBusinessManagePAYENextPage
     with SelectAnOilServiceNextPage
     with SelectAlcoholSchemeNextPage
-    with FindingYourAccountNextPage {
+    with FindingYourAccountNextPage
+    with OtherTaxesNextPage {
 
   implicit val registeredForVATUk: NextPage[RegisteredForVATUkId.type, models.vat.moss.uk.RegisteredForVATUk] = {
     new NextPage[RegisteredForVATUkId.type, models.vat.moss.uk.RegisteredForVATUk] {
@@ -283,22 +285,6 @@ object NextPage
         b match {
           case DoYouHaveEORINumber.Yes => nesRoutes.DoYouHaveCHIEFRoleHasEORIController.onPageLoad()
           case DoYouHaveEORINumber.No  => nesRoutes.DoYouHaveCHIEFRoleNoEORIController.onPageLoad()
-        }
-    }
-  }
-
-  implicit val otherTaxes: NextPage[OtherTaxesId.type, OtherTaxes] = {
-    new NextPage[OtherTaxesId.type, OtherTaxes] {
-      override def get(b: OtherTaxes)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case models.OtherTaxes.AlcoholAndTobacco                            => Call(GET, appConfig.getBusinessAccountUrl("alcohol"))
-          case models.OtherTaxes.AutomaticExchangeOfInformation               => Call(GET, appConfig.getBusinessAccountUrl("aeoi"))
-          case models.OtherTaxes.Charities                                    => Call(GET, appConfig.getBusinessAccountUrl("charities"))
-          case models.OtherTaxes.GamblingAndGaming                            => Call(GET, appConfig.getBusinessAccountUrl("gambling"))
-          case models.OtherTaxes.HousingAndLand                               => Call(GET, appConfig.getBusinessAccountUrl("land"))
-          case models.OtherTaxes.ImportsExports                               => Call(GET, appConfig.getBusinessAccountUrl("import-export"))
-          case models.OtherTaxes.OilAndFuel                                   => routes.SelectAnOilServiceController.onPageLoad()
-          case models.OtherTaxes.FulfilmentHouseDueDiligenceSchemeIntegration => Call(GET, appConfig.fulfilmentHouse)
         }
     }
   }
