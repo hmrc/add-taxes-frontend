@@ -16,10 +16,8 @@
 
 package utils
 
-import controllers.other.alcohol.atwd.{routes => atwdRoutes}
 import config.FrontendAppConfig
 import controllers.other.aeoi.{routes => aeoiRoutes}
-import controllers.other.oil.routes
 import controllers.other.alcohol.atwd.{routes => atwdRoutes}
 import controllers.other.charity.{routes => charityRoutes}
 import controllers.other.gambling.gbd.{routes => gbdRoutes}
@@ -85,10 +83,10 @@ object NextPage {
   implicit val selectAlcoholScheme: NextPage[SelectAlcoholSchemeId.type,
     models.other.alcohol.awrs.SelectAlcoholScheme] = {
     new NextPage[SelectAlcoholSchemeId.type, models.other.alcohol.awrs.SelectAlcoholScheme] {
-      override def get(b: models.other.alcohol.awrs.SelectAlcoholScheme)(implicit urlHelper: UrlHelper, request: Request[_]): Call =
+      override def get(b: models.other.alcohol.awrs.SelectAlcoholScheme)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case SelectAlcoholScheme.ATWD => atwdRoutes.AreYouRegisteredWarehousekeeperController.onPageLoad()
-          case SelectAlcoholScheme.AWRS => Call(GET, urlHelper.businessTaxAccountLink("awrs"))
+          case SelectAlcoholScheme.AWRS => Call(GET, appConfig.getBusinessAccountUrl("awrs"))
         }
      }
   }
