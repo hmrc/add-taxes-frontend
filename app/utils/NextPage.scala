@@ -44,6 +44,7 @@ import models.wrongcredentials.FindingYourAccount
 import play.api.mvc.{Call, Request}
 import utils.nextpage.OtherTaxesNextPage
 import utils.nextpage.employer.cis.uk.contractor.{DoesBusinessManagePAYENextPage, IsBusinessRegisteredForPAYENextPage}
+import utils.nextpage.employer.pension.WhichPensionSchemeToAddNextPage
 import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
 import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage
 import utils.nextpage.other.alcohol.awrs.SelectAlcoholSchemeNextPage
@@ -77,22 +78,8 @@ object NextPage
     with OtherTaxesNextPage
     with OnlineVATAccountNextPage
     with SelectSACategoryNextPage
-    with DoYouHaveEORINumberNextPage {
-
-  implicit val whichPensionSchemeToAdd
-    : NextPage[WhichPensionSchemeToAddId.type, models.employer.pension.WhichPensionSchemeToAdd] = {
-    new NextPage[WhichPensionSchemeToAddId.type, models.employer.pension.WhichPensionSchemeToAdd] {
-      override def get(b: models.employer.pension.WhichPensionSchemeToAdd)(
-        implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
-        b match {
-          case models.employer.pension.WhichPensionSchemeToAdd.Administrators =>
-            Call(GET, appConfig.getPortalUrl("pensionAdministrators"))
-          case models.employer.pension.WhichPensionSchemeToAdd.Practitioners =>
-            Call(GET, appConfig.getPortalUrl("pensionPractitioners"))
-        }
-    }
-  }
+    with DoYouHaveEORINumberNextPage
+    with WhichPensionSchemeToAddNextPage {
 
   implicit val rgdGTS: NextPage[AreYouRegisteredGTSId.RGD.type, AreYouRegisteredGTS] = {
     new NextPage[AreYouRegisteredGTSId.RGD.type, AreYouRegisteredGTS] {
