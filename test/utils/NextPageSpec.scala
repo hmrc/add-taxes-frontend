@@ -302,21 +302,7 @@ class NextPageSpec extends NextPageSpecBase {
       "/business-account/add-tax/other/gambling/rgd/register"
     )
   }
-
-  "Maching Gaming Duty Registration" when {
-    behave like nextPage(
-      NextPage.doYouHaveMGDRegistration,
-      DoYouHaveMGDRegistration.Yes,
-      "http://localhost:9555/enrolment-management-frontend/HMRC-MGD-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-
-    behave like nextPage(
-      NextPage.doYouHaveMGDRegistration,
-      DoYouHaveMGDRegistration.No,
-      "/business-account/add-tax/other/gambling/mgd/register"
-    )
-  }
-
+  
   "SA Partnership" when {
     behave like nextPage(
       NextPage.doYouWantToAddPartner,

@@ -52,26 +52,14 @@ import models.wrongcredentials.FindingYourAccount
 import play.api.mvc.{Call, Request}
 import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
 import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
+import utils.nextpage.other.gambling.mgd.DoYouHaveMGDRegistrationNextPage
 
 trait NextPage[A, B] {
   def get(b: B)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call
 }
 
-object NextPage extends HaveYouRegisteredAEOINextPage with DoYouHaveCharityReferenceNextPage{
-
-
-
-  implicit val doYouHaveMGDRegistration: NextPage[DoYouHaveMGDRegistrationId.type,
-    models.other.gambling.mgd.DoYouHaveMGDRegistration] = {
-    new NextPage[DoYouHaveMGDRegistrationId.type, models.other.gambling.mgd.DoYouHaveMGDRegistration] {
-      override def get(b: models.other.gambling.mgd.DoYouHaveMGDRegistration)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case models.other.gambling.mgd.DoYouHaveMGDRegistration.Yes => Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.MachineGamingDuty))
-          case models.other.gambling.mgd.DoYouHaveMGDRegistration.No => mgdRoutes.RegisterMGDController.onPageLoad()
-        }
-    }
-  }
-
+object NextPage extends HaveYouRegisteredAEOINextPage with DoYouHaveCharityReferenceNextPage with DoYouHaveMGDRegistrationNextPage {
+  
   implicit val areYouRegisteredWarehousekeeper: NextPage[AreYouRegisteredWarehousekeeperId.type, AreYouRegisteredWarehousekeeper] = {
     new NextPage[AreYouRegisteredWarehousekeeperId.type, AreYouRegisteredWarehousekeeper] {
       override def get(b: AreYouRegisteredWarehousekeeper)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
