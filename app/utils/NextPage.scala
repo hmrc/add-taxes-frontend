@@ -17,8 +17,6 @@
 package utils
 
 import config.FrontendAppConfig
-import controllers.employer.cis.uk.contractor.{routes => payeAccountRoutes}
-import controllers.other.alcohol.atwd.{routes => atwdRoutes}
 import controllers.other.gambling.gbd.{routes => gbdRoutes}
 import controllers.other.gambling.pbd.{routes => pbdRoutes}
 import controllers.other.gambling.rgd.{routes => rgdRoutes}
@@ -34,8 +32,6 @@ import controllers.sa.trust.{routes => trustRoutes}
 import controllers.vat.moss.uk.{routes => vatMossUkRoutes}
 import identifiers._
 import models.OtherTaxes
-import models.employer.cis.uk.contractor.DoesBusinessManagePAYE
-import models.other.alcohol.awrs._
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
@@ -50,6 +46,7 @@ import play.api.mvc.{Call, Request}
 import utils.nextpage.employer.cis.uk.contractor.{DoesBusinessManagePAYENextPage, IsBusinessRegisteredForPAYENextPage}
 import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
 import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage
+import utils.nextpage.other.alcohol.awrs.SelectAlcoholSchemeNextPage
 import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
 import utils.nextpage.other.gambling.SelectGamblingOrGamingDutyNextPage
 import utils.nextpage.other.gambling.mgd.DoYouHaveMGDRegistrationNextPage
@@ -69,20 +66,8 @@ object NextPage
     with IsBusinessRegisteredForPAYENextPage
     with HaveYouRegisteredForTiedOilsNextPage
     with DoesBusinessManagePAYENextPage
-    with SelectAnOilServiceNextPage {
-
-  implicit val selectAlcoholScheme
-    : NextPage[SelectAlcoholSchemeId.type, models.other.alcohol.awrs.SelectAlcoholScheme] = {
-    new NextPage[SelectAlcoholSchemeId.type, models.other.alcohol.awrs.SelectAlcoholScheme] {
-      override def get(b: models.other.alcohol.awrs.SelectAlcoholScheme)(
-        implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
-        b match {
-          case SelectAlcoholScheme.ATWD => atwdRoutes.AreYouRegisteredWarehousekeeperController.onPageLoad()
-          case SelectAlcoholScheme.AWRS => Call(GET, appConfig.getBusinessAccountUrl("awrs"))
-        }
-    }
-  }
+    with SelectAnOilServiceNextPage
+    with SelectAlcoholSchemeNextPage {
 
   implicit val registeredForVATUk: NextPage[RegisteredForVATUkId.type, models.vat.moss.uk.RegisteredForVATUk] = {
     new NextPage[RegisteredForVATUkId.type, models.vat.moss.uk.RegisteredForVATUk] {
