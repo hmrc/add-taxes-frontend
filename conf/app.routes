@@ -135,6 +135,9 @@ GET        /vat/moss/uk/vat-registered/other-account    controllers.vat.moss.uk.
 
 GET        /vat/moss/uk/vat-registered/no-other-account  controllers.vat.moss.uk.AddVATFirstController.onPageLoad()
 
+GET        /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onPageLoad()
+POST       /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onSubmit()
+
 GET        /other/charities                             controllers.other.charity.DoYouHaveCharityReferenceController.onPageLoad()
 POST       /other/charities                             controllers.other.charity.DoYouHaveCharityReferenceController.onSubmit()
 

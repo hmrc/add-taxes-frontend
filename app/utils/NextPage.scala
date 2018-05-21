@@ -41,6 +41,7 @@ import identifiers._
 import models.OtherTaxes
 import models.employer.cis.uk.contractor.DoesBusinessManagePAYE
 import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
+import models.other.alcohol.awrs._
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
@@ -101,6 +102,17 @@ object NextPage {
         b match {
           case models.other.charity.DoYouHaveCharityReference.Yes => Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.Charity))
           case models.other.charity.DoYouHaveCharityReference.No => charityRoutes.RegisterForCharityController.onPageLoad()
+        }
+    }
+  }
+
+  implicit val selectAlcoholScheme: NextPage[SelectAlcoholSchemeId.type,
+    models.other.alcohol.awrs.SelectAlcoholScheme] = {
+    new NextPage[SelectAlcoholSchemeId.type, models.other.alcohol.awrs.SelectAlcoholScheme] {
+      override def get(b: models.other.alcohol.awrs.SelectAlcoholScheme)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+        b match {
+          case SelectAlcoholScheme.ATWD => atwdRoutes.AreYouRegisteredWarehousekeeperController.onPageLoad()
+          case SelectAlcoholScheme.AWRS => Call(GET, appConfig.getBusinessAccountUrl("awrs"))
         }
      }
   }

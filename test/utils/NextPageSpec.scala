@@ -24,6 +24,7 @@ import models.employer.cis.uk.contractor.{DoesBusinessManagePAYE, IsBusinessRegi
 import models.employer.pension.WhichPensionSchemeToAdd
 import models.other.aeoi.HaveYouRegisteredAEOI
 import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
+import models.other.alcohol.awrs.SelectAlcoholScheme
 import models.other.charity.DoYouHaveCharityReference
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.gambling.mgd.DoYouHaveMGDRegistration
@@ -447,6 +448,21 @@ class NextPageSpec extends SpecBase {
       "/business-account/add-tax/self-assessment/trust"
     )
   }
+
+  "Select an Alcohol Scheme" when {
+    behave like nextPage(
+      NextPage.selectAlcoholScheme,
+      SelectAlcoholScheme.ATWD,
+      "/business-account/add-tax/other/alcohol/atwd"
+    )
+
+    behave like nextPage(
+      NextPage.selectAlcoholScheme,
+      SelectAlcoholScheme.AWRS,
+      "http://localhost:9020/business-customer/business-verification/awrs"
+    )
+  }
+
 
   "Charities" when {
     behave like nextPage(
