@@ -226,24 +226,4 @@ class NextPageSpec extends NextPageSpecBase {
     )
   }
 
-  "Self Assessment" when {
-    behave like nextPage(
-      NextPage.selectSACategory,
-      SelectSACategory.Sa,
-      "http://localhost:8080/portal/business-registration/introduction?lang=eng"
-    )
-
-    behave like nextPage(
-      NextPage.selectSACategory,
-      SelectSACategory.Partnership,
-      "/business-account/add-tax/self-assessment/partnership"
-    )
-
-    behave like nextPage(
-      NextPage.selectSACategory,
-      SelectSACategory.Trust,
-      "/business-account/add-tax/self-assessment/trust"
-    )
-  }
-
 }
