@@ -26,13 +26,15 @@ import views.html.other.importexports.nes.registerEORI
 
 import scala.concurrent.Future
 
-class RegisterEORIController @Inject()(appConfig: FrontendAppConfig,
-                                          override val messagesApi: MessagesApi,
-                                          authenticate: AuthAction,
-                                          serviceInfo: ServiceInfoAction ) extends FrontendController with I18nSupport {
+class RegisterEORIController @Inject()(
+  appConfig: FrontendAppConfig,
+  override val messagesApi: MessagesApi,
+  authenticate: AuthAction,
+  serviceInfo: ServiceInfoAction)
+    extends FrontendController
+    with I18nSupport {
 
-  def onPageLoad = (authenticate andThen serviceInfo) {
-    implicit request =>
-      Ok(registerEORI(appConfig)(request.serviceInfoContent))
+  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
+    Ok(registerEORI(appConfig)(request.serviceInfoContent))
   }
 }

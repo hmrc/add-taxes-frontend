@@ -33,10 +33,7 @@ class AreYouRegisteredGTSFormProviderSpec extends FormBehaviours {
     behave like questionForm[AreYouRegisteredGTS](AreYouRegisteredGTS.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "areYouRegisteredGTS.error.required",
-        Invalid -> "error.invalid"),
+      Field("value", Required -> "areYouRegisteredGTS.error.required", Invalid -> "error.invalid"),
       AreYouRegisteredGTS.options.toSeq.map(_.value): _*)
   }
 }

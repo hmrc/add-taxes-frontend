@@ -39,24 +39,27 @@ import models.sa.partnership.{DoYouWantToAddPartner, HaveYouRegisteredPartnershi
 import models.vat.moss.uk.{OnlineVATAccount, RegisteredForVATUk}
 import models.wrongcredentials.FindingYourAccount
 
-
 class NextPageSpec extends SpecBase {
 
   implicit val request = fakeRequest
 
-
-  def nextPage[A, B](np: NextPage[A, B], userSelection: B, urlRedirect: String): Unit = {
+  def nextPage[A, B](np: NextPage[A, B], userSelection: B, urlRedirect: String): Unit =
     s"$userSelection is selected" should {
       s"redirect to $urlRedirect" in {
         val result = np.get(userSelection)
         result.url mustBe urlRedirect
       }
     }
-  }
 
   "SelectAnOilService" when {
-    behave like nextPage(NextPage.selectAnOilService, TiedOilsEnquiryService, "/business-account/add-tax/other/oil/tied")
-    behave like nextPage(NextPage.selectAnOilService, RebatedOilsEnquiryService, "/business-account/add-tax/other/oil/rebated")
+    behave like nextPage(
+      NextPage.selectAnOilService,
+      TiedOilsEnquiryService,
+      "/business-account/add-tax/other/oil/tied")
+    behave like nextPage(
+      NextPage.selectAnOilService,
+      RebatedOilsEnquiryService,
+      "/business-account/add-tax/other/oil/rebated")
   }
 
   "HaveYouRegisteredForTiedOils" when {
@@ -117,7 +120,6 @@ class NextPageSpec extends SpecBase {
     )
   }
 
-
   "HaveYouRegisteredForRebatedOils" when {
     behave like nextPage(
       NextPage.haveYouRegisteredForRebatedOils,
@@ -137,12 +139,19 @@ class NextPageSpec extends SpecBase {
       s"http://localhost:9898/government-gateway-lost-credentials-frontend/" +
         s"choose-your-account?continue=%2Fbusiness-account&origin=business-tax-account&forgottenOption=$forgottenOption"
 
-    behave like nextPage(NextPage.findingYourAccount, FindingYourAccount.DontKnowId, governmentGatewayUrlGenerator("userId"))
+    behave like nextPage(
+      NextPage.findingYourAccount,
+      FindingYourAccount.DontKnowId,
+      governmentGatewayUrlGenerator("userId"))
 
-    behave like nextPage(NextPage.findingYourAccount, FindingYourAccount.DontKnowPassword,
+    behave like nextPage(
+      NextPage.findingYourAccount,
+      FindingYourAccount.DontKnowPassword,
       governmentGatewayUrlGenerator("password"))
 
-    behave like nextPage(NextPage.findingYourAccount, FindingYourAccount.DontKnowIdOrPassword,
+    behave like nextPage(
+      NextPage.findingYourAccount,
+      FindingYourAccount.DontKnowIdOrPassword,
       governmentGatewayUrlGenerator("UserIdAndPassword"))
   }
 
@@ -428,7 +437,6 @@ class NextPageSpec extends SpecBase {
     )
   }
 
-
   "Self Assessment" when {
     behave like nextPage(
       NextPage.selectSACategory,
@@ -462,7 +470,6 @@ class NextPageSpec extends SpecBase {
       "http://localhost:9020/business-customer/business-verification/awrs"
     )
   }
-
 
   "Charities" when {
     behave like nextPage(

@@ -38,10 +38,17 @@ class IsBusinessRegisteredForPAYEControllerSpec extends ControllerSpecBase {
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new IsBusinessRegisteredForPAYEController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
-      FakeServiceInfoAction, formProvider)
+    new IsBusinessRegisteredForPAYEController(
+      frontendAppConfig,
+      messagesApi,
+      FakeDataCacheConnector,
+      new FakeNavigator(desiredRoute = onwardRoute),
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      formProvider)
 
-  def viewAsString(form: Form[_] = form) = isBusinessRegisteredForPAYE(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) =
+    isBusinessRegisteredForPAYE(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "IsBusinessRegisteredForPAYE Controller" must {
 
@@ -77,7 +84,7 @@ class IsBusinessRegisteredForPAYEControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    for(option <- IsBusinessRegisteredForPAYE.options) {
+    for (option <- IsBusinessRegisteredForPAYE.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
         val result = controller(dontGetAnyData).onSubmit()(postRequest)

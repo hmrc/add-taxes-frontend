@@ -30,7 +30,7 @@ class RegisterAEOIViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
-      val doc =  asDocument(createView())
+      val doc = asDocument(createView())
       val view = doc.text()
 
       assertLinkById(
@@ -41,7 +41,9 @@ class RegisterAEOIViewSpec extends ViewBehaviours {
         "RegisterAeoi:Click:Continue")
 
       assertContainsText(doc, "You need to register for AEOI before you can add it to your account.")
-      assertContainsText(doc, "We’ll send you an Automatic Exchange of Information ID, which you can use to add AEOI to the account.")
+      assertContainsText(
+        doc,
+        "We’ll send you an Automatic Exchange of Information ID, which you can use to add AEOI to the account.")
 
     }
   }

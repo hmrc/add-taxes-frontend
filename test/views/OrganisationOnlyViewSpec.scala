@@ -29,7 +29,6 @@ class OrganisationOnlyViewSpec extends ViewBehaviours {
 
   def createView = () => organisation_only(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
 
-
   "OrganisationOnly view" must {
     behave like normalPage(createView, messageKeyPrefix)
   }
@@ -45,8 +44,11 @@ class OrganisationOnlyViewSpec extends ViewBehaviours {
         view must include("You need to:")
         view must include("Don’t try to add business taxes on the Government Gateway website.")
 
-        val expectedText = List("Create an Organisation account on the Government Gateway website.",
-          "Sign in to HMRC with the new sign in details.", "Add business taxes in that account.")
+        val expectedText = List(
+          "Create an Organisation account on the Government Gateway website.",
+          "Sign in to HMRC with the new sign in details.",
+          "Add business taxes in that account."
+        )
 
         val bulletList = doc.getElementsByClass("list-number").first().getElementsByTag("li").asScala.toList
 
@@ -57,13 +59,16 @@ class OrganisationOnlyViewSpec extends ViewBehaviours {
       }
       "have the correct links" in {
         val doc = asDocument(createView())
-        assertLinkById(doc,
+        assertLinkById(
+          doc,
           "create-account",
           "Sign out and create ‘Organisation’ account",
           "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fcoafe%2Fgovernment-gateway%2Fregister%3FaccountType%3Dorganisation%2526continue%3D%2Fbusiness-account%2Fadd-tax%2526origin%3Dunknown",
-          "SetUpAccountbusinesstaxes:Click:Register")
+          "SetUpAccountbusinesstaxes:Click:Register"
+        )
 
-        assertLinkById(doc,
+        assertLinkById(
+          doc,
           "not-now",
           "I don’t want to do this right now",
           "http://localhost:9020/business-account",

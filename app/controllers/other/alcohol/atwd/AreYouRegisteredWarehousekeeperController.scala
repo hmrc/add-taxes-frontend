@@ -33,28 +33,31 @@ import views.html.other.alcohol.atwd.areYouRegisteredWarehousekeeper
 import scala.concurrent.Future
 
 class AreYouRegisteredWarehousekeeperController @Inject()(
-                                        appConfig: FrontendAppConfig,
-                                        override val messagesApi: MessagesApi,
-                                        dataCacheConnector: DataCacheConnector,
-                                        navigator: Navigator,
-                                        authenticate: AuthAction,
-                                        serviceInfoData: ServiceInfoAction,
-                                        formProvider: AreYouRegisteredWarehousekeeperFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+  appConfig: FrontendAppConfig,
+  override val messagesApi: MessagesApi,
+  dataCacheConnector: DataCacheConnector,
+  navigator: Navigator,
+  authenticate: AuthAction,
+  serviceInfoData: ServiceInfoAction,
+  formProvider: AreYouRegisteredWarehousekeeperFormProvider)
+    extends FrontendController
+    with I18nSupport
+    with Enumerable.Implicits {
 
   val form = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) {
-    implicit request =>
-      Ok(areYouRegisteredWarehousekeeper(appConfig, form)(request.serviceInfoContent))
+  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+    Ok(areYouRegisteredWarehousekeeper(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async {
-    implicit request =>
-      form.bindFromRequest().fold(
+  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+    form
+      .bindFromRequest()
+      .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(areYouRegisteredWarehousekeeper(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) =>
-          Future.successful(Redirect(navigator.nextPage(AreYouRegisteredWarehousekeeperId, value)))
+          Future.successful(
+            BadRequest(areYouRegisteredWarehousekeeper(appConfig, formWithErrors)(request.serviceInfoContent))),
+        (value) => Future.successful(Redirect(navigator.nextPage(AreYouRegisteredWarehousekeeperId, value)))
       )
   }
 }

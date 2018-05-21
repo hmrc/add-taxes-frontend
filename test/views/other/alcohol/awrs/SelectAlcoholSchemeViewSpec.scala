@@ -33,7 +33,8 @@ class SelectAlcoholSchemeViewSpec extends ViewBehaviours {
 
   def createView = () => selectAlcoholScheme(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => selectAlcoholScheme(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm =
+    (form: Form[_]) => selectAlcoholScheme(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "SelectAlcoholScheme view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -52,13 +53,13 @@ class SelectAlcoholSchemeViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- SelectAlcoholScheme.options) {
+    for (option <- SelectAlcoholScheme.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- SelectAlcoholScheme.options.filterNot(o => o == option)) {
+          for (unselectedOption <- SelectAlcoholScheme.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

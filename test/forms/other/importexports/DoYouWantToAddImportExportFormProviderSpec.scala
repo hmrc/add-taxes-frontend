@@ -33,10 +33,8 @@ class DoYouWantToAddImportExportFormProviderSpec extends FormBehaviours {
     behave like questionForm[DoYouWantToAddImportExport](DoYouWantToAddImportExport.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "doYouWantToAddImportExport.error.required",
-        Invalid -> "error.invalid"),
-      DoYouWantToAddImportExport.options.toSeq.map(_.value): _*)
+      Field("value", Required -> "doYouWantToAddImportExport.error.required", Invalid -> "error.invalid"),
+      DoYouWantToAddImportExport.options.toSeq.map(_.value): _*
+    )
   }
 }

@@ -32,29 +32,31 @@ import views.html.other.oil.haveYouRegisteredForRebatedOils
 import scala.concurrent.Future
 
 class HaveYouRegisteredForRebatedOilsController @Inject()(
-                                                           appConfig: FrontendAppConfig,
-                                                           override val messagesApi: MessagesApi,
-                                                           dataCacheConnector: DataCacheConnector,
-                                                           navigator: Navigator,
-                                                           authenticate: AuthAction,
-                                                           serviceInfo: ServiceInfoAction,
-                                                           formProvider: HaveYouRegisteredForRebatedOilsFormProvider
-                                                         ) extends FrontendController with I18nSupport with Enumerable.Implicits {
+  appConfig: FrontendAppConfig,
+  override val messagesApi: MessagesApi,
+  dataCacheConnector: DataCacheConnector,
+  navigator: Navigator,
+  authenticate: AuthAction,
+  serviceInfo: ServiceInfoAction,
+  formProvider: HaveYouRegisteredForRebatedOilsFormProvider
+) extends FrontendController
+    with I18nSupport
+    with Enumerable.Implicits {
 
   val form = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfo) {
-    implicit request =>
-      Ok(haveYouRegisteredForRebatedOils(appConfig, form)(request.serviceInfoContent))
+  def onPageLoad() = (authenticate andThen serviceInfo) { implicit request =>
+    Ok(haveYouRegisteredForRebatedOils(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfo).async {
-    implicit request =>
-      form.bindFromRequest().fold(
+  def onSubmit() = (authenticate andThen serviceInfo).async { implicit request =>
+    form
+      .bindFromRequest()
+      .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(haveYouRegisteredForRebatedOils(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) =>
-          Future.successful(Redirect(navigator.nextPage(HaveYouRegisteredForRebatedOilsId, value)))
+          Future.successful(
+            BadRequest(haveYouRegisteredForRebatedOils(appConfig, formWithErrors)(request.serviceInfoContent))),
+        (value) => Future.successful(Redirect(navigator.nextPage(HaveYouRegisteredForRebatedOilsId, value)))
       )
   }
 }

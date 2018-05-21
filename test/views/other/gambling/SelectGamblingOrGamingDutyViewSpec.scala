@@ -33,7 +33,8 @@ class SelectGamblingOrGamingDutyViewSpec extends ViewBehaviours {
 
   def createView = () => selectGamblingOrGamingDuty(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => selectGamblingOrGamingDuty(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm =
+    (form: Form[_]) => selectGamblingOrGamingDuty(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "SelectGamblingOrGamingDuty view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -49,13 +50,13 @@ class SelectGamblingOrGamingDutyViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- SelectGamblingOrGamingDuty.options) {
+    for (option <- SelectGamblingOrGamingDuty.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- SelectGamblingOrGamingDuty.options.filterNot(o => o == option)) {
+          for (unselectedOption <- SelectGamblingOrGamingDuty.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

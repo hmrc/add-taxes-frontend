@@ -30,7 +30,6 @@ class RegisterDefermentApprovalNumberViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
   }
 
-
   "RegisterDefermentApprovalNumber view" should {
     "have the correct content" in {
       val doc = asDocument(createView())
@@ -40,18 +39,18 @@ class RegisterDefermentApprovalNumberViewSpec extends ViewBehaviours {
         "You need to get a Deferment Approval Number (DAN) before you can add " +
           "Duty Deferment Electronic Statements to your account.")
 
-      view must include("Come back to your account and add Duty Deferment Electronic " +
-        "Statements your Deferment Approval Number (DAN) arrives.")
+      view must include(
+        "Come back to your account and add Duty Deferment Electronic " +
+          "Statements your Deferment Approval Number (DAN) arrives.")
 
       assertLinkById(
         doc,
         "register-for-ddes",
         "Continue - get a DAN",
         "https://www.gov.uk/government/publications/notice-101-deferring-duty-vat-and-other-charges/notice-101-deferring-duty-vat-and-other-charges#deferment-approval",
-        "RegisterDDES:Click:Continue")
+        "RegisterDDES:Click:Continue"
+      )
     }
   }
-
-
 
 }

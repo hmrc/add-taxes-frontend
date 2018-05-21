@@ -28,20 +28,26 @@ import uk.gov.hmrc.http.{HeaderCarrier, UnauthorizedException}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.auth.core.retrieve.~
 
-
 import scala.concurrent.{ExecutionContext, Future}
 
-class AuthActionImpl @Inject()(override val authConnector: AuthConnector, config: FrontendAppConfig)
-                              (implicit ec: ExecutionContext) extends AuthAction with AuthorisedFunctions {
+class AuthActionImpl @Inject()(override val authConnector: AuthConnector, config: FrontendAppConfig)(
+  implicit ec: ExecutionContext)
+    extends AuthAction
+    with AuthorisedFunctions {
 
-  override def invokeBlock[A](request: Request[A], block: (AuthenticatedRequest[A]) => Future[Result]): Future[Result] = {
-    implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+  override def invokeBlock[A](
+    request: Request[A],
+    block: (AuthenticatedRequest[A]) => Future[Result]): Future[Result] = {
+    implicit val hc: HeaderCarrier =
+      HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
     authorised().retrieve(Retrievals.externalId and Retrievals.allEnrolments and Retrievals.affinityGroup) {
       case externalId ~ enrolments ~ affinityGroup =>
-      externalId.map {
-        externalId => block(AuthenticatedRequest(request, externalId, enrolments, affinityGroup))
-      }.getOrElse(throw new UnauthorizedException("Unable to retrieve external Id"))
+        externalId
+          .map { externalId =>
+            block(AuthenticatedRequest(request, externalId, enrolments, affinityGroup))
+          }
+          .getOrElse(throw new UnauthorizedException("Unable to retrieve external Id"))
     } recover {
       case ex: NoActiveSession =>
         Redirect(config.loginUrl, Map("continue" -> Seq(config.loginContinueUrl)))

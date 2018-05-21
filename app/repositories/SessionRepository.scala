@@ -33,9 +33,7 @@ import uk.gov.hmrc.mongo.json.ReactiveMongoFormats
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-case class DatedCacheMap(id: String,
-                         data: Map[String, JsValue],
-                         lastUpdated: DateTime = DateTime.now(DateTimeZone.UTC))
+case class DatedCacheMap(id: String, data: Map[String, JsValue], lastUpdated: DateTime = DateTime.now(DateTimeZone.UTC))
 
 object DatedCacheMap {
   implicit val dateFormat = ReactiveMongoFormats.dateTimeFormats
@@ -45,7 +43,10 @@ object DatedCacheMap {
 }
 
 class ReactiveMongoRepository(config: Configuration, mongo: () => DefaultDB)
-  extends ReactiveRepository[DatedCacheMap, BSONObjectID](config.getString("appName").get, mongo, DatedCacheMap.formats) {
+    extends ReactiveRepository[DatedCacheMap, BSONObjectID](
+      config.getString("appName").get,
+      mongo,
+      DatedCacheMap.formats) {
 
   val fieldName = "lastUpdated"
   val createdIndexName = "userAnswersExpiry"
@@ -54,18 +55,20 @@ class ReactiveMongoRepository(config: Configuration, mongo: () => DefaultDB)
 
   createIndex(fieldName, createdIndexName, timeToLiveInSeconds)
 
-  private def createIndex(field: String, indexName: String, ttl: Int): Future[Boolean] = {
-    collection.indexesManager.ensure(Index(Seq((field, IndexType.Ascending)), Some(indexName),
-      options = BSONDocument(expireAfterSeconds -> ttl))) map {
-      result => {
+  private def createIndex(field: String, indexName: String, ttl: Int): Future[Boolean] =
+    collection.indexesManager.ensure(Index(
+      Seq((field, IndexType.Ascending)),
+      Some(indexName),
+      options = BSONDocument(expireAfterSeconds -> ttl))) map { result =>
+      {
         Logger.debug(s"set [$indexName] with value $ttl -> result : $result")
         result
       }
     } recover {
-      case e => Logger.error("Failed to set TTL index", e)
+      case e =>
+        Logger.error("Failed to set TTL index", e)
         false
     }
-  }
 
   def upsert(cm: CacheMap): Future[Boolean] = {
     val selector = BSONDocument("id" -> cm.id)

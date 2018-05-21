@@ -33,10 +33,8 @@ class AreYouRegisteredWarehousekeeperFormProviderSpec extends FormBehaviours {
     behave like questionForm[AreYouRegisteredWarehousekeeper](AreYouRegisteredWarehousekeeper.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "areYouRegisteredWarehousekeeper.error.required",
-        Invalid -> "error.invalid"),
-      AreYouRegisteredWarehousekeeper.options.toSeq.map(_.value): _*)
+      Field("value", Required -> "areYouRegisteredWarehousekeeper.error.required", Invalid -> "error.invalid"),
+      AreYouRegisteredWarehousekeeper.options.toSeq.map(_.value): _*
+    )
   }
 }

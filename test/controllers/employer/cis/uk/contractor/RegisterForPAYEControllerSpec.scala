@@ -26,7 +26,6 @@ import views.html.employer.cis.uk.contractor.registerForPAYE
 
 class RegisterForPAYEControllerSpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach {
 
-
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new RegisterForPAYEController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 

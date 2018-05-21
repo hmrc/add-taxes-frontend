@@ -28,12 +28,14 @@ object SelectGamblingOrGamingDuty {
   case object RGD extends WithName("RGD") with SelectGamblingOrGamingDuty
 
   val values: Set[SelectGamblingOrGamingDuty] = Set(
-    MGD, GBD, PBD, RGD
+    MGD,
+    GBD,
+    PBD,
+    RGD
   )
 
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("selectGamblingOrGamingDuty", value.toString)
+  val options: Set[RadioOption] = values.map { value =>
+    RadioOption("selectGamblingOrGamingDuty", value.toString)
   }
 
   implicit val enumerable: Enumerable[SelectGamblingOrGamingDuty] =

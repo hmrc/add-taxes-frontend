@@ -40,7 +40,3 @@ class RegisterAEOIControllerSpec extends ControllerSpecBase {
     }
   }
 }
-
-
-
-

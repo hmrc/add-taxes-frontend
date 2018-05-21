@@ -26,12 +26,12 @@ object SelectAlcoholScheme {
   case object AWRS extends WithName("awrs") with SelectAlcoholScheme
 
   val values: Set[SelectAlcoholScheme] = Set(
-    ATWD, AWRS
+    ATWD,
+    AWRS
   )
 
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("selectAlcoholScheme", value.toString)
+  val options: Set[RadioOption] = values.map { value =>
+    RadioOption("selectAlcoholScheme", value.toString)
   }
 
   implicit val enumerable: Enumerable[SelectAlcoholScheme] =

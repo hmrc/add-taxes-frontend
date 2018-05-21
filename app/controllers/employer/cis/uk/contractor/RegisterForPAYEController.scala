@@ -24,16 +24,15 @@ import controllers.actions._
 import config.FrontendAppConfig
 import views.html.employer.cis.uk.contractor.registerForPAYE
 
-
 class RegisterForPAYEController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   authenticate: AuthAction,
   serviceInfo: ServiceInfoAction
-) extends FrontendController with I18nSupport {
+) extends FrontendController
+    with I18nSupport {
 
-  def onPageLoad = (authenticate andThen serviceInfo) {
-    implicit request =>
-      Ok(registerForPAYE(appConfig)(request.serviceInfoContent))
+  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
+    Ok(registerForPAYE(appConfig)(request.serviceInfoContent))
   }
 }

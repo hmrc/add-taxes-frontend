@@ -33,10 +33,8 @@ class IsBusinessRegisteredForPAYEFormProviderSpec extends FormBehaviours {
     behave like questionForm[IsBusinessRegisteredForPAYE](IsBusinessRegisteredForPAYE.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "isBusinessRegisteredForPAYE.error.required",
-        Invalid -> "error.invalid"),
-      IsBusinessRegisteredForPAYE.options.toSeq.map(_.value): _*)
+      Field("value", Required -> "isBusinessRegisteredForPAYE.error.required", Invalid -> "error.invalid"),
+      IsBusinessRegisteredForPAYE.options.toSeq.map(_.value): _*
+    )
   }
 }

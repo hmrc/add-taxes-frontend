@@ -41,9 +41,9 @@ object SessionIdFilterSpec {
   class Filters @Inject()(sessionId: SessionIdFilter) extends DefaultHttpFilters(sessionId)
 
   class TestSessionIdFilter @Inject()(
-                                       override val mat: Materializer,
-                                       ec: ExecutionContext
-                                     ) extends SessionIdFilter(mat, UUID.fromString(sessionId), ec)
+    override val mat: Materializer,
+    ec: ExecutionContext
+  ) extends SessionIdFilter(mat, UUID.fromString(sessionId), ec)
 
 }
 
@@ -56,21 +56,21 @@ class SessionIdFilterSpec extends WordSpec with MustMatchers with OneAppPerSuite
     import play.api.routing.sird._
 
     Router.from {
-      case GET(p"/test") => Action {
-        request =>
+      case GET(p"/test") =>
+        Action { request =>
           val fromHeader = request.headers.get(HeaderNames.xSessionId).getOrElse("")
           val fromSession = request.session.get(SessionKeys.sessionId).getOrElse("")
           Results.Ok(
             Json.obj(
-              "fromHeader" -> fromHeader,
+              "fromHeader"  -> fromHeader,
               "fromSession" -> fromSession
             )
           )
-      }
-      case GET(p"/test2") => Action {
-        implicit request =>
+        }
+      case GET(p"/test2") =>
+        Action { implicit request =>
           Results.Ok.addingToSession("foo" -> "bar")
-      }
+        }
     }
   }
 

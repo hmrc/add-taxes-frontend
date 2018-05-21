@@ -23,6 +23,8 @@ object ForgottenOptions {
   case object ForgottenIdAndPassword extends WithName("UserIdAndPassword") with ForgottenOptions
 
   val values: Set[ForgottenOptions] = Set(
-    ForgottenPassword, ForgottenId, ForgottenIdAndPassword
+    ForgottenPassword,
+    ForgottenId,
+    ForgottenIdAndPassword
   )
 }
