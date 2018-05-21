@@ -47,7 +47,7 @@ import models.sa.trust.HaveYouRegisteredTrust
 import models.vat.moss.uk.{OnlineVATAccount, RegisteredForVATUk}
 import models.wrongcredentials.FindingYourAccount
 import play.api.mvc.{Call, Request}
-import utils.nextpage.employer.cis.uk.contractor.IsBusinessRegisteredForPAYENextPage
+import utils.nextpage.employer.cis.uk.contractor.{DoesBusinessManagePAYENextPage, IsBusinessRegisteredForPAYENextPage}
 import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
 import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage
 import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
@@ -68,17 +68,8 @@ object NextPage
     with HaveYouRegisteredForRebatedOilsNextPage
     with IsBusinessRegisteredForPAYENextPage
     with HaveYouRegisteredForTiedOilsNextPage
+    with DoesBusinessManagePAYENextPage
     with SelectAnOilServiceNextPage {
-
-  implicit val doesBusinessManagePAYE: NextPage[DoesBusinessManagePAYEId.type, DoesBusinessManagePAYE] = {
-    new NextPage[DoesBusinessManagePAYEId.type, DoesBusinessManagePAYE] {
-      override def get(b: DoesBusinessManagePAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case DoesBusinessManagePAYE.Yes => payeAccountRoutes.UsePAYEEmployerAccountController.onPageLoad()
-          case DoesBusinessManagePAYE.No  => Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.AddCis))
-        }
-    }
-  }
 
   implicit val selectAlcoholScheme
     : NextPage[SelectAlcoholSchemeId.type, models.other.alcohol.awrs.SelectAlcoholScheme] = {
