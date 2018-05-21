@@ -24,7 +24,6 @@ import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
 import controllers.other.oil.routes
-import controllers.sa.partnership.{routes => saPartnerRoutes}
 import controllers.sa.trust.{routes => trustRoutes}
 import identifiers._
 import models.OtherTaxes
@@ -52,6 +51,7 @@ import utils.nextpage.other.importexports.DoYouHaveEORINumberNextPage
 import utils.nextpage.other.importexports.emcs.DoYouHaveASEEDNumberNextPage
 import utils.nextpage.other.oil.{HaveYouRegisteredForRebatedOilsNextPage, HaveYouRegisteredForTiedOilsNextPage, SelectAnOilServiceNextPage}
 import utils.nextpage.sa.SelectSACategoryNextPage
+import utils.nextpage.sa.partnership.DoYouWantToAddPartnerNextPage
 import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 
@@ -79,17 +79,8 @@ object NextPage
     with DoYouHaveEORINumberNextPage
     with WhichPensionSchemeToAddNextPage
     with AreYouRegisteredGTSNextPage
+    with DoYouWantToAddPartnerNextPage
     with DoYouHaveASEEDNumberNextPage {
-
-  implicit val doYouWantToAddPartner: NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartner] = {
-    new NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartner] {
-      override def get(b: DoYouWantToAddPartner)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case DoYouWantToAddPartner.Yes => Call(GET, appConfig.getPublishedAssetsUrl("partnership"))
-          case DoYouWantToAddPartner.No  => saPartnerRoutes.HaveYouRegisteredPartnershipController.onPageLoad()
-        }
-    }
-  }
 
   implicit val haveYouRegisteredPartnership
     : NextPage[HaveYouRegisteredPartnershipId.type, models.sa.partnership.HaveYouRegisteredPartnership] = {
