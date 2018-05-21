@@ -15,37 +15,25 @@
  *@
 
 @import config.FrontendAppConfig
-@import utils.Enrolments
 
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("registerForPAYE.title"),
+    title = messages("registerAEOI.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent
-) {
+    serviceInfoContent = serviceInfoContent) {
 
-    @components.heading("registerForPAYE.heading")
+    @components.heading("registerAEOI.heading")
 
-    <p>
-        @messages("registerForPAYE.p1")
-    </p>
+    <p>@messages("registerAEOI.detail.1")</p>
 
-    <p>
-        <a id="continue"
-           href='@appConfig.getPortalUrl("businessRegistration")'
-           class="button"
-           data-journey-click="CisUkContractorRegisterEpaye:Click:Register">
+    <p>@messages("registerAEOI.detail.2")</p>
 
-            @messages("registerForPAYE.continue")
-        </a>
-    </p>
+    <a id="continue"
+       href='@appConfig.getPortalUrl("register.aeoi")'
+       class="button"
+       data-journey-click="RegisterAeoi:Click:Continue">
 
-    <p>
-        <a id="not-now"
-           href='@appConfig.getBusinessAccountUrl("home")'
-           data-journey-click="CisUkContractorRegisterEpaye:Click:NotNow">
-            @messages("registerForPAYE.notnow")
-        </a>
-    </p>
+        @messages("registerAEOI.continue")
+    </a>
 }

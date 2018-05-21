@@ -20,19 +20,14 @@ import controllers._
 import controllers.actions._
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import utils.UrlHelper
 import views.html.employer.cis.uk.contractor.usePAYEEmployerAccount
-import org.scalatest.mockito.MockitoSugar
-import org.scalatest.BeforeAndAfterEach
 
-class UsePAYEEmployerAccountControllerSpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach {
-
-  val mockUrlHelper: UrlHelper = mock[UrlHelper]
+class UsePAYEEmployerAccountControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new UsePAYEEmployerAccountController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction, mockUrlHelper)
+    new UsePAYEEmployerAccountController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
-  def viewAsString() = usePAYEEmployerAccount(frontendAppConfig, mockUrlHelper)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString() = usePAYEEmployerAccount(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "UsePAYEEmployerAccount Controller" must {
     "return OK and the correct view for a GET" in {

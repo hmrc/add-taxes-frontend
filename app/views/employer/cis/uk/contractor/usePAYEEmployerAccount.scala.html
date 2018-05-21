@@ -15,10 +15,9 @@
  *@
 
 @import config.FrontendAppConfig
-@import utils.UrlHelper
 @import utils.Enrolments
 
-@(appConfig: FrontendAppConfig, urlHelper: UrlHelper)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("usePAYEEmployerAccount.title"),
@@ -42,7 +41,7 @@
 
     <p>
         <a id="add-to-this-account"
-           href='@urlHelper.emacEnrollmentsUrl(Enrolments.AddCis)'
+           href='@appConfig.emacEnrollmentsUrl(Enrolments.AddCis)'
            data-journey-click="CisUkContractorEpayeOtherAccount:Click:AddToAccount">
             @messages("usePAYEEmployerAccount.addAccount")
         </a>

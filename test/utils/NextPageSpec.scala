@@ -22,6 +22,7 @@ import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExpo
 import models.OtherTaxes
 import models.employer.cis.uk.contractor.{DoesBusinessManagePAYE, IsBusinessRegisteredForPAYE}
 import models.employer.pension.WhichPensionSchemeToAdd
+import models.other.aeoi.HaveYouRegisteredAEOI
 import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
 import models.other.charity.DoYouHaveCharityReference
 import models.other.gambling.gbd.AreYouRegisteredGTS
@@ -40,7 +41,6 @@ import models.wrongcredentials.FindingYourAccount
 
 class NextPageSpec extends SpecBase {
 
-  implicit val urlHelper = new UrlHelper(frontendAppConfig)
   implicit val request = fakeRequest
 
 
@@ -368,6 +368,20 @@ class NextPageSpec extends SpecBase {
       NextPage.haveYouRegisteredTrust,
       HaveYouRegisteredTrust.No,
       "/business-account/add-tax/self-assessment/trust/not-registered"
+    )
+  }
+
+  "haveYouRegisteredAEOI" when {
+    behave like nextPage(
+      NextPage.haveYouRegisteredAEOI,
+      HaveYouRegisteredAEOI.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-FATCA-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.haveYouRegisteredAEOI,
+      HaveYouRegisteredAEOI.No,
+      "/business-account/add-tax/other/aeoi/register"
     )
   }
 

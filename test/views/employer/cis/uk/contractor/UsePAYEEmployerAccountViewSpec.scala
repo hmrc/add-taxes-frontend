@@ -19,31 +19,18 @@ package views.employer.cis.uk.contractor
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.employer.cis.uk.contractor.usePAYEEmployerAccount
-import org.scalatest.mockito.MockitoSugar
-import org.mockito.Mockito._
-import org.scalatest.BeforeAndAfterEach
-import utils.{Enrolments, UrlHelper}
 
-class UsePAYEEmployerAccountViewSpec extends ViewBehaviours with MockitoSugar with BeforeAndAfterEach {
-
-  val mockUrlHelper: UrlHelper = mock[UrlHelper]
+class UsePAYEEmployerAccountViewSpec extends ViewBehaviours{
 
   val messageKeyPrefix = "usePAYEEmployerAccount"
 
-  def createView = () => usePAYEEmployerAccount(frontendAppConfig, mockUrlHelper)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView = () => usePAYEEmployerAccount(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
-  override def beforeEach(): Unit = {
-    reset(mockUrlHelper)
-    when(mockUrlHelper.emacEnrollmentsUrl(Enrolments.AddCis)).thenReturn("")
-  }
 
   "UsePAYEEmployerAccount view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
-
-      when(mockUrlHelper.emacEnrollmentsUrl(Enrolments.AddCis))
-        .thenReturn("http://localhost:9555/enrolment-management-frontend/HMRC-CIS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account")
 
       val doc =  asDocument(createView())
       val view = doc.text()

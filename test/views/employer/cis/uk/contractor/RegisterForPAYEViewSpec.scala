@@ -16,34 +16,22 @@
 
 package views.employer.cis.uk.contractor
 
-import org.mockito.Mockito._
-import org.scalatest.BeforeAndAfterEach
-import org.scalatest.mockito.MockitoSugar
 import play.twirl.api.HtmlFormat
-import utils.{Enrolments, UrlHelper}
 import views.behaviours.ViewBehaviours
 import views.html.employer.cis.uk.contractor.registerForPAYE
 
-class RegisterForPAYEViewSpec extends ViewBehaviours with MockitoSugar with BeforeAndAfterEach{
+class RegisterForPAYEViewSpec extends ViewBehaviours{
 
   val messageKeyPrefix = "registerForPAYE"
 
-  val mockUrlHelper: UrlHelper = mock[UrlHelper]
 
-  override def beforeEach(): Unit = {
-    reset(mockUrlHelper)
-    when(mockUrlHelper.emacEnrollmentsUrl(Enrolments.AddCis)).thenReturn("")
-  }
-
-  def createView = () => registerForPAYE(frontendAppConfig, mockUrlHelper)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView = () => registerForPAYE(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "RegisterForPAYE view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
 
-      when(mockUrlHelper.getPortalURL("businessRegistration")((fakeRequest)))
-        .thenReturn("http://localhost:8080/portal/business-registration/introduction?lang=eng")
 
       val doc =  asDocument(createView())
       val view = doc.text()

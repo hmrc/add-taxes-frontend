@@ -37,7 +37,7 @@ class RegisterMGDViewSpec extends ViewBehaviours {
         doc,
         "continue",
         "Continue - register for Machine Games Duty",
-        "http://localhost:8080/portal/business-registration/mgd/type-of-business",
+        "http://localhost:8080/portal/business-registration/mgd/type-of-business?lang=eng",
         "RegisterMgd:Click:Continue")
 
       assertContainsText(doc, "You need to register for Machine Games Duty before you can add it to your account.")

@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-package utils
+package forms.other.aeoi
 
-import base.SpecBase
-import org.scalatest.mockito.MockitoSugar
+import javax.inject.Inject
 
-class NavigatorSpec extends SpecBase with MockitoSugar {
+import forms.FormErrorHelper
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.other.aeoi.HaveYouRegisteredAEOI
 
-  val navigator = new Navigator(frontendAppConfig)
+class HaveYouRegisteredAEOIFormProvider @Inject() extends FormErrorHelper with Mappings {
 
-  "Navigator" when {
-
-    "in Normal mode" must {
-
-    }
-
-  }
+  def apply(): Form[HaveYouRegisteredAEOI] =
+    Form(
+      "value" -> enumerable[HaveYouRegisteredAEOI]("haveYouRegisteredAEOI.error.required")
+    )
 }
