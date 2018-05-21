@@ -50,6 +50,7 @@ import utils.nextpage.other.alcohol.awrs.SelectAlcoholSchemeNextPage
 import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
 import utils.nextpage.other.gambling.SelectGamblingOrGamingDutyNextPage
 import utils.nextpage.other.gambling.mgd.DoYouHaveMGDRegistrationNextPage
+import utils.nextpage.other.importexports.DoYouHaveEORINumberNextPage
 import utils.nextpage.other.oil.{HaveYouRegisteredForRebatedOilsNextPage, HaveYouRegisteredForTiedOilsNextPage, SelectAnOilServiceNextPage}
 import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
@@ -73,7 +74,8 @@ object NextPage
     with FindingYourAccountNextPage
     with RegisteredForVATUKNextPage
     with OtherTaxesNextPage
-    with OnlineVATAccountNextPage {
+    with OnlineVATAccountNextPage
+    with DoYouHaveEORINumberNextPage {
 
   implicit val selectSACategory: NextPage[SelectSACategoryId.type, models.sa.SelectSACategory] = {
     new NextPage[SelectSACategoryId.type, models.sa.SelectSACategory] {
@@ -222,49 +224,6 @@ object NextPage
           case DoYouHaveASEEDNumber.Yes =>
             Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.ExciseMovementControlSystem))
           case DoYouHaveASEEDNumber.No => emcsRoutes.RegisterExciseMovementControlSystemController.onPageLoad()
-        }
-    }
-  }
-
-  implicit val icsEori: NextPage[DoYouHaveEORINumberId.ICS.type, DoYouHaveEORINumber] = {
-    new NextPage[DoYouHaveEORINumberId.ICS.type, DoYouHaveEORINumber] {
-      override def get(b: DoYouHaveEORINumber)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case DoYouHaveEORINumber.Yes =>
-            Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.EconomicOperatorsRegistration))
-          case DoYouHaveEORINumber.No => icsRoutes.RegisterEORIController.onPageLoad()
-        }
-    }
-  }
-
-  implicit val ebtiEori: NextPage[DoYouHaveEORINumberId.EBTI.type, DoYouHaveEORINumber] = {
-    new NextPage[DoYouHaveEORINumberId.EBTI.type, DoYouHaveEORINumber] {
-      override def get(b: DoYouHaveEORINumber)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case DoYouHaveEORINumber.Yes =>
-            Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.ElectronicBindingTariffInformation))
-          case DoYouHaveEORINumber.No => ebtiRoutes.RegisterEORIController.onPageLoad()
-        }
-    }
-  }
-
-  implicit val nctsEori: NextPage[DoYouHaveEORINumberId.NCTS.type, DoYouHaveEORINumber] = {
-    new NextPage[DoYouHaveEORINumberId.NCTS.type, DoYouHaveEORINumber] {
-      override def get(b: DoYouHaveEORINumber)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case DoYouHaveEORINumber.Yes =>
-            Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.NewComputerisedTransitSystem))
-          case DoYouHaveEORINumber.No => nctsRoutes.RegisterEORIController.onPageLoad()
-        }
-    }
-  }
-
-  implicit val nesEori: NextPage[DoYouHaveEORINumberId.NES.type, DoYouHaveEORINumber] = {
-    new NextPage[DoYouHaveEORINumberId.NES.type, DoYouHaveEORINumber] {
-      override def get(b: DoYouHaveEORINumber)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case DoYouHaveEORINumber.Yes => nesRoutes.DoYouHaveCHIEFRoleHasEORIController.onPageLoad()
-          case DoYouHaveEORINumber.No  => nesRoutes.DoYouHaveCHIEFRoleNoEORIController.onPageLoad()
         }
     }
   }

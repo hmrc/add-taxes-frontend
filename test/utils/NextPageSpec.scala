@@ -42,20 +42,6 @@ import utils.nextpage.NextPageSpecBase
 
 class NextPageSpec extends NextPageSpecBase {
 
-  "EconomicOperatorsRegistrationAndIdentification" when {
-    behave like nextPage(
-      NextPage.icsEori,
-      DoYouHaveEORINumber.Yes,
-      "http://localhost:9555/enrolment-management-frontend/HMRC-ICS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-
-    behave like nextPage(
-      NextPage.icsEori,
-      DoYouHaveEORINumber.No,
-      "/business-account/add-tax/other/import-export/ics/register"
-    )
-  }
-
   "DoYouHaveSEEDNumber" when {
     behave like nextPage(
       NextPage.doYouHaveASEEDNumber,
@@ -89,20 +75,6 @@ class NextPageSpec extends NextPageSpecBase {
       NextPage.doYouHaveCHIEFHasEORIRole,
       DoYouHaveCHIEFRole.Yes,
       "http://localhost:9555/enrolment-management-frontend/HMCE-NES/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-  }
-
-  "nesEori" when {
-    behave like nextPage(
-      NextPage.nesEori,
-      DoYouHaveEORINumber.Yes,
-      "/business-account/add-tax/other/import-export/nes/has-eori"
-    )
-
-    behave like nextPage(
-      NextPage.nesEori,
-      DoYouHaveEORINumber.No,
-      "/business-account/add-tax/other/import-export/nes/no-eori"
     )
   }
 
