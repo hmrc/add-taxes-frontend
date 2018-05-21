@@ -53,20 +53,6 @@ class NextPageSpec extends NextPageSpecBase {
       "/business-account/add-tax/other/oil/rebated")
   }
 
-  "HaveYouRegisteredForTiedOils" when {
-    behave like nextPage(
-      NextPage.haveYouRegisteredForTiedOils,
-      HaveYouRegisteredForTiedOils.Yes,
-      "http://localhost:9555/enrolment-management-frontend/HMCE-TO/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-
-    behave like nextPage(
-      NextPage.haveYouRegisteredForTiedOils,
-      HaveYouRegisteredForTiedOils.No,
-      "/business-account/add-tax/other/oil/tied/register"
-    )
-  }
-
   "OtherTaxes" when {
     behave like nextPage(
       NextPage.otherTaxes,

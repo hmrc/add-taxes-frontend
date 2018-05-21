@@ -54,7 +54,7 @@ import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage
 import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
 import utils.nextpage.other.gambling.SelectGamblingOrGamingDutyNextPage
 import utils.nextpage.other.gambling.mgd.DoYouHaveMGDRegistrationNextPage
-import utils.nextpage.other.oil.HaveYouRegisteredForRebatedOilsNextPage
+import utils.nextpage.other.oil.{HaveYouRegisteredForRebatedOilsNextPage, HaveYouRegisteredForTiedOilsNextPage}
 
 trait NextPage[A, B] {
   def get(b: B)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call
@@ -66,7 +66,8 @@ object NextPage
     with DoYouHaveMGDRegistrationNextPage
     with AreYouRegisteredWarehousekeeperNextPage
     with SelectGamblingOrGamingDutyNextPage
-    with HaveYouRegisteredForRebatedOilsNextPage {
+    with HaveYouRegisteredForRebatedOilsNextPage
+    with HaveYouRegisteredForTiedOilsNextPage {
 
   implicit val isBusinessRegisteredForPAYE
     : NextPage[IsBusinessRegisteredForPAYEId.type, models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE] = {
@@ -360,18 +361,6 @@ object NextPage
           case TiedOilsEnquiryService    => routes.HaveYouRegisteredForTiedOilsController.onPageLoad()
         }
     }
-
-  implicit val haveYouRegisteredForTiedOils
-    : NextPage[HaveYouRegisteredForTiedOilsId.type, HaveYouRegisteredForTiedOils] = {
-    new NextPage[HaveYouRegisteredForTiedOilsId.type, HaveYouRegisteredForTiedOils] {
-      override def get(
-        b: HaveYouRegisteredForTiedOils)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case HaveYouRegisteredForTiedOils.Yes => Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.TiedOils))
-          case HaveYouRegisteredForTiedOils.No  => routes.RegisterTiedOilsController.onPageLoad()
-        }
-    }
-  }
 
   private val GET: String = "GET"
 }
