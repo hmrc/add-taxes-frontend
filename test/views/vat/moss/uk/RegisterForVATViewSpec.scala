@@ -37,7 +37,7 @@ class RegisterForVATViewSpec extends ViewBehaviours {
         doc,
         "continue",
         "Register for VAT",
-        "http://localhost:8080/portal/business-registration/introduction",
+        "http://localhost:8080/portal/business-registration/introduction?lang=eng",
         "VatMossUkNotVatRegistered:Click:Register"
       )
 

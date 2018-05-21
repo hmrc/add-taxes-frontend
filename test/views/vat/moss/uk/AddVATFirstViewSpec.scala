@@ -20,7 +20,7 @@ import org.scalatest.mockito.MockitoSugar
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import play.twirl.api.HtmlFormat
-import utils.{Enrolments, UrlHelper}
+import utils.Enrolments
 import views.behaviours.ViewBehaviours
 import views.html.vat.moss.uk.addVATFirst
 
@@ -28,21 +28,13 @@ import views.html.vat.moss.uk.addVATFirst
 class AddVATFirstViewSpec extends ViewBehaviours with MockitoSugar with BeforeAndAfterEach {
 
   val messageKeyPrefix = "addVATFirst"
-  val mockUrlHelper: UrlHelper = mock[UrlHelper]
 
-  def createView = () => addVATFirst(frontendAppConfig, mockUrlHelper)(HtmlFormat.empty)(fakeRequest, messages)
-
-  override def beforeEach(): Unit = {
-    reset(mockUrlHelper)
-    when(mockUrlHelper.emacEnrollmentsUrl(Enrolments.VAT)).thenReturn("")
-  }
+  def createView = () => addVATFirst(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "AddVATFirst view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
-      when(mockUrlHelper.emacEnrollmentsUrl(Enrolments.VAT))
-        .thenReturn("http://localhost:9555/enrolment-management-frontend/HMCE-VATDEC-ORG/request-access-tax-scheme?continue=%2Fbusiness-account")
 
       val doc =  asDocument(createView())
       val view = doc.text()

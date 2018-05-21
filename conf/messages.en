@@ -381,6 +381,23 @@ doYouWantToAddPartner.Yes = Yes - I want to add a partner to an existing partner
 doYouWantToAddPartner.No = No - I want to do something else
 doYouWantToAddPartner.error.required = Select yes or no
 
+#######################################################
+##  RegisterAEOI
+#######################################################
+registerAEOI.title = Register for Automatic Exchange of Information (AEOI)
+registerAEOI.heading = Register for Automatic Exchange of Information (AEOI)
+registerAEOI.continue = Continue - register for AEOI
+registerAEOI.detail.1 = You need to register for AEOI before you can add it to your account.
+registerAEOI.detail.2 = We’ll send you an Automatic Exchange of Information ID, which you can use to add AEOI to the account.
+#######################################################
+##  HaveYouRegisteredAEOI
+#######################################################
+haveYouRegisteredAEOI.title = Have you already registered for Automatic Exchange of Information (AEOI)?
+haveYouRegisteredAEOI.heading = Have you already registered for Automatic Exchange of Information (AEOI)?
+haveYouRegisteredAEOI.Yes = Yes - I have an ID
+haveYouRegisteredAEOI.No = No - I haven’t registered yet
+haveYouRegisteredAEOI.error.required = Select yes or no
+haveYouRegisteredAEOI.p1 = We’ll have sent you an Automatic Exchange of Information ID
 
 #######################################################
 ##  AddVATMOSS
@@ -487,3 +504,21 @@ selectAlcoholScheme.heading = Select an alcohol scheme
 selectAlcoholScheme.atwd = Alcohol & Tobacco Warehousing Declarations (ATWD)
 selectAlcoholScheme.awrs = Alcohol Wholesaler Registration Scheme (AWRS)
 selectAlcoholScheme.error.required = Select a scheme
+
+#######################################################
+##  DoYouHaveCharityReference
+#######################################################
+doYouHaveCharityReference.title = Do you have an HMRC Charities reference?
+doYouHaveCharityReference.heading = Do you have an HMRC Charities reference?
+doYouHaveCharityReference.Yes = Yes - we have an HMRC Charities reference
+doYouHaveCharityReference.No = No - we haven’t got an HMRC charities reference yet
+doYouHaveCharityReference.error.required = Select yes or no
+
+#######################################################
+##  RegisterForCharity
+#######################################################
+registerForCharity.title = Register with HMRC as a Charity
+registerForCharity.heading = Register with HMRC as a Charity
+registerForCharity.p1 = You need to register with HMRC as a charity before you can add the Gift Aid service to your account.
+registerForCharity.p2 = We’ll send you a reference, which you can then use to add the service to your account.
+registerForCharity.continue = Continue - register with HMRC as a Charity

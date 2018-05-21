@@ -21,8 +21,10 @@ import identifiers.DoYouHaveMGDRegistrationId
 import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.OtherTaxes
 import models.employer.pension.WhichPensionSchemeToAdd
+import models.other.aeoi.HaveYouRegisteredAEOI
 import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
 import models.other.alcohol.awrs.SelectAlcoholScheme
+import models.other.charity.DoYouHaveCharityReference
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.gambling.mgd.DoYouHaveMGDRegistration
 import models.other.importexports.dan.DoYouHaveDAN
@@ -39,7 +41,6 @@ import models.wrongcredentials.FindingYourAccount
 
 class NextPageSpec extends SpecBase {
 
-  implicit val urlHelper = new UrlHelper(frontendAppConfig)
   implicit val request = fakeRequest
 
 
@@ -370,6 +371,20 @@ class NextPageSpec extends SpecBase {
     )
   }
 
+  "haveYouRegisteredAEOI" when {
+    behave like nextPage(
+      NextPage.haveYouRegisteredAEOI,
+      HaveYouRegisteredAEOI.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-FATCA-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.haveYouRegisteredAEOI,
+      HaveYouRegisteredAEOI.No,
+      "/business-account/add-tax/other/aeoi/register"
+    )
+  }
+
   "VAT MOSS UK" when {
     behave like nextPage(
       NextPage.registeredForVATUk,
@@ -444,6 +459,21 @@ class NextPageSpec extends SpecBase {
       NextPage.selectAlcoholScheme,
       SelectAlcoholScheme.AWRS,
       "http://localhost:9020/business-customer/business-verification/awrs"
+    )
+  }
+
+
+  "Charities" when {
+    behave like nextPage(
+      NextPage.doYouHaveCharityReference,
+      DoYouHaveCharityReference.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-CHAR-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.doYouHaveCharityReference,
+      DoYouHaveCharityReference.No,
+      "/business-account/add-tax/other/charities/register"
     )
   }
 }

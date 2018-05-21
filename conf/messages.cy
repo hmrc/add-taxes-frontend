@@ -365,6 +365,23 @@ doYouWantToAddPartner.No = Nac ydw - rwyf eisiau gwneud rhywbeth arall
 doYouWantToAddPartner.error.required = Dewis iawn neu na
 
 #######################################################
+##  RegisterAEOI
+#######################################################
+registerAEOI.title = Cofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig (AEOI)
+registerAEOI.heading = Cofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig (AEOI)
+registerAEOI.continue = Mynd yn eich blaen - cofrestru ar gyfer AEOI
+registerAEOI.detail.1 = Mae’n rhaid i chi gofrestru ar gyfer AEOI cyn y gallwch ei ychwanegu i’ch cyfrif.
+registerAEOI.detail.2 = Byddwn yn anfon ID Cyfnewid Gwybodaeth yn Awtomatig atoch. Gallwch ei ddefnyddio i ychwanegu AEOI i’r cyfrif.
+#######################################################
+##  HaveYouRegisteredAEOI
+#######################################################
+haveYouRegisteredAEOI.title = A ydych eisoes wedi cofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig (AEOI)?
+haveYouRegisteredAEOI.heading = A ydych eisoes wedi cofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig (AEOI)?
+haveYouRegisteredAEOI.Yes = Ydw - mae gennyf ID
+haveYouRegisteredAEOI.No = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
+haveYouRegisteredAEOI.error.required = Dewis iawn neu na
+haveYouRegisteredAEOI.p1 = Byddwn wedi anfon ID Cyfnewid Gwybodaeth yn Awtomatig atoch
+
 ##  AddVATMOSS
 #######################################################
 addVATMOSS.title = Ychwanegu GUC TAW i’ch cyfrif TAW
@@ -470,3 +487,21 @@ selectAlcoholScheme.heading = Dewis cynllun alcohol
 selectAlcoholScheme.atwd = Datganiadau Warysu Alcohol a Thybaco (ATWD)
 selectAlcoholScheme.awrs = Cynllun Cofrestru Cyfanwerthwyr Alcohol (AWRS)
 selectAlcoholScheme.error.required = Dewis cynllun
+
+#######################################################
+##  DoYouHaveCharityReference
+#######################################################
+doYouHaveCharityReference.title = A oes gennych gyfeirnod Elusennau CThEM?
+doYouHaveCharityReference.heading = A oes gennych gyfeirnod Elusennau CThEM?
+doYouHaveCharityReference.Yes = Oes - mae gennym gyfeirnod Elusennau CThEM
+doYouHaveCharityReference.No = Nac oes - nid oes gennym gyfeirnod Elusennau CThEM ar hyn o bryd
+doYouHaveCharityReference.error.required = Dewis iawn neu na
+
+#######################################################
+##  RegisterForCharity
+#######################################################
+registerForCharity.title = Cofrestru fel Elusen gyda CThEM
+registerForCharity.heading = Cofrestru fel Elusen gyda CThEM
+registerForCharity.p1 = Mae angen i chi gofrestru fel elusen gyda CThEM cyn y gallwch ychwanegu’r gwasanaeth Rhodd Cymorth i’ch cyfrif.
+registerForCharity.p2 = Byddwn yn anfon cyfeirnod atoch. Gallwch ei ddefnyddio, wedyn, i ychwanegu’r gwasanaeth i’ch cyfrif.
+registerForCharity.continue = Mynd yn eich blaen - cofrestru fel Elusen gyda CThEM

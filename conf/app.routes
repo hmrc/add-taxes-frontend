@@ -115,6 +115,11 @@ GET        /self-assessment/trust/not-registered        controllers.sa.trust.Reg
 GET        /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onPageLoad()
 POST       /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onSubmit()
 
+GET        /other/aeoi/register                         controllers.other.aeoi.RegisterAEOIController.onPageLoad()
+
+GET        /other/aeoi                                  controllers.other.aeoi.HaveYouRegisteredAEOIController.onPageLoad()
+POST       /other/aeoi                                  controllers.other.aeoi.HaveYouRegisteredAEOIController.onSubmit()
+
 GET        /self-assessment                             controllers.sa.SelectSACategoryController.onPageLoad()
 POST       /self-assessment                             controllers.sa.SelectSACategoryController.onSubmit()
 
@@ -130,5 +135,10 @@ GET        /vat/moss/uk/vat-registered/other-account    controllers.vat.moss.uk.
 
 GET        /vat/moss/uk/vat-registered/no-other-account  controllers.vat.moss.uk.AddVATFirstController.onPageLoad()
 
-GET        /other/alcohol                  controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onPageLoad()
-POST       /other/alcohol                  controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onSubmit()
+GET        /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onPageLoad()
+POST       /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onSubmit()
+
+GET        /other/charities                             controllers.other.charity.DoYouHaveCharityReferenceController.onPageLoad()
+POST       /other/charities                             controllers.other.charity.DoYouHaveCharityReferenceController.onSubmit()
+
+GET        /other/charities/register                    controllers.other.charity.RegisterForCharityController.onPageLoad()
