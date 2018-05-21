@@ -111,20 +111,6 @@ class NextPageSpec extends NextPageSpecBase {
     )
   }
 
-  "HaveYouRegisteredForRebatedOils" when {
-    behave like nextPage(
-      NextPage.haveYouRegisteredForRebatedOils,
-      HaveYouRegisteredForRebatedOils.Yes,
-      "http://localhost:9555/enrolment-management-frontend/HMCE-RO/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-
-    behave like nextPage(
-      NextPage.haveYouRegisteredForRebatedOils,
-      HaveYouRegisteredForRebatedOils.No,
-      "/business-account/add-tax/other/oil/rebated/register"
-    )
-  }
-
   "FindingYourAccountFormProvider" when {
     def governmentGatewayUrlGenerator(forgottenOption: String): String =
       s"http://localhost:9898/government-gateway-lost-credentials-frontend/" +

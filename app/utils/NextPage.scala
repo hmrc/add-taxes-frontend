@@ -59,6 +59,7 @@ import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
 import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage
 import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
 import utils.nextpage.other.gambling.mgd.DoYouHaveMGDRegistrationNextPage
+import utils.nextpage.other.oil.HaveYouRegisteredForRebatedOilsNextPage
 
 trait NextPage[A, B] {
   def get(b: B)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call
@@ -68,7 +69,8 @@ object NextPage
     extends HaveYouRegisteredAEOINextPage
     with DoYouHaveCharityReferenceNextPage
     with DoYouHaveMGDRegistrationNextPage
-    with AreYouRegisteredWarehousekeeperNextPage {
+    with AreYouRegisteredWarehousekeeperNextPage
+    with HaveYouRegisteredForRebatedOilsNextPage {
 
   implicit val selectGamblingOrGamingDuty
     : NextPage[SelectGamblingOrGamingDutyId.type, models.other.gambling.SelectGamblingOrGamingDuty] = {
@@ -390,18 +392,6 @@ object NextPage
         b match {
           case HaveYouRegisteredForTiedOils.Yes => Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.TiedOils))
           case HaveYouRegisteredForTiedOils.No  => routes.RegisterTiedOilsController.onPageLoad()
-        }
-    }
-  }
-
-  implicit val haveYouRegisteredForRebatedOils
-    : NextPage[HaveYouRegisteredForRebatedOilsId.type, HaveYouRegisteredForRebatedOils] = {
-    new NextPage[HaveYouRegisteredForRebatedOilsId.type, HaveYouRegisteredForRebatedOils] {
-      override def get(
-        b: HaveYouRegisteredForRebatedOils)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case HaveYouRegisteredForRebatedOils.Yes => Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.RebatedOils))
-          case HaveYouRegisteredForRebatedOils.No  => routes.RegisterRebatedOilsController.onPageLoad()
         }
     }
   }
