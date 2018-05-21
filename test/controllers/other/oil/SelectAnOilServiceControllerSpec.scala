@@ -41,14 +41,25 @@ class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
 
   def requestWithEnrolments(keys: String*): ServiceInfoRequest[AnyContent] = {
     val enrolments = Enrolments(keys.map(Enrolment(_)).toSet)
-    ServiceInfoRequest[AnyContent](AuthenticatedRequest(FakeRequest(), "", enrolments, Some(Organisation)), HtmlFormat.empty)
+    ServiceInfoRequest[AnyContent](
+      AuthenticatedRequest(FakeRequest(), "", enrolments, Some(Organisation)),
+      HtmlFormat.empty)
   }
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new SelectAnOilServiceController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
-      FakeServiceInfoAction, formProvider)
+    new SelectAnOilServiceController(
+      frontendAppConfig,
+      messagesApi,
+      FakeDataCacheConnector,
+      new FakeNavigator(desiredRoute = onwardRoute),
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      formProvider)
 
-  def viewAsString(form: Form[_] = form) = selectAnOilService(frontendAppConfig, form, SelectAnOilService.options.toSeq)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) =
+    selectAnOilService(frontendAppConfig, form, SelectAnOilService.options.toSeq)(HtmlFormat.empty)(
+      fakeRequest,
+      messages).toString
 
   "SelectAnOilService Controller" must {
 

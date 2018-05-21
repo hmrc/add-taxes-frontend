@@ -30,7 +30,7 @@ class RegisterForVATViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
-      val doc =  asDocument(createView())
+      val doc = asDocument(createView())
       val view = doc.text()
 
       assertLinkById(
@@ -50,7 +50,8 @@ class RegisterForVATViewSpec extends ViewBehaviours {
       )
 
       view must include("You must be VAT registered before you can register for VAT MOSS.")
-      view must include("Come back to this account and add VAT MOSS once you’ve received a VAT registration number (VRN).")
+      view must include(
+        "Come back to this account and add VAT MOSS once you’ve received a VAT registration number (VRN).")
     }
   }
 }

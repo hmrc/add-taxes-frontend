@@ -23,17 +23,14 @@ import utils.{Enrolments, NextPage}
 import identifiers.HaveYouRegisteredAEOIId
 import play.api.mvc.{Call, Request}
 
-
-
 trait HaveYouRegisteredAEOINextPage {
 
-
-  implicit val haveYouRegisteredAEOI: NextPage[HaveYouRegisteredAEOIId.type,
-    HaveYouRegisteredAEOI] = {
+  implicit val haveYouRegisteredAEOI: NextPage[HaveYouRegisteredAEOIId.type, HaveYouRegisteredAEOI] = {
     new NextPage[HaveYouRegisteredAEOIId.type, HaveYouRegisteredAEOI] {
       override def get(b: HaveYouRegisteredAEOI)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case HaveYouRegisteredAEOI.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.AutomaticExchangeOfInformation))
+          case HaveYouRegisteredAEOI.Yes =>
+            Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.AutomaticExchangeOfInformation))
           case HaveYouRegisteredAEOI.No => aeoiRoutes.RegisterAEOIController.onPageLoad()
         }
     }

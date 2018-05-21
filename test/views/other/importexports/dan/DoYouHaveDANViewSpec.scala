@@ -33,7 +33,8 @@ class DoYouHaveDANViewSpec extends ViewBehaviours {
 
   def createView = () => doYouHaveDAN(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => doYouHaveDAN(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm =
+    (form: Form[_]) => doYouHaveDAN(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "DoYouHaveDAN view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -49,13 +50,13 @@ class DoYouHaveDANViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- DoYouHaveDAN.options) {
+    for (option <- DoYouHaveDAN.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- DoYouHaveDAN.options.filterNot(o => o == option)) {
+          for (unselectedOption <- DoYouHaveDAN.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

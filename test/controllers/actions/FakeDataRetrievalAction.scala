@@ -24,8 +24,10 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class FakeDataRetrievalAction(cacheMapToReturn: Option[CacheMap]) extends DataRetrievalAction {
-  override protected def transform[A](request: AuthenticatedRequest[A]): Future[OptionalDataRequest[A]] = cacheMapToReturn match {
-    case None => Future(OptionalDataRequest(request.request, request.externalId, None))
-    case Some(cacheMap) => Future(OptionalDataRequest(request.request, request.externalId, Some(new UserAnswers(cacheMap))))
-  }
+  override protected def transform[A](request: AuthenticatedRequest[A]): Future[OptionalDataRequest[A]] =
+    cacheMapToReturn match {
+      case None => Future(OptionalDataRequest(request.request, request.externalId, None))
+      case Some(cacheMap) =>
+        Future(OptionalDataRequest(request.request, request.externalId, Some(new UserAnswers(cacheMap))))
+    }
 }

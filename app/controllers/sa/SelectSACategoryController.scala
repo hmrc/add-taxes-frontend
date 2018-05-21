@@ -33,28 +33,30 @@ import views.html.sa.selectSACategory
 import scala.concurrent.Future
 
 class SelectSACategoryController @Inject()(
-                                        appConfig: FrontendAppConfig,
-                                        override val messagesApi: MessagesApi,
-                                        dataCacheConnector: DataCacheConnector,
-                                        navigator: Navigator,
-                                        authenticate: AuthAction,
-                                        serviceInfoData: ServiceInfoAction,
-                                        formProvider: SelectSACategoryFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+  appConfig: FrontendAppConfig,
+  override val messagesApi: MessagesApi,
+  dataCacheConnector: DataCacheConnector,
+  navigator: Navigator,
+  authenticate: AuthAction,
+  serviceInfoData: ServiceInfoAction,
+  formProvider: SelectSACategoryFormProvider)
+    extends FrontendController
+    with I18nSupport
+    with Enumerable.Implicits {
 
   val form = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) {
-    implicit request =>
-      Ok(selectSACategory(appConfig, form)(request.serviceInfoContent))
+  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+    Ok(selectSACategory(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async {
-    implicit request =>
-      form.bindFromRequest().fold(
+  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+    form
+      .bindFromRequest()
+      .fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(selectSACategory(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) =>
-          Future.successful(Redirect(navigator.nextPage(SelectSACategoryId, value)))
+        (value) => Future.successful(Redirect(navigator.nextPage(SelectSACategoryId, value)))
       )
   }
 }

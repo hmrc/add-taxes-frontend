@@ -36,8 +36,13 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
   val viewAction = ViewAction(routes.DoYouHaveEORINumberController.onSubmit(), "AddNESTax")
 
   def controller =
-    new DoYouHaveEORINumberController(frontendAppConfig, messagesApi, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
-      FakeServiceInfoAction, formProvider)
+    new DoYouHaveEORINumberController(
+      frontendAppConfig,
+      messagesApi,
+      new FakeNavigator(desiredRoute = onwardRoute),
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      formProvider)
 
   def viewAsString(form: Form[_] = form) =
     doYouHaveEORINumber(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
@@ -70,7 +75,7 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    for(option <- DoYouHaveEORINumber.options) {
+    for (option <- DoYouHaveEORINumber.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller.onSubmit()(postRequest)
@@ -81,7 +86,3 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
     }
   }
 }
-
-
-
-

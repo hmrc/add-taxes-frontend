@@ -37,10 +37,22 @@ class DoYouHaveCHIEFRoleHasEORIControllerSpec extends ControllerSpecBase {
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new DoYouHaveCHIEFRoleHasEORIController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
-      FakeServiceInfoAction, formProvider)
+    new DoYouHaveCHIEFRoleHasEORIController(
+      frontendAppConfig,
+      messagesApi,
+      FakeDataCacheConnector,
+      new FakeNavigator(desiredRoute = onwardRoute),
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      formProvider)
 
-  def viewAsString(form: Form[_] = form) = doYouHaveCHIEFRole(frontendAppConfig, form, ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit(), "AddNESHasEori"))(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) =
+    doYouHaveCHIEFRole(
+      frontendAppConfig,
+      form,
+      ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit(), "AddNESHasEori"))(HtmlFormat.empty)(
+      fakeRequest,
+      messages).toString
 
   "DoYouHaveCHIEFRole Controller" must {
 
@@ -76,7 +88,7 @@ class DoYouHaveCHIEFRoleHasEORIControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    for(option <- DoYouHaveCHIEFRole.options) {
+    for (option <- DoYouHaveCHIEFRole.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
         val result = controller(dontGetAnyData).onSubmit()(postRequest)

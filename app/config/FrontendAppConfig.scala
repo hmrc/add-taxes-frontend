@@ -25,17 +25,22 @@ import utils.{Enrolments, ForgottenOptions, PortalUrlBuilder}
 import play.api.mvc.Request
 
 @Singleton
-class FrontendAppConfig @Inject()(override val runModeConfiguration: Configuration, environment: Environment) extends ServicesConfig with PortalUrlBuilder{
+class FrontendAppConfig @Inject()(override val runModeConfiguration: Configuration, environment: Environment)
+    extends ServicesConfig
+    with PortalUrlBuilder {
 
   override protected def mode = environment.mode
 
-  private def loadConfig(key: String) = runModeConfiguration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
+  private def loadConfig(key: String) =
+    runModeConfiguration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
 
   private lazy val contactHost = runModeConfiguration.getString("contact-frontend.host").getOrElse("")
   private val contactFormServiceIdentifier = "addtaxesfrontend"
 
-  lazy val enrolmentManagementFrontendHost = runModeConfiguration.getString("enrolment-management-frontend.host").getOrElse("")
-  lazy val governmentGatewayLostCredentialsFrontendHost = runModeConfiguration.getString("government-gateway-lost-credentials-frontend.host").getOrElse("")
+  lazy val enrolmentManagementFrontendHost =
+    runModeConfiguration.getString("enrolment-management-frontend.host").getOrElse("")
+  lazy val governmentGatewayLostCredentialsFrontendHost =
+    runModeConfiguration.getString("government-gateway-lost-credentials-frontend.host").getOrElse("")
   lazy val fulfilmentHouseHost = runModeConfiguration.getString("urls.fulfilment-house.host").getOrElse("")
   lazy val fulfilmentHouse = fulfilmentHouseHost + loadConfig("urls.fulfilment-house.schemeIntegration")
 
@@ -60,17 +65,16 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   lazy val loginUrl = loadConfig("urls.login")
   lazy val loginContinueUrl = loadConfig("urls.loginContinue")
 
-  lazy val languageTranslationEnabled = runModeConfiguration.getBoolean("microservice.services.features.welsh-translation").getOrElse(true)
+  lazy val languageTranslationEnabled =
+    runModeConfiguration.getBoolean("microservice.services.features.welsh-translation").getOrElse(true)
 
-  def languageMap: Map[String, Lang] = Map(
-    "english" -> Lang("en"),
-    "cymraeg" -> Lang("cy"))
+  def languageMap: Map[String, Lang] = Map("english" -> Lang("en"), "cymraeg" -> Lang("cy"))
 
   def routeToSwitchLanguage = (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
 
-
   private lazy val portalHost = loadConfig(s"urls.external.portal.host")
-  def getPortalUrl(key: String)(implicit request: Request[_]): String = appendLanguage(portalHost + loadConfig(s"urls.external.portal.$key"))
+  def getPortalUrl(key: String)(implicit request: Request[_]): String =
+    appendLanguage(portalHost + loadConfig(s"urls.external.portal.$key"))
 
   lazy val hmceHost = loadConfig(s"urls.external.hmce.host")
   def getHmceURL(key: String): String = hmceHost + loadConfig(s"urls.external.hmce.$key")
@@ -81,12 +85,10 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   lazy val publishedAssets = loadConfig(s"urls.external.assets.host")
   def getPublishedAssetsUrl(key: String): String = publishedAssets + loadConfig(s"urls.external.assets.$key")
 
-  def emacEnrollmentsUrl(enrolment: Enrolments): String = {
+  def emacEnrollmentsUrl(enrolment: Enrolments): String =
     s"$enrolmentManagementFrontendHost/enrolment-management-frontend/$enrolment/request-access-tax-scheme?continue=%2Fbusiness-account"
-  }
 
-  def governmentGatewayLostCredentialsUrl(forgottenOption: ForgottenOptions): String = {
+  def governmentGatewayLostCredentialsUrl(forgottenOption: ForgottenOptions): String =
     s"$governmentGatewayLostCredentialsFrontendHost/government-gateway-lost-credentials-frontend/" +
       s"choose-your-account?continue=%2Fbusiness-account&origin=business-tax-account&forgottenOption=$forgottenOption"
-  }
 }

@@ -18,6 +18,4 @@ package utils
 
 import uk.gov.hmrc.http.cache.client.CacheMap
 
-class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
-
-}
+class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {}

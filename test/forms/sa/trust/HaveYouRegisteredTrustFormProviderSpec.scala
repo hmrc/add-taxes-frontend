@@ -33,10 +33,7 @@ class HaveYouRegisteredTrustFormProviderSpec extends FormBehaviours {
     behave like questionForm[HaveYouRegisteredTrust](HaveYouRegisteredTrust.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "haveYouRegisteredTrust.error.required",
-        Invalid -> "error.invalid"),
+      Field("value", Required -> "haveYouRegisteredTrust.error.required", Invalid -> "error.invalid"),
       HaveYouRegisteredTrust.options.toSeq.map(_.value): _*)
   }
 }

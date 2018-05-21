@@ -31,10 +31,10 @@ class RegisterForVATController @Inject()(
   override val messagesApi: MessagesApi,
   authenticate: AuthAction,
   serviceInfo: ServiceInfoAction
-) extends FrontendController with I18nSupport {
+) extends FrontendController
+    with I18nSupport {
 
-  def onPageLoad = (authenticate andThen serviceInfo) {
-    implicit request =>
-      Ok(registerForVAT(appConfig)(request.serviceInfoContent))
+  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
+    Ok(registerForVAT(appConfig)(request.serviceInfoContent))
   }
 }

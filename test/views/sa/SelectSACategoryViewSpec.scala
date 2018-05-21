@@ -33,7 +33,8 @@ class SelectSACategoryViewSpec extends ViewBehaviours {
 
   def createView = () => selectSACategory(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => selectSACategory(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm =
+    (form: Form[_]) => selectSACategory(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "SelectSACategory view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -49,13 +50,13 @@ class SelectSACategoryViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- SelectSACategory.options) {
+    for (option <- SelectSACategory.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- SelectSACategory.options.filterNot(o => o == option)) {
+          for (unselectedOption <- SelectSACategory.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

@@ -26,12 +26,12 @@ object OnlineVATAccount {
   case object No extends WithName("No") with OnlineVATAccount
 
   val values: Set[OnlineVATAccount] = Set(
-    Yes, No
+    Yes,
+    No
   )
 
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("onlineVATAccount", value.toString)
+  val options: Set[RadioOption] = values.map { value =>
+    RadioOption("onlineVATAccount", value.toString)
   }
 
   implicit val enumerable: Enumerable[OnlineVATAccount] =

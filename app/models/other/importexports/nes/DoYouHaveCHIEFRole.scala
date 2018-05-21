@@ -26,12 +26,12 @@ object DoYouHaveCHIEFRole {
   case object No extends WithName("No") with DoYouHaveCHIEFRole
 
   val values: Set[DoYouHaveCHIEFRole] = Set(
-    Yes, No
+    Yes,
+    No
   )
 
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("doYouHaveCHIEFRole", value.toString)
+  val options: Set[RadioOption] = values.map { value =>
+    RadioOption("doYouHaveCHIEFRole", value.toString)
   }
 
   implicit val enumerable: Enumerable[DoYouHaveCHIEFRole] =

@@ -34,31 +34,33 @@ import controllers.other.importexports.nes.routes._
 import scala.concurrent.Future
 
 class DoYouHaveCHIEFRoleNoEORIController @Inject()(
-                                        appConfig: FrontendAppConfig,
-                                        override val messagesApi: MessagesApi,
-                                        dataCacheConnector: DataCacheConnector,
-                                        navigator: Navigator,
-                                        authenticate: AuthAction,
-                                        serviceInfoData: ServiceInfoAction,
-                                        formProvider: DoYouHaveCHIEFRoleFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+  appConfig: FrontendAppConfig,
+  override val messagesApi: MessagesApi,
+  dataCacheConnector: DataCacheConnector,
+  navigator: Navigator,
+  authenticate: AuthAction,
+  serviceInfoData: ServiceInfoAction,
+  formProvider: DoYouHaveCHIEFRoleFormProvider)
+    extends FrontendController
+    with I18nSupport
+    with Enumerable.Implicits {
 
   val form = formProvider()
   lazy val viewAction = ViewAction(DoYouHaveCHIEFRoleNoEORIController.onSubmit(), "AddNESNoEori")
 
-
-  def onPageLoad() = (authenticate andThen serviceInfoData) {
-    implicit request =>
-      Ok(doYouHaveCHIEFRole(appConfig, form, viewAction)(request.serviceInfoContent))
+  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+    Ok(doYouHaveCHIEFRole(appConfig, form, viewAction)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async {
-    implicit request =>
-      form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) => Future.successful(
-          BadRequest(doYouHaveCHIEFRole(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))
+  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+    form
+      .bindFromRequest()
+      .fold(
+        (formWithErrors: Form[_]) =>
+          Future.successful(
+            BadRequest(doYouHaveCHIEFRole(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))
         ),
-        (value) =>
-          Future.successful(Redirect(navigator.nextPage(DoYouHaveCHIEFRoleId.NoEORI, value)))
+        (value) => Future.successful(Redirect(navigator.nextPage(DoYouHaveCHIEFRoleId.NoEORI, value)))
       )
   }
 }

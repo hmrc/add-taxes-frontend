@@ -23,15 +23,11 @@ trait NextPageSpecBase extends SpecBase {
 
   implicit val request = fakeRequest
 
-
-  def nextPage[A, B](np: NextPage[A, B], userSelection: B, urlRedirect: String): Unit = {
+  def nextPage[A, B](np: NextPage[A, B], userSelection: B, urlRedirect: String): Unit =
     s"$userSelection is selected" should {
       s"redirect to $urlRedirect" in {
         val result = np.get(userSelection)
         result.url mustBe urlRedirect
       }
     }
-  }
 }
-
-

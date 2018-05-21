@@ -24,7 +24,6 @@ import utils.Enrolments
 import views.behaviours.ViewBehaviours
 import views.html.vat.moss.uk.addVATFirst
 
-
 class AddVATFirstViewSpec extends ViewBehaviours with MockitoSugar with BeforeAndAfterEach {
 
   val messageKeyPrefix = "addVATFirst"
@@ -36,7 +35,7 @@ class AddVATFirstViewSpec extends ViewBehaviours with MockitoSugar with BeforeAn
 
     "Render the correct content" in {
 
-      val doc =  asDocument(createView())
+      val doc = asDocument(createView())
       val view = doc.text()
 
       assertLinkById(

@@ -40,7 +40,3 @@ class RegisterGTSFirstControllerSpec extends ControllerSpecBase {
     }
   }
 }
-
-
-
-

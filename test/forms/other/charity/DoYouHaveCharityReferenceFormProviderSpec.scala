@@ -33,10 +33,7 @@ class DoYouHaveCharityReferenceFormProviderSpec extends FormBehaviours {
     behave like questionForm[DoYouHaveCharityReference](DoYouHaveCharityReference.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "doYouHaveCharityReference.error.required",
-        Invalid -> "error.invalid"),
+      Field("value", Required -> "doYouHaveCharityReference.error.required", Invalid -> "error.invalid"),
       DoYouHaveCharityReference.options.toSeq.map(_.value): _*)
   }
 }

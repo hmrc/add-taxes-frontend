@@ -1,0 +1,51 @@
+@*
+ * Copyright 2018 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.FrontendAppConfig
+@import utils.Enrolments
+
+@(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    title = messages("registerForPAYE.title"),
+    appConfig = appConfig,
+    serviceInfoContent = serviceInfoContent
+) {
+
+    @components.heading("registerForPAYE.heading")
+
+    <p>
+        @messages("registerForPAYE.p1")
+    </p>
+
+    <p>
+        <a id="continue"
+           href='@appConfig.getPortalUrl("businessRegistration")'
+           class="button"
+           data-journey-click="CisUkContractorRegisterEpaye:Click:Register">
+
+            @messages("registerForPAYE.continue")
+        </a>
+    </p>
+
+    <p>
+        <a id="not-now"
+           href='@appConfig.getBusinessAccountUrl("home")'
+           data-journey-click="CisUkContractorRegisterEpaye:Click:NotNow">
+            @messages("registerForPAYE.notnow")
+        </a>
+    </p>
+}

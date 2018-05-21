@@ -30,7 +30,7 @@ class GetEoriAndChiefRoleViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
-      val doc =  asDocument(createView())
+      val doc = asDocument(createView())
       val view = doc.text()
 
       view must include("You need an EORI number and a CHIEF role to add National Export System (NES) to your account.")

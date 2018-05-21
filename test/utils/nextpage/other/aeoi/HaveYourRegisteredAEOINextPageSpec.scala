@@ -22,7 +22,6 @@ import utils.nextpage.NextPageSpecBase
 
 class HaveYourRegisteredAEOINextPageSpec extends NextPageSpecBase {
 
-
   "haveYouRegisteredAEOI" when {
     behave like nextPage(
       NextPage.haveYouRegisteredAEOI,

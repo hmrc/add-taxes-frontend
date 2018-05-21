@@ -33,10 +33,7 @@ class OnlineVATAccountFormProviderSpec extends FormBehaviours {
     behave like questionForm[OnlineVATAccount](OnlineVATAccount.values.head)
 
     behave like formWithOptionField(
-      Field(
-        "value",
-        Required -> "onlineVATAccount.error.required",
-        Invalid -> "error.invalid"),
+      Field("value", Required -> "onlineVATAccount.error.required", Invalid -> "error.invalid"),
       OnlineVATAccount.options.toSeq.map(_.value): _*)
   }
 }

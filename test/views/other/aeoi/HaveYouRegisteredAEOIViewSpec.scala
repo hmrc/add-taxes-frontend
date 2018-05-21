@@ -33,7 +33,8 @@ class HaveYouRegisteredAEOIViewSpec extends ViewBehaviours {
 
   def createView = () => haveYouRegisteredAEOI(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => haveYouRegisteredAEOI(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm =
+    (form: Form[_]) => haveYouRegisteredAEOI(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "HaveYouRegisteredAEOI view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -54,13 +55,13 @@ class HaveYouRegisteredAEOIViewSpec extends ViewBehaviours {
       assertContainsText(doc, "We’ll have sent you an Automatic Exchange of Information ID")
     }
 
-    for(option <- HaveYouRegisteredAEOI.options) {
+    for (option <- HaveYouRegisteredAEOI.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- HaveYouRegisteredAEOI.options.filterNot(o => o == option)) {
+          for (unselectedOption <- HaveYouRegisteredAEOI.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

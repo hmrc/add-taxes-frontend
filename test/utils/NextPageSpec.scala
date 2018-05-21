@@ -17,13 +17,15 @@
 package utils
 
 import base.SpecBase
-import identifiers.DoYouHaveMGDRegistrationId
 import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.OtherTaxes
+import models.employer.cis.uk.contractor.{DoesBusinessManagePAYE, IsBusinessRegisteredForPAYE}
 import models.employer.pension.WhichPensionSchemeToAdd
 import models.other.aeoi.HaveYouRegisteredAEOI
 import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
+import models.other.alcohol.awrs.SelectAlcoholScheme
 import models.other.charity.DoYouHaveCharityReference
+import models.other.gambling.SelectGamblingOrGamingDuty
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.gambling.mgd.DoYouHaveMGDRegistration
 import models.other.importexports.dan.DoYouHaveDAN
@@ -38,12 +40,17 @@ import models.vat.moss.uk.{OnlineVATAccount, RegisteredForVATUk}
 import models.wrongcredentials.FindingYourAccount
 import utils.nextpage.NextPageSpecBase
 
-
 class NextPageSpec extends NextPageSpecBase {
 
   "SelectAnOilService" when {
-    behave like nextPage(NextPage.selectAnOilService, TiedOilsEnquiryService, "/business-account/add-tax/other/oil/tied")
-    behave like nextPage(NextPage.selectAnOilService, RebatedOilsEnquiryService, "/business-account/add-tax/other/oil/rebated")
+    behave like nextPage(
+      NextPage.selectAnOilService,
+      TiedOilsEnquiryService,
+      "/business-account/add-tax/other/oil/tied")
+    behave like nextPage(
+      NextPage.selectAnOilService,
+      RebatedOilsEnquiryService,
+      "/business-account/add-tax/other/oil/rebated")
   }
 
   "HaveYouRegisteredForTiedOils" when {
@@ -104,7 +111,6 @@ class NextPageSpec extends NextPageSpecBase {
     )
   }
 
-
   "HaveYouRegisteredForRebatedOils" when {
     behave like nextPage(
       NextPage.haveYouRegisteredForRebatedOils,
@@ -124,12 +130,19 @@ class NextPageSpec extends NextPageSpecBase {
       s"http://localhost:9898/government-gateway-lost-credentials-frontend/" +
         s"choose-your-account?continue=%2Fbusiness-account&origin=business-tax-account&forgottenOption=$forgottenOption"
 
-    behave like nextPage(NextPage.findingYourAccount, FindingYourAccount.DontKnowId, governmentGatewayUrlGenerator("userId"))
+    behave like nextPage(
+      NextPage.findingYourAccount,
+      FindingYourAccount.DontKnowId,
+      governmentGatewayUrlGenerator("userId"))
 
-    behave like nextPage(NextPage.findingYourAccount, FindingYourAccount.DontKnowPassword,
+    behave like nextPage(
+      NextPage.findingYourAccount,
+      FindingYourAccount.DontKnowPassword,
       governmentGatewayUrlGenerator("password"))
 
-    behave like nextPage(NextPage.findingYourAccount, FindingYourAccount.DontKnowIdOrPassword,
+    behave like nextPage(
+      NextPage.findingYourAccount,
+      FindingYourAccount.DontKnowIdOrPassword,
       governmentGatewayUrlGenerator("UserIdAndPassword"))
   }
 
@@ -345,7 +358,6 @@ class NextPageSpec extends NextPageSpecBase {
     )
   }
 
-
   "VAT MOSS UK" when {
     behave like nextPage(
       NextPage.registeredForVATUk,
@@ -394,5 +406,71 @@ class NextPageSpec extends NextPageSpecBase {
     )
   }
 
+  "Select an Alcohol Scheme" when {
+    behave like nextPage(
+      NextPage.selectAlcoholScheme,
+      SelectAlcoholScheme.ATWD,
+      "/business-account/add-tax/other/alcohol/atwd"
+    )
 
+    behave like nextPage(
+      NextPage.selectAlcoholScheme,
+      SelectAlcoholScheme.AWRS,
+      "http://localhost:9020/business-customer/business-verification/awrs"
+    )
+  }
+
+  "DoesBusinessManagePAYE" when {
+    behave like nextPage(
+      NextPage.doesBusinessManagePAYE,
+      DoesBusinessManagePAYE.Yes,
+      "/business-account/add-tax/employer/cis/uk/contractor/epaye/other-account"
+    )
+
+    behave like nextPage(
+      NextPage.doesBusinessManagePAYE,
+      DoesBusinessManagePAYE.No,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-CIS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+  }
+
+  "IsBusinessRegisteredForPAYE" when {
+    behave like nextPage(
+      NextPage.isBusinessRegisteredForPAYE,
+      IsBusinessRegisteredForPAYE.Yes,
+      "/business-account/add-tax/employer/cis/uk/contractor/epaye"
+    )
+
+    behave like nextPage(
+      NextPage.isBusinessRegisteredForPAYE,
+      IsBusinessRegisteredForPAYE.No,
+      "/business-account/add-tax/employer/cis/uk/contractor/register-epaye"
+    )
+  }
+
+  "Gambling or Gaming" when {
+    behave like nextPage(
+      NextPage.selectGamblingOrGamingDuty,
+      SelectGamblingOrGamingDuty.MGD,
+      "/business-account/add-tax/other/gambling/mgd"
+    )
+
+    behave like nextPage(
+      NextPage.selectGamblingOrGamingDuty,
+      SelectGamblingOrGamingDuty.GBD,
+      "/business-account/add-tax/other/gambling/gbd"
+    )
+
+    behave like nextPage(
+      NextPage.selectGamblingOrGamingDuty,
+      SelectGamblingOrGamingDuty.PBD,
+      "/business-account/add-tax/other/gambling/pbd"
+    )
+
+    behave like nextPage(
+      NextPage.selectGamblingOrGamingDuty,
+      SelectGamblingOrGamingDuty.RGD,
+      "/business-account/add-tax/other/gambling/rgd"
+    )
+  }
 }

@@ -27,12 +27,13 @@ object FindingYourAccount {
   case object DontKnowIdOrPassword extends WithName("dontKnowIdOrPassword") with FindingYourAccount
 
   val values: Set[FindingYourAccount] = Set(
-    DontKnowPassword, DontKnowId, DontKnowIdOrPassword
+    DontKnowPassword,
+    DontKnowId,
+    DontKnowIdOrPassword
   )
 
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("findingYourAccount", value.toString)
+  val options: Set[RadioOption] = values.map { value =>
+    RadioOption("findingYourAccount", value.toString)
   }
 
   implicit val enumerable: Enumerable[FindingYourAccount] =

@@ -26,13 +26,15 @@ import views.html.sa.trust.registerTrust
 
 import scala.concurrent.Future
 
-class RegisterTrustController @Inject()(appConfig: FrontendAppConfig,
-                                          override val messagesApi: MessagesApi,
-                                          authenticate: AuthAction,
-                                          serviceInfo: ServiceInfoAction ) extends FrontendController with I18nSupport {
+class RegisterTrustController @Inject()(
+  appConfig: FrontendAppConfig,
+  override val messagesApi: MessagesApi,
+  authenticate: AuthAction,
+  serviceInfo: ServiceInfoAction)
+    extends FrontendController
+    with I18nSupport {
 
-  def onPageLoad = (authenticate andThen serviceInfo) {
-    implicit request =>
-      Ok(registerTrust(appConfig)(request.serviceInfoContent))
+  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
+    Ok(registerTrust(appConfig)(request.serviceInfoContent))
   }
 }

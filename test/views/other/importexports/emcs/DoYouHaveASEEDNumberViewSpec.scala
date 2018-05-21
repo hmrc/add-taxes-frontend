@@ -33,7 +33,8 @@ class DoYouHaveASEEDNumberViewSpec extends ViewBehaviours {
 
   def createView = () => doYouHaveASEEDNumber(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => doYouHaveASEEDNumber(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm =
+    (form: Form[_]) => doYouHaveASEEDNumber(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "DoYouHaveASEEDNumber view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -49,13 +50,13 @@ class DoYouHaveASEEDNumberViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- DoYouHaveASEEDNumber.options) {
+    for (option <- DoYouHaveASEEDNumber.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- DoYouHaveASEEDNumber.options.filterNot(o => o == option)) {
+          for (unselectedOption <- DoYouHaveASEEDNumber.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }
