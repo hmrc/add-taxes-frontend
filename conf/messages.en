@@ -513,3 +513,40 @@ registerForCharity.heading = Register with HMRC as a Charity
 registerForCharity.p1 = You need to register with HMRC as a charity before you can add the Gift Aid service to your account.
 registerForCharity.p2 = We’ll send you a reference, which you can then use to add the service to your account.
 registerForCharity.continue = Continue - register with HMRC as a Charity
+
+#######################################################
+##  UsePAYEEmployerAccount
+#######################################################
+usePAYEEmployerAccount.title = Use your PAYE for employers account
+usePAYEEmployerAccount.heading = Use your PAYE for employers account
+usePAYEEmployerAccount.continue = Sign in to your PAYE for employers account
+usePAYEEmployerAccount.addAccount = I want to add CIS in this account
+usePAYEEmployerAccount.p1 = You should manage CIS in the same account that you manage PAYE for employers.
+
+#######################################################
+##  DoesBusinessManagePAYE
+#######################################################
+doesBusinessManagePAYE.title = Does your business manage PAYE for employers online?
+doesBusinessManagePAYE.heading = Does your business manage PAYE for employers online?
+doesBusinessManagePAYE.p1 = You’ll have an online HMRC account like this one, but it will use a different User ID and password
+doesBusinessManagePAYE.Yes = Yes - we manage PAYE for employers online
+doesBusinessManagePAYE.No = No - we don’t manage PAYE for employers online
+doesBusinessManagePAYE.error.required = Select yes or no
+
+#######################################################
+##  RegisterForPAYE
+#######################################################
+registerForPAYE.title = Register for PAYE for employers first
+registerForPAYE.heading = Register for PAYE for employers first
+registerForPAYE.p1 = You need to be registered for PAYE for employers if you want to register for CIS as a contractor.
+registerForPAYE.continue = Register for PAYE for employers
+registerForPAYE.notnow = I don’t want to do this right now
+
+#######################################################
+##  IsBusinessRegisteredForPAYE
+#######################################################
+isBusinessRegisteredForPAYE.title = Is your business registered for PAYE for employers?
+isBusinessRegisteredForPAYE.heading = Is your business registered for PAYE for employers?
+isBusinessRegisteredForPAYE.Yes = Yes - the business is registered for PAYE for employers
+isBusinessRegisteredForPAYE.No = No - the business isn’t registered for PAYE for employers
+isBusinessRegisteredForPAYE.error.required = Select yes or no

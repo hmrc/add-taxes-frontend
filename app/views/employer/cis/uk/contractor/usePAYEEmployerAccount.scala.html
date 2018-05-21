@@ -15,40 +15,35 @@
  *@
 
 @import config.FrontendAppConfig
+@import utils.Enrolments
 
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("registerForVAT.title"),
+    title = messages("usePAYEEmployerAccount.title"),
     appConfig = appConfig,
     serviceInfoContent = serviceInfoContent
 ) {
 
-    @components.heading("registerForVAT.heading")
+    @components.heading("usePAYEEmployerAccount.heading")
 
-    <p>
-        @messages("registerForVAT.p1")
-    </p>
-
-    <p>
-        @messages("registerForVAT.p2")
-    </p>
+    <p>@messages("usePAYEEmployerAccount.p1")</p>
 
     <p>
         <a id="continue"
-           href='@appConfig.getPortalUrl("businessRegistration")'
+           href='@appConfig.getBusinessAccountUrl("signoutBTA")'
            class="button"
-           data-journey-click="VatMossUkNotVatRegistered:Click:Register">
+           data-journey-click="CisUkContractorEpayeOtherAccount:Click:SignIn">
 
-            @messages("registerForVAT.continue")
+            @messages("usePAYEEmployerAccount.continue")
         </a>
     </p>
 
     <p>
-        <a id="not-now"
-           href='@appConfig.getBusinessAccountUrl("home")'
-           data-journey-click="VatMossUkNotVatRegistered:Click:NotNow">
-            @messages("registerForVAT.notnow")
+        <a id="add-to-this-account"
+           href='@appConfig.emacEnrollmentsUrl(Enrolments.AddCis)'
+           data-journey-click="CisUkContractorEpayeOtherAccount:Click:AddToAccount">
+            @messages("usePAYEEmployerAccount.addAccount")
         </a>
     </p>
 }
