@@ -142,20 +142,6 @@ class NextPageSpec extends NextPageSpecBase {
     )
   }
 
-  "SA Partnership" when {
-    behave like nextPage(
-      NextPage.doYouWantToAddPartner,
-      DoYouWantToAddPartner.Yes,
-      "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/359508/sa401-static.pdf"
-    )
-
-    behave like nextPage(
-      NextPage.doYouWantToAddPartner,
-      DoYouWantToAddPartner.No,
-      "/business-account/add-tax/self-assessment/partnership/other"
-    )
-  }
-
   "SA Partnership Other" when {
     behave like nextPage(
       NextPage.haveYouRegisteredPartnership,
