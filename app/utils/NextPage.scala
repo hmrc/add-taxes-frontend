@@ -54,6 +54,7 @@ import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
 import utils.nextpage.other.gambling.SelectGamblingOrGamingDutyNextPage
 import utils.nextpage.other.gambling.mgd.DoYouHaveMGDRegistrationNextPage
 import utils.nextpage.other.oil.{HaveYouRegisteredForRebatedOilsNextPage, HaveYouRegisteredForTiedOilsNextPage, SelectAnOilServiceNextPage}
+import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 
 trait NextPage[A, B] {
   def get(b: B)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call
@@ -69,7 +70,8 @@ object NextPage
     with IsBusinessRegisteredForPAYENextPage
     with HaveYouRegisteredForTiedOilsNextPage
     with DoesBusinessManagePAYENextPage
-    with SelectAnOilServiceNextPage {
+    with SelectAnOilServiceNextPage
+    with FindingYourAccountNextPage {
 
   implicit val selectAlcoholScheme
     : NextPage[SelectAlcoholSchemeId.type, models.other.alcohol.awrs.SelectAlcoholScheme] = {
@@ -312,20 +314,6 @@ object NextPage
           case models.OtherTaxes.ImportsExports                               => Call(GET, appConfig.getBusinessAccountUrl("import-export"))
           case models.OtherTaxes.OilAndFuel                                   => routes.SelectAnOilServiceController.onPageLoad()
           case models.OtherTaxes.FulfilmentHouseDueDiligenceSchemeIntegration => Call(GET, appConfig.fulfilmentHouse)
-        }
-    }
-  }
-
-  implicit val findingYourAccount: NextPage[FindingYourAccountId.type, FindingYourAccount] = {
-    new NextPage[FindingYourAccountId.type, FindingYourAccount] {
-      override def get(b: FindingYourAccount)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case FindingYourAccount.DontKnowPassword =>
-            Call(GET, appConfig.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenPassword))
-          case FindingYourAccount.DontKnowId =>
-            Call(GET, appConfig.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenId))
-          case FindingYourAccount.DontKnowIdOrPassword =>
-            Call(GET, appConfig.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenIdAndPassword))
         }
     }
   }

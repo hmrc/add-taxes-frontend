@@ -86,27 +86,6 @@ class NextPageSpec extends NextPageSpecBase {
     )
   }
 
-  "FindingYourAccountFormProvider" when {
-    def governmentGatewayUrlGenerator(forgottenOption: String): String =
-      s"http://localhost:9898/government-gateway-lost-credentials-frontend/" +
-        s"choose-your-account?continue=%2Fbusiness-account&origin=business-tax-account&forgottenOption=$forgottenOption"
-
-    behave like nextPage(
-      NextPage.findingYourAccount,
-      FindingYourAccount.DontKnowId,
-      governmentGatewayUrlGenerator("userId"))
-
-    behave like nextPage(
-      NextPage.findingYourAccount,
-      FindingYourAccount.DontKnowPassword,
-      governmentGatewayUrlGenerator("password"))
-
-    behave like nextPage(
-      NextPage.findingYourAccount,
-      FindingYourAccount.DontKnowIdOrPassword,
-      governmentGatewayUrlGenerator("UserIdAndPassword"))
-  }
-
   "EconomicOperatorsRegistrationAndIdentification" when {
     behave like nextPage(
       NextPage.icsEori,
