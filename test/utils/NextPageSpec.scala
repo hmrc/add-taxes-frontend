@@ -128,20 +128,6 @@ class NextPageSpec extends NextPageSpecBase {
     )
   }
 
-  "WhichPensionSchemeToAdd" when {
-    behave like nextPage(
-      NextPage.whichPensionSchemeToAdd,
-      WhichPensionSchemeToAdd.Administrators,
-      "http://localhost:8080/portal/service/pensions-administrators?action=enrol&step=hasid&lang=eng"
-    )
-
-    behave like nextPage(
-      NextPage.whichPensionSchemeToAdd,
-      WhichPensionSchemeToAdd.Practitioners,
-      "http://localhost:8080/portal/service/pensions-practitioners?action=enrol&step=hasid&lang=eng"
-    )
-  }
-
   "gtsGBD" when {
     behave like nextPage(
       NextPage.gbdGTS,
