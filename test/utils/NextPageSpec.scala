@@ -346,18 +346,4 @@ class NextPageSpec extends NextPageSpecBase {
     )
   }
 
-  "Select an Alcohol Scheme" when {
-    behave like nextPage(
-      NextPage.selectAlcoholScheme,
-      SelectAlcoholScheme.ATWD,
-      "/business-account/add-tax/other/alcohol/atwd"
-    )
-
-    behave like nextPage(
-      NextPage.selectAlcoholScheme,
-      SelectAlcoholScheme.AWRS,
-      "http://localhost:9020/business-customer/business-verification/awrs"
-    )
-  }
-
 }
