@@ -49,6 +49,7 @@ import models.sa.trust.HaveYouRegisteredTrust
 import models.vat.moss.uk.{OnlineVATAccount, RegisteredForVATUk}
 import models.wrongcredentials.FindingYourAccount
 import play.api.mvc.{Call, Request}
+import utils.nextpage.employer.cis.uk.contractor.IsBusinessRegisteredForPAYENextPage
 import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
 import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage
 import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
@@ -66,22 +67,8 @@ object NextPage
     with DoYouHaveMGDRegistrationNextPage
     with AreYouRegisteredWarehousekeeperNextPage
     with SelectGamblingOrGamingDutyNextPage
-    with HaveYouRegisteredForRebatedOilsNextPage {
-
-  implicit val isBusinessRegisteredForPAYE
-    : NextPage[IsBusinessRegisteredForPAYEId.type, models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE] = {
-    new NextPage[IsBusinessRegisteredForPAYEId.type, models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE] {
-      override def get(b: models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE)(
-        implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
-        b match {
-          case models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE.Yes =>
-            payeAccountRoutes.DoesBusinessManagePAYEController.onPageLoad()
-          case models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE.No =>
-            payeAccountRoutes.RegisterForPAYEController.onPageLoad()
-        }
-    }
-  }
+    with HaveYouRegisteredForRebatedOilsNextPage
+    with IsBusinessRegisteredForPAYENextPage {
 
   implicit val doesBusinessManagePAYE: NextPage[DoesBusinessManagePAYEId.type, DoesBusinessManagePAYE] = {
     new NextPage[DoesBusinessManagePAYEId.type, DoesBusinessManagePAYE] {

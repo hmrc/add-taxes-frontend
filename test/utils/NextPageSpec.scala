@@ -420,18 +420,4 @@ class NextPageSpec extends NextPageSpecBase {
     )
   }
 
-  "IsBusinessRegisteredForPAYE" when {
-    behave like nextPage(
-      NextPage.isBusinessRegisteredForPAYE,
-      IsBusinessRegisteredForPAYE.Yes,
-      "/business-account/add-tax/employer/cis/uk/contractor/epaye"
-    )
-
-    behave like nextPage(
-      NextPage.isBusinessRegisteredForPAYE,
-      IsBusinessRegisteredForPAYE.No,
-      "/business-account/add-tax/employer/cis/uk/contractor/register-epaye"
-    )
-  }
-
 }
