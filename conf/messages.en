@@ -559,3 +559,14 @@ isBusinessRegisteredForPAYE.heading = Is your business registered for PAYE for e
 isBusinessRegisteredForPAYE.Yes = Yes - the business is registered for PAYE for employers
 isBusinessRegisteredForPAYE.No = No - the business isn’t registered for PAYE for employers
 isBusinessRegisteredForPAYE.error.required = Select yes or no
+
+#######################################################
+##  SelectGamblingOrGamingDuty
+#######################################################
+selectGamblingOrGamingDuty.title = Select a gambling or gaming duty
+selectGamblingOrGamingDuty.heading = Select a gambling or gaming duty
+selectGamblingOrGamingDuty.MGD = Machine Games Duty (MGD)
+selectGamblingOrGamingDuty.GBD = General Betting Duty (GBD)
+selectGamblingOrGamingDuty.PBD = Pool Betting Duty (PBD)
+selectGamblingOrGamingDuty.RGD = Remote Gaming Duty (RGD)
+selectGamblingOrGamingDuty.error.required = Select a duty

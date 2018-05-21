@@ -17,7 +17,6 @@
 package utils
 
 import base.SpecBase
-import identifiers.DoYouHaveMGDRegistrationId
 import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.OtherTaxes
 import models.employer.cis.uk.contractor.{DoesBusinessManagePAYE, IsBusinessRegisteredForPAYE}
@@ -26,6 +25,7 @@ import models.other.aeoi.HaveYouRegisteredAEOI
 import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
 import models.other.alcohol.awrs.SelectAlcoholScheme
 import models.other.charity.DoYouHaveCharityReference
+import models.other.gambling.SelectGamblingOrGamingDuty
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.gambling.mgd.DoYouHaveMGDRegistration
 import models.other.importexports.dan.DoYouHaveDAN
@@ -503,6 +503,32 @@ class NextPageSpec extends SpecBase {
       NextPage.isBusinessRegisteredForPAYE,
       IsBusinessRegisteredForPAYE.No,
       "/business-account/add-tax/employer/cis/uk/contractor/register-epaye"
+    )
+  }
+
+  "Gambling or Gaming" when {
+    behave like nextPage(
+      NextPage.selectGamblingOrGamingDuty,
+      SelectGamblingOrGamingDuty.MGD,
+      "/business-account/add-tax/other/gambling/mgd"
+    )
+
+    behave like nextPage(
+      NextPage.selectGamblingOrGamingDuty,
+      SelectGamblingOrGamingDuty.GBD,
+      "/business-account/add-tax/other/gambling/gbd"
+    )
+
+    behave like nextPage(
+      NextPage.selectGamblingOrGamingDuty,
+      SelectGamblingOrGamingDuty.PBD,
+      "/business-account/add-tax/other/gambling/pbd"
+    )
+
+    behave like nextPage(
+      NextPage.selectGamblingOrGamingDuty,
+      SelectGamblingOrGamingDuty.RGD,
+      "/business-account/add-tax/other/gambling/rgd"
     )
   }
 }

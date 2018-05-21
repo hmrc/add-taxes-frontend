@@ -542,3 +542,14 @@ isBusinessRegisteredForPAYE.heading = A yw eich busnes wedi’i gofrestru ar gyf
 isBusinessRegisteredForPAYE.Yes = Ydy - mae’r busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
 isBusinessRegisteredForPAYE.No = Nac ydy - nid yw’r busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
 isBusinessRegisteredForPAYE.error.required = Dewis iawn neu na
+
+#######################################################
+##  SelectGamblingOrGamingDuty
+#######################################################
+selectGamblingOrGamingDuty.title = Dewiswch doll fetio neu hapchwarae
+selectGamblingOrGamingDuty.heading = Dewiswch doll fetio neu hapchwarae
+selectGamblingOrGamingDuty.MGD = Toll Peiriannau Hapchwarae (MGD)
+selectGamblingOrGamingDuty.GBD = Toll Fetio Gyffredinol (GBD)
+selectGamblingOrGamingDuty.PBD = Toll Cronfa Fetio (PBD)
+selectGamblingOrGamingDuty.RGD = Toll Hapchwarae o Bell (RGD)
+selectGamblingOrGamingDuty.error.required = Dewis toll

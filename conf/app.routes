@@ -142,6 +142,7 @@ GET        /other/charities                             controllers.other.charit
 POST       /other/charities                             controllers.other.charity.DoYouHaveCharityReferenceController.onSubmit()
 
 GET        /other/charities/register                    controllers.other.charity.RegisterForCharityController.onPageLoad()
+
 GET        /employer/cis/uk/contractor/epaye/other-account    controllers.employer.cis.uk.contractor.UsePAYEEmployerAccountController.onPageLoad()
 
 GET        /employer/cis/uk/contractor/epaye                  controllers.employer.cis.uk.contractor.DoesBusinessManagePAYEController.onPageLoad()
@@ -151,3 +152,6 @@ GET        /employer/cis/uk/contractor/register-epaye         controllers.employ
 
 GET        /employer/cis/uk/contractor                        controllers.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEController.onPageLoad()
 POST       /employer/cis/uk/contractor                        controllers.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEController.onSubmit()
+
+GET        /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onPageLoad()
+POST       /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onSubmit()

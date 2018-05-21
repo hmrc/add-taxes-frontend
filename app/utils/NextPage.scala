@@ -62,6 +62,19 @@ trait NextPage[A, B] {
 
 object NextPage {
 
+  implicit val selectGamblingOrGamingDuty: NextPage[SelectGamblingOrGamingDutyId.type,
+    models.other.gambling.SelectGamblingOrGamingDuty] = {
+    new NextPage[SelectGamblingOrGamingDutyId.type, models.other.gambling.SelectGamblingOrGamingDuty] {
+      override def get(b: models.other.gambling.SelectGamblingOrGamingDuty)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+        b match {
+          case models.other.gambling.SelectGamblingOrGamingDuty.MGD => mgdRoutes.DoYouHaveMGDRegistrationController.onPageLoad()
+          case models.other.gambling.SelectGamblingOrGamingDuty.GBD => gbdRoutes.AreYouRegisteredGTSController.onPageLoad()
+          case models.other.gambling.SelectGamblingOrGamingDuty.PBD => pbdRoutes.AreYouRegisteredGTSController.onPageLoad()
+          case models.other.gambling.SelectGamblingOrGamingDuty.RGD => rgdRoutes.AreYouRegisteredGTSController.onPageLoad()
+        }
+     }
+  }
+
   implicit val haveYouRegisteredAEOI: NextPage[HaveYouRegisteredAEOIId.type,
     models.other.aeoi.HaveYouRegisteredAEOI] = {
     new NextPage[HaveYouRegisteredAEOIId.type, models.other.aeoi.HaveYouRegisteredAEOI] {
