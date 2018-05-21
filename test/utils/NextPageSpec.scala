@@ -434,29 +434,4 @@ class NextPageSpec extends NextPageSpecBase {
     )
   }
 
-  "Gambling or Gaming" when {
-    behave like nextPage(
-      NextPage.selectGamblingOrGamingDuty,
-      SelectGamblingOrGamingDuty.MGD,
-      "/business-account/add-tax/other/gambling/mgd"
-    )
-
-    behave like nextPage(
-      NextPage.selectGamblingOrGamingDuty,
-      SelectGamblingOrGamingDuty.GBD,
-      "/business-account/add-tax/other/gambling/gbd"
-    )
-
-    behave like nextPage(
-      NextPage.selectGamblingOrGamingDuty,
-      SelectGamblingOrGamingDuty.PBD,
-      "/business-account/add-tax/other/gambling/pbd"
-    )
-
-    behave like nextPage(
-      NextPage.selectGamblingOrGamingDuty,
-      SelectGamblingOrGamingDuty.RGD,
-      "/business-account/add-tax/other/gambling/rgd"
-    )
-  }
 }
