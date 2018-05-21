@@ -254,20 +254,6 @@ class NextPageSpec extends NextPageSpecBase {
     )
   }
 
-  "VAT MOSS UK online VAT Account" when {
-    behave like nextPage(
-      NextPage.onlineVATAccount,
-      OnlineVATAccount.Yes,
-      "/business-account/add-tax/vat/moss/uk/vat-registered/other-account"
-    )
-
-    behave like nextPage(
-      NextPage.onlineVATAccount,
-      OnlineVATAccount.No,
-      "/business-account/add-tax/vat/moss/uk/vat-registered/no-other-account"
-    )
-  }
-
   "Self Assessment" when {
     behave like nextPage(
       NextPage.selectSACategory,

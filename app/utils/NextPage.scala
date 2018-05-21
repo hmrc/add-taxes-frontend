@@ -29,7 +29,6 @@ import controllers.other.importexports.nes.{routes => nesRoutes}
 import controllers.other.oil.routes
 import controllers.sa.partnership.{routes => saPartnerRoutes}
 import controllers.sa.trust.{routes => trustRoutes}
-import controllers.vat.moss.uk.{routes => vatMossUkRoutes}
 import identifiers._
 import models.OtherTaxes
 import models.other.gambling.gbd.AreYouRegisteredGTS
@@ -52,7 +51,7 @@ import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
 import utils.nextpage.other.gambling.SelectGamblingOrGamingDutyNextPage
 import utils.nextpage.other.gambling.mgd.DoYouHaveMGDRegistrationNextPage
 import utils.nextpage.other.oil.{HaveYouRegisteredForRebatedOilsNextPage, HaveYouRegisteredForTiedOilsNextPage, SelectAnOilServiceNextPage}
-import utils.nextpage.vat.moss.uk.RegisteredForVATUKNextPage
+import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 
 trait NextPage[A, B] {
@@ -73,18 +72,8 @@ object NextPage
     with SelectAlcoholSchemeNextPage
     with FindingYourAccountNextPage
     with RegisteredForVATUKNextPage
-    with OtherTaxesNextPage {
-
-  implicit val onlineVATAccount: NextPage[OnlineVATAccountId.type, models.vat.moss.uk.OnlineVATAccount] = {
-    new NextPage[OnlineVATAccountId.type, models.vat.moss.uk.OnlineVATAccount] {
-      override def get(
-        b: models.vat.moss.uk.OnlineVATAccount)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case OnlineVATAccount.Yes => vatMossUkRoutes.AddVATMOSSController.onPageLoad()
-          case OnlineVATAccount.No  => vatMossUkRoutes.AddVATFirstController.onPageLoad()
-        }
-    }
-  }
+    with OtherTaxesNextPage
+    with OnlineVATAccountNextPage {
 
   implicit val selectSACategory: NextPage[SelectSACategoryId.type, models.sa.SelectSACategory] = {
     new NextPage[SelectSACategoryId.type, models.sa.SelectSACategory] {
