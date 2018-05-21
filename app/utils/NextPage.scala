@@ -51,6 +51,7 @@ import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
 import utils.nextpage.other.gambling.SelectGamblingOrGamingDutyNextPage
 import utils.nextpage.other.gambling.mgd.DoYouHaveMGDRegistrationNextPage
 import utils.nextpage.other.oil.{HaveYouRegisteredForRebatedOilsNextPage, HaveYouRegisteredForTiedOilsNextPage, SelectAnOilServiceNextPage}
+import utils.nextpage.sa.SelectSACategoryNextPage
 import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 
@@ -73,19 +74,8 @@ object NextPage
     with FindingYourAccountNextPage
     with RegisteredForVATUKNextPage
     with OtherTaxesNextPage
-    with OnlineVATAccountNextPage {
-
-  implicit val selectSACategory: NextPage[SelectSACategoryId.type, models.sa.SelectSACategory] = {
-    new NextPage[SelectSACategoryId.type, models.sa.SelectSACategory] {
-      override def get(
-        b: models.sa.SelectSACategory)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case SelectSACategory.Sa          => Call(GET, appConfig.getPortalUrl("businessRegistration"))
-          case SelectSACategory.Partnership => saPartnerRoutes.DoYouWantToAddPartnerController.onPageLoad()
-          case SelectSACategory.Trust       => trustRoutes.HaveYouRegisteredTrustController.onPageLoad()
-        }
-    }
-  }
+    with OnlineVATAccountNextPage
+    with SelectSACategoryNextPage {
 
   implicit val whichPensionSchemeToAdd
     : NextPage[WhichPensionSchemeToAddId.type, models.employer.pension.WhichPensionSchemeToAdd] = {
