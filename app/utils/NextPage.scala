@@ -50,23 +50,13 @@ import models.sa.trust.HaveYouRegisteredTrust
 import models.vat.moss.uk.{OnlineVATAccount, RegisteredForVATUk}
 import models.wrongcredentials.FindingYourAccount
 import play.api.mvc.{Call, Request}
+import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
 
 trait NextPage[A, B] {
   def get(b: B)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call
 }
 
-object NextPage {
-
-  implicit val haveYouRegisteredAEOI: NextPage[HaveYouRegisteredAEOIId.type,
-    models.other.aeoi.HaveYouRegisteredAEOI] = {
-    new NextPage[HaveYouRegisteredAEOIId.type, models.other.aeoi.HaveYouRegisteredAEOI] {
-      override def get(b: models.other.aeoi.HaveYouRegisteredAEOI)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case models.other.aeoi.HaveYouRegisteredAEOI.Yes => Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.AutomaticExchangeOfInformation))
-          case models.other.aeoi.HaveYouRegisteredAEOI.No => aeoiRoutes.RegisterAEOIController.onPageLoad()
-        }
-    }
-  }
+object NextPage extends HaveYouRegisteredAEOINextPage {
 
   implicit val doYouHaveCharityReference: NextPage[DoYouHaveCharityReferenceId.type,
     models.other.charity.DoYouHaveCharityReference] = {

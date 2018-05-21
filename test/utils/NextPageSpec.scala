@@ -36,21 +36,10 @@ import models.sa.trust.HaveYouRegisteredTrust
 import models.sa.partnership.{DoYouWantToAddPartner, HaveYouRegisteredPartnership}
 import models.vat.moss.uk.{OnlineVATAccount, RegisteredForVATUk}
 import models.wrongcredentials.FindingYourAccount
+import utils.nextpage.NextPageSpecBase
 
 
-class NextPageSpec extends SpecBase {
-
-  implicit val request = fakeRequest
-
-
-  def nextPage[A, B](np: NextPage[A, B], userSelection: B, urlRedirect: String): Unit = {
-    s"$userSelection is selected" should {
-      s"redirect to $urlRedirect" in {
-        val result = np.get(userSelection)
-        result.url mustBe urlRedirect
-      }
-    }
-  }
+class NextPageSpec extends NextPageSpecBase {
 
   "SelectAnOilService" when {
     behave like nextPage(NextPage.selectAnOilService, TiedOilsEnquiryService, "/business-account/add-tax/other/oil/tied")
@@ -370,19 +359,6 @@ class NextPageSpec extends SpecBase {
     )
   }
 
-  "haveYouRegisteredAEOI" when {
-    behave like nextPage(
-      NextPage.haveYouRegisteredAEOI,
-      HaveYouRegisteredAEOI.Yes,
-      "http://localhost:9555/enrolment-management-frontend/HMRC-FATCA-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-
-    behave like nextPage(
-      NextPage.haveYouRegisteredAEOI,
-      HaveYouRegisteredAEOI.No,
-      "/business-account/add-tax/other/aeoi/register"
-    )
-  }
 
   "VAT MOSS UK" when {
     behave like nextPage(
