@@ -51,23 +51,15 @@ import models.vat.moss.uk.{OnlineVATAccount, RegisteredForVATUk}
 import models.wrongcredentials.FindingYourAccount
 import play.api.mvc.{Call, Request}
 import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
+import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
 
 trait NextPage[A, B] {
   def get(b: B)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call
 }
 
-object NextPage extends HaveYouRegisteredAEOINextPage {
+object NextPage extends HaveYouRegisteredAEOINextPage with DoYouHaveCharityReferenceNextPage{
 
-  implicit val doYouHaveCharityReference: NextPage[DoYouHaveCharityReferenceId.type,
-    models.other.charity.DoYouHaveCharityReference] = {
-    new NextPage[DoYouHaveCharityReferenceId.type, models.other.charity.DoYouHaveCharityReference] {
-      override def get(b: models.other.charity.DoYouHaveCharityReference)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case models.other.charity.DoYouHaveCharityReference.Yes => Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.Charity))
-          case models.other.charity.DoYouHaveCharityReference.No => charityRoutes.RegisterForCharityController.onPageLoad()
-        }
-     }
-  }
+
 
   implicit val doYouHaveMGDRegistration: NextPage[DoYouHaveMGDRegistrationId.type,
     models.other.gambling.mgd.DoYouHaveMGDRegistration] = {

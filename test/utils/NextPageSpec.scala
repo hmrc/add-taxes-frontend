@@ -423,17 +423,5 @@ class NextPageSpec extends NextPageSpecBase {
     )
   }
 
-  "Charities" when {
-    behave like nextPage(
-      NextPage.doYouHaveCharityReference,
-      DoYouHaveCharityReference.Yes,
-      "http://localhost:9555/enrolment-management-frontend/HMRC-CHAR-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
 
-    behave like nextPage(
-      NextPage.doYouHaveCharityReference,
-      DoYouHaveCharityReference.No,
-      "/business-account/add-tax/other/charities/register"
-    )
-  }
 }
