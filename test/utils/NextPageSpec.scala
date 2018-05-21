@@ -42,20 +42,6 @@ import utils.nextpage.NextPageSpecBase
 
 class NextPageSpec extends NextPageSpecBase {
 
-  "DoYouHaveDAN" when {
-    behave like nextPage(
-      NextPage.doYouHaveDAN,
-      DoYouHaveDAN.No,
-      "/business-account/add-tax/other/import-export/ddes/register"
-    )
-
-    behave like nextPage(
-      NextPage.doYouHaveDAN,
-      DoYouHaveDAN.Yes,
-      "http://localhost:9555/enrolment-management-frontend/HMCE-DDES/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-  }
-
   "DoYouHaveCHIEFRole" when {
     behave like nextPage(
       NextPage.doYouHaveCHIEFHasEORIRole,

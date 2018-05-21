@@ -48,6 +48,7 @@ import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
 import utils.nextpage.other.gambling.{AreYouRegisteredGTSNextPage, SelectGamblingOrGamingDutyNextPage}
 import utils.nextpage.other.gambling.mgd.DoYouHaveMGDRegistrationNextPage
 import utils.nextpage.other.importexports.DoYouHaveEORINumberNextPage
+import utils.nextpage.other.importexports.dan.DoYouHaveDANNextPage
 import utils.nextpage.other.importexports.emcs.DoYouHaveASEEDNumberNextPage
 import utils.nextpage.other.oil.{HaveYouRegisteredForRebatedOilsNextPage, HaveYouRegisteredForTiedOilsNextPage, SelectAnOilServiceNextPage}
 import utils.nextpage.sa.SelectSACategoryNextPage
@@ -80,7 +81,8 @@ object NextPage
     with WhichPensionSchemeToAddNextPage
     with AreYouRegisteredGTSNextPage
     with DoYouWantToAddPartnerNextPage
-    with DoYouHaveASEEDNumberNextPage {
+    with DoYouHaveASEEDNumberNextPage
+    with DoYouHaveDANNextPage {
 
   implicit val haveYouRegisteredPartnership
     : NextPage[HaveYouRegisteredPartnershipId.type, models.sa.partnership.HaveYouRegisteredPartnership] = {
@@ -141,16 +143,6 @@ object NextPage
         b match {
           case DoYouHaveCHIEFRole.Yes => nesRoutes.RegisterEORIController.onPageLoad()
           case DoYouHaveCHIEFRole.No  => nesRoutes.GetEoriAndChiefRoleController.onPageLoad()
-        }
-    }
-  }
-
-  implicit val doYouHaveDAN: NextPage[DoYouHaveDANId.type, DoYouHaveDAN] = {
-    new NextPage[DoYouHaveDANId.type, DoYouHaveDAN] {
-      override def get(b: DoYouHaveDAN)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case DoYouHaveDAN.Yes => Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.DefermentApprovalNumber))
-          case DoYouHaveDAN.No  => danRoutes.RegisterDefermentApprovalNumberController.onPageLoad()
         }
     }
   }
