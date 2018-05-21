@@ -528,8 +528,8 @@ registerForPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 #######################################################
 ##  IsBusinessRegisteredForPAYE
 #######################################################
-isBusinessRegisteredForPAYE.title = A yw eich busnes wedi'i gofrestru ar gyfer TWE i gyflogwyr?
-isBusinessRegisteredForPAYE.heading = A yw eich busnes wedi'i gofrestru ar gyfer TWE i gyflogwyr?
-isBusinessRegisteredForPAYE.Yes = Ydy - mae'r busnes wedi'i gofrestru ar gyfer TWE i gyflogwyr
-isBusinessRegisteredForPAYE.No = Nac ydy - nid yw'r busnes wedi'i gofrestru ar gyfer TWE i gyflogwyr
+isBusinessRegisteredForPAYE.title = A yw eich busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr?
+isBusinessRegisteredForPAYE.heading = A yw eich busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr?
+isBusinessRegisteredForPAYE.Yes = Ydy - mae’r busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
+isBusinessRegisteredForPAYE.No = Nac ydy - nid yw’r busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
 isBusinessRegisteredForPAYE.error.required = Dewis iawn neu na

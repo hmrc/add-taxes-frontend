@@ -548,5 +548,5 @@ registerForPAYE.notnow = I don’t want to do this right now
 isBusinessRegisteredForPAYE.title = Is your business registered for PAYE for employers?
 isBusinessRegisteredForPAYE.heading = Is your business registered for PAYE for employers?
 isBusinessRegisteredForPAYE.Yes = Yes - the business is registered for PAYE for employers
-isBusinessRegisteredForPAYE.No = No - the business isn't registered for PAYE for employers
+isBusinessRegisteredForPAYE.No = No - the business isn’t registered for PAYE for employers
 isBusinessRegisteredForPAYE.error.required = Select yes or no
