@@ -298,20 +298,6 @@ class NextPageSpec extends NextPageSpecBase {
     )
   }
 
-  "VAT MOSS UK" when {
-    behave like nextPage(
-      NextPage.registeredForVATUk,
-      RegisteredForVATUk.No,
-      "/business-account/add-tax/vat/moss/uk/not-vat-registered"
-    )
-
-    behave like nextPage(
-      NextPage.registeredForVATUk,
-      RegisteredForVATUk.Yes,
-      "/business-account/add-tax/vat/moss/uk/vat-registered"
-    )
-  }
-
   "VAT MOSS UK online VAT Account" when {
     behave like nextPage(
       NextPage.onlineVATAccount,

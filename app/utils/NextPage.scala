@@ -40,7 +40,7 @@ import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExpo
 import models.sa.SelectSACategory
 import models.sa.partnership.DoYouWantToAddPartner
 import models.sa.trust.HaveYouRegisteredTrust
-import models.vat.moss.uk.{OnlineVATAccount, RegisteredForVATUk}
+import models.vat.moss.uk.OnlineVATAccount
 import models.wrongcredentials.FindingYourAccount
 import play.api.mvc.{Call, Request}
 import utils.nextpage.employer.cis.uk.contractor.{DoesBusinessManagePAYENextPage, IsBusinessRegisteredForPAYENextPage}
@@ -51,6 +51,7 @@ import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
 import utils.nextpage.other.gambling.SelectGamblingOrGamingDutyNextPage
 import utils.nextpage.other.gambling.mgd.DoYouHaveMGDRegistrationNextPage
 import utils.nextpage.other.oil.{HaveYouRegisteredForRebatedOilsNextPage, HaveYouRegisteredForTiedOilsNextPage, SelectAnOilServiceNextPage}
+import utils.nextpage.vat.moss.uk.RegisteredForVATUKNextPage
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 
 trait NextPage[A, B] {
@@ -69,18 +70,8 @@ object NextPage
     with DoesBusinessManagePAYENextPage
     with SelectAnOilServiceNextPage
     with SelectAlcoholSchemeNextPage
-    with FindingYourAccountNextPage {
-
-  implicit val registeredForVATUk: NextPage[RegisteredForVATUkId.type, models.vat.moss.uk.RegisteredForVATUk] = {
-    new NextPage[RegisteredForVATUkId.type, models.vat.moss.uk.RegisteredForVATUk] {
-      override def get(
-        b: models.vat.moss.uk.RegisteredForVATUk)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case RegisteredForVATUk.Yes => vatMossUkRoutes.OnlineVATAccountController.onPageLoad()
-          case RegisteredForVATUk.No  => vatMossUkRoutes.RegisterForVATController.onPageLoad()
-        }
-    }
-  }
+    with FindingYourAccountNextPage
+    with RegisteredForVATUKNextPage {
 
   implicit val onlineVATAccount: NextPage[OnlineVATAccountId.type, models.vat.moss.uk.OnlineVATAccount] = {
     new NextPage[OnlineVATAccountId.type, models.vat.moss.uk.OnlineVATAccount] {
