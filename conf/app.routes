@@ -135,9 +135,23 @@ GET        /vat/moss/uk/vat-registered/other-account    controllers.vat.moss.uk.
 
 GET        /vat/moss/uk/vat-registered/no-other-account  controllers.vat.moss.uk.AddVATFirstController.onPageLoad()
 
+GET        /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onPageLoad()
+POST       /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onSubmit()
+
 GET        /other/charities                             controllers.other.charity.DoYouHaveCharityReferenceController.onPageLoad()
 POST       /other/charities                             controllers.other.charity.DoYouHaveCharityReferenceController.onSubmit()
 
 GET        /other/charities/register                    controllers.other.charity.RegisterForCharityController.onPageLoad()
+
+GET        /employer/cis/uk/contractor/epaye/other-account    controllers.employer.cis.uk.contractor.UsePAYEEmployerAccountController.onPageLoad()
+
+GET        /employer/cis/uk/contractor/epaye                  controllers.employer.cis.uk.contractor.DoesBusinessManagePAYEController.onPageLoad()
+POST       /employer/cis/uk/contractor/epaye                  controllers.employer.cis.uk.contractor.DoesBusinessManagePAYEController.onSubmit()
+
+GET        /employer/cis/uk/contractor/register-epaye         controllers.employer.cis.uk.contractor.RegisterForPAYEController.onPageLoad()
+
+GET        /employer/cis/uk/contractor                        controllers.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEController.onPageLoad()
+POST       /employer/cis/uk/contractor                        controllers.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEController.onSubmit()
+
 GET        /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onPageLoad()
 POST       /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onSubmit()

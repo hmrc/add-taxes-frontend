@@ -19,9 +19,11 @@ package utils
 import base.SpecBase
 import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
 import models.OtherTaxes
+import models.employer.cis.uk.contractor.{DoesBusinessManagePAYE, IsBusinessRegisteredForPAYE}
 import models.employer.pension.WhichPensionSchemeToAdd
 import models.other.aeoi.HaveYouRegisteredAEOI
 import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
+import models.other.alcohol.awrs.SelectAlcoholScheme
 import models.other.charity.DoYouHaveCharityReference
 import models.other.gambling.SelectGamblingOrGamingDuty
 import models.other.gambling.gbd.AreYouRegisteredGTS
@@ -447,6 +449,21 @@ class NextPageSpec extends SpecBase {
     )
   }
 
+  "Select an Alcohol Scheme" when {
+    behave like nextPage(
+      NextPage.selectAlcoholScheme,
+      SelectAlcoholScheme.ATWD,
+      "/business-account/add-tax/other/alcohol/atwd"
+    )
+
+    behave like nextPage(
+      NextPage.selectAlcoholScheme,
+      SelectAlcoholScheme.AWRS,
+      "http://localhost:9020/business-customer/business-verification/awrs"
+    )
+  }
+
+
   "Charities" when {
     behave like nextPage(
       NextPage.doYouHaveCharityReference,
@@ -458,6 +475,34 @@ class NextPageSpec extends SpecBase {
       NextPage.doYouHaveCharityReference,
       DoYouHaveCharityReference.No,
       "/business-account/add-tax/other/charities/register"
+    )
+  }
+
+  "DoesBusinessManagePAYE" when {
+    behave like nextPage(
+      NextPage.doesBusinessManagePAYE,
+      DoesBusinessManagePAYE.Yes,
+      "/business-account/add-tax/employer/cis/uk/contractor/epaye/other-account"
+    )
+
+    behave like nextPage(
+      NextPage.doesBusinessManagePAYE,
+      DoesBusinessManagePAYE.No,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-CIS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+  }
+
+  "IsBusinessRegisteredForPAYE" when {
+    behave like nextPage(
+      NextPage.isBusinessRegisteredForPAYE,
+      IsBusinessRegisteredForPAYE.Yes,
+      "/business-account/add-tax/employer/cis/uk/contractor/epaye"
+    )
+
+    behave like nextPage(
+      NextPage.isBusinessRegisteredForPAYE,
+      IsBusinessRegisteredForPAYE.No,
+      "/business-account/add-tax/employer/cis/uk/contractor/register-epaye"
     )
   }
 

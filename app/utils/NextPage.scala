@@ -31,12 +31,17 @@ import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
 import controllers.other.oil.routes
+import controllers.vat.moss.uk.{routes => vatMossUkRoutes}
+import controllers.employer.cis.uk.contractor.{routes => payeAccountRoutes}
+import controllers.sa.trust.{routes => trustRoutes}
 import controllers.sa.partnership.{routes => saPartnerRoutes}
 import controllers.sa.trust.{routes => trustRoutes}
 import controllers.vat.moss.uk.{routes => vatMossUkRoutes}
 import identifiers._
 import models.OtherTaxes
+import models.employer.cis.uk.contractor.DoesBusinessManagePAYE
 import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
+import models.other.alcohol.awrs._
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import models.other.importexports.dan.DoYouHaveDAN
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
@@ -81,6 +86,28 @@ object NextPage {
     }
   }
 
+  implicit val isBusinessRegisteredForPAYE: NextPage[IsBusinessRegisteredForPAYEId.type,
+    models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE] = {
+    new NextPage[IsBusinessRegisteredForPAYEId.type, models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE] {
+      override def get(b: models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+        b match {
+          case models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE.Yes => payeAccountRoutes.DoesBusinessManagePAYEController.onPageLoad()
+          case models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE.No => payeAccountRoutes.RegisterForPAYEController.onPageLoad()
+        }
+     }
+  }
+
+  implicit val doesBusinessManagePAYE: NextPage[DoesBusinessManagePAYEId.type,
+    DoesBusinessManagePAYE] = {
+    new NextPage[DoesBusinessManagePAYEId.type, DoesBusinessManagePAYE] {
+      override def get(b: DoesBusinessManagePAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+        b match {
+          case DoesBusinessManagePAYE.Yes => payeAccountRoutes.UsePAYEEmployerAccountController.onPageLoad()
+          case DoesBusinessManagePAYE.No => Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.AddCis))
+        }
+     }
+  }
+
   implicit val doYouHaveCharityReference: NextPage[DoYouHaveCharityReferenceId.type,
     models.other.charity.DoYouHaveCharityReference] = {
     new NextPage[DoYouHaveCharityReferenceId.type, models.other.charity.DoYouHaveCharityReference] {
@@ -88,6 +115,17 @@ object NextPage {
         b match {
           case models.other.charity.DoYouHaveCharityReference.Yes => Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.Charity))
           case models.other.charity.DoYouHaveCharityReference.No => charityRoutes.RegisterForCharityController.onPageLoad()
+        }
+    }
+  }
+
+  implicit val selectAlcoholScheme: NextPage[SelectAlcoholSchemeId.type,
+    models.other.alcohol.awrs.SelectAlcoholScheme] = {
+    new NextPage[SelectAlcoholSchemeId.type, models.other.alcohol.awrs.SelectAlcoholScheme] {
+      override def get(b: models.other.alcohol.awrs.SelectAlcoholScheme)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+        b match {
+          case SelectAlcoholScheme.ATWD => atwdRoutes.AreYouRegisteredWarehousekeeperController.onPageLoad()
+          case SelectAlcoholScheme.AWRS => Call(GET, appConfig.getBusinessAccountUrl("awrs"))
         }
      }
   }
@@ -140,7 +178,7 @@ object NextPage {
     new NextPage[SelectSACategoryId.type, models.sa.SelectSACategory] {
       override def get(b: models.sa.SelectSACategory)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case SelectSACategory.Sa => Call(GET, appConfig.getPortalUrl("selfAssessmnt"))
+          case SelectSACategory.Sa => Call(GET, appConfig.getPortalUrl("businessRegistration"))
           case SelectSACategory.Partnership => saPartnerRoutes.DoYouWantToAddPartnerController.onPageLoad()
           case SelectSACategory.Trust => trustRoutes.HaveYouRegisteredTrustController.onPageLoad()
         }

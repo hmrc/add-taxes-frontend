@@ -15,40 +15,37 @@
  *@
 
 @import config.FrontendAppConfig
+@import utils.Enrolments
 
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("registerForVAT.title"),
+    title = messages("registerForPAYE.title"),
     appConfig = appConfig,
     serviceInfoContent = serviceInfoContent
 ) {
 
-    @components.heading("registerForVAT.heading")
+    @components.heading("registerForPAYE.heading")
 
     <p>
-        @messages("registerForVAT.p1")
-    </p>
-
-    <p>
-        @messages("registerForVAT.p2")
+        @messages("registerForPAYE.p1")
     </p>
 
     <p>
         <a id="continue"
            href='@appConfig.getPortalUrl("businessRegistration")'
            class="button"
-           data-journey-click="VatMossUkNotVatRegistered:Click:Register">
+           data-journey-click="CisUkContractorRegisterEpaye:Click:Register">
 
-            @messages("registerForVAT.continue")
+            @messages("registerForPAYE.continue")
         </a>
     </p>
 
     <p>
         <a id="not-now"
            href='@appConfig.getBusinessAccountUrl("home")'
-           data-journey-click="VatMossUkNotVatRegistered:Click:NotNow">
-            @messages("registerForVAT.notnow")
+           data-journey-click="CisUkContractorRegisterEpaye:Click:NotNow">
+            @messages("registerForPAYE.notnow")
         </a>
     </p>
 }

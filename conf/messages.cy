@@ -480,6 +480,15 @@ selectSACategory.Trust = Ymddiriedolaeth
 selectSACategory.error.required = Dewis categori
 
 #######################################################
+##  SelectAlcoholScheme
+#######################################################
+selectAlcoholScheme.title = Dewis cynllun alcohol
+selectAlcoholScheme.heading = Dewis cynllun alcohol
+selectAlcoholScheme.atwd = Datganiadau Warysu Alcohol a Thybaco (ATWD)
+selectAlcoholScheme.awrs = Cynllun Cofrestru Cyfanwerthwyr Alcohol (AWRS)
+selectAlcoholScheme.error.required = Dewis cynllun
+
+#######################################################
 ##  DoYouHaveCharityReference
 #######################################################
 doYouHaveCharityReference.title = A oes gennych gyfeirnod Elusennau CThEM?
@@ -496,6 +505,43 @@ registerForCharity.heading = Cofrestru fel Elusen gyda CThEM
 registerForCharity.p1 = Mae angen i chi gofrestru fel elusen gyda CThEM cyn y gallwch ychwanegu’r gwasanaeth Rhodd Cymorth i’ch cyfrif.
 registerForCharity.p2 = Byddwn yn anfon cyfeirnod atoch. Gallwch ei ddefnyddio, wedyn, i ychwanegu’r gwasanaeth i’ch cyfrif.
 registerForCharity.continue = Mynd yn eich blaen - cofrestru fel Elusen gyda CThEM
+
+#######################################################
+##  UsePAYEEmployerAccount
+#######################################################
+usePAYEEmployerAccount.title = Defnyddio eich cyfrif TWE i gyflogwyr
+usePAYEEmployerAccount.heading = Defnyddio eich cyfrif TWE i gyflogwyr
+usePAYEEmployerAccount.continue = Mewngofnodi i’ch cyfrif TWE i gyflogwyr
+usePAYEEmployerAccount.addAccount = Rwyf eisiau ychwanegu CIS yn y cyfrif hwn
+usePAYEEmployerAccount.p1 = Dylech reoli CIS yn yr un cyfrif ag yr ydych yn rheoli TWE i gyflogwyr.
+
+#######################################################
+##  DoesBusinessManagePAYE
+#######################################################
+doesBusinessManagePAYE.title = A yw eich busnes yn rheoli TWE i gyflogwyr ar-lein?
+doesBusinessManagePAYE.heading = A yw eich busnes yn rheoli TWE i gyflogwyr ar-lein?
+doesBusinessManagePAYE.p1 = Bydd gennych gyfrif CThEM ar-lein fel yr un hwn, ond bydd yn defnyddio ID Defnyddiwr a chyfrinair gwahanol
+doesBusinessManagePAYE.Yes = Ydym - rydym yn rheoli TWE i gyflogwyr ar-lein
+doesBusinessManagePAYE.No = Nac ydym - nid ydym yn rheoli TWE i gyflogwyr ar-lein
+doesBusinessManagePAYE.error.required = Dewis iawn neu na
+
+#######################################################
+##  RegisterForPAYE
+#######################################################
+registerForPAYE.title = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
+registerForPAYE.heading = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
+registerForPAYE.p1 = Mae angen i chi fod wedi cofrestru ar gyfer TWE i gyflogwyr os ydych eisiau cofrestru ar gyfer CIS fel contractwr.
+registerForPAYE.continue = Cofrestru ar gyfer TWE i gyflogwyr
+registerForPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  IsBusinessRegisteredForPAYE
+#######################################################
+isBusinessRegisteredForPAYE.title = A yw eich busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr?
+isBusinessRegisteredForPAYE.heading = A yw eich busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr?
+isBusinessRegisteredForPAYE.Yes = Ydy - mae’r busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
+isBusinessRegisteredForPAYE.No = Nac ydy - nid yw’r busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
+isBusinessRegisteredForPAYE.error.required = Dewis iawn neu na
 
 #######################################################
 ##  SelectGamblingOrGamingDuty
