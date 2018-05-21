@@ -25,7 +25,6 @@ import models.other.gambling.mgd.DoYouHaveMGDRegistration
 
 trait DoYouHaveMGDRegistrationNextPage {
 
-
   implicit val doYouHaveMGDRegistration: NextPage[DoYouHaveMGDRegistrationId.type,
     DoYouHaveMGDRegistration] = {
     new NextPage[DoYouHaveMGDRegistrationId.type, DoYouHaveMGDRegistration] {

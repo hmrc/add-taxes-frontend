@@ -302,7 +302,7 @@ class NextPageSpec extends NextPageSpecBase {
       "/business-account/add-tax/other/gambling/rgd/register"
     )
   }
-  
+
   "SA Partnership" when {
     behave like nextPage(
       NextPage.doYouWantToAddPartner,
@@ -373,21 +373,6 @@ class NextPageSpec extends NextPageSpecBase {
       "/business-account/add-tax/vat/moss/uk/vat-registered/no-other-account"
     )
   }
-
-  "AreYouRegisteredWarehousekeeper" when {
-    behave like nextPage(
-      NextPage.areYouRegisteredWarehousekeeper,
-      AreYouRegisteredWarehousekeeper.Yes,
-      "http://localhost:9555/enrolment-management-frontend/HMCE-ATWD-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-
-    behave like nextPage(
-      NextPage.areYouRegisteredWarehousekeeper,
-      AreYouRegisteredWarehousekeeper.No,
-      "/business-account/add-tax/other/alcohol/atwd/register"
-    )
-  }
-
 
   "Self Assessment" when {
     behave like nextPage(

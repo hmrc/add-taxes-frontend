@@ -51,6 +51,7 @@ import models.vat.moss.uk.{OnlineVATAccount, RegisteredForVATUk}
 import models.wrongcredentials.FindingYourAccount
 import play.api.mvc.{Call, Request}
 import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
+import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage
 import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
 import utils.nextpage.other.gambling.mgd.DoYouHaveMGDRegistrationNextPage
 
@@ -58,19 +59,8 @@ trait NextPage[A, B] {
   def get(b: B)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call
 }
 
-object NextPage extends HaveYouRegisteredAEOINextPage with DoYouHaveCharityReferenceNextPage with DoYouHaveMGDRegistrationNextPage {
-  
-  implicit val areYouRegisteredWarehousekeeper: NextPage[AreYouRegisteredWarehousekeeperId.type, AreYouRegisteredWarehousekeeper] = {
-    new NextPage[AreYouRegisteredWarehousekeeperId.type, AreYouRegisteredWarehousekeeper] {
-      override def get(b: AreYouRegisteredWarehousekeeper)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case AreYouRegisteredWarehousekeeper.Yes =>
-            Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.AlcoholAndTobaccoWarehousingDeclarations))
-
-          case AreYouRegisteredWarehousekeeper.No => atwdRoutes.RegisterWarehousekeeperController.onPageLoad()
-        }
-    }
-  }
+object NextPage extends HaveYouRegisteredAEOINextPage with DoYouHaveCharityReferenceNextPage
+  with DoYouHaveMGDRegistrationNextPage with AreYouRegisteredWarehousekeeperNextPage {
 
   implicit val registeredForVATUk: NextPage[RegisteredForVATUkId.type, models.vat.moss.uk.RegisteredForVATUk] = {
     new NextPage[RegisteredForVATUkId.type, models.vat.moss.uk.RegisteredForVATUk] {
