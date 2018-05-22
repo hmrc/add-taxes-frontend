@@ -24,7 +24,6 @@ import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
 import controllers.other.oil.routes
-import controllers.sa.trust.{routes => trustRoutes}
 import identifiers._
 import models.OtherTaxes
 import models.other.gambling.gbd.AreYouRegisteredGTS
@@ -54,6 +53,7 @@ import utils.nextpage.other.importexports.nes.DoYouHaveCHIEFRoleNextPage
 import utils.nextpage.other.oil.{HaveYouRegisteredForRebatedOilsNextPage, HaveYouRegisteredForTiedOilsNextPage, SelectAnOilServiceNextPage}
 import utils.nextpage.sa.SelectSACategoryNextPage
 import utils.nextpage.sa.partnership.{DoYouWantToAddPartnerNextPage, HaveYouRegisteredPartnershipNextPage}
+import utils.nextpage.sa.trust.HaveYouRegisteredTrustNextPage
 import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 
@@ -85,17 +85,8 @@ object NextPage
     with DoYouHaveASEEDNumberNextPage
     with HaveYouRegisteredPartnershipNextPage
     with DoYouHaveDANNextPage
+    with HaveYouRegisteredTrustNextPage
     with DoYouHaveCHIEFRoleNextPage {
-
-  implicit val haveYouRegisteredTrust: NextPage[HaveYouRegisteredTrustId.type, HaveYouRegisteredTrust] = {
-    new NextPage[HaveYouRegisteredTrustId.type, HaveYouRegisteredTrust] {
-      override def get(b: HaveYouRegisteredTrust)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case HaveYouRegisteredTrust.Yes => Call(GET, appConfig.emacEnrollmentsUrl(Enrolments.RegisterTrusts))
-          case HaveYouRegisteredTrust.No  => trustRoutes.RegisterTrustController.onPageLoad()
-        }
-    }
-  }
 
   implicit val doYouWantToAddImportExport: NextPage[DoYouWantToAddImportExportId.type, DoYouWantToAddImportExport] = {
     new NextPage[DoYouWantToAddImportExportId.type, models.other.importexports.DoYouWantToAddImportExport] {

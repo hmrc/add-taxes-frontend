@@ -92,18 +92,4 @@ class NextPageSpec extends NextPageSpecBase {
     )
   }
 
-  "SA Trusts" when {
-    behave like nextPage(
-      NextPage.haveYouRegisteredTrust,
-      HaveYouRegisteredTrust.Yes,
-      "http://localhost:9555/enrolment-management-frontend/IR-SA-TRUST-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-
-    behave like nextPage(
-      NextPage.haveYouRegisteredTrust,
-      HaveYouRegisteredTrust.No,
-      "/business-account/add-tax/self-assessment/trust/not-registered"
-    )
-  }
-
 }
