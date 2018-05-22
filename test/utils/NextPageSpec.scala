@@ -42,14 +42,6 @@ import utils.nextpage.NextPageSpecBase
 
 class NextPageSpec extends NextPageSpecBase {
 
-  "DoYouHaveCHIEFRole" when {
-    behave like nextPage(
-      NextPage.doYouHaveCHIEFHasEORIRole,
-      DoYouHaveCHIEFRole.Yes,
-      "http://localhost:9555/enrolment-management-frontend/HMCE-NES/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-  }
-
   "DoYouWantToAddImportExport" when {
     behave like nextPage(
       NextPage.doYouWantToAddImportExport,
