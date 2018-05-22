@@ -14,33 +14,13 @@
  * limitations under the License.
  */
 
-package utils
+package utils.nextpage.other.importexports
 
-import base.SpecBase
-import models.other.importexports.{DoYouHaveEORINumber, DoYouWantToAddImportExport}
-import models.OtherTaxes
-import models.employer.cis.uk.contractor.{DoesBusinessManagePAYE, IsBusinessRegisteredForPAYE}
-import models.employer.pension.WhichPensionSchemeToAdd
-import models.other.aeoi.HaveYouRegisteredAEOI
-import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
-import models.other.alcohol.awrs.SelectAlcoholScheme
-import models.other.charity.DoYouHaveCharityReference
-import models.other.gambling.SelectGamblingOrGamingDuty
-import models.other.gambling.gbd.AreYouRegisteredGTS
-import models.other.gambling.mgd.DoYouHaveMGDRegistration
-import models.other.importexports.dan.DoYouHaveDAN
-import models.other.importexports.emcs.DoYouHaveASEEDNumber
-import models.other.importexports.nes.DoYouHaveCHIEFRole
-import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
-import models.other.oil.{HaveYouRegisteredForRebatedOils, HaveYouRegisteredForTiedOils}
-import models.sa.SelectSACategory
-import models.sa.trust.HaveYouRegisteredTrust
-import models.sa.partnership.{DoYouWantToAddPartner, HaveYouRegisteredPartnership}
-import models.vat.moss.uk.{OnlineVATAccount, RegisteredForVATUk}
-import models.wrongcredentials.FindingYourAccount
+import models.other.importexports.DoYouWantToAddImportExport
+import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
-class NextPageSpec extends NextPageSpecBase {
+class DoYouWantToAddImportExportNextPageSpec extends NextPageSpecBase {
 
   "DoYouWantToAddImportExport" when {
     behave like nextPage(
@@ -91,5 +71,4 @@ class NextPageSpec extends NextPageSpecBase {
       "http://localhost:8080/hmce/ecom/is2/static/is2.html"
     )
   }
-
 }
