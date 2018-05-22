@@ -6,7 +6,7 @@ import utils.nextpage.NextPageSpecBase
 
 class $className$NextPageSpec extends NextPageSpecBase {
 
-  "$className;format=\"decap\"$" when {
+  "$className;format="decap"$" when {
     behave like nextPage(
       NextPage.$className;format="decap"$,
       $className$.No,
