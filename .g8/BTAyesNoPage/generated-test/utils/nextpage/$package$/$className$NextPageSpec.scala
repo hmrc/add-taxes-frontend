@@ -14,7 +14,7 @@ class $className$NextPageSpec extends NextPageSpecBase {
     )
 
     behave like nextPage(
-      NextPage.doYouHaveDAN,
+      NextPage.$className;format="decap"$,
       $className$.Yes,
       "#"
     )
