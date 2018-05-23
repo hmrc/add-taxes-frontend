@@ -570,3 +570,13 @@ selectGamblingOrGamingDuty.GBD = General Betting Duty (GBD)
 selectGamblingOrGamingDuty.PBD = Pool Betting Duty (PBD)
 selectGamblingOrGamingDuty.RGD = Remote Gaming Duty (RGD)
 selectGamblingOrGamingDuty.error.required = Select a duty
+
+#######################################################
+##  AlreadyRegisteredForVATMoss
+#######################################################
+alreadyRegisteredForVATMoss.title = Have you already registered for VAT MOSS?
+alreadyRegisteredForVATMoss.heading = Have you already registered for VAT MOSS?
+alreadyRegisteredForVATMoss.p1 = You’ll have received a VAT MOSS identification number if you’re already registered
+alreadyRegisteredForVATMoss.Yes = Yes - I’ve already registered for VAT MOSS
+alreadyRegisteredForVATMoss.No = No - I’m not registered for VAT MOSS yet
+alreadyRegisteredForVATMoss.error.required = Select yes or no

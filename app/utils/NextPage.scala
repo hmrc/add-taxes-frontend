@@ -35,6 +35,7 @@ import utils.nextpage.other.oil.{HaveYouRegisteredForRebatedOilsNextPage, HaveYo
 import utils.nextpage.sa.SelectSACategoryNextPage
 import utils.nextpage.sa.partnership.{DoYouWantToAddPartnerNextPage, HaveYouRegisteredPartnershipNextPage}
 import utils.nextpage.sa.trust.HaveYouRegisteredTrustNextPage
+import utils.nextpage.vat.moss.iom.AlreadyRegisteredForVATMossNextPage
 import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 
@@ -69,3 +70,4 @@ object NextPage
     with HaveYouRegisteredTrustNextPage
     with DoYouHaveCHIEFRoleNextPage
     with DoYouWantToAddImportExportNextPage
+    with AlreadyRegisteredForVATMossNextPage
