@@ -155,3 +155,6 @@ POST       /employer/cis/uk/contractor                        controllers.employ
 
 GET        /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onPageLoad()
 POST       /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onSubmit()
+
+GET        /vat/moss/non-eu                  controllers.vat.moss.noneu.HaveYouRegisteredForVATMOSSController.onPageLoad()
+POST       /vat/moss/non-eu                  controllers.vat.moss.noneu.HaveYouRegisteredForVATMOSSController.onSubmit()

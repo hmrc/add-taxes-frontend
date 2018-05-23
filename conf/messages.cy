@@ -553,3 +553,12 @@ selectGamblingOrGamingDuty.GBD = Toll Fetio Gyffredinol (GBD)
 selectGamblingOrGamingDuty.PBD = Toll Cronfa Fetio (PBD)
 selectGamblingOrGamingDuty.RGD = Toll Hapchwarae o Bell (RGD)
 selectGamblingOrGamingDuty.error.required = Dewis toll
+
+#######################################################
+##  HaveYouRegisteredForVATMOSS
+#######################################################
+haveYouRegisteredForVATMOSS.title = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
+haveYouRegisteredForVATMOSS.heading = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
+haveYouRegisteredForVATMOSS.Yes = Ydw - rwyf eisoes wedi cofrestru ar gyfer GUC TAW
+haveYouRegisteredForVATMOSS.No = Nac ydw - nid wyf wedi cofrestru ar gyfer GUC TAW ar hyn o bryd
+haveYouRegisteredForVATMOSS.error.required = Dewis iawn neu na
