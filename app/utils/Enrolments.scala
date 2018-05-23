@@ -62,6 +62,8 @@ object Enrolments {
 
   case object VAT extends WithName("HMCE-VATDEC-ORG") with Enrolments
 
+  case object VATMOSS extends WithName("HMRC-MOSS-U-ORG") with Enrolments
+
   case object Charity extends WithName("HMRC-CHAR-ORG") with Enrolments
 
   case object AddCis extends WithName("HMRC-CIS-ORG") with Enrolments
