@@ -573,3 +573,12 @@ registerForVAT.p1 = Mae’n rhaid eich bod wedi cofrestru ar gyfer TAW cyn y gal
 registerForVAT.p2 = Dychwelwch i’r cyfrif hwn ac ychwanegwch GUC TAW unwaith eich bod wedi cael rhif cofrestru TAW (VRN).
 registerForVAT.continue = Cofrestru ar gyfer TAW
 registerForVAT.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  RegisteredForVAT
+#######################################################
+registeredForVAT.title = A yw eich busnes wedi'i gofrestru ar gyfer TAW ar Ynys Manaw?
+registeredForVAT.heading = A yw eich busnes wedi'i gofrestru ar gyfer TAW ar Ynys Manaw?
+registeredForVAT.Yes = Ydy - mae'r busnes wedi'i gofrestru ar gyfer TAW ar Ynys Manaw
+registeredForVAT.No = Nac ydy - nid yw'r busnes wedi'i gofrestru ar gyfer TAW ar Ynys Manaw
+registeredForVAT.error.required = Dewis iawn neu na

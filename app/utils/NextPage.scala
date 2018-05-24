@@ -31,11 +31,11 @@ import utils.nextpage.other.importexports.{DoYouHaveEORINumberNextPage, DoYouWan
 import utils.nextpage.other.importexports.dan.DoYouHaveDANNextPage
 import utils.nextpage.other.importexports.emcs.DoYouHaveASEEDNumberNextPage
 import utils.nextpage.other.importexports.nes.DoYouHaveCHIEFRoleNextPage
-import utils.nextpage.other.oil.{HaveYouRegisteredForRebatedOilsNextPage, HaveYouRegisteredForTiedOilsNextPage, SelectAnOilServiceNextPage}
+import utils.nextpage.other.oil._
 import utils.nextpage.sa.SelectSACategoryNextPage
-import utils.nextpage.sa.partnership.{DoYouWantToAddPartnerNextPage, HaveYouRegisteredPartnershipNextPage}
+import utils.nextpage.sa.partnership._
 import utils.nextpage.sa.trust.HaveYouRegisteredTrustNextPage
-import utils.nextpage.vat.moss.iom.AlreadyRegisteredForVATMossNextPage
+import utils.nextpage.vat.moss.iom._
 import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 
@@ -71,3 +71,4 @@ object NextPage
     with DoYouHaveCHIEFRoleNextPage
     with DoYouWantToAddImportExportNextPage
     with AlreadyRegisteredForVATMossNextPage
+    with RegisteredForVATNextPage
