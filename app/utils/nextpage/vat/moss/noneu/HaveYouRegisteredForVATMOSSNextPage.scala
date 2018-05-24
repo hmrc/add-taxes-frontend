@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import identifiers.HaveYouRegisteredForVATMOSSId
 import play.api.mvc.{Call, Request}
 import models.vat.moss.noneu.HaveYouRegisteredForVATMOSS
-import utils.NextPage
+import utils.{Enrolments, NextPage}
 
 trait HaveYouRegisteredForVATMOSSNextPage {
 
@@ -30,8 +30,8 @@ trait HaveYouRegisteredForVATMOSSNextPage {
       override def get(
         b: HaveYouRegisteredForVATMOSS)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case HaveYouRegisteredForVATMOSS.Yes => ???
-          case HaveYouRegisteredForVATMOSS.No  => ???
+          case HaveYouRegisteredForVATMOSS.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.VATMOSSNonUnion))
+          case HaveYouRegisteredForVATMOSS.No  => Call("GET", appConfig.getPortalUrl("mossRegistration"))
         }
     }
   }

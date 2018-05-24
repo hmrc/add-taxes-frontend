@@ -576,6 +576,7 @@ selectGamblingOrGamingDuty.error.required = Select a duty
 #######################################################
 haveYouRegisteredForVATMOSS.title = Have you already registered for VAT MOSS?
 haveYouRegisteredForVATMOSS.heading = Have you already registered for VAT MOSS?
-haveYouRegisteredForVATMOSS.Yes = Yes - I've already registered for VAT MOSS
-haveYouRegisteredForVATMOSS.No = No - I'm not registered for VAT MOSS yet
+haveYouRegisteredForVATMOSS.subtext = You’ll have received a VAT MOSS identification number if you’re already registered
+haveYouRegisteredForVATMOSS.Yes = Yes - I’ve already registered for VAT MOSS
+haveYouRegisteredForVATMOSS.No = No - I’m not registered for VAT MOSS yet
 haveYouRegisteredForVATMOSS.error.required = Select yes or no

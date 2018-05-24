@@ -48,6 +48,12 @@ class HaveYouRegisteredForVATMOSSViewSpec extends ViewBehaviours {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
       }
+
+      "contain sub text" in {
+        val view = asDocument(createView()).text()
+
+        view must include("You’ll have received a VAT MOSS identification number if you’re already registered")
+      }
     }
 
     for (option <- HaveYouRegisteredForVATMOSS.options) {
