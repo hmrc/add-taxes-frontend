@@ -580,3 +580,13 @@ alreadyRegisteredForVATMoss.p1 = You’ll have received a VAT MOSS identificatio
 alreadyRegisteredForVATMoss.Yes = Yes - I’ve already registered for VAT MOSS
 alreadyRegisteredForVATMoss.No = No - I’m not registered for VAT MOSS yet
 alreadyRegisteredForVATMoss.error.required = Select yes or no
+
+#######################################################
+##  RegisterForVAT
+#######################################################
+registerForVAT.title = Register for VAT
+registerForVAT.heading = Register for VAT
+registerForVAT.p1 = You must be VAT registered before you can register for VAT MOSS.
+registerForVAT.p2 = Come back to this account and add VAT MOSS once you’ve received a VAT registration number (VRN).
+registerForVAT.continue = Register for VAT
+registerForVAT.notnow = I don’t want to do this right now

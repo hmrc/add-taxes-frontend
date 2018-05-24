@@ -135,14 +135,16 @@ GET        /vat/moss/uk/vat-registered/other-account    controllers.vat.moss.uk.
 
 GET        /vat/moss/uk/vat-registered/no-other-account  controllers.vat.moss.uk.AddVATFirstController.onPageLoad()
 
+GET        /vat/moss/iom/not-vat-registered              controllers.vat.moss.iom.RegisterForVATController.onPageLoad()
+
 GET        /vat/moss/iom/vat-registered                  controllers.vat.moss.iom.AlreadyRegisteredForVATMossController.onPageLoad()
 POST       /vat/moss/iom/vat-registered                  controllers.vat.moss.iom.AlreadyRegisteredForVATMossController.onSubmit()
 
-GET        /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onPageLoad()
-POST       /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onSubmit()
+GET        /other/alcohol                                controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onPageLoad()
+POST       /other/alcohol                                controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onSubmit()
 
-GET        /other/charities                             controllers.other.charity.DoYouHaveCharityReferenceController.onPageLoad()
-POST       /other/charities                             controllers.other.charity.DoYouHaveCharityReferenceController.onSubmit()
+GET        /other/charities                              controllers.other.charity.DoYouHaveCharityReferenceController.onPageLoad()
+POST       /other/charities                              controllers.other.charity.DoYouHaveCharityReferenceController.onSubmit()
 
 GET        /other/charities/register                    controllers.other.charity.RegisterForCharityController.onPageLoad()
 
