@@ -166,3 +166,5 @@ POST       /employer/cis/uk/contractor                        controllers.employ
 
 GET        /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onPageLoad()
 POST       /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onSubmit()
+
+GET        /employer/ers/epaye/other-account                       controllers.employer.ers.UseEmployersPAYEController.onPageLoad()

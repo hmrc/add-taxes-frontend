@@ -582,3 +582,12 @@ registeredForVAT.heading = A yw eich busnes wedi’i gofrestru ar gyfer TAW ar Y
 registeredForVAT.Yes = Ydy - mae’r busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw
 registeredForVAT.No = Nac ydy - nid yw’r busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw
 registeredForVAT.error.required = Dewis iawn neu na
+
+#######################################################
+##  UseEmployersPAYE
+#######################################################
+useEmployersPAYE.title = Defnyddio eich cyfrif TWE i gyflogwyr
+useEmployersPAYE.heading = Defnyddio eich cyfrif TWE i gyflogwyr
+useEmployersPAYE.subtext = Mae’n rhaid i chi reoli gwarantau ar sail cyflogaeth (ERS) yn yr un cyfrif ag yr ydych yn rheoli TWE i gyflogwyr.
+useEmployersPAYE.continue = Mewngofnodi i’ch cyfrif TWE i gyflogwyr
+useEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd

@@ -609,3 +609,12 @@ haveYouRegisteredForVATMOSS.subtext = You’ll have received a VAT MOSS identifi
 haveYouRegisteredForVATMOSS.Yes = Yes - I’ve already registered for VAT MOSS
 haveYouRegisteredForVATMOSS.No = No - I’m not registered for VAT MOSS yet
 haveYouRegisteredForVATMOSS.error.required = Select yes or no
+
+#######################################################
+##  UseEmployersPAYE
+#######################################################
+useEmployersPAYE.title = Use your PAYE for employers account
+useEmployersPAYE.heading = Use your PAYE for employers account
+useEmployersPAYE.subtext = You have to manage employment related securities (ERS) in the same account that you manage PAYE for employers.
+useEmployersPAYE.continue = Sign in to your PAYE for employers account
+useEmployersPAYE.notnow = I don’t want to do this right now
