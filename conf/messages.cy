@@ -601,3 +601,13 @@ addEmployersPAYE.subtext1 = Mae’n rhaid i chi reoli TWE i gyflogwyr ar-lein cy
 addEmployersPAYE.subtext2 = Ychwanegwch TWE i gyflogwyr i’r cyfrif hwn, wedyn dychwelyd ac ychwanegu gwarantau ar sail cyflogaeth (ERS) ar ôl hynny.
 addEmployersPAYE.continue = Ychwanegu TWE i gyflogwyr
 addEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  RegisterEmployersPAYE
+#######################################################
+registerEmployersPAYE.title = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
+registerEmployersPAYE.heading = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
+registerEmployersPAYE.subtext1 = Mae angen i chi fod wedi cofrestru ar gyfer TWE i gyflogwyr cyn y gallwch reoli gwarantau ar sail cyflogaeth (ERS) ar-lein.
+registerEmployersPAYE.subtext2 = Cofrestrwch ar gyfer TWE i gyflogwyr, wedyn dychwelyd ac ychwanegu gwarantau ar sail cyflogaeth ar ôl hynny.
+registerEmployersPAYE.continue = Cofrestru ar gyfer TWE i gyflogwyr
+registerEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd

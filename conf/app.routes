@@ -170,3 +170,5 @@ POST       /other/gambling                  controllers.other.gambling.SelectGam
 GET        /employer/ers/epaye/other-account                       controllers.employer.ers.UseEmployersPAYEController.onPageLoad()
 
 GET        /employer/ers/epaye/not-enrolled                       controllers.employer.ers.AddEmployersPAYEController.onPageLoad()
+
+GET        /employer/ers/register-epaye                       controllers.employer.ers.RegisterEmployersPAYEController.onPageLoad()

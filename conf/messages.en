@@ -628,3 +628,13 @@ addEmployersPAYE.subtext1 = You have to manage PAYE for employers online before 
 addEmployersPAYE.subtext2 = Add PAYE for employers to this account, then come back and add employment related securities (ERS) afterwards.
 addEmployersPAYE.continue = Add PAYE for employers
 addEmployersPAYE.notnow = I don’t want to do this right now
+
+#######################################################
+##  RegisterEmployersPAYE
+#######################################################
+registerEmployersPAYE.title = Register for PAYE for employers first
+registerEmployersPAYE.heading = Register for PAYE for employers first
+registerEmployersPAYE.subtext1 = You need to be registered for PAYE for employers before you can manage employment related securities (ERS) online.
+registerEmployersPAYE.subtext2 = Register for PAYE for employers, then come back and add employment related securities afterwards.
+registerEmployersPAYE.continue = Register for PAYE for employers
+registerEmployersPAYE.notnow = I don’t want to do this right now
