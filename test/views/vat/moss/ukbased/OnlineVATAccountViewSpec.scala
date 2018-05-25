@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package views.vat.moss.uk
+package views.vat.moss.ukbased
 
 import play.api.data.Form
 import forms.vat.moss.uk.OnlineVATAccountFormProvider
 import models.vat.moss.uk.OnlineVATAccount
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.vat.moss.uk.onlineVATAccount
+import views.html.vat.moss.ukbased.onlineVATAccount
 
 class OnlineVATAccountViewSpec extends ViewBehaviours {
 

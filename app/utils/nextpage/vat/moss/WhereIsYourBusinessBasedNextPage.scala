@@ -14,23 +14,24 @@
  * limitations under the License.
  */
 
-package utils.nextpage.vat.moss.uk
+package utils.nextpage.vat.moss
 
 import config.FrontendAppConfig
-import identifiers.RegisteredForVATUkId
-import models.vat.moss.uk.RegisteredForVATUk
+import identifiers.WhereIsYourBusinessBasedId
+import models.vat.moss.WhereIsYourBusinessBased
 import play.api.mvc.{Call, Request}
 import utils.NextPage
-import controllers.vat.moss.ukbased.{routes => vatMossUkRoutes}
 
-trait RegisteredForVATUKNextPage {
+trait WhereIsYourBusinessBasedNextPage {
 
-  implicit val registeredForVATUk: NextPage[RegisteredForVATUkId.type, RegisteredForVATUk] = {
-    new NextPage[RegisteredForVATUkId.type, RegisteredForVATUk] {
-      override def get(b: RegisteredForVATUk)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+  implicit val whereIsYourBusinessBased: NextPage[WhereIsYourBusinessBasedId.type, WhereIsYourBusinessBased] = {
+    new NextPage[WhereIsYourBusinessBasedId.type, WhereIsYourBusinessBased] {
+      override def get(b: WhereIsYourBusinessBased)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case RegisteredForVATUk.Yes => vatMossUkRoutes.OnlineVATAccountController.onPageLoad()
-          case RegisteredForVATUk.No  => vatMossUkRoutes.RegisterForVATController.onPageLoad()
+          case WhereIsYourBusinessBased.UK    => ???
+          case WhereIsYourBusinessBased.EU    => ???
+          case WhereIsYourBusinessBased.NonEu => ???
+          case WhereIsYourBusinessBased.Iom   => ???
         }
     }
   }

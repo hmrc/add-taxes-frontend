@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.vat.moss.uk
+package controllers.vat.moss.ukbased
 
 import javax.inject.Inject
 
@@ -22,11 +22,11 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
-import views.html.vat.moss.uk.addVATMOSS
+import views.html.vat.moss.ukbased.registerForVAT
 
 import scala.concurrent.Future
 
-class AddVATMOSSController @Inject()(
+class RegisterForVATController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   authenticate: AuthAction,
@@ -35,6 +35,6 @@ class AddVATMOSSController @Inject()(
     with I18nSupport {
 
   def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(addVATMOSS(appConfig)(request.serviceInfoContent))
+    Ok(registerForVAT(appConfig)(request.serviceInfoContent))
   }
 }

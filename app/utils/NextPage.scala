@@ -69,3 +69,4 @@ object NextPage
     with HaveYouRegisteredTrustNextPage
     with DoYouHaveCHIEFRoleNextPage
     with DoYouWantToAddImportExportNextPage
+    with utils.nextpage.vat.moss.WhereIsYourBusinessBasedNextPage

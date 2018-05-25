@@ -385,7 +385,7 @@ haveYouRegisteredAEOI.p1 = Byddwn wedi anfon ID Cyfnewid Gwybodaeth yn Awtomatig
 ##  AddVATMOSS
 #######################################################
 addVATMOSS.title = Ychwanegu GUC TAW i’ch cyfrif TAW
-addVATMOSS.heading = Ychwanegu GUC TAW i'ch cyfrif TAW
+addVATMOSS.heading = Ychwanegu GUC TAW i’ch cyfrif TAW
 addVATMOSS.p1 = Mae angen i chi reoli GUC TAW yn y cyfrif lle’r ydych yn rheoli TAW.
 addVATMOSS.p2 = Mewngofnodwch i’ch cyfrif TAW ac ychwanegwch GUC TAW yn y fan honno.
 addVATMOSS.p3 = Os nad yw hynny’n gweithio, ffoniwch ni a byddwn yn ei wneud i chi â llaw.
@@ -553,3 +553,14 @@ selectGamblingOrGamingDuty.GBD = Toll Fetio Gyffredinol (GBD)
 selectGamblingOrGamingDuty.PBD = Toll Cronfa Fetio (PBD)
 selectGamblingOrGamingDuty.RGD = Toll Hapchwarae o Bell (RGD)
 selectGamblingOrGamingDuty.error.required = Dewis toll
+
+#######################################################
+##  WhereIsYourBusinessBased
+#######################################################
+whereIsYourBusinessBased.title = Ymhle mae eich busnes wedi’i leoli?
+whereIsYourBusinessBased.heading = Ymhle mae eich busnes wedi’i leoli?
+whereIsYourBusinessBased.UK = Y DU
+whereIsYourBusinessBased.EU = Aelod wladwriaeth arall yr UE
+whereIsYourBusinessBased.NonEu = Y tu allan i’r UE
+whereIsYourBusinessBased.Iom = Ynys Manaw
+whereIsYourBusinessBased.error.required = Dewis lleoliad

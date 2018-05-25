@@ -570,3 +570,14 @@ selectGamblingOrGamingDuty.GBD = General Betting Duty (GBD)
 selectGamblingOrGamingDuty.PBD = Pool Betting Duty (PBD)
 selectGamblingOrGamingDuty.RGD = Remote Gaming Duty (RGD)
 selectGamblingOrGamingDuty.error.required = Select a duty
+
+#######################################################
+##  WhereIsYourBusinessBased
+#######################################################
+whereIsYourBusinessBased.title = Where is your business based?
+whereIsYourBusinessBased.heading = Where is your business based?
+whereIsYourBusinessBased.UK = UK
+whereIsYourBusinessBased.EU = Another EU state
+whereIsYourBusinessBased.NonEu = Outside the EU
+whereIsYourBusinessBased.Iom = Isle of Man
+whereIsYourBusinessBased.error.required = Select a location
