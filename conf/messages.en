@@ -597,5 +597,5 @@ registerForVAT.notnow = I don’t want to do this right now
 registeredForVAT.title = Is your business registered for VAT on the Isle of Man?
 registeredForVAT.heading = Is your business registered for VAT on the Isle of Man?
 registeredForVAT.Yes = Yes - the business is registered for VAT on the Isle of Man?
-registeredForVAT.No = No - the business isn't VAT registered on the Isle of Man?
+registeredForVAT.No = No - the business isn’t VAT registered on the Isle of Man?
 registeredForVAT.error.required = Select yes or no
