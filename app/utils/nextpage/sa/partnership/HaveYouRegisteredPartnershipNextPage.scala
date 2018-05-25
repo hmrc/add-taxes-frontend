@@ -18,21 +18,25 @@ package utils.nextpage.sa.partnership
 
 import config.FrontendAppConfig
 import identifiers.HaveYouRegisteredPartnershipId
-import play.api.mvc.{Call, Request}
-import utils.{Enrolments, NextPage}
+import models.requests.ServiceInfoRequest
+import models.sa.partnership.HaveYouRegisteredPartnership
+import play.api.mvc.{AnyContent, Call, Request}
+import utils.{Enrolments, HmrcEnrolmentType, NextPage}
 
 trait HaveYouRegisteredPartnershipNextPage {
 
   implicit val haveYouRegisteredPartnership
-    : NextPage[HaveYouRegisteredPartnershipId.type, models.sa.partnership.HaveYouRegisteredPartnership] = {
-    new NextPage[HaveYouRegisteredPartnershipId.type, models.sa.partnership.HaveYouRegisteredPartnership] {
-      override def get(b: models.sa.partnership.HaveYouRegisteredPartnership)(
+    : NextPage[HaveYouRegisteredPartnershipId.type, (HaveYouRegisteredPartnership, ServiceInfoRequest[AnyContent])] = {
+    new NextPage[HaveYouRegisteredPartnershipId.type, (HaveYouRegisteredPartnership, ServiceInfoRequest[AnyContent])] {
+      override def get(b: (HaveYouRegisteredPartnership, ServiceInfoRequest[AnyContent]))(
         implicit appConfig: FrontendAppConfig,
         request: Request[_]): Call =
-        b match {
-          case models.sa.partnership.HaveYouRegisteredPartnership.Yes =>
+        (b._1, Enrolments.hasEnrolments(b._2.request.enrolments, HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX)) match {
+          case (HaveYouRegisteredPartnership.Yes, _) =>
             Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.SAPartnership))
-          case models.sa.partnership.HaveYouRegisteredPartnership.No =>
+          case (HaveYouRegisteredPartnership.No, true) =>
+            Call("GET", appConfig.getIFormUrl("partnership"))
+          case (HaveYouRegisteredPartnership.No, false) =>
             Call("GET", appConfig.getPublishedAssetsUrl("partnershipOther"))
         }
     }

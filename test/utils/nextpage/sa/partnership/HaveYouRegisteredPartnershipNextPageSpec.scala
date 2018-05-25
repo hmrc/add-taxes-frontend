@@ -16,23 +16,74 @@
 
 package utils.nextpage.sa.partnership
 
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.sa.partnership.HaveYouRegisteredPartnership
+import play.api.mvc.AnyContent
+import play.twirl.api.Html
+import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier, Enrolments}
+import utils.HmrcEnrolmentType
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
 class HaveYouRegisteredPartnershipNextPageSpec extends NextPageSpecBase {
 
+  val serviceRequest: ServiceInfoRequest[AnyContent] =
+    ServiceInfoRequest(AuthenticatedRequest(request, "", Enrolments(Set()), None), Html(""))
+
+  val saEnrolment = Enrolment(key = HmrcEnrolmentType.SA, identifiers = Seq(), state = "Activated")
+
+  val ctEnrolment = Enrolment(key = HmrcEnrolmentType.CORP_TAX, identifiers = Seq(), state = "Activated")
+
+  val serviceRequestWithSAEnrolment: ServiceInfoRequest[AnyContent] =
+    ServiceInfoRequest(AuthenticatedRequest(request, "", Enrolments(Set(saEnrolment)), None), Html(""))
+
+  val serviceRequestWithCTEnrolment: ServiceInfoRequest[AnyContent] =
+    ServiceInfoRequest(AuthenticatedRequest(request, "", Enrolments(Set(ctEnrolment)), None), Html(""))
+
+  val serviceRequestWithSACTEnrolment: ServiceInfoRequest[AnyContent] =
+    ServiceInfoRequest(AuthenticatedRequest(request, "", Enrolments(Set(saEnrolment, ctEnrolment)), None), Html(""))
+
   "SA Partnership Other" when {
-    behave like nextPage(
+    behave like nextPageWithEnrolments(
       NextPage.haveYouRegisteredPartnership,
-      HaveYouRegisteredPartnership.Yes,
-      "http://localhost:9555/enrolment-management-frontend/IR-SA-PART-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+      (HaveYouRegisteredPartnership.Yes, serviceRequest),
+      HaveYouRegisteredPartnership.Yes.toString,
+      "http://localhost:9555/enrolment-management-frontend/IR-SA-PART-ORG/request-access-tax-scheme?continue=%2Fbusiness-account",
+      "no SA or CT Enrolments"
     )
 
-    behave like nextPage(
+    behave like nextPageWithEnrolments(
       NextPage.haveYouRegisteredPartnership,
-      HaveYouRegisteredPartnership.No,
-      "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/359500/sa400-static.pdf"
+      (HaveYouRegisteredPartnership.No, serviceRequest),
+      HaveYouRegisteredPartnership.No.toString,
+      "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/359500/sa400-static.pdf",
+      "no SA or CT Enrolments"
     )
+
+    behave like nextPageWithEnrolments(
+      NextPage.haveYouRegisteredPartnership,
+      (HaveYouRegisteredPartnership.No, serviceRequestWithSAEnrolment),
+      HaveYouRegisteredPartnership.No.toString,
+      "/forms/form/register-a-partner-or-a-partnership-for-self-assessment/start#1",
+      "SA Enrolment"
+    )
+
+    behave like nextPageWithEnrolments(
+      NextPage.haveYouRegisteredPartnership,
+      (HaveYouRegisteredPartnership.No, serviceRequestWithCTEnrolment),
+      HaveYouRegisteredPartnership.No.toString,
+      "/forms/form/register-a-partner-or-a-partnership-for-self-assessment/start#1",
+      "CT Enrolment"
+    )
+
+    behave like nextPageWithEnrolments(
+      NextPage.haveYouRegisteredPartnership,
+      (HaveYouRegisteredPartnership.No, serviceRequestWithSACTEnrolment),
+      HaveYouRegisteredPartnership.No.toString,
+      "/forms/form/register-a-partner-or-a-partnership-for-self-assessment/start#1",
+      "SA and CT Enrolment"
+    )
+
   }
+
 }

@@ -16,6 +16,8 @@
 
 package utils
 
+import uk.gov.hmrc.auth.core
+
 sealed trait Enrolments
 
 object Enrolments {
@@ -91,4 +93,15 @@ object Enrolments {
     Charity,
     AddCis
   )
+
+  def hasEnrolments(enrolments: core.Enrolments, names: String*) = names.exists(enrolments.getEnrolment(_).isDefined)
+
+}
+
+object HmrcEnrolmentType {
+
+  val SA = "IR-SA"
+
+  val CORP_TAX = "IR-CT"
+
 }

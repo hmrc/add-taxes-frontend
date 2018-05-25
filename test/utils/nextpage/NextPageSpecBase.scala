@@ -30,4 +30,17 @@ trait NextPageSpecBase extends SpecBase {
         result.url mustBe urlRedirect
       }
     }
+
+  def nextPageWithEnrolments[A, B](
+    np: NextPage[A, B],
+    userSelectionWithEnrolments: B,
+    userSelection: String,
+    urlRedirect: String,
+    enrolments: String): Unit =
+    s"$userSelection is selected with $enrolments" should {
+      s"redirect to $urlRedirect" in {
+        val result = np.get(userSelectionWithEnrolments)
+        result.url mustBe urlRedirect
+      }
+    }
 }
