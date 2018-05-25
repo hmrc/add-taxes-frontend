@@ -582,3 +582,13 @@ registeredForVAT.heading = A yw eich busnes wedi'i gofrestru ar gyfer TAW ar Yny
 registeredForVAT.Yes = Ydy - mae'r busnes wedi'i gofrestru ar gyfer TAW ar Ynys Manaw
 registeredForVAT.No = Nac ydy - nid yw'r busnes wedi'i gofrestru ar gyfer TAW ar Ynys Manaw
 registeredForVAT.error.required = Dewis iawn neu na
+
+#######################################################
+##  HaveYouRegisteredForVATMOSS
+#######################################################
+haveYouRegisteredForVATMOSS.title = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
+haveYouRegisteredForVATMOSS.heading = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
+haveYouRegisteredForVATMOSS.subtext = Byddwch wedi cael rhif adnabod GUC TAW os ydych eisoes wedi cofrestru
+haveYouRegisteredForVATMOSS.Yes = Ydw - rwyf eisoes wedi cofrestru ar gyfer GUC TAW
+haveYouRegisteredForVATMOSS.No = Nac ydw - nid wyf wedi cofrestru ar gyfer GUC TAW ar hyn o bryd
+haveYouRegisteredForVATMOSS.error.required = Dewis iawn neu na

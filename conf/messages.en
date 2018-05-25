@@ -599,3 +599,13 @@ registeredForVAT.heading = Is your business registered for VAT on the Isle of Ma
 registeredForVAT.Yes = Yes - the business is registered for VAT on the Isle of Man?
 registeredForVAT.No = No - the business isn’t VAT registered on the Isle of Man?
 registeredForVAT.error.required = Select yes or no
+
+#######################################################
+##  HaveYouRegisteredForVATMOSS
+#######################################################
+haveYouRegisteredForVATMOSS.title = Have you already registered for VAT MOSS?
+haveYouRegisteredForVATMOSS.heading = Have you already registered for VAT MOSS?
+haveYouRegisteredForVATMOSS.subtext = You’ll have received a VAT MOSS identification number if you’re already registered
+haveYouRegisteredForVATMOSS.Yes = Yes - I’ve already registered for VAT MOSS
+haveYouRegisteredForVATMOSS.No = No - I’m not registered for VAT MOSS yet
+haveYouRegisteredForVATMOSS.error.required = Select yes or no

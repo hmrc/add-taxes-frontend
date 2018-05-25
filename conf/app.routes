@@ -143,6 +143,9 @@ GET        /vat/moss/iom/not-vat-registered             controllers.vat.moss.iom
 GET        /vat/moss/iom/vat-registered                 controllers.vat.moss.iom.AlreadyRegisteredForVATMossController.onPageLoad()
 POST       /vat/moss/iom/vat-registered                 controllers.vat.moss.iom.AlreadyRegisteredForVATMossController.onSubmit()
 
+GET        /vat/moss/non-eu                             controllers.vat.moss.noneu.HaveYouRegisteredForVATMOSSController.onPageLoad()
+POST       /vat/moss/non-eu                             controllers.vat.moss.noneu.HaveYouRegisteredForVATMOSSController.onSubmit()
+
 GET        /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onPageLoad()
 POST       /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onSubmit()
 
