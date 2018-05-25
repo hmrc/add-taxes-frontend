@@ -168,3 +168,5 @@ GET        /other/gambling                  controllers.other.gambling.SelectGam
 POST       /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onSubmit()
 
 GET        /employer/ers/epaye/other-account                       controllers.employer.ers.UseEmployersPAYEController.onPageLoad()
+
+GET        /employer/ers/epaye/not-enrolled                       controllers.employer.ers.AddEmployersPAYEController.onPageLoad()

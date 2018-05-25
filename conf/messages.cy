@@ -591,3 +591,13 @@ useEmployersPAYE.heading = Defnyddio eich cyfrif TWE i gyflogwyr
 useEmployersPAYE.subtext = Mae’n rhaid i chi reoli gwarantau ar sail cyflogaeth (ERS) yn yr un cyfrif ag yr ydych yn rheoli TWE i gyflogwyr.
 useEmployersPAYE.continue = Mewngofnodi i’ch cyfrif TWE i gyflogwyr
 useEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  AddEmployersPAYE
+#######################################################
+addEmployersPAYE.title = Ychwanegwch TWE i gyflogwyr yn gyntaf
+addEmployersPAYE.heading = Ychwanegwch TWE i gyflogwyr yn gyntaf
+addEmployersPAYE.subtext1 = Mae’n rhaid i chi reoli TWE i gyflogwyr ar-lein cyn y gallwch reoli gwarantau ar sail cyflogaeth (ERS).
+addEmployersPAYE.subtext2 = Ychwanegwch TWE i gyflogwyr i’r cyfrif hwn, wedyn dychwelyd ac ychwanegu gwarantau ar sail cyflogaeth (ERS) ar ôl hynny.
+addEmployersPAYE.continue = Ychwanegu TWE i gyflogwyr
+addEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd

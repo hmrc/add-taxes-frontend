@@ -15,34 +15,37 @@
  *@
 
 @import config.FrontendAppConfig
+@import utils.Enrolments._
 
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("useEmployersPAYE.title"),
+    title = messages("addEmployersPAYE.title"),
     appConfig = appConfig,
     serviceInfoContent = serviceInfoContent
 ) {
 
-    @components.heading("useEmployersPAYE.heading")
+    @components.heading("addEmployersPAYE.heading")
 
-<p> @messages("useEmployersPAYE.subtext") </p>
+    <p> @messages("addEmployersPAYE.subtext1") </p>
+
+    <p> @messages("addEmployersPAYE.subtext2") </p>
 
     <p>
         <a id="continue"
-           href='@appConfig.getBusinessAccountUrl("signoutBTA")'
+           href='@appConfig.emacEnrollmentsUrl(EPAYE)'
            class="button"
-           data-journey-click="AddErsOtherAccount:Click:SignIn">
+           data-journey-click="AddErsNotEnrolledEpaye:Click:Register">
 
-            @messages("useEmployersPAYE.continue")
+            @messages("addEmployersPAYE.continue")
         </a>
     </p>
 
     <p>
         <a id="not-now"
            href='@appConfig.getBusinessAccountUrl("home")'
-           data-journey-click="AddErsOtherAccount:Click:NotNow">
-            @messages("useEmployersPAYE.notnow")
+           data-journey-click="AddErsNotEnrolledEpaye:Click:NotNow">
+            @messages("addEmployersPAYE.notnow")
         </a>
     </p>
 }
