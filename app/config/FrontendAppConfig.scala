@@ -62,6 +62,9 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   private lazy val govUKHost = runModeConfiguration.getString("urls.govuk.host").getOrElse("")
   def getGovUKUrl(key: String): String = govUKHost + loadConfig(s"urls.govuk.$key")
 
+  private lazy val govIMHost = runModeConfiguration.getString("urls.govim.host").getOrElse("")
+  def getGovIMUrl(key: String): String = govIMHost + loadConfig(s"urls.govim.$key")
+
   lazy val loginUrl = loadConfig("urls.login")
   lazy val loginContinueUrl = loadConfig("urls.loginContinue")
 

@@ -9,13 +9,13 @@ class $className$NextPageSpec extends NextPageSpecBase {
   "$className;format="decap"$" when {
     behave like nextPage(
       NextPage.$className;format="decap"$,
-      $className$.No,
+      $className$.Yes,
       "#"
     )
 
     behave like nextPage(
       NextPage.$className;format="decap"$,
-      $className$.Yes,
+      $className$.No,
       "#"
     )
   }

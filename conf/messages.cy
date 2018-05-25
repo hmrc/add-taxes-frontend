@@ -385,7 +385,7 @@ haveYouRegisteredAEOI.p1 = Byddwn wedi anfon ID Cyfnewid Gwybodaeth yn Awtomatig
 ##  AddVATMOSS
 #######################################################
 addVATMOSS.title = Ychwanegu GUC TAW i’ch cyfrif TAW
-addVATMOSS.heading = Ychwanegu GUC TAW i'ch cyfrif TAW
+addVATMOSS.heading = Ychwanegu GUC TAW i’ch cyfrif TAW
 addVATMOSS.p1 = Mae angen i chi reoli GUC TAW yn y cyfrif lle’r ydych yn rheoli TAW.
 addVATMOSS.p2 = Mewngofnodwch i’ch cyfrif TAW ac ychwanegwch GUC TAW yn y fan honno.
 addVATMOSS.p3 = Os nad yw hynny’n gweithio, ffoniwch ni a byddwn yn ei wneud i chi â llaw.
@@ -555,11 +555,30 @@ selectGamblingOrGamingDuty.RGD = Toll Hapchwarae o Bell (RGD)
 selectGamblingOrGamingDuty.error.required = Dewis toll
 
 #######################################################
-##  HaveYouRegisteredForVATMOSS
+##  AlreadyRegisteredForVATMoss
 #######################################################
-haveYouRegisteredForVATMOSS.title = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
-haveYouRegisteredForVATMOSS.heading = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
-haveYouRegisteredForVATMOSS.subtext = Byddwch wedi cael rhif adnabod GUC TAW os ydych eisoes wedi cofrestru
-haveYouRegisteredForVATMOSS.Yes = Ydw - rwyf eisoes wedi cofrestru ar gyfer GUC TAW
-haveYouRegisteredForVATMOSS.No = Nac ydw - nid wyf wedi cofrestru ar gyfer GUC TAW ar hyn o bryd
-haveYouRegisteredForVATMOSS.error.required = Dewis iawn neu na
+alreadyRegisteredForVATMoss.title = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
+alreadyRegisteredForVATMoss.heading = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
+alreadyRegisteredForVATMoss.p1 = Byddwch wedi cael rhif adnabod GUC TAW os ydych eisoes wedi cofrestru
+alreadyRegisteredForVATMoss.Yes = Ydw - rwyf eisoes wedi cofrestru ar gyfer GUC TAW
+alreadyRegisteredForVATMoss.No = Nac ydw - nid wyf wedi cofrestru ar gyfer GUC TAW ar hyn o bryd
+alreadyRegisteredForVATMoss.error.required = Dewis iawn neu na
+
+#######################################################
+##  RegisterForVAT
+#######################################################
+registerForVAT.title = Cofrestru ar gyfer TAW
+registerForVAT.heading = Cofrestru ar gyfer TAW
+registerForVAT.p1 = Mae’n rhaid eich bod wedi cofrestru ar gyfer TAW cyn y gallwch gofrestru ar gyfer GUC TAW.
+registerForVAT.p2 = Dychwelwch i’r cyfrif hwn ac ychwanegwch GUC TAW unwaith eich bod wedi cael rhif cofrestru TAW (VRN).
+registerForVAT.continue = Cofrestru ar gyfer TAW
+registerForVAT.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  RegisteredForVAT
+#######################################################
+registeredForVAT.title = A yw eich busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw?
+registeredForVAT.heading = A yw eich busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw?
+registeredForVAT.Yes = Ydy - mae’r busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw
+registeredForVAT.No = Nac ydy - nid yw’r busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw
+registeredForVAT.error.required = Dewis iawn neu na

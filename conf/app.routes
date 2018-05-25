@@ -133,7 +133,15 @@ GET        /vat/moss/uk/not-vat-registered              controllers.vat.moss.uk.
 
 GET        /vat/moss/uk/vat-registered/other-account    controllers.vat.moss.uk.AddVATMOSSController.onPageLoad()
 
-GET        /vat/moss/uk/vat-registered/no-other-account  controllers.vat.moss.uk.AddVATFirstController.onPageLoad()
+GET        /vat/moss/uk/vat-registered/no-other-account controllers.vat.moss.uk.AddVATFirstController.onPageLoad()
+
+GET        /vat/moss/iom                                controllers.vat.moss.iom.RegisteredForVATController.onPageLoad()
+POST       /vat/moss/iom                                controllers.vat.moss.iom.RegisteredForVATController.onSubmit()
+
+GET        /vat/moss/iom/not-vat-registered             controllers.vat.moss.iom.RegisterForVATController.onPageLoad()
+
+GET        /vat/moss/iom/vat-registered                 controllers.vat.moss.iom.AlreadyRegisteredForVATMossController.onPageLoad()
+POST       /vat/moss/iom/vat-registered                 controllers.vat.moss.iom.AlreadyRegisteredForVATMossController.onSubmit()
 
 GET        /vat/moss/non-eu                             controllers.vat.moss.noneu.HaveYouRegisteredForVATMOSSController.onPageLoad()
 POST       /vat/moss/non-eu                             controllers.vat.moss.noneu.HaveYouRegisteredForVATMOSSController.onSubmit()
@@ -158,4 +166,3 @@ POST       /employer/cis/uk/contractor                        controllers.employ
 
 GET        /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onPageLoad()
 POST       /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onSubmit()
-
