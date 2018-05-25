@@ -135,6 +135,9 @@ GET        /vat/moss/uk/vat-registered/other-account    controllers.vat.moss.uk.
 
 GET        /vat/moss/uk/vat-registered/no-other-account  controllers.vat.moss.uk.AddVATFirstController.onPageLoad()
 
+GET        /vat/moss/non-eu                             controllers.vat.moss.noneu.HaveYouRegisteredForVATMOSSController.onPageLoad()
+POST       /vat/moss/non-eu                             controllers.vat.moss.noneu.HaveYouRegisteredForVATMOSSController.onSubmit()
+
 GET        /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onPageLoad()
 POST       /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onSubmit()
 
@@ -155,3 +158,4 @@ POST       /employer/cis/uk/contractor                        controllers.employ
 
 GET        /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onPageLoad()
 POST       /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onSubmit()
+
