@@ -44,7 +44,7 @@ class DoesBusinessManagePAYEController @Inject()(
     with I18nSupport
     with Enumerable.Implicits {
 
-  val viewAction = ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "AddErsEpayeOnline")
+  lazy val viewAction = ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "AddErsEpayeOnline")
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
