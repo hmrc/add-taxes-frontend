@@ -17,10 +17,11 @@
 package utils.nextpage.vat.moss
 
 import config.FrontendAppConfig
+import controllers.vat.moss.ukbased.{routes => ukBasedRoutes}
 import identifiers.WhereIsYourBusinessBasedId
 import models.vat.moss.WhereIsYourBusinessBased
 import play.api.mvc.{Call, Request}
-import utils.NextPage
+import utils.{Enrolments, NextPage}
 
 trait WhereIsYourBusinessBasedNextPage {
 
@@ -28,7 +29,7 @@ trait WhereIsYourBusinessBasedNextPage {
     new NextPage[WhereIsYourBusinessBasedId.type, WhereIsYourBusinessBased] {
       override def get(b: WhereIsYourBusinessBased)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case WhereIsYourBusinessBased.UK    => ???
+          case WhereIsYourBusinessBased.UK    => ukBasedRoutes.RegisteredForVATUkController.onPageLoad()
           case WhereIsYourBusinessBased.EU    => ???
           case WhereIsYourBusinessBased.NonEu => ???
           case WhereIsYourBusinessBased.Iom   => ???

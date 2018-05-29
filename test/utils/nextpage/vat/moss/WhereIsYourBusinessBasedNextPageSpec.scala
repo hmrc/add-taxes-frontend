@@ -26,7 +26,7 @@ class WhereIsYourBusinessBasedNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.whereIsYourBusinessBased,
       WhereIsYourBusinessBased.UK,
-      "#"
+      "/business-account/add-tax/vat/moss/uk"
     )
 
     behave like nextPage(
