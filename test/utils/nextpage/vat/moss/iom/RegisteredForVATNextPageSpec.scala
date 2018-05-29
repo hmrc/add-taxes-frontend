@@ -14,37 +14,25 @@
  * limitations under the License.
  */
 
-package utils.nextpage.vat.moss
+package utils.nextpage.vat.moss.iom
 
-import models.vat.moss.WhereIsYourBusinessBased
+import models.vat.moss.iom.RegisteredForVAT
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
-class WhereIsYourBusinessBasedNextPageSpec extends NextPageSpecBase {
+class RegisteredForVATNextPageSpec extends NextPageSpecBase {
 
-  "whereIsYourBusinessBased" when {
+  "registeredForVAT" when {
     behave like nextPage(
-      NextPage.whereIsYourBusinessBased,
-      WhereIsYourBusinessBased.UK,
-      "/business-account/add-tax/vat/moss/uk"
+      NextPage.registeredForVAT,
+      RegisteredForVAT.No,
+      "/business-account/add-tax/vat/moss/iom/not-vat-registered"
     )
 
     behave like nextPage(
-      NextPage.whereIsYourBusinessBased,
-      WhereIsYourBusinessBased.EU,
-      "#"
-    )
-
-    behave like nextPage(
-      NextPage.whereIsYourBusinessBased,
-      WhereIsYourBusinessBased.NonEu,
-      "/business-account/add-tax/vat/moss/non-eu"
-    )
-
-    behave like nextPage(
-      NextPage.whereIsYourBusinessBased,
-      WhereIsYourBusinessBased.Iom,
-      "/business-account/add-tax/vat/moss/iom"
+      NextPage.registeredForVAT,
+      RegisteredForVAT.Yes,
+      "/business-account/add-tax/vat/moss/iom/vat-registered"
     )
   }
 }

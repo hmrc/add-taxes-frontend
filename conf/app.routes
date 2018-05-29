@@ -133,7 +133,18 @@ GET        /vat/moss/uk/not-vat-registered              controllers.vat.moss.ukb
 
 GET        /vat/moss/uk/vat-registered/other-account    controllers.vat.moss.ukbased.AddVATMOSSController.onPageLoad()
 
-GET        /vat/moss/uk/vat-registered/no-other-account  controllers.vat.moss.ukbased.AddVATFirstController.onPageLoad()
+GET        /vat/moss/uk/vat-registered/no-other-account controllers.vat.moss.ukbased.AddVATFirstController.onPageLoad()
+
+GET        /vat/moss/iom                                controllers.vat.moss.iom.RegisteredForVATController.onPageLoad()
+POST       /vat/moss/iom                                controllers.vat.moss.iom.RegisteredForVATController.onSubmit()
+
+GET        /vat/moss/iom/not-vat-registered             controllers.vat.moss.iom.RegisterForVATController.onPageLoad()
+
+GET        /vat/moss/iom/vat-registered                 controllers.vat.moss.iom.AlreadyRegisteredForVATMossController.onPageLoad()
+POST       /vat/moss/iom/vat-registered                 controllers.vat.moss.iom.AlreadyRegisteredForVATMossController.onSubmit()
+
+GET        /vat/moss/non-eu                             controllers.vat.moss.noneu.HaveYouRegisteredForVATMOSSController.onPageLoad()
+POST       /vat/moss/non-eu                             controllers.vat.moss.noneu.HaveYouRegisteredForVATMOSSController.onSubmit()
 
 GET        /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onPageLoad()
 POST       /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onSubmit()

@@ -18,6 +18,8 @@ package utils.nextpage.vat.moss
 
 import config.FrontendAppConfig
 import controllers.vat.moss.ukbased.{routes => ukBasedRoutes}
+import controllers.vat.moss.iom.{routes => iomRoutes}
+import controllers.vat.moss.noneu.{routes => noneuRoutes}
 import identifiers.WhereIsYourBusinessBasedId
 import models.vat.moss.WhereIsYourBusinessBased
 import play.api.mvc.{Call, Request}
@@ -31,8 +33,8 @@ trait WhereIsYourBusinessBasedNextPage {
         b match {
           case WhereIsYourBusinessBased.UK    => ukBasedRoutes.RegisteredForVATUkController.onPageLoad()
           case WhereIsYourBusinessBased.EU    => ???
-          case WhereIsYourBusinessBased.NonEu => ???
-          case WhereIsYourBusinessBased.Iom   => ???
+          case WhereIsYourBusinessBased.NonEu => noneuRoutes.HaveYouRegisteredForVATMOSSController.onPageLoad()
+          case WhereIsYourBusinessBased.Iom   => iomRoutes.RegisteredForVATController.onPageLoad()
         }
     }
   }

@@ -14,37 +14,25 @@
  * limitations under the License.
  */
 
-package utils.nextpage.vat.moss
+package utils.nextpage.vat.moss.noneu
 
-import models.vat.moss.WhereIsYourBusinessBased
+import models.vat.moss.noneu.HaveYouRegisteredForVATMOSS
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
-class WhereIsYourBusinessBasedNextPageSpec extends NextPageSpecBase {
+class HaveYouRegisteredForVATMOSSNextPageSpec extends NextPageSpecBase {
 
-  "whereIsYourBusinessBased" when {
+  "haveYouRegisteredForVATMOSS" when {
     behave like nextPage(
-      NextPage.whereIsYourBusinessBased,
-      WhereIsYourBusinessBased.UK,
-      "/business-account/add-tax/vat/moss/uk"
+      NextPage.haveYouRegisteredForVATMOSS,
+      HaveYouRegisteredForVATMOSS.No,
+      "http://localhost:8080/portal/moss-registration/org/introduction?lang=eng"
     )
 
     behave like nextPage(
-      NextPage.whereIsYourBusinessBased,
-      WhereIsYourBusinessBased.EU,
-      "#"
-    )
-
-    behave like nextPage(
-      NextPage.whereIsYourBusinessBased,
-      WhereIsYourBusinessBased.NonEu,
-      "/business-account/add-tax/vat/moss/non-eu"
-    )
-
-    behave like nextPage(
-      NextPage.whereIsYourBusinessBased,
-      WhereIsYourBusinessBased.Iom,
-      "/business-account/add-tax/vat/moss/iom"
+      NextPage.haveYouRegisteredForVATMOSS,
+      HaveYouRegisteredForVATMOSS.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-MOSSNU-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
   }
 }

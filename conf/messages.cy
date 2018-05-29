@@ -564,3 +564,32 @@ whereIsYourBusinessBased.EU = Aelod wladwriaeth arall yr UE
 whereIsYourBusinessBased.NonEu = Y tu allan i’r UE
 whereIsYourBusinessBased.Iom = Ynys Manaw
 whereIsYourBusinessBased.error.required = Dewis lleoliad
+
+#######################################################
+##  AlreadyRegisteredForVATMoss
+#######################################################
+alreadyRegisteredForVATMoss.title = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
+alreadyRegisteredForVATMoss.heading = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
+alreadyRegisteredForVATMoss.p1 = Byddwch wedi cael rhif adnabod GUC TAW os ydych eisoes wedi cofrestru
+alreadyRegisteredForVATMoss.Yes = Ydw - rwyf eisoes wedi cofrestru ar gyfer GUC TAW
+alreadyRegisteredForVATMoss.No = Nac ydw - nid wyf wedi cofrestru ar gyfer GUC TAW ar hyn o bryd
+alreadyRegisteredForVATMoss.error.required = Dewis iawn neu na
+
+#######################################################
+##  RegisterForVAT
+#######################################################
+registerForVAT.title = Cofrestru ar gyfer TAW
+registerForVAT.heading = Cofrestru ar gyfer TAW
+registerForVAT.p1 = Mae’n rhaid eich bod wedi cofrestru ar gyfer TAW cyn y gallwch gofrestru ar gyfer GUC TAW.
+registerForVAT.p2 = Dychwelwch i’r cyfrif hwn ac ychwanegwch GUC TAW unwaith eich bod wedi cael rhif cofrestru TAW (VRN).
+registerForVAT.continue = Cofrestru ar gyfer TAW
+registerForVAT.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  RegisteredForVAT
+#######################################################
+registeredForVAT.title = A yw eich busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw?
+registeredForVAT.heading = A yw eich busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw?
+registeredForVAT.Yes = Ydy - mae’r busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw
+registeredForVAT.No = Nac ydy - nid yw’r busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw
+registeredForVAT.error.required = Dewis iawn neu na
