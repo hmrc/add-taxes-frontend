@@ -74,3 +74,4 @@ object NextPage
     with HaveYouRegisteredForVATMOSSNextPage
     with AlreadyRegisteredForVATMossNextPage
     with RegisteredForVATNextPage
+    with utils.nextpage.employer.ers.DoesBusinessManagePAYENextPage

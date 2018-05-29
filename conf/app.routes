@@ -172,3 +172,6 @@ GET        /employer/ers/epaye/other-account                       controllers.e
 GET        /employer/ers/epaye/not-enrolled                       controllers.employer.ers.AddEmployersPAYEController.onPageLoad()
 
 GET        /employer/ers/register-epaye                       controllers.employer.ers.RegisterEmployersPAYEController.onPageLoad()
+
+GET        /employer/ers/epaye                  controllers.employer.ers.DoesBusinessManagePAYEController.onPageLoad()
+POST       /employer/ers/epaye                  controllers.employer.ers.DoesBusinessManagePAYEController.onSubmit()
