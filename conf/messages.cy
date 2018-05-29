@@ -593,3 +593,12 @@ registeredForVAT.heading = A yw eich busnes wedi’i gofrestru ar gyfer TAW ar Y
 registeredForVAT.Yes = Ydy - mae’r busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw
 registeredForVAT.No = Nac ydy - nid yw’r busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw
 registeredForVAT.error.required = Dewis iawn neu na
+
+#######################################################
+##  RegisterInHomeCountry
+#######################################################
+registerInHomeCountry.title = Cofrestru yn eich gwlad wreiddiol
+registerInHomeCountry.heading = Cofrestru yn eich gwlad wreiddiol
+registerInHomeCountry.p1=Dylech gofrestru ar gyfer GUC TAW gyda’r awdurdod treth yng ngwlad wreiddiol eich busnes.
+registerInHomeCountry.p2=Os ydych eisiau cofrestru ar gyfer GUC TAW yn y DU, mae angen i chi
+registerInHomeCountry.callUs = ein ffonio.

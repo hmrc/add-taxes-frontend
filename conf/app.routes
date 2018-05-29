@@ -169,3 +169,5 @@ POST       /other/gambling                  controllers.other.gambling.SelectGam
 
 GET        /vat/moss                  controllers.vat.moss.WhereIsYourBusinessBasedController.onPageLoad()
 POST       /vat/moss                  controllers.vat.moss.WhereIsYourBusinessBasedController.onSubmit()
+
+GET        /vat/moss/eu                       controllers.vat.moss.eu.RegisterInHomeCountryController.onPageLoad()

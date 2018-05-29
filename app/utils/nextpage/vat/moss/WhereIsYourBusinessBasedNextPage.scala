@@ -20,6 +20,7 @@ import config.FrontendAppConfig
 import controllers.vat.moss.ukbased.{routes => ukBasedRoutes}
 import controllers.vat.moss.iom.{routes => iomRoutes}
 import controllers.vat.moss.noneu.{routes => noneuRoutes}
+import controllers.vat.moss.eu.{routes => euRoutes}
 import identifiers.WhereIsYourBusinessBasedId
 import models.vat.moss.WhereIsYourBusinessBased
 import play.api.mvc.{Call, Request}
@@ -32,7 +33,7 @@ trait WhereIsYourBusinessBasedNextPage {
       override def get(b: WhereIsYourBusinessBased)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case WhereIsYourBusinessBased.UK    => ukBasedRoutes.RegisteredForVATUkController.onPageLoad()
-          case WhereIsYourBusinessBased.EU    => ???
+          case WhereIsYourBusinessBased.EU    => euRoutes.RegisterInHomeCountryController.onPageLoad()
           case WhereIsYourBusinessBased.NonEu => noneuRoutes.HaveYouRegisteredForVATMOSSController.onPageLoad()
           case WhereIsYourBusinessBased.Iom   => iomRoutes.RegisteredForVATController.onPageLoad()
         }

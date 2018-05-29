@@ -32,7 +32,7 @@ class WhereIsYourBusinessBasedNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.whereIsYourBusinessBased,
       WhereIsYourBusinessBased.EU,
-      "#"
+      "/business-account/add-tax/vat/moss/eu"
     )
 
     behave like nextPage(
