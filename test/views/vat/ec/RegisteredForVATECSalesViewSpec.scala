@@ -16,8 +16,8 @@
 
 package views.vat.ec
 
+import forms.vat.RegisteredForVATFormProvider
 import play.api.data.Form
-import forms.vat.ec.RegisteredForVATECSalesFormProvider
 import models.vat.RegisteredForVAT
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
@@ -27,7 +27,7 @@ class RegisteredForVATECSalesViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "registeredForVATECSales"
 
-  val form = new RegisteredForVATECSalesFormProvider()()
+  val form = new RegisteredForVATFormProvider()()
 
   val serviceInfoContent = HtmlFormat.empty
 

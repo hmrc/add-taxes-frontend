@@ -23,8 +23,8 @@ import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
+import forms.vat.RegisteredForVATFormProvider
 import play.api.test.Helpers._
-import forms.vat.ec.RegisteredForVATECSalesFormProvider
 import identifiers.RegisteredForVATECSalesId
 import models.vat.RegisteredForVAT
 import play.twirl.api.HtmlFormat
@@ -34,7 +34,7 @@ class RegisteredForVATECSalesControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = controllers.routes.IndexController.onPageLoad()
 
-  val formProvider = new RegisteredForVATECSalesFormProvider()
+  val formProvider = new RegisteredForVATFormProvider()
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =

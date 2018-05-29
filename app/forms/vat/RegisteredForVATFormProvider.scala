@@ -14,26 +14,18 @@
  * limitations under the License.
  */
 
-package forms.vat.ec
+package forms.vat
 
-import forms.behaviours.FormBehaviours
-import models._
+import forms.FormErrorHelper
+import forms.mappings.Mappings
+import javax.inject.Inject
 import models.vat.RegisteredForVAT
+import play.api.data.Form
 
-class RegisteredForVATECSalesFormProviderSpec extends FormBehaviours {
+class RegisteredForVATFormProvider @Inject() extends FormErrorHelper with Mappings {
 
-  val validData: Map[String, String] = Map(
-    "value" -> RegisteredForVAT.options.head.value
-  )
-
-  val form = new RegisteredForVATECSalesFormProvider()()
-
-  "RegisteredForVATECSales form" must {
-
-    behave like questionForm[RegisteredForVAT](RegisteredForVAT.values.head)
-
-    behave like formWithOptionField(
-      Field("value", Required -> "registeredForVATECSales.error.required", Invalid -> "error.invalid"),
-      RegisteredForVAT.options.toSeq.map(_.value): _*)
-  }
+  def apply(): Form[RegisteredForVAT] =
+    Form(
+      "value" -> enumerable[RegisteredForVAT]("registeredForVATECSales.error.required")
+    )
 }

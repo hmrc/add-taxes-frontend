@@ -17,16 +17,14 @@
 package controllers.vat.ec
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
+import forms.vat.RegisteredForVATFormProvider
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-
-import forms.vat.ec.RegisteredForVATECSalesFormProvider
 import identifiers.RegisteredForVATECSalesId
 import views.html.vat.ec.registeredForVATECSales
 
@@ -39,7 +37,7 @@ class RegisteredForVATECSalesController @Inject()(
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
-  formProvider: RegisteredForVATECSalesFormProvider)
+  formProvider: RegisteredForVATFormProvider)
     extends FrontendController
     with I18nSupport
     with Enumerable.Implicits {
