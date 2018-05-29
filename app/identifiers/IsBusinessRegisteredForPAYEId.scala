@@ -16,6 +16,14 @@
 
 package identifiers
 
-case object IsBusinessRegisteredForPAYEId extends Identifier {
-  override def toString: String = "isBusinessRegisteredForPAYE"
+object IsBusinessRegisteredForPAYEId {
+
+  case object CIS extends Identifier {
+    override def toString: String = "isBusinessRegisteredForPAYE.CIS"
+  }
+
+  case object ERS extends Identifier {
+    override def toString: String = "isBusinessRegisteredForPAYE.ERS"
+  }
+
 }

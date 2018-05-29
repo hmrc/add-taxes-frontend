@@ -175,3 +175,6 @@ GET        /employer/ers/register-epaye                       controllers.employ
 
 GET        /employer/ers/epaye                  controllers.employer.ers.DoesBusinessManagePAYEController.onPageLoad()
 POST       /employer/ers/epaye                  controllers.employer.ers.DoesBusinessManagePAYEController.onSubmit()
+
+GET        /employer/ers                       controllers.employer.ers.IsBusinessRegisteredForPAYEController.onPageLoad()
+POST       /employer/ers                       controllers.employer.ers.IsBusinessRegisteredForPAYEController.onSubmit()
