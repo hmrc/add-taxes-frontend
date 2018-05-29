@@ -123,6 +123,9 @@ POST       /other/aeoi                                  controllers.other.aeoi.H
 GET        /self-assessment                             controllers.sa.SelectSACategoryController.onPageLoad()
 POST       /self-assessment                             controllers.sa.SelectSACategoryController.onSubmit()
 
+GET        /vat/ec                                      controllers.vat.ec.RegisteredForVATECSalesController.onPageLoad()
+POST       /vat/ec                                      controllers.vat.ec.RegisteredForVATECSalesController.onSubmit()
+
 GET        /vat/moss/uk                                 controllers.vat.moss.uk.RegisteredForVATUkController.onPageLoad()
 POST       /vat/moss/uk                                 controllers.vat.moss.uk.RegisteredForVATUkController.onSubmit()
 

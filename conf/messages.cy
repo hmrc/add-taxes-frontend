@@ -582,3 +582,12 @@ registeredForVAT.heading = A yw eich busnes wedi’i gofrestru ar gyfer TAW ar Y
 registeredForVAT.Yes = Ydy - mae’r busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw
 registeredForVAT.No = Nac ydy - nid yw’r busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw
 registeredForVAT.error.required = Dewis iawn neu na
+
+#######################################################
+##  RegisteredForVATECSales
+#######################################################
+registeredForVATECSales.title = A yw’r busnes wedi’i gofrestru ar gyfer TAW?
+registeredForVATECSales.heading = A yw’r busnes wedi’i gofrestru ar gyfer TAW?
+registeredForVATECSales.Yes = Iawn
+registeredForVATECSales.No = Na
+registeredForVATECSales.error.required = Dewiswch Iawn os yw’r busnes wedi’i gofrestru ar gyfer TAW

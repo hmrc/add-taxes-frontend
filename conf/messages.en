@@ -609,3 +609,12 @@ haveYouRegisteredForVATMOSS.subtext = You’ll have received a VAT MOSS identifi
 haveYouRegisteredForVATMOSS.Yes = Yes - I’ve already registered for VAT MOSS
 haveYouRegisteredForVATMOSS.No = No - I’m not registered for VAT MOSS yet
 haveYouRegisteredForVATMOSS.error.required = Select yes or no
+
+#######################################################
+##  RegisteredForVATECSales
+#######################################################
+registeredForVATECSales.title = Is the business registered for VAT?
+registeredForVATECSales.heading = Is the business registered for VAT?
+registeredForVATECSales.Yes = Yes
+registeredForVATECSales.No = No
+registeredForVATECSales.error.required = Select yes if the business is registered for VAT
