@@ -16,7 +16,7 @@
 
 package utils.nextpage.vat.ec
 
-import models.vat.ec.RegisteredForVATECSales
+import models.vat.RegisteredForVAT
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
@@ -25,13 +25,13 @@ class RegisteredForVATECSalesNextPageSpec extends NextPageSpecBase {
   "registeredForVATECSales" when {
     behave like nextPage(
       NextPage.registeredForVATECSales,
-      RegisteredForVATECSales.Yes,
+      RegisteredForVAT.Yes,
       "http://localhost:9555/enrolment-management-frontend/HMCE-ECSL-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
 
     behave like nextPage(
       NextPage.registeredForVATECSales,
-      RegisteredForVATECSales.No,
+      RegisteredForVAT.No,
       "http://localhost:8080/portal/business-registration/introduction?lang=eng"
     )
   }

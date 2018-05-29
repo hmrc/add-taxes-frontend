@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package models.vat.ec
+package models.vat
 
 import utils.{Enumerable, RadioOption, WithName}
 
-sealed trait RegisteredForVATECSales
+sealed trait RegisteredForVAT
 
-object RegisteredForVATECSales {
+object RegisteredForVAT {
 
-  case object Yes extends WithName("Yes") with RegisteredForVATECSales
-  case object No extends WithName("No") with RegisteredForVATECSales
+  case object Yes extends WithName("Yes") with RegisteredForVAT
+  case object No extends WithName("No") with RegisteredForVAT
 
-  val values: Set[RegisteredForVATECSales] = Set(
+  val values: Set[RegisteredForVAT] = Set(
     Yes,
     No
   )
@@ -34,6 +34,6 @@ object RegisteredForVATECSales {
     RadioOption("registeredForVATECSales", value.toString)
   }
 
-  implicit val enumerable: Enumerable[RegisteredForVATECSales] =
+  implicit val enumerable: Enumerable[RegisteredForVAT] =
     Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }

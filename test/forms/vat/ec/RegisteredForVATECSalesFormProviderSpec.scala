@@ -18,22 +18,22 @@ package forms.vat.ec
 
 import forms.behaviours.FormBehaviours
 import models._
-import models.vat.ec._
+import models.vat.RegisteredForVAT
 
 class RegisteredForVATECSalesFormProviderSpec extends FormBehaviours {
 
   val validData: Map[String, String] = Map(
-    "value" -> RegisteredForVATECSales.options.head.value
+    "value" -> RegisteredForVAT.options.head.value
   )
 
   val form = new RegisteredForVATECSalesFormProvider()()
 
   "RegisteredForVATECSales form" must {
 
-    behave like questionForm[RegisteredForVATECSales](RegisteredForVATECSales.values.head)
+    behave like questionForm[RegisteredForVAT](RegisteredForVAT.values.head)
 
     behave like formWithOptionField(
       Field("value", Required -> "registeredForVATECSales.error.required", Invalid -> "error.invalid"),
-      RegisteredForVATECSales.options.toSeq.map(_.value): _*)
+      RegisteredForVAT.options.toSeq.map(_.value): _*)
   }
 }

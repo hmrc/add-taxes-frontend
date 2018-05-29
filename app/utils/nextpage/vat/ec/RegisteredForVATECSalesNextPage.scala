@@ -18,18 +18,18 @@ package utils.nextpage.vat.ec
 
 import config.FrontendAppConfig
 import identifiers.RegisteredForVATECSalesId
+import models.vat.RegisteredForVAT
 import play.api.mvc.{Call, Request}
-import models.vat.ec.RegisteredForVATECSales
 import utils.{Enrolments, NextPage}
 
 trait RegisteredForVATECSalesNextPage {
 
-  implicit val registeredForVATECSales: NextPage[RegisteredForVATECSalesId.type, RegisteredForVATECSales] = {
-    new NextPage[RegisteredForVATECSalesId.type, RegisteredForVATECSales] {
-      override def get(b: RegisteredForVATECSales)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+  implicit val registeredForVATECSales: NextPage[RegisteredForVATECSalesId.type, RegisteredForVAT] = {
+    new NextPage[RegisteredForVATECSalesId.type, RegisteredForVAT] {
+      override def get(b: RegisteredForVAT)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case RegisteredForVATECSales.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.ECSales))
-          case RegisteredForVATECSales.No  => Call("GET", appConfig.getPortalUrl("businessRegistration"))
+          case RegisteredForVAT.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.ECSales))
+          case RegisteredForVAT.No  => Call("GET", appConfig.getPortalUrl("businessRegistration"))
         }
     }
   }

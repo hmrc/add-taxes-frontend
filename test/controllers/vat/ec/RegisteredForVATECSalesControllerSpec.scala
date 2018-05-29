@@ -26,7 +26,7 @@ import controllers._
 import play.api.test.Helpers._
 import forms.vat.ec.RegisteredForVATECSalesFormProvider
 import identifiers.RegisteredForVATECSalesId
-import models.vat.ec.RegisteredForVATECSales
+import models.vat.RegisteredForVAT
 import play.twirl.api.HtmlFormat
 import views.html.vat.ec.registeredForVATECSales
 
@@ -60,7 +60,7 @@ class RegisteredForVATECSalesControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", RegisteredForVATECSales.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", RegisteredForVAT.options.head.value))
 
       val result = controller().onSubmit()(postRequest)
 
@@ -84,7 +84,7 @@ class RegisteredForVATECSalesControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    for (option <- RegisteredForVATECSales.options) {
+    for (option <- RegisteredForVAT.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
         val result = controller(dontGetAnyData).onSubmit()(postRequest)

@@ -17,16 +17,15 @@
 package forms.vat.ec
 
 import javax.inject.Inject
-
 import forms.FormErrorHelper
 import forms.mappings.Mappings
+import models.vat.RegisteredForVAT
 import play.api.data.Form
-import models.vat.ec.RegisteredForVATECSales
 
 class RegisteredForVATECSalesFormProvider @Inject() extends FormErrorHelper with Mappings {
 
-  def apply(): Form[RegisteredForVATECSales] =
+  def apply(): Form[RegisteredForVAT] =
     Form(
-      "value" -> enumerable[RegisteredForVATECSales]("registeredForVATECSales.error.required")
+      "value" -> enumerable[RegisteredForVAT]("registeredForVATECSales.error.required")
     )
 }
