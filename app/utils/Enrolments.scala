@@ -99,14 +99,19 @@ object Enrolments {
     VATMOSSNonUnion
   )
 
-  def hasEnrolments(enrolments: core.Enrolments, names: String*) = names.exists(enrolments.getEnrolment(_).isDefined)
+  def hasEnrolments(enrolments: core.Enrolments, enrolmentTypes: HmrcEnrolmentType*) = enrolmentTypes.exists { t =>
+    enrolments.getEnrolment(t.toString).isDefined
+  }
 
 }
 
+sealed trait HmrcEnrolmentType
+
 object HmrcEnrolmentType {
 
-  val SA = "IR-SA"
+  case object SA extends WithName("IR-SA") with HmrcEnrolmentType
 
-  val CORP_TAX = "IR-CT"
+  case object CORP_TAX extends WithName("IR-CT") with HmrcEnrolmentType
 
+  val values: Set[HmrcEnrolmentType] = Set(SA, CORP_TAX)
 }

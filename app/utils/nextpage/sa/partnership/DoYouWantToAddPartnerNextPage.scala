@@ -28,20 +28,31 @@ import utils.HmrcEnrolmentType
 
 trait DoYouWantToAddPartnerNextPage {
 
-  implicit val doYouWantToAddPartner
-    : NextPage[DoYouWantToAddPartnerId.type, (DoYouWantToAddPartner, ServiceInfoRequest[AnyContent])] = {
-    new NextPage[DoYouWantToAddPartnerId.type, (DoYouWantToAddPartner, ServiceInfoRequest[AnyContent])] {
-      override def get(b: (DoYouWantToAddPartner, ServiceInfoRequest[AnyContent]))(
+  type DoYouWantToAddPartnerWithRequest = (DoYouWantToAddPartner, ServiceInfoRequest[AnyContent])
+
+  implicit val doYouWantToAddPartner: NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartnerWithRequest] = {
+
+    new NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartnerWithRequest] {
+
+      override def get(enrolmentDetails: DoYouWantToAddPartnerWithRequest)(
         implicit appConfig: FrontendAppConfig,
         request: Request[_]): Call =
-        (b._1, Enrolments.hasEnrolments(b._2.request.enrolments, HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX)) match {
+        (enrolmentDetails._1, hasSACTEnrolments(enrolmentDetails._2)) match {
+
           case (DoYouWantToAddPartner.Yes, true) =>
             Call("GET", appConfig.getIFormUrl("partnership"))
+
           case (DoYouWantToAddPartner.Yes, false) =>
             Call("GET", appConfig.getPublishedAssetsUrl("partnership"))
+
           case (DoYouWantToAddPartner.No, _) =>
             saPartnerRoutes.HaveYouRegisteredPartnershipController.onPageLoad()
         }
     }
   }
+
+  private def hasSACTEnrolments(serviceInfoRequest: ServiceInfoRequest[AnyContent]) =
+    Enrolments
+      .hasEnrolments(serviceInfoRequest.request.enrolments, HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX)
+
 }

@@ -25,20 +25,31 @@ import utils.{Enrolments, HmrcEnrolmentType, NextPage}
 
 trait HaveYouRegisteredPartnershipNextPage {
 
+  type HaveYouRegisteredPartnershipWithRequest = (HaveYouRegisteredPartnership, ServiceInfoRequest[AnyContent])
+
   implicit val haveYouRegisteredPartnership
-    : NextPage[HaveYouRegisteredPartnershipId.type, (HaveYouRegisteredPartnership, ServiceInfoRequest[AnyContent])] = {
-    new NextPage[HaveYouRegisteredPartnershipId.type, (HaveYouRegisteredPartnership, ServiceInfoRequest[AnyContent])] {
-      override def get(b: (HaveYouRegisteredPartnership, ServiceInfoRequest[AnyContent]))(
+    : NextPage[HaveYouRegisteredPartnershipId.type, HaveYouRegisteredPartnershipWithRequest] = {
+
+    new NextPage[HaveYouRegisteredPartnershipId.type, HaveYouRegisteredPartnershipWithRequest] {
+
+      override def get(enrolmentDetails: HaveYouRegisteredPartnershipWithRequest)(
         implicit appConfig: FrontendAppConfig,
         request: Request[_]): Call =
-        (b._1, Enrolments.hasEnrolments(b._2.request.enrolments, HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX)) match {
+        (enrolmentDetails._1, hasSACTEnrolments(enrolmentDetails._2)) match {
           case (HaveYouRegisteredPartnership.Yes, _) =>
             Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.SAPartnership))
+
           case (HaveYouRegisteredPartnership.No, true) =>
             Call("GET", appConfig.getIFormUrl("partnership"))
+
           case (HaveYouRegisteredPartnership.No, false) =>
             Call("GET", appConfig.getPublishedAssetsUrl("partnershipOther"))
         }
     }
+
   }
+
+  private def hasSACTEnrolments(serviceInfoRequest: ServiceInfoRequest[AnyContent]) =
+    Enrolments
+      .hasEnrolments(serviceInfoRequest.request.enrolments, HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX)
 }
