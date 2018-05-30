@@ -39,7 +39,7 @@ import utils.nextpage.vat.moss.iom._
 import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 import utils.nextpage.vat.ec.RegisteredForVATECSalesNextPage
-import utils.nextpage.vat.RegisteredForVATEURefundsNextPage
+import utils.nextpage.vat.eurefunds.RegisteredForVATEURefundsNextPage
 import utils.nextpage.vat.moss.noneu.HaveYouRegisteredForVATMOSSNextPage
 
 trait NextPage[A, B] {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package utils.nextpage.vat
+package utils.nextpage.vat.eurefunds
 
 import config.FrontendAppConfig
 import identifiers.RegisteredForVATEURefundsId
