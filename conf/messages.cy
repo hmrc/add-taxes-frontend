@@ -591,3 +591,16 @@ registeredForVATECSales.heading = A yw’r busnes wedi’i gofrestru ar gyfer TA
 registeredForVATECSales.Yes = Iawn
 registeredForVATECSales.No = Na
 registeredForVATECSales.error.required = Dewiswch Iawn os yw’r busnes wedi’i gofrestru ar gyfer TAW
+
+#######################################################
+##  WhichVATServicesToAdd
+#######################################################
+whichVATServicesToAdd.title = Pa wasanaeth TAW ydych eisiau ei ychwanegu?
+whichVATServicesToAdd.heading = Pa wasanaeth TAW ydych eisiau ei ychwanegu?
+whichVATServicesToAdd.vat = TAW
+whichVATServicesToAdd.ecsales = Rhestr Gwerthiannau yn y GE
+whichVATServicesToAdd.eurefunds = Ad-daliadau yn yr UE
+whichVATServicesToAdd.rcsl = Rhestr Gwerthiannau Tâl Gwrthdro (RCSL)
+whichVATServicesToAdd.moss = Gwasanaeth Un Cam (GUC)
+whichVATServicesToAdd.nova = Hysbysiad o Gerbydau'n Cyrraedd (NOVA)
+whichVATServicesToAdd.error.required = Dewis gwasanaeth TAW

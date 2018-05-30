@@ -618,3 +618,16 @@ registeredForVATECSales.heading = Is the business registered for VAT?
 registeredForVATECSales.Yes = Yes
 registeredForVATECSales.No = No
 registeredForVATECSales.error.required = Select yes if the business is registered for VAT
+
+#######################################################
+##  WhichVATServicesToAdd
+#######################################################
+whichVATServicesToAdd.title = Which VAT service do you want to add?
+whichVATServicesToAdd.heading = Which VAT service do you want to add?
+whichVATServicesToAdd.vat = VAT
+whichVATServicesToAdd.ecsales = EC Sales List
+whichVATServicesToAdd.eurefunds = EU Refunds
+whichVATServicesToAdd.rcsl = Reverse Charge Sales List (RCSL)
+whichVATServicesToAdd.moss = Mini One Stop Shop (MOSS)
+whichVATServicesToAdd.nova = Notification of Vehicle Arrivals (NOVA)
+whichVATServicesToAdd.error.required = Select a VAT service
