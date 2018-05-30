@@ -26,6 +26,7 @@ import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
+import forms.employer.IsBusinessRegisteredForPAYEFormProvider
 import identifiers.IsBusinessRegisteredForPAYEId
 import viewmodels.ViewAction
 import views.html.employer.isBusinessRegisteredForPAYE
@@ -44,12 +45,13 @@ class IsBusinessRegisteredForPAYEController @Inject()(
     with I18nSupport
     with Enumerable.Implicits {
 
+  lazy val viewAction = ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddCisUkContractor")
   val form = formProvider()
 
   lazy val action = ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "CisUkContractorEpaye")
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(isBusinessRegisteredForPAYE(appConfig, form, action)(request.serviceInfoContent))
+    Ok(isBusinessRegisteredForPAYE(appConfig, form, viewAction)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
@@ -58,8 +60,8 @@ class IsBusinessRegisteredForPAYEController @Inject()(
       .fold(
         (formWithErrors: Form[_]) =>
           Future.successful(
-            BadRequest(isBusinessRegisteredForPAYE(appConfig, formWithErrors, action)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(IsBusinessRegisteredForPAYEId, value)))
+            BadRequest(isBusinessRegisteredForPAYE(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
+        (value) => Future.successful(Redirect(navigator.nextPage(IsBusinessRegisteredForPAYEId.CIS, value)))
       )
   }
 }

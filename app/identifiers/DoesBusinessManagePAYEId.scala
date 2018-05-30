@@ -19,10 +19,14 @@ package identifiers
 object DoesBusinessManagePAYEId {
 
   case object EPaye extends Identifier {
-    override def toString: String = "epaye-doesBusinessManagePAYE"
+    override def toString: String = "doesBusinessManagePAYE.EPAYE"
   }
 
-  case object Intermediaries extends Identifier {
-    override def toString: String = "ei-doesBusinessManagePAYE"
+  case object EI extends Identifier {
+    override def toString: String = "doesBusinessManagePAYE.EI"
+  }
+
+  case object ERS extends Identifier {
+    override def toString: String = "doesBusinessManagePAYE.ERS"
   }
 }

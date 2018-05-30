@@ -18,6 +18,7 @@ package utils.nextpage.employer
 
 import config.FrontendAppConfig
 import controllers.employer.cis.uk.contractor.{routes => payeAccountRoutes}
+import controllers.employer.ers.{routes => ersRoutes}
 import controllers.employer.intermediaries.{routes => eiAccountRoutes}
 import identifiers.DoesBusinessManagePAYEId
 import models.employer.DoesBusinessManagePAYE
@@ -26,7 +27,7 @@ import utils.{Enrolments, NextPage}
 
 trait DoesBusinessManagePAYENextPage {
 
-  implicit val doesBusinessManageEPAYE: NextPage[DoesBusinessManagePAYEId.EPaye.type, DoesBusinessManagePAYE] = {
+  implicit val epayeDoesBusinessManagePAYE: NextPage[DoesBusinessManagePAYEId.EPaye.type, DoesBusinessManagePAYE] = {
     new NextPage[DoesBusinessManagePAYEId.EPaye.type, DoesBusinessManagePAYE] {
       override def get(b: DoesBusinessManagePAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
@@ -36,13 +37,22 @@ trait DoesBusinessManagePAYENextPage {
     }
   }
 
-  implicit val doesBusinessManagePAYEEI
-    : NextPage[DoesBusinessManagePAYEId.Intermediaries.type, DoesBusinessManagePAYE] = {
-    new NextPage[DoesBusinessManagePAYEId.Intermediaries.type, DoesBusinessManagePAYE] {
+  implicit val eiDoesBusinessManagePAYE: NextPage[DoesBusinessManagePAYEId.EI.type, DoesBusinessManagePAYE] = {
+    new NextPage[DoesBusinessManagePAYEId.EI.type, DoesBusinessManagePAYE] {
       override def get(b: DoesBusinessManagePAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoesBusinessManagePAYE.Yes => eiAccountRoutes.UsePAYEEmployerAccountController.onPageLoad()
           case DoesBusinessManagePAYE.No  => Call("GET", "/employment-intermediary-report/not-enrolled")
+        }
+    }
+  }
+
+  implicit val ersDoesBusinessManagePAYE: NextPage[DoesBusinessManagePAYEId.ERS.type, DoesBusinessManagePAYE] = {
+    new NextPage[DoesBusinessManagePAYEId.ERS.type, DoesBusinessManagePAYE] {
+      override def get(b: DoesBusinessManagePAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+        b match {
+          case DoesBusinessManagePAYE.Yes => ersRoutes.UseEmployersPAYEController.onPageLoad()
+          case DoesBusinessManagePAYE.No  => ersRoutes.AddEmployersPAYEController.onPageLoad()
         }
     }
   }

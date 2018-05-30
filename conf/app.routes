@@ -164,15 +164,27 @@ GET        /employer/cis/uk/contractor/register-epaye         controllers.employ
 GET        /employer/cis/uk/contractor                        controllers.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEController.onPageLoad()
 POST       /employer/cis/uk/contractor                        controllers.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEController.onSubmit()
 
-GET        /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onPageLoad()
-POST       /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onSubmit()
+GET        /other/gambling                               controllers.other.gambling.SelectGamblingOrGamingDutyController.onPageLoad()
+POST       /other/gambling                               controllers.other.gambling.SelectGamblingOrGamingDutyController.onSubmit()
 
-GET        /employer/intermediaries/epaye/other-account                       controllers.employer.intermediaries.UsePAYEEmployerAccountController.onPageLoad()
+GET        /employer/ers/epaye/other-account             controllers.employer.ers.UseEmployersPAYEController.onPageLoad()
 
-GET        /employer/intermediaries/epaye                  controllers.employer.intermediaries.DoesBusinessManagePAYEController.onPageLoad()
-POST       /employer/intermediaries/epaye                  controllers.employer.intermediaries.DoesBusinessManagePAYEController.onSubmit()
+GET        /employer/ers/epaye/not-enrolled              controllers.employer.ers.AddEmployersPAYEController.onPageLoad()
 
-GET        /employer/intermediaries/register-epaye                       controllers.employer.intermediaries.RegisterForPAYEController.onPageLoad()
+GET        /employer/ers/register-epaye                  controllers.employer.ers.RegisterEmployersPAYEController.onPageLoad()
 
-GET        /employer/intermediaries                        controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onPageLoad()
-POST       /employer/intermediaries                        controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onSubmit()
+GET        /employer/ers/epaye                           controllers.employer.ers.DoesBusinessManagePAYEController.onPageLoad()
+POST       /employer/ers/epaye                           controllers.employer.ers.DoesBusinessManagePAYEController.onSubmit()
+
+GET        /employer/ers                                 controllers.employer.ers.IsBusinessRegisteredForPAYEController.onPageLoad()
+POST       /employer/ers                                 controllers.employer.ers.IsBusinessRegisteredForPAYEController.onSubmit()
+
+GET        /employer/intermediaries/epaye/other-account  controllers.employer.intermediaries.UsePAYEEmployerAccountController.onPageLoad()
+
+GET        /employer/intermediaries/epaye                controllers.employer.intermediaries.DoesBusinessManagePAYEController.onPageLoad()
+POST       /employer/intermediaries/epaye                controllers.employer.intermediaries.DoesBusinessManagePAYEController.onSubmit()
+
+GET        /employer/intermediaries/register-epaye       controllers.employer.intermediaries.RegisterForPAYEController.onPageLoad()
+
+GET        /employer/intermediaries                      controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onPageLoad()
+POST       /employer/intermediaries                      controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onSubmit()

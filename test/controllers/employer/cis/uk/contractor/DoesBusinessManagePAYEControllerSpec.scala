@@ -19,12 +19,19 @@ package controllers.employer.cis.uk.contractor
 import play.api.data.Form
 import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
+import controllers.actions.{FakeServiceInfoAction, _}
+import forms.employer.DoesBusinessManagePAYEFormProvider
+import models.employer.DoesBusinessManagePAYE
+import play.api.data.Form
+import play.api.test.Helpers._
 import forms.employer.DoesBusinessManagePAYEFormProvider
 import play.api.test.Helpers._
 import models.employer.DoesBusinessManagePAYE
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
+import viewmodels.ViewAction
+import views.html.employer.doesBusinessManagePAYE
 import viewmodels.ViewAction
 import views.html.employer.doesBusinessManagePAYE
 
@@ -34,6 +41,7 @@ class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
 
   val formProvider = new DoesBusinessManagePAYEFormProvider()
   val form = formProvider()
+  val viewAction = ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "CisUkContractorEpaye")
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new DoesBusinessManagePAYEController(

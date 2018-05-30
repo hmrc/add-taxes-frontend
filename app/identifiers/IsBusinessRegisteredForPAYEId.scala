@@ -18,12 +18,16 @@ package identifiers
 
 object IsBusinessRegisteredForPAYEId {
 
-  case object IsBusinessRegisteredForPAYEId extends Identifier {
-    override def toString: String = "epaye-isBusinessRegisteredForPAYE"
+  case object CIS extends Identifier {
+    override def toString: String = "isBusinessRegisteredForPAYE.CIS"
   }
 
-  case object IsBusinessRegisteredForPAYEEIId extends Identifier {
-    override def toString: String = "ei-isBusinessRegisteredForPAYE"
+  case object ERS extends Identifier {
+    override def toString: String = "isBusinessRegisteredForPAYE.ERS"
+  }
+
+  case object EI extends Identifier {
+    override def toString: String = "isBusinessRegisteredForPAYE.EI"
   }
 
 }

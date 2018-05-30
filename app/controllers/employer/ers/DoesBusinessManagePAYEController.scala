@@ -14,42 +14,41 @@
  * limitations under the License.
  */
 
-package controllers.employer.intermediaries
+package controllers.employer.ers
 
 import javax.inject.Inject
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import forms.employer.IsBusinessRegisteredForPAYEFormProvider
-import identifiers.IsBusinessRegisteredForPAYEId
+import forms.employer.DoesBusinessManagePAYEFormProvider
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
+import identifiers.DoesBusinessManagePAYEId
 import viewmodels.ViewAction
-import views.html.employer.isBusinessRegisteredForPAYE
+import views.html.employer.doesBusinessManagePAYE
 
 import scala.concurrent.Future
 
-class IsBusinessRegisteredForPAYEController @Inject()(
+class DoesBusinessManagePAYEController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   dataCacheConnector: DataCacheConnector,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
-  formProvider: IsBusinessRegisteredForPAYEFormProvider)
+  formProvider: DoesBusinessManagePAYEFormProvider)
     extends FrontendController
     with I18nSupport
     with Enumerable.Implicits {
 
+  lazy val viewAction = ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "AddErsEpayeOnline")
   val form = formProvider()
 
-  lazy val action = ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddIntermediaries")
-
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(isBusinessRegisteredForPAYE(appConfig, form, action)(request.serviceInfoContent))
+    Ok(doesBusinessManagePAYE(appConfig, form, viewAction)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
@@ -58,8 +57,8 @@ class IsBusinessRegisteredForPAYEController @Inject()(
       .fold(
         (formWithErrors: Form[_]) =>
           Future.successful(
-            BadRequest(isBusinessRegisteredForPAYE(appConfig, formWithErrors, action)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(IsBusinessRegisteredForPAYEId.EI, value)))
+            BadRequest(doesBusinessManagePAYE(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
+        (value) => Future.successful(Redirect(navigator.nextPage(DoesBusinessManagePAYEId.ERS, value)))
       )
   }
 }

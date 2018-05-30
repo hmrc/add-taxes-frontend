@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package utils.nextpage.employer.intermediaries
+package utils.nextpage.employer.ers
 
 import models.employer.DoesBusinessManagePAYE
 import utils.NextPage
@@ -22,17 +22,17 @@ import utils.nextpage.NextPageSpecBase
 
 class DoesBusinessManagePAYENextPageSpec extends NextPageSpecBase {
 
-  "doesBusinessManagePAYEController" when {
+  "doesBusinessManagePAYE" when {
     behave like nextPage(
-      NextPage.eiDoesBusinessManagePAYE,
+      NextPage.ersDoesBusinessManagePAYE,
       DoesBusinessManagePAYE.Yes,
-      "/business-account/add-tax/employer/intermediaries/epaye/other-account"
+      "/business-account/add-tax/employer/ers/epaye/other-account"
     )
 
     behave like nextPage(
-      NextPage.eiDoesBusinessManagePAYE,
+      NextPage.ersDoesBusinessManagePAYE,
       DoesBusinessManagePAYE.No,
-      "/employment-intermediary-report/not-enrolled"
+      "/business-account/add-tax/employer/ers/epaye/not-enrolled"
     )
   }
 }

@@ -33,21 +33,20 @@ class IsBusinessRegisteredForPAYEViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
+  val viewAction = ViewAction(controllers.routes.IndexController.onPageLoad(), "")
+
   def createView =
-    () =>
-      isBusinessRegisteredForPAYE(
-        frontendAppConfig,
-        form,
-        ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddIntermediariesEpayeOnline"))(
-        serviceInfoContent)(fakeRequest, messages)
+    () => isBusinessRegisteredForPAYE(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm =
     (form: Form[_]) =>
-      isBusinessRegisteredForPAYE(
-        frontendAppConfig,
-        form,
-        ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddIntermediariesEpayeOnline"))(
-        serviceInfoContent)(fakeRequest, messages)
+      isBusinessRegisteredForPAYE(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
+  (form: Form[_]) =>
+    isBusinessRegisteredForPAYE(
+      frontendAppConfig,
+      form,
+      ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddIntermediariesEpayeOnline"))(
+      serviceInfoContent)(fakeRequest, messages)
 
   "IsBusinessRegisteredForPAYE view" must {
     behave like normalPage(createView, messageKeyPrefix)

@@ -59,7 +59,7 @@ class DoesBusinessManagePAYEController @Inject()(
         (formWithErrors: Form[_]) =>
           Future.successful(
             BadRequest(doesBusinessManagePAYE(appConfig, formWithErrors, action)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(DoesBusinessManagePAYEId.Intermediaries, value)))
+        (value) => Future.successful(Redirect(navigator.nextPage(DoesBusinessManagePAYEId.EI, value)))
       )
   }
 }

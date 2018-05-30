@@ -33,21 +33,20 @@ class DoesBusinessManagePAYEViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
+  val viewAction = ViewAction(controllers.routes.IndexController.onPageLoad(), "")
+
   def createView =
-    () =>
-      doesBusinessManagePAYE(
-        frontendAppConfig,
-        form,
-        ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "AddIntermediariesEpayeOnline"))(
-        serviceInfoContent)(fakeRequest, messages)
+    () => doesBusinessManagePAYE(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm =
     (form: Form[_]) =>
-      doesBusinessManagePAYE(
-        frontendAppConfig,
-        form,
-        ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "AddIntermediariesEpayeOnline"))(
-        serviceInfoContent)(fakeRequest, messages)
+      doesBusinessManagePAYE(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
+  (form: Form[_]) =>
+    doesBusinessManagePAYE(
+      frontendAppConfig,
+      form,
+      ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "AddIntermediariesEpayeOnline"))(
+      serviceInfoContent)(fakeRequest, messages)
 
   "DoesBusinessManagePAYE view" must {
     behave like normalPage(createView, messageKeyPrefix)
