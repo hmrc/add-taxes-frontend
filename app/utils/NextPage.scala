@@ -41,6 +41,7 @@ import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 import utils.nextpage.vat.ec.RegisteredForVATECSalesNextPage
 import utils.nextpage.vat.eurefunds.RegisteredForVATEURefundsNextPage
 import utils.nextpage.vat.moss.noneu.HaveYouRegisteredForVATMOSSNextPage
+import utils.nextpage.vat.rcsl.RegisteredForVATRCSLNextPage
 
 trait NextPage[A, B] {
   def get(b: B)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call
@@ -78,3 +79,4 @@ object NextPage
     with RegisteredForVATNextPage
     with RegisteredForVATECSalesNextPage
     with RegisteredForVATEURefundsNextPage
+    with RegisteredForVATRCSLNextPage

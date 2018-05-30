@@ -129,6 +129,9 @@ POST       /vat/ec                                      controllers.vat.ec.Regis
 GET        /vat/eurefunds                               controllers.vat.eurefunds.RegisteredForVATEURefundsController.onPageLoad()
 POST       /vat/eurefunds                               controllers.vat.eurefunds.RegisteredForVATEURefundsController.onSubmit()
 
+GET        /vat/rcsl                                    controllers.vat.rcsl.RegisteredForVATRCSLController.onPageLoad()
+POST       /vat/rcsl                                    controllers.vat.rcsl.RegisteredForVATRCSLController.onSubmit()
+
 GET        /vat/moss/uk                                 controllers.vat.moss.uk.RegisteredForVATUkController.onPageLoad()
 POST       /vat/moss/uk                                 controllers.vat.moss.uk.RegisteredForVATUkController.onSubmit()
 
