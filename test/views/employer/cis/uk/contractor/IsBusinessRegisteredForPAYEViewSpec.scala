@@ -20,8 +20,9 @@ import play.api.data.Form
 import forms.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEFormProvider
 import models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE
 import play.twirl.api.HtmlFormat
+import viewmodels.ViewAction
 import views.behaviours.ViewBehaviours
-import views.html.employer.cis.uk.contractor.isBusinessRegisteredForPAYE
+import views.html.employer.isBusinessRegisteredForPAYE
 
 class IsBusinessRegisteredForPAYEViewSpec extends ViewBehaviours {
 
@@ -31,10 +32,14 @@ class IsBusinessRegisteredForPAYEViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => isBusinessRegisteredForPAYE(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  val viewAction = ViewAction(controllers.routes.IndexController.onPageLoad(), "")
+
+  def createView =
+    () => isBusinessRegisteredForPAYE(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm =
-    (form: Form[_]) => isBusinessRegisteredForPAYE(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    (form: Form[_]) =>
+      isBusinessRegisteredForPAYE(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
 
   "IsBusinessRegisteredForPAYE view" must {
     behave like normalPage(createView, messageKeyPrefix)

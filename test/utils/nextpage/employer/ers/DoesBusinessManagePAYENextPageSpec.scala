@@ -14,16 +14,25 @@
  * limitations under the License.
  */
 
-package identifiers
+package utils.nextpage.employer.ers
 
-object IsBusinessRegisteredForPAYEId {
+import models.employer.ers.DoesBusinessManagePAYE
+import utils.NextPage
+import utils.nextpage.NextPageSpecBase
 
-  case object CIS extends Identifier {
-    override def toString: String = "isBusinessRegisteredForPAYE.CIS"
+class DoesBusinessManagePAYENextPageSpec extends NextPageSpecBase {
+
+  "doesBusinessManagePAYE" when {
+    behave like nextPage(
+      NextPage.ersDoesBusinessManagePAYE,
+      DoesBusinessManagePAYE.Yes,
+      "/business-account/add-tax/employer/ers/epaye/other-account"
+    )
+
+    behave like nextPage(
+      NextPage.ersDoesBusinessManagePAYE,
+      DoesBusinessManagePAYE.No,
+      "/business-account/add-tax/employer/ers/epaye/not-enrolled"
+    )
   }
-
-  case object ERS extends Identifier {
-    override def toString: String = "isBusinessRegisteredForPAYE.ERS"
-  }
-
 }

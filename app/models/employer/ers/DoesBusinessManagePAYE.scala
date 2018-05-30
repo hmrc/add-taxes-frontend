@@ -14,16 +14,26 @@
  * limitations under the License.
  */
 
-package identifiers
+package models.employer.ers
 
-object IsBusinessRegisteredForPAYEId {
+import utils.{Enumerable, RadioOption, WithName}
 
-  case object CIS extends Identifier {
-    override def toString: String = "isBusinessRegisteredForPAYE.CIS"
+sealed trait DoesBusinessManagePAYE
+
+object DoesBusinessManagePAYE {
+
+  case object Yes extends WithName("Yes") with DoesBusinessManagePAYE
+  case object No extends WithName("No") with DoesBusinessManagePAYE
+
+  val values: Set[DoesBusinessManagePAYE] = Set(
+    Yes,
+    No
+  )
+
+  val options: Set[RadioOption] = values.map { value =>
+    RadioOption("doesBusinessManagePAYE", value.toString)
   }
 
-  case object ERS extends Identifier {
-    override def toString: String = "isBusinessRegisteredForPAYE.ERS"
-  }
-
+  implicit val enumerable: Enumerable[DoesBusinessManagePAYE] =
+    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }
