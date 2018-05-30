@@ -49,7 +49,8 @@ class RegisteredForVATEURefundsController @Inject()(
     form
       .bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) => ???,
+        (formWithErrors: Form[_]) =>
+          Future.successful(BadRequest(registeredForVAT(appConfig, formWithErrors)(request.serviceInfoContent))),
         (value) => Future.successful(Redirect(navigator.nextPage(RegisteredForVATEURefundsId, value)))
       )
   }
