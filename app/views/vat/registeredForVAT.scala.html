@@ -17,7 +17,7 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
 @import controllers.vat.ec.routes._
-@import models.vat.ec.RegisteredForVATECSales
+@import models.vat.RegisteredForVAT
 
 
 @(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
@@ -35,7 +35,7 @@
         @components.input_radio(
             field = form("value"),
             legend = components.heading("registeredForVATECSales.heading").body,
-            inputs = RegisteredForVATECSales.options.toSeq
+            inputs = RegisteredForVAT.options.toSeq
         )
 
         @components.submit_button(gaEvent = "VatECNoVat")

@@ -28,7 +28,7 @@ import play.api.test.Helpers._
 import identifiers.RegisteredForVATECSalesId
 import models.vat.RegisteredForVAT
 import play.twirl.api.HtmlFormat
-import views.html.vat.ec.registeredForVATECSales
+import views.html.vat.registeredForVAT
 
 class RegisteredForVATECSalesControllerSpec extends ControllerSpecBase {
 
@@ -48,7 +48,7 @@ class RegisteredForVATECSalesControllerSpec extends ControllerSpecBase {
       formProvider)
 
   def viewAsString(form: Form[_] = form) =
-    registeredForVATECSales(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    registeredForVAT(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisteredForVATECSales Controller" must {
 

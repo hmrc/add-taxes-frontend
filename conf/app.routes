@@ -126,6 +126,9 @@ POST       /self-assessment                             controllers.sa.SelectSAC
 GET        /vat/ec                                      controllers.vat.ec.RegisteredForVATECSalesController.onPageLoad()
 POST       /vat/ec                                      controllers.vat.ec.RegisteredForVATECSalesController.onSubmit()
 
+GET        /vat/eurefunds                               controllers.vat.eurefunds.RegisteredForVATEURefundsController.onPageLoad()
+POST       /vat/eurefunds                               controllers.vat.eurefunds.RegisteredForVATEURefundsController.onSubmit()
+
 GET        /vat/moss/uk                                 controllers.vat.moss.uk.RegisteredForVATUkController.onPageLoad()
 POST       /vat/moss/uk                                 controllers.vat.moss.uk.RegisteredForVATUkController.onSubmit()
 

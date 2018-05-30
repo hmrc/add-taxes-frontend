@@ -14,47 +14,43 @@
  * limitations under the License.
  */
 
-package controllers.vat.ec
+package controllers.vat.eurefunds
 
 import javax.inject.Inject
-import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
+import config.FrontendAppConfig
 import forms.vat.RegisteredForVATFormProvider
+import identifiers.RegisteredForVATEURefundsId
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
-import identifiers.RegisteredForVATECSalesId
+import utils.Navigator
 import views.html.vat.registeredForVAT
 
 import scala.concurrent.Future
 
-class RegisteredForVATECSalesController @Inject()(
+class RegisteredForVATEURefundsController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  dataCacheConnector: DataCacheConnector,
-  navigator: Navigator,
   authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
+  navigator: Navigator,
+  serviceInfo: ServiceInfoAction,
   formProvider: RegisteredForVATFormProvider)
     extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+    with I18nSupport {
 
   val form = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
     Ok(registeredForVAT(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit = (authenticate andThen serviceInfo).async { implicit request =>
     form
       .bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(registeredForVAT(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(RegisteredForVATECSalesId, value)))
+        (formWithErrors: Form[_]) => ???,
+        (value) => Future.successful(Redirect(navigator.nextPage(RegisteredForVATEURefundsId, value)))
       )
   }
 }

@@ -21,7 +21,7 @@ import play.api.data.Form
 import models.vat.RegisteredForVAT
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.vat.ec.registeredForVATECSales
+import views.html.vat.registeredForVAT
 
 class RegisteredForVATECSalesViewSpec extends ViewBehaviours {
 
@@ -31,10 +31,10 @@ class RegisteredForVATECSalesViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => registeredForVATECSales(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView = () => registeredForVAT(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm =
-    (form: Form[_]) => registeredForVATECSales(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    (form: Form[_]) => registeredForVAT(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "RegisteredForVATECSales view" must {
     behave like normalPage(createView, messageKeyPrefix)
