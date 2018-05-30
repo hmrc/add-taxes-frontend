@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package utils.nextpage.employer.cis.uk.contractor
+package utils.nextpage.employer
 
 import config.FrontendAppConfig
+import controllers.employer.cis.uk.contractor.{routes => payeAccountRoutes}
+import controllers.employer.intermediaries.{routes => eiRoutes}
 import identifiers.IsBusinessRegisteredForPAYEId
+import identifiers.IsBusinessRegisteredForPAYEId.IsBusinessRegisteredForPAYEEIId
+import models.employer.IsBusinessRegisteredForPAYE
 import play.api.mvc.{Call, Request}
 import utils.NextPage
-import controllers.employer.cis.uk.contractor.{routes => payeAccountRoutes}
-import models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE
 
 trait IsBusinessRegisteredForPAYENextPage {
 
@@ -35,6 +37,20 @@ trait IsBusinessRegisteredForPAYENextPage {
             payeAccountRoutes.DoesBusinessManagePAYEController.onPageLoad()
           case IsBusinessRegisteredForPAYE.No =>
             payeAccountRoutes.RegisterForPAYEController.onPageLoad()
+        }
+    }
+  }
+
+  implicit val isBusinessRegisteredForPAYEEI
+    : NextPage[IsBusinessRegisteredForPAYEEIId.type, IsBusinessRegisteredForPAYE] = {
+    new NextPage[IsBusinessRegisteredForPAYEEIId.type, IsBusinessRegisteredForPAYE] {
+      override def get(
+        b: IsBusinessRegisteredForPAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+        b match {
+          case IsBusinessRegisteredForPAYE.Yes =>
+            eiRoutes.DoesBusinessManagePAYEController.onPageLoad()
+          case IsBusinessRegisteredForPAYE.No =>
+            eiRoutes.RegisterForPAYEController.onPageLoad()
         }
     }
   }

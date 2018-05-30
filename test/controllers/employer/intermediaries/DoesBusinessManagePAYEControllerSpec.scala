@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.employer.cis.uk.contractor
+package controllers.employer.intermediaries
 
 import play.api.data.Form
 import utils.FakeNavigator
@@ -22,8 +22,8 @@ import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import forms.employer.DoesBusinessManagePAYEFormProvider
-import play.api.test.Helpers._
 import models.employer.DoesBusinessManagePAYE
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import viewmodels.ViewAction
 import views.html.employer.doesBusinessManagePAYE
@@ -49,11 +49,11 @@ class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
     doesBusinessManagePAYE(
       frontendAppConfig,
       form,
-      ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "CisUkContractorEpaye"))(HtmlFormat.empty)(
+      ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "AddIntermediariesEpayeOnline"))(HtmlFormat.empty)(
       fakeRequest,
       messages).toString
 
-  "DoesBusinessManagePAYE Controller" must {
+  "DoesBusinessManagePAYEController Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad()(fakeRequest)
@@ -63,7 +63,8 @@ class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoesBusinessManagePAYE.options.head.value))
+      val postRequest =
+        fakeRequest.withFormUrlEncodedBody(("value", DoesBusinessManagePAYE.options.head.value))
 
       val result = controller().onSubmit()(postRequest)
 

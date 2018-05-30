@@ -16,6 +16,13 @@
 
 package identifiers
 
-case object DoesBusinessManagePAYEId extends Identifier {
-  override def toString: String = "doesBusinessManagePAYE"
+object DoesBusinessManagePAYEId {
+
+  case object EPaye extends Identifier {
+    override def toString: String = "epaye-doesBusinessManagePAYE"
+  }
+
+  case object Intermediaries extends Identifier {
+    override def toString: String = "ei-doesBusinessManagePAYE"
+  }
 }

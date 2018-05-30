@@ -14,25 +14,26 @@
  * limitations under the License.
  */
 
-package utils.nextpage.employer.cis.uk.contractor
+package utils.nextpage.employer.intermediaries
 
-import models.employer.DoesBusinessManagePAYE
+import models.employer.IsBusinessRegisteredForPAYE
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
-class DoesBusinessManagePAYENextPageSpec extends NextPageSpecBase {
+class IsBusinessRegisteredForPAYENextPageSpec extends NextPageSpecBase {
 
-  "DoesBusinessManagePAYE" when {
+  "IsBusinessRegisteredForPAYE" when {
     behave like nextPage(
-      NextPage.doesBusinessManageEPAYE,
-      DoesBusinessManagePAYE.Yes,
-      "/business-account/add-tax/employer/cis/uk/contractor/epaye/other-account"
+      NextPage.isBusinessRegisteredForPAYEEI,
+      IsBusinessRegisteredForPAYE.Yes,
+      "/business-account/add-tax/employer/intermediaries/epaye"
     )
 
     behave like nextPage(
-      NextPage.doesBusinessManageEPAYE,
-      DoesBusinessManagePAYE.No,
-      "http://localhost:9555/enrolment-management-frontend/HMRC-CIS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+      NextPage.isBusinessRegisteredForPAYEEI,
+      IsBusinessRegisteredForPAYE.No,
+      "/business-account/add-tax/employer/intermediaries/register-epaye"
     )
   }
+
 }

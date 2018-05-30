@@ -17,27 +17,35 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
 @import controllers.employer.cis.uk.contractor.routes._
-@import models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE
+@import models.employer.DoesBusinessManagePAYE
+@import viewmodels.ViewAction
 
 
-@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_], viewAction: ViewAction)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("isBusinessRegisteredForPAYE.title"),
+    title = messages("doesBusinessManagePAYE.title"),
     appConfig = appConfig,
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = IsBusinessRegisteredForPAYEController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    @helpers.form(action = viewAction.call, 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
+        @components.heading("doesBusinessManagePAYE.heading")
+
+        <p>
+            @messages("doesBusinessManagePAYE.p1")
+        </p>
+
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("isBusinessRegisteredForPAYE.heading").body,
-            inputs = IsBusinessRegisteredForPAYE.options.toSeq
+            legend = messages("doesBusinessManagePAYE.heading"),
+            legendClass = Some("visuallyhidden"),
+            inputs = DoesBusinessManagePAYE.options.toSeq
         )
 
-        @components.submit_button(gaEvent = "AddCisUkContractor")
+        @components.submit_button(gaEvent = viewAction.gaEvent)
     }
 }

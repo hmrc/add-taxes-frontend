@@ -21,14 +21,14 @@ import javax.inject.Inject
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
+import forms.employer.IsBusinessRegisteredForPAYEFormProvider
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-
-import forms.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEFormProvider
 import identifiers.IsBusinessRegisteredForPAYEId
-import views.html.employer.cis.uk.contractor.isBusinessRegisteredForPAYE
+import viewmodels.ViewAction
+import views.html.employer.isBusinessRegisteredForPAYE
 
 import scala.concurrent.Future
 
@@ -46,8 +46,10 @@ class IsBusinessRegisteredForPAYEController @Inject()(
 
   val form = formProvider()
 
+  lazy val action = ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "CisUkContractorEpaye")
+
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(isBusinessRegisteredForPAYE(appConfig, form)(request.serviceInfoContent))
+    Ok(isBusinessRegisteredForPAYE(appConfig, form, action)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
@@ -56,7 +58,7 @@ class IsBusinessRegisteredForPAYEController @Inject()(
       .fold(
         (formWithErrors: Form[_]) =>
           Future.successful(
-            BadRequest(isBusinessRegisteredForPAYE(appConfig, formWithErrors)(request.serviceInfoContent))),
+            BadRequest(isBusinessRegisteredForPAYE(appConfig, formWithErrors, action)(request.serviceInfoContent))),
         (value) => Future.successful(Redirect(navigator.nextPage(IsBusinessRegisteredForPAYEId, value)))
       )
   }

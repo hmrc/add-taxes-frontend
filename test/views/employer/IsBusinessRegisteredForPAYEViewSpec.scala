@@ -14,58 +14,62 @@
  * limitations under the License.
  */
 
-package views.employer.cis.uk.contractor
+package views.employer
 
+import controllers.employer.intermediaries.routes
+import forms.employer.IsBusinessRegisteredForPAYEFormProvider
+import models.employer.IsBusinessRegisteredForPAYE
 import play.api.data.Form
-import forms.employer.cis.uk.contractor.DoesBusinessManagePAYEFormProvider
-import models.employer.cis.uk.contractor.DoesBusinessManagePAYE
 import play.twirl.api.HtmlFormat
+import viewmodels.ViewAction
 import views.behaviours.ViewBehaviours
-import views.html.employer.cis.uk.contractor.doesBusinessManagePAYE
+import views.html.employer.isBusinessRegisteredForPAYE
 
-class DoesBusinessManagePAYEViewSpec extends ViewBehaviours {
+class IsBusinessRegisteredForPAYEViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "doesBusinessManagePAYE"
+  val messageKeyPrefix = "isBusinessRegisteredForPAYE"
 
-  val form = new DoesBusinessManagePAYEFormProvider()()
+  val form = new IsBusinessRegisteredForPAYEFormProvider()()
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => doesBusinessManagePAYE(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView =
+    () =>
+      isBusinessRegisteredForPAYE(
+        frontendAppConfig,
+        form,
+        ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddIntermediariesEpayeOnline"))(
+        serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm =
-    (form: Form[_]) => doesBusinessManagePAYE(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    (form: Form[_]) =>
+      isBusinessRegisteredForPAYE(
+        frontendAppConfig,
+        form,
+        ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddIntermediariesEpayeOnline"))(
+        serviceInfoContent)(fakeRequest, messages)
 
-  "DoesBusinessManagePAYE view" must {
+  "IsBusinessRegisteredForPAYE view" must {
     behave like normalPage(createView, messageKeyPrefix)
-
-    "Render the correct content" in {
-      val doc = asDocument(createView())
-      val view = doc.text()
-
-      view must include(
-        "You’ll have an online HMRC account like this one, but it will use a different User ID and password")
-
-    }
   }
 
-  "DoesBusinessManagePAYE view" when {
+  "IsBusinessRegisteredForPAYE view" when {
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- DoesBusinessManagePAYE.options) {
+        for (option <- IsBusinessRegisteredForPAYE.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
       }
     }
 
-    for (option <- DoesBusinessManagePAYE.options) {
+    for (option <- IsBusinessRegisteredForPAYE.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for (unselectedOption <- DoesBusinessManagePAYE.options.filterNot(o => o == option)) {
+          for (unselectedOption <- IsBusinessRegisteredForPAYE.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

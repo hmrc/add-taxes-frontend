@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package forms.employer.cis.uk.contractor
+package forms.employer
 
 import javax.inject.Inject
 
 import forms.FormErrorHelper
 import forms.mappings.Mappings
+import models.employer.DoesBusinessManagePAYE
 import play.api.data.Form
-import models.employer.cis.uk.contractor.DoesBusinessManagePAYE
 
 class DoesBusinessManagePAYEFormProvider @Inject() extends FormErrorHelper with Mappings {
 

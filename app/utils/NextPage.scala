@@ -19,7 +19,7 @@ package utils
 import config.FrontendAppConfig
 import play.api.mvc.{Call, Request}
 import utils.nextpage.OtherTaxesNextPage
-import utils.nextpage.employer.cis.uk.contractor.{DoesBusinessManagePAYENextPage, IsBusinessRegisteredForPAYENextPage}
+import utils.nextpage.employer.{DoesBusinessManagePAYENextPage, IsBusinessRegisteredForPAYENextPage}
 import utils.nextpage.employer.pension.WhichPensionSchemeToAddNextPage
 import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
 import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage

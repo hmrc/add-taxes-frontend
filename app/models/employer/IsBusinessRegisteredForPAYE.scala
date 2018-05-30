@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-package models.employer.cis.uk.contractor
+package models.employer
 
 import utils.{Enumerable, RadioOption, WithName}
 
+/**
+  * Created by user on 30/05/18.
+  */
 sealed trait IsBusinessRegisteredForPAYE
 
 object IsBusinessRegisteredForPAYE {

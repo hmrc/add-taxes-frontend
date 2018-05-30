@@ -166,3 +166,13 @@ POST       /employer/cis/uk/contractor                        controllers.employ
 
 GET        /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onPageLoad()
 POST       /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onSubmit()
+
+GET        /employer/intermediaries/epaye/other-account                       controllers.employer.intermediaries.UsePAYEEmployerAccountController.onPageLoad()
+
+GET        /employer/intermediaries/epaye                  controllers.employer.intermediaries.DoesBusinessManagePAYEController.onPageLoad()
+POST       /employer/intermediaries/epaye                  controllers.employer.intermediaries.DoesBusinessManagePAYEController.onSubmit()
+
+GET        /employer/intermediaries/register-epaye                       controllers.employer.intermediaries.RegisterForPAYEController.onPageLoad()
+
+GET        /employer/intermediaries                        controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onPageLoad()
+POST       /employer/intermediaries                        controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onSubmit()

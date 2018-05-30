@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-package controllers.employer.cis.uk.contractor
+package controllers.employer.intermediaries
 
-import play.api.data.Form
-import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import forms.employer.DoesBusinessManagePAYEFormProvider
+import controllers.actions.{FakeServiceInfoAction, _}
+import forms.employer.IsBusinessRegisteredForPAYEFormProvider
+import models.employer.IsBusinessRegisteredForPAYE
+import play.api.data.Form
 import play.api.test.Helpers._
-import models.employer.DoesBusinessManagePAYE
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import viewmodels.ViewAction
-import views.html.employer.doesBusinessManagePAYE
+import views.html.employer.isBusinessRegisteredForPAYE
 
-class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
+class IsBusinessRegisteredForPAYEControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = controllers.routes.IndexController.onPageLoad()
 
-  val formProvider = new DoesBusinessManagePAYEFormProvider()
+  val formProvider = new IsBusinessRegisteredForPAYEFormProvider()
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new DoesBusinessManagePAYEController(
+    new IsBusinessRegisteredForPAYEController(
       frontendAppConfig,
       messagesApi,
       FakeDataCacheConnector,
@@ -46,14 +46,14 @@ class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
       formProvider)
 
   def viewAsString(form: Form[_] = form) =
-    doesBusinessManagePAYE(
+    isBusinessRegisteredForPAYE(
       frontendAppConfig,
       form,
-      ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "CisUkContractorEpaye"))(HtmlFormat.empty)(
+      ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddIntermediaries"))(HtmlFormat.empty)(
       fakeRequest,
       messages).toString
 
-  "DoesBusinessManagePAYE Controller" must {
+  "IsBusinessRegisteredForPAYE Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad()(fakeRequest)
@@ -63,7 +63,7 @@ class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoesBusinessManagePAYE.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IsBusinessRegisteredForPAYE.options.head.value))
 
       val result = controller().onSubmit()(postRequest)
 
@@ -87,7 +87,7 @@ class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    for (option <- DoesBusinessManagePAYE.options) {
+    for (option <- IsBusinessRegisteredForPAYE.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
         val result = controller(dontGetAnyData).onSubmit()(postRequest)

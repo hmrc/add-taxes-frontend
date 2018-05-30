@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.employer.cis.uk.contractor
+package controllers.employer.intermediaries
 
 import javax.inject.Inject
 
@@ -22,11 +22,11 @@ import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.employer.DoesBusinessManagePAYEFormProvider
+import identifiers.DoesBusinessManagePAYEId
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-import identifiers.DoesBusinessManagePAYEId
 import viewmodels.ViewAction
 import views.html.employer.doesBusinessManagePAYE
 
@@ -46,7 +46,7 @@ class DoesBusinessManagePAYEController @Inject()(
 
   val form = formProvider()
 
-  lazy val action = ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "CisUkContractorEpaye")
+  lazy val action = ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "AddIntermediariesEpayeOnline")
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(doesBusinessManagePAYE(appConfig, form, action)(request.serviceInfoContent))
@@ -59,7 +59,7 @@ class DoesBusinessManagePAYEController @Inject()(
         (formWithErrors: Form[_]) =>
           Future.successful(
             BadRequest(doesBusinessManagePAYE(appConfig, formWithErrors, action)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(DoesBusinessManagePAYEId.EPaye, value)))
+        (value) => Future.successful(Redirect(navigator.nextPage(DoesBusinessManagePAYEId.Intermediaries, value)))
       )
   }
 }

@@ -14,23 +14,35 @@
  * limitations under the License.
  */
 
-package utils.nextpage.employer.cis.uk.contractor
+package utils.nextpage.employer
 
 import config.FrontendAppConfig
+import controllers.employer.cis.uk.contractor.{routes => payeAccountRoutes}
+import controllers.employer.intermediaries.{routes => eiAccountRoutes}
 import identifiers.DoesBusinessManagePAYEId
-import models.employer.cis.uk.contractor.DoesBusinessManagePAYE
+import models.employer.DoesBusinessManagePAYE
 import play.api.mvc.{Call, Request}
 import utils.{Enrolments, NextPage}
-import controllers.employer.cis.uk.contractor.{routes => payeAccountRoutes}
 
 trait DoesBusinessManagePAYENextPage {
 
-  implicit val doesBusinessManagePAYE: NextPage[DoesBusinessManagePAYEId.type, DoesBusinessManagePAYE] = {
-    new NextPage[DoesBusinessManagePAYEId.type, DoesBusinessManagePAYE] {
+  implicit val doesBusinessManageEPAYE: NextPage[DoesBusinessManagePAYEId.EPaye.type, DoesBusinessManagePAYE] = {
+    new NextPage[DoesBusinessManagePAYEId.EPaye.type, DoesBusinessManagePAYE] {
       override def get(b: DoesBusinessManagePAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoesBusinessManagePAYE.Yes => payeAccountRoutes.UsePAYEEmployerAccountController.onPageLoad()
           case DoesBusinessManagePAYE.No  => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.AddCis))
+        }
+    }
+  }
+
+  implicit val doesBusinessManagePAYEEI
+    : NextPage[DoesBusinessManagePAYEId.Intermediaries.type, DoesBusinessManagePAYE] = {
+    new NextPage[DoesBusinessManagePAYEId.Intermediaries.type, DoesBusinessManagePAYE] {
+      override def get(b: DoesBusinessManagePAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+        b match {
+          case DoesBusinessManagePAYE.Yes => eiAccountRoutes.UsePAYEEmployerAccountController.onPageLoad()
+          case DoesBusinessManagePAYE.No  => Call("GET", "/employment-intermediary-report/not-enrolled")
         }
     }
   }
