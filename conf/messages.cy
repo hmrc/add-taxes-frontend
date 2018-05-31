@@ -566,6 +566,16 @@ whereIsYourBusinessBased.Iom = Ynys Manaw
 whereIsYourBusinessBased.error.required = Dewis lleoliad
 
 #######################################################
+##  HaveYouRegisteredForVATMOSS
+#######################################################
+haveYouRegisteredForVATMOSS.title = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
+haveYouRegisteredForVATMOSS.heading = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
+haveYouRegisteredForVATMOSS.subtext = Byddwch wedi cael rhif adnabod GUC TAW os ydych eisoes wedi cofrestru
+haveYouRegisteredForVATMOSS.Yes = Ydw - rwyf eisoes wedi cofrestru ar gyfer GUC TAW
+haveYouRegisteredForVATMOSS.No = Nac ydw - nid wyf wedi cofrestru ar gyfer GUC TAW ar hyn o bryd
+haveYouRegisteredForVATMOSS.error.required = Dewis iawn neu na
+
+#######################################################
 ##  AlreadyRegisteredForVATMoss
 #######################################################
 alreadyRegisteredForVATMoss.title = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
