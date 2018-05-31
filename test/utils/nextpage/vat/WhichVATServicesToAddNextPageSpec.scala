@@ -56,7 +56,7 @@ class WhichVATServicesToAddNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.whichVATServicesToAdd,
       WhichVATServicesToAdd.NOVA,
-      "http://localhost:8080/portal/business-registration/introduction?lang=eng"
+      "http://localhost:8080/portal/nova/normal?lang=eng"
     )
   }
 }

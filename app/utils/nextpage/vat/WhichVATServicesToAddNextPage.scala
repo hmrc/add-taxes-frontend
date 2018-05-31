@@ -31,12 +31,12 @@ trait WhichVATServicesToAddNextPage {
     new NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAdd] {
       override def get(b: WhichVATServicesToAdd)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case WhichVATServicesToAdd.VAT       => ???
+          case WhichVATServicesToAdd.VAT       => Call("GET", appConfig.getPortalUrl("businessRegistration"))
           case WhichVATServicesToAdd.ECSales   => ecRoutes.RegisteredForVATECSalesController.onPageLoad()
           case WhichVATServicesToAdd.EURefunds => euRoutes.RegisteredForVATEURefundsController.onPageLoad()
           case WhichVATServicesToAdd.RCSL      => rcslRoutes.RegisteredForVATRCSLController.onPageLoad()
           case WhichVATServicesToAdd.MOSS      => ???
-          case WhichVATServicesToAdd.NOVA      => ???
+          case WhichVATServicesToAdd.NOVA      => Call("GET", appConfig.getPortalUrl("novaEnrolment"))
         }
     }
   }
