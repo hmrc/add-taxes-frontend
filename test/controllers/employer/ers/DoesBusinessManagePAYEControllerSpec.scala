@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package controllers.employer.cis.uk.contractor
+package controllers.employer.ers
 
 import connectors.FakeDataCacheConnector
 import controllers._
 import controllers.actions.{FakeServiceInfoAction, _}
-import forms.employer.cis.uk.contractor.DoesBusinessManagePAYEFormProvider
-import models.employer.cis.uk.contractor.DoesBusinessManagePAYE
+import forms.employer.ers.DoesBusinessManagePAYEFormProvider
+import models.employer.ers.DoesBusinessManagePAYE
 import play.api.data.Form
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
@@ -34,7 +34,7 @@ class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
 
   val formProvider = new DoesBusinessManagePAYEFormProvider()
   val form = formProvider()
-  val viewAction = ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "CisUkContractorEpaye")
+  val viewAction = ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "AddErsEpayeOnline")
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new DoesBusinessManagePAYEController(

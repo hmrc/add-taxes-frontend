@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package views.employer.cis.uk.contractor
+package views.employer
 
-import play.api.data.Form
 import forms.employer.cis.uk.contractor.DoesBusinessManagePAYEFormProvider
 import models.employer.cis.uk.contractor.DoesBusinessManagePAYE
+import play.api.data.Form
 import play.twirl.api.HtmlFormat
+import viewmodels.ViewAction
 import views.behaviours.ViewBehaviours
-import views.html.employer.cis.uk.contractor.doesBusinessManagePAYE
+import views.html.employer.doesBusinessManagePAYE
 
 class DoesBusinessManagePAYEViewSpec extends ViewBehaviours {
 
@@ -31,10 +32,14 @@ class DoesBusinessManagePAYEViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => doesBusinessManagePAYE(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  val viewAction = ViewAction(controllers.routes.IndexController.onPageLoad(), "")
+
+  def createView =
+    () => doesBusinessManagePAYE(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm =
-    (form: Form[_]) => doesBusinessManagePAYE(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    (form: Form[_]) =>
+      doesBusinessManagePAYE(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
 
   "DoesBusinessManagePAYE view" must {
     behave like normalPage(createView, messageKeyPrefix)

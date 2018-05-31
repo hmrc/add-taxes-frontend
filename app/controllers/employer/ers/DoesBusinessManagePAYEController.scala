@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.employer.cis.uk.contractor
+package controllers.employer.ers
 
 import javax.inject.Inject
 
@@ -25,7 +25,7 @@ import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-import forms.employer.cis.uk.contractor.DoesBusinessManagePAYEFormProvider
+import forms.employer.ers.DoesBusinessManagePAYEFormProvider
 import identifiers.DoesBusinessManagePAYEId
 import viewmodels.ViewAction
 import views.html.employer.doesBusinessManagePAYE
@@ -44,7 +44,7 @@ class DoesBusinessManagePAYEController @Inject()(
     with I18nSupport
     with Enumerable.Implicits {
 
-  lazy val viewAction = ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "CisUkContractorEpaye")
+  lazy val viewAction = ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "AddErsEpayeOnline")
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>

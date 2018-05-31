@@ -629,3 +629,32 @@ registerInHomeCountry.heading = Register in your home country
 registerInHomeCountry.p1=You should register for VAT MOSS with the tax authority in the home country of your business.
 registerInHomeCountry.p2=If you want to register for VAT MOSS in the UK, you need to
 registerInHomeCountry.callUs = call us.
+
+#######################################################
+##  UseEmployersPAYE
+#######################################################
+useEmployersPAYE.title = Use your PAYE for employers account
+useEmployersPAYE.heading = Use your PAYE for employers account
+useEmployersPAYE.subtext = You have to manage employment related securities (ERS) in the same account that you manage PAYE for employers.
+useEmployersPAYE.continue = Sign in to your PAYE for employers account
+useEmployersPAYE.notnow = I don’t want to do this right now
+
+#######################################################
+##  AddEmployersPAYE
+#######################################################
+addEmployersPAYE.title = Add PAYE for employers first
+addEmployersPAYE.heading = Add PAYE for employers first
+addEmployersPAYE.subtext1 = You have to manage PAYE for employers online before you can manage employment related securities (ERS).
+addEmployersPAYE.subtext2 = Add PAYE for employers to this account, then come back and add employment related securities (ERS) afterwards.
+addEmployersPAYE.continue = Add PAYE for employers
+addEmployersPAYE.notnow = I don’t want to do this right now
+
+#######################################################
+##  RegisterEmployersPAYE
+#######################################################
+registerEmployersPAYE.title = Register for PAYE for employers first
+registerEmployersPAYE.heading = Register for PAYE for employers first
+registerEmployersPAYE.subtext1 = You need to be registered for PAYE for employers before you can manage employment related securities (ERS) online.
+registerEmployersPAYE.subtext2 = Register for PAYE for employers, then come back and add employment related securities afterwards.
+registerEmployersPAYE.continue = Register for PAYE for employers
+registerEmployersPAYE.notnow = I don’t want to do this right now

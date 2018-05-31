@@ -14,16 +14,19 @@
  * limitations under the License.
  */
 
-package identifiers
+package forms.employer.ers
 
-object IsBusinessRegisteredForPAYEId {
+import javax.inject.Inject
 
-  case object CIS extends Identifier {
-    override def toString: String = "isBusinessRegisteredForPAYE.CIS"
-  }
+import forms.FormErrorHelper
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.employer.ers.DoesBusinessManagePAYE
 
-  case object ERS extends Identifier {
-    override def toString: String = "isBusinessRegisteredForPAYE.ERS"
-  }
+class DoesBusinessManagePAYEFormProvider @Inject() extends FormErrorHelper with Mappings {
 
+  def apply(): Form[DoesBusinessManagePAYE] =
+    Form(
+      "value" -> enumerable[DoesBusinessManagePAYE]("doesBusinessManagePAYE.error.required")
+    )
 }
