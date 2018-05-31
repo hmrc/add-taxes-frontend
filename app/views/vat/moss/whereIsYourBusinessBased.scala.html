@@ -16,35 +16,28 @@
 
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
-@import controllers.vat.moss.uk.routes._
-@import models.vat.moss.uk.RegisteredForVATUk
+@import controllers.vat.moss.routes._
+@import models.vat.moss.WhereIsYourBusinessBased
 
 
 @(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("registeredForVATUk.title"),
+    title = messages("whereIsYourBusinessBased.title"),
     appConfig = appConfig,
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = RegisteredForVATUkController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    @helpers.form(action = WhereIsYourBusinessBasedController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("registeredForVATUk.heading")
-
-        <p>
-            @messages("registeredForVATUk.p1")
-        </p>
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("registeredForVATUk.heading"),
-            legendClass = Some("visuallyhidden"),
-            inputs = RegisteredForVATUk.options.toSeq
+            legend = components.heading("whereIsYourBusinessBased.heading").body,
+            inputs = WhereIsYourBusinessBased.options.toSeq
         )
 
-        @components.submit_button(gaEvent = "VatMossNoVatUk")
+        @components.submit_button(gaEvent = "NoVatVatMoss")
     }
 }

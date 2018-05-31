@@ -14,25 +14,19 @@
  * limitations under the License.
  */
 
-package controllers.vat.moss.uk
+package forms.vat.moss
 
 import javax.inject.Inject
 
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import controllers.actions._
-import config.FrontendAppConfig
-import views.html.vat.moss.uk.addVATFirst
+import forms.FormErrorHelper
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.vat.moss.WhereIsYourBusinessBased
 
-class AddVATFirstController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  authenticate: AuthAction,
-  serviceInfo: ServiceInfoAction
-) extends FrontendController
-    with I18nSupport {
+class WhereIsYourBusinessBasedFormProvider @Inject() extends FormErrorHelper with Mappings {
 
-  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(addVATFirst(appConfig)(request.serviceInfoContent))
-  }
+  def apply(): Form[WhereIsYourBusinessBased] =
+    Form(
+      "value" -> enumerable[WhereIsYourBusinessBased]("whereIsYourBusinessBased.error.required")
+    )
 }

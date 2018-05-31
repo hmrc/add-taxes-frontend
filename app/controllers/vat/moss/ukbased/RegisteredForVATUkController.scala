@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.vat.moss.uk
+package controllers.vat.moss.ukbased
 
 import javax.inject.Inject
 
@@ -28,7 +28,7 @@ import utils.{Enumerable, Navigator}
 
 import forms.vat.moss.uk.RegisteredForVATUkFormProvider
 import identifiers.RegisteredForVATUkId
-import views.html.vat.moss.uk.registeredForVATUk
+import views.html.vat.moss.ukbased.registeredForVATUk
 
 import scala.concurrent.Future
 

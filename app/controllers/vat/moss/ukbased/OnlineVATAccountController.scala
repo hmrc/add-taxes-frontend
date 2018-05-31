@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.sa.partnership
+package controllers.vat.moss.ukbased
 
 import javax.inject.Inject
 
@@ -26,28 +26,28 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 
-import forms.sa.partnership.DoYouWantToAddPartnerFormProvider
-import identifiers.DoYouWantToAddPartnerId
-import views.html.sa.partnership.doYouWantToAddPartner
+import forms.vat.moss.uk.OnlineVATAccountFormProvider
+import identifiers.OnlineVATAccountId
+import views.html.vat.moss.ukbased.onlineVATAccount
 
 import scala.concurrent.Future
 
-class DoYouWantToAddPartnerController @Inject()(
+class OnlineVATAccountController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   dataCacheConnector: DataCacheConnector,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
-  formProvider: DoYouWantToAddPartnerFormProvider)
-    extends FrontendController
+  formProvider: OnlineVATAccountFormProvider
+) extends FrontendController
     with I18nSupport
     with Enumerable.Implicits {
 
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouWantToAddPartner(appConfig, form)(request.serviceInfoContent))
+    Ok(onlineVATAccount(appConfig, form)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
@@ -55,8 +55,8 @@ class DoYouWantToAddPartnerController @Inject()(
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(doYouWantToAddPartner(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(DoYouWantToAddPartnerId, (value, request))))
+          Future.successful(BadRequest(onlineVATAccount(appConfig, formWithErrors)(request.serviceInfoContent))),
+        (value) => Future.successful(Redirect(navigator.nextPage(OnlineVATAccountId, value)))
       )
   }
 }

@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-package controllers.vat.moss.uk
+package controllers.vat.moss.ukbased
 
 import controllers._
 import controllers.actions._
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import views.html.vat.moss.uk.addVATMOSS
+import views.html.vat.moss.ukbased.registerForVAT
 
-class AddVATMOSSControllerSpec extends ControllerSpecBase {
+class RegisterForVATControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new AddVATMOSSController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+    new RegisterForVATController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
-  def viewAsString() = addVATMOSS(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString() = registerForVAT(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  "AddVATMOSS Controller" must {
-
+  "RegisterForVAT Controller" must {
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(fakeRequest)
 

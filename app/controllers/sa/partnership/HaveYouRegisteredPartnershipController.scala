@@ -57,7 +57,7 @@ class HaveYouRegisteredPartnershipController @Inject()(
         (formWithErrors: Form[_]) =>
           Future.successful(
             BadRequest(haveYouRegisteredPartnership(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(HaveYouRegisteredPartnershipId, value)))
+        (value) => Future.successful(Redirect(navigator.nextPage(HaveYouRegisteredPartnershipId, (value, request))))
       )
   }
 }

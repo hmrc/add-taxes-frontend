@@ -16,23 +16,57 @@
 
 package utils.nextpage.sa.partnership
 
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
+import models.sa.partnership.DoYouWantToAddPartner
+import play.api.mvc.{AnyContent, AnyContentAsEmpty}
+import play.twirl.api.Html
+import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
+import utils.HmrcEnrolmentType
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
-import models.sa.partnership.DoYouWantToAddPartner
 
 class DoYouWantToAddPartnerNextPageSpec extends NextPageSpecBase {
 
   "SA Partnership" when {
-    behave like nextPage(
+    behave like nextPageWithEnrolments(
       NextPage.doYouWantToAddPartner,
-      DoYouWantToAddPartner.Yes,
-      "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/359508/sa401-static.pdf"
+      (DoYouWantToAddPartner.Yes, serviceRequest),
+      DoYouWantToAddPartner.Yes.toString,
+      "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/359508/sa401-static.pdf",
+      "no SA or CT Enrolments"
     )
 
-    behave like nextPage(
+    behave like nextPageWithEnrolments(
       NextPage.doYouWantToAddPartner,
-      DoYouWantToAddPartner.No,
-      "/business-account/add-tax/self-assessment/partnership/other"
+      (DoYouWantToAddPartner.No, serviceRequest),
+      DoYouWantToAddPartner.No.toString,
+      "/business-account/add-tax/self-assessment/partnership/other",
+      "no SA or CT Enrolments"
     )
+
+    behave like nextPageWithEnrolments(
+      NextPage.doYouWantToAddPartner,
+      (DoYouWantToAddPartner.Yes, createServiceRequest(Set(saEnrolment))),
+      DoYouWantToAddPartner.Yes.toString,
+      "/forms/form/register-a-partner-or-a-partnership-for-self-assessment/start#1",
+      "SA Enrolment"
+    )
+
+    behave like nextPageWithEnrolments(
+      NextPage.doYouWantToAddPartner,
+      (DoYouWantToAddPartner.Yes, createServiceRequest(Set(ctEnrolment))),
+      DoYouWantToAddPartner.Yes.toString,
+      "/forms/form/register-a-partner-or-a-partnership-for-self-assessment/start#1",
+      "CT Enrolment"
+    )
+
+    behave like nextPageWithEnrolments(
+      NextPage.doYouWantToAddPartner,
+      (DoYouWantToAddPartner.Yes, createServiceRequest(Set(saEnrolment, ctEnrolment))),
+      DoYouWantToAddPartner.Yes.toString,
+      "/forms/form/register-a-partner-or-a-partnership-for-self-assessment/start#1",
+      "SA and CT Enrolment"
+    )
+
   }
 }
