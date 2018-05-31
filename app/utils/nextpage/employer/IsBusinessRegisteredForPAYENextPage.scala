@@ -41,7 +41,7 @@ trait IsBusinessRegisteredForPAYENextPage {
     }
   }
 
-  implicit val isBusinessRegisteredForPAYEEI
+  implicit val eiIsBusinessRegisteredForPAYE
     : NextPage[IsBusinessRegisteredForPAYEId.EI.type, IsBusinessRegisteredForPAYE] = {
     new NextPage[IsBusinessRegisteredForPAYEId.EI.type, IsBusinessRegisteredForPAYE] {
       override def get(

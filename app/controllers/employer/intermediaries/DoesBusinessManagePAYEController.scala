@@ -52,14 +52,13 @@ class DoesBusinessManagePAYEController @Inject()(
     Ok(doesBusinessManagePAYE(appConfig, form, action)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(doesBusinessManagePAYE(appConfig, formWithErrors, action)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(DoesBusinessManagePAYEId.EI, value)))
+          BadRequest(doesBusinessManagePAYE(appConfig, formWithErrors, action)(request.serviceInfoContent)),
+        (value) => Redirect(navigator.nextPage(DoesBusinessManagePAYEId.EI, value))
       )
   }
 }

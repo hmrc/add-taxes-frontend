@@ -18,9 +18,6 @@ package models.employer
 
 import utils.{Enumerable, RadioOption, WithName}
 
-/**
-  * Created by user on 29/05/18.
-  */
 sealed trait DoesBusinessManagePAYE
 
 object DoesBusinessManagePAYE {

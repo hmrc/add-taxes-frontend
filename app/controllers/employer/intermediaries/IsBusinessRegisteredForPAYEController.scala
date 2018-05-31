@@ -52,14 +52,13 @@ class IsBusinessRegisteredForPAYEController @Inject()(
     Ok(isBusinessRegisteredForPAYE(appConfig, form, action)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(isBusinessRegisteredForPAYE(appConfig, formWithErrors, action)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(IsBusinessRegisteredForPAYEId.EI, value)))
+          BadRequest(isBusinessRegisteredForPAYE(appConfig, formWithErrors, action)(request.serviceInfoContent)),
+        (value) => Redirect(navigator.nextPage(IsBusinessRegisteredForPAYEId.EI, value))
       )
   }
 }

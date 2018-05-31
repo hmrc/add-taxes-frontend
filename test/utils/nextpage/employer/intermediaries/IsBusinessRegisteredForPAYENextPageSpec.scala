@@ -24,13 +24,13 @@ class IsBusinessRegisteredForPAYENextPageSpec extends NextPageSpecBase {
 
   "IsBusinessRegisteredForPAYE" when {
     behave like nextPage(
-      NextPage.isBusinessRegisteredForPAYEEI,
+      NextPage.eiIsBusinessRegisteredForPAYE,
       IsBusinessRegisteredForPAYE.Yes,
       "/business-account/add-tax/employer/intermediaries/epaye"
     )
 
     behave like nextPage(
-      NextPage.isBusinessRegisteredForPAYEEI,
+      NextPage.eiIsBusinessRegisteredForPAYE,
       IsBusinessRegisteredForPAYE.No,
       "/business-account/add-tax/employer/intermediaries/register-epaye"
     )
