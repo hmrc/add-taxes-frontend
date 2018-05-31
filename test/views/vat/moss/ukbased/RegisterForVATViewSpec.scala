@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package views.vat.moss.uk
+package views.vat.moss.ukbased
 
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.vat.moss.uk.addVATMOSS
+import views.html.vat.moss.ukbased.registerForVAT
 
-class AddVATMOSSViewSpec extends ViewBehaviours {
+class RegisterForVATViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "addVATMOSS"
+  val messageKeyPrefix = "registerForVAT"
 
-  def createView = () => addVATMOSS(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView = () => registerForVAT(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
-  "AddVATMOSS view" must {
+  "RegisterForVAT view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     "Render the correct content" in {
@@ -36,9 +36,9 @@ class AddVATMOSSViewSpec extends ViewBehaviours {
       assertLinkById(
         doc,
         "continue",
-        "Sign in to your VAT account",
-        "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fbusiness-account",
-        "VatMossUkAddToOtherAccount:Click:SignIn"
+        "Register for VAT",
+        "http://localhost:8080/portal/business-registration/introduction?lang=eng",
+        "VatMossUkNotVatRegistered:Click:Register"
       )
 
       assertLinkById(
@@ -46,12 +46,12 @@ class AddVATMOSSViewSpec extends ViewBehaviours {
         "not-now",
         "I don’t want to do this right now",
         "http://localhost:9020/business-account",
-        "VatMossUkAddToOtherAccount:Click:NotNow"
+        "VatMossUkNotVatRegistered:Click:NotNow"
       )
 
-      view must include("You need to manage VAT MOSS in the account where you manage VAT.")
-      view must include("Sign in to your VAT account and add VAT MOSS there.")
-      view must include("If that doesn’t work, call us and we’ll do it for you manually.")
+      view must include("You must be VAT registered before you can register for VAT MOSS.")
+      view must include(
+        "Come back to this account and add VAT MOSS once you’ve received a VAT registration number (VRN).")
     }
   }
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.vat.moss.uk
+package controllers.vat.moss.ukbased
 
 import play.api.data.Form
 import play.api.libs.json.JsString
@@ -28,7 +28,7 @@ import forms.vat.moss.uk.OnlineVATAccountFormProvider
 import identifiers.OnlineVATAccountId
 import models.vat.moss.uk.OnlineVATAccount
 import play.twirl.api.HtmlFormat
-import views.html.vat.moss.uk.onlineVATAccount
+import views.html.vat.moss.ukbased.onlineVATAccount
 
 class OnlineVATAccountControllerSpec extends ControllerSpecBase {
 

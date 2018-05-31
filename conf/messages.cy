@@ -555,6 +555,17 @@ selectGamblingOrGamingDuty.RGD = Toll Hapchwarae o Bell (RGD)
 selectGamblingOrGamingDuty.error.required = Dewis toll
 
 #######################################################
+##  WhereIsYourBusinessBased
+#######################################################
+whereIsYourBusinessBased.title = Ymhle mae eich busnes wedi’i leoli?
+whereIsYourBusinessBased.heading = Ymhle mae eich busnes wedi’i leoli?
+whereIsYourBusinessBased.UK = Y DU
+whereIsYourBusinessBased.EU = Aelod wladwriaeth arall yr UE
+whereIsYourBusinessBased.NonEu = Y tu allan i’r UE
+whereIsYourBusinessBased.Iom = Ynys Manaw
+whereIsYourBusinessBased.error.required = Dewis lleoliad
+
+#######################################################
 ##  HaveYouRegisteredForVATMOSS
 #######################################################
 haveYouRegisteredForVATMOSS.title = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
@@ -621,3 +632,12 @@ registerEmployersPAYE.subtext1 = Mae angen i chi fod wedi cofrestru ar gyfer TWE
 registerEmployersPAYE.subtext2 = Cofrestrwch ar gyfer TWE i gyflogwyr, wedyn dychwelyd ac ychwanegu gwarantau ar sail cyflogaeth ar ôl hynny.
 registerEmployersPAYE.continue = Cofrestru ar gyfer TWE i gyflogwyr
 registerEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  RegisterInHomeCountry
+#######################################################
+registerInHomeCountry.title = Cofrestru yn eich gwlad wreiddiol
+registerInHomeCountry.heading = Cofrestru yn eich gwlad wreiddiol
+registerInHomeCountry.p1=Dylech gofrestru ar gyfer GUC TAW gyda’r awdurdod treth yng ngwlad wreiddiol eich busnes.
+registerInHomeCountry.p2=Os ydych eisiau cofrestru ar gyfer GUC TAW yn y DU, mae angen i chi
+registerInHomeCountry.callUs = ein ffonio.

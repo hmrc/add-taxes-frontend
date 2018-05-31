@@ -40,6 +40,7 @@ import utils.nextpage.vat.moss.iom._
 import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 import utils.nextpage.vat.moss.noneu.HaveYouRegisteredForVATMOSSNextPage
+import utils.nextpage.vat.moss.WhereIsYourBusinessBasedNextPage
 
 trait NextPage[A, B] {
   def get(b: B)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call
@@ -72,6 +73,7 @@ object NextPage
     with HaveYouRegisteredTrustNextPage
     with DoYouHaveCHIEFRoleNextPage
     with DoYouWantToAddImportExportNextPage
+    with WhereIsYourBusinessBasedNextPage
     with HaveYouRegisteredForVATMOSSNextPage
     with AlreadyRegisteredForVATMossNextPage
     with RegisteredForVATNextPage

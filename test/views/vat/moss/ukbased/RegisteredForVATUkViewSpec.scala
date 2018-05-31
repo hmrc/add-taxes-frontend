@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package views.vat.moss.uk
+package views.vat.moss.ukbased
 
 import play.api.data.Form
 import forms.vat.moss.uk.RegisteredForVATUkFormProvider
 import models.vat.moss.uk.RegisteredForVATUk
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.vat.moss.uk.registeredForVATUk
+import views.html.vat.moss.ukbased.registeredForVATUk
 
 class RegisteredForVATUkViewSpec extends ViewBehaviours {
 
