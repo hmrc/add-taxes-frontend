@@ -662,3 +662,13 @@ wasTurnoverMoreAfterVAT.heading = A oedd eich trosiant ar gyfer y 12 mis diwetha
 wasTurnoverMoreAfterVAT.Yes = Oedd - roedd fy nhrosiant dros £30,000
 wasTurnoverMoreAfterVAT.No = Nac oedd - roedd fy nhrosiant yn llai na £30,000
 wasTurnoverMoreAfterVAT.error.required = Dewis iawn neu na
+
+#######################################################
+##  WhatTypeOfSubcontractor
+#######################################################
+whatTypeOfSubcontractor.title = Pa fath o isgontractiwr ydych chi?
+whatTypeOfSubcontractor.heading = Pa fath o isgontractiwr ydych chi?
+whatTypeOfSubcontractor.soleTrader = Unig fasnachwr
+whatTypeOfSubcontractor.partnership = Partneriaeth
+whatTypeOfSubcontractor.limitedCompany = Cwmni Cyfyngedig
+whatTypeOfSubcontractor.error.required = Dewis math o fusnes

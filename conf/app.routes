@@ -188,3 +188,6 @@ POST       /employer/cis/uk/subcontractor/sole-trader/high-turnover             
 
 GET        /employer/cis/uk/subcontractor/sole-trader                  controllers.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVATController.onPageLoad()
 POST       /employer/cis/uk/subcontractor/sole-trader                  controllers.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVATController.onSubmit()
+
+GET        /employer/cis/uk/subcontractor                  controllers.employer.cis.uk.subcontractor.WhatTypeOfSubcontractorController.onPageLoad()
+POST       /employer/cis/uk/subcontractor                  controllers.employer.cis.uk.subcontractor.WhatTypeOfSubcontractorController.onSubmit()

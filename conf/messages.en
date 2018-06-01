@@ -679,3 +679,13 @@ wasTurnoverMoreAfterVAT.heading = Was your turnover for the last 12 months more 
 wasTurnoverMoreAfterVAT.Yes = Yes - my turnover was more than £30,000
 wasTurnoverMoreAfterVAT.No = No - my turnover was less than £30,000
 wasTurnoverMoreAfterVAT.error.required = Select yes or no
+
+#######################################################
+##  WhatTypeOfSubcontractor
+#######################################################
+whatTypeOfSubcontractor.title = What type of subcontractor are you?
+whatTypeOfSubcontractor.heading = What type of subcontractor are you?
+whatTypeOfSubcontractor.soleTrader = Sole Trader
+whatTypeOfSubcontractor.partnership = Partnership
+whatTypeOfSubcontractor.limitedCompany = Limited Company
+whatTypeOfSubcontractor.error.required = Select a business type
