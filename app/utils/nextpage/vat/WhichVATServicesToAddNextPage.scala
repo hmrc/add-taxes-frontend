@@ -19,6 +19,7 @@ package utils.nextpage.vat
 import config.FrontendAppConfig
 import controllers.vat.ec.{routes => ecRoutes}
 import controllers.vat.eurefunds.{routes => euRoutes}
+import controllers.vat.moss.{routes => mossRoutes}
 import controllers.vat.rcsl.{routes => rcslRoutes}
 import identifiers.WhichVATServicesToAddId
 import models.vat.WhichVATServicesToAdd
@@ -35,7 +36,7 @@ trait WhichVATServicesToAddNextPage {
           case WhichVATServicesToAdd.ECSales   => ecRoutes.RegisteredForVATECSalesController.onPageLoad()
           case WhichVATServicesToAdd.EURefunds => euRoutes.RegisteredForVATEURefundsController.onPageLoad()
           case WhichVATServicesToAdd.RCSL      => rcslRoutes.RegisteredForVATRCSLController.onPageLoad()
-          case WhichVATServicesToAdd.MOSS      => ???
+          case WhichVATServicesToAdd.MOSS      => mossRoutes.WhereIsYourBusinessBasedController.onPageLoad()
           case WhichVATServicesToAdd.NOVA      => Call("GET", appConfig.getPortalUrl("novaEnrolment"))
         }
     }
