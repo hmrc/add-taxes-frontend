@@ -20,18 +20,39 @@ import config.FrontendAppConfig
 import identifiers.DoYouWantToAddPartnerId
 import models.sa.partnership.DoYouWantToAddPartner
 import play.api.mvc.{Call, Request}
-import utils.NextPage
+import utils.{Enrolments, NextPage}
 import controllers.sa.partnership.{routes => saPartnerRoutes}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.AnyContent
+import utils.HmrcEnrolmentType
 
 trait DoYouWantToAddPartnerNextPage {
 
-  implicit val doYouWantToAddPartner: NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartner] = {
-    new NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartner] {
-      override def get(b: DoYouWantToAddPartner)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case DoYouWantToAddPartner.Yes => Call("GET", appConfig.getPublishedAssetsUrl("partnership"))
-          case DoYouWantToAddPartner.No  => saPartnerRoutes.HaveYouRegisteredPartnershipController.onPageLoad()
+  type DoYouWantToAddPartnerWithRequest = (DoYouWantToAddPartner, ServiceInfoRequest[AnyContent])
+
+  implicit val doYouWantToAddPartner: NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartnerWithRequest] = {
+
+    new NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartnerWithRequest] {
+
+      override def get(enrolmentDetails: DoYouWantToAddPartnerWithRequest)(
+        implicit appConfig: FrontendAppConfig,
+        request: Request[_]): Call =
+        (enrolmentDetails._1, hasSACTEnrolments(enrolmentDetails._2)) match {
+
+          case (DoYouWantToAddPartner.Yes, true) =>
+            Call("GET", appConfig.getIFormUrl("partnership"))
+
+          case (DoYouWantToAddPartner.Yes, false) =>
+            Call("GET", appConfig.getPublishedAssetsUrl("partnership"))
+
+          case (DoYouWantToAddPartner.No, _) =>
+            saPartnerRoutes.HaveYouRegisteredPartnershipController.onPageLoad()
         }
     }
   }
+
+  private def hasSACTEnrolments(serviceInfoRequest: ServiceInfoRequest[AnyContent]) =
+    Enrolments
+      .hasEnrolments(serviceInfoRequest.request.enrolments, HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX)
+
 }

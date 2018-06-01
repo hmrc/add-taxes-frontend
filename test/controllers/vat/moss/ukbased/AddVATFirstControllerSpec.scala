@@ -14,22 +14,26 @@
  * limitations under the License.
  */
 
-package controllers.vat.moss.uk
+package controllers.vat.moss.ukbased
 
 import controllers._
 import controllers.actions._
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import views.html.vat.moss.uk.registerForVAT
+import utils.Enrolments
+import views.html.vat.moss.ukbased.addVATFirst
+import org.scalatest.mockito.MockitoSugar
+import org.mockito.Mockito._
+import org.scalatest.BeforeAndAfterEach
 
-class RegisterForVATControllerSpec extends ControllerSpecBase {
+class AddVATFirstControllerSpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new RegisterForVATController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+    new AddVATFirstController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
-  def viewAsString() = registerForVAT(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString() = addVATFirst(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  "RegisterForVAT Controller" must {
+  "AddVATFirst Controller" must {
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(fakeRequest)
 

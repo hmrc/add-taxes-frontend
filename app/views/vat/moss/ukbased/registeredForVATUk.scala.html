@@ -16,36 +16,35 @@
 
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
-@import controllers.vat.moss.uk.routes._
-@import models.vat.moss.uk.OnlineVATAccount
+@import controllers.vat.moss.ukbased.routes._
+@import models.vat.moss.uk.RegisteredForVATUk
 
 
 @(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("onlineVATAccount.title"),
+    title = messages("registeredForVATUk.title"),
     appConfig = appConfig,
     form = Some(form),
-    serviceInfoContent = serviceInfoContent
-) {
+    serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = OnlineVATAccountController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    @helpers.form(action = RegisteredForVATUkController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("onlineVATAccount.heading")
+        @components.heading("registeredForVATUk.heading")
 
         <p>
-            @messages("onlineVATAccount.p1")
+            @messages("registeredForVATUk.p1")
         </p>
 
         @components.input_radio(
             field = form("value"),
-            legend = messages("onlineVATAccount.heading"),
+            legend = messages("registeredForVATUk.heading"),
             legendClass = Some("visuallyhidden"),
-            inputs = OnlineVATAccount.options.toSeq
+            inputs = RegisteredForVATUk.options.toSeq
         )
 
-        @components.submit_button(gaEvent = "VatMossUkVatRegistered")
+        @components.submit_button(gaEvent = "VatMossNoVatUk")
     }
 }

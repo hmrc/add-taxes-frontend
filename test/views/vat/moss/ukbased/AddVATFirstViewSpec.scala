@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package views.vat.moss.uk
+package views.vat.moss.ukbased
 
 import org.scalatest.mockito.MockitoSugar
 import org.mockito.Mockito._
@@ -22,7 +22,7 @@ import org.scalatest.BeforeAndAfterEach
 import play.twirl.api.HtmlFormat
 import utils.Enrolments
 import views.behaviours.ViewBehaviours
-import views.html.vat.moss.uk.addVATFirst
+import views.html.vat.moss.ukbased.addVATFirst
 
 class AddVATFirstViewSpec extends ViewBehaviours with MockitoSugar with BeforeAndAfterEach {
 

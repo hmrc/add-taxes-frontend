@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.vat.moss.uk
+package controllers.vat.moss
 
 import javax.inject.Inject
 
@@ -26,28 +26,28 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 
-import forms.vat.moss.uk.OnlineVATAccountFormProvider
-import identifiers.OnlineVATAccountId
-import views.html.vat.moss.uk.onlineVATAccount
+import forms.vat.moss.WhereIsYourBusinessBasedFormProvider
+import identifiers.WhereIsYourBusinessBasedId
+import views.html.vat.moss.whereIsYourBusinessBased
 
 import scala.concurrent.Future
 
-class OnlineVATAccountController @Inject()(
+class WhereIsYourBusinessBasedController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   dataCacheConnector: DataCacheConnector,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
-  formProvider: OnlineVATAccountFormProvider
-) extends FrontendController
+  formProvider: WhereIsYourBusinessBasedFormProvider)
+    extends FrontendController
     with I18nSupport
     with Enumerable.Implicits {
 
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(onlineVATAccount(appConfig, form)(request.serviceInfoContent))
+    Ok(whereIsYourBusinessBased(appConfig, form)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
@@ -55,8 +55,9 @@ class OnlineVATAccountController @Inject()(
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(onlineVATAccount(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(OnlineVATAccountId, value)))
+          Future.successful(
+            BadRequest(whereIsYourBusinessBased(appConfig, formWithErrors)(request.serviceInfoContent))),
+        (value) => Future.successful(Redirect(navigator.nextPage(WhereIsYourBusinessBasedId, value)))
       )
   }
 }

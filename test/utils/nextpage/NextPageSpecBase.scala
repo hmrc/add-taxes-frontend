@@ -17,16 +17,43 @@
 package utils.nextpage
 
 import base.SpecBase
-import utils.NextPage
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
+import play.api.mvc.AnyContent
+import play.twirl.api.Html
+import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
+import utils.{HmrcEnrolmentType, NextPage}
 
 trait NextPageSpecBase extends SpecBase {
 
   implicit val request = fakeRequest
 
+  val serviceRequest: ServiceInfoRequest[AnyContent] =
+    ServiceInfoRequest(AuthenticatedRequest(request, "", Enrolments(Set()), None), Html(""))
+
+  val saEnrolment = Enrolment(key = HmrcEnrolmentType.SA.toString, identifiers = Seq(), state = "Activated")
+
+  val ctEnrolment = Enrolment(key = HmrcEnrolmentType.CORP_TAX.toString, identifiers = Seq(), state = "Activated")
+
+  def createServiceRequest(enrolments: Set[Enrolment]): ServiceInfoRequest[AnyContent] =
+    ServiceInfoRequest(AuthenticatedRequest(request, "", Enrolments(enrolments), None), Html(""))
+
   def nextPage[A, B](np: NextPage[A, B], userSelection: B, urlRedirect: String): Unit =
     s"$userSelection is selected" should {
       s"redirect to $urlRedirect" in {
         val result = np.get(userSelection)
+        result.url mustBe urlRedirect
+      }
+    }
+
+  def nextPageWithEnrolments[A, B](
+    np: NextPage[A, B],
+    userSelectionWithEnrolments: B,
+    userSelection: String,
+    urlRedirect: String,
+    enrolments: String): Unit =
+    s"$userSelection is selected with $enrolments" should {
+      s"redirect to $urlRedirect" in {
+        val result = np.get(userSelectionWithEnrolments)
         result.url mustBe urlRedirect
       }
     }

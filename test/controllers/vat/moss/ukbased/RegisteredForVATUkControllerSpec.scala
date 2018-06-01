@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.vat.moss.uk
+package controllers.vat.moss.ukbased
 
 import play.api.data.Form
 import play.api.libs.json.JsString
@@ -28,7 +28,7 @@ import forms.vat.moss.uk.RegisteredForVATUkFormProvider
 import identifiers.RegisteredForVATUkId
 import models.vat.moss.uk.RegisteredForVATUk
 import play.twirl.api.HtmlFormat
-import views.html.vat.moss.uk.registeredForVATUk
+import views.html.vat.moss.ukbased.registeredForVATUk
 
 class RegisteredForVATUkControllerSpec extends ControllerSpecBase {
 
