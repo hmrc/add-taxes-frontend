@@ -19,12 +19,12 @@
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("usePAYEEmployerAccount.title"),
+    title = messages("usePAYEEmployerIntermediariesAccount.title"),
     appConfig = appConfig,
     serviceInfoContent = serviceInfoContent
 ) {
 
-    @components.heading("usePAYEEmployerAccount.heading")
+    @components.heading("usePAYEEmployerIntermediariesAccount.heading")
 
     <p>@messages("usePAYEEmployerIntermediariesAccount.p1")</p>
 
@@ -36,13 +36,13 @@
            class="button"
            data-journey-click="AddIntermediariesOtherAccount:Click:SignIn">
 
-            @messages("usePAYEEmployerAccount.continue")
+            @messages("usePAYEEmployerIntermediariesAccount.continue")
         </a>
     </p>
 
     <p>
         <a id="sign-in"
-           href="/employment-intermediary-report/not-enrolled"
+           href='@appConfig.eiUrl'
            data-journey-click="AddIntermediariesOtherAccount:Click:AddToAccount">
             @messages("usePAYEEmployerIntermediariesAccount.addAccount")
         </a>

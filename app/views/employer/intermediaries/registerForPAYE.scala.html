@@ -19,12 +19,12 @@
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("registerForPAYE.title"),
+    title = messages("registerForPAYEIntermediaries.title"),
     appConfig = appConfig,
     serviceInfoContent = serviceInfoContent
 ) {
 
-    @components.heading("registerForPAYE.heading")
+    @components.heading("registerForPAYEIntermediaries.heading")
 
     <p>
         @messages("registerForPAYEIntermediaries.p1")
@@ -40,7 +40,7 @@
            class="button"
            data-journey-click="AddIntermediariesRegisterEpaye:Click:Register">
 
-            @messages("registerForPAYE.continue")
+            @messages("registerForPAYEIntermediaries.continue")
         </a>
     </p>
 
@@ -48,7 +48,7 @@
         <a id="not-now"
            href='@appConfig.getBusinessAccountUrl("home")'
            data-journey-click="AddIntermediariesRegisterEpaye:Click:NotNow">
-            @messages("registerForPAYE.notnow")
+            @messages("registerForPAYEIntermediaries.notnow")
         </a>
     </p>
 }
