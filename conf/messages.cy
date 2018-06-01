@@ -641,3 +641,14 @@ registerInHomeCountry.heading = Cofrestru yn eich gwlad wreiddiol
 registerInHomeCountry.p1=Dylech gofrestru ar gyfer GUC TAW gyda’r awdurdod treth yng ngwlad wreiddiol eich busnes.
 registerInHomeCountry.p2=Os ydych eisiau cofrestru ar gyfer GUC TAW yn y DU, mae angen i chi
 registerInHomeCountry.callUs = ein ffonio.
+
+#######################################################
+##  DoYouWantToBePaidNetOrGross
+#######################################################
+doYouWantToBePaidNetOrGross.title = A ydych eisiau cael eich talu’n net neu’n gros?
+doYouWantToBePaidNetOrGross.heading = A ydych eisiau cael eich talu’n net neu’n gros?
+doYouWantToBePaidNetOrGross.subtext1 = Os cewch eich talu’n net, caiff 20% o’ch cyflog ei ddidynnu at ddibenion treth ac Yswiriant Gwladol.
+doYouWantToBePaidNetOrGross.subtext2 = Os ydych am gael eich talu’n gros, rhaid i chi wirio eich bod yn gymwys i gael taliadau o’r fath cyn mynd ymlaen.
+doYouWantToBePaidNetOrGross.paidNet = Rwyf eisiau cael fy nhalu’n net
+doYouWantToBePaidNetOrGross.paidGross = Rwyf eisiau cael fy nhalu’n gros
+doYouWantToBePaidNetOrGross.error.required = Mae’n rhaid i chi wneud dewis

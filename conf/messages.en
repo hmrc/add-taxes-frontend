@@ -658,3 +658,15 @@ registerEmployersPAYE.subtext1 = You need to be registered for PAYE for employer
 registerEmployersPAYE.subtext2 = Register for PAYE for employers, then come back and add employment related securities afterwards.
 registerEmployersPAYE.continue = Register for PAYE for employers
 registerEmployersPAYE.notnow = I don’t want to do this right now
+
+#######################################################
+##  DoYouWantToBePaidNetOrGross
+#######################################################
+doYouWantToBePaidNetOrGross.title = Do you want to be paid net or gross?
+doYouWantToBePaidNetOrGross.heading = Do you want to be paid net or gross?
+doYouWantToBePaidNetOrGross.subtext1 = If you’re paid net, 20% of your pay will be deducted to cover tax and National Insurance.
+doYouWantToBePaidNetOrGross.subtext2 = If you want to be paid gross, you must {0} before you continue.
+doYouWantToBePaidNetOrGross.subtext2.anchorText = check if you qualify for gross payments
+doYouWantToBePaidNetOrGross.paidNet = I want to be paid net
+doYouWantToBePaidNetOrGross.paidGross = I want to be paid gross
+doYouWantToBePaidNetOrGross.error.required = You must make a selection

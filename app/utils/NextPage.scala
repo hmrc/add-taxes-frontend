@@ -79,3 +79,4 @@ object NextPage
     with RegisteredForVATNextPage
     with ers.DoesBusinessManagePAYENextPage
     with ers.IsBusinessRegisteredForPAYENextPage
+    with utils.nextpage.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGrossNextPage
