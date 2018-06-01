@@ -24,6 +24,7 @@ import play.api.data.Form
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
+import viewmodels.ViewAction
 import views.html.vat.registeredForVAT
 
 class RegisteredForVATEURefundsControllerSpec extends ControllerSpecBase {
@@ -32,6 +33,7 @@ class RegisteredForVATEURefundsControllerSpec extends ControllerSpecBase {
 
   val formProvider = new RegisteredForVATFormProvider()
   val form = formProvider()
+  lazy val viewAction = ViewAction(routes.RegisteredForVATEURefundsController.onSubmit(), "VatEuRefundsNoVat")
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new RegisteredForVATEURefundsController(
@@ -43,7 +45,7 @@ class RegisteredForVATEURefundsControllerSpec extends ControllerSpecBase {
       formProvider)
 
   def viewAsString(form: Form[_] = form) =
-    registeredForVAT(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    registeredForVAT(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisteredForVATEURefunds Controller" must {
 

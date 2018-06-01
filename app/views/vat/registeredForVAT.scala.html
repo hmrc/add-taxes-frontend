@@ -18,9 +18,10 @@
 @import uk.gov.hmrc.play.views.html._
 @import controllers.vat.ec.routes._
 @import models.vat.RegisteredForVAT
+@import viewmodels.ViewAction
 
 
-@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_], viewAction: ViewAction)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("registeredForVATECSales.title"),
@@ -28,7 +29,7 @@
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = RegisteredForVATECSalesController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    @helpers.form(action = viewAction.call, 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
@@ -38,6 +39,6 @@
             inputs = RegisteredForVAT.options.toSeq
         )
 
-        @components.submit_button(gaEvent = "VatECNoVat")
+        @components.submit_button(gaEvent = viewAction.gaEvent)
     }
 }

@@ -26,6 +26,7 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import identifiers.RegisteredForVATECSalesId
+import viewmodels.ViewAction
 import views.html.vat.registeredForVAT
 
 import scala.concurrent.Future
@@ -43,9 +44,10 @@ class RegisteredForVATECSalesController @Inject()(
     with Enumerable.Implicits {
 
   val form = formProvider()
+  lazy val viewAction = ViewAction(routes.RegisteredForVATECSalesController.onSubmit(), "VatECNoVat")
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(registeredForVAT(appConfig, form)(request.serviceInfoContent))
+    Ok(registeredForVAT(appConfig, form, viewAction)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
@@ -53,7 +55,8 @@ class RegisteredForVATECSalesController @Inject()(
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(registeredForVAT(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(
+            BadRequest(registeredForVAT(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
         (value) => Future.successful(Redirect(navigator.nextPage(RegisteredForVATECSalesId, value)))
       )
   }

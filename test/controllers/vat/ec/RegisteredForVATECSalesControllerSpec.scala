@@ -16,18 +16,16 @@
 
 package controllers.vat.ec
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
+import controllers.actions.{FakeServiceInfoAction, _}
 import forms.vat.RegisteredForVATFormProvider
-import play.api.test.Helpers._
-import identifiers.RegisteredForVATECSalesId
 import models.vat.RegisteredForVAT
+import play.api.data.Form
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
+import viewmodels.ViewAction
 import views.html.vat.registeredForVAT
 
 class RegisteredForVATECSalesControllerSpec extends ControllerSpecBase {
@@ -36,6 +34,7 @@ class RegisteredForVATECSalesControllerSpec extends ControllerSpecBase {
 
   val formProvider = new RegisteredForVATFormProvider()
   val form = formProvider()
+  lazy val viewAction = ViewAction(routes.RegisteredForVATECSalesController.onSubmit(), "VatECNoVat")
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new RegisteredForVATECSalesController(
@@ -48,7 +47,7 @@ class RegisteredForVATECSalesControllerSpec extends ControllerSpecBase {
       formProvider)
 
   def viewAsString(form: Form[_] = form) =
-    registeredForVAT(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    registeredForVAT(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisteredForVATECSales Controller" must {
 

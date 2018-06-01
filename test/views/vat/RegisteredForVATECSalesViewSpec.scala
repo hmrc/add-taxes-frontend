@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package views.vat.ec
+package views.vat
 
 import forms.vat.RegisteredForVATFormProvider
-import play.api.data.Form
 import models.vat.RegisteredForVAT
+import play.api.data.Form
 import play.twirl.api.HtmlFormat
+import viewmodels.ViewAction
 import views.behaviours.ViewBehaviours
 import views.html.vat.registeredForVAT
 
@@ -28,13 +29,15 @@ class RegisteredForVATECSalesViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "registeredForVATECSales"
 
   val form = new RegisteredForVATFormProvider()()
+  lazy val viewAction = ViewAction(controllers.routes.IndexController.onPageLoad(), "")
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => registeredForVAT(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView =
+    () => registeredForVAT(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm =
-    (form: Form[_]) => registeredForVAT(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    (form: Form[_]) => registeredForVAT(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
 
   "RegisteredForVATECSales view" must {
     behave like normalPage(createView, messageKeyPrefix)
