@@ -49,13 +49,13 @@ class IsYourBusinessInUKController @Inject()(
     Ok(isYourBusinessInUK(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(isYourBusinessInUK(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(IsYourBusinessInUKId, value)))
+          BadRequest(isYourBusinessInUK(appConfig, formWithErrors)(request.serviceInfoContent)),
+        (value) => Redirect(navigator.nextPage(IsYourBusinessInUKId, value))
       )
   }
 }

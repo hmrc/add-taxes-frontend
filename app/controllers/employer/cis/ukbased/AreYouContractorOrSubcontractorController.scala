@@ -50,14 +50,13 @@ class AreYouContractorOrSubcontractorController @Inject()(
     Ok(areYouContractorOrSubcontractor(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(areYouContractorOrSubcontractor(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(AreYouContractorOrSubcontractorId, (value, request))))
+            BadRequest(areYouContractorOrSubcontractor(appConfig, formWithErrors)(request.serviceInfoContent)),
+        (value) => Redirect(navigator.nextPage(AreYouContractorOrSubcontractorId, (value, request)))
       )
   }
 }

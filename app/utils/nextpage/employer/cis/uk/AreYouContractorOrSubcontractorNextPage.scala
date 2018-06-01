@@ -30,7 +30,9 @@ trait AreYouContractorOrSubcontractorNextPage {
 
   implicit val areYouContractorOrSubcontractor
     : NextPage[AreYouContractorOrSubcontractorId.type, AreYouContractorOrSubcontractorWithRequest] = {
+
     new NextPage[AreYouContractorOrSubcontractorId.type, AreYouContractorOrSubcontractorWithRequest] {
+
       override def get(contractorOrSubcontractor: AreYouContractorOrSubcontractorWithRequest)(
         implicit appConfig: FrontendAppConfig,
         request: Request[_]): Call =
@@ -38,7 +40,9 @@ trait AreYouContractorOrSubcontractorNextPage {
 
           case (AreYouContractorOrSubcontractor.Contractor, true) =>
             Call("GET", appConfig.getPortalUrl("cisUkContractorEnrol"))
+
           case (AreYouContractorOrSubcontractor.Contractor, false) => IsBusinessRegisteredForPAYEController.onPageLoad()
+
           case (AreYouContractorOrSubcontractor.Subcontractor, _)  => ???
         }
     }
