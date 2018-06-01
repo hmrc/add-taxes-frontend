@@ -653,3 +653,12 @@ doYouWantToBePaidNetOrGross.subtext2.anchorText = wirio eich bod yn gymwys i gae
 doYouWantToBePaidNetOrGross.paidNet = Rwyf eisiau cael fy nhalu’n net
 doYouWantToBePaidNetOrGross.paidGross = Rwyf eisiau cael fy nhalu’n gros
 doYouWantToBePaidNetOrGross.error.required = Mae’n rhaid i chi wneud dewis
+
+#######################################################
+##  WasTurnoverMoreAfterVAT
+#######################################################
+wasTurnoverMoreAfterVAT.title = A oedd eich trosiant ar gyfer y 12 mis diwethaf dros £30,000 ar ôl TAW?
+wasTurnoverMoreAfterVAT.heading = A oedd eich trosiant ar gyfer y 12 mis diwethaf dros £30,000 ar ôl TAW?
+wasTurnoverMoreAfterVAT.Yes = Oedd - roedd fy nhrosiant dros £30,000
+wasTurnoverMoreAfterVAT.No = Nac oedd - roedd fy nhrosiant yn llai na £30,000
+wasTurnoverMoreAfterVAT.error.required = Dewis iawn neu na

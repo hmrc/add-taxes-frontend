@@ -80,3 +80,4 @@ object NextPage
     with ers.DoesBusinessManagePAYENextPage
     with ers.IsBusinessRegisteredForPAYENextPage
     with utils.nextpage.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGrossNextPage
+    with utils.nextpage.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVATNextPage
