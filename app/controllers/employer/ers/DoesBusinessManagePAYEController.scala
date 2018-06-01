@@ -21,11 +21,11 @@ import javax.inject.Inject
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
+import forms.employer.DoesBusinessManagePAYEFormProvider
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-import forms.employer.ers.DoesBusinessManagePAYEFormProvider
 import identifiers.DoesBusinessManagePAYEId
 import viewmodels.ViewAction
 import views.html.employer.doesBusinessManagePAYE
@@ -58,7 +58,7 @@ class DoesBusinessManagePAYEController @Inject()(
         (formWithErrors: Form[_]) =>
           Future.successful(
             BadRequest(doesBusinessManagePAYE(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(DoesBusinessManagePAYEId, value)))
+        (value) => Future.successful(Redirect(navigator.nextPage(DoesBusinessManagePAYEId.ERS, value)))
       )
   }
 }

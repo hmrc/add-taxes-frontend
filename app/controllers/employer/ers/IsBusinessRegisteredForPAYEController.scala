@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 import config.FrontendAppConfig
 import controllers.actions._
-import forms.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEFormProvider
+import forms.employer.IsBusinessRegisteredForPAYEFormProvider
 import identifiers.IsBusinessRegisteredForPAYEId
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}

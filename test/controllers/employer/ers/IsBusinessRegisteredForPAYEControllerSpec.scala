@@ -18,7 +18,7 @@ package controllers.employer.ers
 
 import controllers._
 import controllers.actions._
-import forms.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEFormProvider
+import forms.employer.IsBusinessRegisteredForPAYEFormProvider
 import play.api.data.Form
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat

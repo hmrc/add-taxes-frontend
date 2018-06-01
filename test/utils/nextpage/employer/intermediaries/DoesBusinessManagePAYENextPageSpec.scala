@@ -14,19 +14,25 @@
  * limitations under the License.
  */
 
-package forms.employer.cis.uk.contractor
+package utils.nextpage.employer.intermediaries
 
-import javax.inject.Inject
+import models.employer.DoesBusinessManagePAYE
+import utils.NextPage
+import utils.nextpage.NextPageSpecBase
 
-import forms.FormErrorHelper
-import forms.mappings.Mappings
-import play.api.data.Form
-import models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE
+class DoesBusinessManagePAYENextPageSpec extends NextPageSpecBase {
 
-class IsBusinessRegisteredForPAYEFormProvider @Inject() extends FormErrorHelper with Mappings {
-
-  def apply(): Form[IsBusinessRegisteredForPAYE] =
-    Form(
-      "value" -> enumerable[IsBusinessRegisteredForPAYE]("isBusinessRegisteredForPAYE.error.required")
+  "doesBusinessManagePAYEController" when {
+    behave like nextPage(
+      NextPage.eiDoesBusinessManagePAYE,
+      DoesBusinessManagePAYE.Yes,
+      "/business-account/add-tax/employer/intermediaries/epaye/other-account"
     )
+
+    behave like nextPage(
+      NextPage.eiDoesBusinessManagePAYE,
+      DoesBusinessManagePAYE.No,
+      "/employment-intermediary-report/not-enrolled"
+    )
+  }
 }

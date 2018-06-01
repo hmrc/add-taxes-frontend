@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package controllers.employer.cis.uk.contractor
+package controllers.employer.intermediaries
 
-import play.api.data.Form
-import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
+import controllers.actions.{FakeServiceInfoAction, _}
 import forms.employer.IsBusinessRegisteredForPAYEFormProvider
-import play.api.test.Helpers._
 import models.employer.IsBusinessRegisteredForPAYE
+import play.api.data.Form
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import viewmodels.ViewAction
 import views.html.employer.isBusinessRegisteredForPAYE
 
@@ -34,7 +34,6 @@ class IsBusinessRegisteredForPAYEControllerSpec extends ControllerSpecBase {
 
   val formProvider = new IsBusinessRegisteredForPAYEFormProvider()
   val form = formProvider()
-  val viewAction = ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddCisUkContractor")
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new IsBusinessRegisteredForPAYEController(
@@ -47,13 +46,12 @@ class IsBusinessRegisteredForPAYEControllerSpec extends ControllerSpecBase {
       formProvider)
 
   def viewAsString(form: Form[_] = form) =
-    isBusinessRegisteredForPAYE(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
-  isBusinessRegisteredForPAYE(
-    frontendAppConfig,
-    form,
-    ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "CisUkContractorEpaye"))(HtmlFormat.empty)(
-    fakeRequest,
-    messages).toString
+    isBusinessRegisteredForPAYE(
+      frontendAppConfig,
+      form,
+      ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddIntermediaries"))(HtmlFormat.empty)(
+      fakeRequest,
+      messages).toString
 
   "IsBusinessRegisteredForPAYE Controller" must {
 

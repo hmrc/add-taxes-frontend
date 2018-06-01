@@ -16,15 +16,22 @@
 
 package controllers.employer.cis.uk.contractor
 
+import play.api.data.Form
+import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers._
 import controllers.actions.{FakeServiceInfoAction, _}
-import forms.employer.cis.uk.contractor.DoesBusinessManagePAYEFormProvider
-import models.employer.cis.uk.contractor.DoesBusinessManagePAYE
+import forms.employer.DoesBusinessManagePAYEFormProvider
+import models.employer.DoesBusinessManagePAYE
 import play.api.data.Form
 import play.api.test.Helpers._
+import forms.employer.DoesBusinessManagePAYEFormProvider
+import play.api.test.Helpers._
+import models.employer.DoesBusinessManagePAYE
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
+import viewmodels.ViewAction
+import views.html.employer.doesBusinessManagePAYE
 import viewmodels.ViewAction
 import views.html.employer.doesBusinessManagePAYE
 
@@ -47,7 +54,12 @@ class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
       formProvider)
 
   def viewAsString(form: Form[_] = form) =
-    doesBusinessManagePAYE(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
+    doesBusinessManagePAYE(
+      frontendAppConfig,
+      form,
+      ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "CisUkContractorEpaye"))(HtmlFormat.empty)(
+      fakeRequest,
+      messages).toString
 
   "DoesBusinessManagePAYE Controller" must {
 

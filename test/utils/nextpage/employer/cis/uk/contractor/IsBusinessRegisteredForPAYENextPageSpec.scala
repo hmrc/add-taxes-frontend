@@ -16,7 +16,7 @@
 
 package utils.nextpage.employer.cis.uk.contractor
 
-import models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE
+import models.employer.IsBusinessRegisteredForPAYE
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
