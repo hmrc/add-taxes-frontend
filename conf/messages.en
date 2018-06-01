@@ -662,6 +662,9 @@ registerEmployersPAYE.notnow = I don’t want to do this right now
 #######################################################
 ##  UsePAYEEmployerAccountIntermediaries
 #######################################################
+usePAYEEmployerIntermediariesAccount.title = Use your PAYE for employers account
+usePAYEEmployerIntermediariesAccount.heading = Use your PAYE for employers account
+usePAYEEmployerIntermediariesAccount.continue = Sign in to your PAYE for employers account
 usePAYEEmployerIntermediariesAccount.addAccount = I want to add intermediaries in this account
 usePAYEEmployerIntermediariesAccount.p1 = You should manage employment intermediaries in the same account that you manage PAYE for employers.
 usePAYEEmployerIntermediariesAccount.p2 = It will make it easier to manage both schemes.
@@ -670,5 +673,9 @@ usePAYEEmployerIntermediariesAccount.p2 = It will make it easier to manage both 
 #######################################################
 ##  RegisterForPAYEIntermediaries
 #######################################################
+registerForPAYEIntermediaries.title = Register for PAYE for employers first
+registerForPAYEIntermediaries.heading = Register for PAYE for employers first
 registerForPAYEIntermediaries.p1=You need to be registered for PAYE for employers before you can manage employment intermediaries online.
 registerForPAYEIntermediaries.p2=Register for PAYE for employers, then come back and add employment intermediaries afterwards.
+registerForPAYEIntermediaries.continue = Register for PAYE for employers
+registerForPAYEIntermediaries.notnow = I don’t want to do this right now

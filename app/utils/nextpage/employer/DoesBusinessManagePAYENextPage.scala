@@ -42,7 +42,7 @@ trait DoesBusinessManagePAYENextPage {
       override def get(b: DoesBusinessManagePAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoesBusinessManagePAYE.Yes => eiAccountRoutes.UsePAYEEmployerAccountController.onPageLoad()
-          case DoesBusinessManagePAYE.No  => Call("GET", "/employment-intermediary-report/not-enrolled")
+          case DoesBusinessManagePAYE.No  => Call("GET", appConfig.eiUrl)
         }
     }
   }

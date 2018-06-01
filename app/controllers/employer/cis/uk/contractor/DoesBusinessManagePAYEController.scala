@@ -47,20 +47,17 @@ class DoesBusinessManagePAYEController @Inject()(
   lazy val viewAction = ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "CisUkContractorEpaye")
   val form = formProvider()
 
-  lazy val action = ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "CisUkContractorEpaye")
-
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(doesBusinessManagePAYE(appConfig, form, viewAction)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(doesBusinessManagePAYE(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(DoesBusinessManagePAYEId.EPaye, value)))
+          BadRequest(doesBusinessManagePAYE(appConfig, formWithErrors, viewAction)(request.serviceInfoContent)),
+        (value) => Redirect(navigator.nextPage(DoesBusinessManagePAYEId.EPaye, value))
       )
   }
 }
