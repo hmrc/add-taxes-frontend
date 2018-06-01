@@ -183,3 +183,5 @@ POST       /employer/ers/epaye                           controllers.employer.er
 
 GET        /employer/ers                                 controllers.employer.ers.IsBusinessRegisteredForPAYEController.onPageLoad()
 POST       /employer/ers                                 controllers.employer.ers.IsBusinessRegisteredForPAYEController.onSubmit()
+GET        /employer/cis/uk                  controllers.employer.cis.uk.AreYouContractorOrSubcontractorController.onPageLoad()
+POST       /employer/cis/uk                  controllers.employer.cis.uk.AreYouContractorOrSubcontractorController.onSubmit()

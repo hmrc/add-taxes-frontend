@@ -658,3 +658,13 @@ registerEmployersPAYE.subtext1 = You need to be registered for PAYE for employer
 registerEmployersPAYE.subtext2 = Register for PAYE for employers, then come back and add employment related securities afterwards.
 registerEmployersPAYE.continue = Register for PAYE for employers
 registerEmployersPAYE.notnow = I don’t want to do this right now
+
+#######################################################
+##  AreYouContractorOrSubcontractor
+#######################################################
+areYouContractorOrSubcontractor.title = Are you a contractor or subcontractor?
+areYouContractorOrSubcontractor.heading = Are you a contractor or subcontractor?
+areYouContractorOrSubcontractor.Contractor = Contractor, employs and pays subcontractors
+areYouContractorOrSubcontractor.Subcontractor = Subcontractor, works for other construction businesses
+areYouContractorOrSubcontractor.error.required = Select if you are a contractor or subcontractor
+areYouContractorOrSubcontractor.p1=If you are both, you will need to do this twice. Select an option then come back and select the other.

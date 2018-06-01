@@ -34,6 +34,8 @@ trait NextPageSpecBase extends SpecBase {
 
   val ctEnrolment = Enrolment(key = HmrcEnrolmentType.CORP_TAX.toString, identifiers = Seq(), state = "Activated")
 
+  val epayeEnrolment = Enrolment(key = HmrcEnrolmentType.EPAYE.toString, identifiers = Seq(), state = "Activated")
+
   def createServiceRequest(enrolments: Set[Enrolment]): ServiceInfoRequest[AnyContent] =
     ServiceInfoRequest(AuthenticatedRequest(request, "", Enrolments(enrolments), None), Html(""))
 
