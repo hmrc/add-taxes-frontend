@@ -16,31 +16,28 @@
 
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
-@import controllers.employer.cis.uk.contractor.routes._
-@import models.employer.IsBusinessRegisteredForPAYE
-@import viewmodels.ViewAction
-@import models.employer.IsBusinessRegisteredForPAYE
-@import viewmodels.ViewAction
+@import controllers.employer.cis.routes._
+@import models.employer.cis.IsYourBusinessInUK
 
 
-@(appConfig: FrontendAppConfig, form: Form[_], viewAction: ViewAction)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("isBusinessRegisteredForPAYE.title"),
+    title = messages("isYourBusinessInUK.title"),
     appConfig = appConfig,
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = viewAction.call, 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    @helpers.form(action = IsYourBusinessInUKController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("isBusinessRegisteredForPAYE.heading").body,
-            inputs = IsBusinessRegisteredForPAYE.options.toSeq
+            legend = components.heading("isYourBusinessInUK.heading").body,
+            inputs = IsYourBusinessInUK.options.toSeq
         )
 
-        @components.submit_button(gaEvent = viewAction.gaEvent)
+        @components.submit_button(gaEvent = "AddEmployerTaxCis")
     }
 }

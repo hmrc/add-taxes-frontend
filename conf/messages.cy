@@ -643,6 +643,35 @@ registerInHomeCountry.p2=Os ydych eisiau cofrestru ar gyfer GUC TAW yn y DU, mae
 registerInHomeCountry.callUs = ein ffonio.
 
 #######################################################
+##  UsePAYEEmployerIntermediariesAccount
+#######################################################
+usePAYEEmployerIntermediariesAccount.title = Defnyddio eich cyfrif TWE i gyflogwyr
+usePAYEEmployerIntermediariesAccount.heading = Defnyddio eich cyfrif TWE i gyflogwyr
+usePAYEEmployerIntermediariesAccount.continue = Mewngofnodi i’ch cyfrif TWE i gyflogwyr
+usePAYEEmployerIntermediariesAccount.addAccount = Rwyf eisiau ychwanegu cyfryngwyr yn y cyfrif hwn
+usePAYEEmployerIntermediariesAccount.p1 = Dylech reoli cyfryngwyr cyflogaeth yn yr un cyfrif ag yr ydych yn rheoli TWE i gyflogwyr.
+usePAYEEmployerIntermediariesAccount.p2 = Bydd hynny’n ei wneud yn haws rheoli’r ddau gynllun.
+
+#######################################################
+##  RegisterForPAYEIntermediaries
+#######################################################
+registerForPAYEIntermediaries.title = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
+registerForPAYEIntermediaries.heading = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
+registerForPAYEIntermediaries.p1=Mae’n rhaid eich bod wedi cofrestru ar gyfer TWE i gyflogwyr cyn y gallwch reoli cyfryngwyr cyflogaeth ar-lein.
+registerForPAYEIntermediaries.p2=Cofrestrwch ar gyfer TWE i gyflogwyr, wedyn dychwelyd ac ychwanegu cyfryngwyr cyflogaeth ar ôl hynny.
+registerForPAYEIntermediaries.continue = Cofrestru ar gyfer TWE i gyflogwyr
+registerForPAYEIntermediaries.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  RegisterInHomeCountry
+#######################################################
+registerInHomeCountry.title = Cofrestru yn eich gwlad wreiddiol
+registerInHomeCountry.heading = Cofrestru yn eich gwlad wreiddiol
+registerInHomeCountry.p1=Dylech gofrestru ar gyfer GUC TAW gyda’r awdurdod treth yng ngwlad wreiddiol eich busnes.
+registerInHomeCountry.p2=Os ydych eisiau cofrestru ar gyfer GUC TAW yn y DU, mae angen i chi
+registerInHomeCountry.callUs = ein ffonio.
+
+#######################################################
 ##  AreYouContractorOrSubcontractor
 #######################################################
 areYouContractorOrSubcontractor.title = e]: Ydych chi’n gontractwr neu’n isgontractwr?
@@ -651,3 +680,12 @@ areYouContractorOrSubcontractor.Contractor = Ccontractwr - yn cyflogi ac yn talu
 areYouContractorOrSubcontractor.Subcontractor = Isgontractwr - yn gweithio i fusnesau adeiladu eraill
 areYouContractorOrSubcontractor.error.required = Dewiswch p’un a ydych yn gontractwr neu’n isgontractwr
 areYouContractorOrSubcontractor.p1=Os ydych y ddau, bydd rhaid i chi wneud hyn ddwywaith. Dewiswch opsiwn, yna dychwelwch a dewiswch y llall.
+
+#######################################################
+##  IsYourBusinessInUK
+#######################################################
+isYourBusinessInUK.title = A yw eich busnes wedi'i leoli yn y DU?
+isYourBusinessInUK.heading = A yw eich busnes wedi'i leoli yn y DU?
+isYourBusinessInUK.Yes = Ydy - mae fy musnes wedi'i leoli yn y DU
+isYourBusinessInUK.No = Nac ydy - nid yw fy musnes wedi'i leoli yn y DU
+isYourBusinessInUK.error.required = Dewis iawn neu na

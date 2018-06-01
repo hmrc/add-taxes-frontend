@@ -185,3 +185,16 @@ GET        /employer/ers                                 controllers.employer.er
 POST       /employer/ers                                 controllers.employer.ers.IsBusinessRegisteredForPAYEController.onSubmit()
 GET        /employer/cis/uk                  controllers.employer.cis.uk.AreYouContractorOrSubcontractorController.onPageLoad()
 POST       /employer/cis/uk                  controllers.employer.cis.uk.AreYouContractorOrSubcontractorController.onSubmit()
+
+GET        /employer/intermediaries/epaye/other-account  controllers.employer.intermediaries.UsePAYEEmployerAccountController.onPageLoad()
+
+GET        /employer/intermediaries/epaye                controllers.employer.intermediaries.DoesBusinessManagePAYEController.onPageLoad()
+POST       /employer/intermediaries/epaye                controllers.employer.intermediaries.DoesBusinessManagePAYEController.onSubmit()
+
+GET        /employer/intermediaries/register-epaye       controllers.employer.intermediaries.RegisterForPAYEController.onPageLoad()
+
+GET        /employer/intermediaries                      controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onPageLoad()
+POST       /employer/intermediaries                      controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onSubmit()
+
+GET        /employer/cis                  controllers.employer.cis.IsYourBusinessInUKController.onPageLoad()
+POST       /employer/cis                  controllers.employer.cis.IsYourBusinessInUKController.onSubmit()

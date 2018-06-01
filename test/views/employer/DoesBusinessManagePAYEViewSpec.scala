@@ -16,8 +16,9 @@
 
 package views.employer
 
-import forms.employer.cis.uk.contractor.DoesBusinessManagePAYEFormProvider
-import models.employer.cis.uk.contractor.DoesBusinessManagePAYE
+import controllers.employer.intermediaries.routes
+import forms.employer.DoesBusinessManagePAYEFormProvider
+import models.employer.DoesBusinessManagePAYE
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import viewmodels.ViewAction
@@ -40,6 +41,12 @@ class DoesBusinessManagePAYEViewSpec extends ViewBehaviours {
   def createViewUsingForm =
     (form: Form[_]) =>
       doesBusinessManagePAYE(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
+  (form: Form[_]) =>
+    doesBusinessManagePAYE(
+      frontendAppConfig,
+      form,
+      ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "AddIntermediariesEpayeOnline"))(
+      serviceInfoContent)(fakeRequest, messages)
 
   "DoesBusinessManagePAYE view" must {
     behave like normalPage(createView, messageKeyPrefix)

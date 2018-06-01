@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-package utils.nextpage.employer.ers
+package utils.nextpage.employer.cis
 
 import config.FrontendAppConfig
-import controllers.employer.ers.routes
-import identifiers.DoesBusinessManagePAYEId
+import identifiers.IsYourBusinessInUKId
 import play.api.mvc.{Call, Request}
-import models.employer.ers.DoesBusinessManagePAYE
+import models.employer.cis.IsYourBusinessInUK
 import utils.NextPage
 
-trait DoesBusinessManagePAYENextPage {
+trait IsYourBusinessInUKNextPage {
 
-  implicit val ersDoesBusinessManagePAYE: NextPage[DoesBusinessManagePAYEId.type, DoesBusinessManagePAYE] = {
-    new NextPage[DoesBusinessManagePAYEId.type, DoesBusinessManagePAYE] {
-      override def get(b: DoesBusinessManagePAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+  implicit val isYourBusinessInUK: NextPage[IsYourBusinessInUKId.type, IsYourBusinessInUK] = {
+    new NextPage[IsYourBusinessInUKId.type, IsYourBusinessInUK] {
+      override def get(b: IsYourBusinessInUK)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case DoesBusinessManagePAYE.Yes => routes.UseEmployersPAYEController.onPageLoad()
-          case DoesBusinessManagePAYE.No  => routes.AddEmployersPAYEController.onPageLoad()
+          case IsYourBusinessInUK.Yes => ???
+          case IsYourBusinessInUK.No  => ???
         }
     }
   }

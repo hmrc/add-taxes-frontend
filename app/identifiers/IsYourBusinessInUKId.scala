@@ -14,25 +14,8 @@
  * limitations under the License.
  */
 
-package utils.nextpage.employer.ers
+package identifiers
 
-import models.employer.DoesBusinessManagePAYE
-import utils.NextPage
-import utils.nextpage.NextPageSpecBase
-
-class DoesBusinessManagePAYENextPageSpec extends NextPageSpecBase {
-
-  "doesBusinessManagePAYE" when {
-    behave like nextPage(
-      NextPage.ersDoesBusinessManagePAYE,
-      DoesBusinessManagePAYE.Yes,
-      "/business-account/add-tax/employer/ers/epaye/other-account"
-    )
-
-    behave like nextPage(
-      NextPage.ersDoesBusinessManagePAYE,
-      DoesBusinessManagePAYE.No,
-      "/business-account/add-tax/employer/ers/epaye/not-enrolled"
-    )
-  }
+case object IsYourBusinessInUKId extends Identifier {
+  override def toString: String = "isYourBusinessInUK"
 }

@@ -14,26 +14,27 @@
  * limitations under the License.
  */
 
-package forms.employer.cis.uk.contractor
+package forms.employer
 
 import forms.behaviours.FormBehaviours
 import models._
-import models.employer.cis.uk.contractor._
+import models.employer.IsBusinessRegisteredForPAYE
 
-class DoesBusinessManagePAYEFormProviderSpec extends FormBehaviours {
+class IsBusinessRegisteredForPAYEFormProviderSpec extends FormBehaviours {
 
   val validData: Map[String, String] = Map(
-    "value" -> DoesBusinessManagePAYE.options.head.value
+    "value" -> IsBusinessRegisteredForPAYE.options.head.value
   )
 
-  val form = new DoesBusinessManagePAYEFormProvider()()
+  val form = new IsBusinessRegisteredForPAYEFormProvider()()
 
-  "DoesBusinessManagePAYE form" must {
+  "IsBusinessRegisteredForPAYE form" must {
 
-    behave like questionForm[DoesBusinessManagePAYE](DoesBusinessManagePAYE.values.head)
+    behave like questionForm[IsBusinessRegisteredForPAYE](IsBusinessRegisteredForPAYE.values.head)
 
     behave like formWithOptionField(
-      Field("value", Required -> "doesBusinessManagePAYE.error.required", Invalid -> "error.invalid"),
-      DoesBusinessManagePAYE.options.toSeq.map(_.value): _*)
+      Field("value", Required -> "isBusinessRegisteredForPAYE.error.required", Invalid -> "error.invalid"),
+      IsBusinessRegisteredForPAYE.options.toSeq.map(_.value): _*
+    )
   }
 }

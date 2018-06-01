@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package forms.employer.ers
+package forms.employer
 
 import forms.behaviours.FormBehaviours
 import models._
-import models.employer.ers._
+import models.employer.DoesBusinessManagePAYE
 
 class DoesBusinessManagePAYEFormProviderSpec extends FormBehaviours {
 

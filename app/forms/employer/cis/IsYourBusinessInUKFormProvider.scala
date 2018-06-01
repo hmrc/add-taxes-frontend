@@ -14,26 +14,19 @@
  * limitations under the License.
  */
 
-package models.employer.cis.uk.contractor
+package forms.employer.cis
 
-import utils.{Enumerable, RadioOption, WithName}
+import javax.inject.Inject
 
-sealed trait DoesBusinessManagePAYE
+import forms.FormErrorHelper
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.employer.cis.IsYourBusinessInUK
 
-object DoesBusinessManagePAYE {
+class IsYourBusinessInUKFormProvider @Inject() extends FormErrorHelper with Mappings {
 
-  case object Yes extends WithName("Yes") with DoesBusinessManagePAYE
-  case object No extends WithName("No") with DoesBusinessManagePAYE
-
-  val values: Set[DoesBusinessManagePAYE] = Set(
-    Yes,
-    No
-  )
-
-  val options: Set[RadioOption] = values.map { value =>
-    RadioOption("doesBusinessManagePAYE", value.toString)
-  }
-
-  implicit val enumerable: Enumerable[DoesBusinessManagePAYE] =
-    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+  def apply(): Form[IsYourBusinessInUK] =
+    Form(
+      "value" -> enumerable[IsYourBusinessInUK]("isYourBusinessInUK.error.required")
+    )
 }

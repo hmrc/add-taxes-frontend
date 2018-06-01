@@ -14,25 +14,19 @@
  * limitations under the License.
  */
 
-package utils.nextpage.employer.ers
+package forms.employer
 
+import javax.inject.Inject
+
+import forms.FormErrorHelper
+import forms.mappings.Mappings
 import models.employer.DoesBusinessManagePAYE
-import utils.NextPage
-import utils.nextpage.NextPageSpecBase
+import play.api.data.Form
 
-class DoesBusinessManagePAYENextPageSpec extends NextPageSpecBase {
+class DoesBusinessManagePAYEFormProvider @Inject() extends FormErrorHelper with Mappings {
 
-  "doesBusinessManagePAYE" when {
-    behave like nextPage(
-      NextPage.ersDoesBusinessManagePAYE,
-      DoesBusinessManagePAYE.Yes,
-      "/business-account/add-tax/employer/ers/epaye/other-account"
+  def apply(): Form[DoesBusinessManagePAYE] =
+    Form(
+      "value" -> enumerable[DoesBusinessManagePAYE]("doesBusinessManagePAYE.error.required")
     )
-
-    behave like nextPage(
-      NextPage.ersDoesBusinessManagePAYE,
-      DoesBusinessManagePAYE.No,
-      "/business-account/add-tax/employer/ers/epaye/not-enrolled"
-    )
-  }
 }
