@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.employer.cis.uk
+package controllers.employer.cis.ukbased
 
 import javax.inject.Inject
 
@@ -28,7 +28,7 @@ import utils.{Enumerable, Navigator}
 
 import forms.employer.cis.uk.AreYouContractorOrSubcontractorFormProvider
 import identifiers.AreYouContractorOrSubcontractorId
-import views.html.employer.cis.uk.areYouContractorOrSubcontractor
+import views.html.employer.cis.ukbased.areYouContractorOrSubcontractor
 
 import scala.concurrent.Future
 

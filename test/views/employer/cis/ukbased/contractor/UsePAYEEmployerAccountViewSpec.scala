@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package views.employer.cis.uk.contractor
+package views.employer.cis.ukbased.contractor
 
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.employer.cis.uk.contractor.usePAYEEmployerAccount
+import views.html.employer.cis.ukbased.contractor.usePAYEEmployerAccount
 
 class UsePAYEEmployerAccountViewSpec extends ViewBehaviours {
 

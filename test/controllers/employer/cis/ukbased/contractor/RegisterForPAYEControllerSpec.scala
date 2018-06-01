@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.employer.cis.uk.contractor
+package controllers.employer.cis.ukbased.contractor
 
 import controllers._
 import controllers.actions._
@@ -22,7 +22,7 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.mockito.MockitoSugar
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import views.html.employer.cis.uk.contractor.registerForPAYE
+import views.html.employer.cis.ukbased.contractor.registerForPAYE
 
 class RegisterForPAYEControllerSpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach {
 

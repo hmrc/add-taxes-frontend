@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package controllers.employer.cis.uk.contractor
+package controllers.employer.cis.ukbased.contractor
 
 import controllers._
 import controllers.actions._
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import views.html.employer.cis.uk.contractor.usePAYEEmployerAccount
+import views.html.employer.cis.ukbased.contractor.usePAYEEmployerAccount
 
 class UsePAYEEmployerAccountControllerSpec extends ControllerSpecBase {
 

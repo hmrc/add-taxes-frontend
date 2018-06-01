@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.employer.cis.uk.contractor
+package controllers.employer.cis.ukbased.contractor
 
 import javax.inject.Inject
 
@@ -22,9 +22,9 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
-import views.html.employer.cis.uk.contractor.registerForPAYE
+import views.html.employer.cis.ukbased.contractor.usePAYEEmployerAccount
 
-class RegisterForPAYEController @Inject()(
+class UsePAYEEmployerAccountController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   authenticate: AuthAction,
@@ -33,6 +33,6 @@ class RegisterForPAYEController @Inject()(
     with I18nSupport {
 
   def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(registerForPAYE(appConfig)(request.serviceInfoContent))
+    Ok(usePAYEEmployerAccount(appConfig)(request.serviceInfoContent))
   }
 }

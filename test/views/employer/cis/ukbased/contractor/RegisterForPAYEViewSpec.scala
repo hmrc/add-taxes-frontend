@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package views.employer.cis.uk.contractor
+package views.employer.cis.ukbased.contractor
 
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.employer.cis.uk.contractor.registerForPAYE
+import views.html.employer.cis.ukbased.contractor.registerForPAYE
 
 class RegisterForPAYEViewSpec extends ViewBehaviours {
 

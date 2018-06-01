@@ -19,7 +19,7 @@ package utils.nextpage.employer.cis.uk
 import config.FrontendAppConfig
 import identifiers.AreYouContractorOrSubcontractorId
 import models.employer.cis.uk.AreYouContractorOrSubcontractor
-import controllers.employer.cis.uk.contractor.routes._
+import controllers.employer.cis.ukbased.contractor.routes._
 import models.requests.ServiceInfoRequest
 import play.api.mvc.{AnyContent, Call, Request}
 import utils.{Enrolments, HmrcEnrolmentType, NextPage}

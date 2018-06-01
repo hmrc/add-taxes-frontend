@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package views.employer.cis.uk
+package views.employer.cis.ukbased
 
 import play.api.data.Form
 import forms.employer.cis.uk.AreYouContractorOrSubcontractorFormProvider
 import models.employer.cis.uk.AreYouContractorOrSubcontractor
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.employer.cis.uk.areYouContractorOrSubcontractor
+import views.html.employer.cis.ukbased.areYouContractorOrSubcontractor
 
 class AreYouContractorOrSubcontractorViewSpec extends ViewBehaviours {
 

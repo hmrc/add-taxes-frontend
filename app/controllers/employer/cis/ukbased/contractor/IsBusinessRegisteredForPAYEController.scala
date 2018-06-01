@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.employer.cis.uk.contractor
+package controllers.employer.cis.ukbased.contractor
 
 import javax.inject.Inject
 
@@ -25,30 +25,28 @@ import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-import forms.employer.DoesBusinessManagePAYEFormProvider
-import identifiers.DoesBusinessManagePAYEId
+import forms.employer.IsBusinessRegisteredForPAYEFormProvider
+import identifiers.IsBusinessRegisteredForPAYEId
 import viewmodels.ViewAction
-import views.html.employer.doesBusinessManagePAYE
+import views.html.employer.isBusinessRegisteredForPAYE
 
-import scala.concurrent.Future
-
-class DoesBusinessManagePAYEController @Inject()(
+class IsBusinessRegisteredForPAYEController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   dataCacheConnector: DataCacheConnector,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
-  formProvider: DoesBusinessManagePAYEFormProvider)
+  formProvider: IsBusinessRegisteredForPAYEFormProvider)
     extends FrontendController
     with I18nSupport
     with Enumerable.Implicits {
 
-  lazy val viewAction = ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "CisUkContractorEpaye")
+  lazy val viewAction = ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddCisUkContractor")
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doesBusinessManagePAYE(appConfig, form, viewAction)(request.serviceInfoContent))
+    Ok(isBusinessRegisteredForPAYE(appConfig, form, viewAction)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
@@ -56,8 +54,8 @@ class DoesBusinessManagePAYEController @Inject()(
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          BadRequest(doesBusinessManagePAYE(appConfig, formWithErrors, viewAction)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(DoesBusinessManagePAYEId.EPaye, value))
+          BadRequest(isBusinessRegisteredForPAYE(appConfig, formWithErrors, viewAction)(request.serviceInfoContent)),
+        (value) => Redirect(navigator.nextPage(IsBusinessRegisteredForPAYEId.CIS, value))
       )
   }
 }

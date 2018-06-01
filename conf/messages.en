@@ -696,5 +696,5 @@ registerForPAYEIntermediaries.notnow = I don’t want to do this right now
 isYourBusinessInUK.title = Is your business based in the UK?
 isYourBusinessInUK.heading = Is your business based in the UK?
 isYourBusinessInUK.Yes = Yes - my business is based in the UK
-isYourBusinessInUK.No = No - my business isn't based in the UK
+isYourBusinessInUK.No = No - my business isn’t based in the UK
 isYourBusinessInUK.error.required = Select yes or no

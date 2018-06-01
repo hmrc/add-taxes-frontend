@@ -676,7 +676,7 @@ registerInHomeCountry.callUs = ein ffonio.
 #######################################################
 areYouContractorOrSubcontractor.title = e]: Ydych chi’n gontractwr neu’n isgontractwr?
 areYouContractorOrSubcontractor.heading = Ydych chi’n gontractwr neu’n isgontractwr?
-areYouContractorOrSubcontractor.Contractor = Ccontractwr - yn cyflogi ac yn talu isgontractwyr
+areYouContractorOrSubcontractor.Contractor = Contractwr - yn cyflogi ac yn talu isgontractwyr
 areYouContractorOrSubcontractor.Subcontractor = Isgontractwr - yn gweithio i fusnesau adeiladu eraill
 areYouContractorOrSubcontractor.error.required = Dewiswch p’un a ydych yn gontractwr neu’n isgontractwr
 areYouContractorOrSubcontractor.p1=Os ydych y ddau, bydd rhaid i chi wneud hyn ddwywaith. Dewiswch opsiwn, yna dychwelwch a dewiswch y llall.

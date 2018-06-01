@@ -17,7 +17,7 @@
 package utils.nextpage.employer
 
 import config.FrontendAppConfig
-import controllers.employer.cis.uk.contractor.{routes => payeAccountRoutes}
+import controllers.employer.cis.ukbased.contractor.{routes => payeAccountRoutes}
 import controllers.employer.ers.routes
 import controllers.employer.intermediaries.{routes => eiRoutes}
 import identifiers.IsBusinessRegisteredForPAYEId
