@@ -555,6 +555,27 @@ selectGamblingOrGamingDuty.RGD = Toll Hapchwarae o Bell (RGD)
 selectGamblingOrGamingDuty.error.required = Dewis toll
 
 #######################################################
+##  WhereIsYourBusinessBased
+#######################################################
+whereIsYourBusinessBased.title = Ymhle mae eich busnes wedi’i leoli?
+whereIsYourBusinessBased.heading = Ymhle mae eich busnes wedi’i leoli?
+whereIsYourBusinessBased.UK = Y DU
+whereIsYourBusinessBased.EU = Aelod wladwriaeth arall yr UE
+whereIsYourBusinessBased.NonEu = Y tu allan i’r UE
+whereIsYourBusinessBased.Iom = Ynys Manaw
+whereIsYourBusinessBased.error.required = Dewis lleoliad
+
+#######################################################
+##  HaveYouRegisteredForVATMOSS
+#######################################################
+haveYouRegisteredForVATMOSS.title = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
+haveYouRegisteredForVATMOSS.heading = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
+haveYouRegisteredForVATMOSS.subtext = Byddwch wedi cael rhif adnabod GUC TAW os ydych eisoes wedi cofrestru
+haveYouRegisteredForVATMOSS.Yes = Ydw - rwyf eisoes wedi cofrestru ar gyfer GUC TAW
+haveYouRegisteredForVATMOSS.No = Nac ydw - nid wyf wedi cofrestru ar gyfer GUC TAW ar hyn o bryd
+haveYouRegisteredForVATMOSS.error.required = Dewis iawn neu na
+
+#######################################################
 ##  AlreadyRegisteredForVATMoss
 #######################################################
 alreadyRegisteredForVATMoss.title = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
@@ -604,3 +625,70 @@ whichVATServicesToAdd.rcsl = Rhestr Gwerthiannau Tâl Gwrthdro (RCSL), Rhoi gwyb
 whichVATServicesToAdd.moss = Gwasanaeth Un Cam (GUC), TAW ar gyfer gwasanaethau digidol a werthwyd yn yr UE
 whichVATServicesToAdd.nova = Hysbysiad o Gerbydau'n Cyrraedd (NOVA)
 whichVATServicesToAdd.error.required = Dewis gwasanaeth TAW
+
+#######################################################
+##  UseEmployersPAYE
+#######################################################
+useEmployersPAYE.title = Defnyddio eich cyfrif TWE i gyflogwyr
+useEmployersPAYE.heading = Defnyddio eich cyfrif TWE i gyflogwyr
+useEmployersPAYE.subtext = Mae’n rhaid i chi reoli gwarantau ar sail cyflogaeth (ERS) yn yr un cyfrif ag yr ydych yn rheoli TWE i gyflogwyr.
+useEmployersPAYE.continue = Mewngofnodi i’ch cyfrif TWE i gyflogwyr
+useEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  AddEmployersPAYE
+#######################################################
+addEmployersPAYE.title = Ychwanegwch TWE i gyflogwyr yn gyntaf
+addEmployersPAYE.heading = Ychwanegwch TWE i gyflogwyr yn gyntaf
+addEmployersPAYE.subtext1 = Mae’n rhaid i chi reoli TWE i gyflogwyr ar-lein cyn y gallwch reoli gwarantau ar sail cyflogaeth (ERS).
+addEmployersPAYE.subtext2 = Ychwanegwch TWE i gyflogwyr i’r cyfrif hwn, wedyn dychwelyd ac ychwanegu gwarantau ar sail cyflogaeth (ERS) ar ôl hynny.
+addEmployersPAYE.continue = Ychwanegu TWE i gyflogwyr
+addEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  RegisterEmployersPAYE
+#######################################################
+registerEmployersPAYE.title = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
+registerEmployersPAYE.heading = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
+registerEmployersPAYE.subtext1 = Mae angen i chi fod wedi cofrestru ar gyfer TWE i gyflogwyr cyn y gallwch reoli gwarantau ar sail cyflogaeth (ERS) ar-lein.
+registerEmployersPAYE.subtext2 = Cofrestrwch ar gyfer TWE i gyflogwyr, wedyn dychwelyd ac ychwanegu gwarantau ar sail cyflogaeth ar ôl hynny.
+registerEmployersPAYE.continue = Cofrestru ar gyfer TWE i gyflogwyr
+registerEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  RegisterInHomeCountry
+#######################################################
+registerInHomeCountry.title = Cofrestru yn eich gwlad wreiddiol
+registerInHomeCountry.heading = Cofrestru yn eich gwlad wreiddiol
+registerInHomeCountry.p1=Dylech gofrestru ar gyfer GUC TAW gyda’r awdurdod treth yng ngwlad wreiddiol eich busnes.
+registerInHomeCountry.p2=Os ydych eisiau cofrestru ar gyfer GUC TAW yn y DU, mae angen i chi
+registerInHomeCountry.callUs = ein ffonio.
+
+#######################################################
+##  UsePAYEEmployerIntermediariesAccount
+#######################################################
+usePAYEEmployerIntermediariesAccount.title = Defnyddio eich cyfrif TWE i gyflogwyr
+usePAYEEmployerIntermediariesAccount.heading = Defnyddio eich cyfrif TWE i gyflogwyr
+usePAYEEmployerIntermediariesAccount.continue = Mewngofnodi i’ch cyfrif TWE i gyflogwyr
+usePAYEEmployerIntermediariesAccount.addAccount = Rwyf eisiau ychwanegu cyfryngwyr yn y cyfrif hwn
+usePAYEEmployerIntermediariesAccount.p1 = Dylech reoli cyfryngwyr cyflogaeth yn yr un cyfrif ag yr ydych yn rheoli TWE i gyflogwyr.
+usePAYEEmployerIntermediariesAccount.p2 = Bydd hynny’n ei wneud yn haws rheoli’r ddau gynllun.
+
+#######################################################
+##  RegisterForPAYEIntermediaries
+#######################################################
+registerForPAYEIntermediaries.title = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
+registerForPAYEIntermediaries.heading = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
+registerForPAYEIntermediaries.p1=Mae’n rhaid eich bod wedi cofrestru ar gyfer TWE i gyflogwyr cyn y gallwch reoli cyfryngwyr cyflogaeth ar-lein.
+registerForPAYEIntermediaries.p2=Cofrestrwch ar gyfer TWE i gyflogwyr, wedyn dychwelyd ac ychwanegu cyfryngwyr cyflogaeth ar ôl hynny.
+registerForPAYEIntermediaries.continue = Cofrestru ar gyfer TWE i gyflogwyr
+registerForPAYEIntermediaries.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  RegisterInHomeCountry
+#######################################################
+registerInHomeCountry.title = Cofrestru yn eich gwlad wreiddiol
+registerInHomeCountry.heading = Cofrestru yn eich gwlad wreiddiol
+registerInHomeCountry.p1=Dylech gofrestru ar gyfer GUC TAW gyda’r awdurdod treth yng ngwlad wreiddiol eich busnes.
+registerInHomeCountry.p2=Os ydych eisiau cofrestru ar gyfer GUC TAW yn y DU, mae angen i chi
+registerInHomeCountry.callUs = ein ffonio.

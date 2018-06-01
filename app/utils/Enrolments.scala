@@ -16,6 +16,8 @@
 
 package utils
 
+import uk.gov.hmrc.auth.core
+
 sealed trait Enrolments
 
 object Enrolments {
@@ -76,6 +78,8 @@ object Enrolments {
 
   case object RCSL extends WithName("HMCE-VATRSL-ORG") with Enrolments
 
+  case object EPAYE extends WithName("IR-PAYE") with Enrolments
+
   val values: Set[Enrolments] = Set(
     RebatedOils,
     TiedOils,
@@ -103,6 +107,23 @@ object Enrolments {
     VATMOSSNonUnion,
     ECSales,
     EURefunds,
-    RCSL
+    RCSL,
+    EPAYE
   )
+
+  def hasEnrolments(enrolments: core.Enrolments, enrolmentTypes: HmrcEnrolmentType*) = enrolmentTypes.exists { t =>
+    enrolments.getEnrolment(t.toString).isDefined
+  }
+
+}
+
+sealed trait HmrcEnrolmentType
+
+object HmrcEnrolmentType {
+
+  case object SA extends WithName("IR-SA") with HmrcEnrolmentType
+
+  case object CORP_TAX extends WithName("IR-CT") with HmrcEnrolmentType
+
+  val values: Set[HmrcEnrolmentType] = Set(SA, CORP_TAX)
 }

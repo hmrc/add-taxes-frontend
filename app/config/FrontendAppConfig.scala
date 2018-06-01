@@ -58,6 +58,7 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
 
   private lazy val businessAccountHost = runModeConfiguration.getString("urls.business-account.host").getOrElse("")
   def getBusinessAccountUrl(key: String): String = businessAccountHost + loadConfig(s"urls.business-account.$key")
+  def getIFormUrl(key: String): String = loadConfig(s"urls.iForms-url.$key")
 
   private lazy val govUKHost = runModeConfiguration.getString("urls.govuk.host").getOrElse("")
   def getGovUKUrl(key: String): String = govUKHost + loadConfig(s"urls.govuk.$key")
@@ -87,6 +88,8 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
 
   lazy val publishedAssets = loadConfig(s"urls.external.assets.host")
   def getPublishedAssetsUrl(key: String): String = publishedAssets + loadConfig(s"urls.external.assets.$key")
+
+  def eiUrl = loadConfig(s"urls.external.ei")
 
   def emacEnrollmentsUrl(enrolment: Enrolments): String =
     s"$enrolmentManagementFrontendHost/enrolment-management-frontend/$enrolment/request-access-tax-scheme?continue=%2Fbusiness-account"

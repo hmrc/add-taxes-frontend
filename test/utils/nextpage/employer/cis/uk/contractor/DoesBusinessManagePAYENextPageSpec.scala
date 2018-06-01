@@ -16,7 +16,7 @@
 
 package utils.nextpage.employer.cis.uk.contractor
 
-import models.employer.cis.uk.contractor.DoesBusinessManagePAYE
+import models.employer.DoesBusinessManagePAYE
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
@@ -24,13 +24,13 @@ class DoesBusinessManagePAYENextPageSpec extends NextPageSpecBase {
 
   "DoesBusinessManagePAYE" when {
     behave like nextPage(
-      NextPage.doesBusinessManagePAYE,
+      NextPage.epayeDoesBusinessManagePAYE,
       DoesBusinessManagePAYE.Yes,
       "/business-account/add-tax/employer/cis/uk/contractor/epaye/other-account"
     )
 
     behave like nextPage(
-      NextPage.doesBusinessManagePAYE,
+      NextPage.epayeDoesBusinessManagePAYE,
       DoesBusinessManagePAYE.No,
       "http://localhost:9555/enrolment-management-frontend/HMRC-CIS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
     )

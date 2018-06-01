@@ -19,7 +19,7 @@ package utils
 import config.FrontendAppConfig
 import play.api.mvc.{Call, Request}
 import utils.nextpage.OtherTaxesNextPage
-import utils.nextpage.employer.cis.uk.contractor.{DoesBusinessManagePAYENextPage, IsBusinessRegisteredForPAYENextPage}
+import utils.nextpage.employer.{DoesBusinessManagePAYENextPage, IsBusinessRegisteredForPAYENextPage}
 import utils.nextpage.employer.pension.WhichPensionSchemeToAddNextPage
 import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
 import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage
@@ -43,6 +43,7 @@ import utils.nextpage.vat.eurefunds.RegisteredForVATEURefundsNextPage
 import utils.nextpage.vat.moss.noneu.HaveYouRegisteredForVATMOSSNextPage
 import utils.nextpage.vat.WhichVATServicesToAddNextPage
 import utils.nextpage.vat.rcsl.RegisteredForVATRCSLNextPage
+import utils.nextpage.vat.moss.WhereIsYourBusinessBasedNextPage
 
 trait NextPage[A, B] {
   def get(b: B)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call
@@ -75,6 +76,7 @@ object NextPage
     with HaveYouRegisteredTrustNextPage
     with DoYouHaveCHIEFRoleNextPage
     with DoYouWantToAddImportExportNextPage
+    with WhereIsYourBusinessBasedNextPage
     with HaveYouRegisteredForVATMOSSNextPage
     with AlreadyRegisteredForVATMossNextPage
     with RegisteredForVATNextPage

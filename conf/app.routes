@@ -135,17 +135,17 @@ POST       /vat/eurefunds                               controllers.vat.eurefund
 GET        /vat/rcsl                                    controllers.vat.rcsl.RegisteredForVATRCSLController.onPageLoad()
 POST       /vat/rcsl                                    controllers.vat.rcsl.RegisteredForVATRCSLController.onSubmit()
 
-GET        /vat/moss/uk                                 controllers.vat.moss.uk.RegisteredForVATUkController.onPageLoad()
-POST       /vat/moss/uk                                 controllers.vat.moss.uk.RegisteredForVATUkController.onSubmit()
+GET        /vat/moss/uk                                 controllers.vat.moss.ukbased.RegisteredForVATUkController.onPageLoad()
+POST       /vat/moss/uk                                 controllers.vat.moss.ukbased.RegisteredForVATUkController.onSubmit()
 
-GET        /vat/moss/uk/vat-registered                  controllers.vat.moss.uk.OnlineVATAccountController.onPageLoad()
-POST       /vat/moss/uk/vat-registered                  controllers.vat.moss.uk.OnlineVATAccountController.onSubmit()
+GET        /vat/moss/uk/vat-registered                  controllers.vat.moss.ukbased.OnlineVATAccountController.onPageLoad()
+POST       /vat/moss/uk/vat-registered                  controllers.vat.moss.ukbased.OnlineVATAccountController.onSubmit()
 
-GET        /vat/moss/uk/not-vat-registered              controllers.vat.moss.uk.RegisterForVATController.onPageLoad()
+GET        /vat/moss/uk/not-vat-registered              controllers.vat.moss.ukbased.RegisterForVATController.onPageLoad()
 
-GET        /vat/moss/uk/vat-registered/other-account    controllers.vat.moss.uk.AddVATMOSSController.onPageLoad()
+GET        /vat/moss/uk/vat-registered/other-account    controllers.vat.moss.ukbased.AddVATMOSSController.onPageLoad()
 
-GET        /vat/moss/uk/vat-registered/no-other-account controllers.vat.moss.uk.AddVATFirstController.onPageLoad()
+GET        /vat/moss/uk/vat-registered/no-other-account controllers.vat.moss.ukbased.AddVATFirstController.onPageLoad()
 
 GET        /vat/moss/iom                                controllers.vat.moss.iom.RegisteredForVATController.onPageLoad()
 POST       /vat/moss/iom                                controllers.vat.moss.iom.RegisteredForVATController.onSubmit()
@@ -157,6 +157,11 @@ POST       /vat/moss/iom/vat-registered                 controllers.vat.moss.iom
 
 GET        /vat/moss/non-eu                             controllers.vat.moss.noneu.HaveYouRegisteredForVATMOSSController.onPageLoad()
 POST       /vat/moss/non-eu                             controllers.vat.moss.noneu.HaveYouRegisteredForVATMOSSController.onSubmit()
+
+GET        /vat/moss                                     controllers.vat.moss.WhereIsYourBusinessBasedController.onPageLoad()
+POST       /vat/moss                                     controllers.vat.moss.WhereIsYourBusinessBasedController.onSubmit()
+
+GET        /vat/moss/eu                                  controllers.vat.moss.eu.RegisterInHomeCountryController.onPageLoad()
 
 GET        /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onPageLoad()
 POST       /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onSubmit()
@@ -176,5 +181,28 @@ GET        /employer/cis/uk/contractor/register-epaye         controllers.employ
 GET        /employer/cis/uk/contractor                        controllers.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEController.onPageLoad()
 POST       /employer/cis/uk/contractor                        controllers.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEController.onSubmit()
 
-GET        /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onPageLoad()
-POST       /other/gambling                  controllers.other.gambling.SelectGamblingOrGamingDutyController.onSubmit()
+GET        /other/gambling                               controllers.other.gambling.SelectGamblingOrGamingDutyController.onPageLoad()
+POST       /other/gambling                               controllers.other.gambling.SelectGamblingOrGamingDutyController.onSubmit()
+
+GET        /employer/ers/epaye/other-account             controllers.employer.ers.UseEmployersPAYEController.onPageLoad()
+
+GET        /employer/ers/epaye/not-enrolled              controllers.employer.ers.AddEmployersPAYEController.onPageLoad()
+
+GET        /employer/ers/register-epaye                  controllers.employer.ers.RegisterEmployersPAYEController.onPageLoad()
+
+GET        /employer/ers/epaye                           controllers.employer.ers.DoesBusinessManagePAYEController.onPageLoad()
+POST       /employer/ers/epaye                           controllers.employer.ers.DoesBusinessManagePAYEController.onSubmit()
+
+GET        /employer/ers                                 controllers.employer.ers.IsBusinessRegisteredForPAYEController.onPageLoad()
+POST       /employer/ers                                 controllers.employer.ers.IsBusinessRegisteredForPAYEController.onSubmit()
+
+GET        /employer/intermediaries/epaye/other-account  controllers.employer.intermediaries.UsePAYEEmployerAccountController.onPageLoad()
+
+GET        /employer/intermediaries/epaye                controllers.employer.intermediaries.DoesBusinessManagePAYEController.onPageLoad()
+POST       /employer/intermediaries/epaye                controllers.employer.intermediaries.DoesBusinessManagePAYEController.onSubmit()
+
+GET        /employer/intermediaries/register-epaye       controllers.employer.intermediaries.RegisterForPAYEController.onPageLoad()
+
+GET        /employer/intermediaries                      controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onPageLoad()
+POST       /employer/intermediaries                      controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onSubmit()
+

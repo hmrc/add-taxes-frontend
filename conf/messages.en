@@ -572,6 +572,17 @@ selectGamblingOrGamingDuty.RGD = Remote Gaming Duty (RGD)
 selectGamblingOrGamingDuty.error.required = Select a duty
 
 #######################################################
+##  WhereIsYourBusinessBased
+#######################################################
+whereIsYourBusinessBased.title = Where is your business based?
+whereIsYourBusinessBased.heading = Where is your business based?
+whereIsYourBusinessBased.UK = UK
+whereIsYourBusinessBased.EU = Another EU state
+whereIsYourBusinessBased.NonEu = Outside the EU
+whereIsYourBusinessBased.Iom = Isle of Man
+whereIsYourBusinessBased.error.required = Select a location
+
+#######################################################
 ##  AlreadyRegisteredForVATMoss
 #######################################################
 alreadyRegisteredForVATMoss.title = Have you already registered for VAT MOSS?
@@ -631,3 +642,62 @@ whichVATServicesToAdd.rcsl = Reverse Charge Sales List (RCSL), report sales whic
 whichVATServicesToAdd.moss = Mini One Stop Shop (MOSS), VAT on digital services sold to EU customers
 whichVATServicesToAdd.nova = Notification of Vehicle Arrivals (NOVA)
 whichVATServicesToAdd.error.required = Select a VAT service
+
+#######################################################
+##  RegisterInHomeCountry
+#######################################################
+registerInHomeCountry.title = Register in your home country
+registerInHomeCountry.heading = Register in your home country
+registerInHomeCountry.p1=You should register for VAT MOSS with the tax authority in the home country of your business.
+registerInHomeCountry.p2=If you want to register for VAT MOSS in the UK, you need to
+registerInHomeCountry.callUs = call us.
+
+#######################################################
+##  UseEmployersPAYE
+#######################################################
+useEmployersPAYE.title = Use your PAYE for employers account
+useEmployersPAYE.heading = Use your PAYE for employers account
+useEmployersPAYE.subtext = You have to manage employment related securities (ERS) in the same account that you manage PAYE for employers.
+useEmployersPAYE.continue = Sign in to your PAYE for employers account
+useEmployersPAYE.notnow = I don’t want to do this right now
+
+#######################################################
+##  AddEmployersPAYE
+#######################################################
+addEmployersPAYE.title = Add PAYE for employers first
+addEmployersPAYE.heading = Add PAYE for employers first
+addEmployersPAYE.subtext1 = You have to manage PAYE for employers online before you can manage employment related securities (ERS).
+addEmployersPAYE.subtext2 = Add PAYE for employers to this account, then come back and add employment related securities (ERS) afterwards.
+addEmployersPAYE.continue = Add PAYE for employers
+addEmployersPAYE.notnow = I don’t want to do this right now
+
+#######################################################
+##  RegisterEmployersPAYE
+#######################################################
+registerEmployersPAYE.title = Register for PAYE for employers first
+registerEmployersPAYE.heading = Register for PAYE for employers first
+registerEmployersPAYE.subtext1 = You need to be registered for PAYE for employers before you can manage employment related securities (ERS) online.
+registerEmployersPAYE.subtext2 = Register for PAYE for employers, then come back and add employment related securities afterwards.
+registerEmployersPAYE.continue = Register for PAYE for employers
+registerEmployersPAYE.notnow = I don’t want to do this right now
+
+#######################################################
+##  UsePAYEEmployerAccountIntermediaries
+#######################################################
+usePAYEEmployerIntermediariesAccount.title = Use your PAYE for employers account
+usePAYEEmployerIntermediariesAccount.heading = Use your PAYE for employers account
+usePAYEEmployerIntermediariesAccount.continue = Sign in to your PAYE for employers account
+usePAYEEmployerIntermediariesAccount.addAccount = I want to add intermediaries in this account
+usePAYEEmployerIntermediariesAccount.p1 = You should manage employment intermediaries in the same account that you manage PAYE for employers.
+usePAYEEmployerIntermediariesAccount.p2 = It will make it easier to manage both schemes.
+
+#######################################################
+##  RegisterForPAYEIntermediaries
+#######################################################
+registerForPAYEIntermediaries.title = Register for PAYE for employers first
+registerForPAYEIntermediaries.heading = Register for PAYE for employers first
+registerForPAYEIntermediaries.p1=You need to be registered for PAYE for employers before you can manage employment intermediaries online.
+registerForPAYEIntermediaries.p2=Register for PAYE for employers, then come back and add employment intermediaries afterwards.
+registerForPAYEIntermediaries.continue = Register for PAYE for employers
+registerForPAYEIntermediaries.notnow = I don’t want to do this right now
+

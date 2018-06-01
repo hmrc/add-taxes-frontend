@@ -17,18 +17,23 @@
 package controllers.employer.cis.uk.contractor
 
 import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
+import controllers.actions.{FakeServiceInfoAction, _}
+import forms.employer.DoesBusinessManagePAYEFormProvider
+import models.employer.DoesBusinessManagePAYE
+import play.api.data.Form
 import play.api.test.Helpers._
-import forms.employer.cis.uk.contractor.DoesBusinessManagePAYEFormProvider
-import identifiers.DoesBusinessManagePAYEId
-import models.employer.cis.uk.contractor.DoesBusinessManagePAYE
+import forms.employer.DoesBusinessManagePAYEFormProvider
+import play.api.test.Helpers._
+import models.employer.DoesBusinessManagePAYE
 import play.twirl.api.HtmlFormat
-import views.html.employer.cis.uk.contractor.doesBusinessManagePAYE
+import utils.FakeNavigator
+import viewmodels.ViewAction
+import views.html.employer.doesBusinessManagePAYE
+import viewmodels.ViewAction
+import views.html.employer.doesBusinessManagePAYE
 
 class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
 
@@ -36,6 +41,7 @@ class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
 
   val formProvider = new DoesBusinessManagePAYEFormProvider()
   val form = formProvider()
+  val viewAction = ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "CisUkContractorEpaye")
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new DoesBusinessManagePAYEController(
@@ -48,7 +54,12 @@ class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
       formProvider)
 
   def viewAsString(form: Form[_] = form) =
-    doesBusinessManagePAYE(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    doesBusinessManagePAYE(
+      frontendAppConfig,
+      form,
+      ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "CisUkContractorEpaye"))(HtmlFormat.empty)(
+      fakeRequest,
+      messages).toString
 
   "DoesBusinessManagePAYE Controller" must {
 

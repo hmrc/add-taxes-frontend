@@ -21,7 +21,7 @@ import identifiers.RegisteredForVATUkId
 import models.vat.moss.uk.RegisteredForVATUk
 import play.api.mvc.{Call, Request}
 import utils.NextPage
-import controllers.vat.moss.uk.{routes => vatMossUkRoutes}
+import controllers.vat.moss.ukbased.{routes => vatMossUkRoutes}
 
 trait RegisteredForVATUKNextPage {
 

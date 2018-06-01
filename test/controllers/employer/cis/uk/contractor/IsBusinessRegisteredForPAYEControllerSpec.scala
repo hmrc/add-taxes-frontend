@@ -17,18 +17,16 @@
 package controllers.employer.cis.uk.contractor
 
 import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
+import forms.employer.IsBusinessRegisteredForPAYEFormProvider
 import play.api.test.Helpers._
-import forms.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEFormProvider
-import identifiers.IsBusinessRegisteredForPAYEId
-import models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE
+import models.employer.IsBusinessRegisteredForPAYE
 import play.twirl.api.HtmlFormat
-import views.html.employer.cis.uk.contractor.isBusinessRegisteredForPAYE
+import viewmodels.ViewAction
+import views.html.employer.isBusinessRegisteredForPAYE
 
 class IsBusinessRegisteredForPAYEControllerSpec extends ControllerSpecBase {
 
@@ -36,6 +34,7 @@ class IsBusinessRegisteredForPAYEControllerSpec extends ControllerSpecBase {
 
   val formProvider = new IsBusinessRegisteredForPAYEFormProvider()
   val form = formProvider()
+  val viewAction = ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddCisUkContractor")
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new IsBusinessRegisteredForPAYEController(
@@ -48,7 +47,13 @@ class IsBusinessRegisteredForPAYEControllerSpec extends ControllerSpecBase {
       formProvider)
 
   def viewAsString(form: Form[_] = form) =
-    isBusinessRegisteredForPAYE(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    isBusinessRegisteredForPAYE(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
+  isBusinessRegisteredForPAYE(
+    frontendAppConfig,
+    form,
+    ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "CisUkContractorEpaye"))(HtmlFormat.empty)(
+    fakeRequest,
+    messages).toString
 
   "IsBusinessRegisteredForPAYE Controller" must {
 
