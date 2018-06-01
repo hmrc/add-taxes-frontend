@@ -43,7 +43,7 @@ trait AreYouContractorOrSubcontractorNextPage {
 
           case (AreYouContractorOrSubcontractor.Contractor, false) => IsBusinessRegisteredForPAYEController.onPageLoad()
 
-          case (AreYouContractorOrSubcontractor.Subcontractor, _)  => ???
+          case (AreYouContractorOrSubcontractor.Subcontractor, _) => ???
         }
     }
   }

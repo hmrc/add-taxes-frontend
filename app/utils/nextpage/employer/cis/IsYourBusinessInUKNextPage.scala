@@ -30,12 +30,11 @@ trait IsYourBusinessInUKNextPage {
     new NextPage[IsYourBusinessInUKId.type, IsYourBusinessInUK] {
 
       override def get(b: IsYourBusinessInUK)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-
         b match {
 
           case IsYourBusinessInUK.Yes => AreYouContractorOrSubcontractorController.onPageLoad()
 
-          case IsYourBusinessInUK.No  => Call("GET", appConfig.getGovUKUrl("cisOutsideUk"))
+          case IsYourBusinessInUK.No => Call("GET", appConfig.getGovUKUrl("cisOutsideUk"))
         }
     }
   }
