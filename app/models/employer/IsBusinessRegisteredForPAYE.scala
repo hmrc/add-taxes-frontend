@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package models.employer.cis.uk.contractor
+package models.employer
 
 import utils.{Enumerable, RadioOption, WithName}
 

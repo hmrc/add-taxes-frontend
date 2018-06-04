@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package views.employer.cis.uk.contractor
+package views.employer
 
+import controllers.employer.intermediaries.routes
+import forms.employer.IsBusinessRegisteredForPAYEFormProvider
+import models.employer.IsBusinessRegisteredForPAYE
 import play.api.data.Form
-import forms.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEFormProvider
-import models.employer.cis.uk.contractor.IsBusinessRegisteredForPAYE
 import play.twirl.api.HtmlFormat
 import viewmodels.ViewAction
 import views.behaviours.ViewBehaviours
@@ -40,6 +41,12 @@ class IsBusinessRegisteredForPAYEViewSpec extends ViewBehaviours {
   def createViewUsingForm =
     (form: Form[_]) =>
       isBusinessRegisteredForPAYE(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
+  (form: Form[_]) =>
+    isBusinessRegisteredForPAYE(
+      frontendAppConfig,
+      form,
+      ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddIntermediariesEpayeOnline"))(
+      serviceInfoContent)(fakeRequest, messages)
 
   "IsBusinessRegisteredForPAYE view" must {
     behave like normalPage(createView, messageKeyPrefix)

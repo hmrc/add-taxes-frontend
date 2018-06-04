@@ -19,8 +19,8 @@ package controllers.employer.ers
 import connectors.FakeDataCacheConnector
 import controllers._
 import controllers.actions.{FakeServiceInfoAction, _}
-import forms.employer.ers.DoesBusinessManagePAYEFormProvider
-import models.employer.ers.DoesBusinessManagePAYE
+import forms.employer.DoesBusinessManagePAYEFormProvider
+import models.employer.DoesBusinessManagePAYE
 import play.api.data.Form
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat

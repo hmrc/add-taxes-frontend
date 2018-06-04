@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package forms.employer.ers
+package forms.employer
 
 import javax.inject.Inject
 
 import forms.FormErrorHelper
 import forms.mappings.Mappings
+import models.employer.IsBusinessRegisteredForPAYE
 import play.api.data.Form
-import models.employer.ers.DoesBusinessManagePAYE
 
-class DoesBusinessManagePAYEFormProvider @Inject() extends FormErrorHelper with Mappings {
+class IsBusinessRegisteredForPAYEFormProvider @Inject() extends FormErrorHelper with Mappings {
 
-  def apply(): Form[DoesBusinessManagePAYE] =
+  def apply(): Form[IsBusinessRegisteredForPAYE] =
     Form(
-      "value" -> enumerable[DoesBusinessManagePAYE]("doesBusinessManagePAYE.error.required")
+      "value" -> enumerable[IsBusinessRegisteredForPAYE]("isBusinessRegisteredForPAYE.error.required")
     )
 }

@@ -4,7 +4,7 @@ echo "Applying migration RegisterForPAYE"
 
 echo "Adding routes to conf/app.routes"
 echo "" >> ../conf/app.routes
-echo "GET        /employer/cis/uk/contractor/register-epaye                       controllers.employer.cis.uk.contractor.RegisterForPAYEController.onPageLoad()" >> ../conf/app.routes
+echo "GET        /employer/intermediaries/register-epaye                       controllers.employer.intermediaries.RegisterForPAYEController.onPageLoad()" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages (English)"
 echo "" >> ../conf/messages.en

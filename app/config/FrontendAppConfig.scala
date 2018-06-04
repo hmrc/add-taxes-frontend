@@ -89,6 +89,8 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   lazy val publishedAssets = loadConfig(s"urls.external.assets.host")
   def getPublishedAssetsUrl(key: String): String = publishedAssets + loadConfig(s"urls.external.assets.$key")
 
+  def eiUrl = loadConfig(s"urls.external.ei")
+
   def emacEnrollmentsUrl(enrolment: Enrolments): String =
     s"$enrolmentManagementFrontendHost/enrolment-management-frontend/$enrolment/request-access-tax-scheme?continue=%2Fbusiness-account"
 

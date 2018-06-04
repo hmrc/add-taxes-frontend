@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package models.employer.ers
+package models.employer
 
 import utils.{Enumerable, RadioOption, WithName}
 

@@ -26,4 +26,8 @@ object IsBusinessRegisteredForPAYEId {
     override def toString: String = "isBusinessRegisteredForPAYE.ERS"
   }
 
+  case object EI extends Identifier {
+    override def toString: String = "isBusinessRegisteredForPAYE.EI"
+  }
+
 }
