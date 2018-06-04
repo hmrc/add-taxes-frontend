@@ -31,10 +31,17 @@ class WhichVATServicesToAddViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => whichVATServicesToAdd(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView =
+    () =>
+      whichVATServicesToAdd(frontendAppConfig, form, WhichVATServicesToAdd.options)(serviceInfoContent)(
+        fakeRequest,
+        messages)
 
   def createViewUsingForm =
-    (form: Form[_]) => whichVATServicesToAdd(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    (form: Form[_]) =>
+      whichVATServicesToAdd(frontendAppConfig, form, WhichVATServicesToAdd.options)(serviceInfoContent)(
+        fakeRequest,
+        messages)
 
   "WhichVATServicesToAdd view" must {
     behave like normalPage(createView, messageKeyPrefix)

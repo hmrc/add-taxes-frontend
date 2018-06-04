@@ -16,21 +16,20 @@
 
 package controllers.vat
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
-
 import forms.vat.WhichVATServicesToAddFormProvider
 import identifiers.WhichVATServicesToAddId
+import javax.inject.Inject
+import models.requests.ServiceInfoRequest
+import models.vat.WhichVATServicesToAdd
+import play.api.data.Form
+import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.AnyContent
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enrolments, Enumerable, HmrcEnrolmentType, Navigator}
 import views.html.vat.whichVATServicesToAdd
-
-import scala.concurrent.Future
 
 class WhichVATServicesToAddController @Inject()(
   appConfig: FrontendAppConfig,
@@ -45,18 +44,23 @@ class WhichVATServicesToAddController @Inject()(
     with Enumerable.Implicits {
 
   val form = formProvider()
+  val optionsWithoutVAT = WhichVATServicesToAdd.options.filterNot(_.value == WhichVATServicesToAdd.VAT.toString)
+  def radioOptions(implicit request: ServiceInfoRequest[AnyContent]) =
+    if (Enrolments.hasEnrolments(request.request.enrolments, HmrcEnrolmentType.VAT)) {
+      optionsWithoutVAT
+    } else { WhichVATServicesToAdd.options }
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(whichVATServicesToAdd(appConfig, form)(request.serviceInfoContent))
+    Ok(whichVATServicesToAdd(appConfig, form, radioOptions)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(whichVATServicesToAdd(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(WhichVATServicesToAddId, value)))
+          BadRequest(whichVATServicesToAdd(appConfig, formWithErrors, radioOptions)(request.serviceInfoContent)),
+        (value) => Redirect(navigator.nextPage(WhichVATServicesToAddId, value))
       )
   }
 }

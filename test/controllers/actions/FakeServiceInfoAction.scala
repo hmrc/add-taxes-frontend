@@ -19,12 +19,28 @@ package controllers.actions
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import play.api.mvc._
 import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
+import utils.HmrcEnrolmentType
 
 import scala.concurrent.Future
 
 object FakeServiceInfoAction extends ServiceInfoAction {
+  def apply(enrolments: HmrcEnrolmentType*): FakeServiceInfoActionWithEnrolments =
+    new FakeServiceInfoActionWithEnrolments(enrolments: _*)
+
   override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
     implicit val r: Request[A] = request
     Future.successful(ServiceInfoRequest(request, HtmlFormat.empty))
+  }
+}
+
+class FakeServiceInfoActionWithEnrolments(enrolmentTypes: HmrcEnrolmentType*) extends ServiceInfoAction {
+  override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
+    implicit val r: Request[A] = request
+    val enrolments = Enrolments(enrolmentTypes.map(e => Enrolment(e.toString)).toSet)
+    val requestWithEnrolments =
+      AuthenticatedRequest(request.request, request.externalId, enrolments, request.affinityGroup)
+
+    Future.successful(ServiceInfoRequest(requestWithEnrolments, HtmlFormat.empty))
   }
 }

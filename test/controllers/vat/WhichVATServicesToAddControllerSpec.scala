@@ -19,7 +19,7 @@ package controllers.vat
 import play.api.data.Form
 import play.api.libs.json.JsString
 import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
+import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
 import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
@@ -28,6 +28,7 @@ import forms.vat.WhichVATServicesToAddFormProvider
 import identifiers.WhichVATServicesToAddId
 import models.vat.WhichVATServicesToAdd
 import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.auth.core.Enrolments
 import views.html.vat.whichVATServicesToAdd
 
 class WhichVATServicesToAddControllerSpec extends ControllerSpecBase {
@@ -37,23 +38,23 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase {
   val formProvider = new WhichVATServicesToAddFormProvider()
   val form = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap)(enrolments: HmrcEnrolmentType*) =
     new WhichVATServicesToAddController(
       frontendAppConfig,
       messagesApi,
       FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
-      FakeServiceInfoAction,
-      formProvider)
+      FakeServiceInfoAction(enrolments: _*),
+      formProvider
+    )
 
-  def viewAsString(form: Form[_] = form) =
-    whichVATServicesToAdd(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form, radioOptions: Seq[RadioOption] = WhichVATServicesToAdd.options) =
+    whichVATServicesToAdd(frontendAppConfig, form, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "WhichVATServicesToAdd Controller" must {
-
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
+      val result = controller()().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
@@ -62,7 +63,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase {
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhichVATServicesToAdd.options.head.value))
 
-      val result = controller().onSubmit()(postRequest)
+      val result = controller()().onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -72,14 +73,14 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
-      val result = controller().onSubmit()(postRequest)
+      val result = controller()().onSubmit()(postRequest)
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
     "return OK if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+      val result = controller(dontGetAnyData)().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
     }
@@ -87,10 +88,28 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase {
     for (option <- WhichVATServicesToAdd.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
-        val result = controller(dontGetAnyData).onSubmit()(postRequest)
+        val result = controller(dontGetAnyData)().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)
+      }
+    }
+
+    "not display vat radio option" when {
+      val radioOptions = WhichVATServicesToAdd.options.filterNot(_.value == "vat")
+
+      "page is loaded and vat is enrolled" in {
+        val result = controller()(HmrcEnrolmentType.VAT).onPageLoad()(fakeRequest)
+
+        contentAsString(result) mustBe viewAsString(radioOptions = radioOptions)
+      }
+
+      "page errors and vat is enrolled" in {
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+        val boundForm = form.bind(Map("value" -> "invalid value"))
+        val result = controller()(HmrcEnrolmentType.VAT).onSubmit()(postRequest)
+
+        contentAsString(result) mustBe viewAsString(boundForm, radioOptions)
       }
     }
   }

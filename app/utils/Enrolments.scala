@@ -125,5 +125,7 @@ object HmrcEnrolmentType {
 
   case object CORP_TAX extends WithName("IR-CT") with HmrcEnrolmentType
 
+  case object VAT extends WithName("HMCE-VATDEC-ORG") with HmrcEnrolmentType
+
   val values: Set[HmrcEnrolmentType] = Set(SA, CORP_TAX)
 }
