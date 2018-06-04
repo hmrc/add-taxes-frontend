@@ -679,3 +679,15 @@ registerForPAYEIntermediaries.p1=You need to be registered for PAYE for employer
 registerForPAYEIntermediaries.p2=Register for PAYE for employers, then come back and add employment intermediaries afterwards.
 registerForPAYEIntermediaries.continue = Register for PAYE for employers
 registerForPAYEIntermediaries.notnow = I don’t want to do this right now
+
+#######################################################
+##  WhatEmployerTaxDoYouWantToAdd
+#######################################################
+whatEmployerTaxDoYouWantToAdd.title = Which employer tax do you want to add?
+whatEmployerTaxDoYouWantToAdd.heading = Which employer tax do you want to add?
+whatEmployerTaxDoYouWantToAdd.option1 = PAYE for employers
+whatEmployerTaxDoYouWantToAdd.option2 = Construction industry scheme (CIS)
+whatEmployerTaxDoYouWantToAdd.option3 = Pension schemes
+whatEmployerTaxDoYouWantToAdd.option4 = Employment related securities (ERS)
+whatEmployerTaxDoYouWantToAdd.option5 = Employment intermediaries (for agencies)
+whatEmployerTaxDoYouWantToAdd.error.required = Select a tax type

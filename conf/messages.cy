@@ -670,3 +670,15 @@ registerInHomeCountry.heading = Cofrestru yn eich gwlad wreiddiol
 registerInHomeCountry.p1=Dylech gofrestru ar gyfer GUC TAW gyda’r awdurdod treth yng ngwlad wreiddiol eich busnes.
 registerInHomeCountry.p2=Os ydych eisiau cofrestru ar gyfer GUC TAW yn y DU, mae angen i chi
 registerInHomeCountry.callUs = ein ffonio.
+
+#######################################################
+##  WhatEmployerTaxDoYouWantToAdd
+#######################################################
+whatEmployerTaxDoYouWantToAdd.title = Pa dreth y cyflogwr ydych eisiau ei hychwanegu?
+whatEmployerTaxDoYouWantToAdd.heading = Pa dreth y cyflogwr ydych eisiau ei hychwanegu?
+whatEmployerTaxDoYouWantToAdd.option1 = TWE i gyflogwyr
+whatEmployerTaxDoYouWantToAdd.option2 = Cynllun y Diwydiant Adeiladu (CIS)
+whatEmployerTaxDoYouWantToAdd.option3 = Cynlluniau pensiwn
+whatEmployerTaxDoYouWantToAdd.option4 = Gwarantau ar Sail Cyflogaeth (ERS)
+whatEmployerTaxDoYouWantToAdd.option5 = Cyfryngwyr cyflogaeth (ar gyfer asiantaethau)
+whatEmployerTaxDoYouWantToAdd.error.required = Dewis y math o dreth
