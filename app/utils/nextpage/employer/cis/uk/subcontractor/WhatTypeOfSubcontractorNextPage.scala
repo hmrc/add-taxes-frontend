@@ -35,7 +35,8 @@ trait WhatTypeOfSubcontractorNextPage {
         b: WhatTypeOfSubcontractorWithEnrolments)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call = {
 
         val (whatTypeOfSubcontractor, enrolments) = b
-        val hasEnrolments: Boolean = utils.Enrolments.hasEnrolments(enrolments, Seq(HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX): _*)
+        val hasEnrolments: Boolean =
+          utils.Enrolments.hasEnrolments(enrolments, Seq(HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX): _*)
 
         (whatTypeOfSubcontractor, hasEnrolments) match {
           case (WhatTypeOfSubcontractor.SoleTrader, true)   => Call("GET", appConfig.getIFormUrl("cisSoleTrader"))

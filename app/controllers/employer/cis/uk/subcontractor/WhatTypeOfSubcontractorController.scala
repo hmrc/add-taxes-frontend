@@ -56,8 +56,7 @@ class WhatTypeOfSubcontractorController @Inject()(
       .fold(
         (formWithErrors: Form[_]) =>
           BadRequest(whatTypeOfSubcontractor(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) =>
-          Redirect(navigator.nextPage(WhatTypeOfSubcontractorId, (value, request.request.enrolments)))
+        (value) => Redirect(navigator.nextPage(WhatTypeOfSubcontractorId, (value, request.request.enrolments)))
       )
   }
 }

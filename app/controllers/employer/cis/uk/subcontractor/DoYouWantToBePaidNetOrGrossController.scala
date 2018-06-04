@@ -55,7 +55,7 @@ class DoYouWantToBePaidNetOrGrossController @Inject()(
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-            BadRequest(doYouWantToBePaidNetOrGross(appConfig, formWithErrors)(request.serviceInfoContent)),
+          BadRequest(doYouWantToBePaidNetOrGross(appConfig, formWithErrors)(request.serviceInfoContent)),
         (value) => Redirect(navigator.nextPage(DoYouWantToBePaidNetOrGrossId, value))
       )
   }
