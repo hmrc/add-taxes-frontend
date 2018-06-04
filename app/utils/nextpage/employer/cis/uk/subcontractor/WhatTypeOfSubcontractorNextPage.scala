@@ -21,18 +21,29 @@ import controllers.employer.cis.uk.subcontractor.routes
 import identifiers.WhatTypeOfSubcontractorId
 import models.employer.cis.uk.subcontractor.WhatTypeOfSubcontractor
 import play.api.mvc.{Call, Request}
-import utils.NextPage
+import uk.gov.hmrc.auth.core.Enrolments
+import utils.{HmrcEnrolmentType, NextPage}
 
 trait WhatTypeOfSubcontractorNextPage {
 
-  implicit val whatTypeOfSubcontractor: NextPage[WhatTypeOfSubcontractorId.type, WhatTypeOfSubcontractor] = {
-    new NextPage[WhatTypeOfSubcontractorId.type, WhatTypeOfSubcontractor] {
-      override def get(b: WhatTypeOfSubcontractor)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case WhatTypeOfSubcontractor.SoleTrader     => routes.WasTurnoverMoreAfterVATController.onPageLoad()
-          case WhatTypeOfSubcontractor.Partnership    => Call("GET", appConfig.getGovUKUrl("cisPartnershipReg"))
-          case WhatTypeOfSubcontractor.LimitedCompany => Call("GET", appConfig.getGovUKUrl("cisCompanyReg"))
+  type WhatTypeOfSubcontractorWithEnrolments = (WhatTypeOfSubcontractor, Enrolments)
+
+  implicit val whatTypeOfSubcontractor
+    : NextPage[WhatTypeOfSubcontractorId.type, WhatTypeOfSubcontractorWithEnrolments] = {
+    new NextPage[WhatTypeOfSubcontractorId.type, WhatTypeOfSubcontractorWithEnrolments] {
+      override def get(
+        b: WhatTypeOfSubcontractorWithEnrolments)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call = {
+
+        val (fst, second) = b
+
+        (fst, utils.Enrolments.hasEnrolments(second, Seq(HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX): _*)) match {
+          case (WhatTypeOfSubcontractor.SoleTrader, true)   => ???
+          case (WhatTypeOfSubcontractor.SoleTrader, false)  => routes.WasTurnoverMoreAfterVATController.onPageLoad()
+          case (WhatTypeOfSubcontractor.Partnership, true)  => ???
+          case (WhatTypeOfSubcontractor.Partnership, false) => Call("GET", appConfig.getGovUKUrl("cisPartnershipReg"))
+          case (WhatTypeOfSubcontractor.LimitedCompany, _)  => Call("GET", appConfig.getGovUKUrl("cisCompanyReg"))
         }
+      }
     }
   }
 }
