@@ -20,6 +20,7 @@ import config.FrontendAppConfig
 import identifiers.AreYouContractorOrSubcontractorId
 import models.employer.cis.uk.AreYouContractorOrSubcontractor
 import controllers.employer.cis.ukbased.contractor.routes._
+import controllers.employer.cis.ukbased.subcontractor.routes._
 import play.api.mvc.{Call, Request}
 import uk.gov.hmrc.auth.core.Enrolments
 import utils.{HmrcEnrolmentType, NextPage}
@@ -43,7 +44,7 @@ trait AreYouContractorOrSubcontractorNextPage {
 
           case (AreYouContractorOrSubcontractor.Contractor, false) => IsBusinessRegisteredForPAYEController.onPageLoad()
 
-          case (AreYouContractorOrSubcontractor.Subcontractor, _) => ???
+          case (AreYouContractorOrSubcontractor.Subcontractor, _) => WhatTypeOfSubcontractorController.onPageLoad()
         }
     }
   }

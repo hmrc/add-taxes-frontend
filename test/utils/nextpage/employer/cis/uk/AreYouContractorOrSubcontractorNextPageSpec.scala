@@ -45,7 +45,7 @@ class AreYouContractorOrSubcontractorNextPageSpec extends NextPageSpecBase {
       NextPage.areYouContractorOrSubcontractor,
       (AreYouContractorOrSubcontractor.Subcontractor, Enrolments(Set())),
       AreYouContractorOrSubcontractor.Subcontractor.toString,
-      "/forms/form/register-a-partner-or-a-partnership-for-self-assessment/start#1",
+      "/business-account/add-tax/employer/cis/uk/subcontractor",
       "no Enrolment"
     )
   }

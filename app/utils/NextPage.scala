@@ -41,6 +41,7 @@ import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKN
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 import utils.nextpage.vat.moss.noneu.HaveYouRegisteredForVATMOSSNextPage
 import utils.nextpage.vat.moss.WhereIsYourBusinessBasedNextPage
+import utils.nextpage.employer.cis.uk.subcontractor._
 
 trait NextPage[A, B] {
   def get(b: B)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call
@@ -79,3 +80,6 @@ object NextPage
     with RegisteredForVATNextPage
     with AreYouContractorOrSubcontractorNextPage
     with utils.nextpage.employer.cis.IsYourBusinessInUKNextPage
+    with DoYouWantToBePaidNetOrGrossNextPage
+    with WasTurnoverMoreAfterVATNextPage
+    with WhatTypeOfSubcontractorNextPage

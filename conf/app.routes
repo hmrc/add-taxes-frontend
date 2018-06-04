@@ -183,8 +183,17 @@ POST       /employer/ers/epaye                           controllers.employer.er
 
 GET        /employer/ers                                 controllers.employer.ers.IsBusinessRegisteredForPAYEController.onPageLoad()
 POST       /employer/ers                                 controllers.employer.ers.IsBusinessRegisteredForPAYEController.onSubmit()
-GET        /employer/cis/uk                  controllers.employer.cis.ukbased.AreYouContractorOrSubcontractorController.onPageLoad()
-POST       /employer/cis/uk                  controllers.employer.cis.ukbased.AreYouContractorOrSubcontractorController.onSubmit()
+GET        /employer/cis/uk                              controllers.employer.cis.ukbased.AreYouContractorOrSubcontractorController.onPageLoad()
+POST       /employer/cis/uk                              controllers.employer.cis.ukbased.AreYouContractorOrSubcontractorController.onSubmit()
+
+GET        /employer/cis/uk/subcontractor/sole-trader/high-turnover    controllers.employer.cis.ukbased.subcontractor.DoYouWantToBePaidNetOrGrossController.onPageLoad()
+POST       /employer/cis/uk/subcontractor/sole-trader/high-turnover    controllers.employer.cis.ukbased.subcontractor.DoYouWantToBePaidNetOrGrossController.onSubmit()
+
+GET        /employer/cis/uk/subcontractor/sole-trader    controllers.employer.cis.ukbased.subcontractor.WasTurnoverMoreAfterVATController.onPageLoad()
+POST       /employer/cis/uk/subcontractor/sole-trader    controllers.employer.cis.ukbased.subcontractor.WasTurnoverMoreAfterVATController.onSubmit()
+
+GET        /employer/cis/uk/subcontractor                controllers.employer.cis.ukbased.subcontractor.WhatTypeOfSubcontractorController.onPageLoad()
+POST       /employer/cis/uk/subcontractor                controllers.employer.cis.ukbased.subcontractor.WhatTypeOfSubcontractorController.onSubmit()
 
 GET        /employer/intermediaries/epaye/other-account  controllers.employer.intermediaries.UsePAYEEmployerAccountController.onPageLoad()
 
@@ -196,5 +205,5 @@ GET        /employer/intermediaries/register-epaye       controllers.employer.in
 GET        /employer/intermediaries                      controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onPageLoad()
 POST       /employer/intermediaries                      controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onSubmit()
 
-GET        /employer/cis                  controllers.employer.cis.IsYourBusinessInUKController.onPageLoad()
-POST       /employer/cis                  controllers.employer.cis.IsYourBusinessInUKController.onSubmit()
+GET        /employer/cis                                controllers.employer.cis.IsYourBusinessInUKController.onPageLoad()
+POST       /employer/cis                                controllers.employer.cis.IsYourBusinessInUKController.onSubmit()

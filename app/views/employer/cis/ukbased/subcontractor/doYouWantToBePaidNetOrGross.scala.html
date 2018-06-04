@@ -1,0 +1,55 @@
+@*
+ * Copyright 2018 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.FrontendAppConfig
+@import uk.gov.hmrc.play.views.html._
+@import controllers.employer.cis.ukbased.subcontractor.routes._
+@import models.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGross
+@import play.twirl.api.Html
+
+@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+
+@anchor = {<a id='CISNetOrGross' href='@appConfig.getGovUKUrl("cisGrossPaymentStatus")'
+              data-journey-click='CISNetOrGross:Click:CheckQualified'>@messages("doYouWantToBePaidNetOrGross.subtext2.anchorText")</a>}
+
+@main_template(
+    title = messages("doYouWantToBePaidNetOrGross.title"),
+    appConfig = appConfig,
+    form = Some(form),
+    serviceInfoContent = serviceInfoContent) {
+
+    @helpers.form(action = DoYouWantToBePaidNetOrGrossController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+
+        @components.error_summary(form.errors)
+
+        @components.heading("doYouWantToBePaidNetOrGross.heading")
+
+        <p>@messages("doYouWantToBePaidNetOrGross.subtext1")</p>
+
+        <p>
+            @Html(messages("doYouWantToBePaidNetOrGross.subtext2", anchor))
+        </p>
+
+        @components.input_radio(
+            field = form("value"),
+            legend = messages("doYouWantToBePaidNetOrGross.heading"),
+            legendClass = Some("visuallyhidden"),
+            inputs = DoYouWantToBePaidNetOrGross.options.toSeq
+        )
+
+        @components.submit_button(gaEvent = "CisSubcontractorSoleTraderHighTurnover")
+    }
+}

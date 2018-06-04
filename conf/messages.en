@@ -670,6 +670,37 @@ areYouContractorOrSubcontractor.error.required = Select if you are a contractor 
 areYouContractorOrSubcontractor.p1=If you are both, you will need to do this twice. Select an option then come back and select the other.
 
 #######################################################
+##  DoYouWantToBePaidNetOrGross
+#######################################################
+doYouWantToBePaidNetOrGross.title = Do you want to be paid net or gross?
+doYouWantToBePaidNetOrGross.heading = Do you want to be paid net or gross?
+doYouWantToBePaidNetOrGross.subtext1 = If you’re paid net, 20% of your pay will be deducted to cover tax and National Insurance.
+doYouWantToBePaidNetOrGross.subtext2 = If you want to be paid gross, you must {0} before you continue.
+doYouWantToBePaidNetOrGross.subtext2.anchorText = check if you qualify for gross payments
+doYouWantToBePaidNetOrGross.paidNet = I want to be paid net
+doYouWantToBePaidNetOrGross.paidGross = I want to be paid gross
+doYouWantToBePaidNetOrGross.error.required = You must make a selection
+
+#######################################################
+##  WasTurnoverMoreAfterVAT
+#######################################################
+wasTurnoverMoreAfterVAT.title = Was your turnover for the last 12 months more than £30,000 after VAT?
+wasTurnoverMoreAfterVAT.heading = Was your turnover for the last 12 months more than £30,000 after VAT?
+wasTurnoverMoreAfterVAT.Yes = Yes - my turnover was more than £30,000
+wasTurnoverMoreAfterVAT.No = No - my turnover was less than £30,000
+wasTurnoverMoreAfterVAT.error.required = Select yes or no
+
+#######################################################
+##  WhatTypeOfSubcontractor
+#######################################################
+whatTypeOfSubcontractor.title = What type of subcontractor are you?
+whatTypeOfSubcontractor.heading = What type of subcontractor are you?
+whatTypeOfSubcontractor.soleTrader = Sole Trader
+whatTypeOfSubcontractor.partnership = Partnership
+whatTypeOfSubcontractor.limitedCompany = Limited Company
+whatTypeOfSubcontractor.error.required = Select a business type
+
+#######################################################
 ##  UsePAYEEmployerAccountIntermediaries
 #######################################################
 usePAYEEmployerIntermediariesAccount.title = Use your PAYE for employers account
