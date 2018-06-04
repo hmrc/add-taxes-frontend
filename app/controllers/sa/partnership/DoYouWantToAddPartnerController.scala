@@ -56,7 +56,8 @@ class DoYouWantToAddPartnerController @Inject()(
       .fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(doYouWantToAddPartner(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(DoYouWantToAddPartnerId, (value, request))))
+        (value) =>
+          Future.successful(Redirect(navigator.nextPage(DoYouWantToAddPartnerId, (value, request.request.enrolments))))
       )
   }
 }

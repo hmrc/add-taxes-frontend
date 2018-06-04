@@ -21,11 +21,12 @@ import identifiers.HaveYouRegisteredPartnershipId
 import models.requests.ServiceInfoRequest
 import models.sa.partnership.HaveYouRegisteredPartnership
 import play.api.mvc.{AnyContent, Call, Request}
-import utils.{Enrolments, HmrcEnrolmentType, NextPage}
+import utils.{HmrcEnrolmentType, NextPage}
+import uk.gov.hmrc.auth.core.Enrolments
 
 trait HaveYouRegisteredPartnershipNextPage {
 
-  type HaveYouRegisteredPartnershipWithRequest = (HaveYouRegisteredPartnership, ServiceInfoRequest[AnyContent])
+  type HaveYouRegisteredPartnershipWithRequest = (HaveYouRegisteredPartnership, Enrolments)
 
   implicit val haveYouRegisteredPartnership
     : NextPage[HaveYouRegisteredPartnershipId.type, HaveYouRegisteredPartnershipWithRequest] = {
@@ -37,7 +38,7 @@ trait HaveYouRegisteredPartnershipNextPage {
         request: Request[_]): Call =
         (enrolmentDetails._1, hasSACTEnrolments(enrolmentDetails._2)) match {
           case (HaveYouRegisteredPartnership.Yes, _) =>
-            Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.SAPartnership))
+            Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.SAPartnership))
 
           case (HaveYouRegisteredPartnership.No, true) =>
             Call("GET", appConfig.getIFormUrl("partnership"))
@@ -49,7 +50,7 @@ trait HaveYouRegisteredPartnershipNextPage {
 
   }
 
-  private def hasSACTEnrolments(serviceInfoRequest: ServiceInfoRequest[AnyContent]) =
-    Enrolments
-      .hasEnrolments(serviceInfoRequest.request.enrolments, HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX)
+  private def hasSACTEnrolments(enrolments: Enrolments) =
+    utils.Enrolments
+      .hasEnrolments(enrolments, HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX)
 }

@@ -20,13 +20,13 @@ import config.FrontendAppConfig
 import identifiers.AreYouContractorOrSubcontractorId
 import models.employer.cis.uk.AreYouContractorOrSubcontractor
 import controllers.employer.cis.ukbased.contractor.routes._
-import models.requests.ServiceInfoRequest
-import play.api.mvc.{AnyContent, Call, Request}
-import utils.{Enrolments, HmrcEnrolmentType, NextPage}
+import play.api.mvc.{Call, Request}
+import uk.gov.hmrc.auth.core.Enrolments
+import utils.{HmrcEnrolmentType, NextPage}
 
 trait AreYouContractorOrSubcontractorNextPage {
 
-  type AreYouContractorOrSubcontractorWithRequest = (AreYouContractorOrSubcontractor, ServiceInfoRequest[AnyContent])
+  type AreYouContractorOrSubcontractorWithRequest = (AreYouContractorOrSubcontractor, Enrolments)
 
   implicit val areYouContractorOrSubcontractor
     : NextPage[AreYouContractorOrSubcontractorId.type, AreYouContractorOrSubcontractorWithRequest] = {
@@ -48,7 +48,7 @@ trait AreYouContractorOrSubcontractorNextPage {
     }
   }
 
-  private def hasEPayeEnrolment(serviceInfoRequest: ServiceInfoRequest[AnyContent]) =
-    Enrolments
-      .hasEnrolments(serviceInfoRequest.request.enrolments, HmrcEnrolmentType.EPAYE)
+  private def hasEPayeEnrolment(enrolments: Enrolments) =
+    utils.Enrolments
+      .hasEnrolments(enrolments, HmrcEnrolmentType.EPAYE)
 }

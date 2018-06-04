@@ -17,6 +17,7 @@
 package utils.nextpage.employer.cis.uk
 
 import models.employer.cis.uk.AreYouContractorOrSubcontractor
+import uk.gov.hmrc.auth.core.Enrolments
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
@@ -26,7 +27,7 @@ class AreYouContractorOrSubcontractorNextPageSpec extends NextPageSpecBase {
 
     behave like nextPageWithEnrolments(
       NextPage.areYouContractorOrSubcontractor,
-      (AreYouContractorOrSubcontractor.Contractor, serviceRequest),
+      (AreYouContractorOrSubcontractor.Contractor, Enrolments(Set())),
       AreYouContractorOrSubcontractor.Contractor.toString,
       "/business-account/add-tax/employer/cis/uk/contractor",
       "no Enrolments"
@@ -34,7 +35,7 @@ class AreYouContractorOrSubcontractorNextPageSpec extends NextPageSpecBase {
 
     behave like nextPageWithEnrolments(
       NextPage.areYouContractorOrSubcontractor,
-      (AreYouContractorOrSubcontractor.Contractor, createServiceRequest(Set(epayeEnrolment))),
+      (AreYouContractorOrSubcontractor.Contractor, Enrolments(Set(epayeEnrolment))),
       AreYouContractorOrSubcontractor.Contractor.toString,
       "http://localhost:8080/portal/service/construction-ind-scheme?action=enrol&step=enterdetails&lang=eng",
       "EPAYE Enrolments"
@@ -42,7 +43,7 @@ class AreYouContractorOrSubcontractorNextPageSpec extends NextPageSpecBase {
 
     behave like nextPageWithEnrolments(
       NextPage.areYouContractorOrSubcontractor,
-      (AreYouContractorOrSubcontractor.Subcontractor, serviceRequest),
+      (AreYouContractorOrSubcontractor.Subcontractor, Enrolments(Set())),
       AreYouContractorOrSubcontractor.Subcontractor.toString,
       "/forms/form/register-a-partner-or-a-partnership-for-self-assessment/start#1",
       "no Enrolment"

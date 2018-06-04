@@ -20,15 +20,14 @@ import config.FrontendAppConfig
 import identifiers.DoYouWantToAddPartnerId
 import models.sa.partnership.DoYouWantToAddPartner
 import play.api.mvc.{Call, Request}
-import utils.{Enrolments, NextPage}
+import utils.NextPage
 import controllers.sa.partnership.{routes => saPartnerRoutes}
-import models.requests.ServiceInfoRequest
-import play.api.mvc.AnyContent
 import utils.HmrcEnrolmentType
+import uk.gov.hmrc.auth.core.Enrolments
 
 trait DoYouWantToAddPartnerNextPage {
 
-  type DoYouWantToAddPartnerWithRequest = (DoYouWantToAddPartner, ServiceInfoRequest[AnyContent])
+  type DoYouWantToAddPartnerWithRequest = (DoYouWantToAddPartner, Enrolments)
 
   implicit val doYouWantToAddPartner: NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartnerWithRequest] = {
 
@@ -51,8 +50,8 @@ trait DoYouWantToAddPartnerNextPage {
     }
   }
 
-  private def hasSACTEnrolments(serviceInfoRequest: ServiceInfoRequest[AnyContent]) =
-    Enrolments
-      .hasEnrolments(serviceInfoRequest.request.enrolments, HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX)
+  private def hasSACTEnrolments(enrolments: Enrolments) =
+    utils.Enrolments
+      .hasEnrolments(enrolments, HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX)
 
 }
