@@ -37,9 +37,9 @@ trait WhatTypeOfSubcontractorNextPage {
         val (fst, second) = b
 
         (fst, utils.Enrolments.hasEnrolments(second, Seq(HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX): _*)) match {
-          case (WhatTypeOfSubcontractor.SoleTrader, true)   => ???
+          case (WhatTypeOfSubcontractor.SoleTrader, true)   => Call("GET", appConfig.getIFormUrl("cisSoleTrader"))
           case (WhatTypeOfSubcontractor.SoleTrader, false)  => routes.WasTurnoverMoreAfterVATController.onPageLoad()
-          case (WhatTypeOfSubcontractor.Partnership, true)  => ???
+          case (WhatTypeOfSubcontractor.Partnership, true)  => Call("GET", appConfig.getIFormUrl("cisPartnership"))
           case (WhatTypeOfSubcontractor.Partnership, false) => Call("GET", appConfig.getGovUKUrl("cisPartnershipReg"))
           case (WhatTypeOfSubcontractor.LimitedCompany, _)  => Call("GET", appConfig.getGovUKUrl("cisCompanyReg"))
         }

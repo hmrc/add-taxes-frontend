@@ -56,7 +56,9 @@ class WhatTypeOfSubcontractorController @Inject()(
       .fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(whatTypeOfSubcontractor(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(WhatTypeOfSubcontractorId, value)))
+        (value) =>
+          Future.successful(
+            Redirect(navigator.nextPage(WhatTypeOfSubcontractorId, (value, request.request.enrolments))))
       )
   }
 }
