@@ -34,9 +34,10 @@ trait WhatTypeOfSubcontractorNextPage {
       override def get(
         b: WhatTypeOfSubcontractorWithEnrolments)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call = {
 
-        val (fst, second) = b
+        val (whatTypeOfSubcontractor, enrolments) = b
+        val hasEnrolments: Boolean = utils.Enrolments.hasEnrolments(enrolments, Seq(HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX): _*)
 
-        (fst, utils.Enrolments.hasEnrolments(second, Seq(HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX): _*)) match {
+        (whatTypeOfSubcontractor, hasEnrolments) match {
           case (WhatTypeOfSubcontractor.SoleTrader, true)   => Call("GET", appConfig.getIFormUrl("cisSoleTrader"))
           case (WhatTypeOfSubcontractor.SoleTrader, false)  => routes.WasTurnoverMoreAfterVATController.onPageLoad()
           case (WhatTypeOfSubcontractor.Partnership, true)  => Call("GET", appConfig.getIFormUrl("cisPartnership"))

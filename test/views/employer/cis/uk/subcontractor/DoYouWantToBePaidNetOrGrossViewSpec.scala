@@ -53,6 +53,7 @@ class DoYouWantToBePaidNetOrGrossViewSpec extends ViewBehaviours {
       doc must include(
         "If you want to be paid gross, you must check if you qualify for gross payments before you continue.")
     }
+
     "contains check if you qualify for gross payment - link" in {
       val doc = asDocument(createView())
       assertLinkById(

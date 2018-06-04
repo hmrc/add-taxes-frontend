@@ -50,15 +50,14 @@ class WhatTypeOfSubcontractorController @Inject()(
     Ok(whatTypeOfSubcontractor(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(whatTypeOfSubcontractor(appConfig, formWithErrors)(request.serviceInfoContent))),
+          BadRequest(whatTypeOfSubcontractor(appConfig, formWithErrors)(request.serviceInfoContent)),
         (value) =>
-          Future.successful(
-            Redirect(navigator.nextPage(WhatTypeOfSubcontractorId, (value, request.request.enrolments))))
+          Redirect(navigator.nextPage(WhatTypeOfSubcontractorId, (value, request.request.enrolments)))
       )
   }
 }

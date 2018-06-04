@@ -131,12 +131,5 @@ class WhatTypeOfSubcontractorNextPageSpec extends NextPageSpecBase {
       "https://www.gov.uk/government/publications/construction-industry-scheme-company-registration-cis305",
       "no Enrolment"
     )
-
-    /*
-    behave like nextPage(
-      NextPage.whatTypeOfSubcontractor,
-      WhatTypeOfSubcontractor.LimitedCompany,
-      "https://www.gov.uk/government/publications/construction-industry-scheme-company-registration-cis305"
-    )*/
   }
 }

@@ -50,14 +50,13 @@ class DoYouWantToBePaidNetOrGrossController @Inject()(
     Ok(doYouWantToBePaidNetOrGross(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(doYouWantToBePaidNetOrGross(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(DoYouWantToBePaidNetOrGrossId, value)))
+            BadRequest(doYouWantToBePaidNetOrGross(appConfig, formWithErrors)(request.serviceInfoContent)),
+        (value) => Redirect(navigator.nextPage(DoYouWantToBePaidNetOrGrossId, value))
       )
   }
 }
