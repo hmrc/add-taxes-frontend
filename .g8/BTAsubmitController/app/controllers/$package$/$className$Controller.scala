@@ -27,11 +27,11 @@ class $className;format="cap"$Controller @Inject()(appConfig: FrontendAppConfig,
       ???
   }
 
-  def onSubmit = (authenticate andThen serviceInfo).async {
+  def onSubmit = (authenticate andThen serviceInfo) {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) => ???,
-        (value) => Future.successful(Redirect(navigator.nextPage($className$Id, value)))
+        (value) => Redirect(navigator.nextPage($className$Id, value))
       )
   }
 }

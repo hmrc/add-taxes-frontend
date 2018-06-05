@@ -14,24 +14,26 @@
  * limitations under the License.
  */
 
-package controllers
+package models.vat
 
-import base.SpecBase
-import controllers.actions.FakeDataRetrievalAction
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import play.twirl.api.Html
-import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.{Enumerable, RadioOption, WithName}
 
-trait ControllerSpecBase extends SpecBase {
+sealed trait RegisteredForVAT
 
-  val cacheMapId = "id"
+object RegisteredForVAT {
 
-  def emptyCacheMap = CacheMap(cacheMapId, Map())
+  case object Yes extends WithName("Yes") with RegisteredForVAT
+  case object No extends WithName("No") with RegisteredForVAT
 
-  def getEmptyCacheMap = new FakeDataRetrievalAction(Some(emptyCacheMap))
+  val values: Set[RegisteredForVAT] = Set(
+    Yes,
+    No
+  )
 
-  def dontGetAnyData = new FakeDataRetrievalAction(None)
+  val options: Set[RadioOption] = values.map { value =>
+    RadioOption("registeredForVATECSales", value.toString)
+  }
 
-  def asDocument(s: String): Document = Jsoup.parse(s)
+  implicit val enumerable: Enumerable[RegisteredForVAT] =
+    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }

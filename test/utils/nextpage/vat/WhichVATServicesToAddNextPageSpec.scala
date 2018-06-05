@@ -1,0 +1,62 @@
+/*
+ * Copyright 2018 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package utils.nextpage.vat
+
+import models.vat.WhichVATServicesToAdd
+import utils.NextPage
+import utils.nextpage.NextPageSpecBase
+
+class WhichVATServicesToAddNextPageSpec extends NextPageSpecBase {
+
+  "whichVATServicesToAdd" when {
+    behave like nextPage(
+      NextPage.whichVATServicesToAdd,
+      WhichVATServicesToAdd.VAT,
+      "http://localhost:8080/portal/business-registration/introduction?lang=eng"
+    )
+
+    behave like nextPage(
+      NextPage.whichVATServicesToAdd,
+      WhichVATServicesToAdd.ECSales,
+      "/business-account/add-tax/vat/ec"
+    )
+
+    behave like nextPage(
+      NextPage.whichVATServicesToAdd,
+      WhichVATServicesToAdd.EURefunds,
+      "/business-account/add-tax/vat/eurefunds"
+    )
+
+    behave like nextPage(
+      NextPage.whichVATServicesToAdd,
+      WhichVATServicesToAdd.RCSL,
+      "/business-account/add-tax/vat/rcsl"
+    )
+
+    behave like nextPage(
+      NextPage.whichVATServicesToAdd,
+      WhichVATServicesToAdd.MOSS,
+      "/business-account/add-tax/vat/moss"
+    )
+
+    behave like nextPage(
+      NextPage.whichVATServicesToAdd,
+      WhichVATServicesToAdd.NOVA,
+      "http://localhost:8080/portal/nova/normal?lang=eng"
+    )
+  }
+}
