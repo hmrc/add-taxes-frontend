@@ -41,6 +41,10 @@ import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 import utils.nextpage.vat.moss.noneu.HaveYouRegisteredForVATMOSSNextPage
 import utils.nextpage.vat.moss.WhereIsYourBusinessBasedNextPage
 
+import scala.annotation.implicitNotFound
+
+@implicitNotFound(
+  "Could not find NextPage implicit value for ${A} and ${B}. Check you have created one, the types match and extended NextPage with it")
 trait NextPage[A, B] {
   def get(b: B)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call
 }

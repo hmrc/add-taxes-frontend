@@ -56,7 +56,7 @@ class WhatEmployerTaxDoYouWantToAddController @Inject()(
       .fold(
         (formWithErrors: Form[_]) =>
           BadRequest(whatEmployerTaxDoYouWantToAdd(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(WhatEmployerTaxDoYouWantToAddId, value))
+        (value) => Redirect(navigator.nextPage(WhatEmployerTaxDoYouWantToAddId, (value, request.request.enrolments)))
       )
   }
 }

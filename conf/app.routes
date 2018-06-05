@@ -194,5 +194,5 @@ GET        /employer/intermediaries/register-epaye       controllers.employer.in
 GET        /employer/intermediaries                      controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onPageLoad()
 POST       /employer/intermediaries                      controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onSubmit()
 
-GET        /employer                  controllers.employer.WhatEmployerTaxDoYouWantToAddController.onPageLoad()
-POST       /employer                  controllers.employer.WhatEmployerTaxDoYouWantToAddController.onSubmit()
+GET        /employer                                     controllers.employer.WhatEmployerTaxDoYouWantToAddController.onPageLoad()
+POST       /employer                                     controllers.employer.WhatEmployerTaxDoYouWantToAddController.onSubmit()

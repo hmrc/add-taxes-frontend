@@ -18,30 +18,41 @@ package utils.nextpage.employer
 
 import config.FrontendAppConfig
 import controllers.employer.ers.{routes => ersRoutes}
-import controllers.employer.intermediaries.{routes => intermedRoutes}
+import controllers.employer.intermediaries.{routes => intRoutes}
 import controllers.employer.pension.{routes => pensionRoutes}
 import identifiers.WhatEmployerTaxDoYouWantToAddId
 import models.employer.WhatEmployerTaxDoYouWantToAdd
 import play.api.mvc.{Call, Request}
-import uk.gov.hmrc.auth.core.Enrolment
-import utils.NextPage
+import uk.gov.hmrc.auth.core.Enrolments
+import utils.{HmrcEnrolmentType, NextPage}
 
 trait WhatEmployerTaxDoYouWantToAddNextPage {
 
-  type WhatEmployerTaxDoYouWantToAddWithEnrolment = (WhatEmployerTaxDoYouWantToAdd, Enrolment)
+  type WhatEmployerTaxDoYouWantToAddWithEnrolment = (WhatEmployerTaxDoYouWantToAdd, Enrolments)
 
   implicit val whatEmployerTaxDoYouWantToAdd
-    : NextPage[WhatEmployerTaxDoYouWantToAddId.type, WhatEmployerTaxDoYouWantToAdd] = {
-    new NextPage[WhatEmployerTaxDoYouWantToAddId.type, WhatEmployerTaxDoYouWantToAdd] {
-      override def get(
-        b: WhatEmployerTaxDoYouWantToAdd)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case WhatEmployerTaxDoYouWantToAdd.EPAYE => Call("GET", appConfig.getPortalUrl("businessRegistration"))
-          case WhatEmployerTaxDoYouWantToAdd.CIS   => ??? // BEACD-76
-          case WhatEmployerTaxDoYouWantToAdd.PS    => pensionRoutes.WhichPensionSchemeToAddController.onPageLoad()
-          case WhatEmployerTaxDoYouWantToAdd.ERS   => ersRoutes.IsBusinessRegisteredForPAYEController.onPageLoad()
-          case WhatEmployerTaxDoYouWantToAdd.EIA   => intermedRoutes.IsBusinessRegisteredForPAYEController.onPageLoad()
+    : NextPage[WhatEmployerTaxDoYouWantToAddId.type, WhatEmployerTaxDoYouWantToAddWithEnrolment] = {
+    new NextPage[WhatEmployerTaxDoYouWantToAddId.type, WhatEmployerTaxDoYouWantToAddWithEnrolment] {
+      override def get(b: WhatEmployerTaxDoYouWantToAddWithEnrolment)(
+        implicit appConfig: FrontendAppConfig,
+        request: Request[_]): Call = {
+
+        val (whatEmployerTaxDoYouWantToAdd, enrolments) = b
+        val hasEPAYE: Boolean =
+          utils.Enrolments.hasEnrolments(enrolments, Seq(HmrcEnrolmentType.EPAYE): _*)
+
+        (whatEmployerTaxDoYouWantToAdd, hasEPAYE) match {
+          case (WhatEmployerTaxDoYouWantToAdd.EPAYE, _)  => Call("GET", appConfig.getPortalUrl("businessRegistration"))
+          case (WhatEmployerTaxDoYouWantToAdd.CIS, _)    => ??? // BEACD-76
+          case (WhatEmployerTaxDoYouWantToAdd.PS, _)     => pensionRoutes.WhichPensionSchemeToAddController.onPageLoad()
+          case (WhatEmployerTaxDoYouWantToAdd.ERS, true) => Call("GET", appConfig.getPortalUrl("enrolERS"))
+          case (WhatEmployerTaxDoYouWantToAdd.ERS, false) =>
+            ersRoutes.IsBusinessRegisteredForPAYEController.onPageLoad()
+          case (WhatEmployerTaxDoYouWantToAdd.EIA, true) => ??? //
+          case (WhatEmployerTaxDoYouWantToAdd.EIA, false) =>
+            intRoutes.IsBusinessRegisteredForPAYEController.onPageLoad()
         }
+      }
     }
   }
 }

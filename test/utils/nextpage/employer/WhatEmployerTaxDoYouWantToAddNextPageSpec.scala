@@ -17,41 +17,99 @@
 package utils.nextpage.employer
 
 import models.employer.WhatEmployerTaxDoYouWantToAdd
-import uk.gov.hmrc.auth.core.Enrolments
+import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
 class WhatEmployerTaxDoYouWantToAddNextPageSpec extends NextPageSpecBase {
 
-  "whatEmployerTaxDoYouWantToAdd" when {
-    behave like nextPage(
-      NextPage.whatEmployerTaxDoYouWantToAdd,
-      WhatEmployerTaxDoYouWantToAdd.EPAYE,
-      "http://localhost:8080/portal/business-registration/introduction?lang=eng"
-    )
+  val nextPageEPAYENoEnrolment = (WhatEmployerTaxDoYouWantToAdd.EPAYE, Enrolments(Set()))
 
-    behave like nextPage(
-      NextPage.whatEmployerTaxDoYouWantToAdd,
-      WhatEmployerTaxDoYouWantToAdd.CIS,
-      "http://www.tax.service.gov.uk/business-account/add-tax/employer/cis"
-    )
+  behave like nextPageWithEnrolments(
+    NextPage.whatEmployerTaxDoYouWantToAdd,
+    nextPageEPAYENoEnrolment,
+    WhatEmployerTaxDoYouWantToAdd.EPAYE.toString,
+    "http://localhost:8080/portal/business-registration/introduction?lang=eng",
+    "no enrolments"
+  )
 
-    behave like nextPage(
-      NextPage.whatEmployerTaxDoYouWantToAdd,
-      WhatEmployerTaxDoYouWantToAdd.PS,
-      "/business-account/add-tax/employer/pension"
-    )
+  val nextPageCISWithEnrolment = (WhatEmployerTaxDoYouWantToAdd.CIS, Enrolments(Set(epayeEnrolment)))
 
-    behave like nextPage(
-      NextPage.whatEmployerTaxDoYouWantToAdd,
-      WhatEmployerTaxDoYouWantToAdd.ERS,
-      "/business-account/add-tax/employer/ers"
-    )
+  behave like nextPageWithEnrolments(
+    NextPage.whatEmployerTaxDoYouWantToAdd,
+    nextPageCISWithEnrolment,
+    WhatEmployerTaxDoYouWantToAdd.CIS.toString,
+    "http://www.tax.service.gov.uk/business-account/add-tax/employer/cis",
+    "EPAYE enrolments"
+  )
 
-    behave like nextPage(
-      NextPage.whatEmployerTaxDoYouWantToAdd,
-      WhatEmployerTaxDoYouWantToAdd.EIA,
-      "/business-account/add-tax/employer/intermediaries"
-    )
-  }
+  val nextPageCISNoEnrolment = (WhatEmployerTaxDoYouWantToAdd.CIS, Enrolments(Set()))
+
+  behave like nextPageWithEnrolments(
+    NextPage.whatEmployerTaxDoYouWantToAdd,
+    nextPageCISNoEnrolment,
+    WhatEmployerTaxDoYouWantToAdd.CIS.toString,
+    "http://www.tax.service.gov.uk/business-account/add-tax/employer/cis",
+    "no enrolments"
+  )
+
+  val nextPagePensionWithEnrolment = (WhatEmployerTaxDoYouWantToAdd.PS, Enrolments(Set(epayeEnrolment)))
+
+  behave like nextPageWithEnrolments(
+    NextPage.whatEmployerTaxDoYouWantToAdd,
+    nextPagePensionWithEnrolment,
+    WhatEmployerTaxDoYouWantToAdd.PS.toString,
+    "/business-account/add-tax/employer/pension",
+    "EPAYE enrolments"
+  )
+
+  val nextPagePensionNoEnrolment = (WhatEmployerTaxDoYouWantToAdd.PS, Enrolments(Set()))
+
+  behave like nextPageWithEnrolments(
+    NextPage.whatEmployerTaxDoYouWantToAdd,
+    nextPagePensionNoEnrolment,
+    WhatEmployerTaxDoYouWantToAdd.PS.toString,
+    "/business-account/add-tax/employer/pension",
+    "no enrolments"
+  )
+
+  val nextPageERSWithEnrolment = (WhatEmployerTaxDoYouWantToAdd.ERS, Enrolments(Set(epayeEnrolment)))
+
+  behave like nextPageWithEnrolments(
+    NextPage.whatEmployerTaxDoYouWantToAdd,
+    nextPageERSWithEnrolment,
+    WhatEmployerTaxDoYouWantToAdd.ERS.toString,
+    "http://localhost:8080/portal/ers/org///add-scheme?lang=eng",
+    "EPAYE enrolments"
+  )
+
+  val nextPageERSNoEnrolment = (WhatEmployerTaxDoYouWantToAdd.ERS, Enrolments(Set()))
+
+  behave like nextPageWithEnrolments(
+    NextPage.whatEmployerTaxDoYouWantToAdd,
+    nextPageERSNoEnrolment,
+    WhatEmployerTaxDoYouWantToAdd.ERS.toString,
+    "/business-account/add-tax/employer/ers",
+    "no enrolments"
+  )
+
+  val nextPageEIAWithEnrolment = (WhatEmployerTaxDoYouWantToAdd.EIA, Enrolments(Set(epayeEnrolment)))
+
+  behave like nextPageWithEnrolments(
+    NextPage.whatEmployerTaxDoYouWantToAdd,
+    nextPageEIAWithEnrolment,
+    WhatEmployerTaxDoYouWantToAdd.EIA.toString,
+    "######",
+    "EPAYE enrolments"
+  )
+
+  val nextPageEIANoEnrolment = (WhatEmployerTaxDoYouWantToAdd.EIA, Enrolments(Set()))
+
+  behave like nextPageWithEnrolments(
+    NextPage.whatEmployerTaxDoYouWantToAdd,
+    nextPageEIANoEnrolment,
+    WhatEmployerTaxDoYouWantToAdd.EIA.toString,
+    "/business-account/add-tax/employer/intermediaries",
+    "no enrolments"
+  )
 }
