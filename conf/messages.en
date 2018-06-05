@@ -682,6 +682,16 @@ registerEmployersPAYE.continue = Register for PAYE for employers
 registerEmployersPAYE.notnow = I don’t want to do this right now
 
 #######################################################
+##  AreYouContractorOrSubcontractor
+#######################################################
+areYouContractorOrSubcontractor.title = Are you a contractor or subcontractor?
+areYouContractorOrSubcontractor.heading = Are you a contractor or subcontractor?
+areYouContractorOrSubcontractor.Contractor = Contractor, employs and pays subcontractors
+areYouContractorOrSubcontractor.Subcontractor = Subcontractor, works for other construction businesses
+areYouContractorOrSubcontractor.error.required = Select if you are a contractor or subcontractor
+areYouContractorOrSubcontractor.p1=If you are both, you will need to do this twice. Select an option then come back and select the other.
+
+#######################################################
 ##  DoYouWantToBePaidNetOrGross
 #######################################################
 doYouWantToBePaidNetOrGross.title = Do you want to be paid net or gross?
@@ -732,3 +742,11 @@ registerForPAYEIntermediaries.p2=Register for PAYE for employers, then come back
 registerForPAYEIntermediaries.continue = Register for PAYE for employers
 registerForPAYEIntermediaries.notnow = I don’t want to do this right now
 
+#######################################################
+##  IsYourBusinessInUK
+#######################################################
+isYourBusinessInUK.title = Is your business based in the UK?
+isYourBusinessInUK.heading = Is your business based in the UK?
+isYourBusinessInUK.Yes = Yes - my business is based in the UK
+isYourBusinessInUK.No = No - my business isn’t based in the UK
+isYourBusinessInUK.error.required = Select yes or no

@@ -19,6 +19,8 @@ package utils
 import config.FrontendAppConfig
 import play.api.mvc.{Call, Request}
 import utils.nextpage.OtherTaxesNextPage
+import utils.nextpage.employer.cis.IsYourBusinessInUKNextPage
+import utils.nextpage.employer.cis.uk.AreYouContractorOrSubcontractorNextPage
 import utils.nextpage.employer.{DoesBusinessManagePAYENextPage, IsBusinessRegisteredForPAYENextPage}
 import utils.nextpage.employer.pension.WhichPensionSchemeToAddNextPage
 import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
@@ -81,6 +83,8 @@ object NextPage
     with HaveYouRegisteredForVATMOSSNextPage
     with AlreadyRegisteredForVATMossNextPage
     with RegisteredForVATNextPage
+    with AreYouContractorOrSubcontractorNextPage
+    with IsYourBusinessInUKNextPage
     with RegisteredForVATECSalesNextPage
     with RegisteredForVATEURefundsNextPage
     with RegisteredForVATRCSLNextPage

@@ -27,15 +27,11 @@ trait NextPageSpecBase extends SpecBase {
 
   implicit val request = fakeRequest
 
-  val serviceRequest: ServiceInfoRequest[AnyContent] =
-    ServiceInfoRequest(AuthenticatedRequest(request, "", Enrolments(Set()), None), Html(""))
-
   val saEnrolment = Enrolment(key = HmrcEnrolmentType.SA.toString, identifiers = Seq(), state = "Activated")
 
   val ctEnrolment = Enrolment(key = HmrcEnrolmentType.CORP_TAX.toString, identifiers = Seq(), state = "Activated")
 
-  def createServiceRequest(enrolments: Set[Enrolment]): ServiceInfoRequest[AnyContent] =
-    ServiceInfoRequest(AuthenticatedRequest(request, "", Enrolments(enrolments), None), Html(""))
+  val epayeEnrolment = Enrolment(key = HmrcEnrolmentType.EPAYE.toString, identifiers = Seq(), state = "Activated")
 
   def nextPage[A, B](np: NextPage[A, B], userSelection: B, urlRedirect: String): Unit =
     s"$userSelection is selected" should {

@@ -171,15 +171,15 @@ POST       /other/charities                             controllers.other.charit
 
 GET        /other/charities/register                    controllers.other.charity.RegisterForCharityController.onPageLoad()
 
-GET        /employer/cis/uk/contractor/epaye/other-account    controllers.employer.cis.uk.contractor.UsePAYEEmployerAccountController.onPageLoad()
+GET        /employer/cis/uk/contractor/epaye/other-account    controllers.employer.cis.ukbased.contractor.UsePAYEEmployerAccountController.onPageLoad()
 
-GET        /employer/cis/uk/contractor/epaye                  controllers.employer.cis.uk.contractor.DoesBusinessManagePAYEController.onPageLoad()
-POST       /employer/cis/uk/contractor/epaye                  controllers.employer.cis.uk.contractor.DoesBusinessManagePAYEController.onSubmit()
+GET        /employer/cis/uk/contractor/epaye                  controllers.employer.cis.ukbased.contractor.DoesBusinessManagePAYEController.onPageLoad()
+POST       /employer/cis/uk/contractor/epaye                  controllers.employer.cis.ukbased.contractor.DoesBusinessManagePAYEController.onSubmit()
 
-GET        /employer/cis/uk/contractor/register-epaye         controllers.employer.cis.uk.contractor.RegisterForPAYEController.onPageLoad()
+GET        /employer/cis/uk/contractor/register-epaye         controllers.employer.cis.ukbased.contractor.RegisterForPAYEController.onPageLoad()
 
-GET        /employer/cis/uk/contractor                        controllers.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEController.onPageLoad()
-POST       /employer/cis/uk/contractor                        controllers.employer.cis.uk.contractor.IsBusinessRegisteredForPAYEController.onSubmit()
+GET        /employer/cis/uk/contractor                        controllers.employer.cis.ukbased.contractor.IsBusinessRegisteredForPAYEController.onPageLoad()
+POST       /employer/cis/uk/contractor                        controllers.employer.cis.ukbased.contractor.IsBusinessRegisteredForPAYEController.onSubmit()
 
 GET        /other/gambling                               controllers.other.gambling.SelectGamblingOrGamingDutyController.onPageLoad()
 POST       /other/gambling                               controllers.other.gambling.SelectGamblingOrGamingDutyController.onSubmit()
@@ -195,15 +195,17 @@ POST       /employer/ers/epaye                           controllers.employer.er
 
 GET        /employer/ers                                 controllers.employer.ers.IsBusinessRegisteredForPAYEController.onPageLoad()
 POST       /employer/ers                                 controllers.employer.ers.IsBusinessRegisteredForPAYEController.onSubmit()
+GET        /employer/cis/uk                              controllers.employer.cis.ukbased.AreYouContractorOrSubcontractorController.onPageLoad()
+POST       /employer/cis/uk                              controllers.employer.cis.ukbased.AreYouContractorOrSubcontractorController.onSubmit()
 
-GET        /employer/cis/uk/subcontractor/sole-trader/high-turnover    controllers.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGrossController.onPageLoad()
-POST       /employer/cis/uk/subcontractor/sole-trader/high-turnover    controllers.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGrossController.onSubmit()
+GET        /employer/cis/uk/subcontractor/sole-trader/high-turnover    controllers.employer.cis.ukbased.subcontractor.DoYouWantToBePaidNetOrGrossController.onPageLoad()
+POST       /employer/cis/uk/subcontractor/sole-trader/high-turnover    controllers.employer.cis.ukbased.subcontractor.DoYouWantToBePaidNetOrGrossController.onSubmit()
 
-GET        /employer/cis/uk/subcontractor/sole-trader    controllers.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVATController.onPageLoad()
-POST       /employer/cis/uk/subcontractor/sole-trader    controllers.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVATController.onSubmit()
+GET        /employer/cis/uk/subcontractor/sole-trader    controllers.employer.cis.ukbased.subcontractor.WasTurnoverMoreAfterVATController.onPageLoad()
+POST       /employer/cis/uk/subcontractor/sole-trader    controllers.employer.cis.ukbased.subcontractor.WasTurnoverMoreAfterVATController.onSubmit()
 
-GET        /employer/cis/uk/subcontractor                controllers.employer.cis.uk.subcontractor.WhatTypeOfSubcontractorController.onPageLoad()
-POST       /employer/cis/uk/subcontractor                controllers.employer.cis.uk.subcontractor.WhatTypeOfSubcontractorController.onSubmit()
+GET        /employer/cis/uk/subcontractor                controllers.employer.cis.ukbased.subcontractor.WhatTypeOfSubcontractorController.onPageLoad()
+POST       /employer/cis/uk/subcontractor                controllers.employer.cis.ukbased.subcontractor.WhatTypeOfSubcontractorController.onSubmit()
 
 GET        /employer/intermediaries/epaye/other-account  controllers.employer.intermediaries.UsePAYEEmployerAccountController.onPageLoad()
 
@@ -215,3 +217,5 @@ GET        /employer/intermediaries/register-epaye       controllers.employer.in
 GET        /employer/intermediaries                      controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onPageLoad()
 POST       /employer/intermediaries                      controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onSubmit()
 
+GET        /employer/cis                                controllers.employer.cis.IsYourBusinessInUKController.onPageLoad()
+POST       /employer/cis                                controllers.employer.cis.IsYourBusinessInUKController.onSubmit()
