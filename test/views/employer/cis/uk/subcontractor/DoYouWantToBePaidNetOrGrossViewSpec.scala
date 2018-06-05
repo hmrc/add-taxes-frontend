@@ -82,7 +82,7 @@ class DoYouWantToBePaidNetOrGrossViewSpec extends ViewBehaviours {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for (unselectedOption <- DoYouWantToBePaidNetOrGross.options.filterNot(o => o == option)) {
+          for (unselectedOption <- DoYouWantToBePaidNetOrGross.options.filterNot(_ == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

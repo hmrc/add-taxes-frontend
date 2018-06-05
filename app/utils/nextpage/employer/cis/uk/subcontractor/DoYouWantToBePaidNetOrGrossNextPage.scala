@@ -30,8 +30,9 @@ trait DoYouWantToBePaidNetOrGrossNextPage {
       override def get(
         b: DoYouWantToBePaidNetOrGross)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case DoYouWantToBePaidNetOrGross.PaidNet   => Call("GET", appConfig.getGovUKUrl("cisRegisterPaidNet"))
-          case DoYouWantToBePaidNetOrGross.PaidGross => Call("GET", appConfig.getGovUKUrl("cisRegisterPaidGross"))
+          case DoYouWantToBePaidNetOrGross.PaidNet => Call("GET", appConfig.getGovUKUrl("cisRegisterPaidNet"))
+          case DoYouWantToBePaidNetOrGross.PaidGross =>
+            Call("GET", appConfig.getGovUKUrl("cisRegisterPaidGrossOrLowTurnOver"))
         }
     }
   }

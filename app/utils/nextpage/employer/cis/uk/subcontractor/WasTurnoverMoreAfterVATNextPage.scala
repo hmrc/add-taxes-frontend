@@ -30,7 +30,7 @@ trait WasTurnoverMoreAfterVATNextPage {
       override def get(b: WasTurnoverMoreAfterVAT)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case WasTurnoverMoreAfterVAT.Yes => subContractorRoutes.DoYouWantToBePaidNetOrGrossController.onPageLoad()
-          case WasTurnoverMoreAfterVAT.No  => Call("GET", appConfig.getGovUKUrl("cisRegisterLowTurnover"))
+          case WasTurnoverMoreAfterVAT.No  => Call("GET", appConfig.getGovUKUrl("cisRegisterPaidGrossOrLowTurnOver"))
         }
     }
   }
