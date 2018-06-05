@@ -705,7 +705,7 @@ registerInHomeCountry.callUs = ein ffonio.
 #######################################################
 ##  AreYouContractorOrSubcontractor
 #######################################################
-areYouContractorOrSubcontractor.title = e]: Ydych chi’n gontractwr neu’n isgontractwr?
+areYouContractorOrSubcontractor.title = Ydych chi’n gontractwr neu’n isgontractwr?
 areYouContractorOrSubcontractor.heading = Ydych chi’n gontractwr neu’n isgontractwr?
 areYouContractorOrSubcontractor.Contractor = Contractwr - yn cyflogi ac yn talu isgontractwyr
 areYouContractorOrSubcontractor.Subcontractor = Isgontractwr - yn gweithio i fusnesau adeiladu eraill
@@ -715,8 +715,8 @@ areYouContractorOrSubcontractor.p1=Os ydych y ddau, bydd rhaid i chi wneud hyn d
 #######################################################
 ##  IsYourBusinessInUK
 #######################################################
-isYourBusinessInUK.title = A yw eich busnes wedi'i leoli yn y DU?
-isYourBusinessInUK.heading = A yw eich busnes wedi'i leoli yn y DU?
-isYourBusinessInUK.Yes = Ydy - mae fy musnes wedi'i leoli yn y DU
-isYourBusinessInUK.No = Nac ydy - nid yw fy musnes wedi'i leoli yn y DU
+isYourBusinessInUK.title = A yw eich busnes wedi’i leoli yn y DU?
+isYourBusinessInUK.heading = A yw eich busnes wedi’i leoli yn y DU?
+isYourBusinessInUK.Yes = Ydy - mae fy musnes wedi’i leoli yn y DU
+isYourBusinessInUK.No = Nac ydy - nid yw fy musnes wedi’i leoli yn y DU
 isYourBusinessInUK.error.required = Dewis iawn neu na
