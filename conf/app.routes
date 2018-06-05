@@ -184,6 +184,15 @@ POST       /employer/ers/epaye                           controllers.employer.er
 GET        /employer/ers                                 controllers.employer.ers.IsBusinessRegisteredForPAYEController.onPageLoad()
 POST       /employer/ers                                 controllers.employer.ers.IsBusinessRegisteredForPAYEController.onSubmit()
 
+GET        /employer/cis/uk/subcontractor/sole-trader/high-turnover    controllers.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGrossController.onPageLoad()
+POST       /employer/cis/uk/subcontractor/sole-trader/high-turnover    controllers.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGrossController.onSubmit()
+
+GET        /employer/cis/uk/subcontractor/sole-trader    controllers.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVATController.onPageLoad()
+POST       /employer/cis/uk/subcontractor/sole-trader    controllers.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVATController.onSubmit()
+
+GET        /employer/cis/uk/subcontractor                controllers.employer.cis.uk.subcontractor.WhatTypeOfSubcontractorController.onPageLoad()
+POST       /employer/cis/uk/subcontractor                controllers.employer.cis.uk.subcontractor.WhatTypeOfSubcontractorController.onSubmit()
+
 GET        /employer/intermediaries/epaye/other-account  controllers.employer.intermediaries.UsePAYEEmployerAccountController.onPageLoad()
 
 GET        /employer/intermediaries/epaye                controllers.employer.intermediaries.DoesBusinessManagePAYEController.onPageLoad()
