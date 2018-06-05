@@ -48,7 +48,7 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
           case (WhatEmployerTaxDoYouWantToAdd.ERS, true) => Call("GET", appConfig.getPortalUrl("enrolERS"))
           case (WhatEmployerTaxDoYouWantToAdd.ERS, false) =>
             ersRoutes.IsBusinessRegisteredForPAYEController.onPageLoad()
-          case (WhatEmployerTaxDoYouWantToAdd.EIA, true) => ??? //
+          case (WhatEmployerTaxDoYouWantToAdd.EIA, true) => Call("GET", appConfig.eiUrl)
           case (WhatEmployerTaxDoYouWantToAdd.EIA, false) =>
             intRoutes.IsBusinessRegisteredForPAYEController.onPageLoad()
         }

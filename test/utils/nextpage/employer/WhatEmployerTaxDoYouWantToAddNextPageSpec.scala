@@ -99,7 +99,7 @@ class WhatEmployerTaxDoYouWantToAddNextPageSpec extends NextPageSpecBase {
     NextPage.whatEmployerTaxDoYouWantToAdd,
     nextPageEIAWithEnrolment,
     WhatEmployerTaxDoYouWantToAdd.EIA.toString,
-    "######",
+    "/employment-intermediary-report/not-enrolled",
     "EPAYE enrolments"
   )
 
