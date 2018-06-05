@@ -123,6 +123,18 @@ POST       /other/aeoi                                  controllers.other.aeoi.H
 GET        /self-assessment                             controllers.sa.SelectSACategoryController.onPageLoad()
 POST       /self-assessment                             controllers.sa.SelectSACategoryController.onSubmit()
 
+GET        /vat                                         controllers.vat.WhichVATServicesToAddController.onPageLoad()
+POST       /vat                                         controllers.vat.WhichVATServicesToAddController.onSubmit()
+
+GET        /vat/ec                                      controllers.vat.ec.RegisteredForVATECSalesController.onPageLoad()
+POST       /vat/ec                                      controllers.vat.ec.RegisteredForVATECSalesController.onSubmit()
+
+GET        /vat/eurefunds                               controllers.vat.eurefunds.RegisteredForVATEURefundsController.onPageLoad()
+POST       /vat/eurefunds                               controllers.vat.eurefunds.RegisteredForVATEURefundsController.onSubmit()
+
+GET        /vat/rcsl                                    controllers.vat.rcsl.RegisteredForVATRCSLController.onPageLoad()
+POST       /vat/rcsl                                    controllers.vat.rcsl.RegisteredForVATRCSLController.onSubmit()
+
 GET        /vat/moss/uk                                 controllers.vat.moss.ukbased.RegisteredForVATUkController.onPageLoad()
 POST       /vat/moss/uk                                 controllers.vat.moss.ukbased.RegisteredForVATUkController.onSubmit()
 
@@ -183,6 +195,15 @@ POST       /employer/ers/epaye                           controllers.employer.er
 
 GET        /employer/ers                                 controllers.employer.ers.IsBusinessRegisteredForPAYEController.onPageLoad()
 POST       /employer/ers                                 controllers.employer.ers.IsBusinessRegisteredForPAYEController.onSubmit()
+
+GET        /employer/cis/uk/subcontractor/sole-trader/high-turnover    controllers.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGrossController.onPageLoad()
+POST       /employer/cis/uk/subcontractor/sole-trader/high-turnover    controllers.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGrossController.onSubmit()
+
+GET        /employer/cis/uk/subcontractor/sole-trader    controllers.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVATController.onPageLoad()
+POST       /employer/cis/uk/subcontractor/sole-trader    controllers.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVATController.onSubmit()
+
+GET        /employer/cis/uk/subcontractor                controllers.employer.cis.uk.subcontractor.WhatTypeOfSubcontractorController.onPageLoad()
+POST       /employer/cis/uk/subcontractor                controllers.employer.cis.uk.subcontractor.WhatTypeOfSubcontractorController.onSubmit()
 
 GET        /employer/intermediaries/epaye/other-account  controllers.employer.intermediaries.UsePAYEEmployerAccountController.onPageLoad()
 

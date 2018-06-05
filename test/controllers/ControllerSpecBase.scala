@@ -18,6 +18,9 @@ package controllers
 
 import base.SpecBase
 import controllers.actions.FakeDataRetrievalAction
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import play.twirl.api.Html
 import uk.gov.hmrc.http.cache.client.CacheMap
 
 trait ControllerSpecBase extends SpecBase {
@@ -29,4 +32,6 @@ trait ControllerSpecBase extends SpecBase {
   def getEmptyCacheMap = new FakeDataRetrievalAction(Some(emptyCacheMap))
 
   def dontGetAnyData = new FakeDataRetrievalAction(None)
+
+  def asDocument(s: String): Document = Jsoup.parse(s)
 }

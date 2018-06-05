@@ -605,6 +605,28 @@ registeredForVAT.No = Nac ydy - nid yw’r busnes wedi’i gofrestru ar gyfer TA
 registeredForVAT.error.required = Dewis iawn neu na
 
 #######################################################
+##  RegisteredForVATECSales
+#######################################################
+registeredForVATECSales.title = A yw’r busnes wedi’i gofrestru ar gyfer TAW?
+registeredForVATECSales.heading = A yw’r busnes wedi’i gofrestru ar gyfer TAW?
+registeredForVATECSales.Yes = Iawn
+registeredForVATECSales.No = Na
+registeredForVATECSales.error.required = Dewiswch Iawn os yw’r busnes wedi’i gofrestru ar gyfer TAW
+
+#######################################################
+##  WhichVATServicesToAdd
+#######################################################
+whichVATServicesToAdd.title = Pa wasanaeth TAW ydych eisiau ei ychwanegu?
+whichVATServicesToAdd.heading = Pa wasanaeth TAW ydych eisiau ei ychwanegu?
+whichVATServicesToAdd.vat = TAW
+whichVATServicesToAdd.ecsales = Rhestr Gwerthiannau yn y GE, Rhoi gwybod am werthiannau a wnaed i gyflenwyr yr UE sydd wedi cofrestru ar gyfer TAW
+whichVATServicesToAdd.eurefunds = Ad-daliadau yn yr UE, Gwneud cais i gael TAW y gwnaethoch ei thalu yn yr UE yn ôl
+whichVATServicesToAdd.rcsl = Rhestr Gwerthiannau Tâl Gwrthdro (RCSL), Rhoi gwybod am werthiannau sydd â TAW Tâl Gwrthdro
+whichVATServicesToAdd.moss = Gwasanaeth Un Cam (GUC), TAW ar gyfer gwasanaethau digidol a werthwyd yn yr UE
+whichVATServicesToAdd.nova = Hysbysiad o Gerbydau'n Cyrraedd (NOVA)
+whichVATServicesToAdd.error.required = Dewis gwasanaeth TAW
+
+#######################################################
 ##  UseEmployersPAYE
 #######################################################
 useEmployersPAYE.title = Defnyddio eich cyfrif TWE i gyflogwyr
@@ -641,6 +663,37 @@ registerInHomeCountry.heading = Cofrestru yn eich gwlad wreiddiol
 registerInHomeCountry.p1=Dylech gofrestru ar gyfer GUC TAW gyda’r awdurdod treth yng ngwlad wreiddiol eich busnes.
 registerInHomeCountry.p2=Os ydych eisiau cofrestru ar gyfer GUC TAW yn y DU, mae angen i chi
 registerInHomeCountry.callUs = ein ffonio.
+
+#######################################################
+##  DoYouWantToBePaidNetOrGross
+#######################################################
+doYouWantToBePaidNetOrGross.title = A ydych eisiau cael eich talu’n net neu’n gros?
+doYouWantToBePaidNetOrGross.heading = A ydych eisiau cael eich talu’n net neu’n gros?
+doYouWantToBePaidNetOrGross.subtext1 = Os cewch eich talu’n net, caiff 20% o’ch cyflog ei ddidynnu at ddibenion treth ac Yswiriant Gwladol.
+doYouWantToBePaidNetOrGross.subtext2 = Os ydych am gael eich talu’n gros, rhaid i chi {0} cyn mynd ymlaen
+doYouWantToBePaidNetOrGross.subtext2.anchorText = wirio eich bod yn gymwys i gael taliadau o’r fath
+doYouWantToBePaidNetOrGross.paidNet = Rwyf eisiau cael fy nhalu’n net
+doYouWantToBePaidNetOrGross.paidGross = Rwyf eisiau cael fy nhalu’n gros
+doYouWantToBePaidNetOrGross.error.required = Mae’n rhaid i chi wneud dewis
+
+#######################################################
+##  WasTurnoverMoreAfterVAT
+#######################################################
+wasTurnoverMoreAfterVAT.title = A oedd eich trosiant ar gyfer y 12 mis diwethaf dros £30,000 ar ôl TAW?
+wasTurnoverMoreAfterVAT.heading = A oedd eich trosiant ar gyfer y 12 mis diwethaf dros £30,000 ar ôl TAW?
+wasTurnoverMoreAfterVAT.Yes = Oedd - roedd fy nhrosiant dros £30,000
+wasTurnoverMoreAfterVAT.No = Nac oedd - roedd fy nhrosiant yn llai na £30,000
+wasTurnoverMoreAfterVAT.error.required = Dewis iawn neu na
+
+#######################################################
+##  WhatTypeOfSubcontractor
+#######################################################
+whatTypeOfSubcontractor.title = Pa fath o isgontractiwr ydych chi?
+whatTypeOfSubcontractor.heading = Pa fath o isgontractiwr ydych chi?
+whatTypeOfSubcontractor.soleTrader = Unig fasnachwr
+whatTypeOfSubcontractor.partnership = Partneriaeth
+whatTypeOfSubcontractor.limitedCompany = Cwmni Cyfyngedig
+whatTypeOfSubcontractor.error.required = Dewis math o fusnes
 
 #######################################################
 ##  UsePAYEEmployerIntermediariesAccount

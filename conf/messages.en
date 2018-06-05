@@ -622,6 +622,28 @@ haveYouRegisteredForVATMOSS.No = No - I’m not registered for VAT MOSS yet
 haveYouRegisteredForVATMOSS.error.required = Select yes or no
 
 #######################################################
+##  RegisteredForVATECSales
+#######################################################
+registeredForVATECSales.title = Is the business registered for VAT?
+registeredForVATECSales.heading = Is the business registered for VAT?
+registeredForVATECSales.Yes = Yes
+registeredForVATECSales.No = No
+registeredForVATECSales.error.required = Select yes if the business is registered for VAT
+
+#######################################################
+##  WhichVATServicesToAdd
+#######################################################
+whichVATServicesToAdd.title = Which VAT service do you want to add?
+whichVATServicesToAdd.heading = Which VAT service do you want to add?
+whichVATServicesToAdd.vat = VAT
+whichVATServicesToAdd.ecsales = EC Sales List, report sales made to VAT registered EU customers
+whichVATServicesToAdd.eurefunds = EU Refunds, reclaim VAT you paid in the EU
+whichVATServicesToAdd.rcsl = Reverse Charge Sales List (RCSL), report sales which have reverse charge VAT
+whichVATServicesToAdd.moss = Mini One Stop Shop (MOSS), VAT on digital services sold to EU customers
+whichVATServicesToAdd.nova = Notification of Vehicle Arrivals (NOVA)
+whichVATServicesToAdd.error.required = Select a VAT service
+
+#######################################################
 ##  RegisterInHomeCountry
 #######################################################
 registerInHomeCountry.title = Register in your home country
@@ -660,6 +682,37 @@ registerEmployersPAYE.continue = Register for PAYE for employers
 registerEmployersPAYE.notnow = I don’t want to do this right now
 
 #######################################################
+##  DoYouWantToBePaidNetOrGross
+#######################################################
+doYouWantToBePaidNetOrGross.title = Do you want to be paid net or gross?
+doYouWantToBePaidNetOrGross.heading = Do you want to be paid net or gross?
+doYouWantToBePaidNetOrGross.subtext1 = If you’re paid net, 20% of your pay will be deducted to cover tax and National Insurance.
+doYouWantToBePaidNetOrGross.subtext2 = If you want to be paid gross, you must {0} before you continue.
+doYouWantToBePaidNetOrGross.subtext2.anchorText = check if you qualify for gross payments
+doYouWantToBePaidNetOrGross.paidNet = I want to be paid net
+doYouWantToBePaidNetOrGross.paidGross = I want to be paid gross
+doYouWantToBePaidNetOrGross.error.required = You must make a selection
+
+#######################################################
+##  WasTurnoverMoreAfterVAT
+#######################################################
+wasTurnoverMoreAfterVAT.title = Was your turnover for the last 12 months more than £30,000 after VAT?
+wasTurnoverMoreAfterVAT.heading = Was your turnover for the last 12 months more than £30,000 after VAT?
+wasTurnoverMoreAfterVAT.Yes = Yes - my turnover was more than £30,000
+wasTurnoverMoreAfterVAT.No = No - my turnover was less than £30,000
+wasTurnoverMoreAfterVAT.error.required = Select yes or no
+
+#######################################################
+##  WhatTypeOfSubcontractor
+#######################################################
+whatTypeOfSubcontractor.title = What type of subcontractor are you?
+whatTypeOfSubcontractor.heading = What type of subcontractor are you?
+whatTypeOfSubcontractor.soleTrader = Sole Trader
+whatTypeOfSubcontractor.partnership = Partnership
+whatTypeOfSubcontractor.limitedCompany = Limited Company
+whatTypeOfSubcontractor.error.required = Select a business type
+
+#######################################################
 ##  UsePAYEEmployerAccountIntermediaries
 #######################################################
 usePAYEEmployerIntermediariesAccount.title = Use your PAYE for employers account
@@ -668,7 +721,6 @@ usePAYEEmployerIntermediariesAccount.continue = Sign in to your PAYE for employe
 usePAYEEmployerIntermediariesAccount.addAccount = I want to add intermediaries in this account
 usePAYEEmployerIntermediariesAccount.p1 = You should manage employment intermediaries in the same account that you manage PAYE for employers.
 usePAYEEmployerIntermediariesAccount.p2 = It will make it easier to manage both schemes.
-
 
 #######################################################
 ##  RegisterForPAYEIntermediaries

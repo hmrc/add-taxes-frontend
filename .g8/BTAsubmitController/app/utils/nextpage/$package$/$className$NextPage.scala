@@ -1,4 +1,4 @@
-package utils.nextpage.$modelPackage$
+package utils.nextpage.$package$
 
 import config.FrontendAppConfig
 import identifiers.$className$Id
