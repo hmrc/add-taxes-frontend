@@ -19,7 +19,7 @@ package controllers.employer
 import play.api.data.Form
 import play.api.libs.json.JsString
 import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
+import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
 import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
@@ -38,25 +38,24 @@ class WhatEmployerTaxDoYouWantToAddControllerSpec extends ControllerSpecBase {
   val formProvider = new WhatEmployerTaxDoYouWantToAddFormProvider()
   val form = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap)(enrolmentTypes: HmrcEnrolmentType*) =
     new WhatEmployerTaxDoYouWantToAddController(
       frontendAppConfig,
       messagesApi,
       FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
-      FakeServiceInfoAction,
-      formProvider)
+      FakeServiceInfoAction(enrolmentTypes: _*),
+      formProvider
+    )
 
-  def viewAsString(form: Form[_] = form) =
-    whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form, WhatEmployerTaxDoYouWantToAdd.options)(HtmlFormat.empty)(
-      fakeRequest,
-      messages).toString
+  def viewAsString(form: Form[_] = form, radioOptions: Seq[RadioOption] = WhatEmployerTaxDoYouWantToAdd.options) =
+    whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "WhatEmployerTaxDoYouWantToAdd Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
+      val result = controller()().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
@@ -65,7 +64,7 @@ class WhatEmployerTaxDoYouWantToAddControllerSpec extends ControllerSpecBase {
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhatEmployerTaxDoYouWantToAdd.options.head.value))
 
-      val result = controller().onSubmit()(postRequest)
+      val result = controller()().onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -75,14 +74,14 @@ class WhatEmployerTaxDoYouWantToAddControllerSpec extends ControllerSpecBase {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
-      val result = controller().onSubmit()(postRequest)
+      val result = controller()().onSubmit()(postRequest)
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
     "return OK if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+      val result = controller(dontGetAnyData)().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
     }
@@ -90,10 +89,32 @@ class WhatEmployerTaxDoYouWantToAddControllerSpec extends ControllerSpecBase {
     for (option <- WhatEmployerTaxDoYouWantToAdd.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
-        val result = controller(dontGetAnyData).onSubmit()(postRequest)
+        val result = controller(dontGetAnyData)().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)
+      }
+    }
+
+    "hide EPAYE option" when {
+      val radioOptions =
+        WhatEmployerTaxDoYouWantToAdd.options.filterNot(_.value == WhatEmployerTaxDoYouWantToAdd.EPAYE.toString)
+
+      "on page load and enrolled for EPAYE" in {
+        val result = controller()(HmrcEnrolmentType.EPAYE).onPageLoad()(fakeRequest)
+        val view = viewAsString(radioOptions = radioOptions)
+
+        contentAsString(result) mustBe view
+      }
+
+      "on page submit and enrolled for EPAYE" in {
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+        val boundForm = form.bind(Map("value" -> "invalid value"))
+        val view = viewAsString(boundForm, radioOptions)
+
+        val result = controller()(HmrcEnrolmentType.EPAYE).onSubmit()(postRequest)
+
+        contentAsString(result) mustBe view
       }
     }
   }
