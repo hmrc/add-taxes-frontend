@@ -676,7 +676,7 @@ registerInHomeCountry.callUs = ein ffonio.
 #######################################################
 whatEmployerTaxDoYouWantToAdd.title = Pa dreth y cyflogwr ydych eisiau ei hychwanegu?
 whatEmployerTaxDoYouWantToAdd.heading = Pa dreth y cyflogwr ydych eisiau ei hychwanegu?
-whatEmployerTaxDoYouWantToAdd.option1 = TWE i gyflogwyr
+whatEmployerTaxDoYouWantToAdd.epaye = TWE i gyflogwyr
 whatEmployerTaxDoYouWantToAdd.cis = Cynllun y Diwydiant Adeiladu (CIS)
 whatEmployerTaxDoYouWantToAdd.pension = Cynlluniau pensiwn
 whatEmployerTaxDoYouWantToAdd.ers = Gwarantau ar Sail Cyflogaeth (ERS)

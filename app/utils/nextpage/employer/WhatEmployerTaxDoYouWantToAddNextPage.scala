@@ -42,13 +42,18 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
           utils.Enrolments.hasEnrolments(enrolments, Seq(HmrcEnrolmentType.EPAYE): _*)
 
         (whatEmployerTaxDoYouWantToAdd, hasEPAYE) match {
-          case (WhatEmployerTaxDoYouWantToAdd.EPAYE, _)  => Call("GET", appConfig.getPortalUrl("businessRegistration"))
-          case (WhatEmployerTaxDoYouWantToAdd.CIS, _)    => ??? // BEACD-76
-          case (WhatEmployerTaxDoYouWantToAdd.PS, _)     => pensionRoutes.WhichPensionSchemeToAddController.onPageLoad()
-          case (WhatEmployerTaxDoYouWantToAdd.ERS, true) => Call("GET", appConfig.getPortalUrl("enrolERS"))
+          case (WhatEmployerTaxDoYouWantToAdd.EPAYE, _) =>
+            Call("GET", appConfig.getPortalUrl("businessRegistration"))
+          case (WhatEmployerTaxDoYouWantToAdd.CIS, _) =>
+            ??? // BEACD-76
+          case (WhatEmployerTaxDoYouWantToAdd.PS, _) =>
+            pensionRoutes.WhichPensionSchemeToAddController.onPageLoad()
+          case (WhatEmployerTaxDoYouWantToAdd.ERS, true) =>
+            Call("GET", appConfig.getPortalUrl("enrolERS"))
           case (WhatEmployerTaxDoYouWantToAdd.ERS, false) =>
             ersRoutes.IsBusinessRegisteredForPAYEController.onPageLoad()
-          case (WhatEmployerTaxDoYouWantToAdd.EIA, true) => Call("GET", appConfig.eiUrl)
+          case (WhatEmployerTaxDoYouWantToAdd.EIA, true) =>
+            Call("GET", appConfig.eiUrl)
           case (WhatEmployerTaxDoYouWantToAdd.EIA, false) =>
             intRoutes.IsBusinessRegisteredForPAYEController.onPageLoad()
         }

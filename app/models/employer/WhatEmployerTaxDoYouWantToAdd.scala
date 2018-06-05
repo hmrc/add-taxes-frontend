@@ -22,7 +22,7 @@ sealed trait WhatEmployerTaxDoYouWantToAdd
 
 object WhatEmployerTaxDoYouWantToAdd {
 
-  case object EPAYE extends WithName("option1") with WhatEmployerTaxDoYouWantToAdd
+  case object EPAYE extends WithName("epaye") with WhatEmployerTaxDoYouWantToAdd
   case object CIS extends WithName("cis") with WhatEmployerTaxDoYouWantToAdd
   case object PS extends WithName("pension") with WhatEmployerTaxDoYouWantToAdd
   case object ERS extends WithName("ers") with WhatEmployerTaxDoYouWantToAdd
