@@ -38,14 +38,13 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
         request: Request[_]): Call = {
 
         val (whatEmployerTaxDoYouWantToAdd, enrolments) = b
-        val hasEPAYE: Boolean =
-          utils.Enrolments.hasEnrolments(enrolments, Seq(HmrcEnrolmentType.EPAYE): _*)
+        val hasEPAYE: Boolean = utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.EPAYE)
 
         (whatEmployerTaxDoYouWantToAdd, hasEPAYE) match {
           case (WhatEmployerTaxDoYouWantToAdd.EPAYE, _) =>
             Call("GET", appConfig.getPortalUrl("businessRegistration"))
           case (WhatEmployerTaxDoYouWantToAdd.CIS, _) =>
-            ??? // BEACD-76
+            ??? //TODO BEACD-76
           case (WhatEmployerTaxDoYouWantToAdd.PS, _) =>
             pensionRoutes.WhichPensionSchemeToAddController.onPageLoad()
           case (WhatEmployerTaxDoYouWantToAdd.ERS, true) =>

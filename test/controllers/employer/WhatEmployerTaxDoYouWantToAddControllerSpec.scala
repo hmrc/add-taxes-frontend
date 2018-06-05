@@ -28,6 +28,7 @@ import forms.employer.WhatEmployerTaxDoYouWantToAddFormProvider
 import identifiers.WhatEmployerTaxDoYouWantToAddId
 import models.employer.WhatEmployerTaxDoYouWantToAdd
 import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.auth.core.Enrolments
 import views.html.employer.whatEmployerTaxDoYouWantToAdd
 
 class WhatEmployerTaxDoYouWantToAddControllerSpec extends ControllerSpecBase {
@@ -48,7 +49,7 @@ class WhatEmployerTaxDoYouWantToAddControllerSpec extends ControllerSpecBase {
       formProvider)
 
   def viewAsString(form: Form[_] = form) =
-    whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form)(HtmlFormat.empty, Enrolments(Set()))(fakeRequest, messages).toString
 
   "WhatEmployerTaxDoYouWantToAdd Controller" must {
 

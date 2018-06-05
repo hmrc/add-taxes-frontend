@@ -47,7 +47,7 @@ class WhatEmployerTaxDoYouWantToAddController @Inject()(
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(whatEmployerTaxDoYouWantToAdd(appConfig, form)(request.serviceInfoContent))
+    Ok(whatEmployerTaxDoYouWantToAdd(appConfig, form)(request.serviceInfoContent, request.request.enrolments))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
@@ -55,7 +55,10 @@ class WhatEmployerTaxDoYouWantToAddController @Inject()(
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          BadRequest(whatEmployerTaxDoYouWantToAdd(appConfig, formWithErrors)(request.serviceInfoContent)),
+          BadRequest(
+            whatEmployerTaxDoYouWantToAdd(appConfig, formWithErrors)(
+              request.serviceInfoContent,
+              request.request.enrolments)),
         (value) => Redirect(navigator.nextPage(WhatEmployerTaxDoYouWantToAddId, (value, request.request.enrolments)))
       )
   }

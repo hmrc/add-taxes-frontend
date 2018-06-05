@@ -16,7 +16,9 @@
 
 package models.employer
 
-import utils.{Enumerable, RadioOption, WithName}
+import uk.gov.hmrc.auth.core.Enrolments
+import utils.{Enumerable, HmrcEnrolmentType, RadioOption, WithName}
+import play.api.mvc.Request
 
 sealed trait WhatEmployerTaxDoYouWantToAdd
 
@@ -35,6 +37,12 @@ object WhatEmployerTaxDoYouWantToAdd {
     ERS,
     EIA
   )
+
+  def getOptions(enrolments: Enrolments) =
+    utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.EPAYE) match {
+      case true  => options.filterNot(_ == RadioOption("whatEmployerTaxDoYouWantToAdd", EPAYE.toString))
+      case false => options
+    }
 
   val options: Seq[RadioOption] = values.map { value =>
     RadioOption("whatEmployerTaxDoYouWantToAdd", value.toString)

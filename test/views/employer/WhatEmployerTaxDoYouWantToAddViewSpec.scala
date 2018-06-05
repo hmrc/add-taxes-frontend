@@ -19,7 +19,11 @@ package views.employer
 import play.api.data.Form
 import forms.employer.WhatEmployerTaxDoYouWantToAddFormProvider
 import models.employer.WhatEmployerTaxDoYouWantToAdd
-import play.twirl.api.HtmlFormat
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
+import play.api.mvc.AnyContent
+import play.twirl.api.{Html, HtmlFormat}
+import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
+import utils.HmrcEnrolmentType
 import views.behaviours.ViewBehaviours
 import views.html.employer.whatEmployerTaxDoYouWantToAdd
 
@@ -31,17 +35,34 @@ class WhatEmployerTaxDoYouWantToAddViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
+  val serviceRequest: ServiceInfoRequest[AnyContent] =
+    ServiceInfoRequest(AuthenticatedRequest(fakeRequest, "", Enrolments(Set()), None), Html(""))
+
+  val epayeEnrolment = Enrolment(key = HmrcEnrolmentType.EPAYE.toString, identifiers = Seq(), state = "Activated")
+
   def createView =
-    () => whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    () =>
+      whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form)(
+        serviceInfoContent,
+        enrolments = Enrolments(Set(epayeEnrolment)))(fakeRequest, messages)
 
   def createViewUsingForm =
-    (form: Form[_]) => whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    (form: Form[_]) =>
+      whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form)(serviceInfoContent, enrolments = Enrolments(Set()))(
+        fakeRequest,
+        messages)
+
+  def createViewUsingFormWithEPAYE =
+    (form: Form[_]) =>
+      whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form)(
+        serviceInfoContent,
+        enrolments = Enrolments(Set(epayeEnrolment)))(fakeRequest, messages)
 
   "WhatEmployerTaxDoYouWantToAdd view" must {
     behave like normalPage(createView, messageKeyPrefix)
   }
 
-  "WhatEmployerTaxDoYouWantToAdd view" when {
+  "WhatEmployerTaxDoYouWantToAdd View with no enrolments" when {
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
@@ -69,6 +90,15 @@ class WhatEmployerTaxDoYouWantToAddViewSpec extends ViewBehaviours {
         val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> ""))))
 
         assertEqualsMessage(doc, "title", "error.browser.title", messages(s"$messageKeyPrefix.title"))
+      }
+    }
+  }
+
+  "WhatEmployerTaxDoyouWantToAdd View with EPAYE enrolment" when {
+    "rendered" must {
+      "not contain radio option for EPAYE in the view" in {
+        val doc = asDocument(createViewUsingFormWithEPAYE(form))
+        assertNotRenderedById(doc, "whatEmployerTaxDoYouWantToAdd.epaye")
       }
     }
   }
