@@ -17,6 +17,7 @@
 package utils.nextpage.employer
 
 import models.employer.WhatEmployerTaxDoYouWantToAdd
+import uk.gov.hmrc.auth.core.Enrolments
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
@@ -25,32 +26,32 @@ class WhatEmployerTaxDoYouWantToAddNextPageSpec extends NextPageSpecBase {
   "whatEmployerTaxDoYouWantToAdd" when {
     behave like nextPage(
       NextPage.whatEmployerTaxDoYouWantToAdd,
-      WhatEmployerTaxDoYouWantToAdd.Option1,
-      "#"
+      WhatEmployerTaxDoYouWantToAdd.EPAYE,
+      "http://localhost:8080/portal/business-registration/introduction?lang=eng"
     )
 
     behave like nextPage(
       NextPage.whatEmployerTaxDoYouWantToAdd,
-      WhatEmployerTaxDoYouWantToAdd.Option2,
-      "#"
+      WhatEmployerTaxDoYouWantToAdd.CIS,
+      "http://www.tax.service.gov.uk/business-account/add-tax/employer/cis"
     )
 
     behave like nextPage(
       NextPage.whatEmployerTaxDoYouWantToAdd,
-      WhatEmployerTaxDoYouWantToAdd.Option3,
-      "#"
+      WhatEmployerTaxDoYouWantToAdd.PS,
+      "/business-account/add-tax/employer/pension"
     )
 
     behave like nextPage(
       NextPage.whatEmployerTaxDoYouWantToAdd,
-      WhatEmployerTaxDoYouWantToAdd.Option4,
-      "#"
+      WhatEmployerTaxDoYouWantToAdd.ERS,
+      "/business-account/add-tax/employer/ers"
     )
 
     behave like nextPage(
       NextPage.whatEmployerTaxDoYouWantToAdd,
-      WhatEmployerTaxDoYouWantToAdd.Option5,
-      "#"
+      WhatEmployerTaxDoYouWantToAdd.EIA,
+      "/business-account/add-tax/employer/intermediaries"
     )
   }
 }

@@ -50,14 +50,13 @@ class WhatEmployerTaxDoYouWantToAddController @Inject()(
     Ok(whatEmployerTaxDoYouWantToAdd(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(whatEmployerTaxDoYouWantToAdd(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(WhatEmployerTaxDoYouWantToAddId, value)))
+          BadRequest(whatEmployerTaxDoYouWantToAdd(appConfig, formWithErrors)(request.serviceInfoContent)),
+        (value) => Redirect(navigator.nextPage(WhatEmployerTaxDoYouWantToAddId, value))
       )
   }
 }

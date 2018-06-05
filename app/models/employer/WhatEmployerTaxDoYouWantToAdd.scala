@@ -22,24 +22,24 @@ sealed trait WhatEmployerTaxDoYouWantToAdd
 
 object WhatEmployerTaxDoYouWantToAdd {
 
-  case object Option1 extends WithName("option1") with WhatEmployerTaxDoYouWantToAdd
-  case object Option2 extends WithName("option2") with WhatEmployerTaxDoYouWantToAdd
-  case object Option3 extends WithName("option3") with WhatEmployerTaxDoYouWantToAdd
-  case object Option4 extends WithName("option4") with WhatEmployerTaxDoYouWantToAdd
-  case object Option5 extends WithName("option5") with WhatEmployerTaxDoYouWantToAdd
+  case object EPAYE extends WithName("option1") with WhatEmployerTaxDoYouWantToAdd
+  case object CIS extends WithName("cis") with WhatEmployerTaxDoYouWantToAdd
+  case object PS extends WithName("pension") with WhatEmployerTaxDoYouWantToAdd
+  case object ERS extends WithName("ers") with WhatEmployerTaxDoYouWantToAdd
+  case object EIA extends WithName("intermediaries") with WhatEmployerTaxDoYouWantToAdd
 
-  val values: Set[WhatEmployerTaxDoYouWantToAdd] = Set(
-    Option1,
-    Option2,
-    Option3,
-    Option4,
-    Option5
+  val values: Seq[WhatEmployerTaxDoYouWantToAdd] = Seq(
+    EPAYE,
+    CIS,
+    PS,
+    ERS,
+    EIA
   )
 
-  val options: Set[RadioOption] = values.map { value =>
+  val options: Seq[RadioOption] = values.map { value =>
     RadioOption("whatEmployerTaxDoYouWantToAdd", value.toString)
   }
 
   implicit val enumerable: Enumerable[WhatEmployerTaxDoYouWantToAdd] =
-    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+    Enumerable(values.map(v => v.toString -> v): _*)
 }
