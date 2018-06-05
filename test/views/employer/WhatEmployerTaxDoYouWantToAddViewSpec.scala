@@ -35,28 +35,17 @@ class WhatEmployerTaxDoYouWantToAddViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
-  val serviceRequest: ServiceInfoRequest[AnyContent] =
-    ServiceInfoRequest(AuthenticatedRequest(fakeRequest, "", Enrolments(Set()), None), Html(""))
-
-  val epayeEnrolment = Enrolment(key = HmrcEnrolmentType.EPAYE.toString, identifiers = Seq(), state = "Activated")
-
   def createView =
     () =>
-      whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form)(
-        serviceInfoContent,
-        enrolments = Enrolments(Set(epayeEnrolment)))(fakeRequest, messages)
-
-  def createViewUsingForm =
-    (form: Form[_]) =>
-      whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form)(serviceInfoContent, enrolments = Enrolments(Set()))(
+      whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form, WhatEmployerTaxDoYouWantToAdd.options)(serviceInfoContent)(
         fakeRequest,
         messages)
 
-  def createViewUsingFormWithEPAYE =
+  def createViewUsingForm =
     (form: Form[_]) =>
-      whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form)(
-        serviceInfoContent,
-        enrolments = Enrolments(Set(epayeEnrolment)))(fakeRequest, messages)
+      whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form, WhatEmployerTaxDoYouWantToAdd.options)(serviceInfoContent)(
+        fakeRequest,
+        messages)
 
   "WhatEmployerTaxDoYouWantToAdd view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -90,15 +79,6 @@ class WhatEmployerTaxDoYouWantToAddViewSpec extends ViewBehaviours {
         val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> ""))))
 
         assertEqualsMessage(doc, "title", "error.browser.title", messages(s"$messageKeyPrefix.title"))
-      }
-    }
-  }
-
-  "WhatEmployerTaxDoyouWantToAdd View with EPAYE enrolment" when {
-    "rendered" must {
-      "not contain radio option for EPAYE in the view" in {
-        val doc = asDocument(createViewUsingFormWithEPAYE(form))
-        assertNotRenderedById(doc, "whatEmployerTaxDoYouWantToAdd.epaye")
       }
     }
   }

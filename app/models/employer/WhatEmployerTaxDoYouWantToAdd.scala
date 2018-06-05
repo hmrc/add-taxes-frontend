@@ -38,12 +38,6 @@ object WhatEmployerTaxDoYouWantToAdd {
     EIA
   )
 
-  def getOptions(enrolments: Enrolments) =
-    utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.EPAYE) match {
-      case true  => options.filterNot(_ == RadioOption("whatEmployerTaxDoYouWantToAdd", EPAYE.toString))
-      case false => options
-    }
-
   val options: Seq[RadioOption] = values.map { value =>
     RadioOption("whatEmployerTaxDoYouWantToAdd", value.toString)
   }

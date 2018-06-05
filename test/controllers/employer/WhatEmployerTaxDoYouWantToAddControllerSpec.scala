@@ -49,7 +49,9 @@ class WhatEmployerTaxDoYouWantToAddControllerSpec extends ControllerSpecBase {
       formProvider)
 
   def viewAsString(form: Form[_] = form) =
-    whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form)(HtmlFormat.empty, Enrolments(Set()))(fakeRequest, messages).toString
+    whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form, WhatEmployerTaxDoYouWantToAdd.options)(HtmlFormat.empty)(
+      fakeRequest,
+      messages).toString
 
   "WhatEmployerTaxDoYouWantToAdd Controller" must {
 

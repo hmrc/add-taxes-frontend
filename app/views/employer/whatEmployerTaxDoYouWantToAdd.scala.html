@@ -36,9 +36,10 @@
 @import models.employer.WhatEmployerTaxDoYouWantToAdd
 @import models.requests.ServiceInfoRequest
 @import uk.gov.hmrc.auth.core.Enrolments
+@import utils.RadioOption
 
 
-@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html, enrolments: Enrolments)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_], radioOptions: Seq[RadioOption])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("whatEmployerTaxDoYouWantToAdd.title"),
@@ -53,7 +54,7 @@
         @components.input_radio(
             field = form("value"),
             legend = components.heading("whatEmployerTaxDoYouWantToAdd.heading").body,
-            inputs = WhatEmployerTaxDoYouWantToAdd.getOptions(enrolments)
+            inputs = radioOptions
         )
 
         @components.submit_button(gaEvent = "AddEmployerTax")

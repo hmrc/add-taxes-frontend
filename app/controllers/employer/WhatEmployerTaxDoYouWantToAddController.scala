@@ -24,13 +24,13 @@ import controllers.actions._
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
-
+import utils.{Enumerable, HmrcEnrolmentType, Navigator, RadioOption}
 import forms.employer.WhatEmployerTaxDoYouWantToAddFormProvider
 import identifiers.WhatEmployerTaxDoYouWantToAddId
+import models.employer.WhatEmployerTaxDoYouWantToAdd
+import models.employer.WhatEmployerTaxDoYouWantToAdd.{EPAYE, options}
+import uk.gov.hmrc.auth.core.Enrolments
 import views.html.employer.whatEmployerTaxDoYouWantToAdd
-
-import scala.concurrent.Future
 
 class WhatEmployerTaxDoYouWantToAddController @Inject()(
   appConfig: FrontendAppConfig,
@@ -47,7 +47,8 @@ class WhatEmployerTaxDoYouWantToAddController @Inject()(
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(whatEmployerTaxDoYouWantToAdd(appConfig, form)(request.serviceInfoContent, request.request.enrolments))
+    Ok(
+      whatEmployerTaxDoYouWantToAdd(appConfig, form, WhatEmployerTaxDoYouWantToAdd.options)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
@@ -56,10 +57,15 @@ class WhatEmployerTaxDoYouWantToAddController @Inject()(
       .fold(
         (formWithErrors: Form[_]) =>
           BadRequest(
-            whatEmployerTaxDoYouWantToAdd(appConfig, formWithErrors)(
-              request.serviceInfoContent,
-              request.request.enrolments)),
+            whatEmployerTaxDoYouWantToAdd(appConfig, formWithErrors, WhatEmployerTaxDoYouWantToAdd.options)(
+              request.serviceInfoContent)),
         (value) => Redirect(navigator.nextPage(WhatEmployerTaxDoYouWantToAddId, (value, request.request.enrolments)))
       )
   }
+
+  def getOptions(enrolments: Enrolments): Seq[RadioOption] =
+    utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.EPAYE) match {
+      case true  => options.filterNot(_ == RadioOption("whatEmployerTaxDoYouWantToAdd", EPAYE.toString))
+      case false => options
+    }
 }
