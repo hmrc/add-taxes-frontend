@@ -32,13 +32,13 @@ class $className$Controller @Inject()(
       Ok($className;format="decap"$(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async {
+  def onSubmit() = (authenticate andThen serviceInfoData) {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest($className;format="decap"$(appConfig, formWithErrors)(request.serviceInfoContent))),
+          BadRequest($className;format="decap"$(appConfig, formWithErrors)(request.serviceInfoContent)),
         (value) =>
-          Future.successful(Redirect(navigator.nextPage($className$Id, value)))
+          Redirect(navigator.nextPage($className$Id, value))
       )
   }
 }

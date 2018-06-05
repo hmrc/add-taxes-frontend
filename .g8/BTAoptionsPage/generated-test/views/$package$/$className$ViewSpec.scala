@@ -39,7 +39,7 @@ class $className$ViewSpec extends ViewBehaviours {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"\${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- $className$.options.filterNot(o => o == option)) {
+          for(unselectedOption <- $className$.options.filterNot(_ == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }
