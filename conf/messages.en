@@ -622,6 +622,28 @@ haveYouRegisteredForVATMOSS.No = No - I’m not registered for VAT MOSS yet
 haveYouRegisteredForVATMOSS.error.required = Select yes or no
 
 #######################################################
+##  RegisteredForVATECSales
+#######################################################
+registeredForVATECSales.title = Is the business registered for VAT?
+registeredForVATECSales.heading = Is the business registered for VAT?
+registeredForVATECSales.Yes = Yes
+registeredForVATECSales.No = No
+registeredForVATECSales.error.required = Select yes if the business is registered for VAT
+
+#######################################################
+##  WhichVATServicesToAdd
+#######################################################
+whichVATServicesToAdd.title = Which VAT service do you want to add?
+whichVATServicesToAdd.heading = Which VAT service do you want to add?
+whichVATServicesToAdd.vat = VAT
+whichVATServicesToAdd.ecsales = EC Sales List, report sales made to VAT registered EU customers
+whichVATServicesToAdd.eurefunds = EU Refunds, reclaim VAT you paid in the EU
+whichVATServicesToAdd.rcsl = Reverse Charge Sales List (RCSL), report sales which have reverse charge VAT
+whichVATServicesToAdd.moss = Mini One Stop Shop (MOSS), VAT on digital services sold to EU customers
+whichVATServicesToAdd.nova = Notification of Vehicle Arrivals (NOVA)
+whichVATServicesToAdd.error.required = Select a VAT service
+
+#######################################################
 ##  RegisterInHomeCountry
 #######################################################
 registerInHomeCountry.title = Register in your home country
@@ -700,7 +722,6 @@ usePAYEEmployerIntermediariesAccount.addAccount = I want to add intermediaries i
 usePAYEEmployerIntermediariesAccount.p1 = You should manage employment intermediaries in the same account that you manage PAYE for employers.
 usePAYEEmployerIntermediariesAccount.p2 = It will make it easier to manage both schemes.
 
-
 #######################################################
 ##  RegisterForPAYEIntermediaries
 #######################################################
@@ -710,3 +731,4 @@ registerForPAYEIntermediaries.p1=You need to be registered for PAYE for employer
 registerForPAYEIntermediaries.p2=Register for PAYE for employers, then come back and add employment intermediaries afterwards.
 registerForPAYEIntermediaries.continue = Register for PAYE for employers
 registerForPAYEIntermediaries.notnow = I don’t want to do this right now
+

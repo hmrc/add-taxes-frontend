@@ -72,6 +72,12 @@ object Enrolments {
 
   case object VATMOSSNonUnion extends WithName("HMRC-MOSSNU-ORG") with Enrolments
 
+  case object ECSales extends WithName("HMCE-ECSL-ORG") with Enrolments
+
+  case object EURefunds extends WithName("HMRC-EU-REF-ORG") with Enrolments
+
+  case object RCSL extends WithName("HMCE-VATRSL-ORG") with Enrolments
+
   case object EPAYE extends WithName("IR-PAYE") with Enrolments
 
   val values: Set[Enrolments] = Set(
@@ -99,6 +105,9 @@ object Enrolments {
     Charity,
     AddCis,
     VATMOSSNonUnion,
+    ECSales,
+    EURefunds,
+    RCSL,
     EPAYE
   )
 
@@ -115,6 +124,8 @@ object HmrcEnrolmentType {
   case object SA extends WithName("IR-SA") with HmrcEnrolmentType
 
   case object CORP_TAX extends WithName("IR-CT") with HmrcEnrolmentType
+
+  case object VAT extends WithName("HMCE-VATDEC-ORG") with HmrcEnrolmentType
 
   val values: Set[HmrcEnrolmentType] = Set(SA, CORP_TAX)
 }

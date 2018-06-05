@@ -605,6 +605,28 @@ registeredForVAT.No = Nac ydy - nid yw’r busnes wedi’i gofrestru ar gyfer TA
 registeredForVAT.error.required = Dewis iawn neu na
 
 #######################################################
+##  RegisteredForVATECSales
+#######################################################
+registeredForVATECSales.title = A yw’r busnes wedi’i gofrestru ar gyfer TAW?
+registeredForVATECSales.heading = A yw’r busnes wedi’i gofrestru ar gyfer TAW?
+registeredForVATECSales.Yes = Iawn
+registeredForVATECSales.No = Na
+registeredForVATECSales.error.required = Dewiswch Iawn os yw’r busnes wedi’i gofrestru ar gyfer TAW
+
+#######################################################
+##  WhichVATServicesToAdd
+#######################################################
+whichVATServicesToAdd.title = Pa wasanaeth TAW ydych eisiau ei ychwanegu?
+whichVATServicesToAdd.heading = Pa wasanaeth TAW ydych eisiau ei ychwanegu?
+whichVATServicesToAdd.vat = TAW
+whichVATServicesToAdd.ecsales = Rhestr Gwerthiannau yn y GE, Rhoi gwybod am werthiannau a wnaed i gyflenwyr yr UE sydd wedi cofrestru ar gyfer TAW
+whichVATServicesToAdd.eurefunds = Ad-daliadau yn yr UE, Gwneud cais i gael TAW y gwnaethoch ei thalu yn yr UE yn ôl
+whichVATServicesToAdd.rcsl = Rhestr Gwerthiannau Tâl Gwrthdro (RCSL), Rhoi gwybod am werthiannau sydd â TAW Tâl Gwrthdro
+whichVATServicesToAdd.moss = Gwasanaeth Un Cam (GUC), TAW ar gyfer gwasanaethau digidol a werthwyd yn yr UE
+whichVATServicesToAdd.nova = Hysbysiad o Gerbydau'n Cyrraedd (NOVA)
+whichVATServicesToAdd.error.required = Dewis gwasanaeth TAW
+
+#######################################################
 ##  UseEmployersPAYE
 #######################################################
 useEmployersPAYE.title = Defnyddio eich cyfrif TWE i gyflogwyr

@@ -14,24 +14,18 @@
  * limitations under the License.
  */
 
-package controllers
+package forms.vat
 
-import base.SpecBase
-import controllers.actions.FakeDataRetrievalAction
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import play.twirl.api.Html
-import uk.gov.hmrc.http.cache.client.CacheMap
+import forms.FormErrorHelper
+import forms.mappings.Mappings
+import javax.inject.Inject
+import models.vat.RegisteredForVAT
+import play.api.data.Form
 
-trait ControllerSpecBase extends SpecBase {
+class RegisteredForVATFormProvider @Inject() extends FormErrorHelper with Mappings {
 
-  val cacheMapId = "id"
-
-  def emptyCacheMap = CacheMap(cacheMapId, Map())
-
-  def getEmptyCacheMap = new FakeDataRetrievalAction(Some(emptyCacheMap))
-
-  def dontGetAnyData = new FakeDataRetrievalAction(None)
-
-  def asDocument(s: String): Document = Jsoup.parse(s)
+  def apply(): Form[RegisteredForVAT] =
+    Form(
+      "value" -> enumerable[RegisteredForVAT]("registeredForVATECSales.error.required")
+    )
 }
