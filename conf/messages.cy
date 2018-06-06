@@ -623,7 +623,7 @@ whichVATServicesToAdd.ecsales = Rhestr Gwerthiannau yn y GE, Rhoi gwybod am wert
 whichVATServicesToAdd.eurefunds = Ad-daliadau yn yr UE, Gwneud cais i gael TAW y gwnaethoch ei thalu yn yr UE yn ôl
 whichVATServicesToAdd.rcsl = Rhestr Gwerthiannau Tâl Gwrthdro (RCSL), Rhoi gwybod am werthiannau sydd â TAW Tâl Gwrthdro
 whichVATServicesToAdd.moss = Gwasanaeth Un Cam (GUC), TAW ar gyfer gwasanaethau digidol a werthwyd yn yr UE
-whichVATServicesToAdd.nova = Hysbysiad o Gerbydau'n Cyrraedd (NOVA)
+whichVATServicesToAdd.nova = Hysbysiad o Gerbydau’n Cyrraedd (NOVA)
 whichVATServicesToAdd.error.required = Dewis gwasanaeth TAW
 
 #######################################################
