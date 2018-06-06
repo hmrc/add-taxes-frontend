@@ -17,7 +17,7 @@
 package utils.nextpage.employer.cis.uk.subcontractor
 
 import config.FrontendAppConfig
-import controllers.employer.cis.uk.subcontractor.routes
+import controllers.employer.cis.ukbased.subcontractor.routes
 import identifiers.WhatTypeOfSubcontractorId
 import models.employer.cis.uk.subcontractor.WhatTypeOfSubcontractor
 import play.api.mvc.{Call, Request}

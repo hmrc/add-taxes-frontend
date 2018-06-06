@@ -735,3 +735,23 @@ whatEmployerTaxDoYouWantToAdd.pension = Cynlluniau pensiwn
 whatEmployerTaxDoYouWantToAdd.ers = Gwarantau ar Sail Cyflogaeth (ERS)
 whatEmployerTaxDoYouWantToAdd.intermediaries = Cyfryngwyr cyflogaeth (ar gyfer asiantaethau)
 whatEmployerTaxDoYouWantToAdd.error.required = Dewis y math o dreth
+
+#######################################################
+##  AreYouContractorOrSubcontractor
+#######################################################
+areYouContractorOrSubcontractor.title = Ydych chi’n gontractwr neu’n isgontractwr?
+areYouContractorOrSubcontractor.heading = Ydych chi’n gontractwr neu’n isgontractwr?
+areYouContractorOrSubcontractor.Contractor = Contractwr - yn cyflogi ac yn talu isgontractwyr
+areYouContractorOrSubcontractor.Subcontractor = Isgontractwr - yn gweithio i fusnesau adeiladu eraill
+areYouContractorOrSubcontractor.error.required = Dewiswch p’un a ydych yn gontractwr neu’n isgontractwr
+areYouContractorOrSubcontractor.p1=Os ydych y ddau, bydd rhaid i chi wneud hyn ddwywaith. Dewiswch opsiwn, yna dychwelwch a dewiswch y llall.
+
+#######################################################
+##  IsYourBusinessInUK
+#######################################################
+isYourBusinessInUK.title = A yw eich busnes wedi’i leoli yn y DU?
+isYourBusinessInUK.heading = A yw eich busnes wedi’i leoli yn y DU?
+isYourBusinessInUK.Yes = Ydy - mae fy musnes wedi’i leoli yn y DU
+isYourBusinessInUK.No = Nac ydy - nid yw fy musnes wedi’i leoli yn y DU
+isYourBusinessInUK.error.required = Dewis iawn neu na
+

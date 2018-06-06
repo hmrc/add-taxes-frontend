@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.sa.partnership
+package controllers.employer.cis.ukbased.contractor
 
 import javax.inject.Inject
 
@@ -25,39 +25,37 @@ import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
+import forms.employer.IsBusinessRegisteredForPAYEFormProvider
+import identifiers.IsBusinessRegisteredForPAYEId
+import viewmodels.ViewAction
+import views.html.employer.isBusinessRegisteredForPAYE
 
-import forms.sa.partnership.DoYouWantToAddPartnerFormProvider
-import identifiers.DoYouWantToAddPartnerId
-import views.html.sa.partnership.doYouWantToAddPartner
-
-import scala.concurrent.Future
-
-class DoYouWantToAddPartnerController @Inject()(
+class IsBusinessRegisteredForPAYEController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   dataCacheConnector: DataCacheConnector,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
-  formProvider: DoYouWantToAddPartnerFormProvider)
+  formProvider: IsBusinessRegisteredForPAYEFormProvider)
     extends FrontendController
     with I18nSupport
     with Enumerable.Implicits {
 
+  lazy val viewAction = ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddCisUkContractor")
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouWantToAddPartner(appConfig, form)(request.serviceInfoContent))
+    Ok(isBusinessRegisteredForPAYE(appConfig, form, viewAction)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(doYouWantToAddPartner(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) =>
-          Future.successful(Redirect(navigator.nextPage(DoYouWantToAddPartnerId, (value, request.request.enrolments))))
+          BadRequest(isBusinessRegisteredForPAYE(appConfig, formWithErrors, viewAction)(request.serviceInfoContent)),
+        (value) => Redirect(navigator.nextPage(IsBusinessRegisteredForPAYEId.CIS, value))
       )
   }
 }

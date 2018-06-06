@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.sa.partnership
+package controllers.employer.cis
 
 import javax.inject.Inject
 
@@ -23,23 +23,22 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-
-import forms.sa.partnership.DoYouWantToAddPartnerFormProvider
-import identifiers.DoYouWantToAddPartnerId
-import views.html.sa.partnership.doYouWantToAddPartner
+import forms.employer.cis.IsYourBusinessInUKFormProvider
+import identifiers.IsYourBusinessInUKId
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import views.html.employer.cis.isYourBusinessInUK
 
 import scala.concurrent.Future
 
-class DoYouWantToAddPartnerController @Inject()(
+class IsYourBusinessInUKController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   dataCacheConnector: DataCacheConnector,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
-  formProvider: DoYouWantToAddPartnerFormProvider)
+  formProvider: IsYourBusinessInUKFormProvider)
     extends FrontendController
     with I18nSupport
     with Enumerable.Implicits {
@@ -47,17 +46,16 @@ class DoYouWantToAddPartnerController @Inject()(
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouWantToAddPartner(appConfig, form)(request.serviceInfoContent))
+    Ok(isYourBusinessInUK(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(doYouWantToAddPartner(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) =>
-          Future.successful(Redirect(navigator.nextPage(DoYouWantToAddPartnerId, (value, request.request.enrolments))))
+          BadRequest(isYourBusinessInUK(appConfig, formWithErrors)(request.serviceInfoContent)),
+        (value) => Redirect(navigator.nextPage(IsYourBusinessInUKId, value))
       )
   }
 }

@@ -30,7 +30,7 @@ class HaveYouRegisteredPartnershipNextPageSpec extends NextPageSpecBase {
   "SA Partnership Other" when {
     behave like nextPageWithEnrolments(
       NextPage.haveYouRegisteredPartnership,
-      (HaveYouRegisteredPartnership.Yes, serviceRequest),
+      (HaveYouRegisteredPartnership.Yes, Enrolments(Set())),
       HaveYouRegisteredPartnership.Yes.toString,
       "http://localhost:9555/enrolment-management-frontend/IR-SA-PART-ORG/request-access-tax-scheme?continue=%2Fbusiness-account",
       "no SA or CT Enrolments"
@@ -38,7 +38,7 @@ class HaveYouRegisteredPartnershipNextPageSpec extends NextPageSpecBase {
 
     behave like nextPageWithEnrolments(
       NextPage.haveYouRegisteredPartnership,
-      (HaveYouRegisteredPartnership.No, serviceRequest),
+      (HaveYouRegisteredPartnership.No, Enrolments(Set())),
       HaveYouRegisteredPartnership.No.toString,
       "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/359500/sa400-static.pdf",
       "no SA or CT Enrolments"
@@ -46,7 +46,7 @@ class HaveYouRegisteredPartnershipNextPageSpec extends NextPageSpecBase {
 
     behave like nextPageWithEnrolments(
       NextPage.haveYouRegisteredPartnership,
-      (HaveYouRegisteredPartnership.No, createServiceRequest(Set(saEnrolment))),
+      (HaveYouRegisteredPartnership.No, Enrolments(Set(saEnrolment))),
       HaveYouRegisteredPartnership.No.toString,
       "/forms/form/register-a-partner-or-a-partnership-for-self-assessment/start#1",
       "SA Enrolment"
@@ -54,7 +54,7 @@ class HaveYouRegisteredPartnershipNextPageSpec extends NextPageSpecBase {
 
     behave like nextPageWithEnrolments(
       NextPage.haveYouRegisteredPartnership,
-      (HaveYouRegisteredPartnership.No, createServiceRequest(Set(ctEnrolment))),
+      (HaveYouRegisteredPartnership.No, Enrolments(Set(ctEnrolment))),
       HaveYouRegisteredPartnership.No.toString,
       "/forms/form/register-a-partner-or-a-partnership-for-self-assessment/start#1",
       "CT Enrolment"
@@ -62,7 +62,7 @@ class HaveYouRegisteredPartnershipNextPageSpec extends NextPageSpecBase {
 
     behave like nextPageWithEnrolments(
       NextPage.haveYouRegisteredPartnership,
-      (HaveYouRegisteredPartnership.No, createServiceRequest(Set(saEnrolment, ctEnrolment))),
+      (HaveYouRegisteredPartnership.No, Enrolments(Set(saEnrolment, ctEnrolment))),
       HaveYouRegisteredPartnership.No.toString,
       "/forms/form/register-a-partner-or-a-partnership-for-self-assessment/start#1",
       "SA and CT Enrolment"

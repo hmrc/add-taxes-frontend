@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.sa.partnership
+package controllers.employer.cis.ukbased.subcontractor
 
 import javax.inject.Inject
 
@@ -25,21 +25,18 @@ import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
+import forms.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGrossFormProvider
+import identifiers.DoYouWantToBePaidNetOrGrossId
+import views.html.employer.cis.ukbased.subcontractor.doYouWantToBePaidNetOrGross
 
-import forms.sa.partnership.DoYouWantToAddPartnerFormProvider
-import identifiers.DoYouWantToAddPartnerId
-import views.html.sa.partnership.doYouWantToAddPartner
-
-import scala.concurrent.Future
-
-class DoYouWantToAddPartnerController @Inject()(
+class DoYouWantToBePaidNetOrGrossController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   dataCacheConnector: DataCacheConnector,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
-  formProvider: DoYouWantToAddPartnerFormProvider)
+  formProvider: DoYouWantToBePaidNetOrGrossFormProvider)
     extends FrontendController
     with I18nSupport
     with Enumerable.Implicits {
@@ -47,17 +44,16 @@ class DoYouWantToAddPartnerController @Inject()(
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouWantToAddPartner(appConfig, form)(request.serviceInfoContent))
+    Ok(doYouWantToBePaidNetOrGross(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(doYouWantToAddPartner(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) =>
-          Future.successful(Redirect(navigator.nextPage(DoYouWantToAddPartnerId, (value, request.request.enrolments))))
+          BadRequest(doYouWantToBePaidNetOrGross(appConfig, formWithErrors)(request.serviceInfoContent)),
+        (value) => Redirect(navigator.nextPage(DoYouWantToBePaidNetOrGrossId, value))
       )
   }
 }

@@ -16,37 +16,28 @@
 
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
-@import controllers.employer.cis.ukbased.contractor.routes._
-@import viewmodels.ViewAction
-@import models.employer.DoesBusinessManagePAYE
-@import viewmodels.ViewAction
+@import controllers.employer.cis.ukbased.subcontractor.routes._
+@import models.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVAT
 
 
-@(appConfig: FrontendAppConfig, form: Form[_], viewAction: ViewAction)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("doesBusinessManagePAYE.title"),
+    title = messages("wasTurnoverMoreAfterVAT.title"),
     appConfig = appConfig,
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = viewAction.call, 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    @helpers.form(action = WasTurnoverMoreAfterVATController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("doesBusinessManagePAYE.heading")
-
-        <p>
-            @messages("doesBusinessManagePAYE.p1")
-        </p>
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("doesBusinessManagePAYE.heading"),
-            legendClass = Some("visuallyhidden"),
-            inputs = DoesBusinessManagePAYE.options.toSeq
+            legend = components.heading("wasTurnoverMoreAfterVAT.heading").body,
+            inputs = WasTurnoverMoreAfterVAT.options.toSeq
         )
 
-        @components.submit_button(gaEvent = viewAction.gaEvent)
+        @components.submit_button(gaEvent = "CisSubcontractorSoleTrader")
     }
 }
