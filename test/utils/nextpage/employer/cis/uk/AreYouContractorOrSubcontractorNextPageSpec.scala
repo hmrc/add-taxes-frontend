@@ -37,7 +37,7 @@ class AreYouContractorOrSubcontractorNextPageSpec extends NextPageSpecBase {
       NextPage.areYouContractorOrSubcontractor,
       (AreYouContractorOrSubcontractor.Contractor, Enrolments(Set(epayeEnrolment))),
       AreYouContractorOrSubcontractor.Contractor.toString,
-      "http://localhost:8080/portal/service/construction-ind-scheme?action=enrol&step=enterdetails&lang=eng",
+      "http://localhost:9555/enrolment-management-frontend/HMRC-CIS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account",
       "EPAYE Enrolments"
     )
 
