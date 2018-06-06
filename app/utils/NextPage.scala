@@ -21,33 +21,37 @@ import play.api.mvc.{Call, Request}
 import utils.nextpage.OtherTaxesNextPage
 import utils.nextpage.employer.cis.IsYourBusinessInUKNextPage
 import utils.nextpage.employer.cis.uk.AreYouContractorOrSubcontractorNextPage
-import utils.nextpage.employer.{DoesBusinessManagePAYENextPage, IsBusinessRegisteredForPAYENextPage}
+import utils.nextpage.employer.cis.uk.subcontractor._
 import utils.nextpage.employer.pension.WhichPensionSchemeToAddNextPage
+import utils.nextpage.employer.{DoesBusinessManagePAYENextPage, IsBusinessRegisteredForPAYENextPage, WhatEmployerTaxDoYouWantToAddNextPage}
 import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
 import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage
 import utils.nextpage.other.alcohol.awrs.SelectAlcoholSchemeNextPage
 import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
 import utils.nextpage.other.gambling.mgd.DoYouHaveMGDRegistrationNextPage
 import utils.nextpage.other.gambling.{AreYouRegisteredGTSNextPage, SelectGamblingOrGamingDutyNextPage}
-import utils.nextpage.other.importexports.{DoYouHaveEORINumberNextPage, DoYouWantToAddImportExportNextPage}
 import utils.nextpage.other.importexports.dan.DoYouHaveDANNextPage
 import utils.nextpage.other.importexports.emcs.DoYouHaveASEEDNumberNextPage
 import utils.nextpage.other.importexports.nes.DoYouHaveCHIEFRoleNextPage
+import utils.nextpage.other.importexports.{DoYouHaveEORINumberNextPage, DoYouWantToAddImportExportNextPage}
 import utils.nextpage.other.oil._
 import utils.nextpage.sa.SelectSACategoryNextPage
 import utils.nextpage.sa.partnership._
 import utils.nextpage.sa.trust.HaveYouRegisteredTrustNextPage
-import utils.nextpage.vat.moss.iom._
-import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
-import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
+import utils.nextpage.vat.WhichVATServicesToAddNextPage
 import utils.nextpage.vat.ec.RegisteredForVATECSalesNextPage
 import utils.nextpage.vat.eurefunds.RegisteredForVATEURefundsNextPage
-import utils.nextpage.vat.moss.noneu.HaveYouRegisteredForVATMOSSNextPage
-import utils.nextpage.vat.WhichVATServicesToAddNextPage
-import utils.nextpage.vat.rcsl.RegisteredForVATRCSLNextPage
 import utils.nextpage.vat.moss.WhereIsYourBusinessBasedNextPage
-import utils.nextpage.employer.cis.uk.subcontractor._
+import utils.nextpage.vat.moss.iom._
+import utils.nextpage.vat.moss.noneu.HaveYouRegisteredForVATMOSSNextPage
+import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
+import utils.nextpage.vat.rcsl.RegisteredForVATRCSLNextPage
+import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 
+import scala.annotation.implicitNotFound
+
+@implicitNotFound(
+  "Could not find NextPage implicit value for ${A} and ${B}. Check you have created one, the types match and extended NextPage with it")
 trait NextPage[A, B] {
   def get(b: B)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call
 }
@@ -83,6 +87,7 @@ object NextPage
     with HaveYouRegisteredForVATMOSSNextPage
     with AlreadyRegisteredForVATMossNextPage
     with RegisteredForVATNextPage
+    with WhatEmployerTaxDoYouWantToAddNextPage
     with AreYouContractorOrSubcontractorNextPage
     with IsYourBusinessInUKNextPage
     with RegisteredForVATECSalesNextPage

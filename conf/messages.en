@@ -743,6 +743,18 @@ registerForPAYEIntermediaries.continue = Register for PAYE for employers
 registerForPAYEIntermediaries.notnow = I don’t want to do this right now
 
 #######################################################
+##  WhatEmployerTaxDoYouWantToAdd
+#######################################################
+whatEmployerTaxDoYouWantToAdd.title = Which employer tax do you want to add?
+whatEmployerTaxDoYouWantToAdd.heading = Which employer tax do you want to add?
+whatEmployerTaxDoYouWantToAdd.epaye = PAYE for employers
+whatEmployerTaxDoYouWantToAdd.cis = Construction industry scheme (CIS)
+whatEmployerTaxDoYouWantToAdd.pension = Pension schemes
+whatEmployerTaxDoYouWantToAdd.ers = Employment related securities (ERS)
+whatEmployerTaxDoYouWantToAdd.intermediaries = Employment intermediaries (for agencies)
+whatEmployerTaxDoYouWantToAdd.error.required = Select a tax type
+
+#######################################################
 ##  IsYourBusinessInUK
 #######################################################
 isYourBusinessInUK.title = Is your business based in the UK?
@@ -750,3 +762,4 @@ isYourBusinessInUK.heading = Is your business based in the UK?
 isYourBusinessInUK.Yes = Yes - my business is based in the UK
 isYourBusinessInUK.No = No - my business isn’t based in the UK
 isYourBusinessInUK.error.required = Select yes or no
+

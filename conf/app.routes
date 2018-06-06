@@ -219,3 +219,8 @@ POST       /employer/intermediaries                      controllers.employer.in
 
 GET        /employer/cis                                controllers.employer.cis.IsYourBusinessInUKController.onPageLoad()
 POST       /employer/cis                                controllers.employer.cis.IsYourBusinessInUKController.onSubmit()
+
+GET        /employer                                    controllers.employer.WhatEmployerTaxDoYouWantToAddController.onPageLoad()
+POST       /employer                                    controllers.employer.WhatEmployerTaxDoYouWantToAddController.onSubmit()
+
+

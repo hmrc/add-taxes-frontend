@@ -623,7 +623,7 @@ whichVATServicesToAdd.ecsales = Rhestr Gwerthiannau yn y GE, Rhoi gwybod am wert
 whichVATServicesToAdd.eurefunds = Ad-daliadau yn yr UE, Gwneud cais i gael TAW y gwnaethoch ei thalu yn yr UE yn ôl
 whichVATServicesToAdd.rcsl = Rhestr Gwerthiannau Tâl Gwrthdro (RCSL), Rhoi gwybod am werthiannau sydd â TAW Tâl Gwrthdro
 whichVATServicesToAdd.moss = Gwasanaeth Un Cam (GUC), TAW ar gyfer gwasanaethau digidol a werthwyd yn yr UE
-whichVATServicesToAdd.nova = Hysbysiad o Gerbydau'n Cyrraedd (NOVA)
+whichVATServicesToAdd.nova = Hysbysiad o Gerbydau’n Cyrraedd (NOVA)
 whichVATServicesToAdd.error.required = Dewis gwasanaeth TAW
 
 #######################################################
@@ -725,6 +725,18 @@ registerInHomeCountry.p2=Os ydych eisiau cofrestru ar gyfer GUC TAW yn y DU, mae
 registerInHomeCountry.callUs = ein ffonio.
 
 #######################################################
+##  WhatEmployerTaxDoYouWantToAdd
+#######################################################
+whatEmployerTaxDoYouWantToAdd.title = Pa dreth y cyflogwr ydych eisiau ei hychwanegu?
+whatEmployerTaxDoYouWantToAdd.heading = Pa dreth y cyflogwr ydych eisiau ei hychwanegu?
+whatEmployerTaxDoYouWantToAdd.epaye = TWE i gyflogwyr
+whatEmployerTaxDoYouWantToAdd.cis = Cynllun y Diwydiant Adeiladu (CIS)
+whatEmployerTaxDoYouWantToAdd.pension = Cynlluniau pensiwn
+whatEmployerTaxDoYouWantToAdd.ers = Gwarantau ar Sail Cyflogaeth (ERS)
+whatEmployerTaxDoYouWantToAdd.intermediaries = Cyfryngwyr cyflogaeth (ar gyfer asiantaethau)
+whatEmployerTaxDoYouWantToAdd.error.required = Dewis y math o dreth
+
+#######################################################
 ##  AreYouContractorOrSubcontractor
 #######################################################
 areYouContractorOrSubcontractor.title = Ydych chi’n gontractwr neu’n isgontractwr?
@@ -742,3 +754,4 @@ isYourBusinessInUK.heading = A yw eich busnes wedi’i leoli yn y DU?
 isYourBusinessInUK.Yes = Ydy - mae fy musnes wedi’i leoli yn y DU
 isYourBusinessInUK.No = Nac ydy - nid yw fy musnes wedi’i leoli yn y DU
 isYourBusinessInUK.error.required = Dewis iawn neu na
+
