@@ -66,7 +66,7 @@ class WhatEmployerTaxDoYouWantToAddController @Inject()(
 
   def getOptions(enrolments: Enrolments): Seq[RadioOption] = {
     val hasEPAYE: Boolean = utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.EPAYE)
-    if (hasEPAYE) options.filterNot(_ == RadioOption("whatEmployerTaxDoYouWantToAdd", EPAYE.toString))
+    if (hasEPAYE) options.filterNot(_.value == EPAYE.toString)
     else options
   }
 }
