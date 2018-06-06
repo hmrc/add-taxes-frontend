@@ -24,11 +24,14 @@ sealed trait WhatEmployerTaxDoYouWantToAdd
 
 object WhatEmployerTaxDoYouWantToAdd {
 
-  case object EPAYE extends WithName("epaye") with WhatEmployerTaxDoYouWantToAdd
-  case object CIS extends WithName("cis") with WhatEmployerTaxDoYouWantToAdd
-  case object PS extends WithName("pension") with WhatEmployerTaxDoYouWantToAdd
-  case object ERS extends WithName("ers") with WhatEmployerTaxDoYouWantToAdd
-  case object EIA extends WithName("intermediaries") with WhatEmployerTaxDoYouWantToAdd
+  case object EPAYE extends WithName("Epaye") with WhatEmployerTaxDoYouWantToAdd
+  case object CIS extends WithName("Cis") with WhatEmployerTaxDoYouWantToAdd
+  case object PS extends WithName("Pension") with WhatEmployerTaxDoYouWantToAdd
+  case object ERS extends WithName("Ers") with WhatEmployerTaxDoYouWantToAdd
+  case object EIA extends WithName("Intermediaries") with WhatEmployerTaxDoYouWantToAdd
+
+  case object ERSWithEnrolments extends WithName("ErsHasEpaye") with WhatEmployerTaxDoYouWantToAdd
+  case object EIAWithEnrolments extends WithName("IntermediariesHasEpaye") with WhatEmployerTaxDoYouWantToAdd
 
   val values: Seq[WhatEmployerTaxDoYouWantToAdd] = Seq(
     EPAYE,
@@ -38,7 +41,18 @@ object WhatEmployerTaxDoYouWantToAdd {
     EIA
   )
 
+  val valuesWithEpayeEnrolments: Seq[WhatEmployerTaxDoYouWantToAdd] = Seq(
+    CIS,
+    PS,
+    ERSWithEnrolments,
+    EIAWithEnrolments
+  )
+
   val options: Seq[RadioOption] = values.map { value =>
+    RadioOption("whatEmployerTaxDoYouWantToAdd", value.toString)
+  }
+
+  val optionsWithEpaye: Seq[RadioOption] = valuesWithEpayeEnrolments.map { value =>
     RadioOption("whatEmployerTaxDoYouWantToAdd", value.toString)
   }
 

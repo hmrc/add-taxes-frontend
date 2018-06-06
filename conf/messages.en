@@ -747,11 +747,13 @@ registerForPAYEIntermediaries.notnow = I don’t want to do this right now
 #######################################################
 whatEmployerTaxDoYouWantToAdd.title = Which employer tax do you want to add?
 whatEmployerTaxDoYouWantToAdd.heading = Which employer tax do you want to add?
-whatEmployerTaxDoYouWantToAdd.epaye = PAYE for employers
-whatEmployerTaxDoYouWantToAdd.cis = Construction industry scheme (CIS)
-whatEmployerTaxDoYouWantToAdd.pension = Pension schemes
-whatEmployerTaxDoYouWantToAdd.ers = Employment related securities (ERS)
-whatEmployerTaxDoYouWantToAdd.intermediaries = Employment intermediaries (for agencies)
+whatEmployerTaxDoYouWantToAdd.Epaye = PAYE for employers
+whatEmployerTaxDoYouWantToAdd.Cis = Construction industry scheme (CIS)
+whatEmployerTaxDoYouWantToAdd.Pension = Pension schemes
+whatEmployerTaxDoYouWantToAdd.Ers = Employment related securities (ERS)
+whatEmployerTaxDoYouWantToAdd.Intermediaries = Employment intermediaries (for agencies)
+whatEmployerTaxDoYouWantToAdd.ErsHasEpaye = Employment related securities (ERS)
+whatEmployerTaxDoYouWantToAdd.IntermediariesHasEpaye = Employment intermediaries (for agencies)
 whatEmployerTaxDoYouWantToAdd.error.required = Select a tax type
 
 #######################################################

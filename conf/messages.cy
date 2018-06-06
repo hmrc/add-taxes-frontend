@@ -729,11 +729,13 @@ registerInHomeCountry.callUs = ein ffonio.
 #######################################################
 whatEmployerTaxDoYouWantToAdd.title = Pa dreth y cyflogwr ydych eisiau ei hychwanegu?
 whatEmployerTaxDoYouWantToAdd.heading = Pa dreth y cyflogwr ydych eisiau ei hychwanegu?
-whatEmployerTaxDoYouWantToAdd.epaye = TWE i gyflogwyr
-whatEmployerTaxDoYouWantToAdd.cis = Cynllun y Diwydiant Adeiladu (CIS)
-whatEmployerTaxDoYouWantToAdd.pension = Cynlluniau pensiwn
-whatEmployerTaxDoYouWantToAdd.ers = Gwarantau ar Sail Cyflogaeth (ERS)
-whatEmployerTaxDoYouWantToAdd.intermediaries = Cyfryngwyr cyflogaeth (ar gyfer asiantaethau)
+whatEmployerTaxDoYouWantToAdd.Epaye = TWE i gyflogwyr
+whatEmployerTaxDoYouWantToAdd.Cis = Cynllun y Diwydiant Adeiladu (CIS)
+whatEmployerTaxDoYouWantToAdd.Pension = Cynlluniau pensiwn
+whatEmployerTaxDoYouWantToAdd.Ers = Gwarantau ar Sail Cyflogaeth (ERS)
+whatEmployerTaxDoYouWantToAdd.Intermediaries = Cyfryngwyr cyflogaeth (ar gyfer asiantaethau)
+whatEmployerTaxDoYouWantToAdd.ErsHasEpaye = Gwarantau ar Sail Cyflogaeth (ERS)
+whatEmployerTaxDoYouWantToAdd.IntermediariesHasEpaye = Cyfryngwyr cyflogaeth (ar gyfer asiantaethau)
 whatEmployerTaxDoYouWantToAdd.error.required = Dewis y math o dreth
 
 #######################################################

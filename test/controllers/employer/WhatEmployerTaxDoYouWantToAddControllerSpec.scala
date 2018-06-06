@@ -97,8 +97,7 @@ class WhatEmployerTaxDoYouWantToAddControllerSpec extends ControllerSpecBase {
     }
 
     "hide EPAYE option" when {
-      val radioOptions =
-        WhatEmployerTaxDoYouWantToAdd.options.filterNot(_.value == WhatEmployerTaxDoYouWantToAdd.EPAYE.toString)
+      val radioOptions = WhatEmployerTaxDoYouWantToAdd.optionsWithEpaye
 
       "on page load and enrolled for EPAYE" in {
         val result = controller()(HmrcEnrolmentType.EPAYE).onPageLoad()(fakeRequest)
