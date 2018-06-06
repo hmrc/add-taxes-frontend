@@ -39,7 +39,7 @@ class WhatEmployerTaxDoYouWantToAddNextPageSpec extends NextPageSpecBase {
     NextPage.whatEmployerTaxDoYouWantToAdd,
     nextPageCISWithEnrolment,
     WhatEmployerTaxDoYouWantToAdd.CIS.toString,
-    "http://www.tax.service.gov.uk/business-account/add-tax/employer/cis",
+    "/business-account/add-tax/employer/cis",
     "EPAYE enrolments"
   )
 
@@ -49,7 +49,7 @@ class WhatEmployerTaxDoYouWantToAddNextPageSpec extends NextPageSpecBase {
     NextPage.whatEmployerTaxDoYouWantToAdd,
     nextPageCISNoEnrolment,
     WhatEmployerTaxDoYouWantToAdd.CIS.toString,
-    "http://www.tax.service.gov.uk/business-account/add-tax/employer/cis",
+    "/business-account/add-tax/employer/cis",
     "no enrolments"
   )
 
