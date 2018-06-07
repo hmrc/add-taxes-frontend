@@ -117,7 +117,10 @@ object Enrolments {
 
 }
 
-sealed trait HmrcEnrolmentType
+sealed trait HmrcEnrolmentType {
+  def unapply(enrolments: core.Enrolments): Boolean =
+    enrolments.getEnrolment(this.toString).isDefined
+}
 
 object HmrcEnrolmentType {
 

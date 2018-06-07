@@ -111,7 +111,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
         val boundForm = form.bind(Map("value" -> "invalid value"))
         val view = viewAsString(boundForm, radioOptions)
 
-        val result = controller()(HmrcEnrolmentType.SA).onSubmit()(postRequest)
+        val result = controller()(HmrcEnrolmentType.SA, HmrcEnrolmentType.RegisterTrusts).onSubmit()(postRequest)
 
         contentAsString(result) mustBe view
       }
