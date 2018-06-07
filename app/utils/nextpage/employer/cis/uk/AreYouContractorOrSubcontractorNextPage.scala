@@ -40,7 +40,7 @@ trait AreYouContractorOrSubcontractorNextPage {
         (contractorOrSubcontractor._1, hasEPayeEnrolment(contractorOrSubcontractor._2)) match {
 
           case (AreYouContractorOrSubcontractor.Contractor, true) =>
-            Call("GET", appConfig.getPortalUrl("cisUkContractorEnrol"))
+            Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.AddCis))
 
           case (AreYouContractorOrSubcontractor.Contractor, false) => IsBusinessRegisteredForPAYEController.onPageLoad()
 
