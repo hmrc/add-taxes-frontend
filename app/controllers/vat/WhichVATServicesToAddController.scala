@@ -60,7 +60,7 @@ class WhichVATServicesToAddController @Inject()(
       .fold(
         (formWithErrors: Form[_]) =>
           BadRequest(whichVATServicesToAdd(appConfig, formWithErrors, radioOptions)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(WhichVATServicesToAddId, value))
+        (value) => Redirect(navigator.nextPage(WhichVATServicesToAddId, (value, request.request.enrolments)))
       )
   }
 }
