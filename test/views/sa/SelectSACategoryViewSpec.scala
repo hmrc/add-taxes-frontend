@@ -31,10 +31,12 @@ class SelectSACategoryViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => selectSACategory(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView =
+    () => selectSACategory(frontendAppConfig, form, SelectSACategory.options)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm =
-    (form: Form[_]) => selectSACategory(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    (form: Form[_]) =>
+      selectSACategory(frontendAppConfig, form, SelectSACategory.options)(serviceInfoContent)(fakeRequest, messages)
 
   "SelectSACategory view" must {
     behave like normalPage(createView, messageKeyPrefix)

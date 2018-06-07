@@ -24,10 +24,11 @@ import controllers.actions._
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
-
+import utils.{Enumerable, HmrcEnrolmentType, Navigator, RadioOption}
 import forms.sa.SelectSACategoryFormProvider
 import identifiers.SelectSACategoryId
+import models.sa.SelectSACategory
+import uk.gov.hmrc.auth.core.Enrolments
 import views.html.sa.selectSACategory
 
 import scala.concurrent.Future
@@ -47,7 +48,7 @@ class SelectSACategoryController @Inject()(
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(selectSACategory(appConfig, form)(request.serviceInfoContent))
+    Ok(selectSACategory(appConfig, form, getRadioOptions(request.request.enrolments))(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
@@ -55,8 +56,18 @@ class SelectSACategoryController @Inject()(
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(selectSACategory(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(
+            BadRequest(selectSACategory(appConfig, formWithErrors, getRadioOptions(request.request.enrolments))(
+              request.serviceInfoContent))),
         (value) => Future.successful(Redirect(navigator.nextPage(SelectSACategoryId, value)))
       )
   }
+
+  def getRadioOptions(enrolments: Enrolments): Set[RadioOption] = {
+    val radioOptions: Set[RadioOption] = SelectSACategory.options
+    val hasSAEnrolment = utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.SA)
+    if (hasSAEnrolment) radioOptions.filterNot(_.value == SelectSACategory.Sa.toString)
+    else radioOptions
+  }
+
 }
