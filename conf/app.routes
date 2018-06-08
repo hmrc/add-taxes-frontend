@@ -226,3 +226,5 @@ POST       /employer                                    controllers.employer.Wha
 
 
 GET        /self-assessment/trust/new-account                       controllers.sa.trust.SetUpNewAccountController.onPageLoad()
+
+GET        /self-assessment/partnership/new-account                       controllers.sa.partnership.SetUpNewAccountController.onPageLoad()
