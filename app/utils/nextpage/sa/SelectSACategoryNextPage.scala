@@ -20,19 +20,31 @@ import config.FrontendAppConfig
 import identifiers.SelectSACategoryId
 import models.sa.SelectSACategory
 import play.api.mvc.{Call, Request}
-import utils.NextPage
+import utils.{AffinityGroupValue, NextPage}
 import controllers.sa.partnership.{routes => saPartnerRoutes}
 import controllers.sa.trust.{routes => trustRoutes}
+import uk.gov.hmrc.auth.core.AffinityGroup
 
 trait SelectSACategoryNextPage {
 
-  implicit val selectSACategory: NextPage[SelectSACategoryId.type, SelectSACategory] = {
-    new NextPage[SelectSACategoryId.type, SelectSACategory] {
-      override def get(b: SelectSACategory)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case SelectSACategory.Sa          => Call("GET", appConfig.getPortalUrl("businessRegistration"))
-          case SelectSACategory.Partnership => saPartnerRoutes.DoYouWantToAddPartnerController.onPageLoad()
-          case SelectSACategory.Trust       => trustRoutes.HaveYouRegisteredTrustController.onPageLoad()
+  type SelectSACategoryWithAffinityGroup = (SelectSACategory, AffinityGroup)
+
+  implicit val selectSACategory: NextPage[SelectSACategoryId.type, SelectSACategoryWithAffinityGroup] = {
+
+    new NextPage[SelectSACategoryId.type, SelectSACategoryWithAffinityGroup] {
+      override def get(saCategory: SelectSACategoryWithAffinityGroup)(
+        implicit appConfig: FrontendAppConfig,
+        request: Request[_]): Call =
+        (saCategory._1, saCategory._2.toString) match {
+
+          case (SelectSACategory.Sa, _) => Call("GET", appConfig.getPortalUrl("businessRegistration"))
+
+          case (SelectSACategory.Partnership, _) => saPartnerRoutes.DoYouWantToAddPartnerController.onPageLoad()
+
+          case (SelectSACategory.Trust, AffinityGroupValue.ORGANISATION) =>
+            trustRoutes.HaveYouRegisteredTrustController.onPageLoad()
+
+          case (SelectSACategory.Trust, _) => trustRoutes.SetUpNewAccountController.onPageLoad()
         }
     }
   }

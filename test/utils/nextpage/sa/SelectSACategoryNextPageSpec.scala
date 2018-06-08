@@ -17,28 +17,42 @@
 package utils.nextpage.sa
 
 import models.sa.SelectSACategory
+import uk.gov.hmrc.auth.core.AffinityGroup
+import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
 class SelectSACategoryNextPageSpec extends NextPageSpecBase {
 
   "Self Assessment" when {
-    behave like nextPage(
+
+    behave like nextPageWithAffinityGroup(
       NextPage.selectSACategory,
-      SelectSACategory.Sa,
+      (SelectSACategory.Sa, Organisation),
+      SelectSACategory.Sa.toString,
       "http://localhost:8080/portal/business-registration/introduction?lang=eng"
     )
 
-    behave like nextPage(
+    behave like nextPageWithAffinityGroup(
       NextPage.selectSACategory,
-      SelectSACategory.Partnership,
+      (SelectSACategory.Partnership, Organisation),
+      SelectSACategory.Partnership.toString,
       "/business-account/add-tax/self-assessment/partnership"
     )
 
-    behave like nextPage(
+    behave like nextPageWithAffinityGroup(
       NextPage.selectSACategory,
-      SelectSACategory.Trust,
+      (SelectSACategory.Trust, Organisation),
+      SelectSACategory.Trust.toString,
       "/business-account/add-tax/self-assessment/trust"
+    )
+
+    behave like nextPageWithAffinityGroup(
+      NextPage.selectSACategory,
+      (SelectSACategory.Trust, Individual),
+      SelectSACategory.Trust.toString,
+      "/business-account/add-tax/self-assessment/trust/new-account",
+      "Individual"
     )
   }
 }

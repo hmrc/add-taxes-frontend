@@ -56,7 +56,9 @@ class SelectSACategoryController @Inject()(
       .fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(selectSACategory(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(SelectSACategoryId, value)))
+        (value) =>
+          Future.successful(
+            Redirect(navigator.nextPage(SelectSACategoryId, (value, request.request.affinityGroup.get))))
       )
   }
 }

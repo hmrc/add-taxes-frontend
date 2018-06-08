@@ -224,3 +224,5 @@ GET        /employer                                    controllers.employer.Wha
 POST       /employer                                    controllers.employer.WhatEmployerTaxDoYouWantToAddController.onSubmit()
 
 
+
+GET        /self-assessment/trust/new-account                       controllers.sa.trust.SetUpNewAccountController.onPageLoad()
