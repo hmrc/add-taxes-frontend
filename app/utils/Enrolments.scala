@@ -131,9 +131,3 @@ object HmrcEnrolmentType {
 
   val values: Set[HmrcEnrolmentType] = Set(SA, CORP_TAX, EPAYE, VAT)
 }
-
-object AffinityGroupValue {
-  val INDIVIDUAL = "Individual"
-  val ORGANISATION = "Organisation"
-  val AGENT = "Agent"
-}

@@ -25,9 +25,9 @@ import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-
 import forms.sa.SelectSACategoryFormProvider
 import identifiers.SelectSACategoryId
+import uk.gov.hmrc.auth.core.AffinityGroup
 import views.html.sa.selectSACategory
 
 import scala.concurrent.Future
@@ -50,15 +50,16 @@ class SelectSACategoryController @Inject()(
     Ok(selectSACategory(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(selectSACategory(appConfig, formWithErrors)(request.serviceInfoContent))),
+          BadRequest(selectSACategory(appConfig, formWithErrors)(request.serviceInfoContent)),
         (value) =>
-          Future.successful(
-            Redirect(navigator.nextPage(SelectSACategoryId, (value, request.request.affinityGroup.get))))
+          Redirect(
+            navigator
+              .nextPage(SelectSACategoryId, (value, request.request.affinityGroup)))
       )
   }
 }

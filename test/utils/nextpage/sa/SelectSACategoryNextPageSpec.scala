@@ -28,31 +28,31 @@ class SelectSACategoryNextPageSpec extends NextPageSpecBase {
 
     behave like nextPageWithAffinityGroup(
       NextPage.selectSACategory,
-      (SelectSACategory.Sa, Organisation),
+      (SelectSACategory.Sa, Some(Organisation)),
       SelectSACategory.Sa.toString,
       "http://localhost:8080/portal/business-registration/introduction?lang=eng"
     )
 
     behave like nextPageWithAffinityGroup(
       NextPage.selectSACategory,
-      (SelectSACategory.Partnership, Organisation),
+      (SelectSACategory.Partnership, Some(Organisation)),
       SelectSACategory.Partnership.toString,
       "/business-account/add-tax/self-assessment/partnership"
     )
 
     behave like nextPageWithAffinityGroup(
       NextPage.selectSACategory,
-      (SelectSACategory.Trust, Organisation),
+      (SelectSACategory.Trust, Some(Organisation)),
       SelectSACategory.Trust.toString,
       "/business-account/add-tax/self-assessment/trust"
     )
 
     behave like nextPageWithAffinityGroup(
       NextPage.selectSACategory,
-      (SelectSACategory.Trust, Individual),
+      (SelectSACategory.Trust, Some(Individual)),
       SelectSACategory.Trust.toString,
       "/business-account/add-tax/self-assessment/trust/new-account",
-      "Individual"
+      "not Organisation"
     )
   }
 }
