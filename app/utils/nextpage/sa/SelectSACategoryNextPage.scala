@@ -39,7 +39,10 @@ trait SelectSACategoryNextPage {
 
           case (SelectSACategory.Sa, _) => Call("GET", appConfig.getPortalUrl("businessRegistration"))
 
-          case (SelectSACategory.Partnership, _) => saPartnerRoutes.DoYouWantToAddPartnerController.onPageLoad()
+          case (SelectSACategory.Partnership, Some(AffinityGroup.Organisation)) =>
+            saPartnerRoutes.DoYouWantToAddPartnerController.onPageLoad()
+
+          case (SelectSACategory.Partnership, _) => saPartnerRoutes.SetUpNewAccountController.onPageLoad()
 
           case (SelectSACategory.Trust, Some(AffinityGroup.Organisation)) =>
             trustRoutes.HaveYouRegisteredTrustController.onPageLoad()

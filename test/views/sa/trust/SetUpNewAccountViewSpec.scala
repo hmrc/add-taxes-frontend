@@ -45,12 +45,12 @@ class SetUpNewAccountViewSpec extends ViewBehaviours {
 
       view must include("Don’t try to add a Self Assessment Trust on the Government Gateway website.")
 
-      view must include("Sign out and create 'Organisation' account")
+      view must include("Sign out and create ‘Organisation’ account")
 
       assertLinkById(
         doc,
         "continue",
-        "Sign out and create 'Organisation' account",
+        "Sign out and create ‘Organisation’ account",
         "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fcoafe%2Fgovernment-gateway%2Fregister%3FaccountType%3Dorganisation%2526continue%3D%2Fbusiness-account%2Fadd-tax%2526origin%3Dunknown",
         "SetUpAccountaSelfAssessmentTrust:Click:Register"
       )
