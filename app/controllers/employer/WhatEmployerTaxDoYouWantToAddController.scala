@@ -27,8 +27,7 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, HmrcEnrolmentType, Navigator, RadioOption}
 import forms.employer.WhatEmployerTaxDoYouWantToAddFormProvider
 import identifiers.WhatEmployerTaxDoYouWantToAddId
-import models.employer.WhatEmployerTaxDoYouWantToAdd
-import models.employer.WhatEmployerTaxDoYouWantToAdd.{EPAYE, options}
+import models.employer.WhatEmployerTaxDoYouWantToAdd.{options, optionsWithEpaye}
 import uk.gov.hmrc.auth.core.Enrolments
 import views.html.employer.whatEmployerTaxDoYouWantToAdd
 
@@ -66,7 +65,7 @@ class WhatEmployerTaxDoYouWantToAddController @Inject()(
 
   def getOptions(enrolments: Enrolments): Seq[RadioOption] = {
     val hasEPAYE: Boolean = utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.EPAYE)
-    if (hasEPAYE) options.filterNot(_.value == EPAYE.toString)
+    if (hasEPAYE) optionsWithEpaye
     else options
   }
 }

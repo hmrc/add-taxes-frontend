@@ -48,13 +48,13 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
             cisRoutes.IsYourBusinessInUKController.onPageLoad()
           case (WhatEmployerTaxDoYouWantToAdd.PS, _) =>
             pensionRoutes.WhichPensionSchemeToAddController.onPageLoad()
-          case (WhatEmployerTaxDoYouWantToAdd.ERS, true) =>
+          case ((WhatEmployerTaxDoYouWantToAdd.ERS | WhatEmployerTaxDoYouWantToAdd.ERSWithEnrolments), true) =>
             Call("GET", appConfig.getPortalUrl("enrolERS"))
-          case (WhatEmployerTaxDoYouWantToAdd.ERS, false) =>
+          case ((WhatEmployerTaxDoYouWantToAdd.ERS | WhatEmployerTaxDoYouWantToAdd.ERSWithEnrolments), false) =>
             ersRoutes.IsBusinessRegisteredForPAYEController.onPageLoad()
-          case (WhatEmployerTaxDoYouWantToAdd.EIA, true) =>
+          case ((WhatEmployerTaxDoYouWantToAdd.EIA | WhatEmployerTaxDoYouWantToAdd.EIAWithEnrolments), true) =>
             Call("GET", appConfig.eiUrl)
-          case (WhatEmployerTaxDoYouWantToAdd.EIA, false) =>
+          case ((WhatEmployerTaxDoYouWantToAdd.EIA | WhatEmployerTaxDoYouWantToAdd.EIAWithEnrolments), false) =>
             intRoutes.IsBusinessRegisteredForPAYEController.onPageLoad()
         }
       }
