@@ -775,5 +775,5 @@ setUpNewAccount.li1=Create an Organisation account on the Government Gateway web
 setUpNewAccount.li2=Sign in to HMRC with the new sign in details.
 setUpNewAccount.li3=Add a Self Assessment Trust in that account.
 setUpNewAccount.p3=Don’t try to add a Self Assessment Trust on the Government Gateway website.
-setUpNewAccount.continue = Sign out and create  ''Organisation'' account
+setUpNewAccount.continue = Sign out and create  ’Organisation’ account
 setUpNewAccount.notnow = I don’t want to do this right now

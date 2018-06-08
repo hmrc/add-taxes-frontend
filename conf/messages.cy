@@ -761,10 +761,10 @@ isYourBusinessInUK.error.required = Dewis iawn neu na
 #######################################################
 setUpNewAccount.title = Sefydlu cyfrif newydd
 setUpNewAccount.heading = Sefydlu cyfrif newydd
-setUpNewAccount.p1=Ni allwch ychwanegu ymddiriedolaeth Hunanasesiad i'r cyfrif hwn.
+setUpNewAccount.p1=Ni allwch ychwanegu ymddiriedolaeth Hunanasesiad i’r cyfrif hwn.
 setUpNewAccount.p2=Mae angen i chi wneud y canlynol:
-setUpNewAccount.li1=Creu cyfrif 'Sefydliad' ar wefan Porth y Llywodraeth.
-setUpNewAccount.li2=Mewngofnodi i CThEM gyda'r manylion mewngofnodi newydd.
+setUpNewAccount.li1=Creu cyfrif ’Sefydliad’ ar wefan Porth y Llywodraeth.
+setUpNewAccount.li2=Mewngofnodi i CThEM gyda’r manylion mewngofnodi newydd.
 setUpNewAccount.li3=Ychwanegu ymddiriedolaeth Hunanasesiad yn y cyfrif hwnnw.
 setUpNewAccount.p3=Peidiwch â cheisio ychwanegu ymddiriedolaeth Hunanasesiad ar wefan Porth y Llywodraeth.
 setUpNewAccount.continue = Allgofnodwch a chreu cyfrif Sefydliad
