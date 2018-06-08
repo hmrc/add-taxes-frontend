@@ -755,3 +755,13 @@ isYourBusinessInUK.Yes = Ydy - mae fy musnes wedi’i leoli yn y DU
 isYourBusinessInUK.No = Nac ydy - nid yw fy musnes wedi’i leoli yn y DU
 isYourBusinessInUK.error.required = Dewis iawn neu na
 
+
+#######################################################
+##  SetUpANewAccount
+#######################################################
+setUpANewAccount.title = Sefydlu cyfrif newydd
+setUpANewAccount.heading = Sefydlu cyfrif newydd
+setUpANewAccount.subtext1 = Mae hwn yn gyfrif ’Unigolyn’
+setUpANewAccount.subtext2 = Dim ond GUC TAW y gallwch ei ychwanegu i gyfrif "Sefydliad".
+setUpANewAccount.anchor = Ffoniwch ni
+setUpANewAccount.subtext3 = a byddwn yn eich helpu i wneud hyn dros y ffôn.

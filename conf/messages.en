@@ -763,3 +763,13 @@ isYourBusinessInUK.Yes = Yes - my business is based in the UK
 isYourBusinessInUK.No = No - my business isn’t based in the UK
 isYourBusinessInUK.error.required = Select yes or no
 
+
+#######################################################
+##  SetUpANewAccount
+#######################################################
+setUpANewAccount.title = Set up a new account
+setUpANewAccount.heading = Set up a new account
+setUpANewAccount.subtext1 = This is an Individual account.
+setUpANewAccount.subtext2 = You can only add VAT MOSS to an ’Organisation’ account.
+setUpANewAccount.anchor = Call us
+setUpANewAccount.subtext3 = and we’ll help you do this over the phone.

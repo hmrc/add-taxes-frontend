@@ -224,3 +224,5 @@ GET        /employer                                    controllers.employer.Wha
 POST       /employer                                    controllers.employer.WhatEmployerTaxDoYouWantToAddController.onSubmit()
 
 
+
+GET        /vat/moss/newaccount                       controllers.vat.moss.newaccount.SetUpANewAccountController.onPageLoad()
