@@ -49,6 +49,16 @@ class SetUpANewAccountViewSpec extends ViewBehaviours {
 
       doc must include("Call us and we’ll help you do this over the phone.")
     }
+
+    "link contains href for call us " in {
+      val view = createView()
+      val doc = asDocument(view)
+
+      assertLinkByContent(
+        doc,
+        "Call us",
+        "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/online-services-helpdesk")
+    }
   }
 
 }

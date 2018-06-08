@@ -114,4 +114,10 @@ trait ViewSpecBase extends SpecBase {
       s"\n\n Link $linkId does not meet expectedOpensInNewTab $expectedGAEvent")
   }
 
+  def assertLinkByContent(doc: Document, expectedText: String, expectedUrl: String) {
+    val link = doc.getElementsMatchingText(expectedText)
+    assert(link != null, s"\n\n Link containing '$expectedText' could not be found")
+    assert(link.attr("href") == expectedUrl, s"\n\n Link containing '$expectedText' does not have href '$expectedUrl'")
+  }
+
 }

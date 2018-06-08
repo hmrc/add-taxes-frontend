@@ -24,8 +24,6 @@ import controllers.actions._
 import config.FrontendAppConfig
 import views.html.vat.moss.newaccount.setUpANewAccount
 
-import scala.concurrent.Future
-
 class SetUpANewAccountController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
