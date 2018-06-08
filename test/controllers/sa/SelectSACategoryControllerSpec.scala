@@ -95,6 +95,27 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
       }
     }
 
+    "show all options" when {
+      val radioOptions: Set[RadioOption] = SelectSACategory.options
+
+      "on page load and not enrolled for SA or Trust" in {
+        val result = controller()().onPageLoad()(fakeRequest)
+        val view = viewAsString(radioOptions = radioOptions)
+
+        contentAsString(result) mustBe view
+      }
+
+      "on page submit and not enrolled for SA or Trust" in {
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+        val boundForm = form.bind(Map("value" -> "invalid value"))
+        val view = viewAsString(boundForm, radioOptions)
+
+        val result = controller()().onSubmit()(postRequest)
+
+        contentAsString(result) mustBe view
+      }
+    }
+
     "hide 'Individual or sole trader' option" when {
       val radioOptions: Set[RadioOption] =
         SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
@@ -111,11 +132,55 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
         val boundForm = form.bind(Map("value" -> "invalid value"))
         val view = viewAsString(boundForm, radioOptions)
 
-        val result = controller()(HmrcEnrolmentType.SA, HmrcEnrolmentType.RegisterTrusts).onSubmit()(postRequest)
+        val result = controller()(HmrcEnrolmentType.SA).onSubmit()(postRequest)
+
+        contentAsString(result) mustBe view
+      }
+    }
+
+    "hide 'Trust' option" when {
+      val radioOptions: Set[RadioOption] =
+        SelectSACategory.options.filterNot(_.value == SelectSACategory.Trust.toString)
+
+      "on page load and enrolled for Trust" in {
+        val result = controller()(HmrcEnrolmentType.RegisterTrusts).onPageLoad()(fakeRequest)
+        val view = viewAsString(radioOptions = radioOptions)
 
         contentAsString(result) mustBe view
       }
 
+      "on page submit and enrolled for Trust" in {
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+        val boundForm = form.bind(Map("value" -> "invalid value"))
+        val view = viewAsString(boundForm, radioOptions)
+
+        val result = controller()(HmrcEnrolmentType.RegisterTrusts).onSubmit()(postRequest)
+
+        contentAsString(result) mustBe view
+      }
     }
+
+    "show only 'partnership' option" when {
+      val radioOptions: Set[RadioOption] =
+        SelectSACategory.options.filter(_.value == SelectSACategory.Partnership.toString)
+
+      "on page load and enrolled for SA and Trust" in {
+        val result = controller()(HmrcEnrolmentType.SA, HmrcEnrolmentType.RegisterTrusts).onPageLoad()(fakeRequest)
+        val view = viewAsString(radioOptions = radioOptions)
+
+        contentAsString(result) mustBe view
+      }
+
+      "on page submit and enrolled for SA and Trust" in {
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+        val boundForm = form.bind(Map("value" -> "invalid value"))
+        val view = viewAsString(boundForm, radioOptions)
+
+        val result = controller()(HmrcEnrolmentType.SA, HmrcEnrolmentType.RegisterTrusts).onSubmit()(postRequest)
+
+        contentAsString(result) mustBe view
+      }
+    }
+
   }
 }

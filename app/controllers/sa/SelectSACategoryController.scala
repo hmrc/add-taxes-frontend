@@ -63,18 +63,14 @@ class SelectSACategoryController @Inject()(
       )
   }
 
-  def getRadioOptions(enrolments: Enrolments): Set[RadioOption] =
-    enrolments match {
-      case HmrcEnrolmentType.SA() | HmrcEnrolmentType.RegisterTrusts() =>
-        SelectSACategory.options.filter(_.value == SelectSACategory.Partnership.toString)
-
-      case HmrcEnrolmentType.SA() =>
-        SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
-
-      case HmrcEnrolmentType.RegisterTrusts() =>
-        SelectSACategory.options.filterNot(_.value == HmrcEnrolmentType.RegisterTrusts.toString)
-
-      case _ => SelectSACategory.options
+  def getRadioOptions(enrolments: Enrolments): Set[RadioOption] = {
+    val hasSa: Boolean = utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.SA)
+    val hasTrust: Boolean = utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.RegisterTrusts)
+    (hasSa, hasTrust) match {
+      case (true, true)   => SelectSACategory.options.filter(_.value == SelectSACategory.Partnership.toString)
+      case (true, false)  => SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
+      case (false, true)  => SelectSACategory.options.filterNot(_.value == SelectSACategory.Trust.toString)
+      case (false, false) => SelectSACategory.options
     }
-
+  }
 }
