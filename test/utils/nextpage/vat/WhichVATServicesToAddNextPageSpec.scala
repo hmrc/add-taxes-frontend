@@ -26,7 +26,7 @@ class WhichVATServicesToAddNextPageSpec extends NextPageSpecBase {
   val affinityGroupOrganisation = Some(AffinityGroup.Organisation)
   val noEnrolments = Enrolments(Set())
   val affinityGroupIndividual = Some(AffinityGroup.Individual)
-  val EnrolledInVAT = Enrolments(Set(vatEnrolment))
+  val enrolledInVAT = Enrolments(Set(vatEnrolment))
 
   "whichVATServicesToAdd" when {
     behave like nextPage(
@@ -61,7 +61,7 @@ class WhichVATServicesToAddNextPageSpec extends NextPageSpecBase {
 
     behave like nextPage(
       NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.MOSS, affinityGroupIndividual, EnrolledInVAT),
+      (WhichVATServicesToAdd.MOSS, affinityGroupIndividual, enrolledInVAT),
       "/business-account/add-tax/vat/moss/newaccount"
     )
 
@@ -73,7 +73,7 @@ class WhichVATServicesToAddNextPageSpec extends NextPageSpecBase {
 
     behave like nextPage(
       NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.MOSS, affinityGroupOrganisation, EnrolledInVAT),
+      (WhichVATServicesToAdd.MOSS, affinityGroupOrganisation, enrolledInVAT),
       "/business-account/add-tax/vat/moss/non-eu"
     )
 
