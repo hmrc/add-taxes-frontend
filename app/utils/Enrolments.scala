@@ -117,7 +117,10 @@ object Enrolments {
 
 }
 
-sealed trait HmrcEnrolmentType
+sealed trait HmrcEnrolmentType {
+  def unapply(enrolments: core.Enrolments): Boolean =
+    enrolments.getEnrolment(this.toString).isDefined
+}
 
 object HmrcEnrolmentType {
 
@@ -129,5 +132,7 @@ object HmrcEnrolmentType {
 
   case object VAT extends WithName("HMCE-VATDEC-ORG") with HmrcEnrolmentType
 
-  val values: Set[HmrcEnrolmentType] = Set(SA, CORP_TAX, EPAYE, VAT)
+  case object RegisterTrusts extends WithName("IR-SA-TRUST-ORG") with HmrcEnrolmentType
+
+  val values: Set[HmrcEnrolmentType] = Set(SA, CORP_TAX, EPAYE, VAT, RegisterTrusts)
 }
