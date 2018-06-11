@@ -45,6 +45,7 @@ class WhichVATServicesToAddController @Inject()(
 
   val form = formProvider()
   val optionsWithoutVAT = WhichVATServicesToAdd.options.filterNot(_.value == WhichVATServicesToAdd.VAT.toString)
+
   def radioOptions(implicit request: ServiceInfoRequest[AnyContent]) =
     if (Enrolments.hasEnrolments(request.request.enrolments, HmrcEnrolmentType.VAT)) {
       optionsWithoutVAT
@@ -60,7 +61,10 @@ class WhichVATServicesToAddController @Inject()(
       .fold(
         (formWithErrors: Form[_]) =>
           BadRequest(whichVATServicesToAdd(appConfig, formWithErrors, radioOptions)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(WhichVATServicesToAddId, (value, request.request.enrolments)))
+        (value) =>
+          Redirect(
+            navigator
+              .nextPage(WhichVATServicesToAddId, (value, request.request.affinityGroup, request.request.enrolments)))
       )
   }
 }

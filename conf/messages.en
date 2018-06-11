@@ -791,3 +791,13 @@ setUpNewAccountPartnership.li3=Add a Self Assessment partnership in that account
 setUpNewAccountPartnership.p3=Don’t try to add a Self Assessment partnership on the Government Gateway website.
 setUpNewAccountPartnership.continue = Sign out and create ‘Organisation’ account
 setUpNewAccountPartnership.notnow = I don’t want to do this right now
+
+#######################################################
+##  SetUpANewAccount
+#######################################################
+setUpANewAccount.title = Set up a new account
+setUpANewAccount.heading = Set up a new account
+setUpANewAccount.subtext1 = This is an Individual account.
+setUpANewAccount.subtext2 = You can only add VAT MOSS to an ’Organisation’ account.
+setUpANewAccount.anchor = Call us
+setUpANewAccount.subtext3 = and we’ll help you do this over the phone.

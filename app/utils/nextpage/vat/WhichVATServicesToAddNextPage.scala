@@ -20,48 +20,46 @@ import config.FrontendAppConfig
 import controllers.vat.ec.{routes => ecRoutes}
 import controllers.vat.eurefunds.{routes => euRoutes}
 import controllers.vat.moss.{routes => mossRoutes}
+import controllers.vat.moss.noneu.{routes => noneuRoutes}
+import controllers.vat.moss.newaccount.{routes => newAccountRoutes}
 import controllers.vat.rcsl.{routes => rcslRoutes}
 import identifiers.WhichVATServicesToAddId
 import models.vat.WhichVATServicesToAdd
 import play.api.mvc.{Call, Request}
+import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.auth.core.Enrolments
 import utils.{HmrcEnrolmentType, NextPage}
 
 trait WhichVATServicesToAddNextPage {
 
-  type WhichVATServicesToAddWithEnrolments = (WhichVATServicesToAdd, Enrolments)
+  type WhichVATServicesToAddWithRequests = (WhichVATServicesToAdd, Option[AffinityGroup], Enrolments)
 
-  implicit val whichVATServicesToAdd: NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithEnrolments] = {
-    new NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithEnrolments] {
-      override def get(addPartnerDetails: WhichVATServicesToAddWithEnrolments)(
-        implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
-        (addPartnerDetails._1, hasVATEnrolments(addPartnerDetails._2)) match {
+  implicit val whichVATServicesToAdd: NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithRequests] = {
+    new NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithRequests] {
+      override def get(
+        b: WhichVATServicesToAddWithRequests)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call = {
 
-          case (WhichVATServicesToAdd.VAT, _) => Call("GET", appConfig.getPortalUrl("businessRegistration"))
+        val (serviceToAdd, affinity, enrolments) = b
 
-          case (WhichVATServicesToAdd.ECSales, true) =>
-            Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.ECSales))
-
-          case (WhichVATServicesToAdd.ECSales, false) => ecRoutes.RegisteredForVATECSalesController.onPageLoad()
-
-          case (WhichVATServicesToAdd.EURefunds, true) =>
-            Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.EURefunds))
-
-          case (WhichVATServicesToAdd.EURefunds, false) => euRoutes.RegisteredForVATEURefundsController.onPageLoad()
-
-          case (WhichVATServicesToAdd.RCSL, true) => Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.RCSL))
-
-          case (WhichVATServicesToAdd.RCSL, false) => rcslRoutes.RegisteredForVATRCSLController.onPageLoad()
-
-          case (WhichVATServicesToAdd.MOSS, _) => mossRoutes.WhereIsYourBusinessBasedController.onPageLoad()
-
-          case (WhichVATServicesToAdd.NOVA, _) => Call("GET", appConfig.getPortalUrl("novaEnrolment"))
+        serviceToAdd match {
+          case WhichVATServicesToAdd.VAT       => Call("GET", appConfig.getPortalUrl("businessRegistration"))
+          case WhichVATServicesToAdd.ECSales   => ecRoutes.RegisteredForVATECSalesController.onPageLoad()
+          case WhichVATServicesToAdd.EURefunds => euRoutes.RegisteredForVATEURefundsController.onPageLoad()
+          case WhichVATServicesToAdd.RCSL      => rcslRoutes.RegisteredForVATRCSLController.onPageLoad()
+          case WhichVATServicesToAdd.MOSS      => getVATMOSSCall(affinity, enrolments)
+          case WhichVATServicesToAdd.NOVA      => Call("GET", appConfig.getPortalUrl("novaEnrolment"))
         }
+      }
     }
   }
 
-  private def hasVATEnrolments(enrolments: Enrolments) =
-    utils.Enrolments
-      .hasEnrolments(enrolments, HmrcEnrolmentType.VAT)
+  def getVATMOSSCall(affinity: Option[AffinityGroup], enrolments: Enrolments): Call = {
+    val hasVAT: Boolean = utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.VAT)
+
+    (affinity, hasVAT) match {
+      case (Some(AffinityGroup.Individual), _) => newAccountRoutes.SetUpANewAccountController.onPageLoad()
+      case (_, true)                           => noneuRoutes.HaveYouRegisteredForVATMOSSController.onPageLoad()
+      case (_, false)                          => mossRoutes.WhereIsYourBusinessBasedController.onPageLoad()
+    }
+  }
 }

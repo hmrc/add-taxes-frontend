@@ -783,3 +783,13 @@ setUpNewAccountPartnership.li3=Ychwanegu partneriaeth Hunanasesiad yn y cyfrif h
 setUpNewAccountPartnership.p3=Peidiwch â cheisio ychwanegu partneriaeth Hunanasesiad ar wefan Porth y Llywodraeth.
 setUpNewAccountPartnership.continue = Allgofnodwch a chreu cyfrif Sefydliad
 setUpNewAccountPartnership.notnow = Allgofnodwch a chreu cyfrif Sefydliad
+
+#######################################################
+##  SetUpANewAccount
+#######################################################
+setUpANewAccount.title = Sefydlu cyfrif newydd
+setUpANewAccount.heading = Sefydlu cyfrif newydd
+setUpANewAccount.subtext1 = Mae hwn yn gyfrif ’Unigolyn’
+setUpANewAccount.subtext2 = Dim ond GUC TAW y gallwch ei ychwanegu i gyfrif "Sefydliad".
+setUpANewAccount.anchor = Ffoniwch ni
+setUpANewAccount.subtext3 = a byddwn yn eich helpu i wneud hyn dros y ffôn.
