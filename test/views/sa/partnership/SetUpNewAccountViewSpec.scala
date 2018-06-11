@@ -52,7 +52,7 @@ class SetUpNewAccountViewSpec extends ViewBehaviours {
         "continue",
         "Sign out and create ‘Organisation’ account",
         "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fcoafe%2Fgovernment-gateway%2Fregister%3FaccountType%3Dorganisation%2526continue%3D%2Fbusiness-account%2Fadd-tax%2526origin%3Dunknown",
-        "SetUpAccountpartneriaethHunanasesiad:Click:Register"
+        "SetUpAccountaSelfAssessmentpartnership:Click:Register"
       )
 
       assertLinkById(
@@ -60,7 +60,7 @@ class SetUpNewAccountViewSpec extends ViewBehaviours {
         "not-now",
         "I don’t want to do this right now",
         "http://localhost:9020/business-account",
-        "SetUpAccountpartneriaethHunanasesiad:Click:NotNow"
+        "SetUpAccountaSelfAssessmentpartnership:Click:NotNow"
       )
     }
   }
