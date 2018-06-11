@@ -32,14 +32,12 @@ import utils.{HmrcEnrolmentType, NextPage}
 
 trait WhichVATServicesToAddNextPage {
 
-  type WhichVATServicesToAddWithAffinityWithEnrolments = (WhichVATServicesToAdd, Option[AffinityGroup], Enrolments)
+  type WhichVATServicesToAddWithRequests = (WhichVATServicesToAdd, Option[AffinityGroup], Enrolments)
 
-  implicit val whichVATServicesToAdd
-    : NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithAffinityWithEnrolments] = {
-    new NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithAffinityWithEnrolments] {
-      override def get(b: WhichVATServicesToAddWithAffinityWithEnrolments)(
-        implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call = {
+  implicit val whichVATServicesToAdd: NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithRequests] = {
+    new NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithRequests] {
+      override def get(
+        b: WhichVATServicesToAddWithRequests)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call = {
 
         val (serviceToAdd, affinity, enrolments) = b
 
