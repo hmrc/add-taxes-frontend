@@ -24,21 +24,44 @@ import controllers.vat.rcsl.{routes => rcslRoutes}
 import identifiers.WhichVATServicesToAddId
 import models.vat.WhichVATServicesToAdd
 import play.api.mvc.{Call, Request}
-import utils.NextPage
+import uk.gov.hmrc.auth.core.Enrolments
+import utils.{HmrcEnrolmentType, NextPage}
 
 trait WhichVATServicesToAddNextPage {
 
-  implicit val whichVATServicesToAdd: NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAdd] = {
-    new NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAdd] {
-      override def get(b: WhichVATServicesToAdd)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case WhichVATServicesToAdd.VAT       => Call("GET", appConfig.getPortalUrl("businessRegistration"))
-          case WhichVATServicesToAdd.ECSales   => ecRoutes.RegisteredForVATECSalesController.onPageLoad()
-          case WhichVATServicesToAdd.EURefunds => euRoutes.RegisteredForVATEURefundsController.onPageLoad()
-          case WhichVATServicesToAdd.RCSL      => rcslRoutes.RegisteredForVATRCSLController.onPageLoad()
-          case WhichVATServicesToAdd.MOSS      => mossRoutes.WhereIsYourBusinessBasedController.onPageLoad()
-          case WhichVATServicesToAdd.NOVA      => Call("GET", appConfig.getPortalUrl("novaEnrolment"))
+  type WhichVATServicesToAddWithEnrolments = (WhichVATServicesToAdd, Enrolments)
+
+  implicit val whichVATServicesToAdd: NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithEnrolments] = {
+    new NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithEnrolments] {
+      override def get(addPartnerDetails: WhichVATServicesToAddWithEnrolments)(
+        implicit appConfig: FrontendAppConfig,
+        request: Request[_]): Call =
+        (addPartnerDetails._1, hasVATEnrolments(addPartnerDetails._2)) match {
+
+          case (WhichVATServicesToAdd.VAT, _) => Call("GET", appConfig.getPortalUrl("businessRegistration"))
+
+          case (WhichVATServicesToAdd.ECSales, true) =>
+            Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.ECSales))
+
+          case (WhichVATServicesToAdd.ECSales, false) => ecRoutes.RegisteredForVATECSalesController.onPageLoad()
+
+          case (WhichVATServicesToAdd.EURefunds, true) =>
+            Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.EURefunds))
+
+          case (WhichVATServicesToAdd.EURefunds, false) => euRoutes.RegisteredForVATEURefundsController.onPageLoad()
+
+          case (WhichVATServicesToAdd.RCSL, true) => Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.RCSL))
+
+          case (WhichVATServicesToAdd.RCSL, false) => rcslRoutes.RegisteredForVATRCSLController.onPageLoad()
+
+          case (WhichVATServicesToAdd.MOSS, _) => mossRoutes.WhereIsYourBusinessBasedController.onPageLoad()
+
+          case (WhichVATServicesToAdd.NOVA, _) => Call("GET", appConfig.getPortalUrl("novaEnrolment"))
         }
     }
   }
+
+  private def hasVATEnrolments(enrolments: Enrolments) =
+    utils.Enrolments
+      .hasEnrolments(enrolments, HmrcEnrolmentType.VAT)
 }

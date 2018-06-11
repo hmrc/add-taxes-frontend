@@ -33,6 +33,8 @@ trait NextPageSpecBase extends SpecBase {
 
   val epayeEnrolment = Enrolment(key = HmrcEnrolmentType.EPAYE.toString, identifiers = Seq(), state = "Activated")
 
+  val vatEnrolment = Enrolment(key = HmrcEnrolmentType.VAT.toString, identifiers = Seq(), state = "Activated")
+
   def nextPage[A, B](np: NextPage[A, B], userSelection: B, urlRedirect: String): Unit =
     s"$userSelection is selected" should {
       s"redirect to $urlRedirect" in {
@@ -46,7 +48,7 @@ trait NextPageSpecBase extends SpecBase {
     userSelectionWithEnrolments: B,
     userSelection: String,
     urlRedirect: String,
-    enrolments: String): Unit =
+    enrolments: String = "no enrolments"): Unit =
     s"$userSelection is selected with $enrolments" should {
       s"redirect to $urlRedirect" in {
         val result = np.get(userSelectionWithEnrolments)
