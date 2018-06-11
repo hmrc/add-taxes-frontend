@@ -41,22 +41,21 @@ trait WhichVATServicesToAddNextPage {
         implicit appConfig: FrontendAppConfig,
         request: Request[_]): Call = {
 
-        val (serviceToAdd, _, _) = b
+        val (serviceToAdd, affinity, enrolments) = b
 
         serviceToAdd match {
           case WhichVATServicesToAdd.VAT       => Call("GET", appConfig.getPortalUrl("businessRegistration"))
           case WhichVATServicesToAdd.ECSales   => ecRoutes.RegisteredForVATECSalesController.onPageLoad()
           case WhichVATServicesToAdd.EURefunds => euRoutes.RegisteredForVATEURefundsController.onPageLoad()
           case WhichVATServicesToAdd.RCSL      => rcslRoutes.RegisteredForVATRCSLController.onPageLoad()
-          case WhichVATServicesToAdd.MOSS      => getVATMOSSCall(b)
+          case WhichVATServicesToAdd.MOSS      => getVATMOSSCall(affinity, enrolments)
           case WhichVATServicesToAdd.NOVA      => Call("GET", appConfig.getPortalUrl("novaEnrolment"))
         }
       }
     }
   }
 
-  def getVATMOSSCall(b: WhichVATServicesToAddWithAffinityWithEnrolments): Call = {
-    val (_, affinity, enrolments) = b
+  def getVATMOSSCall(affinity: Option[AffinityGroup], enrolments: Enrolments): Call = {
     val hasVAT: Boolean = utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.VAT)
 
     (affinity, hasVAT) match {
