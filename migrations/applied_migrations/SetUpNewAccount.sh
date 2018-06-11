@@ -4,7 +4,7 @@ echo "Applying migration SetUpNewAccount"
 
 echo "Adding routes to conf/app.routes"
 echo "" >> ../conf/app.routes
-echo "GET        /self-assessment/trust/new-account                       controllers.sa.trust.SetUpNewAccountController.onPageLoad()" >> ../conf/app.routes
+echo "GET        /self-assessment/partnership/new-account                       controllers.sa.partnership.SetUpNewAccountController.onPageLoad()" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages (English)"
 echo "" >> ../conf/messages.en
@@ -13,8 +13,8 @@ echo "##  SetUpNewAccount" >> ../conf/messages.en
 echo "#######################################################" >> ../conf/messages.en
 echo "setUpNewAccount.title = Set up a new account" >> ../conf/messages.en
 echo "setUpNewAccount.heading = Set up a new account" >> ../conf/messages.en
-echo "setUpNewAccount.continue = Sign out and create 'Organisation' account" >> ../conf/messages.en
-echo "setUpNewAccount.notnow = I don't want to do this right now" >> ../conf/messages.en
+echo "setUpNewAccount.continue = Sign out and create  ''Organisation'' account" >> ../conf/messages.en
+echo "setUpNewAccount.notnow = I don’t want to do this right now" >> ../conf/messages.en
 
 echo "Adding messages to conf.messages (Welsh)"
 echo "" >> ../conf/messages.cy
@@ -24,7 +24,7 @@ echo "#######################################################" >> ../conf/messag
 echo "setUpNewAccount.title = Sefydlu cyfrif newydd" >> ../conf/messages.cy
 echo "setUpNewAccount.heading = Sefydlu cyfrif newydd" >> ../conf/messages.cy
 echo "setUpNewAccount.continue = Allgofnodwch a chreu cyfrif "Sefydliad"" >> ../conf/messages.cy
-echo "setUpNewAccount.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd" >> ../conf/messages.cy
+echo "setUpNewAccount.notnow = Allgofnodwch a chreu cyfrif "Sefydliad"" >> ../conf/messages.cy
 
 echo "Moving test files from generated-test/ to test/"
 rsync -avm --include='*.scala' -f 'hide,! */' ../generated-test/ ../test/

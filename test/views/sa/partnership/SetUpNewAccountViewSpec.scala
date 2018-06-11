@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package views.sa.trust
+package views.sa.partnership
 
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.sa.trust.setUpNewAccount
+import views.html.sa.partnership.setUpNewAccount
 
 class SetUpNewAccountViewSpec extends ViewBehaviours {
 
@@ -33,7 +33,7 @@ class SetUpNewAccountViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       val view = doc.text()
 
-      view must include("You can’t add a Self Assessment Trust to this account.")
+      view must include("You can’t add a Self Assessment partnership to this account.")
 
       view must include("You need to:")
 
@@ -41,9 +41,9 @@ class SetUpNewAccountViewSpec extends ViewBehaviours {
 
       view must include("Sign in to HMRC with the new sign in details.")
 
-      view must include("Add a Self Assessment Trust in that account.")
+      view must include("Add a Self Assessment partnership in that account.")
 
-      view must include("Don’t try to add a Self Assessment Trust on the Government Gateway website.")
+      view must include("Don’t try to add a Self Assessment partnership on the Government Gateway website.")
 
       view must include("Sign out and create ‘Organisation’ account")
 
@@ -52,7 +52,7 @@ class SetUpNewAccountViewSpec extends ViewBehaviours {
         "continue",
         "Sign out and create ‘Organisation’ account",
         "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fcoafe%2Fgovernment-gateway%2Fregister%3FaccountType%3Dorganisation%2526continue%3D%2Fbusiness-account%2Fadd-tax%2526origin%3Dunknown",
-        "SetUpAccountaSelfAssessmentTrust:Click:Register"
+        "SetUpAccountaSelfAssessmentpartnership:Click:Register"
       )
 
       assertLinkById(
@@ -60,7 +60,7 @@ class SetUpNewAccountViewSpec extends ViewBehaviours {
         "not-now",
         "I don’t want to do this right now",
         "http://localhost:9020/business-account",
-        "SetUpAccountaSelfAssessmentTrust:Click:NotNow"
+        "SetUpAccountaSelfAssessmentpartnership:Click:NotNow"
       )
     }
   }

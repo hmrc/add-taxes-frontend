@@ -158,10 +158,12 @@ POST       /vat/moss/iom/vat-registered                 controllers.vat.moss.iom
 GET        /vat/moss/non-eu                             controllers.vat.moss.noneu.HaveYouRegisteredForVATMOSSController.onPageLoad()
 POST       /vat/moss/non-eu                             controllers.vat.moss.noneu.HaveYouRegisteredForVATMOSSController.onSubmit()
 
-GET        /vat/moss                                     controllers.vat.moss.WhereIsYourBusinessBasedController.onPageLoad()
-POST       /vat/moss                                     controllers.vat.moss.WhereIsYourBusinessBasedController.onSubmit()
+GET        /vat/moss/newaccount                         controllers.vat.moss.newaccount.SetUpANewAccountController.onPageLoad()
 
-GET        /vat/moss/eu                                  controllers.vat.moss.eu.RegisterInHomeCountryController.onPageLoad()
+GET        /vat/moss                                    controllers.vat.moss.WhereIsYourBusinessBasedController.onPageLoad()
+POST       /vat/moss                                    controllers.vat.moss.WhereIsYourBusinessBasedController.onSubmit()
+
+GET        /vat/moss/eu                                 controllers.vat.moss.eu.RegisterInHomeCountryController.onPageLoad()
 
 GET        /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onPageLoad()
 POST       /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onSubmit()
@@ -223,6 +225,5 @@ POST       /employer/cis                                controllers.employer.cis
 GET        /employer                                    controllers.employer.WhatEmployerTaxDoYouWantToAddController.onPageLoad()
 POST       /employer                                    controllers.employer.WhatEmployerTaxDoYouWantToAddController.onSubmit()
 
-
-
 GET        /self-assessment/trust/new-account                       controllers.sa.trust.SetUpNewAccountController.onPageLoad()
+GET        /self-assessment/partnership/new-account                       controllers.sa.partnership.SetUpNewAccountController.onPageLoad()

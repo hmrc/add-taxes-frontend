@@ -30,21 +30,32 @@ class SelectSACategoryNextPageSpec extends NextPageSpecBase {
       NextPage.selectSACategory,
       (SelectSACategory.Sa, Some(Organisation)),
       SelectSACategory.Sa.toString,
-      "http://localhost:8080/portal/business-registration/introduction?lang=eng"
+      "http://localhost:8080/portal/business-registration/introduction?lang=eng",
+      "organisation"
     )
 
     behave like nextPageWithAffinityGroup(
       NextPage.selectSACategory,
       (SelectSACategory.Partnership, Some(Organisation)),
       SelectSACategory.Partnership.toString,
-      "/business-account/add-tax/self-assessment/partnership"
+      "/business-account/add-tax/self-assessment/partnership",
+      "organisation"
+    )
+
+    behave like nextPageWithAffinityGroup(
+      NextPage.selectSACategory,
+      (SelectSACategory.Partnership, Some(Individual)),
+      SelectSACategory.Partnership.toString,
+      "/business-account/add-tax/self-assessment/partnership/new-account",
+      "individual"
     )
 
     behave like nextPageWithAffinityGroup(
       NextPage.selectSACategory,
       (SelectSACategory.Trust, Some(Organisation)),
       SelectSACategory.Trust.toString,
-      "/business-account/add-tax/self-assessment/trust"
+      "/business-account/add-tax/self-assessment/trust",
+      "oranisation"
     )
 
     behave like nextPageWithAffinityGroup(
@@ -52,7 +63,7 @@ class SelectSACategoryNextPageSpec extends NextPageSpecBase {
       (SelectSACategory.Trust, Some(Individual)),
       SelectSACategory.Trust.toString,
       "/business-account/add-tax/self-assessment/trust/new-account",
-      "not Organisation"
+      "individual"
     )
   }
 }

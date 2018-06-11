@@ -17,77 +17,70 @@
 package utils.nextpage.vat
 
 import models.vat.WhichVATServicesToAdd
-import uk.gov.hmrc.auth.core.Enrolments
-import utils.{HmrcEnrolmentType, NextPage}
+import uk.gov.hmrc.auth.core.{AffinityGroup, Enrolments}
+import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
 class WhichVATServicesToAddNextPageSpec extends NextPageSpecBase {
 
+  val affinityGroupOrganisation = Some(AffinityGroup.Organisation)
+  val noEnrolments = Enrolments(Set())
+  val affinityGroupIndividual = Some(AffinityGroup.Individual)
+  val enrolledInVAT = Enrolments(Set(vatEnrolment))
+
   "whichVATServicesToAdd" when {
-    behave like nextPageWithEnrolments(
+    behave like nextPage(
       NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.VAT, Enrolments(Set())),
-      WhichVATServicesToAdd.VAT.toString,
+      (WhichVATServicesToAdd.VAT, affinityGroupOrganisation, noEnrolments),
       "http://localhost:8080/portal/business-registration/introduction?lang=eng"
     )
 
-    behave like nextPageWithEnrolments(
+    behave like nextPage(
       NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.ECSales, Enrolments(Set())),
-      WhichVATServicesToAdd.ECSales.toString,
+      (WhichVATServicesToAdd.ECSales, affinityGroupOrganisation, noEnrolments),
       "/business-account/add-tax/vat/ec"
     )
 
-    behave like nextPageWithEnrolments(
+    behave like nextPage(
       NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.EURefunds, Enrolments(Set())),
-      WhichVATServicesToAdd.EURefunds.toString,
+      (WhichVATServicesToAdd.EURefunds, affinityGroupOrganisation, noEnrolments),
       "/business-account/add-tax/vat/eurefunds"
     )
 
-    behave like nextPageWithEnrolments(
+    behave like nextPage(
       NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.RCSL, Enrolments(Set())),
-      WhichVATServicesToAdd.RCSL.toString,
+      (WhichVATServicesToAdd.RCSL, affinityGroupOrganisation, noEnrolments),
       "/business-account/add-tax/vat/rcsl"
     )
 
-    behave like nextPageWithEnrolments(
+    behave like nextPage(
       NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.MOSS, Enrolments(Set())),
-      WhichVATServicesToAdd.MOSS.toString,
+      (WhichVATServicesToAdd.MOSS, affinityGroupIndividual, noEnrolments),
+      "/business-account/add-tax/vat/moss/newaccount"
+    )
+
+    behave like nextPage(
+      NextPage.whichVATServicesToAdd,
+      (WhichVATServicesToAdd.MOSS, affinityGroupIndividual, enrolledInVAT),
+      "/business-account/add-tax/vat/moss/newaccount"
+    )
+
+    behave like nextPage(
+      NextPage.whichVATServicesToAdd,
+      (WhichVATServicesToAdd.MOSS, affinityGroupOrganisation, noEnrolments),
       "/business-account/add-tax/vat/moss"
     )
 
-    behave like nextPageWithEnrolments(
+    behave like nextPage(
       NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.NOVA, Enrolments(Set())),
-      WhichVATServicesToAdd.NOVA.toString,
+      (WhichVATServicesToAdd.MOSS, affinityGroupOrganisation, enrolledInVAT),
+      "/business-account/add-tax/vat/moss/non-eu"
+    )
+
+    behave like nextPage(
+      NextPage.whichVATServicesToAdd,
+      (WhichVATServicesToAdd.NOVA, affinityGroupOrganisation, noEnrolments),
       "http://localhost:8080/portal/nova/normal?lang=eng"
-    )
-
-    behave like nextPageWithEnrolments(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.ECSales, Enrolments(Set(vatEnrolment))),
-      WhichVATServicesToAdd.ECSales.toString,
-      "http://localhost:9555/enrolment-management-frontend/HMCE-ECSL-ORG/request-access-tax-scheme?continue=%2Fbusiness-account",
-      "VAT enrolment"
-    )
-
-    behave like nextPageWithEnrolments(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.EURefunds, Enrolments(Set(vatEnrolment))),
-      WhichVATServicesToAdd.EURefunds.toString,
-      "http://localhost:9555/enrolment-management-frontend/HMRC-EU-REF-ORG/request-access-tax-scheme?continue=%2Fbusiness-account",
-      "VAT enrolment"
-    )
-
-    behave like nextPageWithEnrolments(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.RCSL, Enrolments(Set(vatEnrolment))),
-      WhichVATServicesToAdd.RCSL.toString,
-      "http://localhost:9555/enrolment-management-frontend/HMCE-VATRSL-ORG/request-access-tax-scheme?continue=%2Fbusiness-account",
-      "VAT enrolment"
     )
   }
 }

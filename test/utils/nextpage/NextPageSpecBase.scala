@@ -17,10 +17,7 @@
 package utils.nextpage
 
 import base.SpecBase
-import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
-import play.api.mvc.AnyContent
-import play.twirl.api.Html
-import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
+import uk.gov.hmrc.auth.core.Enrolment
 import utils.{HmrcEnrolmentType, NextPage}
 
 trait NextPageSpecBase extends SpecBase {

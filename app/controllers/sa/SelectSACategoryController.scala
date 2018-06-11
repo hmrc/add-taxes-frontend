@@ -24,10 +24,11 @@ import controllers.actions._
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
+import utils.{Enumerable, HmrcEnrolmentType, Navigator, RadioOption}
 import forms.sa.SelectSACategoryFormProvider
 import identifiers.SelectSACategoryId
-import uk.gov.hmrc.auth.core.AffinityGroup
+import models.sa.SelectSACategory
+import uk.gov.hmrc.auth.core.Enrolments
 import views.html.sa.selectSACategory
 
 import scala.concurrent.Future
@@ -47,7 +48,7 @@ class SelectSACategoryController @Inject()(
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(selectSACategory(appConfig, form)(request.serviceInfoContent))
+    Ok(selectSACategory(appConfig, form, getRadioOptions(request.request.enrolments))(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
@@ -55,11 +56,21 @@ class SelectSACategoryController @Inject()(
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          BadRequest(selectSACategory(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) =>
-          Redirect(
-            navigator
-              .nextPage(SelectSACategoryId, (value, request.request.affinityGroup)))
+          BadRequest(
+            selectSACategory(appConfig, formWithErrors, getRadioOptions(request.request.enrolments))(
+              request.serviceInfoContent)),
+        (value) => Redirect(navigator.nextPage(SelectSACategoryId, (value, request.request.affinityGroup)))
       )
+  }
+
+  def getRadioOptions(enrolments: Enrolments): Set[RadioOption] = {
+    val hasSa: Boolean = utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.SA)
+    val hasTrust: Boolean = utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.RegisterTrusts)
+    (hasSa, hasTrust) match {
+      case (true, true)   => SelectSACategory.options.filter(_.value == SelectSACategory.Partnership.toString)
+      case (true, false)  => SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
+      case (false, true)  => SelectSACategory.options.filterNot(_.value == SelectSACategory.Trust.toString)
+      case (false, false) => SelectSACategory.options
+    }
   }
 }
