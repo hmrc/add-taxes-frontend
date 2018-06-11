@@ -45,7 +45,7 @@ trait NextPageSpecBase extends SpecBase {
     userSelectionWithEnrolments: B,
     userSelection: String,
     urlRedirect: String,
-    enrolments: String): Unit =
+    enrolments: String = "no enrolments"): Unit =
     s"$userSelection is selected with $enrolments" should {
       s"redirect to $urlRedirect" in {
         val result = np.get(userSelectionWithEnrolments)
