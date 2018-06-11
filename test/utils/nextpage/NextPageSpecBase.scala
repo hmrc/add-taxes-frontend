@@ -17,10 +17,7 @@
 package utils.nextpage
 
 import base.SpecBase
-import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
-import play.api.mvc.AnyContent
-import play.twirl.api.Html
-import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
+import uk.gov.hmrc.auth.core.Enrolment
 import utils.{HmrcEnrolmentType, NextPage}
 
 trait NextPageSpecBase extends SpecBase {
@@ -32,6 +29,8 @@ trait NextPageSpecBase extends SpecBase {
   val ctEnrolment = Enrolment(key = HmrcEnrolmentType.CORP_TAX.toString, identifiers = Seq(), state = "Activated")
 
   val epayeEnrolment = Enrolment(key = HmrcEnrolmentType.EPAYE.toString, identifiers = Seq(), state = "Activated")
+
+  val vatEnrolment = Enrolment(key = HmrcEnrolmentType.VAT.toString, identifiers = Seq(), state = "Activated")
 
   def nextPage[A, B](np: NextPage[A, B], userSelection: B, urlRedirect: String): Unit =
     s"$userSelection is selected" should {

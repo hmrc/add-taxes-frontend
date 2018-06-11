@@ -17,45 +17,69 @@
 package utils.nextpage.vat
 
 import models.vat.WhichVATServicesToAdd
+import uk.gov.hmrc.auth.core.{AffinityGroup, Enrolments}
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
 class WhichVATServicesToAddNextPageSpec extends NextPageSpecBase {
 
+  val affinityGroupOrganisation = Some(AffinityGroup.Organisation)
+  val noEnrolments = Enrolments(Set())
+  val affinityGroupIndividual = Some(AffinityGroup.Individual)
+  val EnrolledInVAT = Enrolments(Set(vatEnrolment))
+
   "whichVATServicesToAdd" when {
     behave like nextPage(
       NextPage.whichVATServicesToAdd,
-      WhichVATServicesToAdd.VAT,
+      (WhichVATServicesToAdd.VAT, affinityGroupOrganisation, noEnrolments),
       "http://localhost:8080/portal/business-registration/introduction?lang=eng"
     )
 
     behave like nextPage(
       NextPage.whichVATServicesToAdd,
-      WhichVATServicesToAdd.ECSales,
+      (WhichVATServicesToAdd.ECSales, affinityGroupOrganisation, noEnrolments),
       "/business-account/add-tax/vat/ec"
     )
 
     behave like nextPage(
       NextPage.whichVATServicesToAdd,
-      WhichVATServicesToAdd.EURefunds,
+      (WhichVATServicesToAdd.EURefunds, affinityGroupOrganisation, noEnrolments),
       "/business-account/add-tax/vat/eurefunds"
     )
 
     behave like nextPage(
       NextPage.whichVATServicesToAdd,
-      WhichVATServicesToAdd.RCSL,
+      (WhichVATServicesToAdd.RCSL, affinityGroupOrganisation, noEnrolments),
       "/business-account/add-tax/vat/rcsl"
     )
 
     behave like nextPage(
       NextPage.whichVATServicesToAdd,
-      WhichVATServicesToAdd.MOSS,
+      (WhichVATServicesToAdd.MOSS, affinityGroupIndividual, noEnrolments),
+      "/business-account/add-tax/vat/moss/newaccount"
+    )
+
+    behave like nextPage(
+      NextPage.whichVATServicesToAdd,
+      (WhichVATServicesToAdd.MOSS, affinityGroupIndividual, EnrolledInVAT),
+      "/business-account/add-tax/vat/moss/newaccount"
+    )
+
+    behave like nextPage(
+      NextPage.whichVATServicesToAdd,
+      (WhichVATServicesToAdd.MOSS, affinityGroupOrganisation, noEnrolments),
       "/business-account/add-tax/vat/moss"
     )
 
     behave like nextPage(
       NextPage.whichVATServicesToAdd,
-      WhichVATServicesToAdd.NOVA,
+      (WhichVATServicesToAdd.MOSS, affinityGroupOrganisation, EnrolledInVAT),
+      "/business-account/add-tax/vat/moss/non-eu"
+    )
+
+    behave like nextPage(
+      NextPage.whichVATServicesToAdd,
+      (WhichVATServicesToAdd.NOVA, affinityGroupOrganisation, noEnrolments),
       "http://localhost:8080/portal/nova/normal?lang=eng"
     )
   }

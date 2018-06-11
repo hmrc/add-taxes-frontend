@@ -20,6 +20,8 @@ import config.FrontendAppConfig
 import controllers.vat.ec.{routes => ecRoutes}
 import controllers.vat.eurefunds.{routes => euRoutes}
 import controllers.vat.moss.{routes => mossRoutes}
+import controllers.vat.moss.noneu.{routes => noneuRoutes}
+import controllers.vat.moss.newaccount.{routes => newAccountRoutes}
 import controllers.vat.rcsl.{routes => rcslRoutes}
 import identifiers.WhichVATServicesToAddId
 import models.vat.WhichVATServicesToAdd
@@ -31,7 +33,6 @@ import utils.{HmrcEnrolmentType, NextPage}
 trait WhichVATServicesToAddNextPage {
 
   type WhichVATServicesToAddWithAffinityWithEnrolments = (WhichVATServicesToAdd, Option[AffinityGroup], Enrolments)
-
 
   implicit val whichVATServicesToAdd
     : NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithAffinityWithEnrolments] = {
@@ -59,8 +60,8 @@ trait WhichVATServicesToAddNextPage {
     val hasVAT: Boolean = utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.VAT)
 
     (affinity, hasVAT) match {
-      case (Some(AffinityGroup.Individual), _) => ???
-      case (_, true)                           => ???
+      case (Some(AffinityGroup.Individual), _) => newAccountRoutes.SetUpANewAccountController.onPageLoad()
+      case (_, true)                           => noneuRoutes.HaveYouRegisteredForVATMOSSController.onPageLoad()
       case (_, false)                          => mossRoutes.WhereIsYourBusinessBasedController.onPageLoad()
     }
   }
