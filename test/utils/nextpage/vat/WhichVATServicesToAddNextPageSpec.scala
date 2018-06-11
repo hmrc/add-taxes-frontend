@@ -17,46 +17,77 @@
 package utils.nextpage.vat
 
 import models.vat.WhichVATServicesToAdd
-import utils.NextPage
+import uk.gov.hmrc.auth.core.Enrolments
+import utils.{HmrcEnrolmentType, NextPage}
 import utils.nextpage.NextPageSpecBase
 
 class WhichVATServicesToAddNextPageSpec extends NextPageSpecBase {
 
   "whichVATServicesToAdd" when {
-    behave like nextPage(
+    behave like nextPageWithEnrolments(
       NextPage.whichVATServicesToAdd,
-      WhichVATServicesToAdd.VAT,
+      (WhichVATServicesToAdd.VAT, Enrolments(Set())),
+      WhichVATServicesToAdd.VAT.toString,
       "http://localhost:8080/portal/business-registration/introduction?lang=eng"
     )
 
-    behave like nextPage(
+    behave like nextPageWithEnrolments(
       NextPage.whichVATServicesToAdd,
-      WhichVATServicesToAdd.ECSales,
+      (WhichVATServicesToAdd.ECSales, Enrolments(Set())),
+      WhichVATServicesToAdd.ECSales.toString,
       "/business-account/add-tax/vat/ec"
     )
 
-    behave like nextPage(
+    behave like nextPageWithEnrolments(
       NextPage.whichVATServicesToAdd,
-      WhichVATServicesToAdd.EURefunds,
+      (WhichVATServicesToAdd.EURefunds, Enrolments(Set())),
+      WhichVATServicesToAdd.EURefunds.toString,
       "/business-account/add-tax/vat/eurefunds"
     )
 
-    behave like nextPage(
+    behave like nextPageWithEnrolments(
       NextPage.whichVATServicesToAdd,
-      WhichVATServicesToAdd.RCSL,
+      (WhichVATServicesToAdd.RCSL, Enrolments(Set())),
+      WhichVATServicesToAdd.RCSL.toString,
       "/business-account/add-tax/vat/rcsl"
     )
 
-    behave like nextPage(
+    behave like nextPageWithEnrolments(
       NextPage.whichVATServicesToAdd,
-      WhichVATServicesToAdd.MOSS,
+      (WhichVATServicesToAdd.MOSS, Enrolments(Set())),
+      WhichVATServicesToAdd.MOSS.toString,
       "/business-account/add-tax/vat/moss"
     )
 
-    behave like nextPage(
+    behave like nextPageWithEnrolments(
       NextPage.whichVATServicesToAdd,
-      WhichVATServicesToAdd.NOVA,
+      (WhichVATServicesToAdd.NOVA, Enrolments(Set())),
+      WhichVATServicesToAdd.NOVA.toString,
       "http://localhost:8080/portal/nova/normal?lang=eng"
+    )
+
+    behave like nextPageWithEnrolments(
+      NextPage.whichVATServicesToAdd,
+      (WhichVATServicesToAdd.ECSales, Enrolments(Set(vatEnrolment))),
+      WhichVATServicesToAdd.ECSales.toString,
+      "http://localhost:9555/enrolment-management-frontend/HMCE-ECSL-ORG/request-access-tax-scheme?continue=%2Fbusiness-account",
+      "VAT enrolment"
+    )
+
+    behave like nextPageWithEnrolments(
+      NextPage.whichVATServicesToAdd,
+      (WhichVATServicesToAdd.EURefunds, Enrolments(Set(vatEnrolment))),
+      WhichVATServicesToAdd.EURefunds.toString,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-EU-REF-ORG/request-access-tax-scheme?continue=%2Fbusiness-account",
+      "VAT enrolment"
+    )
+
+    behave like nextPageWithEnrolments(
+      NextPage.whichVATServicesToAdd,
+      (WhichVATServicesToAdd.RCSL, Enrolments(Set(vatEnrolment))),
+      WhichVATServicesToAdd.RCSL.toString,
+      "http://localhost:9555/enrolment-management-frontend/HMCE-VATRSL-ORG/request-access-tax-scheme?continue=%2Fbusiness-account",
+      "VAT enrolment"
     )
   }
 }
