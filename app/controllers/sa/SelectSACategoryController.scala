@@ -51,15 +51,15 @@ class SelectSACategoryController @Inject()(
     Ok(selectSACategory(appConfig, form, getRadioOptions(request.request.enrolments))(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(selectSACategory(appConfig, formWithErrors, getRadioOptions(request.request.enrolments))(
-              request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(SelectSACategoryId, value)))
+          BadRequest(
+            selectSACategory(appConfig, formWithErrors, getRadioOptions(request.request.enrolments))(
+              request.serviceInfoContent)),
+        (value) => Redirect(navigator.nextPage(SelectSACategoryId, (value, request.request.affinityGroup)))
       )
   }
 

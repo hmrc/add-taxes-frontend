@@ -755,3 +755,31 @@ isYourBusinessInUK.Yes = Ydy - mae fy musnes wedi’i leoli yn y DU
 isYourBusinessInUK.No = Nac ydy - nid yw fy musnes wedi’i leoli yn y DU
 isYourBusinessInUK.error.required = Dewis iawn neu na
 
+
+#######################################################
+##  SetUpNewAccount Trust
+#######################################################
+setUpNewAccount.title = Sefydlu cyfrif newydd
+setUpNewAccount.heading = Sefydlu cyfrif newydd
+setUpNewAccount.p1=Ni allwch ychwanegu ymddiriedolaeth Hunanasesiad i’r cyfrif hwn.
+setUpNewAccount.p2=Mae angen i chi wneud y canlynol:
+setUpNewAccount.li1=Creu cyfrif ‘Sefydliad’ ar wefan Porth y Llywodraeth.
+setUpNewAccount.li2=Mewngofnodi i CThEM gyda’r manylion mewngofnodi newydd.
+setUpNewAccount.li3=Ychwanegu ymddiriedolaeth Hunanasesiad yn y cyfrif hwnnw.
+setUpNewAccount.p3=Peidiwch â cheisio ychwanegu ymddiriedolaeth Hunanasesiad ar wefan Porth y Llywodraeth.
+setUpNewAccount.continue = Allgofnodwch a chreu cyfrif Sefydliad
+setUpNewAccount.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  SetUpNewAccount Partnership
+#######################################################
+setUpNewAccountPartnership.title = Sefydlu cyfrif newydd
+setUpNewAccountPartnership.heading = Sefydlu cyfrif newydd
+setUpNewAccountPartnership.p1=Ni allwch ychwanegu partneriaeth Hunanasesiad i’r cyfrif hwn.
+setUpNewAccountPartnership.p2=Mae angen i chi wneud y canlynol:
+setUpNewAccountPartnership.li1=Creu cyfrif ‘Sefydliad’ ar wefan Porth y Llywodraeth.
+setUpNewAccountPartnership.li2=Mewngofnodi i CThEM gyda’r manylion mewngofnodi newydd.
+setUpNewAccountPartnership.li3=Ychwanegu partneriaeth Hunanasesiad yn y cyfrif hwnnw.
+setUpNewAccountPartnership.p3=Peidiwch â cheisio ychwanegu partneriaeth Hunanasesiad ar wefan Porth y Llywodraeth.
+setUpNewAccountPartnership.continue = Allgofnodwch a chreu cyfrif Sefydliad
+setUpNewAccountPartnership.notnow = Allgofnodwch a chreu cyfrif Sefydliad
