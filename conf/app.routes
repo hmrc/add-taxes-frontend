@@ -224,3 +224,6 @@ POST       /employer/cis                                controllers.employer.cis
 
 GET        /employer                                    controllers.employer.WhatEmployerTaxDoYouWantToAddController.onPageLoad()
 POST       /employer                                    controllers.employer.WhatEmployerTaxDoYouWantToAddController.onSubmit()
+
+GET        /self-assessment/trust/new-account                       controllers.sa.trust.SetUpNewAccountController.onPageLoad()
+GET        /self-assessment/partnership/new-account                       controllers.sa.partnership.SetUpNewAccountController.onPageLoad()

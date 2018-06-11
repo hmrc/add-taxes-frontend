@@ -17,28 +17,53 @@
 package utils.nextpage.sa
 
 import models.sa.SelectSACategory
+import uk.gov.hmrc.auth.core.AffinityGroup
+import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
 class SelectSACategoryNextPageSpec extends NextPageSpecBase {
 
   "Self Assessment" when {
-    behave like nextPage(
+
+    behave like nextPageWithAffinityGroup(
       NextPage.selectSACategory,
-      SelectSACategory.Sa,
-      "http://localhost:8080/portal/business-registration/introduction?lang=eng"
+      (SelectSACategory.Sa, Some(Organisation)),
+      SelectSACategory.Sa.toString,
+      "http://localhost:8080/portal/business-registration/introduction?lang=eng",
+      "organisation"
     )
 
-    behave like nextPage(
+    behave like nextPageWithAffinityGroup(
       NextPage.selectSACategory,
-      SelectSACategory.Partnership,
-      "/business-account/add-tax/self-assessment/partnership"
+      (SelectSACategory.Partnership, Some(Organisation)),
+      SelectSACategory.Partnership.toString,
+      "/business-account/add-tax/self-assessment/partnership",
+      "organisation"
     )
 
-    behave like nextPage(
+    behave like nextPageWithAffinityGroup(
       NextPage.selectSACategory,
-      SelectSACategory.Trust,
-      "/business-account/add-tax/self-assessment/trust"
+      (SelectSACategory.Partnership, Some(Individual)),
+      SelectSACategory.Partnership.toString,
+      "/business-account/add-tax/self-assessment/partnership/new-account",
+      "individual"
+    )
+
+    behave like nextPageWithAffinityGroup(
+      NextPage.selectSACategory,
+      (SelectSACategory.Trust, Some(Organisation)),
+      SelectSACategory.Trust.toString,
+      "/business-account/add-tax/self-assessment/trust",
+      "oranisation"
+    )
+
+    behave like nextPageWithAffinityGroup(
+      NextPage.selectSACategory,
+      (SelectSACategory.Trust, Some(Individual)),
+      SelectSACategory.Trust.toString,
+      "/business-account/add-tax/self-assessment/trust/new-account",
+      "individual"
     )
   }
 }

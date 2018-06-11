@@ -52,4 +52,17 @@ trait NextPageSpecBase extends SpecBase {
         result.url mustBe urlRedirect
       }
     }
+
+  def nextPageWithAffinityGroup[A, B](
+    np: NextPage[A, B],
+    userAffinityGroup: B,
+    userSelection: String,
+    urlRedirect: String,
+    affinityGroup: String = "affinityGroup"): Unit =
+    s"$userSelection is selected with $affinityGroup" should {
+      s"redirect to $urlRedirect" in {
+        val result = np.get(userAffinityGroup)
+        result.url mustBe urlRedirect
+      }
+    }
 }
