@@ -43,14 +43,32 @@ class WhichVATServicesToAddNextPageSpec extends NextPageSpecBase {
 
     behave like nextPage(
       NextPage.whichVATServicesToAdd,
+      (WhichVATServicesToAdd.ECSales, affinityGroupOrganisation, enrolledInVAT),
+      "http://localhost:9555/enrolment-management-frontend/HMCE-ECSL-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.whichVATServicesToAdd,
       (WhichVATServicesToAdd.EURefunds, affinityGroupOrganisation, noEnrolments),
       "/business-account/add-tax/vat/eurefunds"
     )
 
     behave like nextPage(
       NextPage.whichVATServicesToAdd,
+      (WhichVATServicesToAdd.EURefunds, affinityGroupOrganisation, enrolledInVAT),
+      "http://localhost:9555/enrolment-management-frontend/HMRC-EU-REF-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.whichVATServicesToAdd,
       (WhichVATServicesToAdd.RCSL, affinityGroupOrganisation, noEnrolments),
       "/business-account/add-tax/vat/rcsl"
+    )
+
+    behave like nextPage(
+      NextPage.whichVATServicesToAdd,
+      (WhichVATServicesToAdd.RCSL, affinityGroupOrganisation, enrolledInVAT),
+      "http://localhost:9555/enrolment-management-frontend/HMCE-VATRSL-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
 
     behave like nextPage(
