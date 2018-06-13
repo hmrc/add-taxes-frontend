@@ -35,15 +35,22 @@ trait WhatTypeOfSubcontractorNextPage {
         b: WhatTypeOfSubcontractorWithEnrolments)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call = {
 
         val (whatTypeOfSubcontractor, enrolments) = b
-        val hasEnrolments: Boolean =
-          utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX)
 
-        (whatTypeOfSubcontractor, hasEnrolments) match {
-          case (WhatTypeOfSubcontractor.SoleTrader, true)   => Call("GET", appConfig.getIFormUrl("cisSoleTrader"))
-          case (WhatTypeOfSubcontractor.SoleTrader, false)  => routes.WasTurnoverMoreAfterVATController.onPageLoad()
-          case (WhatTypeOfSubcontractor.Partnership, true)  => Call("GET", appConfig.getIFormUrl("cisPartnership"))
-          case (WhatTypeOfSubcontractor.Partnership, false) => Call("GET", appConfig.getGovUKUrl("cisPartnershipReg"))
-          case (WhatTypeOfSubcontractor.LimitedCompany, _)  => Call("GET", appConfig.getGovUKUrl("cisCompanyReg"))
+        (whatTypeOfSubcontractor, enrolments) match {
+          case (WhatTypeOfSubcontractor.SoleTrader, HmrcEnrolmentType.SA() | HmrcEnrolmentType.CORP_TAX()) =>
+            Call("GET", appConfig.getIFormUrl("cisSoleTrader"))
+
+          case (WhatTypeOfSubcontractor.SoleTrader, _) =>
+            routes.WasTurnoverMoreAfterVATController.onPageLoad()
+
+          case (WhatTypeOfSubcontractor.Partnership, HmrcEnrolmentType.SA() | HmrcEnrolmentType.CORP_TAX()) =>
+            Call("GET", appConfig.getIFormUrl("cisPartnership"))
+
+          case (WhatTypeOfSubcontractor.Partnership, _) =>
+            Call("GET", appConfig.getGovUKUrl("cisPartnershipReg"))
+
+          case (WhatTypeOfSubcontractor.LimitedCompany, _) =>
+            Call("GET", appConfig.getGovUKUrl("cisCompanyReg"))
         }
       }
     }

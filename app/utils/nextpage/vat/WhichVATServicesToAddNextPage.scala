@@ -53,13 +53,10 @@ trait WhichVATServicesToAddNextPage {
     }
   }
 
-  def getVATMOSSCall(affinity: Option[AffinityGroup], enrolments: Enrolments): Call = {
-    val hasVAT: Boolean = utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.VAT)
-
-    (affinity, hasVAT) match {
+  def getVATMOSSCall(affinity: Option[AffinityGroup], enrolments: Enrolments): Call =
+    (affinity, enrolments) match {
       case (Some(AffinityGroup.Individual), _) => newAccountRoutes.SetUpANewAccountController.onPageLoad()
-      case (_, true)                           => noneuRoutes.HaveYouRegisteredForVATMOSSController.onPageLoad()
-      case (_, false)                          => mossRoutes.WhereIsYourBusinessBasedController.onPageLoad()
+      case (_, HmrcEnrolmentType.VAT())        => noneuRoutes.HaveYouRegisteredForVATMOSSController.onPageLoad()
+      case (_, _)                              => mossRoutes.WhereIsYourBusinessBasedController.onPageLoad()
     }
-  }
 }

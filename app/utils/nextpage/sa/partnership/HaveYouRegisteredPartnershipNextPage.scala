@@ -36,21 +36,16 @@ trait HaveYouRegisteredPartnershipNextPage {
       override def get(enrolmentDetails: HaveYouRegisteredPartnershipWithRequest)(
         implicit appConfig: FrontendAppConfig,
         request: Request[_]): Call =
-        (enrolmentDetails._1, hasSACTEnrolments(enrolmentDetails._2)) match {
+        enrolmentDetails match {
           case (HaveYouRegisteredPartnership.Yes, _) =>
             Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.SAPartnership))
 
-          case (HaveYouRegisteredPartnership.No, true) =>
+          case (HaveYouRegisteredPartnership.No, HmrcEnrolmentType.SA() | HmrcEnrolmentType.CORP_TAX()) =>
             Call("GET", appConfig.getIFormUrl("partnership"))
 
-          case (HaveYouRegisteredPartnership.No, false) =>
+          case (HaveYouRegisteredPartnership.No, _) =>
             Call("GET", appConfig.getPublishedAssetsUrl("partnershipOther"))
         }
     }
-
   }
-
-  private def hasSACTEnrolments(enrolments: Enrolments) =
-    utils.Enrolments
-      .hasEnrolments(enrolments, HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX)
 }
