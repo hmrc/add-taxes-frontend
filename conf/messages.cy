@@ -804,3 +804,13 @@ paperForms.p1 = Mae’r gwasanaeth Tollau Stamp ar-lein dim ond ar gyfer gweithw
 paperForms.p2 = Mae angen i chi lenwi ffurflenni papur ar gyfer Tollau Stamp os ydych yn prynu’r tir neu’r eiddo eich hun.
 paperForms.heading = Defnyddiwch ffurflenni papur
 paperForms.continue = Mynd yn eich blaen i ffurflenni papur
+
+#######################################################
+##  StampDuty
+#######################################################
+stampDuty.title = A yw’r gwasanaeth hwn ar gyfer eich busnes?
+stampDuty.heading = A yw’r gwasanaeth hwn ar gyfer eich busnes?
+stampDuty.p1 = Er enghraifft, rydych yn gyfreithiwr neu’n drawsgludwr
+stampDuty.Yes = Ydy - mae’r gwasanaeth hwn at ddibenion busnes
+stampDuty.No = Nac ydy - rwy’n prynu eiddo ar gyfer fy hun
+stampDuty.error.required = Dewis iawn neu na

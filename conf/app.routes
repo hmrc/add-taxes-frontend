@@ -171,6 +171,9 @@ POST       /other/alcohol                               controllers.other.alcoho
 GET        /other/charities                             controllers.other.charity.DoYouHaveCharityReferenceController.onPageLoad()
 POST       /other/charities                             controllers.other.charity.DoYouHaveCharityReferenceController.onSubmit()
 
+GET        /other/land/stamp-duty                       controllers.other.land.stampduty.StampDutyController.onPageLoad()
+POST       /other/land/stamp-duty                       controllers.other.land.stampduty.StampDutyController.onSubmit()
+
 GET        /other/land/stamp-duty/paper-forms           controllers.other.land.stampduty.PaperFormsController.onPageLoad()
 
 GET        /other/charities/register                    controllers.other.charity.RegisterForCharityController.onPageLoad()

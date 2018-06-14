@@ -810,3 +810,13 @@ paperForms.p1 = The online Stamp Duty service is only for professionals acting o
 paperForms.p2 = You need to complete paper forms for Stamp Duty if you’re purchasing the land or property yourself.
 paperForms.heading = Use paper forms
 paperForms.continue = Continue to paper forms
+
+#######################################################
+##  StampDuty
+#######################################################
+stampDuty.title = Is this service for your business?
+stampDuty.heading = Is this service for your business?
+stampDuty.p1 = For example you’re a solicitor or conveyancer
+stampDuty.Yes = Yes - this service is for business purposes
+stampDuty.No = No - I’m buying a property for myself
+stampDuty.error.required = Select yes or no

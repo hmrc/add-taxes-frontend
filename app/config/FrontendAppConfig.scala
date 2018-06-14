@@ -83,6 +83,9 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   lazy val hmceHost = loadConfig(s"urls.external.hmce.host")
   def getHmceURL(key: String): String = hmceHost + loadConfig(s"urls.external.hmce.$key")
 
+  private lazy val onlineHost = runModeConfiguration.getString("urls.external.online.host").getOrElse("")
+  def getOnlineUrl(key: String): String = onlineHost + loadConfig(s"urls.external.online.$key")
+
   lazy val customsHost = loadConfig("urls.external.customs.host")
   def getCustomsUrl(key: String): String = customsHost + loadConfig(s"urls.external.customs.$key")
 
