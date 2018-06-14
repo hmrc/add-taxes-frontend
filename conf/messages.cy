@@ -795,3 +795,12 @@ setUpANewAccount.subtext1 = Mae hwn yn gyfrif ’Unigolyn’
 setUpANewAccount.subtext2 = Dim ond GUC TAW y gallwch ei ychwanegu i gyfrif "Sefydliad".
 setUpANewAccount.anchor = Ffoniwch ni
 setUpANewAccount.subtext3 = a byddwn yn eich helpu i wneud hyn dros y ffôn.
+
+#######################################################
+##  PaperForms
+#######################################################
+paperForms.title = Defnyddiwch ffurflenni papur
+paperForms.p1 = Mae’r gwasanaeth Tollau Stamp ar-lein dim ond ar gyfer gweithwyr proffesiynol sy’n gweithredu ar ran cleientiaid.
+paperForms.p2 = Mae angen i chi lenwi ffurflenni papur ar gyfer Tollau Stamp os ydych yn prynu’r tir neu’r eiddo eich hun.
+paperForms.heading = Defnyddiwch ffurflenni papur
+paperForms.continue = Mynd yn eich blaen i ffurflenni papur

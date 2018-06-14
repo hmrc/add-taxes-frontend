@@ -801,3 +801,12 @@ setUpANewAccount.subtext1 = This is an Individual account.
 setUpANewAccount.subtext2 = You can only add VAT MOSS to an ’Organisation’ account.
 setUpANewAccount.anchor = Call us
 setUpANewAccount.subtext3 = and we’ll help you do this over the phone.
+
+#######################################################
+##  PaperForms
+#######################################################
+paperForms.title = Use paper forms
+paperForms.p1 = The online Stamp Duty service is only for professionals acting on behalf of clients.
+paperForms.p2 = You need to complete paper forms for Stamp Duty if you’re purchasing the land or property yourself.
+paperForms.heading = Use paper forms
+paperForms.continue = Continue to paper forms
