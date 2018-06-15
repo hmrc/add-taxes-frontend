@@ -41,7 +41,7 @@ class PaperFormsViewSpec extends ViewBehaviours {
         doc,
         "continue",
         "Continue to paper forms",
-        "http://localhost:9020/business-account/add-tax/other/land/stamp-duty/paper-forms",
+        "https://www.gov.uk/guidance/sdlt-completing-the-paper-return",
         "RegisterSdltPaperForms:Click:Continue"
       )
     }
