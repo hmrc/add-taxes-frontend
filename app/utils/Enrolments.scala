@@ -111,10 +111,10 @@ object Enrolments {
     EPAYE
   )
 
-  def hasEnrolments(enrolments: core.Enrolments, enrolmentTypes: HmrcEnrolmentType*) = enrolmentTypes.exists { t =>
-    enrolments.getEnrolment(t.toString).isDefined
-  }
+}
 
+object && {
+  def unapply[A](a: A): Option[(A, A)] = Some((a, a))
 }
 
 sealed trait HmrcEnrolmentType {

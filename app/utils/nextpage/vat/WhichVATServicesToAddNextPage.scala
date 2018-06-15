@@ -53,34 +53,28 @@ trait WhichVATServicesToAddNextPage {
     }
   }
 
-  def getECSalesCall(enrolments: Enrolments)(implicit appConfig: FrontendAppConfig): Call = {
-    val hasVAT: Boolean = utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.VAT)
-
-    if (hasVAT) Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.ECSales))
-    else ecRoutes.RegisteredForVATECSalesController.onPageLoad()
-  }
-
-  def getEURefundsCall(enrolments: Enrolments)(implicit appConfig: FrontendAppConfig): Call = {
-    val hasVAT: Boolean = utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.VAT)
-
-    if (hasVAT) Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.EURefunds))
-    else euRoutes.RegisteredForVATEURefundsController.onPageLoad()
-  }
-
-  def getRCSLCall(enrolments: Enrolments)(implicit appConfig: FrontendAppConfig): Call = {
-    val hasVAT: Boolean = utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.VAT)
-
-    if (hasVAT) Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.RCSL))
-    else rcslRoutes.RegisteredForVATRCSLController.onPageLoad()
-  }
-
-  def getVATMOSSCall(affinity: Option[AffinityGroup], enrolments: Enrolments): Call = {
-    val hasVAT: Boolean = utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.VAT)
-
-    (affinity, hasVAT) match {
-      case (Some(AffinityGroup.Individual), _) => newAccountRoutes.SetUpANewAccountController.onPageLoad()
-      case (_, true)                           => noneuRoutes.HaveYouRegisteredForVATMOSSController.onPageLoad()
-      case (_, false)                          => mossRoutes.WhereIsYourBusinessBasedController.onPageLoad()
+  def getECSalesCall(enrolments: Enrolments)(implicit appConfig: FrontendAppConfig): Call =
+    enrolments match {
+      case HmrcEnrolmentType.VAT() => Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.ECSales))
+      case _                       => ecRoutes.RegisteredForVATECSalesController.onPageLoad()
     }
-  }
+
+  def getEURefundsCall(enrolments: Enrolments)(implicit appConfig: FrontendAppConfig): Call =
+    enrolments match {
+      case HmrcEnrolmentType.VAT() => Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.EURefunds))
+      case _                       => euRoutes.RegisteredForVATEURefundsController.onPageLoad()
+    }
+
+  def getRCSLCall(enrolments: Enrolments)(implicit appConfig: FrontendAppConfig): Call =
+    enrolments match {
+      case HmrcEnrolmentType.VAT() => Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.RCSL))
+      case _                       => rcslRoutes.RegisteredForVATRCSLController.onPageLoad()
+    }
+
+  def getVATMOSSCall(affinity: Option[AffinityGroup], enrolments: Enrolments): Call =
+    (affinity, enrolments) match {
+      case (Some(AffinityGroup.Individual), _) => newAccountRoutes.SetUpANewAccountController.onPageLoad()
+      case (_, HmrcEnrolmentType.VAT())        => noneuRoutes.HaveYouRegisteredForVATMOSSController.onPageLoad()
+      case (_, _)                              => mossRoutes.WhereIsYourBusinessBasedController.onPageLoad()
+    }
 }

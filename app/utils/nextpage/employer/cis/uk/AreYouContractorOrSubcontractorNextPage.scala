@@ -37,19 +37,15 @@ trait AreYouContractorOrSubcontractorNextPage {
       override def get(contractorOrSubcontractor: AreYouContractorOrSubcontractorWithRequest)(
         implicit appConfig: FrontendAppConfig,
         request: Request[_]): Call =
-        (contractorOrSubcontractor._1, hasEPayeEnrolment(contractorOrSubcontractor._2)) match {
+        contractorOrSubcontractor match {
 
-          case (AreYouContractorOrSubcontractor.Contractor, true) =>
+          case (AreYouContractorOrSubcontractor.Contractor, HmrcEnrolmentType.EPAYE()) =>
             Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.AddCis))
 
-          case (AreYouContractorOrSubcontractor.Contractor, false) => IsBusinessRegisteredForPAYEController.onPageLoad()
+          case (AreYouContractorOrSubcontractor.Contractor, _) => IsBusinessRegisteredForPAYEController.onPageLoad()
 
           case (AreYouContractorOrSubcontractor.Subcontractor, _) => WhatTypeOfSubcontractorController.onPageLoad()
         }
     }
   }
-
-  private def hasEPayeEnrolment(enrolments: Enrolments) =
-    utils.Enrolments
-      .hasEnrolments(enrolments, HmrcEnrolmentType.EPAYE)
 }

@@ -34,30 +34,25 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
   implicit val whatEmployerTaxDoYouWantToAdd
     : NextPage[WhatEmployerTaxDoYouWantToAddId.type, WhatEmployerTaxDoYouWantToAddWithEnrolment] = {
     new NextPage[WhatEmployerTaxDoYouWantToAddId.type, WhatEmployerTaxDoYouWantToAddWithEnrolment] {
-      override def get(b: WhatEmployerTaxDoYouWantToAddWithEnrolment)(
+      override def get(details: WhatEmployerTaxDoYouWantToAddWithEnrolment)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call = {
-
-        val (whatEmployerTaxDoYouWantToAdd, enrolments) = b
-        val hasEPAYE: Boolean = utils.Enrolments.hasEnrolments(enrolments, HmrcEnrolmentType.EPAYE)
-
-        (whatEmployerTaxDoYouWantToAdd, hasEPAYE) match {
+        request: Request[_]): Call =
+        details match {
           case (WhatEmployerTaxDoYouWantToAdd.EPAYE, _) =>
             Call("GET", appConfig.getPortalUrl("businessRegistration"))
           case (WhatEmployerTaxDoYouWantToAdd.CIS, _) =>
             cisRoutes.IsYourBusinessInUKController.onPageLoad()
           case (WhatEmployerTaxDoYouWantToAdd.PS, _) =>
             pensionRoutes.WhichPensionSchemeToAddController.onPageLoad()
-          case (WhatEmployerTaxDoYouWantToAdd.ERS, true) =>
+          case (WhatEmployerTaxDoYouWantToAdd.ERS, HmrcEnrolmentType.EPAYE()) =>
             Call("GET", appConfig.getPortalUrl("enrolERS"))
-          case (WhatEmployerTaxDoYouWantToAdd.ERS, false) =>
+          case (WhatEmployerTaxDoYouWantToAdd.ERS, _) =>
             ersRoutes.IsBusinessRegisteredForPAYEController.onPageLoad()
-          case (WhatEmployerTaxDoYouWantToAdd.EIA, true) =>
+          case (WhatEmployerTaxDoYouWantToAdd.EIA, HmrcEnrolmentType.EPAYE()) =>
             Call("GET", appConfig.eiUrl)
-          case (WhatEmployerTaxDoYouWantToAdd.EIA, false) =>
+          case (WhatEmployerTaxDoYouWantToAdd.EIA, _) =>
             intRoutes.IsBusinessRegisteredForPAYEController.onPageLoad()
         }
-      }
     }
   }
 }
