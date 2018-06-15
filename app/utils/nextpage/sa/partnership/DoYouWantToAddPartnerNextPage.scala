@@ -36,12 +36,12 @@ trait DoYouWantToAddPartnerNextPage {
       override def get(enrolmentDetails: DoYouWantToAddPartnerWithRequest)(
         implicit appConfig: FrontendAppConfig,
         request: Request[_]): Call =
-        (enrolmentDetails._1, hasSACTEnrolments(enrolmentDetails._2)) match {
+        enrolmentDetails match {
 
-          case (DoYouWantToAddPartner.Yes, true) =>
+          case (DoYouWantToAddPartner.Yes, HmrcEnrolmentType.SA() | HmrcEnrolmentType.CORP_TAX()) =>
             Call("GET", appConfig.getIFormUrl("partnership"))
 
-          case (DoYouWantToAddPartner.Yes, false) =>
+          case (DoYouWantToAddPartner.Yes, _) =>
             Call("GET", appConfig.getPublishedAssetsUrl("partnership"))
 
           case (DoYouWantToAddPartner.No, _) =>
@@ -49,9 +49,4 @@ trait DoYouWantToAddPartnerNextPage {
         }
     }
   }
-
-  private def hasSACTEnrolments(enrolments: Enrolments) =
-    utils.Enrolments
-      .hasEnrolments(enrolments, HmrcEnrolmentType.SA, HmrcEnrolmentType.CORP_TAX)
-
 }
