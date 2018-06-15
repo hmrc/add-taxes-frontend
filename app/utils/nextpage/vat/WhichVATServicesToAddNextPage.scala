@@ -43,15 +43,33 @@ trait WhichVATServicesToAddNextPage {
 
         serviceToAdd match {
           case WhichVATServicesToAdd.VAT       => Call("GET", appConfig.getPortalUrl("businessRegistration"))
-          case WhichVATServicesToAdd.ECSales   => ecRoutes.RegisteredForVATECSalesController.onPageLoad()
-          case WhichVATServicesToAdd.EURefunds => euRoutes.RegisteredForVATEURefundsController.onPageLoad()
-          case WhichVATServicesToAdd.RCSL      => rcslRoutes.RegisteredForVATRCSLController.onPageLoad()
+          case WhichVATServicesToAdd.ECSales   => getECSalesCall(enrolments)
+          case WhichVATServicesToAdd.EURefunds => getEURefundsCall(enrolments)
+          case WhichVATServicesToAdd.RCSL      => getRCSLCall(enrolments)
           case WhichVATServicesToAdd.MOSS      => getVATMOSSCall(affinity, enrolments)
           case WhichVATServicesToAdd.NOVA      => Call("GET", appConfig.getPortalUrl("novaEnrolment"))
         }
       }
     }
   }
+
+  def getECSalesCall(enrolments: Enrolments)(implicit appConfig: FrontendAppConfig): Call =
+    enrolments match {
+      case HmrcEnrolmentType.VAT() => Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.ECSales))
+      case _                       => ecRoutes.RegisteredForVATECSalesController.onPageLoad()
+    }
+
+  def getEURefundsCall(enrolments: Enrolments)(implicit appConfig: FrontendAppConfig): Call =
+    enrolments match {
+      case HmrcEnrolmentType.VAT() => Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.EURefunds))
+      case _                       => euRoutes.RegisteredForVATEURefundsController.onPageLoad()
+    }
+
+  def getRCSLCall(enrolments: Enrolments)(implicit appConfig: FrontendAppConfig): Call =
+    enrolments match {
+      case HmrcEnrolmentType.VAT() => Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.RCSL))
+      case _                       => rcslRoutes.RegisteredForVATRCSLController.onPageLoad()
+    }
 
   def getVATMOSSCall(affinity: Option[AffinityGroup], enrolments: Enrolments): Call =
     (affinity, enrolments) match {
