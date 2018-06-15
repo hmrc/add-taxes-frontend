@@ -14,31 +14,25 @@
  * limitations under the License.
  */
 
-package utils.nextpage.other.land
+package utils.nextpage.other.land.stampduty
 
-import models.other.land.SelectATax
+import models.other.land.stampduty.StampDuty
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
-class SelectATaxNextPageSpec extends NextPageSpecBase {
+class StampDutyNextPageSpec extends NextPageSpecBase {
 
-  "selectATax" when {
+  "stampDuty" when {
     behave like nextPage(
-      NextPage.selectATax,
-      SelectATax.ATED,
-      "/ated/home?callerId=bta"
+      NextPage.stampDuty,
+      StampDuty.Yes,
+      "http://localhost:8080/portal/service/stamp-taxes?action=enrol&step=enterdetails&lang=eng"
     )
 
     behave like nextPage(
-      NextPage.selectATax,
-      SelectATax.LBT,
-      "https://www.revenue.scot/land-buildings-transaction-tax/forms"
-    )
-
-    behave like nextPage(
-      NextPage.selectATax,
-      SelectATax.SDLT,
-      "/business-account/add-tax/other/land/stamp-duty"
+      NextPage.stampDuty,
+      StampDuty.No,
+      "/business-account/add-tax/other/land/stamp-duty/paper-forms"
     )
   }
 }

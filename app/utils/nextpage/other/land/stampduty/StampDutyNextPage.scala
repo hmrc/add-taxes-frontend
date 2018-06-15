@@ -14,24 +14,23 @@
  * limitations under the License.
  */
 
-package utils.nextpage.other.land
+package utils.nextpage.other.land.stampduty
 
 import config.FrontendAppConfig
-import identifiers.SelectATaxId
-import models.other.land.SelectATax
+import identifiers.StampDutyId
 import play.api.mvc.{Call, Request}
-import controllers.other.land.stampduty.routes._
+import models.other.land.stampduty.StampDuty
 import utils.NextPage
+import controllers.other.land.stampduty.{routes => stampDutyRoutes}
 
-trait SelectATaxNextPage {
+trait StampDutyNextPage {
 
-  implicit val selectATax: NextPage[SelectATaxId.type, SelectATax] = {
-    new NextPage[SelectATaxId.type, SelectATax] {
-      override def get(b: SelectATax)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+  implicit val stampDuty: NextPage[StampDutyId.type, StampDuty] = {
+    new NextPage[StampDutyId.type, StampDuty] {
+      override def get(b: StampDuty)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case SelectATax.ATED => Call("GET", appConfig.atedUrl)
-          case SelectATax.LBT  => Call("GET", appConfig.revenueScotUrl)
-          case SelectATax.SDLT => StampDutyController.onPageLoad()
+          case StampDuty.Yes => Call("GET", appConfig.getPortalUrl("stampduty"))
+          case StampDuty.No  => stampDutyRoutes.PaperFormsController.onPageLoad()
         }
     }
   }

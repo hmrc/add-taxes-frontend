@@ -14,31 +14,19 @@
  * limitations under the License.
  */
 
-package utils.nextpage.other.land
+package forms.other.land.stampduty
 
-import models.other.land.SelectATax
-import utils.NextPage
-import utils.nextpage.NextPageSpecBase
+import javax.inject.Inject
 
-class SelectATaxNextPageSpec extends NextPageSpecBase {
+import forms.FormErrorHelper
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.other.land.stampduty.StampDuty
 
-  "selectATax" when {
-    behave like nextPage(
-      NextPage.selectATax,
-      SelectATax.ATED,
-      "/ated/home?callerId=bta"
+class StampDutyFormProvider @Inject() extends FormErrorHelper with Mappings {
+
+  def apply(): Form[StampDuty] =
+    Form(
+      "value" -> enumerable[StampDuty]("stampDuty.error.required")
     )
-
-    behave like nextPage(
-      NextPage.selectATax,
-      SelectATax.LBT,
-      "https://www.revenue.scot/land-buildings-transaction-tax/forms"
-    )
-
-    behave like nextPage(
-      NextPage.selectATax,
-      SelectATax.SDLT,
-      "/business-account/add-tax/other/land/stamp-duty"
-    )
-  }
 }
