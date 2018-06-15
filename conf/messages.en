@@ -801,3 +801,13 @@ setUpANewAccount.subtext1 = This is an Individual account.
 setUpANewAccount.subtext2 = You can only add VAT MOSS to an ’Organisation’ account.
 setUpANewAccount.anchor = Call us
 setUpANewAccount.subtext3 = and we’ll help you do this over the phone.
+
+#######################################################
+##  SelectATax
+#######################################################
+selectATax.title = Select a tax
+selectATax.heading = Select a tax
+selectATax.ATED = Annual Tax on Enveloped Dwellings (ATED)
+selectATax.LBT = Land and Buildings Transaction Tax - Scotland only
+selectATax.SDLT = Stamp Duty Land Tax (SDLT) - not for Scotland
+selectATax.error.required = Select a tax

@@ -795,3 +795,12 @@ setUpANewAccount.subtext1 = Mae hwn yn gyfrif ’Unigolyn’
 setUpANewAccount.subtext2 = Dim ond GUC TAW y gallwch ei ychwanegu i gyfrif "Sefydliad".
 setUpANewAccount.anchor = Ffoniwch ni
 setUpANewAccount.subtext3 = a byddwn yn eich helpu i wneud hyn dros y ffôn.
+#######################################################
+##  SelectATax
+#######################################################
+selectATax.title = Dewis treth
+selectATax.heading = Dewis treth
+selectATax.ATED = Treth Flynyddol ar Anheddau wedi’u Hamgáu (ATED)
+selectATax.SBT = Treth Drafodiadau Tir ac Adeiladau - yr Alban yn unig
+selectATax.SDLT = Treth Dir y Tollau Stamp (SDLT) - ddim ar gyfer yr Alban
+selectATax.error.required = Dewis treth

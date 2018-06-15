@@ -91,6 +91,10 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
 
   def eiUrl = loadConfig(s"urls.external.ei")
 
+  def atedUrl = loadConfig(s"urls.external.ated")
+
+  def revenueScotUrl = loadConfig(s"urls.external.lbtScotland")
+
   def emacEnrollmentsUrl(enrolment: Enrolments): String =
     s"$enrolmentManagementFrontendHost/enrolment-management-frontend/$enrolment/request-access-tax-scheme?continue=%2Fbusiness-account"
 

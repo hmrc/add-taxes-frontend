@@ -25,33 +25,33 @@ class OtherTaxesNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.otherTaxes,
       OtherTaxes.AlcoholAndTobacco,
-      "http://localhost:9020/business-account/add-tax/other/alcohol"
+      "/business-account/add-tax/other/alcohol"
     )
 
     behave like nextPage(
       NextPage.otherTaxes,
       OtherTaxes.AutomaticExchangeOfInformation,
-      "http://localhost:9020/business-account/add-tax/other/aeoi"
+      "/business-account/add-tax/other/aeoi"
     )
     behave like nextPage(
       NextPage.otherTaxes,
       OtherTaxes.Charities,
-      "http://localhost:9020/business-account/add-tax/other/charities"
+      "/business-account/add-tax/other/charities"
     )
     behave like nextPage(
       NextPage.otherTaxes,
       OtherTaxes.GamblingAndGaming,
-      "http://localhost:9020/business-account/add-tax/other/gambling"
+      "/business-account/add-tax/other/gambling"
     )
     behave like nextPage(
       NextPage.otherTaxes,
       OtherTaxes.HousingAndLand,
-      "http://localhost:9020/business-account/add-tax/other/land"
+      "/business-account/add-tax/other/land"
     )
     behave like nextPage(
       NextPage.otherTaxes,
       OtherTaxes.ImportsExports,
-      "http://localhost:9020/business-account/add-tax/other/import-export"
+      "/business-account/add-tax/other/import-export"
     )
     behave like nextPage(
       NextPage.otherTaxes,

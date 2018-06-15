@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.vat
+package controllers.other.land
 
 import play.api.data.Form
 import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
@@ -22,33 +22,33 @@ import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import play.api.test.Helpers._
-import forms.vat.WhichVATServicesToAddFormProvider
-import models.vat.WhichVATServicesToAdd
+import forms.other.land.SelectATaxFormProvider
+import models.other.land.SelectATax
 import play.twirl.api.HtmlFormat
-import views.html.vat.whichVATServicesToAdd
+import views.html.other.land.selectATax
 
-class WhichVATServicesToAddControllerSpec extends ControllerSpecBase {
+class SelectATaxControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = controllers.routes.IndexController.onPageLoad()
 
-  val formProvider = new WhichVATServicesToAddFormProvider()
+  val formProvider = new SelectATaxFormProvider()
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap)(enrolments: HmrcEnrolmentType*) =
-    new WhichVATServicesToAddController(
+    new SelectATaxController(
       frontendAppConfig,
       messagesApi,
       FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
-      FakeServiceInfoAction(enrolments: _*),
-      formProvider
-    )
+      FakeServiceInfoAction,
+      formProvider)
 
-  def viewAsString(form: Form[_] = form, radioOptions: Seq[RadioOption] = WhichVATServicesToAdd.options) =
-    whichVATServicesToAdd(frontendAppConfig, form, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form, radioOptions: Set[RadioOption] = SelectATax.options) =
+    selectATax(frontendAppConfig, form, SelectATax.options)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  "WhichVATServicesToAdd Controller" must {
+  "SelectATax Controller" must {
+
     "return OK and the correct view for a GET" in {
       val result = controller()().onPageLoad()(fakeRequest)
 
@@ -57,7 +57,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhichVATServicesToAdd.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", SelectATax.options.head.value))
 
       val result = controller()().onSubmit()(postRequest)
 
@@ -81,7 +81,8 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    for (option <- WhichVATServicesToAdd.options) {
+
+    for (option <- SelectATax.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
         val result = controller(dontGetAnyData)().onSubmit()(postRequest)
@@ -92,21 +93,23 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase {
     }
 
     "not display vat radio option" when {
-      val radioOptions = WhichVATServicesToAdd.options.filterNot(_.value == "vat")
+      val radioOptions = SelectATax.options.filterNot(_.value == "SDLT")
 
-      "page is loaded and vat is enrolled" in {
-        val result = controller()(HmrcEnrolmentType.VAT).onPageLoad()(fakeRequest)
+      "page is loaded and sdlt is enrolled" in {
+        val result = controller()(HmrcEnrolmentType.SDLT).onPageLoad()(fakeRequest)
 
         contentAsString(result) mustBe viewAsString(radioOptions = radioOptions)
       }
 
-      "page errors and vat is enrolled" in {
+      "page errors and sdlt is enrolled" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
         val boundForm = form.bind(Map("value" -> "invalid value"))
-        val result = controller()(HmrcEnrolmentType.VAT).onSubmit()(postRequest)
+        val result = controller()(HmrcEnrolmentType.SDLT).onSubmit()(postRequest)
 
         contentAsString(result) mustBe viewAsString(boundForm, radioOptions)
       }
     }
+
+
   }
 }
