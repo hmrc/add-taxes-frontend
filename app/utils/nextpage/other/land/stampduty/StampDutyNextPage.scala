@@ -29,7 +29,7 @@ trait StampDutyNextPage {
     new NextPage[StampDutyId.type, StampDuty] {
       override def get(b: StampDuty)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case StampDuty.Yes => Call("GET", appConfig.getOnlineUrl("stampduty"))
+          case StampDuty.Yes => Call("GET", appConfig.getPortalUrl("stampduty"))
           case StampDuty.No  => stampDutyRoutes.PaperFormsController.onPageLoad()
         }
     }

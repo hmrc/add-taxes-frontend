@@ -26,7 +26,7 @@ class StampDutyNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.stampDuty,
       StampDuty.Yes,
-      "https://online.hmrc.gov.uk/service/stamp-taxes?action=enrol&step=enterdetails"
+      "http://localhost:8080/portal/service/stamp-taxes?action=enrol&step=enterdetails&lang=eng"
     )
 
     behave like nextPage(
