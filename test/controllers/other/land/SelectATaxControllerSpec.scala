@@ -81,7 +81,6 @@ class SelectATaxControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-
     for (option <- SelectATax.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
@@ -109,7 +108,6 @@ class SelectATaxControllerSpec extends ControllerSpecBase {
         contentAsString(result) mustBe viewAsString(boundForm, radioOptions)
       }
     }
-
 
   }
 }

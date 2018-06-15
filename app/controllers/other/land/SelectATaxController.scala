@@ -49,9 +49,10 @@ class SelectATaxController @Inject()(
   val optionsWithoutSDLT = SelectATax.options.filterNot(_.value == SelectATax.SDLT.toString)
 
   def radioOptions(implicit request: ServiceInfoRequest[AnyContent]) =
-    if (utils.Enrolments.hasEnrolments(request.request.enrolments, HmrcEnrolmentType.SDLT)) {
-      optionsWithoutSDLT
-    } else { SelectATax.options }
+    request.request.enrolments match {
+      case HmrcEnrolmentType.VAT() => optionsWithoutSDLT
+      case _                       => SelectATax.options
+    }
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(selectATax(appConfig, form, radioOptions)(request.serviceInfoContent))
