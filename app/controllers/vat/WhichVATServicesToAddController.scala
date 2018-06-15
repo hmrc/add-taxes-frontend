@@ -47,9 +47,10 @@ class WhichVATServicesToAddController @Inject()(
   val optionsWithoutVAT = WhichVATServicesToAdd.options.filterNot(_.value == WhichVATServicesToAdd.VAT.toString)
 
   def radioOptions(implicit request: ServiceInfoRequest[AnyContent]) =
-    if (Enrolments.hasEnrolments(request.request.enrolments, HmrcEnrolmentType.VAT)) {
-      optionsWithoutVAT
-    } else { WhichVATServicesToAdd.options }
+    request.request.enrolments match {
+      case HmrcEnrolmentType.VAT() => optionsWithoutVAT
+      case _                       => WhichVATServicesToAdd.options
+    }
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(whichVATServicesToAdd(appConfig, form, radioOptions)(request.serviceInfoContent))
