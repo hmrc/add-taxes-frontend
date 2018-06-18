@@ -35,6 +35,7 @@ import utils.nextpage.other.importexports.emcs.DoYouHaveASEEDNumberNextPage
 import utils.nextpage.other.importexports.nes.DoYouHaveCHIEFRoleNextPage
 import utils.nextpage.other.importexports.{DoYouHaveEORINumberNextPage, DoYouWantToAddImportExportNextPage}
 import utils.nextpage.other.land.stampduty.StampDutyNextPage
+import utils.nextpage.other.land.SelectATaxNextPage
 import utils.nextpage.other.oil._
 import utils.nextpage.sa.SelectSACategoryNextPage
 import utils.nextpage.sa.partnership._
@@ -99,3 +100,4 @@ object NextPage
     with WasTurnoverMoreAfterVATNextPage
     with WhatTypeOfSubcontractorNextPage
     with StampDutyNextPage
+    with SelectATaxNextPage

@@ -820,3 +820,13 @@ stampDuty.p1 = For example you’re a solicitor or conveyancer
 stampDuty.Yes = Yes - this service is for business purposes
 stampDuty.No = No - I’m buying a property for myself
 stampDuty.error.required = Select yes or no
+
+#######################################################
+##  SelectATax
+#######################################################
+selectATax.title = Select a tax
+selectATax.heading = Select a tax
+selectATax.ATED = Annual Tax on Enveloped Dwellings (ATED)
+selectATax.LBT = Land and Buildings Transaction Tax - Scotland only
+selectATax.SDLT = Stamp Duty Land Tax (SDLT) - not for Scotland
+selectATax.error.required = Select a tax

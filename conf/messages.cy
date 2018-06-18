@@ -814,3 +814,13 @@ stampDuty.p1 = Er enghraifft, rydych yn gyfreithiwr neu’n drawsgludwr
 stampDuty.Yes = Ydy - mae’r gwasanaeth hwn at ddibenion busnes
 stampDuty.No = Nac ydy - rwy’n prynu eiddo ar gyfer fy hun
 stampDuty.error.required = Dewis iawn neu na
+
+#######################################################
+##  SelectATax
+#######################################################
+selectATax.title = Dewis treth
+selectATax.heading = Dewis treth
+selectATax.ATED = Treth Flynyddol ar Anheddau wedi’u Hamgáu (ATED)
+selectATax.SBT = Treth Drafodiadau Tir ac Adeiladau - yr Alban yn unig
+selectATax.SDLT = Treth Dir y Tollau Stamp (SDLT) - ddim ar gyfer yr Alban
+selectATax.error.required = Dewis treth

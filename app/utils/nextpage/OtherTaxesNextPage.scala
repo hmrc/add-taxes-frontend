@@ -17,7 +17,13 @@
 package utils.nextpage
 
 import config.FrontendAppConfig
-import controllers.other.oil.routes
+import controllers.other.oil.{routes => oilRoutes}
+import controllers.other.land.{routes => landRoutes}
+import controllers.other.aeoi.{routes => aeoiRoutes}
+import controllers.other.charity.{routes => charityRoutes}
+import controllers.other.gambling.{routes => gamblingRoutes}
+import controllers.other.importexports.{routes => importexportsRoutes}
+import controllers.other.alcohol.awrs.{routes => alcoholRoutes}
 import identifiers.OtherTaxesId
 import models.OtherTaxes
 import play.api.mvc.{Call, Request}
@@ -29,14 +35,14 @@ trait OtherTaxesNextPage {
     new NextPage[OtherTaxesId.type, OtherTaxes] {
       override def get(b: OtherTaxes)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case models.OtherTaxes.AlcoholAndTobacco                            => Call("GET", appConfig.getBusinessAccountUrl("alcohol"))
-          case models.OtherTaxes.AutomaticExchangeOfInformation               => Call("GET", appConfig.getBusinessAccountUrl("aeoi"))
-          case models.OtherTaxes.Charities                                    => Call("GET", appConfig.getBusinessAccountUrl("charities"))
-          case models.OtherTaxes.GamblingAndGaming                            => Call("GET", appConfig.getBusinessAccountUrl("gambling"))
-          case models.OtherTaxes.HousingAndLand                               => Call("GET", appConfig.getBusinessAccountUrl("land"))
-          case models.OtherTaxes.ImportsExports                               => Call("GET", appConfig.getBusinessAccountUrl("import-export"))
-          case models.OtherTaxes.OilAndFuel                                   => routes.SelectAnOilServiceController.onPageLoad()
-          case models.OtherTaxes.FulfilmentHouseDueDiligenceSchemeIntegration => Call("GET", appConfig.fulfilmentHouse)
+          case OtherTaxes.AlcoholAndTobacco                            => alcoholRoutes.SelectAlcoholSchemeController.onPageLoad()
+          case OtherTaxes.AutomaticExchangeOfInformation               => aeoiRoutes.HaveYouRegisteredAEOIController.onPageLoad()
+          case OtherTaxes.Charities                                    => charityRoutes.DoYouHaveCharityReferenceController.onPageLoad()
+          case OtherTaxes.GamblingAndGaming                            => gamblingRoutes.SelectGamblingOrGamingDutyController.onPageLoad()
+          case OtherTaxes.HousingAndLand                               => landRoutes.SelectATaxController.onPageLoad()
+          case OtherTaxes.ImportsExports                               => importexportsRoutes.DoYouWantToAddImportExportController.onPageLoad()
+          case OtherTaxes.OilAndFuel                                   => oilRoutes.SelectAnOilServiceController.onPageLoad()
+          case OtherTaxes.FulfilmentHouseDueDiligenceSchemeIntegration => Call("GET", appConfig.fulfilmentHouse)
         }
     }
   }
