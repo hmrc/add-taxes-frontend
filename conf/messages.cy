@@ -436,19 +436,18 @@ registeredForVATUk.error.required = Dewis iawn neu na
 ##  RegisterMGD
 #######################################################
 registerMGD.title = Cofrestru ar gyfer Toll Peiriannau Hapchwarae
-registerMGD.heading = Cofrestru ar gyfer Toll Peiriannau Hapchwarae
-registerMGD.continue = Mynd yn eich blaen - cofrestru ar gyfer Toll Peiriannau Hapchwarae
-registerMGD.detail.1 = Mae’n rhaid i chi gofrestru ar gyfer Toll Peiriannau Hapchwarae cyn y gallwch ei ychwanegu i’ch cyfrif.
-registerMGD.detail.2 = Byddwn yn anfon rhif cofrestru atoch. Gallwch ei ddefnyddio i ychwanegu Toll Peiriannau Hapchwarae i’r cyfrif.
+registerMGD.heading = Cofrestrwch ar gyfer Toll Peiriannau Hapchwarae cyn ei hychwanegu i’ch cyfrif
+registerMGD.continue = Cofrestru ar gyfer Toll Peiriannau Hapchwarae
+registerMGD.detail = Pan gewch eich rhif cofrestru, mewngofnodwch i’ch cyfrif ac ychwanegwch Toll Peiriannau Hapchwarae.
 
 #######################################################
 ##  DoYouHaveMGDRegistration
 #######################################################
 doYouHaveMGDRegistration.title = A oes gennych rif cofrestru Toll Peiriannau Hapchwarae?
 doYouHaveMGDRegistration.heading = A oes gennych rif cofrestru Toll Peiriannau Hapchwarae?
-doYouHaveMGDRegistration.Yes = Oes - mae gennyf rif cofrestru Toll Peiriannau Hapchwarae
-doYouHaveMGDRegistration.No = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
-doYouHaveMGDRegistration.error.required = Dewis iawn neu na
+doYouHaveMGDRegistration.Yes = Iawn
+doYouHaveMGDRegistration.No = Na
+doYouHaveMGDRegistration.error.required = Dewiswch Iawn os oes gennych rif cofrestru ar gyfer Toll Peiriannau Hapchwarae
 
 #######################################################
 ##  RegisterWarehousekeeper
@@ -547,12 +546,12 @@ isBusinessRegisteredForPAYE.error.required = Dewis iawn neu na
 ##  SelectGamblingOrGamingDuty
 #######################################################
 selectGamblingOrGamingDuty.title = Dewiswch doll fetio neu hapchwarae
-selectGamblingOrGamingDuty.heading = Dewiswch doll fetio neu hapchwarae
+selectGamblingOrGamingDuty.heading = Pa doll ydych am ei hychwanegu?
 selectGamblingOrGamingDuty.MGD = Toll Peiriannau Hapchwarae (MGD)
 selectGamblingOrGamingDuty.GBD = Toll Fetio Gyffredinol (GBD)
 selectGamblingOrGamingDuty.PBD = Toll Cronfa Fetio (PBD)
 selectGamblingOrGamingDuty.RGD = Toll Hapchwarae o Bell (RGD)
-selectGamblingOrGamingDuty.error.required = Dewis toll
+selectGamblingOrGamingDuty.error.required = Dewiswch pa doll ydych am ei hychwanegu
 
 #######################################################
 ##  WhereIsYourBusinessBased
