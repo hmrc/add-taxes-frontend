@@ -53,7 +53,7 @@ class OtherTaxesViewSpec extends ViewBehaviours {
           "Alcohol and tobacco wholesaling and warehousing",
           "Automatic Exchange of Information (AEOI)",
           "Charities - for Gift Aid repayment claims",
-          "Gambling and gaming",
+          "Betting and gaming",
           "Housing and land",
           "Imports and exports",
           "Oil and fuel",

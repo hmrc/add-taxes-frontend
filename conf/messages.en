@@ -127,7 +127,7 @@ otherTaxes.heading = Select a category
 otherTaxes.alcoholAndTobaccoWholesalingAndWarehousing = Alcohol and tobacco wholesaling and warehousing
 otherTaxes.automaticExchangeOfInformation = Automatic Exchange of Information (AEOI)
 otherTaxes.charities = Charities - for Gift Aid repayment claims
-otherTaxes.gamblingAndGaming = Gambling and gaming
+otherTaxes.gamblingAndGaming = Betting and gaming
 otherTaxes.housingAndLand = Housing and land
 otherTaxes.importsExports = Imports and exports
 otherTaxes.oilAndFuel = Oil and fuel
@@ -453,19 +453,18 @@ registeredForVATUk.error.required = Select yes or no
 ##  RegisterMGD
 #######################################################
 registerMGD.title = Register for Machine Games Duty
-registerMGD.heading = Register for Machine Games Duty
-registerMGD.continue = Continue - register for Machine Games Duty
-registerMGD.detail.1 =You need to register for Machine Games Duty before you can add it to your account.
-registerMGD.detail.2 =We’ll send you a registration number, which you can use to add Machine Games Duty to the account.
+registerMGD.heading = Register for Machine Games Duty before you add it to your account
+registerMGD.continue = Register for Machine Games Duty
+registerMGD.detail = When you get your registration number, sign in to your account and add Machine Games Duty.
 
 #######################################################
 ##  DoYouHaveMGDRegistration
 #######################################################
 doYouHaveMGDRegistration.title = Do you have a Machine Games Duty registration number?
 doYouHaveMGDRegistration.heading = Do you have a Machine Games Duty registration number?
-doYouHaveMGDRegistration.Yes = Yes - I have a Machine Games Duty registration number
-doYouHaveMGDRegistration.No = No - I haven’t registered yet
-doYouHaveMGDRegistration.error.required = Select yes or no
+doYouHaveMGDRegistration.Yes = Yes
+doYouHaveMGDRegistration.No = No
+doYouHaveMGDRegistration.error.required = Select yes if you have a Machine Games Duty registration number
 
 #######################################################
 ##  RegisterWarehousekeeper
@@ -564,12 +563,12 @@ isBusinessRegisteredForPAYE.error.required = Select yes or no
 ##  SelectGamblingOrGamingDuty
 #######################################################
 selectGamblingOrGamingDuty.title = Select a gambling or gaming duty
-selectGamblingOrGamingDuty.heading = Select a gambling or gaming duty
+selectGamblingOrGamingDuty.heading = Which duty do you need to add?
 selectGamblingOrGamingDuty.MGD = Machine Games Duty (MGD)
 selectGamblingOrGamingDuty.GBD = General Betting Duty (GBD)
 selectGamblingOrGamingDuty.PBD = Pool Betting Duty (PBD)
 selectGamblingOrGamingDuty.RGD = Remote Gaming Duty (RGD)
-selectGamblingOrGamingDuty.error.required = Select a duty
+selectGamblingOrGamingDuty.error.required = Select which duty you need to add
 
 #######################################################
 ##  WhereIsYourBusinessBased
