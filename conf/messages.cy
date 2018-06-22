@@ -291,20 +291,19 @@ whichPensionSchemeToAdd.error.required = Dewis cynllun
 ##  RegisterGBD
 #######################################################
 registerGBD.title = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
-registerGBD.heading = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
-registerGBD.p1 = Mae angen i chi gofrestru ar gyfer y System Treth Hapchwarae cyn y gallwch ychwanegu Toll Fetio Gyffredinol i’ch cyfrif.
-registerGBD.p2 = Byddwn yn anfon cyfeirnod System Treth Hapchwarae atoch. Dychwelwch i’ch cyfrif ac ychwanegwch Toll Fetio Gyffredinol pan fyddwch yn ei gael.
-registerGBD.continue = Mynd yn eich blaen - cofrestru ar gyfer y System Treth Hapchwarae
+registerGBD.heading = Cofrestrwch ar gyfer Toll Fetio Gyffredinol cyn ei hychwanegu i’ch cyfrif
+registerGBD.detail = Pan gewch eich rhif cofrestru, mewngofnodwch i’ch cyfrif ac ychwanegwch Toll Fetio Gyffredinol.
+registerGBD.continue = Cofrestru ar gyfer Toll Fetio Gyffredinol
 
 #######################################################
 ##  AreYouRegisteredGTS
 #######################################################
 areYouRegisteredGTS.title = A ydych wedi cofrestru ar gyfer y System Treth Hapchwarae?
-areYouRegisteredGTS.heading = A ydych wedi cofrestru ar gyfer y System Treth Hapchwarae?
+areYouRegisteredGTS.heading = A oes gennych rif cofrestru Toll Fetio Gyffredinol?
 areYouRegisteredGTS.p1 = Byddwn wedi anfon cyfeirnod System Treth Hapchwarae atoch os ydych wedi cofrestru
-areYouRegisteredGTS.Yes = Ydw - mae gennyf gyfeirnod System Treth Hapchwarae
-areYouRegisteredGTS.No = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
-areYouRegisteredGTS.error.required = Dewis iawn neu na
+areYouRegisteredGTS.Yes = Iawn
+areYouRegisteredGTS.No = Na
+areYouRegisteredGTS.error.required = Dewiswch Iawn os oes gennych rif cofrestru ar gyfer Toll Fetio Gyffredinol
 
 #######################################################
 ##  RegisterGTSFirst
