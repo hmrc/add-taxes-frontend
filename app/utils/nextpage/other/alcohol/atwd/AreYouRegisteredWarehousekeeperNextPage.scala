@@ -32,7 +32,7 @@ trait AreYouRegisteredWarehousekeeperNextPage {
         b: AreYouRegisteredWarehousekeeper)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case AreYouRegisteredWarehousekeeper.Yes =>
-            Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.AlcoholAndTobaccoWarehousingDeclarations))
+            Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.ATWD))
 
           case AreYouRegisteredWarehousekeeper.No => atwdRoutes.RegisterWarehousekeeperController.onPageLoad()
         }

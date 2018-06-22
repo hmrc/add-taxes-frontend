@@ -30,7 +30,7 @@ trait HaveYouRegisteredAEOINextPage {
       override def get(b: HaveYouRegisteredAEOI)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case HaveYouRegisteredAEOI.Yes =>
-            Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.AutomaticExchangeOfInformation))
+            Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.AEOI))
           case HaveYouRegisteredAEOI.No => aeoiRoutes.RegisterAEOIController.onPageLoad()
         }
     }

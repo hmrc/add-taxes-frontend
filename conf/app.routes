@@ -230,7 +230,10 @@ POST       /employer/cis                                controllers.employer.cis
 GET        /employer                                    controllers.employer.WhatEmployerTaxDoYouWantToAddController.onPageLoad()
 POST       /employer                                    controllers.employer.WhatEmployerTaxDoYouWantToAddController.onSubmit()
 
-GET        /self-assessment/trust/new-account                       controllers.sa.trust.SetUpNewAccountController.onPageLoad()
-GET        /self-assessment/partnership/new-account                       controllers.sa.partnership.SetUpNewAccountController.onPageLoad()
-GET        /other/land                  controllers.other.land.SelectATaxController.onPageLoad()
-POST       /other/land                  controllers.other.land.SelectATaxController.onSubmit()
+GET        /self-assessment/trust/new-account           controllers.sa.trust.SetUpNewAccountController.onPageLoad()
+GET        /self-assessment/partnership/new-account     controllers.sa.partnership.SetUpNewAccountController.onPageLoad()
+
+GET        /other/land                                  controllers.other.land.SelectATaxController.onPageLoad()
+POST       /other/land                                  controllers.other.land.SelectATaxController.onSubmit()
+
+GET        /deenrol/:service                       controllers.deenrolment.DeenrolmentProxyController.onPageLoad(service: utils.Enrolments)
