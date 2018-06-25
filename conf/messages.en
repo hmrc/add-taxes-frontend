@@ -336,7 +336,7 @@ registerGBD.continue = Register for the General Betting Duty
 #######################################################
 ##  AreYouRegisteredGTS
 #######################################################
-areYouRegisteredGTS.title = Are you registered for the Gambling Tax System?
+areYouRegisteredGTS.title = Do you have General Betting Duty registration number?
 areYouRegisteredGTS.heading = Do you have General Betting Duty registration number?
 areYouRegisteredGTS.p1 = We’ll have sent you a Gambling Tax System reference number if you’re registered
 areYouRegisteredGTS.Yes = Yes
