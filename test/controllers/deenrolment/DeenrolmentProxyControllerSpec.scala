@@ -26,8 +26,6 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new DeenrolmentProxyController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
-  def viewAsString() = ???
-
   "DeenrolmentProxy Controller" must {
 
     for (enrolment <- Enrolments.values) {
