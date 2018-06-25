@@ -313,6 +313,7 @@ registerGTSFirst.heading = Cofrestrwch ar gyfer Toll Cronfa Fetio cyn ei hychwan
 registerGTSFirst.detail = Pan gewch eich rhif cofrestru, mewngofnodwch i’ch cyfrif ac ychwanegwch Toll Cronfa Fetio.
 registerGTSFirst.continue = Cofrestru ar gyfer Toll Cronfa Fetio
 
+#######################################################
 ##  RegisterRGD
 #######################################################
 registerRGD.title = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf

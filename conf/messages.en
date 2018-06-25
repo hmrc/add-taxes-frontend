@@ -351,6 +351,7 @@ registerGTSFirst.heading = Register for Pool Betting Duty before you add it to y
 registerGTSFirst.detail = When you get your registration number, sign in to your account and add Pool Betting Duty.
 registerGTSFirst.continue = Register for the Pool Betting Duty
 
+#######################################################
 ##  RegisterRGD
 #######################################################
 registerRGD.title = Register for the Gambling Tax System first
