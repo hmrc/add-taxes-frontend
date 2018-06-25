@@ -49,6 +49,7 @@ import utils.nextpage.vat.moss.noneu.HaveYouRegisteredForVATMOSSNextPage
 import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
 import utils.nextpage.vat.rcsl.RegisteredForVATRCSLNextPage
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
+import utils.nextpage.other.gambling.pbd.DoYouHavePBDRegistrationNextPage
 
 import scala.annotation.implicitNotFound
 
@@ -101,3 +102,4 @@ object NextPage
     with WhatTypeOfSubcontractorNextPage
     with StampDutyNextPage
     with SelectATaxNextPage
+    with DoYouHavePBDRegistrationNextPage
