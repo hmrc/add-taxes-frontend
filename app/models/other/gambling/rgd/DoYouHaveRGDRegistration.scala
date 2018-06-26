@@ -14,15 +14,26 @@
  * limitations under the License.
  */
 
-package identifiers
+package models.other.gambling.rgd
 
-object AreYouRegisteredGTSId {
+import utils.{Enumerable, RadioOption, WithName}
 
-  case object GBD extends Identifier {
-    override def toString: String = "areYouRegisteredGTSGBD"
+sealed trait DoYouHaveRGDRegistration
+
+object DoYouHaveRGDRegistration {
+
+  case object Yes extends WithName("Yes") with DoYouHaveRGDRegistration
+  case object No extends WithName("No") with DoYouHaveRGDRegistration
+
+  val values: Set[DoYouHaveRGDRegistration] = Set(
+    Yes,
+    No
+  )
+
+  val options: Set[RadioOption] = values.map { value =>
+    RadioOption("doYouHaveRGDRegistration", value.toString)
   }
 
-  case object PBD extends Identifier {
-    override def toString: String = "areYouRegisteredGTSPBD"
-  }
+  implicit val enumerable: Enumerable[DoYouHaveRGDRegistration] =
+    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }

@@ -101,9 +101,6 @@ GET        /other/alcohol/atwd/register                 controllers.other.alcoho
 GET        /other/alcohol/atwd                          controllers.other.alcohol.atwd.AreYouRegisteredWarehousekeeperController.onPageLoad()
 POST       /other/alcohol/atwd                          controllers.other.alcohol.atwd.AreYouRegisteredWarehousekeeperController.onSubmit()
 
-GET        /other/gambling/rgd                          controllers.other.gambling.rgd.AreYouRegisteredGTSController.onPageLoad()
-POST       /other/gambling/rgd                          controllers.other.gambling.rgd.AreYouRegisteredGTSController.onSubmit()
-
 GET        /self-assessment/partnership/other           controllers.sa.partnership.HaveYouRegisteredPartnershipController.onPageLoad()
 POST       /self-assessment/partnership/other           controllers.sa.partnership.HaveYouRegisteredPartnershipController.onSubmit()
 
@@ -234,3 +231,6 @@ GET        /self-assessment/trust/new-account                       controllers.
 GET        /self-assessment/partnership/new-account                       controllers.sa.partnership.SetUpNewAccountController.onPageLoad()
 GET        /other/land                  controllers.other.land.SelectATaxController.onPageLoad()
 POST       /other/land                  controllers.other.land.SelectATaxController.onSubmit()
+
+GET        /other/gambling/rgd                  controllers.other.gambling.rgd.DoYouHaveRGDRegistrationController.onPageLoad()
+POST       /other/gambling/rgd                  controllers.other.gambling.rgd.DoYouHaveRGDRegistrationController.onSubmit()

@@ -16,66 +16,75 @@
 
 package controllers.other.gambling.rgd
 
-import controllers._
-import controllers.actions._
-import forms.other.gambling.gbd.AreYouRegisteredGTSFormProvider
-import models.other.gambling.gbd.AreYouRegisteredGTS
 import play.api.data.Form
-import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+import play.api.libs.json.JsString
+import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeNavigator
-import viewmodels.ViewAction
-import views.html.other.gambling.areYouRegisteredGTS
+import connectors.FakeDataCacheConnector
+import controllers.actions.{FakeServiceInfoAction, _}
+import controllers._
+import play.api.test.Helpers._
+import forms.other.gambling.rgd.DoYouHaveRGDRegistrationFormProvider
+import identifiers.DoYouHaveRGDRegistrationId
+import models.other.gambling.rgd.DoYouHaveRGDRegistration
+import play.twirl.api.HtmlFormat
+import views.html.other.gambling.rgd.doYouHaveRGDRegistration
 
-class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
+class DoYouHaveRGDRegistrationControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = controllers.routes.IndexController.onPageLoad()
 
-  val formProvider = new AreYouRegisteredGTSFormProvider()
+  val formProvider = new DoYouHaveRGDRegistrationFormProvider()
   val form = formProvider()
 
-  lazy val viewAction = ViewAction(routes.AreYouRegisteredGTSController.onSubmit(), "AddRgdGamblingTax")
-
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new AreYouRegisteredGTSController(
+    new DoYouHaveRGDRegistrationController(
       frontendAppConfig,
       messagesApi,
-      FakeAuthAction,
+      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
+      FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)
 
   def viewAsString(form: Form[_] = form) =
-    areYouRegisteredGTS(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
+    doYouHaveRGDRegistration(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  "AreYouRegisteredGTS Controller" must {
+  "DoYouHaveRGDRegistration Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(fakeRequest)
+      val result = controller().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody("value" -> "Yes")
-      val result = controller().onSubmit(postRequest)
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveRGDRegistration.options.head.value))
+
+      val result = controller().onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
-    "return BadRequest when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody("value" -> "")
-      val boundForm = form.bind(Map("value" -> ""))
+    "return a Bad Request and errors when invalid data is submitted" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val boundForm = form.bind(Map("value" -> "invalid value"))
 
-      val result = controller().onSubmit(postRequest)
+      val result = controller().onSubmit()(postRequest)
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    for (option <- AreYouRegisteredGTS.options) {
+    "return OK if no existing data is found" in {
+      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+
+      status(result) mustBe OK
+    }
+
+    for (option <- DoYouHaveRGDRegistration.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
         val result = controller(dontGetAnyData).onSubmit()(postRequest)

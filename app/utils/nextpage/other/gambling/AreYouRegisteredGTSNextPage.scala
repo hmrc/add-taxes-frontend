@@ -27,16 +27,6 @@ import utils.{Enrolments, NextPage}
 
 trait AreYouRegisteredGTSNextPage {
 
-  implicit val rgdGTS: NextPage[AreYouRegisteredGTSId.RGD.type, AreYouRegisteredGTS] = {
-    new NextPage[AreYouRegisteredGTSId.RGD.type, AreYouRegisteredGTS] {
-      override def get(b: AreYouRegisteredGTS)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case AreYouRegisteredGTS.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.RemoteGaming))
-          case AreYouRegisteredGTS.No  => rgdRoutes.RegisterRGDController.onPageLoad()
-        }
-    }
-  }
-
   implicit val gbdGTS: NextPage[AreYouRegisteredGTSId.GBD.type, AreYouRegisteredGTS] = {
     new NextPage[AreYouRegisteredGTSId.GBD.type, AreYouRegisteredGTS] {
       override def get(b: AreYouRegisteredGTS)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =

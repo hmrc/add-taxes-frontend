@@ -101,3 +101,4 @@ object NextPage
     with WhatTypeOfSubcontractorNextPage
     with StampDutyNextPage
     with SelectATaxNextPage
+    with utils.nextpage.other.gambling.rgd.DoYouHaveRGDRegistrationNextPage

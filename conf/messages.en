@@ -337,7 +337,7 @@ registerGBD.continue = Register for the General Betting Duty
 ##  AreYouRegisteredGTS
 #######################################################
 areYouRegisteredGTS.title = Are you registered for the Gambling Tax System?
-areYouRegisteredGTS.heading = Do you have General Betting Duty registration number?
+areYouRegisteredGTS.heading = Do you have {0} registration number?
 areYouRegisteredGTS.p1 = We’ll have sent you a Gambling Tax System reference number if you’re registered
 areYouRegisteredGTS.Yes = Yes
 areYouRegisteredGTS.No = No
@@ -355,11 +355,10 @@ registerGTSFirst.continue = Continue - register for the Gambling Tax System
 
 ##  RegisterRGD
 #######################################################
-registerRGD.title = Register for the Gambling Tax System first
-registerRGD.heading = Register for the Gambling Tax System first
-registerRGD.p1 = You need to register for the Gambling Tax System before you can add Remote Gaming Duty to your account.
-registerRGD.p2 = We’ll send you a Gambling Tax System reference number. Come back to your account and add Remote Gaming Duty when you get it.
-registerRGD.continue = Continue - register for the Gambling Tax System
+registerRGD.title = Register for Remote Gaming Duty before you add it to your account
+registerRGD.heading = Register for Remote Gaming Duty before you add it to your account
+registerRGD.p1 = When you get your registration number, sign in to your account and add Remote Gaming Duty.
+registerRGD.continue = Register for the Remote Gaming Duty
 
 #######################################################
 ##  HaveYouRegisteredPartnership
@@ -828,3 +827,12 @@ selectATax.ATED = Annual Tax on Enveloped Dwellings (ATED)
 selectATax.LBT = Land and Buildings Transaction Tax - Scotland only
 selectATax.SDLT = Stamp Duty Land Tax (SDLT) - not for Scotland
 selectATax.error.required = Select a tax
+
+#######################################################
+##  DoYouHaveRGDRegistration
+#######################################################
+doYouHaveRGDRegistration.title = Do you have a Remote Gaming Duty registration number?
+doYouHaveRGDRegistration.heading = Do you have a Remote Gaming Duty registration number?
+doYouHaveRGDRegistration.Yes = Yes
+doYouHaveRGDRegistration.No = No
+doYouHaveRGDRegistration.error.required = Select yes if you have a Remote Gaming Duty registration number

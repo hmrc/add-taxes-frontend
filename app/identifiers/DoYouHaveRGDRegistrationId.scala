@@ -16,13 +16,6 @@
 
 package identifiers
 
-object AreYouRegisteredGTSId {
-
-  case object GBD extends Identifier {
-    override def toString: String = "areYouRegisteredGTSGBD"
-  }
-
-  case object PBD extends Identifier {
-    override def toString: String = "areYouRegisteredGTSPBD"
-  }
+case object DoYouHaveRGDRegistrationId extends Identifier {
+  override def toString: String = "doYouHaveRGDRegistration"
 }
