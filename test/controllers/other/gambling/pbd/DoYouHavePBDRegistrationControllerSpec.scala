@@ -16,28 +16,29 @@
 
 package controllers.other.gambling.pbd
 
-import connectors.FakeDataCacheConnector
-import controllers._
-import controllers.actions._
-import forms.other.gambling.gbd.AreYouRegisteredGTSFormProvider
-import models.other.gambling.gbd.AreYouRegisteredGTS
 import play.api.data.Form
-import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+import play.api.libs.json.JsString
+import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeNavigator
-import viewmodels.ViewAction
-import views.html.other.gambling.areYouRegisteredGTS
+import connectors.FakeDataCacheConnector
+import controllers.actions.{FakeServiceInfoAction, _}
+import controllers._
+import play.api.test.Helpers._
+import forms.other.gambling.pbd.DoYouHavePBDRegistrationFormProvider
+import identifiers.DoYouHavePBDRegistrationId
+import models.other.gambling.pbd.DoYouHavePBDRegistration
+import play.twirl.api.HtmlFormat
+import views.html.other.gambling.pbd.doYouHavePBDRegistration
 
-class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
+class DoYouHavePBDRegistrationControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = controllers.routes.IndexController.onPageLoad()
 
-  val formProvider = new AreYouRegisteredGTSFormProvider()
+  val formProvider = new DoYouHavePBDRegistrationFormProvider()
   val form = formProvider()
-  lazy val viewAction = ViewAction(routes.AreYouRegisteredGTSController.onSubmit(), "AddPbdGamblingTax")
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new AreYouRegisteredGTSController(
+    new DoYouHavePBDRegistrationController(
       frontendAppConfig,
       messagesApi,
       FakeDataCacheConnector,
@@ -47,9 +48,9 @@ class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
       formProvider)
 
   def viewAsString(form: Form[_] = form) =
-    areYouRegisteredGTS(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
+    doYouHavePBDRegistration(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  "AreYouRegisteredForGTSPBD Controller" must {
+  "DoYouHavePBDRegistration Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad()(fakeRequest)
@@ -59,7 +60,7 @@ class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", AreYouRegisteredGTS.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHavePBDRegistration.options.head.value))
 
       val result = controller().onSubmit()(postRequest)
 
@@ -83,7 +84,7 @@ class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    for (option <- AreYouRegisteredGTS.options) {
+    for (option <- DoYouHavePBDRegistration.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
         val result = controller(dontGetAnyData).onSubmit()(postRequest)
@@ -92,6 +93,5 @@ class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
         redirectLocation(result) mustBe Some(onwardRoute.url)
       }
     }
-
   }
 }

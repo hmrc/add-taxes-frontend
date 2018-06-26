@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package controllers.other.gambling.pbd.register
+package controllers.other.gambling.pbd
 
 import controllers._
 import controllers.actions._
-import controllers.other.gambling.pbd.RegisterGTSFirstController
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import views.html.other.gambling.pbd.register.registerGTSFirst
+import views.html.other.gambling.pbd.registerGTSFirst
 
 class RegisterGTSFirstControllerSpec extends ControllerSpecBase {
 

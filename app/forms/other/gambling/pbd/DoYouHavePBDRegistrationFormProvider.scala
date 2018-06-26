@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package views.other.gambling.pbd
+package forms.other.gambling.pbd
 
-import play.twirl.api.HtmlFormat
-import views.behaviours.ViewBehaviours
-import views.html.other.gambling.pbd.registerGTSFirst
+import javax.inject.Inject
 
-class RegisterGTSFirstViewSpec extends ViewBehaviours {
+import forms.FormErrorHelper
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.other.gambling.pbd.DoYouHavePBDRegistration
 
-  val messageKeyPrefix = "registerGTSFirst"
+class DoYouHavePBDRegistrationFormProvider @Inject() extends FormErrorHelper with Mappings {
 
-  def createView = () => registerGTSFirst(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
-
-  "RegisterGTSFirst view" must {
-    behave like normalPage(createView, messageKeyPrefix)
-  }
+  def apply(): Form[DoYouHavePBDRegistration] =
+    Form(
+      "value" -> enumerable[DoYouHavePBDRegistration]("doYouHavePBDRegistration.error.required")
+    )
 }

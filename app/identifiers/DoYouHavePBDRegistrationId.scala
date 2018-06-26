@@ -14,19 +14,8 @@
  * limitations under the License.
  */
 
-package views.other.gambling.pbd
+package identifiers
 
-import play.twirl.api.HtmlFormat
-import views.behaviours.ViewBehaviours
-import views.html.other.gambling.pbd.registerGTSFirst
-
-class RegisterGTSFirstViewSpec extends ViewBehaviours {
-
-  val messageKeyPrefix = "registerGTSFirst"
-
-  def createView = () => registerGTSFirst(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
-
-  "RegisterGTSFirst view" must {
-    behave like normalPage(createView, messageKeyPrefix)
-  }
+case object DoYouHavePBDRegistrationId extends Identifier {
+  override def toString: String = "doYouHavePBDRegistration"
 }

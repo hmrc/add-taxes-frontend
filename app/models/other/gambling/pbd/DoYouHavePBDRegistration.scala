@@ -14,19 +14,26 @@
  * limitations under the License.
  */
 
-package views.other.gambling.pbd
+package models.other.gambling.pbd
 
-import play.twirl.api.HtmlFormat
-import views.behaviours.ViewBehaviours
-import views.html.other.gambling.pbd.registerGTSFirst
+import utils.{Enumerable, RadioOption, WithName}
 
-class RegisterGTSFirstViewSpec extends ViewBehaviours {
+sealed trait DoYouHavePBDRegistration
 
-  val messageKeyPrefix = "registerGTSFirst"
+object DoYouHavePBDRegistration {
 
-  def createView = () => registerGTSFirst(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  case object Yes extends WithName("Yes") with DoYouHavePBDRegistration
+  case object No extends WithName("No") with DoYouHavePBDRegistration
 
-  "RegisterGTSFirst view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+  val values: Set[DoYouHavePBDRegistration] = Set(
+    Yes,
+    No
+  )
+
+  val options: Set[RadioOption] = values.map { value =>
+    RadioOption("doYouHavePBDRegistration", value.toString)
   }
+
+  implicit val enumerable: Enumerable[DoYouHavePBDRegistration] =
+    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }
