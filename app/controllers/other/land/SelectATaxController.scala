@@ -50,8 +50,8 @@ class SelectATaxController @Inject()(
 
   def radioOptions(implicit request: ServiceInfoRequest[AnyContent]) =
     request.request.enrolments match {
-      case HmrcEnrolmentType.VAT() => optionsWithoutSDLT
-      case _                       => SelectATax.options
+      case HmrcEnrolmentType.SDLT() => optionsWithoutSDLT
+      case _                        => SelectATax.options
     }
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>

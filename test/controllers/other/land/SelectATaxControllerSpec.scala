@@ -41,11 +41,12 @@ class SelectATaxControllerSpec extends ControllerSpecBase {
       FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
-      FakeServiceInfoAction,
-      formProvider)
+      FakeServiceInfoAction(enrolments: _*),
+      formProvider
+    )
 
   def viewAsString(form: Form[_] = form, radioOptions: Set[RadioOption] = SelectATax.options) =
-    selectATax(frontendAppConfig, form, SelectATax.options)(HtmlFormat.empty)(fakeRequest, messages).toString
+    selectATax(frontendAppConfig, form, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "SelectATax Controller" must {
 
@@ -91,7 +92,7 @@ class SelectATaxControllerSpec extends ControllerSpecBase {
       }
     }
 
-    "not display vat radio option" when {
+    "not display sdlt radio option" when {
       val radioOptions = SelectATax.options.filterNot(_.value == "SDLT")
 
       "page is loaded and sdlt is enrolled" in {
