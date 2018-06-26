@@ -14,26 +14,25 @@
  * limitations under the License.
  */
 
-package utils.nextpage.other.gambling
+package utils.nextpage.other.gambling.pbd
 
-import models.other.gambling.gbd.AreYouRegisteredGTS
+import models.other.gambling.pbd.DoYouHavePBDRegistration
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
-class AreYouRegisteredGTSNextPageSpec extends NextPageSpecBase {
+class DoYouHavePBDRegistrationNextPageSpec extends NextPageSpecBase {
 
-  "gtsGBD" when {
+  "doYouHavePBDRegistration" when {
     behave like nextPage(
-      NextPage.gbdGTS,
-      AreYouRegisteredGTS.Yes,
-      "http://localhost:9555/enrolment-management-frontend/HMRC-GTS-GBD/request-access-tax-scheme?continue=%2Fbusiness-account"
+      NextPage.doYouHavePBDRegistration,
+      DoYouHavePBDRegistration.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMRC-GTS-PBD/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
 
     behave like nextPage(
-      NextPage.gbdGTS,
-      AreYouRegisteredGTS.No,
-      "/business-account/add-tax/other/gambling/gbd/register"
+      NextPage.doYouHavePBDRegistration,
+      DoYouHavePBDRegistration.No,
+      "/business-account/add-tax/other/gambling/pbd/register"
     )
   }
-
 }

@@ -21,8 +21,4 @@ object AreYouRegisteredGTSId {
   case object GBD extends Identifier {
     override def toString: String = "areYouRegisteredGTSGBD"
   }
-
-  case object PBD extends Identifier {
-    override def toString: String = "areYouRegisteredGTSPBD"
-  }
 }

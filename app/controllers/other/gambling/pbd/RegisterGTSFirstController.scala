@@ -22,7 +22,7 @@ import config.FrontendAppConfig
 import controllers.actions._
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import views.html.other.gambling.pbd.register.registerGTSFirst
+import views.html.other.gambling.pbd.registerGTSFirst
 
 class RegisterGTSFirstController @Inject()(
   appConfig: FrontendAppConfig,

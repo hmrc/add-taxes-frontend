@@ -14,26 +14,19 @@
  * limitations under the License.
  */
 
-package utils.nextpage.other.gambling
+package forms.other.gambling.pbd
 
-import models.other.gambling.gbd.AreYouRegisteredGTS
-import utils.NextPage
-import utils.nextpage.NextPageSpecBase
+import javax.inject.Inject
 
-class AreYouRegisteredGTSNextPageSpec extends NextPageSpecBase {
+import forms.FormErrorHelper
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.other.gambling.pbd.DoYouHavePBDRegistration
 
-  "gtsGBD" when {
-    behave like nextPage(
-      NextPage.gbdGTS,
-      AreYouRegisteredGTS.Yes,
-      "http://localhost:9555/enrolment-management-frontend/HMRC-GTS-GBD/request-access-tax-scheme?continue=%2Fbusiness-account"
+class DoYouHavePBDRegistrationFormProvider @Inject() extends FormErrorHelper with Mappings {
+
+  def apply(): Form[DoYouHavePBDRegistration] =
+    Form(
+      "value" -> enumerable[DoYouHavePBDRegistration]("doYouHavePBDRegistration.error.required")
     )
-
-    behave like nextPage(
-      NextPage.gbdGTS,
-      AreYouRegisteredGTS.No,
-      "/business-account/add-tax/other/gambling/gbd/register"
-    )
-  }
-
 }

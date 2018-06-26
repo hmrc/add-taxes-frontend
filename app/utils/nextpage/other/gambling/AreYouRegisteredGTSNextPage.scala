@@ -18,7 +18,6 @@ package utils.nextpage.other.gambling
 
 import config.FrontendAppConfig
 import controllers.other.gambling.gbd.{routes => gbdRoutes}
-import controllers.other.gambling.pbd.{routes => pbdRoutes}
 import controllers.other.gambling.rgd.{routes => rgdRoutes}
 import identifiers.AreYouRegisteredGTSId
 import models.other.gambling.gbd.AreYouRegisteredGTS
@@ -33,16 +32,6 @@ trait AreYouRegisteredGTSNextPage {
         b match {
           case AreYouRegisteredGTS.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.GeneralBetting))
           case AreYouRegisteredGTS.No  => gbdRoutes.RegisterGBDController.onPageLoad()
-        }
-    }
-  }
-
-  implicit val pbdGTS: NextPage[AreYouRegisteredGTSId.PBD.type, AreYouRegisteredGTS] = {
-    new NextPage[AreYouRegisteredGTSId.PBD.type, AreYouRegisteredGTS] {
-      override def get(b: AreYouRegisteredGTS)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
-        b match {
-          case AreYouRegisteredGTS.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.PoolBetting))
-          case AreYouRegisteredGTS.No  => pbdRoutes.RegisterGTSFirstController.onPageLoad()
         }
     }
   }
