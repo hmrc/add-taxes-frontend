@@ -26,11 +26,11 @@ object Enrolments {
 
   case object TiedOils extends WithName("HMCE-TO") with Enrolments
 
-  case object AlcoholAndTobaccoWarehousingDeclarations extends WithName("HMCE-ATWD-ORG") with Enrolments
+  case object ATWD extends WithName("HMCE-ATWD-ORG") with Enrolments
 
-  case object AlcoholWholesalerRegistrationScheme extends WithName("HMRC-AWRS-ORG") with Enrolments
+  case object AWRS extends WithName("HMRC-AWRS-ORG") with Enrolments
 
-  case object AutomaticExchangeOfInformation extends WithName("HMRC-FATCA-ORG") with Enrolments
+  case object AEOI extends WithName("HMRC-FATCA-ORG") with Enrolments
 
   case object Charities extends WithName("HMRC-CHAR-ORG") with Enrolments
 
@@ -66,8 +66,6 @@ object Enrolments {
 
   case object VATMOSS extends WithName("HMRC-MOSS-U-ORG") with Enrolments
 
-  case object Charity extends WithName("HMRC-CHAR-ORG") with Enrolments
-
   case object AddCis extends WithName("HMRC-CIS-ORG") with Enrolments
 
   case object VATMOSSNonUnion extends WithName("HMRC-MOSSNU-ORG") with Enrolments
@@ -83,10 +81,10 @@ object Enrolments {
   val values: Set[Enrolments] = Set(
     RebatedOils,
     TiedOils,
-    AlcoholAndTobaccoWarehousingDeclarations,
-    AlcoholWholesalerRegistrationScheme,
-    AlcoholWholesalerRegistrationScheme,
-    AutomaticExchangeOfInformation,
+    ATWD,
+    AWRS,
+    AWRS,
+    AEOI,
     Charities,
     MachineGamingDuty,
     GeneralBetting,
@@ -102,7 +100,6 @@ object Enrolments {
     SAPartnership,
     RegisterTrusts,
     VAT,
-    Charity,
     AddCis,
     VATMOSSNonUnion,
     ECSales,

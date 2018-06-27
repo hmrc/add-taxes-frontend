@@ -98,6 +98,9 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   def emacEnrollmentsUrl(enrolment: Enrolments): String =
     s"$enrolmentManagementFrontendHost/enrolment-management-frontend/$enrolment/request-access-tax-scheme?continue=%2Fbusiness-account"
 
+  def emacDeenrolmentsUrl(enrolment: Enrolments): String =
+    s"$enrolmentManagementFrontendHost/enrolment-management-frontend/$enrolment/remove-access-tax-scheme?continue=%2Fbusiness-account"
+
   def governmentGatewayLostCredentialsUrl(forgottenOption: ForgottenOptions): String =
     s"$governmentGatewayLostCredentialsFrontendHost/government-gateway-lost-credentials-frontend/" +
       s"choose-your-account?continue=%2Fbusiness-account&origin=business-tax-account&forgottenOption=$forgottenOption"

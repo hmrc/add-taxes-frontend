@@ -70,13 +70,13 @@ class OtherTaxesController @Inject()(
     }
 
   private def checkAlcoholWholesalerRegistrationScheme: (uk.gov.hmrc.auth.core.Enrolments) => Boolean =
-    _.getEnrolment(Enrolments.AlcoholWholesalerRegistrationScheme.toString).isDefined
+    _.getEnrolment(Enrolments.AWRS.toString).isDefined
 
   private def checkAlcoholAndTobaccoWarehousingDeclarations: (uk.gov.hmrc.auth.core.Enrolments) => Boolean =
-    _.getEnrolment(Enrolments.AlcoholAndTobaccoWarehousingDeclarations.toString).isDefined
+    _.getEnrolment(Enrolments.ATWD.toString).isDefined
 
   private def checkAutomaticExchangeOfInformation: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
-    _.getEnrolment(Enrolments.AutomaticExchangeOfInformation.toString)
+    _.getEnrolment(Enrolments.AEOI.toString)
       .fold[Option[RadioOption]](Some(AutomaticExchangeOfInformation.toRadioOption))(_ => None)
 
   private def checkCharities: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
