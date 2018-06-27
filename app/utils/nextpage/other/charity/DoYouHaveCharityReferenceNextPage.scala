@@ -29,7 +29,7 @@ trait DoYouHaveCharityReferenceNextPage {
     new NextPage[DoYouHaveCharityReferenceId.type, DoYouHaveCharityReference] {
       override def get(b: DoYouHaveCharityReference)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case DoYouHaveCharityReference.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.Charity))
+          case DoYouHaveCharityReference.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.Charities))
           case DoYouHaveCharityReference.No  => charityRoutes.RegisterForCharityController.onPageLoad()
         }
     }
