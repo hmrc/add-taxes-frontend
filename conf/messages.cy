@@ -298,7 +298,7 @@ registerGBD.continue = Cofrestru ar gyfer Toll Fetio Gyffredinol
 #######################################################
 ##  AreYouRegisteredGTS
 #######################################################
-areYouRegisteredGTS.title = A ydych wedi cofrestru ar gyfer y System Treth Hapchwarae?
+areYouRegisteredGTS.title = A oes gennych rif cofrestru Toll Fetio Gyffredinol?
 areYouRegisteredGTS.heading = A oes gennych rif cofrestru Toll Fetio Gyffredinol?
 areYouRegisteredGTS.p1 = Byddwn wedi anfon cyfeirnod System Treth Hapchwarae atoch os ydych wedi cofrestru
 areYouRegisteredGTS.Yes = Iawn
@@ -308,19 +308,18 @@ areYouRegisteredGTS.error.required = Dewiswch Iawn os oes gennych rif cofrestru 
 #######################################################
 ##  RegisterGTSFirst
 #######################################################
-registerGTSFirst.title = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
-registerGTSFirst.heading = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
-registerGTSFirst.detail.1 = Mae angen i chi gofrestru ar gyfer y System Treth Hapchwarae cyn y gallwch ychwanegu Toll Cronfa Fetio i’ch cyfrif.
-registerGTSFirst.detail.2 = Byddwn yn anfon cyfeirnod System Treth Hapchwarae atoch. Dychwelwch i’ch cyfrif ac ychwanegwch Toll Cronfa Fetio pan fyddwch yn ei gael.
-registerGTSFirst.continue = Mynd yn eich blaen - cofrestru ar gyfer y System Treth Hapchwarae
+registerGTSFirst.title = Cofrestrwch ar gyfer Toll Cronfa Fetio cyn ei hychwanegu i’ch cyfrif
+registerGTSFirst.heading = Cofrestrwch ar gyfer Toll Cronfa Fetio cyn ei hychwanegu i’ch cyfrif
+registerGTSFirst.detail = Pan gewch eich rhif cofrestru, mewngofnodwch i’ch cyfrif ac ychwanegwch Toll Cronfa Fetio.
+registerGTSFirst.continue = Cofrestru ar gyfer Toll Cronfa Fetio
 
+#######################################################
 ##  RegisterRGD
 #######################################################
-registerRGD.title = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
-registerRGD.heading = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
-registerRGD.p1 = Mae angen i chi gofrestru ar gyfer y System Treth Hapchwarae cyn y gallwch ychwanegu Toll Hapchwarae o Bell i’ch cyfrif.
-registerRGD.p2 = Byddwn yn anfon cyfeirnod System Treth Hapchwarae atoch. Dychwelwch i’ch cyfrif ac ychwanegwch Toll Hapchwarae o Bell pan fyddwch yn ei gael.
-registerRGD.continue = Mynd yn eich blaen - cofrestru ar gyfer y System Treth Hapchwarae
+registerRGD.title = Cofrestrwch ar gyfer Toll Hapchwarae o Bell cyn ei hychwanegu i’ch cyfrif
+registerRGD.heading = Cofrestrwch ar gyfer Toll Hapchwarae o Bell cyn ei hychwanegu i’ch cyfrif
+registerRGD.p1 = Pan gewch eich rhif cofrestru, mewngofnodwch i’ch cyfrif ac ychwanegwch Toll Hapchwarae o Bell.
+registerRGD.continue = Cofrestru ar gyfer Toll Hapchwarae o Bell
 
 #######################################################
 ##  RegisterTrust
@@ -822,3 +821,21 @@ selectATax.ATED = Treth Flynyddol ar Anheddau wedi’u Hamgáu (ATED)
 selectATax.SBT = Treth Drafodiadau Tir ac Adeiladau - yr Alban yn unig
 selectATax.SDLT = Treth Dir y Tollau Stamp (SDLT) - ddim ar gyfer yr Alban
 selectATax.error.required = Dewis treth
+
+#######################################################
+##  DoYouHavePBDRegistration
+#######################################################
+doYouHavePBDRegistration.title = A oes gennych rif cofrestru Toll Cronfa Fetio?
+doYouHavePBDRegistration.heading = A oes gennych rif cofrestru Toll Cronfa Fetio?
+doYouHavePBDRegistration.Yes = Iawn
+doYouHavePBDRegistration.No = Na
+doYouHavePBDRegistration.error.required = Dewiswch Iawn os oes gennych rif cofrestru ar gyfer Toll Cronfa Fetio
+
+#######################################################
+##  DoYouHaveRGDRegistration
+#######################################################
+doYouHaveRGDRegistration.title = A oes gennych rif cofrestru Toll Hapchwarae o Bell?
+doYouHaveRGDRegistration.heading = A oes gennych rif cofrestru Toll Hapchwarae o Bell?
+doYouHaveRGDRegistration.Yes = Iawn
+doYouHaveRGDRegistration.No = Na
+doYouHaveRGDRegistration.error.required = Dewiswch Iawn os oes gennych rif cofrestru ar gyfer Toll Hapchwarae o Bell
