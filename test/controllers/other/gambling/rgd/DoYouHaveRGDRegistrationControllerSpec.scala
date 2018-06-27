@@ -41,7 +41,6 @@ class DoYouHaveRGDRegistrationControllerSpec extends ControllerSpecBase {
     new DoYouHaveRGDRegistrationController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

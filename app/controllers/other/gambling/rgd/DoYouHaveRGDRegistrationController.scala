@@ -19,7 +19,6 @@ package controllers.other.gambling.rgd
 import javax.inject.Inject
 
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -30,12 +29,9 @@ import forms.other.gambling.rgd.DoYouHaveRGDRegistrationFormProvider
 import identifiers.DoYouHaveRGDRegistrationId
 import views.html.other.gambling.rgd.doYouHaveRGDRegistration
 
-import scala.concurrent.Future
-
 class DoYouHaveRGDRegistrationController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  dataCacheConnector: DataCacheConnector,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
