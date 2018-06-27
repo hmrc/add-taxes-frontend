@@ -14,26 +14,8 @@
  * limitations under the License.
  */
 
-package utils.nextpage.other.gambling
+package identifiers
 
-import models.other.gambling.gbd.AreYouRegisteredGTS
-import utils.NextPage
-import utils.nextpage.NextPageSpecBase
-
-class AreYouRegisteredGTSNextPageSpec extends NextPageSpecBase {
-
-  "gtsGBD" when {
-    behave like nextPage(
-      NextPage.gbdGTS,
-      AreYouRegisteredGTS.Yes,
-      "http://localhost:9555/enrolment-management-frontend/HMRC-GTS-GBD/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-
-    behave like nextPage(
-      NextPage.gbdGTS,
-      AreYouRegisteredGTS.No,
-      "/business-account/add-tax/other/gambling/gbd/register"
-    )
-  }
-
+case object DoYouHaveRGDRegistrationId extends Identifier {
+  override def toString: String = "doYouHaveRGDRegistration"
 }

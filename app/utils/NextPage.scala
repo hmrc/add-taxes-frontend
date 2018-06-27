@@ -103,3 +103,4 @@ object NextPage
     with StampDutyNextPage
     with SelectATaxNextPage
     with DoYouHavePBDRegistrationNextPage
+    with utils.nextpage.other.gambling.rgd.DoYouHaveRGDRegistrationNextPage

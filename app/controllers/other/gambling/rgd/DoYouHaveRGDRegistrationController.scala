@@ -16,47 +16,43 @@
 
 package controllers.other.gambling.rgd
 
-import config.FrontendAppConfig
-import connectors.DataCacheConnector
-import controllers.actions._
-import forms.other.gambling.gbd.AreYouRegisteredGTSFormProvider
-import identifiers.AreYouRegisteredGTSId
 import javax.inject.Inject
+
+import config.FrontendAppConfig
+import controllers.actions._
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.Navigator
-import viewmodels.ViewAction
-import views.html.other.gambling.areYouRegisteredGTS
+import utils.{Enumerable, Navigator}
 
-import scala.concurrent.Future
+import forms.other.gambling.rgd.DoYouHaveRGDRegistrationFormProvider
+import identifiers.DoYouHaveRGDRegistrationId
+import views.html.other.gambling.rgd.doYouHaveRGDRegistration
 
-class AreYouRegisteredGTSController @Inject()(
+class DoYouHaveRGDRegistrationController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  authenticate: AuthAction,
   navigator: Navigator,
-  serviceInfo: ServiceInfoAction,
-  formProvider: AreYouRegisteredGTSFormProvider)
+  authenticate: AuthAction,
+  serviceInfoData: ServiceInfoAction,
+  formProvider: DoYouHaveRGDRegistrationFormProvider)
     extends FrontendController
-    with I18nSupport {
+    with I18nSupport
+    with Enumerable.Implicits {
 
   val form = formProvider()
-  lazy val viewAction = ViewAction(routes.AreYouRegisteredGTSController.onSubmit(), "AddRgdGamblingTax")
 
-  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(areYouRegisteredGTS(appConfig, form, viewAction)(request.serviceInfoContent))
+  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+    Ok(doYouHaveRGDRegistration(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit = (authenticate andThen serviceInfo).async { implicit request =>
+  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(areYouRegisteredGTS(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))
-        ),
-        (value) => Future.successful(Redirect(navigator.nextPage(AreYouRegisteredGTSId.RGD, value)))
+          BadRequest(doYouHaveRGDRegistration(appConfig, formWithErrors)(request.serviceInfoContent)),
+        (value) => Redirect(navigator.nextPage(DoYouHaveRGDRegistrationId, value))
       )
   }
 }

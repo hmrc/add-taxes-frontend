@@ -41,7 +41,7 @@ trait SelectGamblingOrGamingDutyNextPage {
           case SelectGamblingOrGamingDuty.PBD =>
             pbdRoutes.DoYouHavePBDRegistrationController.onPageLoad()
           case SelectGamblingOrGamingDuty.RGD =>
-            rgdRoutes.AreYouRegisteredGTSController.onPageLoad()
+            rgdRoutes.DoYouHaveRGDRegistrationController.onPageLoad()
         }
     }
   }
