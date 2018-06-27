@@ -17,15 +17,11 @@
 package controllers.other.gambling.rgd
 
 import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeNavigator
-import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import play.api.test.Helpers._
 import forms.other.gambling.rgd.DoYouHaveRGDRegistrationFormProvider
-import identifiers.DoYouHaveRGDRegistrationId
 import models.other.gambling.rgd.DoYouHaveRGDRegistration
 import play.twirl.api.HtmlFormat
 import views.html.other.gambling.rgd.doYouHaveRGDRegistration

@@ -19,7 +19,6 @@ package controllers.vat.moss.iom
 import javax.inject.Inject
 
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -35,7 +34,6 @@ import scala.concurrent.Future
 class AlreadyRegisteredForVATMossController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  dataCacheConnector: DataCacheConnector,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,

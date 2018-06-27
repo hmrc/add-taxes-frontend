@@ -16,7 +16,6 @@
 
 package controllers.employer.ers
 
-import connectors.FakeDataCacheConnector
 import controllers._
 import controllers.actions.{FakeServiceInfoAction, _}
 import forms.employer.DoesBusinessManagePAYEFormProvider
@@ -40,7 +39,6 @@ class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
     new DoesBusinessManagePAYEController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

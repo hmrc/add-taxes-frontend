@@ -18,7 +18,6 @@ package controllers.employer.cis.ukbased.subcontractor
 
 import play.api.data.Form
 import utils.FakeNavigator
-import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import play.api.test.Helpers._
@@ -39,7 +38,6 @@ class DoYouWantToBePaidNetOrGrossControllerSpec extends ControllerSpecBase {
     new DoYouWantToBePaidNetOrGrossController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

@@ -17,15 +17,11 @@
 package controllers.other.gambling.pbd
 
 import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeNavigator
-import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import play.api.test.Helpers._
 import forms.other.gambling.pbd.DoYouHavePBDRegistrationFormProvider
-import identifiers.DoYouHavePBDRegistrationId
 import models.other.gambling.pbd.DoYouHavePBDRegistration
 import play.twirl.api.HtmlFormat
 import views.html.other.gambling.pbd.doYouHavePBDRegistration
@@ -41,7 +37,6 @@ class DoYouHavePBDRegistrationControllerSpec extends ControllerSpecBase {
     new DoYouHavePBDRegistrationController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

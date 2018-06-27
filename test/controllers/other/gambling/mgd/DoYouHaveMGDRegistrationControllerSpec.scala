@@ -16,7 +16,6 @@
 
 package controllers.other.gambling.mgd
 
-import connectors.FakeDataCacheConnector
 import controllers._
 import controllers.actions.{FakeServiceInfoAction, _}
 import forms.other.gambling.mgd.DoYouHaveMGDRegistrationFormProvider
@@ -38,7 +37,6 @@ class DoYouHaveMGDRegistrationControllerSpec extends ControllerSpecBase {
     new DoYouHaveMGDRegistrationController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

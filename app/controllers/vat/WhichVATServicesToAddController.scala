@@ -17,7 +17,6 @@
 package controllers.vat
 
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.vat.WhichVATServicesToAddFormProvider
 import identifiers.WhichVATServicesToAddId
@@ -34,7 +33,6 @@ import views.html.vat.whichVATServicesToAdd
 class WhichVATServicesToAddController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  dataCacheConnector: DataCacheConnector,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,

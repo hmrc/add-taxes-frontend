@@ -19,7 +19,6 @@ package controllers.employer.cis
 import play.api.data.Form
 
 import utils.FakeNavigator
-import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import play.api.test.Helpers._
@@ -39,7 +38,6 @@ class IsYourBusinessInUKControllerSpec extends ControllerSpecBase {
     new IsYourBusinessInUKController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

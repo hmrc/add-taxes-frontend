@@ -16,7 +16,6 @@
 
 package controllers.other.gambling.gbd
 
-import connectors.FakeDataCacheConnector
 import controllers._
 import controllers.actions.{FakeServiceInfoAction, _}
 import forms.other.gambling.gbd.AreYouRegisteredGTSFormProvider
@@ -40,7 +39,6 @@ class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
     new AreYouRegisteredGTSController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

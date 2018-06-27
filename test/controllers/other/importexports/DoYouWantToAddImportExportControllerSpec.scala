@@ -17,15 +17,11 @@
 package controllers.other.importexports
 
 import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeNavigator
-import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import play.api.test.Helpers._
 import forms.other.importexports.DoYouWantToAddImportExportFormProvider
-import identifiers.DoYouWantToAddImportExportId
 import models.other.importexports.DoYouWantToAddImportExport
 import play.twirl.api.HtmlFormat
 import views.html.other.importexports.doYouWantToAddImportExport
@@ -41,7 +37,6 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
     new DoYouWantToAddImportExportController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
