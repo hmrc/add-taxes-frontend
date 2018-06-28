@@ -298,9 +298,8 @@ registerGBD.continue = Cofrestru ar gyfer Toll Fetio Gyffredinol
 #######################################################
 ##  AreYouRegisteredGTS
 #######################################################
-areYouRegisteredGTS.title = A ydych wedi cofrestru ar gyfer y System Treth Hapchwarae?
+areYouRegisteredGTS.title = A oes gennych rif cofrestru Toll Fetio Gyffredinol?
 areYouRegisteredGTS.heading = A oes gennych rif cofrestru Toll Fetio Gyffredinol?
-areYouRegisteredGTS.p1 = Byddwn wedi anfon cyfeirnod System Treth Hapchwarae atoch os ydych wedi cofrestru
 areYouRegisteredGTS.Yes = Iawn
 areYouRegisteredGTS.No = Na
 areYouRegisteredGTS.error.required = Dewiswch Iawn os oes gennych rif cofrestru ar gyfer Toll Fetio Gyffredinol
