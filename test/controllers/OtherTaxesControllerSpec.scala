@@ -16,7 +16,6 @@
 
 package controllers
 
-import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import forms.OtherTaxesFormProvider
 import models.OtherTaxes
@@ -51,7 +50,6 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
     new OtherTaxesController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       fakeAuthAction,
       FakeServiceInfoAction,

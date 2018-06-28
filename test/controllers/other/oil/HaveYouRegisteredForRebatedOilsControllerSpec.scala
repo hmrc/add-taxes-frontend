@@ -16,7 +16,6 @@
 
 package controllers.other.oil
 
-import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.other.oils.HaveYouRegisteredForRebatedOilsFormProvider
@@ -38,7 +37,6 @@ class HaveYouRegisteredForRebatedOilsControllerSpec extends ControllerSpecBase {
     new HaveYouRegisteredForRebatedOilsController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

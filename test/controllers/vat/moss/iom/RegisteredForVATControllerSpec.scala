@@ -17,15 +17,11 @@
 package controllers.vat.moss.iom
 
 import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeNavigator
-import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import play.api.test.Helpers._
 import forms.vat.moss.iom.RegisteredForVATFormProvider
-import identifiers.RegisteredForVATId
 import models.vat.moss.iom.RegisteredForVAT
 import play.twirl.api.HtmlFormat
 import views.html.vat.moss.iom.registeredForVAT
@@ -41,7 +37,6 @@ class RegisteredForVATControllerSpec extends ControllerSpecBase {
     new RegisteredForVATController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

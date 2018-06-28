@@ -16,7 +16,6 @@
 
 package controllers.other.importexports.nes
 
-import connectors.FakeDataCacheConnector
 import controllers._
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers.other.importexports.nes.routes._
@@ -40,7 +39,6 @@ class DoYouHaveCHIEFRoleNoEORIControllerSpec extends ControllerSpecBase {
     new DoYouHaveCHIEFRoleNoEORIController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

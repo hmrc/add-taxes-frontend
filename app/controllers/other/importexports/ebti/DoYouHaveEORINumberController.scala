@@ -19,7 +19,6 @@ package controllers.other.importexports.ebti
 import javax.inject.Inject
 
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import controllers.other.importexports.ebti.routes._
 import forms.other.importexports.DoYouHaveEORINumberFormProvider
@@ -36,7 +35,6 @@ import scala.concurrent.Future
 class DoYouHaveEORINumberController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  dataCacheConnector: DataCacheConnector,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,

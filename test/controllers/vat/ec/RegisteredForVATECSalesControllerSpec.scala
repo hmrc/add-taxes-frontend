@@ -16,7 +16,6 @@
 
 package controllers.vat.ec
 
-import connectors.FakeDataCacheConnector
 import controllers._
 import controllers.actions.{FakeServiceInfoAction, _}
 import forms.vat.RegisteredForVATFormProvider
@@ -40,7 +39,6 @@ class RegisteredForVATECSalesControllerSpec extends ControllerSpecBase {
     new RegisteredForVATECSalesController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

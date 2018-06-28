@@ -18,7 +18,6 @@ package controllers.employer.intermediaries
 
 import play.api.data.Form
 import utils.FakeNavigator
-import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import forms.employer.DoesBusinessManagePAYEFormProvider
@@ -39,7 +38,6 @@ class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
     new DoesBusinessManagePAYEController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

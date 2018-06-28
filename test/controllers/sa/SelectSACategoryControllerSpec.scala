@@ -20,7 +20,6 @@ import play.api.data.Form
 import play.api.libs.json.JsString
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
-import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import play.api.test.Helpers._
@@ -41,7 +40,6 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
     new SelectSACategoryController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction(enrolmentTypes: _*),

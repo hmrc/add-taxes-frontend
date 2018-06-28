@@ -19,7 +19,6 @@ package controllers
 import javax.inject.Inject
 
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.OtherTaxesFormProvider
 import identifiers.OtherTaxesId
@@ -38,7 +37,6 @@ import scala.concurrent.Future
 class OtherTaxesController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  dataCacheConnector: DataCacheConnector,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,

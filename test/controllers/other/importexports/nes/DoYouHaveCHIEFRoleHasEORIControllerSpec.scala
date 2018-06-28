@@ -18,7 +18,6 @@ package controllers.other.importexports.nes
 
 import play.api.data.Form
 import utils.FakeNavigator
-import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import play.api.test.Helpers._
@@ -40,7 +39,6 @@ class DoYouHaveCHIEFRoleHasEORIControllerSpec extends ControllerSpecBase {
     new DoYouHaveCHIEFRoleHasEORIController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

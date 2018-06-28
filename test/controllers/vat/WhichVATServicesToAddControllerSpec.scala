@@ -18,7 +18,6 @@ package controllers.vat
 
 import play.api.data.Form
 import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
-import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import play.api.test.Helpers._
@@ -38,7 +37,6 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase {
     new WhichVATServicesToAddController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction(enrolments: _*),

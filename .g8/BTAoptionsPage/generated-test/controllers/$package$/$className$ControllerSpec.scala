@@ -4,7 +4,6 @@ import play.api.data.Form
 import play.api.libs.json.JsString
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeNavigator
-import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import play.api.test.Helpers._
@@ -22,7 +21,7 @@ class $className$ControllerSpec extends ControllerSpecBase {
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new $className$Controller(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
+    new $className$Controller(frontendAppConfig, messagesApi, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
       FakeServiceInfoAction, formProvider)
 
   def viewAsString(form: Form[_] = form) = $className;format="decap"$(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString

@@ -18,7 +18,6 @@ package controllers.employer.cis.ukbased.contractor
 
 import play.api.data.Form
 import utils.FakeNavigator
-import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import forms.employer.IsBusinessRegisteredForPAYEFormProvider
@@ -40,7 +39,6 @@ class IsBusinessRegisteredForPAYEControllerSpec extends ControllerSpecBase {
     new IsBusinessRegisteredForPAYEController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

@@ -16,7 +16,6 @@
 
 package controllers.other.oil
 
-import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.other.oils.SelectAnOilServiceFormProvider
@@ -50,7 +49,6 @@ class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
     new SelectAnOilServiceController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

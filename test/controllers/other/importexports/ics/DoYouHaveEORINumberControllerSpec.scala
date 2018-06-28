@@ -16,7 +16,6 @@
 
 package controllers.other.importexports.ics
 
-import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers.ControllerSpecBase
 import models.other.importexports.DoYouHaveEORINumber
@@ -41,7 +40,6 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
     new DoYouHaveEORINumberController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
