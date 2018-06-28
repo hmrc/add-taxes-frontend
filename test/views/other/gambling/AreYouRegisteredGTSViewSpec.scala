@@ -53,12 +53,6 @@ class AreYouRegisteredGTSViewSpec extends ViewBehaviours {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
       }
-
-      "contain content" in {
-        val view = asDocument(createView()).text()
-
-        view must include("We’ll have sent you a Gambling Tax System reference number if you’re registered")
-      }
     }
 
     for (option <- AreYouRegisteredGTS.options) {
