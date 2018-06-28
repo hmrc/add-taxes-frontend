@@ -16,22 +16,14 @@
 
 package controllers.employer.cis.ukbased.contractor
 
-import play.api.data.Form
-import utils.FakeNavigator
-import connectors.FakeDataCacheConnector
 import controllers._
 import controllers.actions.{FakeServiceInfoAction, _}
-import forms.employer.DoesBusinessManagePAYEFormProvider
-import models.employer.DoesBusinessManagePAYE
 import play.api.data.Form
-import play.api.test.Helpers._
 import forms.employer.DoesBusinessManagePAYEFormProvider
 import play.api.test.Helpers._
 import models.employer.DoesBusinessManagePAYE
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
-import viewmodels.ViewAction
-import views.html.employer.doesBusinessManagePAYE
 import viewmodels.ViewAction
 import views.html.employer.doesBusinessManagePAYE
 
@@ -47,7 +39,6 @@ class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
     new DoesBusinessManagePAYEController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

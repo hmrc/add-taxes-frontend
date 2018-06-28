@@ -19,7 +19,6 @@ package controllers.employer.ers
 import javax.inject.Inject
 
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.employer.DoesBusinessManagePAYEFormProvider
 import play.api.data.Form
@@ -35,7 +34,6 @@ import scala.concurrent.Future
 class DoesBusinessManagePAYEController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  dataCacheConnector: DataCacheConnector,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,

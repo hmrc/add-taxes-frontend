@@ -16,7 +16,6 @@
 
 package controllers.other.importexports.emcs
 
-import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers.ControllerSpecBase
 import forms.other.importexports.emcs.DoYouHaveASEEDNumberFormProvider
@@ -38,7 +37,6 @@ class DoYouHaveASEEDNumberControllerSpec extends ControllerSpecBase {
     new DoYouHaveASEEDNumberController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

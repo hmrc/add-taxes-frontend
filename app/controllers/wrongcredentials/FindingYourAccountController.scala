@@ -19,7 +19,6 @@ package controllers.wrongcredentials
 import javax.inject.Inject
 
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.wrongcredentials.FindingYourAccountFormProvider
 import identifiers.FindingYourAccountId
@@ -34,7 +33,6 @@ import scala.concurrent.Future
 class FindingYourAccountController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  dataCacheConnector: DataCacheConnector,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,

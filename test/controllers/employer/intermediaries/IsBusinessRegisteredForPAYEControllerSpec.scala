@@ -16,7 +16,6 @@
 
 package controllers.employer.intermediaries
 
-import connectors.FakeDataCacheConnector
 import controllers._
 import controllers.actions.{FakeServiceInfoAction, _}
 import forms.employer.IsBusinessRegisteredForPAYEFormProvider
@@ -39,7 +38,6 @@ class IsBusinessRegisteredForPAYEControllerSpec extends ControllerSpecBase {
     new IsBusinessRegisteredForPAYEController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

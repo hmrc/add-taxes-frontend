@@ -16,7 +16,6 @@
 
 package controllers.wrongcredentials
 
-import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions.{FakeServiceInfoAction, _}
 import forms.wrongcredentials.FindingYourAccountFormProvider
@@ -38,7 +37,6 @@ class FindingYourAccountControllerSpec extends ControllerSpecBase {
     new FindingYourAccountController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

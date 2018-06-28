@@ -19,47 +19,42 @@ package controllers.other.gambling.pbd
 import javax.inject.Inject
 
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
-import forms.other.gambling.gbd.AreYouRegisteredGTSFormProvider
-import identifiers.AreYouRegisteredGTSId
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-import viewmodels.ViewAction
-import views.html.other.gambling.areYouRegisteredGTS
+
+import forms.other.gambling.pbd.DoYouHavePBDRegistrationFormProvider
+import identifiers.DoYouHavePBDRegistrationId
+import views.html.other.gambling.pbd.doYouHavePBDRegistration
 
 import scala.concurrent.Future
 
-class AreYouRegisteredGTSController @Inject()(
+class DoYouHavePBDRegistrationController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  dataCacheConnector: DataCacheConnector,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
-  formProvider: AreYouRegisteredGTSFormProvider
-) extends FrontendController
+  formProvider: DoYouHavePBDRegistrationFormProvider)
+    extends FrontendController
     with I18nSupport
     with Enumerable.Implicits {
 
   val form = formProvider()
 
-  lazy val viewAction = ViewAction(routes.AreYouRegisteredGTSController.onSubmit(), "AddPbdGamblingTax")
-
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(areYouRegisteredGTS(appConfig, form, viewAction)(request.serviceInfoContent))
+    Ok(doYouHavePBDRegistration(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(areYouRegisteredGTS(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(AreYouRegisteredGTSId.PBD, value)))
+          BadRequest(doYouHavePBDRegistration(appConfig, formWithErrors)(request.serviceInfoContent)),
+        (value) => Redirect(navigator.nextPage(DoYouHavePBDRegistrationId, value))
       )
   }
 }

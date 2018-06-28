@@ -18,7 +18,6 @@ package controllers.other.land
 
 import play.api.data.Form
 import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
-import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import play.api.test.Helpers._
@@ -38,14 +37,14 @@ class SelectATaxControllerSpec extends ControllerSpecBase {
     new SelectATaxController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
-      FakeServiceInfoAction,
-      formProvider)
+      FakeServiceInfoAction(enrolments: _*),
+      formProvider
+    )
 
   def viewAsString(form: Form[_] = form, radioOptions: Set[RadioOption] = SelectATax.options) =
-    selectATax(frontendAppConfig, form, SelectATax.options)(HtmlFormat.empty)(fakeRequest, messages).toString
+    selectATax(frontendAppConfig, form, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "SelectATax Controller" must {
 
@@ -91,7 +90,7 @@ class SelectATaxControllerSpec extends ControllerSpecBase {
       }
     }
 
-    "not display vat radio option" when {
+    "not display sdlt radio option" when {
       val radioOptions = SelectATax.options.filterNot(_.value == "SDLT")
 
       "page is loaded and sdlt is enrolled" in {

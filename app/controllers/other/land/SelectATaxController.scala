@@ -19,7 +19,6 @@ package controllers.other.land
 import javax.inject.Inject
 
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -35,7 +34,6 @@ import views.html.other.land.selectATax
 class SelectATaxController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  dataCacheConnector: DataCacheConnector,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
@@ -50,8 +48,8 @@ class SelectATaxController @Inject()(
 
   def radioOptions(implicit request: ServiceInfoRequest[AnyContent]) =
     request.request.enrolments match {
-      case HmrcEnrolmentType.VAT() => optionsWithoutSDLT
-      case _                       => SelectATax.options
+      case HmrcEnrolmentType.SDLT() => optionsWithoutSDLT
+      case _                        => SelectATax.options
     }
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>

@@ -16,7 +16,6 @@
 
 package controllers.other.importexports.ncts
 
-import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers.routes._
@@ -40,7 +39,6 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
     new DoYouHaveEORINumberController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,

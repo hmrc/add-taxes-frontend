@@ -18,7 +18,6 @@ package controllers.vat.ec
 
 import javax.inject.Inject
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.vat.RegisteredForVATFormProvider
 import play.api.data.Form
@@ -34,7 +33,6 @@ import scala.concurrent.Future
 class RegisteredForVATECSalesController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  dataCacheConnector: DataCacheConnector,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,

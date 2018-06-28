@@ -19,7 +19,6 @@ package controllers.other.importexports.nes
 import javax.inject.Inject
 
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.other.importexports.nes.DoYouHaveCHIEFRoleFormProvider
 import identifiers.DoYouHaveCHIEFRoleId
@@ -36,7 +35,6 @@ import scala.concurrent.Future
 class DoYouHaveCHIEFRoleNoEORIController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  dataCacheConnector: DataCacheConnector,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,

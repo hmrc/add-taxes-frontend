@@ -86,8 +86,8 @@ POST       /other/gambling/gbd                          controllers.other.gambli
 
 GET        /other/gambling/pbd/register                 controllers.other.gambling.pbd.RegisterGTSFirstController.onPageLoad()
 
-GET        /other/gambling/pbd                          controllers.other.gambling.pbd.AreYouRegisteredGTSController.onPageLoad()
-POST       /other/gambling/pbd                          controllers.other.gambling.pbd.AreYouRegisteredGTSController.onSubmit()
+GET        /other/gambling/pbd                          controllers.other.gambling.pbd.DoYouHavePBDRegistrationController.onPageLoad()
+POST       /other/gambling/pbd                          controllers.other.gambling.pbd.DoYouHavePBDRegistrationController.onSubmit()
 
 GET        /other/gambling/rgd/register                 controllers.other.gambling.rgd.RegisterRGDController.onPageLoad()
 
@@ -100,9 +100,6 @@ GET        /other/alcohol/atwd/register                 controllers.other.alcoho
 
 GET        /other/alcohol/atwd                          controllers.other.alcohol.atwd.AreYouRegisteredWarehousekeeperController.onPageLoad()
 POST       /other/alcohol/atwd                          controllers.other.alcohol.atwd.AreYouRegisteredWarehousekeeperController.onSubmit()
-
-GET        /other/gambling/rgd                          controllers.other.gambling.rgd.AreYouRegisteredGTSController.onPageLoad()
-POST       /other/gambling/rgd                          controllers.other.gambling.rgd.AreYouRegisteredGTSController.onSubmit()
 
 GET        /self-assessment/partnership/other           controllers.sa.partnership.HaveYouRegisteredPartnershipController.onPageLoad()
 POST       /self-assessment/partnership/other           controllers.sa.partnership.HaveYouRegisteredPartnershipController.onSubmit()
@@ -230,7 +227,13 @@ POST       /employer/cis                                controllers.employer.cis
 GET        /employer                                    controllers.employer.WhatEmployerTaxDoYouWantToAddController.onPageLoad()
 POST       /employer                                    controllers.employer.WhatEmployerTaxDoYouWantToAddController.onSubmit()
 
-GET        /self-assessment/trust/new-account                       controllers.sa.trust.SetUpNewAccountController.onPageLoad()
-GET        /self-assessment/partnership/new-account                       controllers.sa.partnership.SetUpNewAccountController.onPageLoad()
-GET        /other/land                  controllers.other.land.SelectATaxController.onPageLoad()
-POST       /other/land                  controllers.other.land.SelectATaxController.onSubmit()
+GET        /self-assessment/trust/new-account           controllers.sa.trust.SetUpNewAccountController.onPageLoad()
+GET        /self-assessment/partnership/new-account     controllers.sa.partnership.SetUpNewAccountController.onPageLoad()
+
+GET        /other/land                                  controllers.other.land.SelectATaxController.onPageLoad()
+POST       /other/land                                  controllers.other.land.SelectATaxController.onSubmit()
+
+GET        /deenrol/:service                            controllers.deenrolment.DeenrolmentProxyController.onPageLoad(service: utils.Enrolments)
+
+GET        /other/gambling/rgd                          controllers.other.gambling.rgd.DoYouHaveRGDRegistrationController.onPageLoad()
+POST       /other/gambling/rgd                          controllers.other.gambling.rgd.DoYouHaveRGDRegistrationController.onSubmit()

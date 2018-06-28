@@ -18,7 +18,7 @@ package views.other.gambling.pbd
 
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.other.gambling.pbd.register.registerGTSFirst
+import views.html.other.gambling.pbd.registerGTSFirst
 
 class RegisterGTSFirstViewSpec extends ViewBehaviours {
 

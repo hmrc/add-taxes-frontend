@@ -16,7 +16,6 @@
 
 package controllers.other.importexports.ebti
 
-import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers.routes._
@@ -41,7 +40,6 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
     new DoYouHaveEORINumberController(
       frontendAppConfig,
       messagesApi,
-      FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
