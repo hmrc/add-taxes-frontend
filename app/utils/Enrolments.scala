@@ -105,7 +105,8 @@ object Enrolments {
     ECSales,
     EURefunds,
     RCSL,
-    EPAYE
+    EPAYE,
+    ExciseMovementControlSystem
   )
 
 }
