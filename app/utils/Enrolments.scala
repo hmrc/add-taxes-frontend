@@ -56,7 +56,7 @@ object Enrolments {
 
   case object ElectronicBindingTariffInformation extends WithName("HMCE-EBTI-ORG") with Enrolments
 
-  case object NewComputerisedTransitSystem extends WithName("HMRC-NCTS-ORG") with Enrolments
+  case object NewComputerisedTransitSystem extends WithName("HMCE-NCTS-ORG") with Enrolments
 
   case object SAPartnership extends WithName("IR-SA-PART-ORG") with Enrolments
 
@@ -108,6 +108,7 @@ object Enrolments {
     EURefunds,
     RCSL,
     EPAYE,
+    ExciseMovementControlSystem,
     PP
   )
 }
