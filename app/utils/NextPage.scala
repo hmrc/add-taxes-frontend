@@ -104,3 +104,4 @@ object NextPage
     with SelectATaxNextPage
     with DoYouHavePBDRegistrationNextPage
     with utils.nextpage.other.gambling.rgd.DoYouHaveRGDRegistrationNextPage
+    with utils.nextpage.deenrolment.HaveYouStoppedSelfEmploymentNextPage

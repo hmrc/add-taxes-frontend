@@ -838,3 +838,12 @@ doYouHaveRGDRegistration.heading = A oes gennych rif cofrestru Toll Hapchwarae o
 doYouHaveRGDRegistration.Yes = Iawn
 doYouHaveRGDRegistration.No = Na
 doYouHaveRGDRegistration.error.required = Dewiswch Iawn os oes gennych rif cofrestru ar gyfer Toll Hapchwarae o Bell
+
+#######################################################
+##  HaveYouStoppedSelfEmployment
+#######################################################
+haveYouStoppedSelfEmployment.title = A ydych wedi rhoi’r gorau i hunangyflogaeth?
+haveYouStoppedSelfEmployment.heading = A ydych wedi rhoi’r gorau i hunangyflogaeth?
+haveYouStoppedSelfEmployment.Yes = lawn
+haveYouStoppedSelfEmployment.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Hunanasesiad ar-lein
+haveYouStoppedSelfEmployment.error.required = Dewiswch Iawn os ydych wedi rhoi’r gorau i hunangyflogaeth

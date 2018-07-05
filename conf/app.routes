@@ -237,3 +237,6 @@ GET        /deenrol/:service                            controllers.deenrolment.
 
 GET        /other/gambling/rgd                          controllers.other.gambling.rgd.DoYouHaveRGDRegistrationController.onPageLoad()
 POST       /other/gambling/rgd                          controllers.other.gambling.rgd.DoYouHaveRGDRegistrationController.onSubmit()
+
+GET        /self-assesssment/how-to-stop-sa             controllers.deenrolment.HaveYouStoppedSelfEmploymentController.onPageLoad()
+POST       /self-assesssment/how-to-stop-sa             controllers.deenrolment.HaveYouStoppedSelfEmploymentController.onSubmit()

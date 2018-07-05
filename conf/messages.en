@@ -843,3 +843,12 @@ doYouHaveRGDRegistration.heading = Do you have a Remote Gaming Duty registration
 doYouHaveRGDRegistration.Yes = Yes
 doYouHaveRGDRegistration.No = No
 doYouHaveRGDRegistration.error.required = Select yes if you have a Remote Gaming Duty registration number
+
+#######################################################
+##  HaveYouStoppedSelfEmployment
+#######################################################
+haveYouStoppedSelfEmployment.title = Have you stopped self-employment?
+haveYouStoppedSelfEmployment.heading = Have you stopped self-employment?
+haveYouStoppedSelfEmployment.Yes = Yes
+haveYouStoppedSelfEmployment.No = No, I need to stop using the Self Assessment online service
+haveYouStoppedSelfEmployment.error.required = Select yes if you have stopped self-employment
