@@ -1,0 +1,6 @@
+# microservice specific routes
+
+GET        /cis/how-to-stop-cis                  controllers.deenrolment.DoYouWantToLeaveCISController.onPageLoad()
+POST       /cis/how-to-stop-cis                  controllers.deenrolment.DoYouWantToLeaveCISController.onSubmit()
+
+GET        /add-tax/deenrol/:service             controllers.deenrolment.DeenrolmentProxyController.onPageLoad(service: utils.Enrolments)

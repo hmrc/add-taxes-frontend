@@ -17,11 +17,13 @@
 package controllers.deenrolment
 
 import javax.inject.Inject
+
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
 import utils.Enrolments
+import controllers.deenrolment.routes.DoYouWantToLeaveCISController
 
 class DeenrolmentProxyController @Inject()(
   appConfig: FrontendAppConfig,
@@ -32,6 +34,9 @@ class DeenrolmentProxyController @Inject()(
     with I18nSupport {
 
   def onPageLoad(service: Enrolments) = (authenticate andThen serviceInfo) { implicit request =>
-    Redirect(appConfig.emacDeenrolmentsUrl(service))
+    service match {
+      case Enrolments.AddCis => Redirect(DoYouWantToLeaveCISController.onPageLoad())
+      case _                 => Redirect(appConfig.emacDeenrolmentsUrl(service))
+    }
   }
 }
