@@ -843,3 +843,12 @@ doYouHaveRGDRegistration.heading = Do you have a Remote Gaming Duty registration
 doYouHaveRGDRegistration.Yes = Yes
 doYouHaveRGDRegistration.No = No
 doYouHaveRGDRegistration.error.required = Select yes if you have a Remote Gaming Duty registration number
+
+#######################################################
+##  DoYouNeedToStopRO
+#######################################################
+doYouNeedToStopRO.title = Do you need to stop using the Rebated Oils Enquiry online service?
+doYouNeedToStopRO.heading = Do you need to stop using the Rebated Oils Enquiry online service?
+doYouNeedToStopRO.Yes = Yes
+doYouNeedToStopRO.No = No, I need to deregister from the Rebated Oils scheme
+doYouNeedToStopRO.error.required = Select yes if you need to stop using the Rebated Oils Enquiry online service

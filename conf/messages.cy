@@ -838,3 +838,12 @@ doYouHaveRGDRegistration.heading = A oes gennych rif cofrestru Toll Hapchwarae o
 doYouHaveRGDRegistration.Yes = Iawn
 doYouHaveRGDRegistration.No = Na
 doYouHaveRGDRegistration.error.required = Dewiswch Iawn os oes gennych rif cofrestru ar gyfer Toll Hapchwarae o Bell
+
+#######################################################
+##  DoYouNeedToStopRO
+#######################################################
+doYouNeedToStopRO.title = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Ymholiadau Olew Ad-daliedig?
+doYouNeedToStopRO.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Ymholiadau Olew Ad-daliedig?
+doYouNeedToStopRO.Yes = lawn
+doYouNeedToStopRO.No = Na, mae angen i fi ddadgofrestru o’r cynllun Ymholiadau Olew Ad-daliedig
+doYouNeedToStopRO.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Olew Ad-daliedig
