@@ -38,7 +38,7 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
       }
     }
 
-    s"redirect to how to stop cis for HMRC-CIS-ORG" in {
+    "redirect to how to stop cis for HMRC-CIS-ORG" in {
       val result = controller().onPageLoad(Enrolments.AddCis)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
