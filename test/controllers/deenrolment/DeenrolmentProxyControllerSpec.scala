@@ -28,7 +28,9 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
 
   "DeenrolmentProxy Controller" must {
 
-    for (enrolment <- Enrolments.values.filterNot(_ == Enrolments.AddCis)) {
+    val enrolments = Enrolments.values - (Enrolments.AddCis)
+
+    for (enrolment <- enrolments) {
       s"redirect to deenrolment management for $enrolment" in {
         val result = controller().onPageLoad(enrolment)(fakeRequest)
 
