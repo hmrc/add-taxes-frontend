@@ -838,3 +838,12 @@ doYouHaveRGDRegistration.heading = A oes gennych rif cofrestru Toll Hapchwarae o
 doYouHaveRGDRegistration.Yes = Iawn
 doYouHaveRGDRegistration.No = Na
 doYouHaveRGDRegistration.error.required = Dewiswch Iawn os oes gennych rif cofrestru ar gyfer Toll Hapchwarae o Bell
+
+#######################################################
+##  DoYouWantToLeaveCIS
+#######################################################
+doYouWantToLeaveCIS.title = A oes angen i chi adael Cynllun y Diwydiant Adeiladu (CIS)?
+doYouWantToLeaveCIS.heading = A oes angen i chi adael Cynllun y Diwydiant Adeiladu (CIS)?
+doYouWantToLeaveCIS.Yes = Iawn, rwyf wedi rhoi’r gorau i fod yn gontractwr neu isgontractwr
+doYouWantToLeaveCIS.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein
+doYouWantToLeaveCIS.error.required = Dewiswch Iawn os oes angen i chi adael Cynllun y Diwydiant Adeiladu

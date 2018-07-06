@@ -28,7 +28,9 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
 
   "DeenrolmentProxy Controller" must {
 
-    for (enrolment <- Enrolments.values) {
+    val enrolments = Enrolments.values - (Enrolments.AddCis)
+
+    for (enrolment <- enrolments) {
       s"redirect to deenrolment management for $enrolment" in {
         val result = controller().onPageLoad(enrolment)(fakeRequest)
 
@@ -37,5 +39,13 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
           s"http://localhost:9555/enrolment-management-frontend/$enrolment/remove-access-tax-scheme?continue=%2Fbusiness-account")
       }
     }
+
+    "redirect to how to stop cis for HMRC-CIS-ORG" in {
+      val result = controller().onPageLoad(Enrolments.AddCis)(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some("/business-account/cis/how-to-stop-cis")
+    }
+
   }
 }
