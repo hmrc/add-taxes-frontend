@@ -16,28 +16,28 @@
 
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
-@import controllers.deenrolment.routes.DoYouNeedToStopROController
-@import models.deenrolment.DoYouNeedToStopRO
+@import controllers.deenrolment.routes.DoYouWantToLeaveCISController
+@import models.deenrolment.DoYouWantToLeaveCIS
 
 
 @(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("doYouNeedToStopRO.title"),
+    title = messages("doYouWantToLeaveCIS.title"),
     appConfig = appConfig,
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = DoYouNeedToStopROController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    @helpers.form(action = DoYouWantToLeaveCISController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("doYouNeedToStopRO.heading").body,
-            inputs = DoYouNeedToStopRO.options.toSeq
+            legend = components.heading("doYouWantToLeaveCIS.heading").body,
+            inputs = DoYouWantToLeaveCIS.options.toSeq
         )
 
-        @components.submit_button(gaEvent = "StopRo")
+        @components.submit_button(gaEvent = "StopCis")
     }
 }
