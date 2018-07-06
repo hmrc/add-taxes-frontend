@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import identifiers.HaveYouStoppedSelfEmploymentId
 import play.api.mvc.{Call, Request}
 import models.deenrolment.HaveYouStoppedSelfEmployment
-import utils.NextPage
+import utils.{Enrolments, NextPage}
 
 trait HaveYouStoppedSelfEmploymentNextPage {
 
@@ -31,7 +31,7 @@ trait HaveYouStoppedSelfEmploymentNextPage {
         b: HaveYouStoppedSelfEmployment)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case HaveYouStoppedSelfEmployment.Yes => Call("GET", appConfig.getBusinessAccountUrl("howToStopSA"))
-          case HaveYouStoppedSelfEmployment.No  => ???
+          case HaveYouStoppedSelfEmployment.No  => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.SA))
         }
     }
   }
