@@ -50,6 +50,8 @@ import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKN
 import utils.nextpage.vat.rcsl.RegisteredForVATRCSLNextPage
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 import utils.nextpage.other.gambling.pbd.DoYouHavePBDRegistrationNextPage
+import utils.nextpage.deenrolment.{DoYouWantToLeaveCISNextPage, HaveYouStoppedSelfEmploymentNextPage}
+import utils.nextpage.other.gambling.rgd.DoYouHaveRGDRegistrationNextPage
 
 import scala.annotation.implicitNotFound
 
@@ -103,5 +105,6 @@ object NextPage
     with StampDutyNextPage
     with SelectATaxNextPage
     with DoYouHavePBDRegistrationNextPage
-    with utils.nextpage.other.gambling.rgd.DoYouHaveRGDRegistrationNextPage
-    with utils.nextpage.deenrolment.HaveYouStoppedSelfEmploymentNextPage
+    with HaveYouStoppedSelfEmploymentNextPage
+    with DoYouHaveRGDRegistrationNextPage
+    with DoYouWantToLeaveCISNextPage

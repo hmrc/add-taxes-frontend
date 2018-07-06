@@ -233,10 +233,5 @@ GET        /self-assessment/partnership/new-account     controllers.sa.partnersh
 GET        /other/land                                  controllers.other.land.SelectATaxController.onPageLoad()
 POST       /other/land                                  controllers.other.land.SelectATaxController.onSubmit()
 
-GET        /deenrol/:service                            controllers.deenrolment.DeenrolmentProxyController.onPageLoad(service: utils.Enrolments)
-
 GET        /other/gambling/rgd                          controllers.other.gambling.rgd.DoYouHaveRGDRegistrationController.onPageLoad()
 POST       /other/gambling/rgd                          controllers.other.gambling.rgd.DoYouHaveRGDRegistrationController.onSubmit()
-
-GET        /self-assesssment/how-to-stop-sa             controllers.deenrolment.HaveYouStoppedSelfEmploymentController.onPageLoad()
-POST       /self-assesssment/how-to-stop-sa             controllers.deenrolment.HaveYouStoppedSelfEmploymentController.onSubmit()

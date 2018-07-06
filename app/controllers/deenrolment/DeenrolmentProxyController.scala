@@ -24,6 +24,7 @@ import controllers.actions._
 import config.FrontendAppConfig
 import utils.Enrolments
 import controllers.deenrolment.routes.HaveYouStoppedSelfEmploymentController
+import controllers.deenrolment.routes.DoYouWantToLeaveCISController
 
 class DeenrolmentProxyController @Inject()(
   appConfig: FrontendAppConfig,
@@ -35,8 +36,9 @@ class DeenrolmentProxyController @Inject()(
 
   def onPageLoad(service: Enrolments) = (authenticate andThen serviceInfo) { implicit request =>
     service match {
-      case Enrolments.SA => Redirect(HaveYouStoppedSelfEmploymentController.onPageLoad())
-      case _             => Redirect(appConfig.emacDeenrolmentsUrl(service))
+      case Enrolments.SA     => Redirect(HaveYouStoppedSelfEmploymentController.onPageLoad())
+      case Enrolments.AddCis => Redirect(DoYouWantToLeaveCISController.onPageLoad())
+      case _                 => Redirect(appConfig.emacDeenrolmentsUrl(service))
     }
   }
 }

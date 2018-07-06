@@ -847,3 +847,13 @@ haveYouStoppedSelfEmployment.heading = A ydych wedi rhoi’r gorau i hunangyflog
 haveYouStoppedSelfEmployment.Yes = lawn
 haveYouStoppedSelfEmployment.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Hunanasesiad ar-lein
 haveYouStoppedSelfEmployment.error.required = Dewiswch Iawn os ydych wedi rhoi’r gorau i hunangyflogaeth
+
+#######################################################
+##  DoYouWantToLeaveCIS
+#######################################################
+doYouWantToLeaveCIS.title = A oes angen i chi adael Cynllun y Diwydiant Adeiladu (CIS)?
+doYouWantToLeaveCIS.heading = A oes angen i chi adael Cynllun y Diwydiant Adeiladu (CIS)?
+doYouWantToLeaveCIS.Yes = Iawn, rwyf wedi rhoi’r gorau i fod yn gontractwr neu isgontractwr
+doYouWantToLeaveCIS.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein
+doYouWantToLeaveCIS.error.required = Dewiswch Iawn os oes angen i chi adael Cynllun y Diwydiant Adeiladu
+
