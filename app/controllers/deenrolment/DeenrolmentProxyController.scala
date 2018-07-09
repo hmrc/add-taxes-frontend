@@ -23,7 +23,7 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
 import utils.Enrolments
-import controllers.deenrolment.routes.DoYouWantToLeaveCISController
+import controllers.deenrolment.routes._
 
 class DeenrolmentProxyController @Inject()(
   appConfig: FrontendAppConfig,
@@ -36,6 +36,7 @@ class DeenrolmentProxyController @Inject()(
   def onPageLoad(service: Enrolments) = (authenticate andThen serviceInfo) { implicit request =>
     service match {
       case Enrolments.AddCis => Redirect(DoYouWantToLeaveCISController.onPageLoad())
+      case Enrolments.PSA    => Redirect(DoYouNeedToStopPSAController.onPageLoad())
       case _                 => Redirect(appConfig.emacDeenrolmentsUrl(service))
     }
   }
