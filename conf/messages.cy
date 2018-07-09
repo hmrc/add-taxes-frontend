@@ -853,6 +853,6 @@ doYouWantToLeaveCIS.error.required = Dewiswch Iawn os oes angen i chi adael Cynl
 #######################################################
 doYouNeedToStopRO.title = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Ymholiadau Olew Ad-daliedig?
 doYouNeedToStopRO.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Ymholiadau Olew Ad-daliedig?
-doYouNeedToStopRO.Yes = lawn
+doYouNeedToStopRO.Yes = Iawn
 doYouNeedToStopRO.No = Na, mae angen i fi ddadgofrestru o’r cynllun Ymholiadau Olew Ad-daliedig
 doYouNeedToStopRO.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Olew Ad-daliedig
