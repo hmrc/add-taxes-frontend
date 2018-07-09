@@ -32,6 +32,8 @@ object Enrolments {
 
   case object AEOI extends WithName("HMRC-FATCA-ORG") with Enrolments
 
+  case object ATED extends WithName("HMRC-ATED-ORG") with Enrolments
+
   case object Charities extends WithName("HMRC-CHAR-ORG") with Enrolments
 
   case object MachineGamingDuty extends WithName("HMRC-MGD-ORG") with Enrolments
@@ -109,7 +111,8 @@ object Enrolments {
     RCSL,
     EPAYE,
     ExciseMovementControlSystem,
-    PP
+    PP,
+    ATED
   )
 }
 
