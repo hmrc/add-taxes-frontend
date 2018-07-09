@@ -847,3 +847,12 @@ doYouWantToLeaveCIS.heading = A oes angen i chi adael Cynllun y Diwydiant Adeila
 doYouWantToLeaveCIS.Yes = Iawn, rwyf wedi rhoi’r gorau i fod yn gontractwr neu isgontractwr
 doYouWantToLeaveCIS.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein
 doYouWantToLeaveCIS.error.required = Dewiswch Iawn os oes angen i chi adael Cynllun y Diwydiant Adeiladu
+
+#######################################################
+##  DoYouNeedToStopPSA
+#######################################################
+doYouNeedToStopPSA.title = A oes angen i chi roi’r gorau i weithredu fel gweinyddwr cynllun pensiwn?
+doYouNeedToStopPSA.heading = A oes angen i chi roi’r gorau i weithredu fel gweinyddwr cynllun pensiwn?
+doYouNeedToStopPSA.Yes = lawn
+doYouNeedToStopPSA.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein
+doYouNeedToStopPSA.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i weithredu fel gweinyddwr cynllun pensiwn

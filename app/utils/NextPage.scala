@@ -107,3 +107,4 @@ object NextPage
     with DoYouHavePBDRegistrationNextPage
     with DoYouHaveRGDRegistrationNextPage
     with DoYouWantToLeaveCISNextPage
+    with utils.nextpage.deenrolment.DoYouNeedToStopPSANextPage

@@ -4,3 +4,6 @@ GET        /cis/how-to-stop-cis                  controllers.deenrolment.DoYouWa
 POST       /cis/how-to-stop-cis                  controllers.deenrolment.DoYouWantToLeaveCISController.onSubmit()
 
 GET        /add-tax/deenrol/:service             controllers.deenrolment.DeenrolmentProxyController.onPageLoad(service: utils.Enrolments)
+
+GET        /psa/how-to-stop-psa                  controllers.deenrolment.DoYouNeedToStopPSAController.onPageLoad()
+POST       /psa/how-to-stop-psa                  controllers.deenrolment.DoYouNeedToStopPSAController.onSubmit()

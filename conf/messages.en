@@ -852,3 +852,12 @@ doYouWantToLeaveCIS.heading = Do you need to leave the Construction Industry Sch
 doYouWantToLeaveCIS.Yes = Yes, I have stopped trading as a contractor or subcontractor
 doYouWantToLeaveCIS.No = No, I need to stop using the online service
 doYouWantToLeaveCIS.error.required = Select yes if you need to leave the Construction Industry Scheme
+
+#######################################################
+##  DoYouNeedToStopPSA
+#######################################################
+doYouNeedToStopPSA.title = Do you need to stop acting as a pension scheme administrator?
+doYouNeedToStopPSA.heading = Do you need to stop acting as a pension scheme administrator?
+doYouNeedToStopPSA.Yes = Yes
+doYouNeedToStopPSA.No = No, I need to stop using the online service
+doYouNeedToStopPSA.error.required = Select yes if you need to stop acting as a pension scheme administrator
