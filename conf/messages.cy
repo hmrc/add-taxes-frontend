@@ -840,15 +840,6 @@ doYouHaveRGDRegistration.No = Na
 doYouHaveRGDRegistration.error.required = Dewiswch Iawn os oes gennych rif cofrestru ar gyfer Toll Hapchwarae o Bell
 
 #######################################################
-##  HaveYouStoppedSelfEmployment
-#######################################################
-haveYouStoppedSelfEmployment.title = A ydych wedi rhoi’r gorau i hunangyflogaeth?
-haveYouStoppedSelfEmployment.heading = A ydych wedi rhoi’r gorau i hunangyflogaeth?
-haveYouStoppedSelfEmployment.Yes = lawn
-haveYouStoppedSelfEmployment.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Hunanasesiad ar-lein
-haveYouStoppedSelfEmployment.error.required = Dewiswch Iawn os ydych wedi rhoi’r gorau i hunangyflogaeth
-
-#######################################################
 ##  DoYouWantToLeaveCIS
 #######################################################
 doYouWantToLeaveCIS.title = A oes angen i chi adael Cynllun y Diwydiant Adeiladu (CIS)?
@@ -857,3 +848,20 @@ doYouWantToLeaveCIS.Yes = Iawn, rwyf wedi rhoi’r gorau i fod yn gontractwr neu
 doYouWantToLeaveCIS.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein
 doYouWantToLeaveCIS.error.required = Dewiswch Iawn os oes angen i chi adael Cynllun y Diwydiant Adeiladu
 
+#######################################################
+##  DoYouNeedToStopRO
+#######################################################
+doYouNeedToStopRO.title = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Ymholiadau Olew Ad-daliedig?
+doYouNeedToStopRO.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Ymholiadau Olew Ad-daliedig?
+doYouNeedToStopRO.Yes = Iawn
+doYouNeedToStopRO.No = Na, mae angen i fi ddadgofrestru o’r cynllun Ymholiadau Olew Ad-daliedig
+doYouNeedToStopRO.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Olew Ad-daliedig
+
+#######################################################
+##  HaveYouStoppedSelfEmployment
+#######################################################
+haveYouStoppedSelfEmployment.title = A ydych wedi rhoi’r gorau i hunangyflogaeth?
+haveYouStoppedSelfEmployment.heading = A ydych wedi rhoi’r gorau i hunangyflogaeth?
+haveYouStoppedSelfEmployment.Yes = lawn
+haveYouStoppedSelfEmployment.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Hunanasesiad ar-lein
+haveYouStoppedSelfEmployment.error.required = Dewiswch Iawn os ydych wedi rhoi’r gorau i hunangyflogaeth

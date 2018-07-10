@@ -845,15 +845,6 @@ doYouHaveRGDRegistration.No = No
 doYouHaveRGDRegistration.error.required = Select yes if you have a Remote Gaming Duty registration number
 
 #######################################################
-##  HaveYouStoppedSelfEmployment
-#######################################################
-haveYouStoppedSelfEmployment.title = Have you stopped self-employment?
-haveYouStoppedSelfEmployment.heading = Have you stopped self-employment?
-haveYouStoppedSelfEmployment.Yes = Yes
-haveYouStoppedSelfEmployment.No = No, I need to stop using the Self Assessment online service
-haveYouStoppedSelfEmployment.error.required = Select yes if you have stopped self-employment
-
-#######################################################
 ##  DoYouWantToLeaveCIS
 #######################################################
 doYouWantToLeaveCIS.title = Do you need to leave the Construction Industry Scheme (CIS)?
@@ -861,3 +852,21 @@ doYouWantToLeaveCIS.heading = Do you need to leave the Construction Industry Sch
 doYouWantToLeaveCIS.Yes = Yes, I have stopped trading as a contractor or subcontractor
 doYouWantToLeaveCIS.No = No, I need to stop using the online service
 doYouWantToLeaveCIS.error.required = Select yes if you need to leave the Construction Industry Scheme
+
+#######################################################
+##  DoYouNeedToStopRO
+#######################################################
+doYouNeedToStopRO.title = Do you need to stop using the Rebated Oils Enquiry online service?
+doYouNeedToStopRO.heading = Do you need to stop using the Rebated Oils Enquiry online service?
+doYouNeedToStopRO.Yes = Yes
+doYouNeedToStopRO.No = No, I need to deregister from the Rebated Oils scheme
+doYouNeedToStopRO.error.required = Select yes if you need to stop using the Rebated Oils Enquiry online service
+
+#######################################################
+##  HaveYouStoppedSelfEmployment
+#######################################################
+haveYouStoppedSelfEmployment.title = Have you stopped self-employment?
+haveYouStoppedSelfEmployment.heading = Have you stopped self-employment?
+haveYouStoppedSelfEmployment.Yes = Yes
+haveYouStoppedSelfEmployment.No = No, I need to stop using the Self Assessment online service
+haveYouStoppedSelfEmployment.error.required = Select yes if you have stopped self-employment

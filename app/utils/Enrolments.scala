@@ -32,6 +32,8 @@ object Enrolments {
 
   case object AEOI extends WithName("HMRC-FATCA-ORG") with Enrolments
 
+  case object ATED extends WithName("HMRC-ATED-ORG") with Enrolments
+
   case object Charities extends WithName("HMRC-CHAR-ORG") with Enrolments
 
   case object MachineGamingDuty extends WithName("HMRC-MGD-ORG") with Enrolments
@@ -80,6 +82,8 @@ object Enrolments {
 
   case object PP extends WithName("HMRC-PP-ORG") with Enrolments
 
+  case object VATVAR extends WithName("HMCE-VATVAR-ORG") with Enrolments
+
   case object SA extends WithName("IR-SA") with Enrolments
 
   val values: Set[Enrolments] = Set(
@@ -112,6 +116,8 @@ object Enrolments {
     EPAYE,
     ExciseMovementControlSystem,
     PP,
+    VATVAR,
+    ATED,
     SA
   )
 }

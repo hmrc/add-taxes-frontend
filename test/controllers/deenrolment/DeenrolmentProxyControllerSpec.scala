@@ -28,7 +28,9 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
 
   "DeenrolmentProxy Controller" must {
 
-    for (enrolment <- Enrolments.values.filterNot(e => e == Enrolments.AddCis || e == Enrolments.SA)) {
+    val enrolments = Enrolments.values - (Enrolments.AddCis, Enrolments.RebatedOils, Enrolments.SA)
+
+    for (enrolment <- enrolments) {
       s"redirect to deenrolment management for $enrolment" in {
         val result = controller().onPageLoad(enrolment)(fakeRequest)
 
@@ -45,12 +47,18 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
       redirectLocation(result) mustBe Some("/business-account/cis/how-to-stop-cis")
     }
 
+    "redirect to how to stop cis for HMCE-RO" in {
+      val result = controller().onPageLoad(Enrolments.RebatedOils)(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some("/business-account/ro/how-to-stop-ro")
+    }
+
     "redirect to how to stop SA for IR-SA" in {
       val result = controller().onPageLoad(Enrolments.SA)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some("/business-account/self-assessment/how-to-stop-sa")
     }
-
   }
 }
