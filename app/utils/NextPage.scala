@@ -19,7 +19,7 @@ package utils
 import config.FrontendAppConfig
 import play.api.mvc.{Call, Request}
 import utils.nextpage.OtherTaxesNextPage
-import utils.nextpage.deenrolment.{DoYouNeedToStopEPAYENextPage, DoYouNeedToStopRONextPage, DoYouWantToLeaveCISNextPage}
+import utils.nextpage.deenrolment._
 import utils.nextpage.employer.cis.IsYourBusinessInUKNextPage
 import utils.nextpage.employer.cis.uk.AreYouContractorOrSubcontractorNextPage
 import utils.nextpage.employer.cis.uk.subcontractor._
