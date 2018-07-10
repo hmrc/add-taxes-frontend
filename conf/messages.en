@@ -861,3 +861,12 @@ doYouNeedToStopRO.heading = Do you need to stop using the Rebated Oils Enquiry o
 doYouNeedToStopRO.Yes = Yes
 doYouNeedToStopRO.No = No, I need to deregister from the Rebated Oils scheme
 doYouNeedToStopRO.error.required = Select yes if you need to stop using the Rebated Oils Enquiry online service
+
+#######################################################
+##  DoYouNeedToStopEPAYE
+#######################################################
+doYouNeedToStopEPAYE.title = Has your business stopped employing people?
+doYouNeedToStopEPAYE.heading = Has your business stopped employing people?
+doYouNeedToStopEPAYE.Yes = Yes
+doYouNeedToStopEPAYE.No = No, I need to stop using the PAYE for Employers online service
+doYouNeedToStopEPAYE.error.required = Select yes if your business has stopped employing people
