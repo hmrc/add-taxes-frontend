@@ -852,3 +852,12 @@ doYouWantToLeaveCIS.heading = Do you need to leave the Construction Industry Sch
 doYouWantToLeaveCIS.Yes = Yes, I have stopped trading as a contractor or subcontractor
 doYouWantToLeaveCIS.No = No, I need to stop using the online service
 doYouWantToLeaveCIS.error.required = Select yes if you need to leave the Construction Industry Scheme
+
+#######################################################
+##  DoYouNeedToStopRO
+#######################################################
+doYouNeedToStopRO.title = Do you need to stop using the Rebated Oils Enquiry online service?
+doYouNeedToStopRO.heading = Do you need to stop using the Rebated Oils Enquiry online service?
+doYouNeedToStopRO.Yes = Yes
+doYouNeedToStopRO.No = No, I need to deregister from the Rebated Oils scheme
+doYouNeedToStopRO.error.required = Select yes if you need to stop using the Rebated Oils Enquiry online service
