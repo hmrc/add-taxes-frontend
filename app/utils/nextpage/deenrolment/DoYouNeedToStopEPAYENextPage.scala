@@ -28,7 +28,7 @@ trait DoYouNeedToStopEPAYENextPage {
     new NextPage[DoYouNeedToStopEPAYEId.type, DoYouNeedToStopEPAYE] {
       override def get(b: DoYouNeedToStopEPAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case DoYouNeedToStopEPAYE.Yes => Call("GET", appConfig.getBusinessAccountUrl("paye-deregister"))
+          case DoYouNeedToStopEPAYE.Yes => Call("GET", appConfig.getBusinessAccountUrl("epaye-remove"))
           case DoYouNeedToStopEPAYE.No  => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.EPAYE))
         }
     }

@@ -26,7 +26,7 @@ class DoYouNeedToStopEPAYENextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.doYouNeedToStopEPAYE,
       DoYouNeedToStopEPAYE.Yes,
-      "http://localhost:9020/business-account/paye/deregister"
+      "http://localhost:9020/business-account/epaye/remove"
     )
 
     behave like nextPage(
