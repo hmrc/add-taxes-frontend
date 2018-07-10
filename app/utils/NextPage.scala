@@ -19,6 +19,7 @@ package utils
 import config.FrontendAppConfig
 import play.api.mvc.{Call, Request}
 import utils.nextpage.OtherTaxesNextPage
+import utils.nextpage.deenrolment.{DoYouNeedToStopRONextPage, DoYouWantToLeaveCISNextPage}
 import utils.nextpage.employer.cis.IsYourBusinessInUKNextPage
 import utils.nextpage.employer.cis.uk.AreYouContractorOrSubcontractorNextPage
 import utils.nextpage.employer.cis.uk.subcontractor._
@@ -29,13 +30,15 @@ import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage
 import utils.nextpage.other.alcohol.awrs.SelectAlcoholSchemeNextPage
 import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
 import utils.nextpage.other.gambling.mgd.DoYouHaveMGDRegistrationNextPage
+import utils.nextpage.other.gambling.pbd.DoYouHavePBDRegistrationNextPage
+import utils.nextpage.other.gambling.rgd.DoYouHaveRGDRegistrationNextPage
 import utils.nextpage.other.gambling.{AreYouRegisteredGTSNextPage, SelectGamblingOrGamingDutyNextPage}
 import utils.nextpage.other.importexports.dan.DoYouHaveDANNextPage
 import utils.nextpage.other.importexports.emcs.DoYouHaveASEEDNumberNextPage
 import utils.nextpage.other.importexports.nes.DoYouHaveCHIEFRoleNextPage
 import utils.nextpage.other.importexports.{DoYouHaveEORINumberNextPage, DoYouWantToAddImportExportNextPage}
-import utils.nextpage.other.land.stampduty.StampDutyNextPage
 import utils.nextpage.other.land.SelectATaxNextPage
+import utils.nextpage.other.land.stampduty.StampDutyNextPage
 import utils.nextpage.other.oil._
 import utils.nextpage.sa.SelectSACategoryNextPage
 import utils.nextpage.sa.partnership._
@@ -49,9 +52,6 @@ import utils.nextpage.vat.moss.noneu.HaveYouRegisteredForVATMOSSNextPage
 import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
 import utils.nextpage.vat.rcsl.RegisteredForVATRCSLNextPage
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
-import utils.nextpage.other.gambling.pbd.DoYouHavePBDRegistrationNextPage
-import utils.nextpage.deenrolment.DoYouWantToLeaveCISNextPage
-import utils.nextpage.other.gambling.rgd.DoYouHaveRGDRegistrationNextPage
 
 import scala.annotation.implicitNotFound
 
@@ -107,3 +107,4 @@ object NextPage
     with DoYouHavePBDRegistrationNextPage
     with DoYouHaveRGDRegistrationNextPage
     with DoYouWantToLeaveCISNextPage
+    with DoYouNeedToStopRONextPage
