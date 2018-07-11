@@ -13,3 +13,6 @@ GET        /epaye/how-to-stop-paye               controllers.deenrolment.DoYouNe
 POST       /epaye/how-to-stop-paye               controllers.deenrolment.DoYouNeedToStopEPAYEController.onSubmit()
 
 GET        /add-tax/deenrol/:service             controllers.deenrolment.DeenrolmentProxyController.onPageLoad(service: utils.Enrolments)
+
+GET        /psa/how-to-stop-psa                  controllers.deenrolment.DoYouNeedToStopPSAController.onPageLoad()
+POST       /psa/how-to-stop-psa                  controllers.deenrolment.DoYouNeedToStopPSAController.onSubmit()

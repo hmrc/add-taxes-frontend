@@ -867,6 +867,15 @@ doYouNeedToStopEPAYE.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwas
 doYouNeedToStopEPAYE.error.required = Dewiswch Iawn os yw’ch busnes wedi rhoi’r gorau i gyflogi pobl
 
 #######################################################
+##  DoYouNeedToStopPSA
+#######################################################
+doYouNeedToStopPSA.title = A oes angen i chi roi’r gorau i weithredu fel gweinyddwr cynllun pensiwn?
+doYouNeedToStopPSA.heading = A oes angen i chi roi’r gorau i weithredu fel gweinyddwr cynllun pensiwn?
+doYouNeedToStopPSA.Yes = Iawn
+doYouNeedToStopPSA.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein
+doYouNeedToStopPSA.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i weithredu fel gweinyddwr cynllun pensiwn
+
+#######################################################
 ##  HaveYouStoppedSelfEmployment
 #######################################################
 haveYouStoppedSelfEmployment.title = A ydych wedi rhoi’r gorau i hunangyflogaeth?
