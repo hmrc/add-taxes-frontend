@@ -35,6 +35,7 @@ class DeenrolmentProxyController @Inject()(
 
   def onPageLoad(service: Enrolments) = (authenticate andThen serviceInfo) { implicit request =>
     service match {
+      case Enrolments.SA          => Redirect(HaveYouStoppedSelfEmploymentController.onPageLoad())
       case Enrolments.RebatedOils => Redirect(DoYouNeedToStopROController.onPageLoad())
       case Enrolments.EPAYE       => Redirect(DoYouNeedToStopEPAYEController.onPageLoad())
       case Enrolments.AddCis      => Redirect(DoYouWantToLeaveCISController.onPageLoad())

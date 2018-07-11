@@ -3,6 +3,9 @@
 GET        /cis/how-to-stop-cis                  controllers.deenrolment.DoYouWantToLeaveCISController.onPageLoad()
 POST       /cis/how-to-stop-cis                  controllers.deenrolment.DoYouWantToLeaveCISController.onSubmit()
 
+GET        /self-assessment/how-to-stop-sa      controllers.deenrolment.HaveYouStoppedSelfEmploymentController.onPageLoad()
+POST       /self-assessment/how-to-stop-sa      controllers.deenrolment.HaveYouStoppedSelfEmploymentController.onSubmit()
+
 GET        /ro/how-to-stop-ro                    controllers.deenrolment.DoYouNeedToStopROController.onPageLoad()
 POST       /ro/how-to-stop-ro                    controllers.deenrolment.DoYouNeedToStopROController.onSubmit()
 

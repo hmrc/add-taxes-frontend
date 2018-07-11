@@ -874,3 +874,12 @@ doYouNeedToStopPSA.heading = A oes angen i chi roi’r gorau i weithredu fel gwe
 doYouNeedToStopPSA.Yes = Iawn
 doYouNeedToStopPSA.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein
 doYouNeedToStopPSA.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i weithredu fel gweinyddwr cynllun pensiwn
+
+#######################################################
+##  HaveYouStoppedSelfEmployment
+#######################################################
+haveYouStoppedSelfEmployment.title = A ydych wedi rhoi’r gorau i hunangyflogaeth?
+haveYouStoppedSelfEmployment.heading = A ydych wedi rhoi’r gorau i hunangyflogaeth?
+haveYouStoppedSelfEmployment.Yes = Iawn
+haveYouStoppedSelfEmployment.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Hunanasesiad ar-lein
+haveYouStoppedSelfEmployment.error.required = Dewiswch Iawn os ydych wedi rhoi’r gorau i hunangyflogaeth
