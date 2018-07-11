@@ -858,10 +858,19 @@ doYouNeedToStopRO.No = Na, mae angen i fi ddadgofrestru o’r cynllun Ymholiadau
 doYouNeedToStopRO.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Olew Ad-daliedig
 
 #######################################################
+##  DoYouNeedToStopEPAYE
+#######################################################
+doYouNeedToStopEPAYE.title = A yw’ch busnes wedi rhoi’r gorau i gyflogi pobl?
+doYouNeedToStopEPAYE.heading = A yw’ch busnes wedi rhoi’r gorau i gyflogi pobl?
+doYouNeedToStopEPAYE.Yes = Iawn
+doYouNeedToStopEPAYE.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein TWE i gyflogwyr
+doYouNeedToStopEPAYE.error.required = Dewiswch Iawn os yw’ch busnes wedi rhoi’r gorau i gyflogi pobl
+
+#######################################################
 ##  HaveYouStoppedSelfEmployment
 #######################################################
 haveYouStoppedSelfEmployment.title = A ydych wedi rhoi’r gorau i hunangyflogaeth?
 haveYouStoppedSelfEmployment.heading = A ydych wedi rhoi’r gorau i hunangyflogaeth?
-haveYouStoppedSelfEmployment.Yes = lawn
+haveYouStoppedSelfEmployment.Yes = Iawn
 haveYouStoppedSelfEmployment.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Hunanasesiad ar-lein
 haveYouStoppedSelfEmployment.error.required = Dewiswch Iawn os ydych wedi rhoi’r gorau i hunangyflogaeth

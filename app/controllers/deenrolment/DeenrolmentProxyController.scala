@@ -38,6 +38,7 @@ class DeenrolmentProxyController @Inject()(
       case Enrolments.SA          => Redirect(HaveYouStoppedSelfEmploymentController.onPageLoad())
       case Enrolments.AddCis      => Redirect(DoYouWantToLeaveCISController.onPageLoad())
       case Enrolments.RebatedOils => Redirect(DoYouNeedToStopROController.onPageLoad())
+      case Enrolments.EPAYE       => Redirect(DoYouNeedToStopEPAYEController.onPageLoad())
       case _                      => Redirect(appConfig.emacDeenrolmentsUrl(service))
     }
   }
