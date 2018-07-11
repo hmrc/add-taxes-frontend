@@ -5,6 +5,6 @@
 
 The add taxes section of the Business tax account.
 Many of its journeys are still in Business tax account and will be migrated in due course.
-#### License
+##### License
 
 This code is open source software licensed under the [Apache 2.0 License]("http://www.apache.org/licenses/LICENSE-2.0.html").
