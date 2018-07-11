@@ -853,6 +853,6 @@ doYouWantToLeaveCIS.error.required = Dewiswch Iawn os oes angen i chi adael Cynl
 #######################################################
 doYouNeedToStopPSA.title = A oes angen i chi roi’r gorau i weithredu fel gweinyddwr cynllun pensiwn?
 doYouNeedToStopPSA.heading = A oes angen i chi roi’r gorau i weithredu fel gweinyddwr cynllun pensiwn?
-doYouNeedToStopPSA.Yes = lawn
+doYouNeedToStopPSA.Yes = Iawn
 doYouNeedToStopPSA.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein
 doYouNeedToStopPSA.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i weithredu fel gweinyddwr cynllun pensiwn

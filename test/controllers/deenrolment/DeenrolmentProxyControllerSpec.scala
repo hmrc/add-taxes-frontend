@@ -47,7 +47,7 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
       redirectLocation(result) mustBe Some("/business-account/cis/how-to-stop-cis")
     }
 
-    "redirect to how to stop cis for HMRC-PSA-ORG" in {
+    "redirect to how to stop psa for HMRC-PSA-ORG" in {
       val result = controller().onPageLoad(Enrolments.PSA)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
