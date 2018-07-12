@@ -632,6 +632,7 @@ whichVATServicesToAdd.title = Which VAT service do you want to add?
 whichVATServicesToAdd.heading = Which VAT service do you want to add?
 whichVATServicesToAdd.vat = VAT
 whichVATServicesToAdd.ecsales = EC Sales List, report sales made to VAT registered EU customers
+whichVATServicesToAdd.giant = Government Information and National Health Trusts (GIANT)
 whichVATServicesToAdd.eurefunds = EU Refunds, reclaim VAT you paid in the EU
 whichVATServicesToAdd.rcsl = Reverse Charge Sales List (RCSL), report sales which have reverse charge VAT
 whichVATServicesToAdd.moss = Mini One Stop Shop (MOSS), VAT on digital services sold to EU customers

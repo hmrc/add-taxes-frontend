@@ -44,6 +44,7 @@ trait WhichVATServicesToAddNextPage {
         serviceToAdd match {
           case WhichVATServicesToAdd.VAT       => Call("GET", appConfig.getPortalUrl("businessRegistration"))
           case WhichVATServicesToAdd.ECSales   => getECSalesCall(enrolments)
+          case WhichVATServicesToAdd.GIANT     => ???
           case WhichVATServicesToAdd.EURefunds => getEURefundsCall(enrolments)
           case WhichVATServicesToAdd.RCSL      => getRCSLCall(enrolments)
           case WhichVATServicesToAdd.MOSS      => getVATMOSSCall(affinity, enrolments)
