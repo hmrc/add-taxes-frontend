@@ -889,3 +889,12 @@ haveYouStoppedSelfEmployment.heading = Have you stopped self-employment?
 haveYouStoppedSelfEmployment.Yes = Yes
 haveYouStoppedSelfEmployment.No = No, I need to stop using the Self Assessment online service
 haveYouStoppedSelfEmployment.error.required = Select yes if you have stopped self-employment
+
+#######################################################
+##  WhatIsYourOrganisation
+#######################################################
+whatIsYourOrganisation.title = Is your organisation an NHS trust, government department or Royal Household?
+whatIsYourOrganisation.heading = Is your organisation an NHS trust, government department or Royal Household?
+whatIsYourOrganisation.Yes = Yes
+whatIsYourOrganisation.No = No
+whatIsYourOrganisation.error.required = Select yes if your organisation is an NHS trust, government department or Royal Household

@@ -235,3 +235,6 @@ POST       /other/land                                  controllers.other.land.S
 
 GET        /other/gambling/rgd                          controllers.other.gambling.rgd.DoYouHaveRGDRegistrationController.onPageLoad()
 POST       /other/gambling/rgd                          controllers.other.gambling.rgd.DoYouHaveRGDRegistrationController.onSubmit()
+
+GET        /vat/vat-giant                               controllers.vat.giant.WhatIsYourOrganisationController.onPageLoad()
+POST       /vat/vat-giant                               controllers.vat.giant.WhatIsYourOrganisationController.onSubmit()

@@ -52,6 +52,7 @@ import utils.nextpage.vat.moss.noneu.HaveYouRegisteredForVATMOSSNextPage
 import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
 import utils.nextpage.vat.rcsl.RegisteredForVATRCSLNextPage
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
+import utils.nextpage.vat.giant.WhatIsYourOrganisationNextPage
 
 import scala.annotation.implicitNotFound
 
@@ -111,3 +112,4 @@ object NextPage
     with DoYouNeedToStopEPAYENextPage
     with DoYouNeedToStopPSANextPage
     with HaveYouStoppedSelfEmploymentNextPage
+    with WhatIsYourOrganisationNextPage

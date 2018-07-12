@@ -19,6 +19,7 @@ package utils.nextpage.vat
 import config.FrontendAppConfig
 import controllers.vat.ec.{routes => ecRoutes}
 import controllers.vat.eurefunds.{routes => euRoutes}
+import controllers.vat.giant.{routes => giantRoutes}
 import controllers.vat.moss.{routes => mossRoutes}
 import controllers.vat.moss.noneu.{routes => noneuRoutes}
 import controllers.vat.moss.newaccount.{routes => newAccountRoutes}
@@ -44,7 +45,7 @@ trait WhichVATServicesToAddNextPage {
         serviceToAdd match {
           case WhichVATServicesToAdd.VAT       => Call("GET", appConfig.getPortalUrl("businessRegistration"))
           case WhichVATServicesToAdd.ECSales   => getECSalesCall(enrolments)
-          case WhichVATServicesToAdd.GIANT     => ???
+          case WhichVATServicesToAdd.GIANT     => giantRoutes.WhatIsYourOrganisationController.onPageLoad()
           case WhichVATServicesToAdd.EURefunds => getEURefundsCall(enrolments)
           case WhichVATServicesToAdd.RCSL      => getRCSLCall(enrolments)
           case WhichVATServicesToAdd.MOSS      => getVATMOSSCall(affinity, enrolments)

@@ -884,3 +884,12 @@ haveYouStoppedSelfEmployment.heading = A ydych wedi rhoi’r gorau i hunangyflog
 haveYouStoppedSelfEmployment.Yes = Iawn
 haveYouStoppedSelfEmployment.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Hunanasesiad ar-lein
 haveYouStoppedSelfEmployment.error.required = Dewiswch Iawn os ydych wedi rhoi’r gorau i hunangyflogaeth
+
+#######################################################
+##  WhatIsYourOrganisation
+#######################################################
+whatIsYourOrganisation.title = A yw’ch sefydliad yn ymddiriedolaeth y GIG, yn adran o’r Llywodraeth neu’n Aelwyd Frenhinol?
+whatIsYourOrganisation.heading = A yw’ch sefydliad yn ymddiriedolaeth y GIG, yn adran o’r Llywodraeth neu’n Aelwyd Frenhinol?
+whatIsYourOrganisation.Yes = Iawn
+whatIsYourOrganisation.No = Na
+whatIsYourOrganisation.error.required = Dewiswch ‘Iawn’ os yw’ch sefydliad yn ymddiriedolaeth y GIG, yn adran o’r Llywodraeth neu’n Aelwyd Frenhinol
