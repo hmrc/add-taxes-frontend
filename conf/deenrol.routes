@@ -12,7 +12,7 @@ POST       /ro/how-to-stop-ro                    controllers.deenrolment.DoYouNe
 GET        /epaye/how-to-stop-paye               controllers.deenrolment.DoYouNeedToStopEPAYEController.onPageLoad()
 POST       /epaye/how-to-stop-paye               controllers.deenrolment.DoYouNeedToStopEPAYEController.onSubmit()
 
-GET        /add-tax/deenrol/:service             controllers.deenrolment.DeenrolmentProxyController.onPageLoad(service: utils.Enrolments)
+GET        /:service                             controllers.deenrolment.DeenrolmentProxyController.onPageLoad(service: utils.Enrolments)
 
 GET        /psa/how-to-stop-psa                  controllers.deenrolment.DoYouNeedToStopPSAController.onPageLoad()
 POST       /psa/how-to-stop-psa                  controllers.deenrolment.DoYouNeedToStopPSAController.onSubmit()
