@@ -127,6 +127,7 @@ otherTaxes.alcoholAndTobaccoWholesalingAndWarehousing = Cyfanwerthu a warysu alc
 otherTaxes.automaticExchangeOfInformation = Cyfnewid Gwybodaeth yn Awtomatig (AEOI)
 otherTaxes.charities = Elusennau - ar gyfer ceisiadau am ad-daliadau Rhodd Cymorth
 otherTaxes.gamblingAndGaming = Betio a hapchwarae
+otherTaxes.childTrustFund = Cronfa Ymddiriedolaeth Plant i ddarparwyr
 otherTaxes.housingAndLand = Tai a thir
 otherTaxes.importsExports = Mewnforion ac allforion
 otherTaxes.oilAndFuel = Olew a thanwydd

@@ -65,6 +65,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
       RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing"),
       RadioOption("otherTaxes", "automaticExchangeOfInformation"),
       RadioOption("otherTaxes", "charities"),
+      RadioOption("otherTaxes", "childTrustFund"),
       RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration"),
       RadioOption("otherTaxes", "gamblingAndGaming"),
       RadioOption("otherTaxes", "housingAndLand"),
