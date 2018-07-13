@@ -1,6 +1,6 @@
 # Add all the application routes to the app.routes file
 ->         /business-account/add-tax         app.Routes
-->         /business-account                 deenrol.Routes
+->         /business-account/deenrol         deenrol.Routes
 ->         /                                 health.Routes
 ->     	   /template                         template.Routes
 
