@@ -39,7 +39,6 @@ trait OtherTaxesNextPage {
           case OtherTaxes.AutomaticExchangeOfInformation               => aeoiRoutes.HaveYouRegisteredAEOIController.onPageLoad()
           case OtherTaxes.Charities                                    => charityRoutes.DoYouHaveCharityReferenceController.onPageLoad()
           case OtherTaxes.GamblingAndGaming                            => gamblingRoutes.SelectGamblingOrGamingDutyController.onPageLoad()
-          case OtherTaxes.ChildTrustFund                               => ???
           case OtherTaxes.HousingAndLand                               => landRoutes.SelectATaxController.onPageLoad()
           case OtherTaxes.ImportsExports                               => importexportsRoutes.DoYouWantToAddImportExportController.onPageLoad()
           case OtherTaxes.OilAndFuel                                   => oilRoutes.SelectAnOilServiceController.onPageLoad()

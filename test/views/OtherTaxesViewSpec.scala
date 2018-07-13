@@ -54,7 +54,6 @@ class OtherTaxesViewSpec extends ViewBehaviours {
           "Automatic Exchange of Information (AEOI)",
           "Charities - for Gift Aid repayment claims",
           "Betting and gaming",
-          "Child Trust Fund for Providers",
           "Housing and land",
           "Imports and exports",
           "Oil and fuel",
