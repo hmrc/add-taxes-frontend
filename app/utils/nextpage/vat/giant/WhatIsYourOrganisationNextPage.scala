@@ -20,6 +20,7 @@ import config.FrontendAppConfig
 import identifiers.WhatIsYourOrganisationId
 import play.api.mvc.{Call, Request}
 import models.vat.giant.WhatIsYourOrganisation
+import controllers.vat.giant.{routes => giantRoutes}
 import utils.NextPage
 
 trait WhatIsYourOrganisationNextPage {
@@ -29,7 +30,7 @@ trait WhatIsYourOrganisationNextPage {
       override def get(b: WhatIsYourOrganisation)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case WhatIsYourOrganisation.Yes => ???
-          case WhatIsYourOrganisation.No  => ???
+          case WhatIsYourOrganisation.No  => giantRoutes.YouDoNotNeedVATController.onPageLoad()
         }
     }
   }

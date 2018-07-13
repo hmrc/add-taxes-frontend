@@ -893,3 +893,11 @@ whatIsYourOrganisation.heading = A yw’ch sefydliad yn ymddiriedolaeth y GIG, y
 whatIsYourOrganisation.Yes = Iawn
 whatIsYourOrganisation.No = Na
 whatIsYourOrganisation.error.required = Dewiswch ‘Iawn’ os yw’ch sefydliad yn ymddiriedolaeth y GIG, yn adran o’r Llywodraeth neu’n Aelwyd Frenhinol
+
+#######################################################
+##  YouDoNotNeedVAT
+#######################################################
+youDoNotNeedVAT.title = Does dim angen TAW ar gyfer Ymddiriedolaethau Gwybodaeth Llywodraeth ac Iechyd Cenedlaethol (GIANT)
+youDoNotNeedVAT.heading = Does dim angen TAW ar gyfer Ymddiriedolaethau Gwybodaeth Llywodraeth ac Iechyd Cenedlaethol (GIANT)
+youDoNotNeedVAT.body = Bydd CThEM yn cysylltu â’ch sefydliad os oes angen iddo ddefnyddio’r gwasanaeth hwn.
+youDoNotNeedVAT.home = Ewch i’r hafan treth busnes

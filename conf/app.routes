@@ -238,3 +238,5 @@ POST       /other/gambling/rgd                          controllers.other.gambli
 
 GET        /vat/vat-giant                               controllers.vat.giant.WhatIsYourOrganisationController.onPageLoad()
 POST       /vat/vat-giant                               controllers.vat.giant.WhatIsYourOrganisationController.onSubmit()
+
+GET        /vat/vat-giant/dont-need-service                       controllers.vat.giant.YouDoNotNeedVATController.onPageLoad()
