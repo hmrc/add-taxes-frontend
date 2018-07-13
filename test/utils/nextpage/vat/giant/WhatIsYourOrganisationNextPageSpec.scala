@@ -26,7 +26,7 @@ class WhatIsYourOrganisationNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.whatIsYourOrganisation,
       WhatIsYourOrganisation.Yes,
-      "/enrolment-management-frontend/HMRC-VAT-GIANT/request-access-tax-scheme?continue=%2Fbusiness-account"
+      "http://localhost:9555/enrolment-management-frontend/HMRC-VAT-GIANT/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
 
     behave like nextPage(

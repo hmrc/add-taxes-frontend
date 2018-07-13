@@ -29,7 +29,7 @@ trait WhatIsYourOrganisationNextPage {
     new NextPage[WhatIsYourOrganisationId.type, WhatIsYourOrganisation] {
       override def get(b: WhatIsYourOrganisation)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case WhatIsYourOrganisation.Yes => ???
+          case WhatIsYourOrganisation.Yes => Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.VATGIANT))
           case WhatIsYourOrganisation.No  => giantRoutes.YouDoNotNeedVATController.onPageLoad()
         }
     }
