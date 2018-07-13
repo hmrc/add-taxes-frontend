@@ -19,16 +19,17 @@ package utils
 import config.FrontendAppConfig
 import play.api.mvc.{Call, Request}
 import utils.nextpage.OtherTaxesNextPage
-import utils.nextpage.deenrolment.{DoYouWantToLeaveCISNextPage, HaveYouStoppedSelfEmploymentNextPage, _}
+import utils.nextpage.deenrolment._
 import utils.nextpage.employer.cis.IsYourBusinessInUKNextPage
 import utils.nextpage.employer.cis.uk.AreYouContractorOrSubcontractorNextPage
 import utils.nextpage.employer.cis.uk.subcontractor._
 import utils.nextpage.employer.pension.WhichPensionSchemeToAddNextPage
-import utils.nextpage.employer.{DoesBusinessManagePAYENextPage, IsBusinessRegisteredForPAYENextPage, WhatEmployerTaxDoYouWantToAddNextPage}
+import utils.nextpage.employer._
 import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
 import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage
 import utils.nextpage.other.alcohol.awrs.SelectAlcoholSchemeNextPage
 import utils.nextpage.other.charity.DoYouHaveCharityReferenceNextPage
+import utils.nextpage.other.ctf.AreYouApprovedCTFNextPage
 import utils.nextpage.other.gambling.mgd.DoYouHaveMGDRegistrationNextPage
 import utils.nextpage.other.gambling.pbd.DoYouHavePBDRegistrationNextPage
 import utils.nextpage.other.gambling.rgd.DoYouHaveRGDRegistrationNextPage
@@ -111,3 +112,4 @@ object NextPage
     with DoYouNeedToStopEPAYENextPage
     with DoYouNeedToStopPSANextPage
     with HaveYouStoppedSelfEmploymentNextPage
+    with AreYouApprovedCTFNextPage

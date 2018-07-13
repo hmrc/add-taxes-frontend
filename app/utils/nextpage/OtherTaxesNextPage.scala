@@ -24,6 +24,7 @@ import controllers.other.charity.{routes => charityRoutes}
 import controllers.other.gambling.{routes => gamblingRoutes}
 import controllers.other.importexports.{routes => importexportsRoutes}
 import controllers.other.alcohol.awrs.{routes => alcoholRoutes}
+import controllers.other.ctf.{routes => ctfRoutes}
 import identifiers.OtherTaxesId
 import models.OtherTaxes
 import play.api.mvc.{Call, Request}
@@ -39,7 +40,7 @@ trait OtherTaxesNextPage {
           case OtherTaxes.AutomaticExchangeOfInformation               => aeoiRoutes.HaveYouRegisteredAEOIController.onPageLoad()
           case OtherTaxes.Charities                                    => charityRoutes.DoYouHaveCharityReferenceController.onPageLoad()
           case OtherTaxes.GamblingAndGaming                            => gamblingRoutes.SelectGamblingOrGamingDutyController.onPageLoad()
-          case OtherTaxes.ChildTrustFund                               => ???
+          case OtherTaxes.ChildTrustFund                               => ctfRoutes.AreYouApprovedCTFController.onPageLoad()
           case OtherTaxes.HousingAndLand                               => landRoutes.SelectATaxController.onPageLoad()
           case OtherTaxes.ImportsExports                               => importexportsRoutes.DoYouWantToAddImportExportController.onPageLoad()
           case OtherTaxes.OilAndFuel                                   => oilRoutes.SelectAnOilServiceController.onPageLoad()

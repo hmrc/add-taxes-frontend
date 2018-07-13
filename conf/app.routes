@@ -235,3 +235,5 @@ POST       /other/land                                  controllers.other.land.S
 
 GET        /other/gambling/rgd                          controllers.other.gambling.rgd.DoYouHaveRGDRegistrationController.onPageLoad()
 POST       /other/gambling/rgd                          controllers.other.gambling.rgd.DoYouHaveRGDRegistrationController.onSubmit()
+GET        /other/ctf/ctf-provider                  controllers.other.ctf.AreYouApprovedCTFController.onPageLoad()
+POST       /other/ctf/ctf-provider                  controllers.other.ctf.AreYouApprovedCTFController.onSubmit()

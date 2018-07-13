@@ -889,3 +889,12 @@ haveYouStoppedSelfEmployment.heading = Have you stopped self-employment?
 haveYouStoppedSelfEmployment.Yes = Yes
 haveYouStoppedSelfEmployment.No = No, I need to stop using the Self Assessment online service
 haveYouStoppedSelfEmployment.error.required = Select yes if you have stopped self-employment
+
+#######################################################
+##  AreYouApprovedCTF
+#######################################################
+areYouApprovedCTF.title = Are you an approved Child Trust Fund provider?
+areYouApprovedCTF.heading = Are you an approved Child Trust Fund provider?
+areYouApprovedCTF.Yes = Yes
+areYouApprovedCTF.No = No
+areYouApprovedCTF.error.required = Select yes if you are an approved Child Trust Fund provider

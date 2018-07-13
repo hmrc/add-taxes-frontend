@@ -884,3 +884,12 @@ haveYouStoppedSelfEmployment.heading = A ydych wedi rhoi’r gorau i hunangyflog
 haveYouStoppedSelfEmployment.Yes = Iawn
 haveYouStoppedSelfEmployment.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Hunanasesiad ar-lein
 haveYouStoppedSelfEmployment.error.required = Dewiswch Iawn os ydych wedi rhoi’r gorau i hunangyflogaeth
+
+#######################################################
+##  AreYouApprovedCTF
+#######################################################
+areYouApprovedCTF.title = Ydych chi’n ddarparwr Cronfa Ymddiriedolaeth Plant cymeradwy?
+areYouApprovedCTF.heading = Ydych chi’n ddarparwr Cronfa Ymddiriedolaeth Plant cymeradwy?
+areYouApprovedCTF.Yes = Iawn
+areYouApprovedCTF.No = Na
+areYouApprovedCTF.error.required = Dewiswch ‘Iawn’ os ydych yn ddarparwr Cronfa Ymddiriedolaeth Plant cymeradwy
