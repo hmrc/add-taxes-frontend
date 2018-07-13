@@ -632,6 +632,7 @@ whichVATServicesToAdd.title = Which VAT service do you want to add?
 whichVATServicesToAdd.heading = Which VAT service do you want to add?
 whichVATServicesToAdd.vat = VAT
 whichVATServicesToAdd.ecsales = EC Sales List, report sales made to VAT registered EU customers
+whichVATServicesToAdd.giant = Government Information and National Health Trusts (GIANT)
 whichVATServicesToAdd.eurefunds = EU Refunds, reclaim VAT you paid in the EU
 whichVATServicesToAdd.rcsl = Reverse Charge Sales List (RCSL), report sales which have reverse charge VAT
 whichVATServicesToAdd.moss = Mini One Stop Shop (MOSS), VAT on digital services sold to EU customers
@@ -888,3 +889,20 @@ haveYouStoppedSelfEmployment.heading = Have you stopped self-employment?
 haveYouStoppedSelfEmployment.Yes = Yes
 haveYouStoppedSelfEmployment.No = No, I need to stop using the Self Assessment online service
 haveYouStoppedSelfEmployment.error.required = Select yes if you have stopped self-employment
+
+#######################################################
+##  WhatIsYourOrganisation
+#######################################################
+whatIsYourOrganisation.title = Is your organisation an NHS trust, government department or Royal Household?
+whatIsYourOrganisation.heading = Is your organisation an NHS trust, government department or Royal Household?
+whatIsYourOrganisation.Yes = Yes
+whatIsYourOrganisation.No = No
+whatIsYourOrganisation.error.required = Select yes if your organisation is an NHS trust, government department or Royal Household
+
+#######################################################
+##  YouDoNotNeedVAT
+#######################################################
+youDoNotNeedVAT.title = You do not need VAT for Government Information and National Health Trusts (GIANT)
+youDoNotNeedVAT.heading = You do not need VAT for Government Information and National Health Trusts (GIANT)
+youDoNotNeedVAT.body = HMRC will contact your organisation if it needs to use this service.
+youDoNotNeedVAT.home = Go to business tax home

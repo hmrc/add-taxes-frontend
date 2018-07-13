@@ -24,6 +24,7 @@ object WhichVATServicesToAdd {
 
   case object VAT extends WithName("vat") with WhichVATServicesToAdd
   case object ECSales extends WithName("ecsales") with WhichVATServicesToAdd
+  case object GIANT extends WithName("giant") with WhichVATServicesToAdd
   case object EURefunds extends WithName("eurefunds") with WhichVATServicesToAdd
   case object RCSL extends WithName("rcsl") with WhichVATServicesToAdd
   case object MOSS extends WithName("moss") with WhichVATServicesToAdd
@@ -32,6 +33,7 @@ object WhichVATServicesToAdd {
   val values: Seq[WhichVATServicesToAdd] = Seq(
     VAT,
     ECSales,
+    GIANT,
     EURefunds,
     RCSL,
     MOSS,
