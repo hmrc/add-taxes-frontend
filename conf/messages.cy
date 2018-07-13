@@ -901,3 +901,13 @@ youDoNotNeedVAT.title = Does dim angen TAW ar gyfer Ymddiriedolaethau Gwybodaeth
 youDoNotNeedVAT.heading = Does dim angen TAW ar gyfer Ymddiriedolaethau Gwybodaeth Llywodraeth ac Iechyd Cenedlaethol (GIANT)
 youDoNotNeedVAT.body = Bydd CThEM yn cysylltu â’ch sefydliad os oes angen iddo ddefnyddio’r gwasanaeth hwn.
 youDoNotNeedVAT.home = Ewch i’r hafan treth busnes
+
+#######################################################
+##  StopCorporationTax
+#######################################################
+stopCorporationTax.title = Beth sydd angen i chi’i wneud?
+stopCorporationTax.heading = Beth sydd angen i chi’i wneud?
+stopCorporationTax.stop = Rhoi’r gorau i ddefnyddio’r gwasanaeth ar-lein
+stopCorporationTax.dormant = Gwneud fy nghwmni’n segur (mae’n bosibl y bydd yn masnachu eto)
+stopCorporationTax.close = Cau fy nghwmni (ni fydd yn masnachu eto)
+stopCorporationTax.error.required = Dewiswch yr hyn sydd angen i chi ei wneud
