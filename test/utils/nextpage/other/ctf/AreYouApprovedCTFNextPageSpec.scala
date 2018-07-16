@@ -26,7 +26,7 @@ class AreYouApprovedCTFNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.areYouApprovedCTF,
       AreYouApprovedCTF.Yes,
-      "/enrolment-management-frontend/IR-CTF/request-access-tax-scheme?continue=%2Fbusiness-account"
+      "http://localhost:9555/enrolment-management-frontend/IR-CTF/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
 
     behave like nextPage(
