@@ -168,6 +168,12 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
 
       result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "charities")))
     }
+    "not display Child Trust Fund if the user has IR-CTF" in {
+      val request = requestWithEnrolments("IR-CTF")
+      val result = controller(dontGetAnyData).getOptions(request)
+
+      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "childTrustFund")))
+    }
     "not display Gambling and Gaming if the user has HMRC-MGD-ORG, HMRC-GTS-GBD, HMRC-GTS-PBD, HMRC-GTS-RGD" in {
       val request = requestWithEnrolments("HMRC-MGD-ORG", "HMRC-GTS-GBD", "HMRC-GTS-PBD", "HMRC-GTS-RGD")
       val result = controller(dontGetAnyData).getOptions(request)

@@ -54,9 +54,10 @@ class OtherTaxesController @Inject()(
       checkCharities,
       checkGamblingAndGaming,
       checkOilAndFuel,
-      checkFulfilmentHouse)
+      checkFulfilmentHouse,
+      checkChildTrustFund)
     val defaultRadioOptions: Seq[RadioOption] =
-      Seq(HousingAndLand, ImportsExports, ChildTrustFund).map(_.toRadioOption)
+      Seq(HousingAndLand, ImportsExports).map(_.toRadioOption)
     val unsortedRadioOptions: Seq[RadioOption] = checks.flatMap(_.apply(r.request.enrolments)) ++ defaultRadioOptions
     unsortedRadioOptions.sortBy(_.value)
   }
@@ -127,6 +128,10 @@ class OtherTaxesController @Inject()(
     _.getEnrolment(Enrolments.OtherBusinessTaxDutyScheme.toString)
       .flatMap(_.getIdentifier(Enrolments.OtherBusinessTaxDutyScheme.FulfilmentHouseDueDiligenceSchemeIdentifier))
       .fold(Option(FulfilmentHouseDueDiligenceSchemeIntegration.toRadioOption))(_ => None)
+
+  private def checkChildTrustFund: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
+    _.getEnrolment(Enrolments.CTF.toString)
+      .fold[Option[RadioOption]](Some(ChildTrustFund.toRadioOption))(_ => None)
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
     request.request.affinityGroup match {
