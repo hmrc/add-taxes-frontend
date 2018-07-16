@@ -90,6 +90,8 @@ object Enrolments {
 
   case object SA extends WithName("IR-SA") with Enrolments
 
+  case object CTF extends WithName("IR-CTF") with Enrolments
+
   val values: Set[Enrolments] = Set(
     RebatedOils,
     TiedOils,
@@ -124,7 +126,8 @@ object Enrolments {
     ATED,
     PSA,
     SA,
-    VATGIANT
+    VATGIANT,
+    CTF
   )
 }
 
