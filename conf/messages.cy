@@ -917,5 +917,5 @@ youDoNotNeedVAT.home = Ewch i’r hafan treth busnes
 #######################################################
 youNeedToBeApprovedCTF.title = Mae angen i chi fod yn ddarparwr Cronfa Ymddiriedolaeth Plant cymeradwy i gyrchu’r gwasanaeth hwn
 youNeedToBeApprovedCTF.heading = Mae angen i chi fod yn ddarparwr Cronfa Ymddiriedolaeth Plant cymeradwy i gyrchu’r gwasanaeth hwn
-youNeedToBeApprovedCTF.para = Pan gewch eich cyfeirnod a'ch tocyn cychwyn, mewngofnodwch i’ch cyfrif ac ychwanegwch Gronfa Ymddiriedolaeth Plant.
+youNeedToBeApprovedCTF.para = Pan gewch eich cyfeirnod a’ch tocyn cychwyn, mewngofnodwch i’ch cyfrif ac ychwanegwch Gronfa Ymddiriedolaeth Plant.
 youNeedToBeApprovedCTF.continue = Gwneud cais i fod yn ddarparwr cymeradwy

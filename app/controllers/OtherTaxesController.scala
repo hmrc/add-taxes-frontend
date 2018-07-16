@@ -22,7 +22,7 @@ import config.FrontendAppConfig
 import controllers.actions._
 import forms.OtherTaxesFormProvider
 import identifiers.OtherTaxesId
-import models.OtherTaxes.{AlcoholAndTobacco, AutomaticExchangeOfInformation, Charities, ChildTrustFund, FulfilmentHouseDueDiligenceSchemeIntegration, GamblingAndGaming, HousingAndLand, ImportsExports, OilAndFuel}
+import models.OtherTaxes._
 import models.requests.ServiceInfoRequest
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
