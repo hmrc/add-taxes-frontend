@@ -22,7 +22,7 @@ import config.FrontendAppConfig
 import controllers.actions._
 import forms.OtherTaxesFormProvider
 import identifiers.OtherTaxesId
-import models.OtherTaxes.{AlcoholAndTobacco, AutomaticExchangeOfInformation, Charities, FulfilmentHouseDueDiligenceSchemeIntegration, GamblingAndGaming, HousingAndLand, ImportsExports, OilAndFuel}
+import models.OtherTaxes._
 import models.requests.ServiceInfoRequest
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -54,8 +54,10 @@ class OtherTaxesController @Inject()(
       checkCharities,
       checkGamblingAndGaming,
       checkOilAndFuel,
-      checkFulfilmentHouse)
-    val defaultRadioOptions: Seq[RadioOption] = Seq(HousingAndLand, ImportsExports).map(_.toRadioOption)
+      checkFulfilmentHouse,
+      checkChildTrustFund)
+    val defaultRadioOptions: Seq[RadioOption] =
+      Seq(HousingAndLand, ImportsExports).map(_.toRadioOption)
     val unsortedRadioOptions: Seq[RadioOption] = checks.flatMap(_.apply(r.request.enrolments)) ++ defaultRadioOptions
     unsortedRadioOptions.sortBy(_.value)
   }
@@ -126,6 +128,10 @@ class OtherTaxesController @Inject()(
     _.getEnrolment(Enrolments.OtherBusinessTaxDutyScheme.toString)
       .flatMap(_.getIdentifier(Enrolments.OtherBusinessTaxDutyScheme.FulfilmentHouseDueDiligenceSchemeIdentifier))
       .fold(Option(FulfilmentHouseDueDiligenceSchemeIntegration.toRadioOption))(_ => None)
+
+  private def checkChildTrustFund: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
+    _.getEnrolment(Enrolments.CTF.toString)
+      .fold[Option[RadioOption]](Some(ChildTrustFund.toRadioOption))(_ => None)
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
     request.request.affinityGroup match {
