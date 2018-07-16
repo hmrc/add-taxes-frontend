@@ -17,7 +17,6 @@
 package controllers.employer
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import play.api.data.Form
@@ -26,8 +25,8 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import forms.employer.WhatEmployerTaxDoYouWantToAddFormProvider
 import identifiers.WhatEmployerTaxDoYouWantToAddId
 import models.employer.WhatEmployerTaxDoYouWantToAdd
-import models.employer.WhatEmployerTaxDoYouWantToAdd.EPAYE
-import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
+import models.employer.WhatEmployerTaxDoYouWantToAdd.{EPAYE, PS}
+import uk.gov.hmrc.auth.core.Enrolments
 import utils.{Enumerable, Navigator, RadioOption}
 import views.html.employer.whatEmployerTaxDoYouWantToAdd
 
@@ -43,9 +42,6 @@ class WhatEmployerTaxDoYouWantToAddController @Inject()(
     with Enumerable.Implicits {
 
   val form = formProvider()
-
-  val optionsWithoutPensionScheme =
-    WhatEmployerTaxDoYouWantToAdd.options.filterNot(_.value == WhatEmployerTaxDoYouWantToAdd.PS.toString)
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(
@@ -65,38 +61,29 @@ class WhatEmployerTaxDoYouWantToAddController @Inject()(
       )
   }
 
-  def getOptions(enrolments: Enrolments): Seq[RadioOption] = {
-    val pensionSchemeOption = checkPensionScheme(enrolments)
+  def getOptions(enrolments: Enrolments): Seq[RadioOption] =
+    checkPensionScheme(enrolments).intersect(checkEpayeEnrolment(enrolments))
 
-    checkEpayeEnrolment(enrolments, pensionSchemeOption)
-  }
+  private def checkPensionScheme: Enrolments => Seq[RadioOption] = checkEnrolment(checkPension, PS)
+  private def checkEpayeEnrolment: Enrolments => Seq[RadioOption] = checkEnrolment(checkEPaye, EPAYE)
 
-  private def checkPensionScheme: (Enrolments) => Seq[RadioOption] =
+  private def checkEnrolment(
+    predicate: Enrolments => Boolean,
+    option: WhatEmployerTaxDoYouWantToAdd): Enrolments => Seq[RadioOption] =
     (enrolments: Enrolments) =>
-      if (checkPension(enrolments)) {
-        WhatEmployerTaxDoYouWantToAdd.options.filterNot(_.value == WhatEmployerTaxDoYouWantToAdd.PS.toString)
-      } else {
-        WhatEmployerTaxDoYouWantToAdd.options
-    }
-
-  private def checkEpayeEnrolment: (Enrolments, Seq[RadioOption]) => Seq[RadioOption] =
-    (enrolments: Enrolments, radioOption: Seq[RadioOption]) =>
-      if (checkEPaye(enrolments)) {
-        radioOption.filterNot(_.value == EPAYE.toString)
-      } else {
-        radioOption
-    }
+      if (predicate(enrolments)) WhatEmployerTaxDoYouWantToAdd.options.filterNot(_.value == option.toString)
+      else WhatEmployerTaxDoYouWantToAdd.options
 
   private def checkPension: Enrolments => Boolean =
     e => checkPensionAdministratorScheme(e) && checkPensionPractitionerScheme(e)
 
-  private def checkPensionAdministratorScheme: (Enrolments) => Boolean =
+  private def checkPensionAdministratorScheme: Enrolments => Boolean =
     _.getEnrolment(utils.Enrolments.PSA.toString).isDefined
 
-  private def checkPensionPractitionerScheme: (Enrolments) => Boolean =
+  private def checkPensionPractitionerScheme: Enrolments => Boolean =
     _.getEnrolment(utils.Enrolments.PP.toString).isDefined
 
-  private def checkEPaye: (Enrolments) => Boolean =
+  private def checkEPaye: Enrolments => Boolean =
     _.getEnrolment(utils.Enrolments.EPAYE.toString).isDefined
 
 }
