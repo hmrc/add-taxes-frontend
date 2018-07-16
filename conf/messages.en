@@ -924,3 +924,12 @@ youNeedToBeApprovedCTF.title = You need to be an approved Child Trust Fund provi
 youNeedToBeApprovedCTF.heading = You need to be an approved Child Trust Fund provider to access this service
 youNeedToBeApprovedCTF.para = When you get your reference number and activation token, sign in to your account and add Child Trust Fund.
 youNeedToBeApprovedCTF.continue = Apply to become an approved provider
+
+#######################################################
+##  DoYouNeedToStopGBD
+#######################################################
+doYouNeedToStopGBD.title = Do you need to stop using the General Betting Duty online service?
+doYouNeedToStopGBD.heading = Do you need to stop using the General Betting Duty online service?
+doYouNeedToStopGBD.Yes = Yes
+doYouNeedToStopGBD.No = No, I need to deregister from General Betting Duty
+doYouNeedToStopGBD.error.required = Select yes if you need to stop using the General Betting Duty online service

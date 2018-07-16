@@ -16,3 +16,6 @@ GET        /:service                             controllers.deenrolment.Deenrol
 
 GET        /psa/how-to-stop-psa                  controllers.deenrolment.DoYouNeedToStopPSAController.onPageLoad()
 POST       /psa/how-to-stop-psa                  controllers.deenrolment.DoYouNeedToStopPSAController.onSubmit()
+
+GET        /gambling/how-to-stop-gbd                  controllers.deenrolment.DoYouNeedToStopGBDController.onPageLoad()
+POST       /gambling/how-to-stop-gbd                  controllers.deenrolment.DoYouNeedToStopGBDController.onSubmit()
