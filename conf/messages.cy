@@ -912,7 +912,6 @@ youDoNotNeedVAT.heading = Does dim angen TAW ar gyfer Ymddiriedolaethau Gwybodae
 youDoNotNeedVAT.body = Bydd CThEM yn cysylltu â’ch sefydliad os oes angen iddo ddefnyddio’r gwasanaeth hwn.
 youDoNotNeedVAT.home = Ewch i’r hafan treth busnes
 
-
 #######################################################
 ##  YouNeedToBeApprovedCTF
 #######################################################

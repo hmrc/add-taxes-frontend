@@ -244,5 +244,4 @@ POST       /other/gambling/rgd                          controllers.other.gambli
 GET        /other/ctf/ctf-provider                      controllers.other.ctf.AreYouApprovedCTFController.onPageLoad()
 POST       /other/ctf/ctf-provider                      controllers.other.ctf.AreYouApprovedCTFController.onSubmit()
 
-
-GET        /other/ctf/ctf-11                       controllers.other.ctf.YouNeedToBeApprovedCTFController.onPageLoad()
+GET        /other/ctf/ctf-11                            controllers.other.ctf.YouNeedToBeApprovedCTFController.onPageLoad()

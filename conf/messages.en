@@ -917,7 +917,6 @@ youDoNotNeedVAT.heading = You do not need VAT for Government Information and Nat
 youDoNotNeedVAT.body = HMRC will contact your organisation if it needs to use this service.
 youDoNotNeedVAT.home = Go to business tax home
 
-
 #######################################################
 ##  YouNeedToBeApprovedCTF
 #######################################################
