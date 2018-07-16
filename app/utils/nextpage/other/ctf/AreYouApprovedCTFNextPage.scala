@@ -21,6 +21,7 @@ import identifiers.AreYouApprovedCTFId
 import play.api.mvc.{Call, Request}
 import models.other.ctf.AreYouApprovedCTF
 import utils.NextPage
+import controllers.other.ctf.{routes => ctfRoutes}
 
 trait AreYouApprovedCTFNextPage {
 
@@ -29,7 +30,7 @@ trait AreYouApprovedCTFNextPage {
       override def get(b: AreYouApprovedCTF)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case AreYouApprovedCTF.Yes => ???
-          case AreYouApprovedCTF.No  => ???
+          case AreYouApprovedCTF.No  => ctfRoutes.YouNeedToBeApprovedCTFController.onPageLoad()
         }
     }
   }

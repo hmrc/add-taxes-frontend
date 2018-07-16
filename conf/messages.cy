@@ -912,3 +912,11 @@ youDoNotNeedVAT.heading = Does dim angen TAW ar gyfer Ymddiriedolaethau Gwybodae
 youDoNotNeedVAT.body = Bydd CThEM yn cysylltu â’ch sefydliad os oes angen iddo ddefnyddio’r gwasanaeth hwn.
 youDoNotNeedVAT.home = Ewch i’r hafan treth busnes
 
+
+#######################################################
+##  YouNeedToBeApprovedCTF
+#######################################################
+youNeedToBeApprovedCTF.title = Mae angen i chi fod yn ddarparwr Cronfa Ymddiriedolaeth Plant cymeradwy i gyrchu’r gwasanaeth hwn
+youNeedToBeApprovedCTF.heading = Mae angen i chi fod yn ddarparwr Cronfa Ymddiriedolaeth Plant cymeradwy i gyrchu’r gwasanaeth hwn
+youNeedToBeApprovedCTF.para = Pan gewch eich cyfeirnod a'ch tocyn cychwyn, mewngofnodwch i’ch cyfrif ac ychwanegwch Gronfa Ymddiriedolaeth Plant.
+youNeedToBeApprovedCTF.continue = Gwneud cais i fod yn ddarparwr cymeradwy

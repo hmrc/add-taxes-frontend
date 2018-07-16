@@ -917,3 +917,11 @@ youDoNotNeedVAT.heading = You do not need VAT for Government Information and Nat
 youDoNotNeedVAT.body = HMRC will contact your organisation if it needs to use this service.
 youDoNotNeedVAT.home = Go to business tax home
 
+
+#######################################################
+##  YouNeedToBeApprovedCTF
+#######################################################
+youNeedToBeApprovedCTF.title = You need to be an approved Child Trust Fund provider to access this service
+youNeedToBeApprovedCTF.heading = You need to be an approved Child Trust Fund provider to access this service
+youNeedToBeApprovedCTF.para = When you get your reference number and activation token, sign in to your account and add Child Trust Fund.
+youNeedToBeApprovedCTF.continue = Apply to become an approved provider
