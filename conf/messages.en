@@ -906,3 +906,12 @@ youDoNotNeedVAT.title = You do not need VAT for Government Information and Natio
 youDoNotNeedVAT.heading = You do not need VAT for Government Information and National Health Trusts (GIANT)
 youDoNotNeedVAT.body = HMRC will contact your organisation if it needs to use this service.
 youDoNotNeedVAT.home = Go to business tax home
+
+#######################################################
+##  DoYouNeedToCancelVAT
+#######################################################
+doYouNeedToCancelVAT.title = Do you need to cancel VAT registration and stop submitting returns?
+doYouNeedToCancelVAT.heading = Do you need to cancel VAT registration and stop submitting returns?
+doYouNeedToCancelVAT.Yes = Yes
+doYouNeedToCancelVAT.No = No, I need to stop using the VAT online service
+doYouNeedToCancelVAT.error.required = Select yes if you need to cancel VAT registration and stop submitting returns

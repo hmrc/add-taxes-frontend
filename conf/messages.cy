@@ -901,3 +901,12 @@ youDoNotNeedVAT.title = Does dim angen TAW ar gyfer Ymddiriedolaethau Gwybodaeth
 youDoNotNeedVAT.heading = Does dim angen TAW ar gyfer Ymddiriedolaethau Gwybodaeth Llywodraeth ac Iechyd Cenedlaethol (GIANT)
 youDoNotNeedVAT.body = Bydd CThEM yn cysylltu â’ch sefydliad os oes angen iddo ddefnyddio’r gwasanaeth hwn.
 youDoNotNeedVAT.home = Ewch i’r hafan treth busnes
+
+#######################################################
+##  DoYouNeedToCancelVAT
+#######################################################
+doYouNeedToCancelVAT.title = A oes angen i chi ddileu cofrestriad TAW a rhoi’r gorau i gyflwyno Ffurflenni TAW?
+doYouNeedToCancelVAT.heading = A oes angen i chi ddileu cofrestriad TAW a rhoi’r gorau i gyflwyno Ffurflenni TAW?
+doYouNeedToCancelVAT.Yes = Iawn
+doYouNeedToCancelVAT.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth TAW ar-lein
+doYouNeedToCancelVAT.error.required = Dewiswch Iawn os oes angen i chi ddileu cofrestriad TAW a rhoi’r gorau i gyflwyno Ffurflenni TAW

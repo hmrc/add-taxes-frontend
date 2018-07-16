@@ -113,3 +113,4 @@ object NextPage
     with DoYouNeedToStopPSANextPage
     with HaveYouStoppedSelfEmploymentNextPage
     with WhatIsYourOrganisationNextPage
+    with utils.nextpage.deenrolment.DoYouNeedToCancelVATNextPage
