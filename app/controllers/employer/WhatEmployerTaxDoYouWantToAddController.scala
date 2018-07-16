@@ -64,10 +64,10 @@ class WhatEmployerTaxDoYouWantToAddController @Inject()(
   def getOptions(enrolments: Enrolments): Seq[RadioOption] =
     checkPensionScheme(enrolments).intersect(checkEpayeEnrolment(enrolments))
 
-  private def checkPensionScheme: Enrolments => Seq[RadioOption] = checkEnrolment(checkPension, PS)
-  private def checkEpayeEnrolment: Enrolments => Seq[RadioOption] = checkEnrolment(checkEPaye, EPAYE)
+  private def checkPensionScheme: Enrolments => Seq[RadioOption] = filterOptions(checkPension, PS)
+  private def checkEpayeEnrolment: Enrolments => Seq[RadioOption] = filterOptions(checkEPaye, EPAYE)
 
-  private def checkEnrolment(
+  private def filterOptions(
     predicate: Enrolments => Boolean,
     option: WhatEmployerTaxDoYouWantToAdd): Enrolments => Seq[RadioOption] =
     (enrolments: Enrolments) =>
