@@ -19,7 +19,7 @@ package utils
 import config.FrontendAppConfig
 import play.api.mvc.{Call, Request}
 import utils.nextpage.OtherTaxesNextPage
-import utils.nextpage.deenrolment.{DoYouWantToLeaveCISNextPage, HaveYouStoppedSelfEmploymentNextPage, _}
+import utils.nextpage.deenrolment.{DoYouNeedToCancelVATNextPage, DoYouWantToLeaveCISNextPage, HaveYouStoppedSelfEmploymentNextPage, _}
 import utils.nextpage.employer.cis.IsYourBusinessInUKNextPage
 import utils.nextpage.employer.cis.uk.AreYouContractorOrSubcontractorNextPage
 import utils.nextpage.employer.cis.uk.subcontractor._
@@ -46,13 +46,13 @@ import utils.nextpage.sa.trust.HaveYouRegisteredTrustNextPage
 import utils.nextpage.vat.WhichVATServicesToAddNextPage
 import utils.nextpage.vat.ec.RegisteredForVATECSalesNextPage
 import utils.nextpage.vat.eurefunds.RegisteredForVATEURefundsNextPage
+import utils.nextpage.vat.giant.WhatIsYourOrganisationNextPage
 import utils.nextpage.vat.moss.WhereIsYourBusinessBasedNextPage
 import utils.nextpage.vat.moss.iom._
 import utils.nextpage.vat.moss.noneu.HaveYouRegisteredForVATMOSSNextPage
 import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
 import utils.nextpage.vat.rcsl.RegisteredForVATRCSLNextPage
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
-import utils.nextpage.vat.giant.WhatIsYourOrganisationNextPage
 
 import scala.annotation.implicitNotFound
 
@@ -113,4 +113,4 @@ object NextPage
     with DoYouNeedToStopPSANextPage
     with HaveYouStoppedSelfEmploymentNextPage
     with WhatIsYourOrganisationNextPage
-    with utils.nextpage.deenrolment.DoYouNeedToCancelVATNextPage
+    with DoYouNeedToCancelVATNextPage
