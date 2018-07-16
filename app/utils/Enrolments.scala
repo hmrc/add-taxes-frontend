@@ -66,6 +66,8 @@ object Enrolments {
 
   case object VAT extends WithName("HMCE-VATDEC-ORG") with Enrolments
 
+  case object VATGIANT extends WithName("HMRC-VAT-GIANT") with Enrolments
+
   case object VATMOSS extends WithName("HMRC-MOSS-U-ORG") with Enrolments
 
   case object AddCis extends WithName("HMRC-CIS-ORG") with Enrolments
@@ -121,7 +123,8 @@ object Enrolments {
     VATVAR,
     ATED,
     PSA,
-    SA
+    SA,
+    VATGIANT
   )
 }
 
