@@ -14,76 +14,49 @@
  * limitations under the License.
  */
 
-package views
+package views.vat.giant
 
-import forms.OtherTaxesFormProvider
-import models.OtherTaxes
 import play.api.data.Form
+import forms.vat.giant.WhatIsYourOrganisationFormProvider
+import models.vat.giant.WhatIsYourOrganisation
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.otherTaxes
-import scala.collection.JavaConverters._
+import views.html.vat.giant.whatIsYourOrganisation
 
-class OtherTaxesViewSpec extends ViewBehaviours {
+class WhatIsYourOrganisationViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "otherTaxes"
+  val messageKeyPrefix = "whatIsYourOrganisation"
 
-  val form = new OtherTaxesFormProvider()()
+  val form = new WhatIsYourOrganisationFormProvider()()
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView =
-    () => otherTaxes(frontendAppConfig, form, OtherTaxes.options)(serviceInfoContent)(fakeRequest, messages)
+  def createView = () => whatIsYourOrganisation(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm =
-    (form: Form[_]) =>
-      otherTaxes(frontendAppConfig, form, OtherTaxes.options)(serviceInfoContent)(fakeRequest, messages)
+    (form: Form[_]) => whatIsYourOrganisation(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  "OtherTaxes view" must {
+  "WhatIsYourOrganisation view" must {
     behave like normalPage(createView, messageKeyPrefix)
   }
 
-  "OtherTaxes view" when {
+  "WhatIsYourOrganisation view" when {
     "rendered" must {
-      "contain correct content" in {
-        val doc = asDocument(createView())
-        doc.getElementsByTag("h1").first().text() mustBe "Select a category"
-
-        val listOfOptions: List[String] = List(
-          "Alcohol and tobacco wholesaling and warehousing",
-          "Automatic Exchange of Information (AEOI)",
-          "Charities - for Gift Aid repayment claims",
-          "Betting and gaming",
-          "Child Trust Fund for Providers",
-          "Housing and land",
-          "Imports and exports",
-          "Oil and fuel",
-          "Fulfilment House Due Diligence Scheme"
-        )
-
-        val listOfElements =
-          doc.getElementsByClass("form-group").first().getElementsByClass("multiple-choice").asScala.toList
-
-        listOfElements.zip(listOfOptions).foreach {
-          case (element, answer) => element.text mustBe answer
-        }
-      }
-
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- OtherTaxes.options) {
+        for (option <- WhatIsYourOrganisation.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
       }
     }
 
-    for (option <- OtherTaxes.options) {
+    for (option <- WhatIsYourOrganisation.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for (unselectedOption <- OtherTaxes.options.filterNot(o => o == option)) {
+          for (unselectedOption <- WhatIsYourOrganisation.options.filterNot(_ == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

@@ -40,6 +40,11 @@ class OtherTaxesNextPageSpec extends NextPageSpecBase {
     )
     behave like nextPage(
       NextPage.otherTaxes,
+      OtherTaxes.ChildTrustFund,
+      "/business-account/add-tax/other/ctf/ctf-provider"
+    )
+    behave like nextPage(
+      NextPage.otherTaxes,
       OtherTaxes.GamblingAndGaming,
       "/business-account/add-tax/other/gambling"
     )
