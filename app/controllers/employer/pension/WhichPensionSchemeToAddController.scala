@@ -23,10 +23,12 @@ import controllers.actions._
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
-
+import utils.{Enumerable, HmrcEnrolmentType, Navigator}
 import forms.employer.pension.WhichPensionSchemeToAddFormProvider
 import identifiers.WhichPensionSchemeToAddId
+import models.employer.pension.WhichPensionSchemeToAdd
+import models.requests.ServiceInfoRequest
+import play.api.mvc.AnyContent
 import views.html.employer.pension.whichPensionSchemeToAdd
 
 import scala.concurrent.Future
@@ -44,8 +46,17 @@ class WhichPensionSchemeToAddController @Inject()(
 
   val form = formProvider()
 
+  def radioOptions(implicit request: ServiceInfoRequest[AnyContent]) =
+    request.request.enrolments match {
+      case HmrcEnrolmentType.PSA() =>
+        WhichPensionSchemeToAdd.options.filterNot(_.value == WhichPensionSchemeToAdd.Administrators.toString)
+      case HmrcEnrolmentType.PP() =>
+        WhichPensionSchemeToAdd.options.filterNot(_.value == WhichPensionSchemeToAdd.Practitioners.toString)
+      case _ => WhichPensionSchemeToAdd.options
+    }
+
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(whichPensionSchemeToAdd(appConfig, form)(request.serviceInfoContent))
+    Ok(whichPensionSchemeToAdd(appConfig, form, radioOptions)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
@@ -53,7 +64,8 @@ class WhichPensionSchemeToAddController @Inject()(
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(whichPensionSchemeToAdd(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(
+            BadRequest(whichPensionSchemeToAdd(appConfig, formWithErrors, radioOptions)(request.serviceInfoContent))),
         (value) => Future.successful(Redirect(navigator.nextPage(WhichPensionSchemeToAddId, value)))
       )
   }

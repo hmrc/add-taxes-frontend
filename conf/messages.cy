@@ -127,6 +127,7 @@ otherTaxes.alcoholAndTobaccoWholesalingAndWarehousing = Cyfanwerthu a warysu alc
 otherTaxes.automaticExchangeOfInformation = Cyfnewid Gwybodaeth yn Awtomatig (AEOI)
 otherTaxes.charities = Elusennau - ar gyfer ceisiadau am ad-daliadau Rhodd Cymorth
 otherTaxes.gamblingAndGaming = Betio a hapchwarae
+otherTaxes.childTrustFund = Cronfa Ymddiriedolaeth Plant i ddarparwyr
 otherTaxes.housingAndLand = Tai a thir
 otherTaxes.importsExports = Mewnforion ac allforion
 otherTaxes.oilAndFuel = Olew a thanwydd
@@ -886,6 +887,15 @@ haveYouStoppedSelfEmployment.No = Na, mae angen i fi roi’r gorau i ddefnyddio�
 haveYouStoppedSelfEmployment.error.required = Dewiswch Iawn os ydych wedi rhoi’r gorau i hunangyflogaeth
 
 #######################################################
+##  AreYouApprovedCTF
+#######################################################
+areYouApprovedCTF.title = Ydych chi’n ddarparwr Cronfa Ymddiriedolaeth Plant cymeradwy?
+areYouApprovedCTF.heading = Ydych chi’n ddarparwr Cronfa Ymddiriedolaeth Plant cymeradwy?
+areYouApprovedCTF.Yes = Iawn
+areYouApprovedCTF.No = Na
+areYouApprovedCTF.error.required = Dewiswch ‘Iawn’ os ydych yn ddarparwr Cronfa Ymddiriedolaeth Plant cymeradwy
+
+#######################################################
 ##  WhatIsYourOrganisation
 #######################################################
 whatIsYourOrganisation.title = A yw’ch sefydliad yn ymddiriedolaeth y GIG, yn adran o’r Llywodraeth neu’n Aelwyd Frenhinol?
@@ -911,3 +921,11 @@ stopCorporationTax.stop = Rhoi’r gorau i ddefnyddio’r gwasanaeth ar-lein
 stopCorporationTax.dormant = Gwneud fy nghwmni’n segur (mae’n bosibl y bydd yn masnachu eto)
 stopCorporationTax.close = Cau fy nghwmni (ni fydd yn masnachu eto)
 stopCorporationTax.error.required = Dewiswch yr hyn sydd angen i chi ei wneud
+
+#######################################################
+##  YouNeedToBeApprovedCTF
+#######################################################
+youNeedToBeApprovedCTF.title = Mae angen i chi fod yn ddarparwr Cronfa Ymddiriedolaeth Plant cymeradwy i gyrchu’r gwasanaeth hwn
+youNeedToBeApprovedCTF.heading = Mae angen i chi fod yn ddarparwr Cronfa Ymddiriedolaeth Plant cymeradwy i gyrchu’r gwasanaeth hwn
+youNeedToBeApprovedCTF.para = Pan gewch eich cyfeirnod a’ch tocyn cychwyn, mewngofnodwch i’ch cyfrif ac ychwanegwch Gronfa Ymddiriedolaeth Plant.
+youNeedToBeApprovedCTF.continue = Gwneud cais i fod yn ddarparwr cymeradwy
