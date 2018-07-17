@@ -19,14 +19,19 @@ package controllers.employer.pension
 import play.api.data.Form
 import play.api.libs.json.JsString
 import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
+import utils.{FakeNavigator, RadioOption}
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import play.api.test.Helpers._
 import forms.employer.pension.WhichPensionSchemeToAddFormProvider
 import identifiers.WhichPensionSchemeToAddId
 import models.employer.pension.WhichPensionSchemeToAdd
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
+import play.api.mvc.AnyContent
+import play.api.test.FakeRequest
 import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
+import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
 import views.html.employer.pension.whichPensionSchemeToAdd
 
 class WhichPensionSchemeToAddControllerSpec extends ControllerSpecBase {
@@ -35,6 +40,13 @@ class WhichPensionSchemeToAddControllerSpec extends ControllerSpecBase {
 
   val formProvider = new WhichPensionSchemeToAddFormProvider()
   val form = formProvider()
+
+  def requestWithEnrolments(keys: String*): ServiceInfoRequest[AnyContent] = {
+    val enrolments = Enrolments(keys.map(Enrolment(_)).toSet)
+    ServiceInfoRequest[AnyContent](
+      AuthenticatedRequest(FakeRequest(), "", enrolments, Some(Organisation)),
+      HtmlFormat.empty)
+  }
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new WhichPensionSchemeToAddController(
@@ -46,7 +58,9 @@ class WhichPensionSchemeToAddControllerSpec extends ControllerSpecBase {
       formProvider)
 
   def viewAsString(form: Form[_] = form) =
-    whichPensionSchemeToAdd(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    whichPensionSchemeToAdd(frontendAppConfig, form, WhichPensionSchemeToAdd.options)(HtmlFormat.empty)(
+      fakeRequest,
+      messages).toString
 
   "WhichPensionSchemeToAdd Controller" must {
 
@@ -91,5 +105,32 @@ class WhichPensionSchemeToAddControllerSpec extends ControllerSpecBase {
         redirectLocation(result) mustBe Some(onwardRoute.url)
       }
     }
+  }
+
+  "radioOptions" must {
+
+    "not return PSA option if the user has HMRC-PSA-ORG" in {
+      val request = requestWithEnrolments("HMRC-PSA-ORG")
+      val result = controller(dontGetAnyData).radioOptions(request)
+
+      result mustBe Set(RadioOption("whichPensionSchemeToAdd", "practitioners"))
+    }
+
+    "not return PP option if the user has HMRC-PP-ORG" in {
+      val request = requestWithEnrolments("HMRC-PP-ORG")
+      val result = controller(dontGetAnyData).radioOptions(request)
+
+      result mustBe Set(RadioOption("whichPensionSchemeToAdd", "administrators"))
+    }
+
+    "return both PSA and PP option if the user has no enrolment" in {
+      val request = requestWithEnrolments("")
+      val result = controller(dontGetAnyData).radioOptions(request)
+
+      result mustBe Set(
+        RadioOption("whichPensionSchemeToAdd", "administrators"),
+        RadioOption("whichPensionSchemeToAdd", "practitioners"))
+    }
+
   }
 }

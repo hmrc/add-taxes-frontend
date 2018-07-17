@@ -31,10 +31,17 @@ class WhichPensionSchemeToAddViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => whichPensionSchemeToAdd(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView =
+    () =>
+      whichPensionSchemeToAdd(frontendAppConfig, form, WhichPensionSchemeToAdd.options)(serviceInfoContent)(
+        fakeRequest,
+        messages)
 
   def createViewUsingForm =
-    (form: Form[_]) => whichPensionSchemeToAdd(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    (form: Form[_]) =>
+      whichPensionSchemeToAdd(frontendAppConfig, form, WhichPensionSchemeToAdd.options)(serviceInfoContent)(
+        fakeRequest,
+        messages)
 
   "WhichPensionSchemeToAdd view" must {
     behave like normalPage(createView, messageKeyPrefix)
