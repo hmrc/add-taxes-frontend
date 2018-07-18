@@ -938,3 +938,12 @@ youNeedToBeApprovedCTF.title = Mae angen i chi fod yn ddarparwr Cronfa Ymddiried
 youNeedToBeApprovedCTF.heading = Mae angen i chi fod yn ddarparwr Cronfa Ymddiriedolaeth Plant cymeradwy i gyrchu’r gwasanaeth hwn
 youNeedToBeApprovedCTF.para = Pan gewch eich cyfeirnod a’ch tocyn cychwyn, mewngofnodwch i’ch cyfrif ac ychwanegwch Gronfa Ymddiriedolaeth Plant.
 youNeedToBeApprovedCTF.continue = Gwneud cais i fod yn ddarparwr cymeradwy
+
+#######################################################
+##  DoYouNeedToStopGBD
+#######################################################
+doYouNeedToStopGBD.title = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Fetio Gyffredinol?
+doYouNeedToStopGBD.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Fetio Gyffredinol?
+doYouNeedToStopGBD.Yes = Iawn
+doYouNeedToStopGBD.No = Na, mae angen i fi ddadgofrestru o’r Doll Fetio Gyffredinol
+doYouNeedToStopGBD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Fetio Gyffredinol
