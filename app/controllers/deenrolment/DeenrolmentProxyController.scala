@@ -40,8 +40,9 @@ class DeenrolmentProxyController @Inject()(
       case Enrolments.EPAYE          => Redirect(DoYouNeedToStopEPAYEController.onPageLoad())
       case Enrolments.AddCis         => Redirect(DoYouWantToLeaveCISController.onPageLoad())
       case Enrolments.PSA            => Redirect(DoYouNeedToStopPSAController.onPageLoad())
-      case Enrolments.GeneralBetting => Redirect(DoYouNeedToStopGBDController.onPageLoad())
       case Enrolments.CT             => Redirect(StopCorporationTaxController.onPageLoad())
+      case Enrolments.VAT            => Redirect(DoYouNeedToCancelVATController.onPageLoad())
+      case Enrolments.GeneralBetting => Redirect(DoYouNeedToStopGBDController.onPageLoad())
       case _                         => Redirect(appConfig.emacDeenrolmentsUrl(service))
     }
   }

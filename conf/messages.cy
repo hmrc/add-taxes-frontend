@@ -923,6 +923,15 @@ stopCorporationTax.close = Cau fy nghwmni (ni fydd yn masnachu eto)
 stopCorporationTax.error.required = Dewiswch yr hyn sydd angen i chi ei wneud
 
 #######################################################
+##  DoYouNeedToCancelVAT
+#######################################################
+doYouNeedToCancelVAT.title = A oes angen i chi ddileu cofrestriad TAW a rhoi’r gorau i gyflwyno Ffurflenni TAW?
+doYouNeedToCancelVAT.heading = A oes angen i chi ddileu cofrestriad TAW a rhoi’r gorau i gyflwyno Ffurflenni TAW?
+doYouNeedToCancelVAT.Yes = Iawn
+doYouNeedToCancelVAT.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth TAW ar-lein
+doYouNeedToCancelVAT.error.required = Dewiswch Iawn os oes angen i chi ddileu cofrestriad TAW a rhoi’r gorau i gyflwyno Ffurflenni TAW
+
+#######################################################
 ##  YouNeedToBeApprovedCTF
 #######################################################
 youNeedToBeApprovedCTF.title = Mae angen i chi fod yn ddarparwr Cronfa Ymddiriedolaeth Plant cymeradwy i gyrchu’r gwasanaeth hwn
