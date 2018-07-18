@@ -3,8 +3,8 @@
 GET        /cis/how-to-stop-cis                  controllers.deenrolment.DoYouWantToLeaveCISController.onPageLoad()
 POST       /cis/how-to-stop-cis                  controllers.deenrolment.DoYouWantToLeaveCISController.onSubmit()
 
-GET        /self-assessment/how-to-stop-sa      controllers.deenrolment.HaveYouStoppedSelfEmploymentController.onPageLoad()
-POST       /self-assessment/how-to-stop-sa      controllers.deenrolment.HaveYouStoppedSelfEmploymentController.onSubmit()
+GET        /self-assessment/how-to-stop-sa       controllers.deenrolment.HaveYouStoppedSelfEmploymentController.onPageLoad()
+POST       /self-assessment/how-to-stop-sa       controllers.deenrolment.HaveYouStoppedSelfEmploymentController.onSubmit()
 
 GET        /ro/how-to-stop-ro                    controllers.deenrolment.DoYouNeedToStopROController.onPageLoad()
 POST       /ro/how-to-stop-ro                    controllers.deenrolment.DoYouNeedToStopROController.onSubmit()
@@ -19,3 +19,6 @@ POST       /psa/how-to-stop-psa                  controllers.deenrolment.DoYouNe
 
 GET        /gambling/how-to-stop-gbd                  controllers.deenrolment.DoYouNeedToStopGBDController.onPageLoad()
 POST       /gambling/how-to-stop-gbd                  controllers.deenrolment.DoYouNeedToStopGBDController.onSubmit()
+
+GET        /ct/how-to-stop-ct                    controllers.deenrolment.StopCorporationTaxController.onPageLoad()
+POST       /ct/how-to-stop-ct                    controllers.deenrolment.StopCorporationTaxController.onSubmit()

@@ -90,6 +90,8 @@ object Enrolments {
 
   case object SA extends WithName("IR-SA") with Enrolments
 
+  case object CT extends WithName("IR-CT") with Enrolments
+
   case object CTF extends WithName("IR-CTF") with Enrolments
 
   val values: Set[Enrolments] = Set(
@@ -127,6 +129,7 @@ object Enrolments {
     PSA,
     SA,
     VATGIANT,
+    CT,
     CTF
   )
 }
@@ -154,5 +157,9 @@ object HmrcEnrolmentType {
 
   case object SDLT extends WithName("IR-SDLT-ORG") with HmrcEnrolmentType
 
-  val values: Set[HmrcEnrolmentType] = Set(SA, CORP_TAX, EPAYE, VAT, RegisterTrusts, SDLT)
+  case object PSA extends WithName("HMRC-PSA-ORG") with HmrcEnrolmentType
+
+  case object PP extends WithName("HMRC-PP-ORG") with HmrcEnrolmentType
+
+  val values: Set[HmrcEnrolmentType] = Set(SA, CORP_TAX, EPAYE, VAT, RegisterTrusts, SDLT, PSA, PP)
 }
