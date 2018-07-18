@@ -128,7 +128,7 @@ otherTaxes.alcoholAndTobaccoWholesalingAndWarehousing = Alcohol and tobacco whol
 otherTaxes.automaticExchangeOfInformation = Automatic Exchange of Information (AEOI)
 otherTaxes.charities = Charities - for Gift Aid repayment claims
 otherTaxes.gamblingAndGaming = Betting and gaming
-otherTaxes.childTrustFund = Child Trust Fund for Providers
+otherTaxes.childTrustFund = Child Trust Fund for providers
 otherTaxes.housingAndLand = Housing and land
 otherTaxes.importsExports = Imports and exports
 otherTaxes.oilAndFuel = Oil and fuel
@@ -916,6 +916,16 @@ youDoNotNeedVAT.title = You do not need VAT for Government Information and Natio
 youDoNotNeedVAT.heading = You do not need VAT for Government Information and National Health Trusts (GIANT)
 youDoNotNeedVAT.body = HMRC will contact your organisation if it needs to use this service.
 youDoNotNeedVAT.home = Go to business tax home
+
+#######################################################
+##  StopCorporationTax
+#######################################################
+stopCorporationTax.title = What do you need to do?
+stopCorporationTax.heading = What do you need to do?
+stopCorporationTax.stop = Stop using the online service
+stopCorporationTax.dormant = Make my company dormant (it may trade again)
+stopCorporationTax.close = Close down my company (it will not trade again)
+stopCorporationTax.error.required = Select what you need to do
 
 #######################################################
 ##  DoYouNeedToCancelVAT

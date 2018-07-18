@@ -17,18 +17,17 @@
 package controllers.employer
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, HmrcEnrolmentType, Navigator, RadioOption}
 import forms.employer.WhatEmployerTaxDoYouWantToAddFormProvider
 import identifiers.WhatEmployerTaxDoYouWantToAddId
 import models.employer.WhatEmployerTaxDoYouWantToAdd
-import models.employer.WhatEmployerTaxDoYouWantToAdd.{EPAYE, options}
+import models.employer.WhatEmployerTaxDoYouWantToAdd.{EPAYE, PS}
 import uk.gov.hmrc.auth.core.Enrolments
+import utils.{Enumerable, Navigator, RadioOption}
 import views.html.employer.whatEmployerTaxDoYouWantToAdd
 
 class WhatEmployerTaxDoYouWantToAddController @Inject()(
@@ -62,8 +61,29 @@ class WhatEmployerTaxDoYouWantToAddController @Inject()(
       )
   }
 
-  def getOptions(enrolments: Enrolments): Seq[RadioOption] = enrolments match {
-    case HmrcEnrolmentType.EPAYE() => options.filterNot(_.value == EPAYE.toString)
-    case _                         => options
-  }
+  def getOptions(enrolments: Enrolments): Seq[RadioOption] =
+    checkPensionScheme(enrolments).intersect(checkEpayeEnrolment(enrolments))
+
+  private def checkPensionScheme: Enrolments => Seq[RadioOption] = filterOptions(checkPension, PS)
+  private def checkEpayeEnrolment: Enrolments => Seq[RadioOption] = filterOptions(checkEPaye, EPAYE)
+
+  private def filterOptions(
+    predicate: Enrolments => Boolean,
+    option: WhatEmployerTaxDoYouWantToAdd): Enrolments => Seq[RadioOption] =
+    (enrolments: Enrolments) =>
+      if (predicate(enrolments)) WhatEmployerTaxDoYouWantToAdd.options.filterNot(_.value == option.toString)
+      else WhatEmployerTaxDoYouWantToAdd.options
+
+  private def checkPension: Enrolments => Boolean =
+    e => checkPensionAdministratorScheme(e) && checkPensionPractitionerScheme(e)
+
+  private def checkPensionAdministratorScheme: Enrolments => Boolean =
+    _.getEnrolment(utils.Enrolments.PSA.toString).isDefined
+
+  private def checkPensionPractitionerScheme: Enrolments => Boolean =
+    _.getEnrolment(utils.Enrolments.PP.toString).isDefined
+
+  private def checkEPaye: Enrolments => Boolean =
+    _.getEnrolment(utils.Enrolments.EPAYE.toString).isDefined
+
 }

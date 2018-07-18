@@ -3,8 +3,8 @@
 GET        /cis/how-to-stop-cis                  controllers.deenrolment.DoYouWantToLeaveCISController.onPageLoad()
 POST       /cis/how-to-stop-cis                  controllers.deenrolment.DoYouWantToLeaveCISController.onSubmit()
 
-GET        /self-assessment/how-to-stop-sa      controllers.deenrolment.HaveYouStoppedSelfEmploymentController.onPageLoad()
-POST       /self-assessment/how-to-stop-sa      controllers.deenrolment.HaveYouStoppedSelfEmploymentController.onSubmit()
+GET        /self-assessment/how-to-stop-sa       controllers.deenrolment.HaveYouStoppedSelfEmploymentController.onPageLoad()
+POST       /self-assessment/how-to-stop-sa       controllers.deenrolment.HaveYouStoppedSelfEmploymentController.onSubmit()
 
 GET        /ro/how-to-stop-ro                    controllers.deenrolment.DoYouNeedToStopROController.onPageLoad()
 POST       /ro/how-to-stop-ro                    controllers.deenrolment.DoYouNeedToStopROController.onSubmit()
@@ -16,6 +16,9 @@ GET        /:service                             controllers.deenrolment.Deenrol
 
 GET        /psa/how-to-stop-psa                  controllers.deenrolment.DoYouNeedToStopPSAController.onPageLoad()
 POST       /psa/how-to-stop-psa                  controllers.deenrolment.DoYouNeedToStopPSAController.onSubmit()
+
+GET        /ct/how-to-stop-ct                    controllers.deenrolment.StopCorporationTaxController.onPageLoad()
+POST       /ct/how-to-stop-ct                    controllers.deenrolment.StopCorporationTaxController.onSubmit()
 
 GET        /vat/how-to-stop-vat                  controllers.deenrolment.DoYouNeedToCancelVATController.onPageLoad()
 POST       /vat/how-to-stop-vat                  controllers.deenrolment.DoYouNeedToCancelVATController.onSubmit()

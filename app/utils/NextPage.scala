@@ -115,4 +115,5 @@ object NextPage
     with HaveYouStoppedSelfEmploymentNextPage
     with AreYouApprovedCTFNextPage
     with WhatIsYourOrganisationNextPage
+    with StopCorporationTaxNextPage
     with DoYouNeedToCancelVATNextPage
