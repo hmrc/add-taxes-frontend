@@ -928,6 +928,15 @@ stopCorporationTax.close = Close down my company (it will not trade again)
 stopCorporationTax.error.required = Select what you need to do
 
 #######################################################
+##  DoYouNeedToCancelVAT
+#######################################################
+doYouNeedToCancelVAT.title = Do you need to cancel VAT registration and stop submitting returns?
+doYouNeedToCancelVAT.heading = Do you need to cancel VAT registration and stop submitting returns?
+doYouNeedToCancelVAT.Yes = Yes
+doYouNeedToCancelVAT.No = No, I need to stop using the VAT online service
+doYouNeedToCancelVAT.error.required = Select yes if you need to cancel VAT registration and stop submitting returns
+
+#######################################################
 ##  YouNeedToBeApprovedCTF
 #######################################################
 youNeedToBeApprovedCTF.title = You need to be an approved Child Trust Fund provider to access this service

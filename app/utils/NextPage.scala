@@ -47,13 +47,13 @@ import utils.nextpage.sa.trust.HaveYouRegisteredTrustNextPage
 import utils.nextpage.vat.WhichVATServicesToAddNextPage
 import utils.nextpage.vat.ec.RegisteredForVATECSalesNextPage
 import utils.nextpage.vat.eurefunds.RegisteredForVATEURefundsNextPage
+import utils.nextpage.vat.giant.WhatIsYourOrganisationNextPage
 import utils.nextpage.vat.moss.WhereIsYourBusinessBasedNextPage
 import utils.nextpage.vat.moss.iom._
 import utils.nextpage.vat.moss.noneu.HaveYouRegisteredForVATMOSSNextPage
 import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
 import utils.nextpage.vat.rcsl.RegisteredForVATRCSLNextPage
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
-import utils.nextpage.vat.giant.WhatIsYourOrganisationNextPage
 
 import scala.annotation.implicitNotFound
 
@@ -116,3 +116,4 @@ object NextPage
     with AreYouApprovedCTFNextPage
     with WhatIsYourOrganisationNextPage
     with StopCorporationTaxNextPage
+    with DoYouNeedToCancelVATNextPage
