@@ -158,27 +158,13 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
       }
     }
 
-    "show only 'partnership' option" when {
-      val radioOptions: Set[RadioOption] =
-        SelectSACategory.options.filter(_.value == SelectSACategory.Partnership.toString)
-
+    "redirect to do you want to add a partner" when {
       "on page load and enrolled for SA and Trust" in {
         val result = controller()(HmrcEnrolmentType.SA, HmrcEnrolmentType.RegisterTrusts).onPageLoad()(fakeRequest)
-        val view = viewAsString(radioOptions = radioOptions)
 
-        contentAsString(result) mustBe view
-      }
-
-      "on page submit and enrolled for SA and Trust" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-        val boundForm = form.bind(Map("value" -> "invalid value"))
-        val view = viewAsString(boundForm, radioOptions)
-
-        val result = controller()(HmrcEnrolmentType.SA, HmrcEnrolmentType.RegisterTrusts).onSubmit()(postRequest)
-
-        contentAsString(result) mustBe view
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/partnership")
       }
     }
-
   }
 }

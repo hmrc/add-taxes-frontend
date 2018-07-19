@@ -30,6 +30,7 @@ import models.sa.SelectSACategory
 import uk.gov.hmrc.auth.core.Enrolments
 import views.html.sa.selectSACategory
 import utils.&&
+import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
 
 class SelectSACategoryController @Inject()(
   appConfig: FrontendAppConfig,
@@ -45,7 +46,12 @@ class SelectSACategoryController @Inject()(
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(selectSACategory(appConfig, form, getRadioOptions(request.request.enrolments))(request.serviceInfoContent))
+    request.request.enrolments match {
+      case HmrcEnrolmentType.SA() && HmrcEnrolmentType.RegisterTrusts() =>
+        Redirect(DoYouWantToAddPartnerController.onPageLoad())
+      case _ =>
+        Ok(selectSACategory(appConfig, form, getRadioOptions(request.request.enrolments))(request.serviceInfoContent))
+    }
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
@@ -62,9 +68,6 @@ class SelectSACategoryController @Inject()(
 
   def getRadioOptions(enrolments: Enrolments): Set[RadioOption] =
     enrolments match {
-      case HmrcEnrolmentType.SA() && HmrcEnrolmentType.RegisterTrusts() =>
-        SelectSACategory.options.filter(_.value == SelectSACategory.Partnership.toString)
-
       case HmrcEnrolmentType.SA() =>
         SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
 
