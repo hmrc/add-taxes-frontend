@@ -41,13 +41,6 @@ class WhichPensionSchemeToAddControllerSpec extends ControllerSpecBase {
   val formProvider = new WhichPensionSchemeToAddFormProvider()
   val form = formProvider()
 
-  def requestWithEnrolments(keys: String*): ServiceInfoRequest[AnyContent] = {
-    val enrolments = Enrolments(keys.map(Enrolment(_)).toSet)
-    ServiceInfoRequest[AnyContent](
-      AuthenticatedRequest(FakeRequest(), "", enrolments, Some(Organisation)),
-      HtmlFormat.empty)
-  }
-
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new WhichPensionSchemeToAddController(
       frontendAppConfig,

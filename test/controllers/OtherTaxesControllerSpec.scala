@@ -34,13 +34,6 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
-  def requestWithEnrolments(keys: String*): ServiceInfoRequest[AnyContent] = {
-    val enrolments = Enrolments(keys.map(Enrolment(_)).toSet)
-    ServiceInfoRequest[AnyContent](
-      AuthenticatedRequest(FakeRequest(), "", enrolments, Some(Organisation)),
-      HtmlFormat.empty)
-  }
-
   val formProvider = new OtherTaxesFormProvider()
   val form = formProvider()
 

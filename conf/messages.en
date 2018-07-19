@@ -952,3 +952,12 @@ doYouNeedToStopGBD.heading = Do you need to stop using the General Betting Duty 
 doYouNeedToStopGBD.Yes = Yes
 doYouNeedToStopGBD.No = No, I need to deregister from General Betting Duty
 doYouNeedToStopGBD.error.required = Select yes if you need to stop using the General Betting Duty online service
+
+#######################################################
+##  StopFilingSelfAssessment
+#######################################################
+stopFilingSelfAssessment.title = Do you need to stop filing Self Assessment returns?
+stopFilingSelfAssessment.heading = Do you need to stop filing Self Assessment returns?
+stopFilingSelfAssessment.Yes = Yes
+stopFilingSelfAssessment.No = No, I need to stop using the Self Assessment online service
+stopFilingSelfAssessment.error.required = Select yes if you need to stop filing Self Assessment returns

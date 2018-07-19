@@ -38,13 +38,6 @@ class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
   val formProvider = new SelectAnOilServiceFormProvider()
   val form = formProvider()
 
-  def requestWithEnrolments(keys: String*): ServiceInfoRequest[AnyContent] = {
-    val enrolments = Enrolments(keys.map(Enrolment(_)).toSet)
-    ServiceInfoRequest[AnyContent](
-      AuthenticatedRequest(FakeRequest(), "", enrolments, Some(Organisation)),
-      HtmlFormat.empty)
-  }
-
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new SelectAnOilServiceController(
       frontendAppConfig,

@@ -16,17 +16,16 @@
 
 package controllers.deenrolment
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.{FakeServiceInfoAction, _}
+import controllers.deenrolment.routes.StopFilingSelfAssessmentController
 import forms.deenrolment.HaveYouStoppedSelfEmploymentFormProvider
-import identifiers.HaveYouStoppedSelfEmploymentId
 import models.deenrolment.HaveYouStoppedSelfEmployment
+import play.api.data.Form
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.{FakeNavigator, HmrcEnrolmentType}
+import utils.HmrcEnrolmentType.CORP_TAX
 import views.html.deenrolment.haveYouStoppedSelfEmployment
 
 class HaveYouStoppedSelfEmploymentControllerSpec extends ControllerSpecBase {
@@ -36,13 +35,13 @@ class HaveYouStoppedSelfEmploymentControllerSpec extends ControllerSpecBase {
   val formProvider = new HaveYouStoppedSelfEmploymentFormProvider()
   val form = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap)(enrolmentTypes: HmrcEnrolmentType*) =
     new HaveYouStoppedSelfEmploymentController(
       frontendAppConfig,
       messagesApi,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
-      FakeServiceInfoAction,
+      FakeServiceInfoAction(enrolmentTypes: _*),
       formProvider)
 
   def viewAsString(form: Form[_] = form) =
@@ -51,7 +50,7 @@ class HaveYouStoppedSelfEmploymentControllerSpec extends ControllerSpecBase {
   "HaveYouStoppedSelfEmployment Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
+      val result = controller()().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
@@ -60,7 +59,7 @@ class HaveYouStoppedSelfEmploymentControllerSpec extends ControllerSpecBase {
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HaveYouStoppedSelfEmployment.options.head.value))
 
-      val result = controller().onSubmit()(postRequest)
+      val result = controller()().onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -70,25 +69,41 @@ class HaveYouStoppedSelfEmploymentControllerSpec extends ControllerSpecBase {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
-      val result = controller().onSubmit()(postRequest)
+      val result = controller()().onSubmit()(postRequest)
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
     "return OK if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+      val result = controller(dontGetAnyData)().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
     }
 
     for (option <- HaveYouStoppedSelfEmployment.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
-        val result = controller(dontGetAnyData).onSubmit()(postRequest)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
+        val result = controller(dontGetAnyData)().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)
+      }
+    }
+
+    "redirect to stop filing self assessment page" when {
+      "page is loaded" in {
+        val result = controller()(CORP_TAX).onPageLoad()(fakeRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(StopFilingSelfAssessmentController.onPageLoad().url)
+      }
+
+      "page is submitted" in {
+        val result = controller()(CORP_TAX).onSubmit()(fakeRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(StopFilingSelfAssessmentController.onPageLoad().url)
       }
     }
   }
