@@ -167,7 +167,8 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
       }
 
       "on submit and enrolled for SA and Trust" in {
-        val result = controller()(HmrcEnrolmentType.SA, HmrcEnrolmentType.RegisterTrusts).onSubmit()(fakeRequest)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+        val result = controller()(HmrcEnrolmentType.SA, HmrcEnrolmentType.RegisterTrusts).onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/partnership")
