@@ -17,11 +17,15 @@ GET        /:service                             controllers.deenrolment.Deenrol
 GET        /psa/how-to-stop-psa                  controllers.deenrolment.DoYouNeedToStopPSAController.onPageLoad()
 POST       /psa/how-to-stop-psa                  controllers.deenrolment.DoYouNeedToStopPSAController.onSubmit()
 
-GET        /gambling/how-to-stop-gbd                  controllers.deenrolment.DoYouNeedToStopGBDController.onPageLoad()
-POST       /gambling/how-to-stop-gbd                  controllers.deenrolment.DoYouNeedToStopGBDController.onSubmit()
+GET        /gambling/how-to-stop-gbd             controllers.deenrolment.DoYouNeedToStopGBDController.onPageLoad()
+POST       /gambling/how-to-stop-gbd             controllers.deenrolment.DoYouNeedToStopGBDController.onSubmit()
 
 GET        /ct/how-to-stop-ct                    controllers.deenrolment.StopCorporationTaxController.onPageLoad()
 POST       /ct/how-to-stop-ct                    controllers.deenrolment.StopCorporationTaxController.onSubmit()
 
 GET        /vat/how-to-stop-vat                  controllers.deenrolment.DoYouNeedToCancelVATController.onPageLoad()
 POST       /vat/how-to-stop-vat                  controllers.deenrolment.DoYouNeedToCancelVATController.onSubmit()
+
+
+GET        /vat/how-to-stop-vat-moss             controllers.deenrolment.DoYouNeedToLeaveVATMOSSController.onPageLoad()
+POST       /vat/how-to-stop-vat-moss             controllers.deenrolment.DoYouNeedToLeaveVATMOSSController.onSubmit()

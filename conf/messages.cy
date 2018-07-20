@@ -947,3 +947,12 @@ doYouNeedToStopGBD.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gw
 doYouNeedToStopGBD.Yes = Iawn
 doYouNeedToStopGBD.No = Na, mae angen i fi ddadgofrestru o’r Doll Fetio Gyffredinol
 doYouNeedToStopGBD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Fetio Gyffredinol
+
+#######################################################
+##  DoYouNeedToLeaveVATMOSS
+#######################################################
+doYouNeedToLeaveVATMOSS.title = A oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn?
+doYouNeedToLeaveVATMOSS.heading = A oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn?
+doYouNeedToLeaveVATMOSS.Yes = Iawn
+doYouNeedToLeaveVATMOSS.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein
+doYouNeedToLeaveVATMOSS.error.required = Dewiswch Iawn os oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn

@@ -20,11 +20,11 @@ import config.FrontendAppConfig
 import play.api.mvc.{Call, Request}
 import utils.nextpage.OtherTaxesNextPage
 import utils.nextpage.deenrolment._
+import utils.nextpage.employer._
 import utils.nextpage.employer.cis.IsYourBusinessInUKNextPage
 import utils.nextpage.employer.cis.uk.AreYouContractorOrSubcontractorNextPage
 import utils.nextpage.employer.cis.uk.subcontractor._
 import utils.nextpage.employer.pension.WhichPensionSchemeToAddNextPage
-import utils.nextpage.employer._
 import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
 import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage
 import utils.nextpage.other.alcohol.awrs.SelectAlcoholSchemeNextPage
@@ -118,3 +118,4 @@ object NextPage
     with DoYouNeedToStopGBDNextPage
     with StopCorporationTaxNextPage
     with DoYouNeedToCancelVATNextPage
+    with DoYouNeedToLeaveVATMOSSNextPage

@@ -952,3 +952,12 @@ doYouNeedToStopGBD.heading = Do you need to stop using the General Betting Duty 
 doYouNeedToStopGBD.Yes = Yes
 doYouNeedToStopGBD.No = No, I need to deregister from General Betting Duty
 doYouNeedToStopGBD.error.required = Select yes if you need to stop using the General Betting Duty online service
+
+#######################################################
+##  DoYouNeedToLeaveVATMOSS
+#######################################################
+doYouNeedToLeaveVATMOSS.title = Do you need to leave this VAT MOSS scheme?
+doYouNeedToLeaveVATMOSS.heading = Do you need to leave this VAT MOSS scheme?
+doYouNeedToLeaveVATMOSS.Yes = Yes
+doYouNeedToLeaveVATMOSS.No = No, I need to stop using the online service
+doYouNeedToLeaveVATMOSS.error.required = Select yes if you need to leave this VAT MOSS scheme
