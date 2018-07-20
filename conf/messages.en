@@ -248,8 +248,7 @@ registerEORIEBTI.p2 = Come back to your account and add eBTI once your EORI numb
 #######################################################
 ##  RegisterEORI - NCTS
 #######################################################
-registerEORINCTS.p1 = You need an Economic Operators Registration and Identification (EORI) to add New Computerised Transit System (NCTS) to your account.
-registerEORINCTS.p2 = Come back to your account and add NCTS once your EORI number arrives.
+registerEORINCTS.p1 = When you get this, sign in and add the New Computerised Transit System to your account.
 
 #######################################################
 ##  DoYouWantToAddImportExport
