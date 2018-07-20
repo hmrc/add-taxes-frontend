@@ -159,26 +159,25 @@ doYouHaveASEEDNumber.error.required = Dewis iawn neu na
 #######################################################
 ##  DoYouHaveEORINumber
 #######################################################
-economicOperatorsRegistrationAndIdentification.title = A oes gennych rif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI)?
-economicOperatorsRegistrationAndIdentification.heading = A oes gennych rif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI)?
-economicOperatorsRegistrationAndIdentification.Yes = Oes - mae gennyf rif EORI
-economicOperatorsRegistrationAndIdentification.No = Nac oes - nid oes gennyf rif EORI
-economicOperatorsRegistrationAndIdentification.error.required = Dewis iawn neu na
+economicOperatorsRegistrationAndIdentification.title = A oes gennych rif Cofrestru ac Adnabod Gweithredwyr Economaidd (EORI)?
+economicOperatorsRegistrationAndIdentification.heading = A oes gennych rif Cofrestru ac Adnabod Gweithredwyr Economaidd (EORI)?
+economicOperatorsRegistrationAndIdentification.Yes = Iawn
+economicOperatorsRegistrationAndIdentification.No = Na
+economicOperatorsRegistrationAndIdentification.error.required = Dewiswch ‘Iawn’ os oes gennych rif EORI
 
 
 #######################################################
 ##  RegisterEORI
 #######################################################
-registerEORI.title = Dylech gael rhif EORI yn gyntaf
-registerEORI.heading = Dylech gael rhif EORI yn gyntaf
-registerEORI.continue = Mynd yn eich blaen - cael rhif EORI
+registerEORI.title = Mae angen rhif EORI arnoch i ychwanegu’r gwasanaeth hwn
+registerEORI.heading = Mae angen rhif EORI arnoch i ychwanegu’r gwasanaeth hwn
+registerEORI.continue = Cael rhif EORI
 
 
 #######################################################
 ##  RegisterEORI - ICS
 #######################################################
-registerEORIICS.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu System Rheoli Mewnforion (ICS) i’ch cyfrif.
-registerEORIICS.p2 = Dychwelwch i’ch cyfrif ac ychwanegu ICS unwaith bod eich rhif EORI wedi cyrraedd.
+registerEORIICS.p1 = Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y System Rheoli Mewnforion at eich cyfrif.
 
 
 #######################################################

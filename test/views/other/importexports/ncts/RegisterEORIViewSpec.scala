@@ -42,7 +42,7 @@ class RegisterEORIViewSpec extends ViewBehaviours {
       assertLinkById(
         doc,
         "continue",
-        "Continue - get an EORI number",
+        "Get an EORI number",
         "https://www.gov.uk/eori#how-to-get-an-eori-number",
         "RegisterNCTSEori:Click:Continue")
     }
