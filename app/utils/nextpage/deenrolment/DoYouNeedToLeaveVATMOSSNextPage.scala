@@ -28,7 +28,7 @@ trait DoYouNeedToLeaveVATMOSSNextPage {
     new NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSS] {
       override def get(b: DoYouNeedToLeaveVATMOSS)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case DoYouNeedToLeaveVATMOSS.Yes => Call("GET", appConfig.getPortalUrl("change-reg-details"))
+          case DoYouNeedToLeaveVATMOSS.Yes => Call("GET", appConfig.getPortalUrl("mossChangeDetails"))
           case DoYouNeedToLeaveVATMOSS.No  => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.VATMOSS))
         }
     }
