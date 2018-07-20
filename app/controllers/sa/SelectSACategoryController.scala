@@ -30,6 +30,9 @@ import models.sa.SelectSACategory
 import uk.gov.hmrc.auth.core.Enrolments
 import views.html.sa.selectSACategory
 import utils.&&
+import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Result
 
 class SelectSACategoryController @Inject()(
   appConfig: FrontendAppConfig,
@@ -44,27 +47,36 @@ class SelectSACategoryController @Inject()(
 
   val form = formProvider()
 
+  def redirectWhenHasSAAndRT[A](noRedirect: => Result)(implicit request: ServiceInfoRequest[A]): Result =
+    request.request.enrolments match {
+      case HmrcEnrolmentType.SA() && HmrcEnrolmentType.RegisterTrusts() =>
+        Redirect(DoYouWantToAddPartnerController.onPageLoad())
+      case _ =>
+        noRedirect
+    }
+
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(selectSACategory(appConfig, form, getRadioOptions(request.request.enrolments))(request.serviceInfoContent))
+    redirectWhenHasSAAndRT {
+      Ok(selectSACategory(appConfig, form, getRadioOptions(request.request.enrolments))(request.serviceInfoContent))
+    }
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
-      .fold(
-        (formWithErrors: Form[_]) =>
-          BadRequest(
-            selectSACategory(appConfig, formWithErrors, getRadioOptions(request.request.enrolments))(
-              request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(SelectSACategoryId, (value, request.request.affinityGroup)))
-      )
+    redirectWhenHasSAAndRT {
+      form
+        .bindFromRequest()
+        .fold(
+          (formWithErrors: Form[_]) =>
+            BadRequest(
+              selectSACategory(appConfig, formWithErrors, getRadioOptions(request.request.enrolments))(
+                request.serviceInfoContent)),
+          (value) => Redirect(navigator.nextPage(SelectSACategoryId, (value, request.request.affinityGroup)))
+        )
+    }
   }
 
   def getRadioOptions(enrolments: Enrolments): Set[RadioOption] =
     enrolments match {
-      case HmrcEnrolmentType.SA() && HmrcEnrolmentType.RegisterTrusts() =>
-        SelectSACategory.options.filter(_.value == SelectSACategory.Partnership.toString)
-
       case HmrcEnrolmentType.SA() =>
         SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
 
