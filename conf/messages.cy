@@ -955,4 +955,4 @@ stopFilingSelfAssessment.title = A oes angen i chi roi’r gorau i gyflwyno Ffur
 stopFilingSelfAssessment.heading = A oes angen i chi roi’r gorau i gyflwyno Ffurflenni Treth Hunanasesiad?
 stopFilingSelfAssessment.Yes = Iawn
 stopFilingSelfAssessment.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Hunanasesiad ar-lein
-stopFilingSelfAssessment.error.required = A oes angen i chi roi’r gorau i gyflwyno Ffurflenni Treth Hunanasesiad?
+stopFilingSelfAssessment.error.required = Dewiswch ’Iawn’ os oes angen i chi roi’r gorau i gyflwyno Ffurflenni Treth Hunanasesiad
