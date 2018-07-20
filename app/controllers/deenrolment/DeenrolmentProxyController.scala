@@ -36,7 +36,6 @@ class DeenrolmentProxyController @Inject()(
     with I18nSupport {
 
   def onPageLoad(service: Enrolments) = (authenticate andThen serviceInfo) { implicit request =>
-
     val enrolmentRoutes: Map[Enrolments, Call] = Map(
       VATMOSS        -> DoYouNeedToLeaveVATMOSSController.onPageLoad(),
       SA             -> HaveYouStoppedSelfEmploymentController.onPageLoad(),
@@ -51,7 +50,7 @@ class DeenrolmentProxyController @Inject()(
 
     enrolmentRoutes.get(service) match {
       case Some(call) => Redirect(call)
-      case None => Redirect(appConfig.emacDeenrolmentsUrl(service))
+      case None       => Redirect(appConfig.emacDeenrolmentsUrl(service))
     }
   }
 }
