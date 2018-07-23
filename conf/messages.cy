@@ -140,10 +140,9 @@ otherTaxes.legend = Dewis treth neu fath o gynllun
 ##  RegisterExciseMovementControlSystem
 #######################################################
 registerExciseMovementControlSystem.title = Dylech gael ID SEED ecséis yn gyntaf
-registerExciseMovementControlSystem.heading = Dylech gael ID SEED ecséis yn gyntaf
-registerExciseMovementControlSystem.youNeedToRegister=Mae angen i chi gofrestru ar gyfer rhif ID SEED ecséis cyn y gallwch ychwanegu System Symudiadau a Rheolaeth Ecseis (EMCS) i’ch cyfrif.
-registerExciseMovementControlSystem.comeBackToYourAccount=Dychwelwch i’ch cyfrif ac ychwanegwch EMCS unwaith bod eich rhif SEED wedi cyrraedd.
-registerExciseMovementControlSystem.button=Mynd yn eich blaen - cael rhif SEED
+registerExciseMovementControlSystem.heading = Mae angen rhif System ar gyfer Cyfnewid Data Ecséis (SEED) arnoch i ychwanegu’r gwasanaeth hwn
+registerExciseMovementControlSystem.youNeedToRegister= Pan gewch chi hwn, mewngofnodwch i’ch cyfrif ac ychwanegwch y System Symudiadau a Rheolaeth Ecséis.
+registerExciseMovementControlSystem.button= Cael rhif SEED
 
 
 #######################################################
@@ -151,9 +150,9 @@ registerExciseMovementControlSystem.button=Mynd yn eich blaen - cael rhif SEED
 #######################################################
 doYouHaveASEEDNumber.title = A oes gennych rif System ar gyfer Cyfnewid Data Ecséis (SEED)?
 doYouHaveASEEDNumber.heading = A oes gennych rif System ar gyfer Cyfnewid Data Ecséis (SEED)?
-doYouHaveASEEDNumber.Yes = Oes - mae gennyf rif SEED
-doYouHaveASEEDNumber.No = Nac oes - nid oes gennyf rif SEED
-doYouHaveASEEDNumber.error.required = Dewis iawn neu na
+doYouHaveASEEDNumber.Yes = Iawn
+doYouHaveASEEDNumber.No = Na
+doYouHaveASEEDNumber.error.required = Dewiswch ‘Iawn’ os oes gennych rif SEED
 
 
 #######################################################
