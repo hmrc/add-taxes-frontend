@@ -118,3 +118,4 @@ object NextPage
     with DoYouNeedToStopGBDNextPage
     with StopCorporationTaxNextPage
     with DoYouNeedToCancelVATNextPage
+    with StopFilingSelfAssessmentNextPage

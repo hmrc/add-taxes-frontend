@@ -944,3 +944,12 @@ doYouNeedToStopGBD.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gw
 doYouNeedToStopGBD.Yes = Iawn
 doYouNeedToStopGBD.No = Na, mae angen i fi ddadgofrestru o’r Doll Fetio Gyffredinol
 doYouNeedToStopGBD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Fetio Gyffredinol
+
+#######################################################
+##  StopFilingSelfAssessment
+#######################################################
+stopFilingSelfAssessment.title = A oes angen i chi roi’r gorau i gyflwyno Ffurflenni Treth Hunanasesiad?
+stopFilingSelfAssessment.heading = A oes angen i chi roi’r gorau i gyflwyno Ffurflenni Treth Hunanasesiad?
+stopFilingSelfAssessment.Yes = Iawn
+stopFilingSelfAssessment.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Hunanasesiad ar-lein
+stopFilingSelfAssessment.error.required = Dewiswch ’Iawn’ os oes angen i chi roi’r gorau i gyflwyno Ffurflenni Treth Hunanasesiad

@@ -18,51 +18,39 @@ package controllers.deenrolment
 
 import config.FrontendAppConfig
 import controllers.actions._
-import forms.deenrolment.HaveYouStoppedSelfEmploymentFormProvider
-import identifiers.HaveYouStoppedSelfEmploymentId
+import forms.deenrolment.StopFilingSelfAssessmentFormProvider
+import identifiers.StopFilingSelfAssessmentId
 import javax.inject.Inject
-import models.requests.ServiceInfoRequest
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Result
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, HmrcEnrolmentType, Navigator}
-import views.html.deenrolment.haveYouStoppedSelfEmployment
+import utils.{Enumerable, Navigator}
+import views.html.deenrolment.stopFilingSelfAssessment
 
-class HaveYouStoppedSelfEmploymentController @Inject()(
+class StopFilingSelfAssessmentController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   navigator: Navigator,
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
-  formProvider: HaveYouStoppedSelfEmploymentFormProvider)
+  formProvider: StopFilingSelfAssessmentFormProvider)
     extends FrontendController
     with I18nSupport
     with Enumerable.Implicits {
 
   val form = formProvider()
 
-  def redirectWhenHasCT[A](noRedirect: => Result)(implicit request: ServiceInfoRequest[A]): Result =
-    request.request.enrolments match {
-      case HmrcEnrolmentType.CORP_TAX() => Redirect(routes.StopFilingSelfAssessmentController.onPageLoad())
-      case _                            => noRedirect
-    }
-
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    redirectWhenHasCT {
-      Ok(haveYouStoppedSelfEmployment(appConfig, form)(request.serviceInfoContent))
-    }
+    Ok(stopFilingSelfAssessment(appConfig, form)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    redirectWhenHasCT {
-      form
-        .bindFromRequest()
-        .fold(
-          (formWithErrors: Form[_]) =>
-            BadRequest(haveYouStoppedSelfEmployment(appConfig, formWithErrors)(request.serviceInfoContent)),
-          (value) => Redirect(navigator.nextPage(HaveYouStoppedSelfEmploymentId, value))
-        )
-    }
+    form
+      .bindFromRequest()
+      .fold(
+        (formWithErrors: Form[_]) =>
+          BadRequest(stopFilingSelfAssessment(appConfig, formWithErrors)(request.serviceInfoContent)),
+        (value) => Redirect(navigator.nextPage(StopFilingSelfAssessmentId, value))
+      )
   }
 }

@@ -18,9 +18,14 @@ package controllers
 
 import base.SpecBase
 import controllers.actions.FakeDataRetrievalAction
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import play.twirl.api.Html
+import play.api.mvc.AnyContent
+import play.api.test.FakeRequest
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
+import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
 import uk.gov.hmrc.http.cache.client.CacheMap
 
 trait ControllerSpecBase extends SpecBase {
@@ -34,4 +39,11 @@ trait ControllerSpecBase extends SpecBase {
   def dontGetAnyData = new FakeDataRetrievalAction(None)
 
   def asDocument(s: String): Document = Jsoup.parse(s)
+
+  def requestWithEnrolments(keys: String*): ServiceInfoRequest[AnyContent] = {
+    val enrolments = Enrolments(keys.map(Enrolment(_)).toSet)
+    ServiceInfoRequest[AnyContent](
+      AuthenticatedRequest(FakeRequest(), "", enrolments, Some(Organisation)),
+      HtmlFormat.empty)
+  }
 }
