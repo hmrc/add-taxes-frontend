@@ -22,6 +22,7 @@ import play.api.data.Form
 import forms.employer.DoesBusinessManagePAYEFormProvider
 import play.api.test.Helpers._
 import models.employer.DoesBusinessManagePAYE
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
 import viewmodels.ViewAction
@@ -39,7 +40,7 @@ class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
     new DoesBusinessManagePAYEController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

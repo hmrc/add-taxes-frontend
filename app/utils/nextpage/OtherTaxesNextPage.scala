@@ -32,8 +32,8 @@ import utils.NextPage
 
 trait OtherTaxesNextPage {
 
-  implicit val otherTaxes: NextPage[OtherTaxesId.type, OtherTaxes] = {
-    new NextPage[OtherTaxesId.type, OtherTaxes] {
+  implicit val otherTaxes: NextPage[OtherTaxesId.type, OtherTaxes, Call] = {
+    new NextPage[OtherTaxesId.type, OtherTaxes, Call] {
       override def get(b: OtherTaxes)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case OtherTaxes.AlcoholAndTobacco                            => alcoholRoutes.SelectAlcoholSchemeController.onPageLoad()

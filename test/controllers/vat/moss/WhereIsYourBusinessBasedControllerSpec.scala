@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.vat.moss.WhereIsYourBusinessBasedFormProvider
 import identifiers.WhereIsYourBusinessBasedId
 import models.vat.moss.WhereIsYourBusinessBased
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.vat.moss.whereIsYourBusinessBased
 
@@ -40,7 +41,7 @@ class WhereIsYourBusinessBasedControllerSpec extends ControllerSpecBase {
     new WhereIsYourBusinessBasedController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

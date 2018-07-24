@@ -28,6 +28,7 @@ import controllers.routes._
 import forms.other.importexports.DoYouHaveEORINumberFormProvider
 import viewmodels.ViewAction
 import controllers.other.importexports.ics.routes._
+import play.api.mvc.Call
 
 class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
 
@@ -40,7 +41,7 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
     new DoYouHaveEORINumberController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

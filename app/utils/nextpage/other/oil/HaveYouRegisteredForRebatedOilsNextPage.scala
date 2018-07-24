@@ -26,8 +26,8 @@ import utils.{Enrolments, NextPage}
 trait HaveYouRegisteredForRebatedOilsNextPage {
 
   implicit val haveYouRegisteredForRebatedOils
-    : NextPage[HaveYouRegisteredForRebatedOilsId.type, HaveYouRegisteredForRebatedOils] = {
-    new NextPage[HaveYouRegisteredForRebatedOilsId.type, HaveYouRegisteredForRebatedOils] {
+    : NextPage[HaveYouRegisteredForRebatedOilsId.type, HaveYouRegisteredForRebatedOils, Call] = {
+    new NextPage[HaveYouRegisteredForRebatedOilsId.type, HaveYouRegisteredForRebatedOils, Call] {
       override def get(
         b: HaveYouRegisteredForRebatedOils)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {

@@ -23,6 +23,7 @@ import controllers._
 import play.api.test.Helpers._
 import forms.employer.cis.uk.subcontractor.WhatTypeOfSubcontractorFormProvider
 import models.employer.cis.uk.subcontractor.WhatTypeOfSubcontractor
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.employer.cis.ukbased.subcontractor.whatTypeOfSubcontractor
 
@@ -37,7 +38,7 @@ class WhatTypeOfSubcontractorControllerSpec extends ControllerSpecBase {
     new WhatTypeOfSubcontractorController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

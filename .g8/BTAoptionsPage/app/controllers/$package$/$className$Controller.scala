@@ -6,6 +6,7 @@ import config.FrontendAppConfig
 import controllers.actions._
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.Call
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 
@@ -18,7 +19,7 @@ import scala.concurrent.Future
 class $className$Controller @Inject()(
                                         appConfig: FrontendAppConfig,
                                         override val messagesApi: MessagesApi,
-                                        navigator: Navigator,
+                                        navigator: Navigator[Call],
                                         authenticate: AuthAction,
                                         serviceInfoData: ServiceInfoAction,
                                         formProvider: $className$FormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {

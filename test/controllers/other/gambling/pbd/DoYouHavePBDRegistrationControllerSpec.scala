@@ -23,6 +23,7 @@ import controllers._
 import play.api.test.Helpers._
 import forms.other.gambling.pbd.DoYouHavePBDRegistrationFormProvider
 import models.other.gambling.pbd.DoYouHavePBDRegistration
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.other.gambling.pbd.doYouHavePBDRegistration
 
@@ -37,7 +38,7 @@ class DoYouHavePBDRegistrationControllerSpec extends ControllerSpecBase {
     new DoYouHavePBDRegistrationController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

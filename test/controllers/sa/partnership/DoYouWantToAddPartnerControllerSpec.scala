@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.sa.partnership.DoYouWantToAddPartnerFormProvider
 import identifiers.DoYouWantToAddPartnerId
 import models.sa.partnership.DoYouWantToAddPartner
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.sa.partnership.doYouWantToAddPartner
 
@@ -40,7 +41,7 @@ class DoYouWantToAddPartnerControllerSpec extends ControllerSpecBase {
     new DoYouWantToAddPartnerController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

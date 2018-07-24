@@ -27,6 +27,7 @@ import play.twirl.api.HtmlFormat
 import viewmodels.ViewAction
 import views.html.other.importexports.nes.doYouHaveCHIEFRole
 import controllers.other.importexports.nes.routes._
+import play.api.mvc.Call
 
 class DoYouHaveCHIEFRoleHasEORIControllerSpec extends ControllerSpecBase {
 
@@ -39,7 +40,7 @@ class DoYouHaveCHIEFRoleHasEORIControllerSpec extends ControllerSpecBase {
     new DoYouHaveCHIEFRoleHasEORIController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

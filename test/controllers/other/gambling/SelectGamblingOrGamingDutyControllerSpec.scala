@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.other.gambling.SelectGamblingOrGamingDutyFormProvider
 import identifiers.SelectGamblingOrGamingDutyId
 import models.other.gambling.SelectGamblingOrGamingDuty
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.other.gambling.selectGamblingOrGamingDuty
 
@@ -40,7 +41,7 @@ class SelectGamblingOrGamingDutyControllerSpec extends ControllerSpecBase {
     new SelectGamblingOrGamingDutyController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

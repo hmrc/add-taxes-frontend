@@ -26,6 +26,7 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import identifiers.DoesBusinessManagePAYEId
+import play.api.mvc.Call
 import viewmodels.ViewAction
 import views.html.employer.doesBusinessManagePAYE
 
@@ -34,7 +35,7 @@ import scala.concurrent.Future
 class DoesBusinessManagePAYEController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
   formProvider: DoesBusinessManagePAYEFormProvider)

@@ -21,6 +21,7 @@ import controllers.actions._
 import forms.other.oils.HaveYouRegisteredForRebatedOilsFormProvider
 import models.other.oil.HaveYouRegisteredForRebatedOils
 import play.api.data.Form
+import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
@@ -37,7 +38,7 @@ class HaveYouRegisteredForRebatedOilsControllerSpec extends ControllerSpecBase {
     new HaveYouRegisteredForRebatedOilsController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

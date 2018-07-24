@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.vat.moss.uk.RegisteredForVATUkFormProvider
 import identifiers.RegisteredForVATUkId
 import models.vat.moss.uk.RegisteredForVATUk
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.vat.moss.ukbased.registeredForVATUk
 
@@ -40,7 +41,7 @@ class RegisteredForVATUkControllerSpec extends ControllerSpecBase {
     new RegisteredForVATUkController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

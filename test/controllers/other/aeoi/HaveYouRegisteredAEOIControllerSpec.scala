@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.other.aeoi.HaveYouRegisteredAEOIFormProvider
 import identifiers.HaveYouRegisteredAEOIId
 import models.other.aeoi.HaveYouRegisteredAEOI
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.other.aeoi.haveYouRegisteredAEOI
 
@@ -40,7 +41,7 @@ class HaveYouRegisteredAEOIControllerSpec extends ControllerSpecBase {
     new HaveYouRegisteredAEOIController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

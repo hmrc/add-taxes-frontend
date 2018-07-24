@@ -23,6 +23,7 @@ import controllers._
 import play.api.test.Helpers._
 import forms.vat.moss.iom.RegisteredForVATFormProvider
 import models.vat.moss.iom.RegisteredForVAT
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.vat.moss.iom.registeredForVAT
 
@@ -37,7 +38,7 @@ class RegisteredForVATControllerSpec extends ControllerSpecBase {
     new RegisteredForVATController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

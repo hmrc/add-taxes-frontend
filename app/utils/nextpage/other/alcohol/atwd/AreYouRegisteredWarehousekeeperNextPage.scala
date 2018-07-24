@@ -26,8 +26,8 @@ import controllers.other.alcohol.atwd.{routes => atwdRoutes}
 trait AreYouRegisteredWarehousekeeperNextPage {
 
   implicit val areYouRegisteredWarehousekeeper
-    : NextPage[AreYouRegisteredWarehousekeeperId.type, AreYouRegisteredWarehousekeeper] = {
-    new NextPage[AreYouRegisteredWarehousekeeperId.type, AreYouRegisteredWarehousekeeper] {
+    : NextPage[AreYouRegisteredWarehousekeeperId.type, AreYouRegisteredWarehousekeeper, Call] = {
+    new NextPage[AreYouRegisteredWarehousekeeperId.type, AreYouRegisteredWarehousekeeper, Call] {
       override def get(
         b: AreYouRegisteredWarehousekeeper)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {

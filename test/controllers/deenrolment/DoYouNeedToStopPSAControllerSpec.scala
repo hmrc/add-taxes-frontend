@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.deenrolment.DoYouNeedToStopPSAFormProvider
 import identifiers.DoYouNeedToStopPSAId
 import models.deenrolment.DoYouNeedToStopPSA
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.deenrolment.doYouNeedToStopPSA
 
@@ -40,7 +41,7 @@ class DoYouNeedToStopPSAControllerSpec extends ControllerSpecBase {
     new DoYouNeedToStopPSAController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

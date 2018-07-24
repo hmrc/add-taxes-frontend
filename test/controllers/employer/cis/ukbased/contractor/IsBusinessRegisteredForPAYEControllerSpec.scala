@@ -23,6 +23,7 @@ import controllers._
 import forms.employer.IsBusinessRegisteredForPAYEFormProvider
 import play.api.test.Helpers._
 import models.employer.IsBusinessRegisteredForPAYE
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import viewmodels.ViewAction
 import views.html.employer.isBusinessRegisteredForPAYE
@@ -39,7 +40,7 @@ class IsBusinessRegisteredForPAYEControllerSpec extends ControllerSpecBase {
     new IsBusinessRegisteredForPAYEController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

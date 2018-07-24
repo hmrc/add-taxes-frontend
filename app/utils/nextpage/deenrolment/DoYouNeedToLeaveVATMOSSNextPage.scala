@@ -28,8 +28,8 @@ trait DoYouNeedToLeaveVATMOSSNextPage {
   type DoYouNeedToLeaveVATMOSSWithEnrolment = (DoYouNeedToLeaveVATMOSS, Option[Enrolment])
 
   implicit val doYouNeedToLeaveVATMOSS
-    : NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSSWithEnrolment] = {
-    new NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSSWithEnrolment] {
+    : NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSSWithEnrolment, Call] = {
+    new NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSSWithEnrolment, Call] {
       override def get(
         b: DoYouNeedToLeaveVATMOSSWithEnrolment)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {

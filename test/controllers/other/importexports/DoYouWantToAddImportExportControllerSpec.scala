@@ -23,6 +23,7 @@ import controllers._
 import play.api.test.Helpers._
 import forms.other.importexports.DoYouWantToAddImportExportFormProvider
 import models.other.importexports.DoYouWantToAddImportExport
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.other.importexports.doYouWantToAddImportExport
 
@@ -37,7 +38,7 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
     new DoYouWantToAddImportExportController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

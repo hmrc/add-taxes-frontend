@@ -17,13 +17,13 @@
 package controllers.employer.cis
 
 import play.api.data.Form
-
 import utils.FakeNavigator
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import play.api.test.Helpers._
 import forms.employer.cis.IsYourBusinessInUKFormProvider
 import models.employer.cis.IsYourBusinessInUK
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.employer.cis.isYourBusinessInUK
 
@@ -38,7 +38,7 @@ class IsYourBusinessInUKControllerSpec extends ControllerSpecBase {
     new IsYourBusinessInUKController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

@@ -25,8 +25,8 @@ import controllers.other.ctf.{routes => ctfRoutes}
 
 trait AreYouApprovedCTFNextPage {
 
-  implicit val areYouApprovedCTF: NextPage[AreYouApprovedCTFId.type, AreYouApprovedCTF] = {
-    new NextPage[AreYouApprovedCTFId.type, AreYouApprovedCTF] {
+  implicit val areYouApprovedCTF: NextPage[AreYouApprovedCTFId.type, AreYouApprovedCTF, Call] = {
+    new NextPage[AreYouApprovedCTFId.type, AreYouApprovedCTF, Call] {
       override def get(b: AreYouApprovedCTF)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case AreYouApprovedCTF.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.CTF))

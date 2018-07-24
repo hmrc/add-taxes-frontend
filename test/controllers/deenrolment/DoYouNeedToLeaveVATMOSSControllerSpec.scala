@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.deenrolment.DoYouNeedToLeaveVATMOSSFormProvider
 import identifiers.DoYouNeedToLeaveVATMOSSId
 import models.deenrolment.DoYouNeedToLeaveVATMOSS
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.deenrolment.doYouNeedToLeaveVATMOSS
 
@@ -40,7 +41,7 @@ class DoYouNeedToLeaveVATMOSSControllerSpec extends ControllerSpecBase {
     new DoYouNeedToLeaveVATMOSSController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

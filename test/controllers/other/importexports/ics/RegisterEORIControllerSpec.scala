@@ -23,6 +23,7 @@ import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
 import views.html.other.importexports.ics.registerEORI
 import controllers.routes._
+import play.api.mvc.Call
 
 class RegisterEORIControllerSpec extends ControllerSpecBase {
 
@@ -34,7 +35,7 @@ class RegisterEORIControllerSpec extends ControllerSpecBase {
       messagesApi,
       FakeAuthAction,
       FakeServiceInfoAction,
-      new FakeNavigator(desiredRoute = onwardRoute))
+      new FakeNavigator[Call](desiredRoute = onwardRoute))
 
   def viewAsString() = registerEORI(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 

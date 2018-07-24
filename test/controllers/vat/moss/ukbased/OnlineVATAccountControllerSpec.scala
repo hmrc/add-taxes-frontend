@@ -23,6 +23,7 @@ import controllers._
 import play.api.test.Helpers._
 import forms.vat.moss.uk.OnlineVATAccountFormProvider
 import models.vat.moss.uk.OnlineVATAccount
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.vat.moss.ukbased.onlineVATAccount
 
@@ -37,7 +38,7 @@ class OnlineVATAccountControllerSpec extends ControllerSpecBase {
     new OnlineVATAccountController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

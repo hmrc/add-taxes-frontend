@@ -27,8 +27,9 @@ import utils.{Enrolments, NextPage}
 
 trait DoesBusinessManagePAYENextPage {
 
-  implicit val epayeDoesBusinessManagePAYE: NextPage[DoesBusinessManagePAYEId.EPaye.type, DoesBusinessManagePAYE] = {
-    new NextPage[DoesBusinessManagePAYEId.EPaye.type, DoesBusinessManagePAYE] {
+  implicit val epayeDoesBusinessManagePAYE
+    : NextPage[DoesBusinessManagePAYEId.EPaye.type, DoesBusinessManagePAYE, Call] = {
+    new NextPage[DoesBusinessManagePAYEId.EPaye.type, DoesBusinessManagePAYE, Call] {
       override def get(b: DoesBusinessManagePAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoesBusinessManagePAYE.Yes => payeAccountRoutes.UsePAYEEmployerAccountController.onPageLoad()
@@ -37,8 +38,8 @@ trait DoesBusinessManagePAYENextPage {
     }
   }
 
-  implicit val eiDoesBusinessManagePAYE: NextPage[DoesBusinessManagePAYEId.EI.type, DoesBusinessManagePAYE] = {
-    new NextPage[DoesBusinessManagePAYEId.EI.type, DoesBusinessManagePAYE] {
+  implicit val eiDoesBusinessManagePAYE: NextPage[DoesBusinessManagePAYEId.EI.type, DoesBusinessManagePAYE, Call] = {
+    new NextPage[DoesBusinessManagePAYEId.EI.type, DoesBusinessManagePAYE, Call] {
       override def get(b: DoesBusinessManagePAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoesBusinessManagePAYE.Yes => eiAccountRoutes.UsePAYEEmployerAccountController.onPageLoad()
@@ -47,8 +48,8 @@ trait DoesBusinessManagePAYENextPage {
     }
   }
 
-  implicit val ersDoesBusinessManagePAYE: NextPage[DoesBusinessManagePAYEId.ERS.type, DoesBusinessManagePAYE] = {
-    new NextPage[DoesBusinessManagePAYEId.ERS.type, DoesBusinessManagePAYE] {
+  implicit val ersDoesBusinessManagePAYE: NextPage[DoesBusinessManagePAYEId.ERS.type, DoesBusinessManagePAYE, Call] = {
+    new NextPage[DoesBusinessManagePAYEId.ERS.type, DoesBusinessManagePAYE, Call] {
       override def get(b: DoesBusinessManagePAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoesBusinessManagePAYE.Yes => ersRoutes.UseEmployersPAYEController.onPageLoad()

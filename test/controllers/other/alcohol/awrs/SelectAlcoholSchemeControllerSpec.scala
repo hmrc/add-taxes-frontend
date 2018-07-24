@@ -23,6 +23,7 @@ import controllers._
 import play.api.test.Helpers._
 import forms.other.alcohol.awrs.SelectAlcoholSchemeFormProvider
 import models.other.alcohol.awrs.SelectAlcoholScheme
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.other.alcohol.awrs.selectAlcoholScheme
 
@@ -37,7 +38,7 @@ class SelectAlcoholSchemeControllerSpec extends ControllerSpecBase {
     new SelectAlcoholSchemeController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

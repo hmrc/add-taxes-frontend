@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.deenrolment.DoYouWantToLeaveCISFormProvider
 import identifiers.DoYouWantToLeaveCISId
 import models.deenrolment.DoYouWantToLeaveCIS
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.deenrolment.doYouWantToLeaveCIS
 
@@ -40,7 +41,7 @@ class DoYouWantToLeaveCISControllerSpec extends ControllerSpecBase {
     new DoYouWantToLeaveCISController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

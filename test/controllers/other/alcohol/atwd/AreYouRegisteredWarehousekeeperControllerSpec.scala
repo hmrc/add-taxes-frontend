@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.other.alcohol.atwd.AreYouRegisteredWarehousekeeperFormProvider
 import identifiers.AreYouRegisteredWarehousekeeperId
 import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.other.alcohol.atwd.areYouRegisteredWarehousekeeper
 
@@ -40,7 +41,7 @@ class AreYouRegisteredWarehousekeeperControllerSpec extends ControllerSpecBase {
     new AreYouRegisteredWarehousekeeperController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

@@ -24,8 +24,8 @@ import utils.{Enrolments, NextPage}
 
 trait DoYouNeedToCancelVATNextPage {
 
-  implicit val doYouNeedToCancelVAT: NextPage[DoYouNeedToCancelVATId.type, DoYouNeedToCancelVAT] = {
-    new NextPage[DoYouNeedToCancelVATId.type, DoYouNeedToCancelVAT] {
+  implicit val doYouNeedToCancelVAT: NextPage[DoYouNeedToCancelVATId.type, DoYouNeedToCancelVAT, Call] = {
+    new NextPage[DoYouNeedToCancelVATId.type, DoYouNeedToCancelVAT, Call] {
       override def get(b: DoYouNeedToCancelVAT)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouNeedToCancelVAT.Yes => Call("GET", appConfig.getBusinessAccountUrl("vat-deregister"))

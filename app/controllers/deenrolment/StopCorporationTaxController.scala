@@ -24,9 +24,9 @@ import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-
 import forms.deenrolment.StopCorporationTaxFormProvider
 import identifiers.StopCorporationTaxId
+import play.api.mvc.Call
 import views.html.deenrolment.stopCorporationTax
 
 import scala.concurrent.Future
@@ -34,7 +34,7 @@ import scala.concurrent.Future
 class StopCorporationTaxController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
   formProvider: StopCorporationTaxFormProvider)

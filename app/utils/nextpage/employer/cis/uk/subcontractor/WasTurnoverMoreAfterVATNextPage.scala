@@ -25,8 +25,8 @@ import controllers.employer.cis.ukbased.subcontractor.routes._
 
 trait WasTurnoverMoreAfterVATNextPage {
 
-  implicit val wasTurnoverMoreAfterVAT: NextPage[WasTurnoverMoreAfterVATId.type, WasTurnoverMoreAfterVAT] = {
-    new NextPage[WasTurnoverMoreAfterVATId.type, WasTurnoverMoreAfterVAT] {
+  implicit val wasTurnoverMoreAfterVAT: NextPage[WasTurnoverMoreAfterVATId.type, WasTurnoverMoreAfterVAT, Call] = {
+    new NextPage[WasTurnoverMoreAfterVATId.type, WasTurnoverMoreAfterVAT, Call] {
       override def get(b: WasTurnoverMoreAfterVAT)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case WasTurnoverMoreAfterVAT.Yes => DoYouWantToBePaidNetOrGrossController.onPageLoad()

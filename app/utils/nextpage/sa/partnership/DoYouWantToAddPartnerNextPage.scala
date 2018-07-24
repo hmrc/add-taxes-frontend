@@ -29,9 +29,9 @@ trait DoYouWantToAddPartnerNextPage {
 
   type DoYouWantToAddPartnerWithRequest = (DoYouWantToAddPartner, Enrolments)
 
-  implicit val doYouWantToAddPartner: NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartnerWithRequest] = {
+  implicit val doYouWantToAddPartner: NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartnerWithRequest, Call] = {
 
-    new NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartnerWithRequest] {
+    new NextPage[DoYouWantToAddPartnerId.type, DoYouWantToAddPartnerWithRequest, Call] {
 
       override def get(enrolmentDetails: DoYouWantToAddPartnerWithRequest)(
         implicit appConfig: FrontendAppConfig,

@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.deenrolment.HaveYouStoppedSelfEmploymentFormProvider
 import identifiers.HaveYouStoppedSelfEmploymentId
 import models.deenrolment.HaveYouStoppedSelfEmployment
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.deenrolment.haveYouStoppedSelfEmployment
 
@@ -40,7 +41,7 @@ class HaveYouStoppedSelfEmploymentControllerSpec extends ControllerSpecBase {
     new HaveYouStoppedSelfEmploymentController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

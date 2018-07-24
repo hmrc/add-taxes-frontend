@@ -29,13 +29,14 @@ import identifiers.DoYouHaveCHIEFRoleId
 import viewmodels.ViewAction
 import views.html.other.importexports.nes.doYouHaveCHIEFRole
 import controllers.other.importexports.nes.routes._
+import play.api.mvc.Call
 
 import scala.concurrent.Future
 
 class DoYouHaveCHIEFRoleHasEORIController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
   formProvider: DoYouHaveCHIEFRoleFormProvider)

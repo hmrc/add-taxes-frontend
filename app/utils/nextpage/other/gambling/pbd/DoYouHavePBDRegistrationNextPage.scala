@@ -25,8 +25,8 @@ import utils.{Enrolments, NextPage}
 
 trait DoYouHavePBDRegistrationNextPage {
 
-  implicit val doYouHavePBDRegistration: NextPage[DoYouHavePBDRegistrationId.type, DoYouHavePBDRegistration] = {
-    new NextPage[DoYouHavePBDRegistrationId.type, DoYouHavePBDRegistration] {
+  implicit val doYouHavePBDRegistration: NextPage[DoYouHavePBDRegistrationId.type, DoYouHavePBDRegistration, Call] = {
+    new NextPage[DoYouHavePBDRegistrationId.type, DoYouHavePBDRegistration, Call] {
       override def get(b: DoYouHavePBDRegistration)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouHavePBDRegistration.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.PoolBetting))

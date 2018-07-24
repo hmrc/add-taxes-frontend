@@ -28,7 +28,7 @@ import forms.employer.pension.WhichPensionSchemeToAddFormProvider
 import identifiers.WhichPensionSchemeToAddId
 import models.employer.pension.WhichPensionSchemeToAdd
 import models.requests.ServiceInfoRequest
-import play.api.mvc.AnyContent
+import play.api.mvc.{AnyContent, Call}
 import views.html.employer.pension.whichPensionSchemeToAdd
 
 import scala.concurrent.Future
@@ -36,7 +36,7 @@ import scala.concurrent.Future
 class WhichPensionSchemeToAddController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
   formProvider: WhichPensionSchemeToAddFormProvider)

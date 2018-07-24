@@ -21,7 +21,7 @@ import forms.OtherTaxesFormProvider
 import models.OtherTaxes
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import play.api.data.Form
-import play.api.mvc.AnyContent
+import play.api.mvc.{AnyContent, Call}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
@@ -50,7 +50,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
     new OtherTaxesController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       fakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

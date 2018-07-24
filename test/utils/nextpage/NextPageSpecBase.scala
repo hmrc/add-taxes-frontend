@@ -17,6 +17,7 @@
 package utils.nextpage
 
 import base.SpecBase
+import play.api.mvc.Call
 import uk.gov.hmrc.auth.core.Enrolment
 import utils.{HmrcEnrolmentType, NextPage}
 
@@ -32,7 +33,7 @@ trait NextPageSpecBase extends SpecBase {
 
   val vatEnrolment = Enrolment(key = HmrcEnrolmentType.VAT.toString, identifiers = Seq(), state = "Activated")
 
-  def nextPage[A, B](np: NextPage[A, B], userSelection: B, urlRedirect: String): Unit =
+  def nextPage[A, B](np: NextPage[A, B, Call], userSelection: B, urlRedirect: String): Unit =
     s"$userSelection is selected" should {
       s"redirect to $urlRedirect" in {
         val result = np.get(userSelection)
@@ -41,7 +42,7 @@ trait NextPageSpecBase extends SpecBase {
     }
 
   def nextPageWithEnrolments[A, B](
-    np: NextPage[A, B],
+    np: NextPage[A, B, Call],
     userSelectionWithEnrolments: B,
     userSelection: String,
     urlRedirect: String,
@@ -54,7 +55,7 @@ trait NextPageSpecBase extends SpecBase {
     }
 
   def nextPageWithAffinityGroup[A, B](
-    np: NextPage[A, B],
+    np: NextPage[A, B, Call],
     userAffinityGroup: B,
     userSelection: String,
     urlRedirect: String,

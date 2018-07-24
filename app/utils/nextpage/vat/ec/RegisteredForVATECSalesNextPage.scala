@@ -24,8 +24,8 @@ import utils.{Enrolments, NextPage}
 
 trait RegisteredForVATECSalesNextPage {
 
-  implicit val registeredForVATECSales: NextPage[RegisteredForVATECSalesId.type, RegisteredForVAT] = {
-    new NextPage[RegisteredForVATECSalesId.type, RegisteredForVAT] {
+  implicit val registeredForVATECSales: NextPage[RegisteredForVATECSalesId.type, RegisteredForVAT, Call] = {
+    new NextPage[RegisteredForVATECSalesId.type, RegisteredForVAT, Call] {
       override def get(b: RegisteredForVAT)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case RegisteredForVAT.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.ECSales))

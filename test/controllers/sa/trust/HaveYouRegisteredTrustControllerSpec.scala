@@ -23,6 +23,7 @@ import controllers._
 import play.api.test.Helpers._
 import forms.sa.trust.HaveYouRegisteredTrustFormProvider
 import models.sa.trust.HaveYouRegisteredTrust
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.sa.trust.haveYouRegisteredTrust
 
@@ -37,7 +38,7 @@ class HaveYouRegisteredTrustControllerSpec extends ControllerSpecBase {
     new HaveYouRegisteredTrustController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

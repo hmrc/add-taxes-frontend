@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.deenrolment.DoYouNeedToCancelVATFormProvider
 import identifiers.DoYouNeedToCancelVATId
 import models.deenrolment.DoYouNeedToCancelVAT
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.deenrolment.doYouNeedToCancelVAT
 
@@ -40,7 +41,7 @@ class DoYouNeedToCancelVATControllerSpec extends ControllerSpecBase {
     new DoYouNeedToCancelVATController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)
