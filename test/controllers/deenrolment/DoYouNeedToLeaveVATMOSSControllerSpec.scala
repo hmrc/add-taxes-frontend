@@ -41,7 +41,7 @@ class DoYouNeedToLeaveVATMOSSControllerSpec extends ControllerSpecBase {
     new DoYouNeedToLeaveVATMOSSController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator[Call](desiredRoute = onwardRoute),
+      new FakeNavigator[Option[Call]](desiredRoute = Some(onwardRoute)),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

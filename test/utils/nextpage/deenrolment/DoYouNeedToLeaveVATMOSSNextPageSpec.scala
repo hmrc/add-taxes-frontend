@@ -29,13 +29,20 @@ class DoYouNeedToLeaveVATMOSSNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.doYouNeedToLeaveVATMOSS,
       (DoYouNeedToLeaveVATMOSS.Yes, Some(enrolment)),
-      "http://localhost:8080/portal/moss-variations/org/1234567890/change-reg-details?lang=eng"
+      Some("http://localhost:8080/portal/moss-variations/org/1234567890/change-reg-details?lang=eng")
     )
 
     behave like nextPage(
       NextPage.doYouNeedToLeaveVATMOSS,
       (DoYouNeedToLeaveVATMOSS.No, None: Option[Enrolment]),
-      "http://localhost:9555/enrolment-management-frontend/HMRC-MOSS-U-ORG/remove-access-tax-scheme?continue=%2Fbusiness-account"
+      Some(
+        "http://localhost:9555/enrolment-management-frontend/HMRC-MOSS-U-ORG/remove-access-tax-scheme?continue=%2Fbusiness-account")
+    )
+
+    behave like nextPage(
+      NextPage.doYouNeedToLeaveVATMOSS,
+      (DoYouNeedToLeaveVATMOSS.Yes, None: Option[Enrolment]),
+      None: Option[String]
     )
   }
 }

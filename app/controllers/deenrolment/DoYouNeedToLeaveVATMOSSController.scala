@@ -34,7 +34,7 @@ import scala.concurrent.Future
 class DoYouNeedToLeaveVATMOSSController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
+  navigator: Navigator[Option[Call]],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
   formProvider: DoYouNeedToLeaveVATMOSSFormProvider)
@@ -55,7 +55,8 @@ class DoYouNeedToLeaveVATMOSSController @Inject()(
         (formWithErrors: Form[_]) =>
           BadRequest(doYouNeedToLeaveVATMOSS(appConfig, formWithErrors)(request.serviceInfoContent)),
         (value) =>
-          Redirect(navigator.nextPage(DoYouNeedToLeaveVATMOSSId, (value, request.request.enrolments.getEnrolment(""))))
+          Redirect(
+            navigator.nextPage(DoYouNeedToLeaveVATMOSSId, (value, request.request.enrolments.getEnrolment(""))).get)
       )
   }
 }

@@ -28,16 +28,18 @@ trait DoYouNeedToLeaveVATMOSSNextPage {
   type DoYouNeedToLeaveVATMOSSWithEnrolment = (DoYouNeedToLeaveVATMOSS, Option[Enrolment])
 
   implicit val doYouNeedToLeaveVATMOSS
-    : NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSSWithEnrolment, Call] = {
-    new NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSSWithEnrolment, Call] {
-      override def get(
-        b: DoYouNeedToLeaveVATMOSSWithEnrolment)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+    : NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSSWithEnrolment, Option[Call]] = {
+    new NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSSWithEnrolment, Option[Call]] {
+      override def get(b: DoYouNeedToLeaveVATMOSSWithEnrolment)(
+        implicit appConfig: FrontendAppConfig,
+        request: Request[_]): Option[Call] =
         b match {
           case (DoYouNeedToLeaveVATMOSS.Yes, e) =>
-            Call("GET", appConfig.getPortalUrl("mossChangeDetails", e.get.identifiers.headOption.map(_.value).get))
+            Some(
+              Call("GET", appConfig.getPortalUrl("mossChangeDetails", e.get.identifiers.headOption.map(_.value).get)))
 
           case (DoYouNeedToLeaveVATMOSS.No, _) =>
-            Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.VATMOSS))
+            Some(Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.VATMOSS)))
         }
 
     }

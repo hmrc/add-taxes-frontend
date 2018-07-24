@@ -41,6 +41,14 @@ trait NextPageSpecBase extends SpecBase {
       }
     }
 
+  def nextPage[A, B](np: NextPage[A, B, Option[Call]], userSelection: B, expected: Option[String]): Unit =
+    s"$userSelection is selected" should {
+      s"be $expected" in {
+        val result = np.get(userSelection)
+        result mustEqual expected
+      }
+    }
+
   def nextPageWithEnrolments[A, B](
     np: NextPage[A, B, Call],
     userSelectionWithEnrolments: B,
