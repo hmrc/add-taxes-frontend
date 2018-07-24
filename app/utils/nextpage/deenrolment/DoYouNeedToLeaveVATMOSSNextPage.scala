@@ -18,19 +18,28 @@ package utils.nextpage.deenrolment
 
 import config.FrontendAppConfig
 import identifiers.DoYouNeedToLeaveVATMOSSId
-import play.api.mvc.{Call, Request}
 import models.deenrolment.DoYouNeedToLeaveVATMOSS
+import play.api.mvc.{Call, Request}
+import uk.gov.hmrc.auth.core.Enrolment
 import utils.{Enrolments, NextPage}
 
 trait DoYouNeedToLeaveVATMOSSNextPage {
 
-  implicit val doYouNeedToLeaveVATMOSS: NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSS] = {
-    new NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSS] {
-      override def get(b: DoYouNeedToLeaveVATMOSS)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+  type DoYouNeedToLeaveVATMOSSWithEnrolment = (DoYouNeedToLeaveVATMOSS, Option[Enrolment])
+
+  implicit val doYouNeedToLeaveVATMOSS
+    : NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSSWithEnrolment] = {
+    new NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSSWithEnrolment] {
+      override def get(
+        b: DoYouNeedToLeaveVATMOSSWithEnrolment)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case DoYouNeedToLeaveVATMOSS.Yes => Call("GET", appConfig.getPortalUrl("mossChangeDetails"))
-          case DoYouNeedToLeaveVATMOSS.No  => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.VATMOSS))
+          case (DoYouNeedToLeaveVATMOSS.Yes, e) =>
+            Call("GET", appConfig.getPortalUrl("mossChangeDetails", e.get.identifiers.headOption.map(_.value).get))
+
+          case (DoYouNeedToLeaveVATMOSS.No, _) =>
+            Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.VATMOSS))
         }
+
     }
   }
 }

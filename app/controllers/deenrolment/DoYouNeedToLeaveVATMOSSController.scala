@@ -54,7 +54,8 @@ class DoYouNeedToLeaveVATMOSSController @Inject()(
       .fold(
         (formWithErrors: Form[_]) =>
           BadRequest(doYouNeedToLeaveVATMOSS(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(DoYouNeedToLeaveVATMOSSId, value))
+        (value) =>
+          Redirect(navigator.nextPage(DoYouNeedToLeaveVATMOSSId, (value, request.request.enrolments.getEnrolment(""))))
       )
   }
 }

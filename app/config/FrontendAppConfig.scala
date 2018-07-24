@@ -77,8 +77,8 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   def routeToSwitchLanguage = (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
 
   private lazy val portalHost = loadConfig(s"urls.external.portal.host")
-  def getPortalUrl(key: String)(implicit request: Request[_]): String =
-    appendLanguage(portalHost + loadConfig(s"urls.external.portal.$key"))
+  def getPortalUrl(key: String, args: String*)(implicit request: Request[_]): String =
+    appendLanguage(portalHost + loadConfig(s"urls.external.portal.$key")).format(args: _*)
 
   lazy val hmceHost = loadConfig(s"urls.external.hmce.host")
   def getHmceURL(key: String): String = hmceHost + loadConfig(s"urls.external.hmce.$key")

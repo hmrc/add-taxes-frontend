@@ -17,21 +17,24 @@
 package utils.nextpage.deenrolment
 
 import models.deenrolment.DoYouNeedToLeaveVATMOSS
+import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier}
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
 class DoYouNeedToLeaveVATMOSSNextPageSpec extends NextPageSpecBase {
 
   "doYouNeedToLeaveVATMOSS" when {
+    val enrolment = Enrolment("", List(EnrolmentIdentifier("ID", "1234567890")), "", None)
+
     behave like nextPage(
       NextPage.doYouNeedToLeaveVATMOSS,
-      DoYouNeedToLeaveVATMOSS.Yes,
-      "http://localhost:8080/portal/moss-variations/org/314124132/change-reg-details?lang=eng"
+      (DoYouNeedToLeaveVATMOSS.Yes, Some(enrolment)),
+      "http://localhost:8080/portal/moss-variations/org/1234567890/change-reg-details?lang=eng"
     )
 
     behave like nextPage(
       NextPage.doYouNeedToLeaveVATMOSS,
-      DoYouNeedToLeaveVATMOSS.No,
+      (DoYouNeedToLeaveVATMOSS.No, None: Option[Enrolment]),
       "http://localhost:9555/enrolment-management-frontend/HMRC-MOSS-U-ORG/remove-access-tax-scheme?continue=%2Fbusiness-account"
     )
   }
