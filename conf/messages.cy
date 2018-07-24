@@ -953,3 +953,12 @@ stopFilingSelfAssessment.heading = A oes angen i chi roi’r gorau i gyflwyno Ff
 stopFilingSelfAssessment.Yes = Iawn
 stopFilingSelfAssessment.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Hunanasesiad ar-lein
 stopFilingSelfAssessment.error.required = Dewiswch ’Iawn’ os oes angen i chi roi’r gorau i gyflwyno Ffurflenni Treth Hunanasesiad
+
+#######################################################
+##  DoYouNeedToStopMGDController
+#######################################################
+doYouNeedToStopMGD.title = A oes angen i chi roi gorau i ddefnyddio’r gwasanaeth ar-lein Toll Peiriannau Hapchwarae?
+doYouNeedToStopMGD.heading = A oes angen i chi roi gorau i ddefnyddio’r gwasanaeth ar-lein Toll Peiriannau Hapchwarae?
+doYouNeedToStopMGD.Yes = Iawn
+doYouNeedToStopMGD.No = Na, mae angen i fi ddadgofrestru o’r Doll Peiriannau Hapchwarae
+doYouNeedToStopMGD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r Doll Peiriannau Hapchwarae

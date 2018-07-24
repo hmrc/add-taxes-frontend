@@ -40,6 +40,8 @@ object Enrolments {
 
   case object GeneralBetting extends WithName("HMRC-GTS-GBD") with Enrolments
 
+  case object MachineGamesDuty extends WithName("HMRC-GTS-MGD") with Enrolments
+
   case object PoolBetting extends WithName("HMRC-GTS-PBD") with Enrolments
 
   case object RemoteGaming extends WithName("HMRC-GTS-RGD") with Enrolments
