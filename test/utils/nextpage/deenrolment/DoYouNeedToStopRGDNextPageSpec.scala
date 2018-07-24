@@ -26,13 +26,13 @@ class DoYouNeedToStopRGDNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.doYouNeedToStopRGD,
       DoYouNeedToStopRGD.Yes,
-      "#"
+      "http://localhost:9555/enrolment-management-frontend/HMRC-GTS-RGD/remove-access-tax-scheme?continue=%2Fbusiness-account"
     )
 
     behave like nextPage(
       NextPage.doYouNeedToStopRGD,
       DoYouNeedToStopRGD.No,
-      "#"
+      "https://www.gov.uk/guidance/gambling-tax-service-online-service-guide-for-general-betting-duty-pool-betting-duty-and-remote-gaming-duty#registration-changes"
     )
   }
 }
