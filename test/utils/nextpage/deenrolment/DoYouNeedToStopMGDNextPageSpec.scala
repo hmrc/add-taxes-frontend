@@ -26,7 +26,7 @@ class DoYouNeedToStopMGDNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.doYouNeedToStopMGD,
       DoYouNeedToStopMGD.Yes,
-      "http://localhost:9555/enrolment-management-frontend/HMRC-GTS-MGD/remove-access-tax-scheme?continue=%2Fbusiness-account"
+      "http://localhost:9555/enrolment-management-frontend/HMRC-MGD-ORG/remove-access-tax-scheme?continue=%2Fbusiness-account"
     )
 
     behave like nextPage(
