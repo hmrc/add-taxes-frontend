@@ -183,10 +183,9 @@ registerEORIICS.p1 = Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y System Rh
 ##  RegisterDefermentApprovalNumber
 #######################################################
 registerDefermentApprovalNumber.title = Dylech gael Rhif Cymeradwyo Gohirio (DAN) yn gyntaf
-registerDefermentApprovalNumber.heading = Dylech gael Rhif Cymeradwyo Gohirio (DAN) yn gyntaf
-registerDefermentApprovalNumber.p1 = Mae angen i chi gael Rhif Cymeradwyo Gohirio (DAN) cyn y gallwch ychwanegu Datganiadau Electronig i Ohirio Tollau i’ch cyfrif.
-registerDefermentApprovalNumber.p2 = Dychwelwch i’ch cyfrif ac ychwanegu Datganiadau Electronig i Ohirio Tollau pan fydd eich Rhif Cymeradwyo Gohirio (DAN) yn cyrraedd.
-registerDefermentApprovalNumber.continue = Mynd yn eich blaen - cael DAN
+registerDefermentApprovalNumber.heading = Mae angen Rhif Cymeradwyo Gohiriad arnoch i ychwanegu’r gwasanaeth hwn
+registerDefermentApprovalNumber.p1 = Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y Datganiadau Electronig i Ohirio Tollau at eich cyfrif.
+registerDefermentApprovalNumber.continue = Gwneud cais i gymeradwyo gohiriad
 
 
 #######################################################
@@ -194,9 +193,9 @@ registerDefermentApprovalNumber.continue = Mynd yn eich blaen - cael DAN
 #######################################################
 doYouHaveDAN.title = A oes gennych Rif Cymeradwyo Gohirio (DAN)?
 doYouHaveDAN.heading = A oes gennych Rif Cymeradwyo Gohirio (DAN)?
-doYouHaveDAN.Yes = Oes - mae gennyf Rif Cymeradwyo Gohirio
-doYouHaveDAN.No = Nac oes - nid oes gennyf DAN ar hyn o bryd
-doYouHaveDAN.error.required = Dewis iawn neu na
+doYouHaveDAN.Yes =  Iawn
+doYouHaveDAN.No =  Na
+doYouHaveDAN.error.required = Dewiswch ’Iawn’ os oes gennych Rif Cymeradwyo Gohiriad
 
 
 #######################################################

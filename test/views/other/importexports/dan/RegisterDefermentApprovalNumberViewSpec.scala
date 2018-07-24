@@ -36,17 +36,17 @@ class RegisterDefermentApprovalNumberViewSpec extends ViewBehaviours {
       val view = doc.text()
 
       view must include(
-        "You need to get a Deferment Approval Number (DAN) before you can add " +
-          "Duty Deferment Electronic Statements to your account.")
+        "You need a Deferment Approval Number (DAN) to add this service"
+      )
 
       view must include(
-        "Come back to your account and add Duty Deferment Electronic " +
-          "Statements your Deferment Approval Number (DAN) arrives.")
+        "When you get this, sign in and add Duty Deferment Electronic Statements to your account"
+      )
 
       assertLinkById(
         doc,
         "register-for-ddes",
-        "Continue - get a DAN",
+        "Apply for deferment approval",
         "https://www.gov.uk/government/publications/notice-101-deferring-duty-vat-and-other-charges/notice-101-deferring-duty-vat-and-other-charges#deferment-approval",
         "RegisterDDES:Click:Continue"
       )
