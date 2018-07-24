@@ -953,3 +953,12 @@ stopFilingSelfAssessment.heading = A oes angen i chi roi’r gorau i gyflwyno Ff
 stopFilingSelfAssessment.Yes = Iawn
 stopFilingSelfAssessment.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Hunanasesiad ar-lein
 stopFilingSelfAssessment.error.required = Dewiswch ’Iawn’ os oes angen i chi roi’r gorau i gyflwyno Ffurflenni Treth Hunanasesiad
+
+#######################################################
+##  DoYouNeedToStopPBD
+#######################################################
+doYouNeedToStopPBD.title = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio?
+doYouNeedToStopPBD.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio?
+doYouNeedToStopPBD.Yes = Iawn
+doYouNeedToStopPBD.No = Na, mae angen i fi ddadgofrestru o’r Doll Cronfa Fetio
+doYouNeedToStopPBD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio

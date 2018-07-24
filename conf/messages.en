@@ -957,3 +957,12 @@ stopFilingSelfAssessment.heading = Do you need to stop filing Self Assessment re
 stopFilingSelfAssessment.Yes = Yes
 stopFilingSelfAssessment.No = No, I need to stop using the Self Assessment online service
 stopFilingSelfAssessment.error.required = Select yes if you need to stop filing Self Assessment returns
+
+#######################################################
+##  DoYouNeedToStopPBD
+#######################################################
+doYouNeedToStopPBD.title = Do you need to stop using the Pool Betting Duty online service?
+doYouNeedToStopPBD.heading = Do you need to stop using the Pool Betting Duty online service?
+doYouNeedToStopPBD.Yes = Yes
+doYouNeedToStopPBD.No = No, I need to deregister from Pool Betting Duty
+doYouNeedToStopPBD.error.required = Select yes if you need to stop using the Pool Betting Duty online service

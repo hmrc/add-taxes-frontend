@@ -28,3 +28,6 @@ POST       /vat/how-to-stop-vat                  controllers.deenrolment.DoYouNe
 
 GET        /self-assessment/how-to-stop-filing   controllers.deenrolment.StopFilingSelfAssessmentController.onPageLoad()
 POST       /self-assessment/how-to-stop-filing   controllers.deenrolment.StopFilingSelfAssessmentController.onSubmit()
+
+GET        /gambling/how-to-stop-pbd             controllers.deenrolment.DoYouNeedToStopPBDController.onPageLoad()
+POST       /gambling/how-to-stop-pbd             controllers.deenrolment.DoYouNeedToStopPBDController.onSubmit()
