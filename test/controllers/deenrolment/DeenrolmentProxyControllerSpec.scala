@@ -29,7 +29,8 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
   "DeenrolmentProxy Controller" must {
 
     val enrolments = Enrolments.values -
-      (Enrolments.AddCis, Enrolments.PSA, Enrolments.RebatedOils, Enrolments.EPAYE, Enrolments.SA, Enrolments.CT, Enrolments.VAT, Enrolments.GeneralBetting)
+      (Enrolments.AddCis, Enrolments.PSA, Enrolments.RebatedOils, Enrolments.EPAYE, Enrolments.SA, Enrolments.CT,
+      Enrolments.VAT, Enrolments.GeneralBetting, Enrolments.MachineGamingDuty)
 
     for (enrolment <- enrolments) {
       s"redirect to deenrolment management for $enrolment" in {
@@ -89,11 +90,19 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some("/business-account/deenrol/ct/how-to-stop-ct")
     }
+
     "redirect to how to stop VAT for HMCE-VATDEC-ORG" in {
       val result = controller().onPageLoad(Enrolments.VAT)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some("/business-account/deenrol/vat/how-to-stop-vat")
+    }
+
+    "redirect to how to stop MGD for HMRC-MGD-ORG" in {
+      val result = controller().onPageLoad(Enrolments.MachineGamingDuty)(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some("/business-account/deenrol/gambling/how-to-stop-mgd")
     }
   }
 }
