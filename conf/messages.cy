@@ -953,3 +953,12 @@ stopFilingSelfAssessment.heading = A oes angen i chi roi’r gorau i gyflwyno Ff
 stopFilingSelfAssessment.Yes = Iawn
 stopFilingSelfAssessment.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Hunanasesiad ar-lein
 stopFilingSelfAssessment.error.required = Dewiswch ’Iawn’ os oes angen i chi roi’r gorau i gyflwyno Ffurflenni Treth Hunanasesiad
+
+#######################################################
+##  DoYouNeedToStopRGD
+#######################################################
+doYouNeedToStopRGD.title = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Hapchwarae o Bell?
+doYouNeedToStopRGD.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Hapchwarae o Bell?
+doYouNeedToStopRGD.Yes = Iawn
+doYouNeedToStopRGD.No = Na, mae angen i fi ddadgofrestru o’r Doll Hapchwarae o Bell
+doYouNeedToStopRGD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Hapchwarae o Bell

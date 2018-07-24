@@ -957,3 +957,12 @@ stopFilingSelfAssessment.heading = Do you need to stop filing Self Assessment re
 stopFilingSelfAssessment.Yes = Yes
 stopFilingSelfAssessment.No = No, I need to stop using the Self Assessment online service
 stopFilingSelfAssessment.error.required = Select yes if you need to stop filing Self Assessment returns
+
+#######################################################
+##  DoYouNeedToStopRGD
+#######################################################
+doYouNeedToStopRGD.title = Do you need to stop using the Remote Gaming Duty online service?
+doYouNeedToStopRGD.heading = Do you need to stop using the Remote Gaming Duty online service?
+doYouNeedToStopRGD.Yes = Yes
+doYouNeedToStopRGD.No = No, I need to deregister from Remote Gaming Duty
+doYouNeedToStopRGD.error.required = Select yes if you need to stop using the Remote Gaming Duty online service
