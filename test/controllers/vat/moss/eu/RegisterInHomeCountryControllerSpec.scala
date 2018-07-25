@@ -24,7 +24,7 @@ import views.html.vat.moss.eu.registerInHomeCountry
 
 class RegisterInHomeCountryControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new RegisterInHomeCountryController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = registerInHomeCountry(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString

@@ -24,7 +24,7 @@ import views.html.other.charity.registerForCharity
 
 class RegisterForCharityControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new RegisterForCharityController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = registerForCharity(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString

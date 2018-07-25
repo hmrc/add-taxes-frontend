@@ -38,7 +38,7 @@ class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
   val formProvider = new SelectAnOilServiceFormProvider()
   val form = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new SelectAnOilServiceController(
       frontendAppConfig,
       messagesApi,
@@ -80,15 +80,15 @@ class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    "return OK if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+    "return OK" in {
+      val result = controller().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
     }
 
-    "redirect to next page when valid data is submitted and no existing data is found" in {
+    "redirect to next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", SelectAnOilService.options.head.value))
-      val result = controller(dontGetAnyData).onSubmit()(postRequest)
+      val result = controller().onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -96,7 +96,7 @@ class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
 
     "only display Rebated Oils if the user has Tied" in {
       val request = requestWithEnrolments("HMCE-TO")
-      val result = controller(dontGetAnyData).getOptions(request)
+      val result = controller().getOptions(request)
 
       result.length mustBe 1
       result.head mustBe RadioOption("selectAnOilService", "rebatedOilsEnquiryService")
@@ -104,7 +104,7 @@ class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
 
     "only display Tied Oils if the user has Rebated" in {
       val request = requestWithEnrolments("HMCE-RO")
-      val result = controller(dontGetAnyData).getOptions(request)
+      val result = controller().getOptions(request)
 
       result.length mustBe 1
       result.head mustBe RadioOption("selectAnOilService", "tiedOilsEnquiryService")
@@ -112,7 +112,7 @@ class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
 
     "display no options if the user has both oils" in {
       val request = requestWithEnrolments("HMCE-RO", "HMCE-TO")
-      val result = controller(dontGetAnyData).getOptions(request)
+      val result = controller().getOptions(request)
 
       result mustBe Seq()
     }

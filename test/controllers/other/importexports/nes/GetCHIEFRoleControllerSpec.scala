@@ -24,7 +24,7 @@ import views.html.other.importexports.nes.getCHIEFRole
 
 class GetCHIEFRoleControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new GetCHIEFRoleController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = getCHIEFRole(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
