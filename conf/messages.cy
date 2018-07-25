@@ -960,5 +960,5 @@ stopFilingSelfAssessment.error.required = Dewiswch ’Iawn’ os oes angen i chi
 doYouNeedToStopPBD.title = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio?
 doYouNeedToStopPBD.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio?
 doYouNeedToStopPBD.Yes = Iawn
-doYouNeedToStopPBD.No = Na, mae angen i fi ddadgofrestru o’r Doll Cronfa Fetio
+doYouNeedToStopPBD.No = Na, mae angen i fi ddadgofrestru o’r Toll Cronfa Fetio
 doYouNeedToStopPBD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio
