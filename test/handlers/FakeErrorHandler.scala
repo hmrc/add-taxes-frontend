@@ -14,24 +14,18 @@
  * limitations under the License.
  */
 
-package base
+package handlers
 
 import config.FrontendAppConfig
-import org.scalatestplus.play.PlaySpec
-import org.scalatestplus.play.guice._
-import play.api.i18n.{Messages, MessagesApi}
-import play.api.inject.Injector
-import play.api.test.FakeRequest
+import play.api.i18n.MessagesApi
+import play.api.mvc.Request
+import play.twirl.api.Html
 
-trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
+class FakeErrorHandler(serverErrorTemplate: String)(
+  implicit
+  appConfig: FrontendAppConfig,
+  messagesApi: MessagesApi)
+    extends ErrorHandler(appConfig, messagesApi) {
 
-  def injector: Injector = app.injector
-
-  implicit def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
-
-  implicit def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
-
-  def fakeRequest = FakeRequest("", "")
-
-  def messages: Messages = messagesApi.preferred(fakeRequest)
+  override def internalServerErrorTemplate(implicit request: Request[_]): Html = Html(serverErrorTemplate)
 }

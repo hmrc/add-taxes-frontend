@@ -24,25 +24,33 @@ import utils.nextpage.NextPageSpecBase
 class DoYouNeedToLeaveVATMOSSNextPageSpec extends NextPageSpecBase {
 
   "doYouNeedToLeaveVATMOSS" when {
-    val enrolment = Enrolment("", List(EnrolmentIdentifier("ID", "1234567890")), "", None)
+    val enrolment = Enrolment("HMRC-MOSS-U-ORG", List(EnrolmentIdentifier("ID", "1234567890")), "", None)
 
     behave like nextPage(
       NextPage.doYouNeedToLeaveVATMOSS,
       (DoYouNeedToLeaveVATMOSS.Yes, Some(enrolment)),
-      Some("http://localhost:8080/portal/moss-variations/org/1234567890/change-reg-details?lang=eng")
+      Right("http://localhost:8080/portal/moss-variations/org/1234567890/change-reg-details?lang=eng")
     )
 
     behave like nextPage(
       NextPage.doYouNeedToLeaveVATMOSS,
       (DoYouNeedToLeaveVATMOSS.No, None: Option[Enrolment]),
-      Some(
+      Right(
         "http://localhost:9555/enrolment-management-frontend/HMRC-MOSS-U-ORG/remove-access-tax-scheme?continue=%2Fbusiness-account")
     )
 
     behave like nextPage(
       NextPage.doYouNeedToLeaveVATMOSS,
       (DoYouNeedToLeaveVATMOSS.Yes, None: Option[Enrolment]),
-      None: Option[String]
+      Left("unable to find enrolment")
+    )
+
+    val enrolmentWithNoIdentifier = enrolment.copy(identifiers = List.empty)
+
+    behave like nextPage(
+      NextPage.doYouNeedToLeaveVATMOSS,
+      (DoYouNeedToLeaveVATMOSS.Yes, Some(enrolmentWithNoIdentifier)),
+      Left(s"unable to find identifier for ${enrolmentWithNoIdentifier.key}")
     )
   }
 }

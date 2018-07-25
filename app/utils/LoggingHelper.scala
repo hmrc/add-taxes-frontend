@@ -14,24 +14,16 @@
  * limitations under the License.
  */
 
-package base
+package utils
 
-import config.FrontendAppConfig
-import org.scalatestplus.play.PlaySpec
-import org.scalatestplus.play.guice._
-import play.api.i18n.{Messages, MessagesApi}
-import play.api.inject.Injector
-import play.api.test.FakeRequest
+import javax.inject.{Inject, Singleton}
 
-trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
+import play.api.Logger
 
-  def injector: Injector = app.injector
+@Singleton
+class LoggingHelper @Inject()() {
 
-  implicit def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
+  private def logger: Logger = Logger(this.getClass)
 
-  implicit def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
-
-  def fakeRequest = FakeRequest("", "")
-
-  def messages: Messages = messagesApi.preferred(fakeRequest)
+  def warn(message: => String): Unit = logger.warn(message)
 }

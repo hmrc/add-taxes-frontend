@@ -23,21 +23,24 @@ import controllers.actions._
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
+import utils.{Enrolments, Enumerable, Navigator}
 import forms.deenrolment.DoYouNeedToLeaveVATMOSSFormProvider
+import handlers.ErrorHandler
 import identifiers.DoYouNeedToLeaveVATMOSSId
+import models.requests.ServiceInfoRequest
 import play.api.mvc.Call
 import views.html.deenrolment.doYouNeedToLeaveVATMOSS
-
-import scala.concurrent.Future
+import utils.LoggingHelper
 
 class DoYouNeedToLeaveVATMOSSController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator[Option[Call]],
+  navigator: Navigator[Either[String, Call]],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
-  formProvider: DoYouNeedToLeaveVATMOSSFormProvider)
+  formProvider: DoYouNeedToLeaveVATMOSSFormProvider,
+  errorHandler: ErrorHandler,
+  log: LoggingHelper)
     extends FrontendController
     with I18nSupport
     with Enumerable.Implicits {
@@ -54,9 +57,20 @@ class DoYouNeedToLeaveVATMOSSController @Inject()(
       .fold(
         (formWithErrors: Form[_]) =>
           BadRequest(doYouNeedToLeaveVATMOSS(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) =>
-          Redirect(
-            navigator.nextPage(DoYouNeedToLeaveVATMOSSId, (value, request.request.enrolments.getEnrolment(""))).get)
+        (value) => {
+          val nextPage = navigator.nextPage(DoYouNeedToLeaveVATMOSSId, (value, vatMossEnrolment))
+
+          nextPage match {
+            case Right(c) => Redirect(c)
+            case Left(s) => {
+              log.warn(s"cannot navigate to the next page: $s")
+              InternalServerError(errorHandler.internalServerErrorTemplate)
+            }
+          }
+        }
       )
   }
+
+  def vatMossEnrolment(implicit r: ServiceInfoRequest[_]) =
+    r.request.enrolments.getEnrolment(Enrolments.VATMOSS.toString)
 }

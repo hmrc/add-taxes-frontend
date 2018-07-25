@@ -28,20 +28,20 @@ trait DoYouNeedToLeaveVATMOSSNextPage {
   type DoYouNeedToLeaveVATMOSSWithEnrolment = (DoYouNeedToLeaveVATMOSS, Option[Enrolment])
 
   implicit val doYouNeedToLeaveVATMOSS
-    : NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSSWithEnrolment, Option[Call]] = {
-    new NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSSWithEnrolment, Option[Call]] {
+    : NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSSWithEnrolment, Either[String, Call]] = {
+    new NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSSWithEnrolment, Either[String, Call]] {
       override def get(b: DoYouNeedToLeaveVATMOSSWithEnrolment)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Option[Call] =
+        request: Request[_]): Either[String, Call] =
         b match {
-          case (DoYouNeedToLeaveVATMOSS.Yes, e) =>
-            Some(
-              Call("GET", appConfig.getPortalUrl("mossChangeDetails", e.get.identifiers.headOption.map(_.value).get)))
-
-          case (DoYouNeedToLeaveVATMOSS.No, _) =>
-            Some(Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.VATMOSS)))
+          case (DoYouNeedToLeaveVATMOSS.Yes, Some(enrolment)) =>
+            enrolment.identifiers match {
+              case Nil    => Left(s"unable to find identifier for ${enrolment.key}")
+              case h :: _ => Right(Call("GET", appConfig.getPortalUrl("mossChangeDetails", h.value)))
+            }
+          case (DoYouNeedToLeaveVATMOSS.Yes, None) => Left("unable to find enrolment")
+          case (DoYouNeedToLeaveVATMOSS.No, _)     => Right(Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.VATMOSS)))
         }
-
     }
   }
 }

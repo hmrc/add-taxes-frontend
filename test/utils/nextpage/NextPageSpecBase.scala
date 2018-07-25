@@ -45,7 +45,18 @@ trait NextPageSpecBase extends SpecBase {
     s"$userSelection is selected" should {
       s"be $expected" in {
         val result = np.get(userSelection)
-        result mustEqual expected
+        result.map(_.url) mustBe expected
+      }
+    }
+
+  def nextPage[A, B](
+    np: NextPage[A, B, Either[String, Call]],
+    userSelection: B,
+    expected: Either[String, String]): Unit =
+    s"$userSelection is selected" should {
+      s"be $expected" in {
+        val result = np.get(userSelection)
+        result.right.map(_.url) mustBe expected
       }
     }
 

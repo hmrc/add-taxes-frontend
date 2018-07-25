@@ -14,24 +14,9 @@
  * limitations under the License.
  */
 
-package base
+package utils
 
-import config.FrontendAppConfig
-import org.scalatestplus.play.PlaySpec
-import org.scalatestplus.play.guice._
-import play.api.i18n.{Messages, MessagesApi}
-import play.api.inject.Injector
-import play.api.test.FakeRequest
+class FakeLoggingHelper extends LoggingHelper {
 
-trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
-
-  def injector: Injector = app.injector
-
-  implicit def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
-
-  implicit def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
-
-  def fakeRequest = FakeRequest("", "")
-
-  def messages: Messages = messagesApi.preferred(fakeRequest)
+  override def warn(message: => String): Unit = ()
 }
