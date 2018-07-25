@@ -957,3 +957,12 @@ stopFilingSelfAssessment.heading = Do you need to stop filing Self Assessment re
 stopFilingSelfAssessment.Yes = Yes
 stopFilingSelfAssessment.No = No, I need to stop using the Self Assessment online service
 stopFilingSelfAssessment.error.required = Select yes if you need to stop filing Self Assessment returns
+
+#######################################################
+##  DoYouNeedToCloseCharity
+#######################################################
+doYouNeedToCloseCharity.title = Do you need to close the charity?
+doYouNeedToCloseCharity.heading = Do you need to close the charity?
+doYouNeedToCloseCharity.Yes = Yes
+doYouNeedToCloseCharity.No = No, I need to stop using the Charities online service
+doYouNeedToCloseCharity.error.required = Select yes if you need to close the charity
