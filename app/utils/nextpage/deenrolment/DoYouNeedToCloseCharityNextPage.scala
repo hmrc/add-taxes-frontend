@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import identifiers.DoYouNeedToCloseCharityId
 import play.api.mvc.{Call, Request}
 import models.deenrolment.DoYouNeedToCloseCharity
-import utils.NextPage
+import utils.{Enrolments, NextPage}
 
 trait DoYouNeedToCloseCharityNextPage {
 
@@ -28,8 +28,8 @@ trait DoYouNeedToCloseCharityNextPage {
     new NextPage[DoYouNeedToCloseCharityId.type, DoYouNeedToCloseCharity] {
       override def get(b: DoYouNeedToCloseCharity)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case DoYouNeedToCloseCharity.Yes => ???
-          case DoYouNeedToCloseCharity.No  => ???
+          case DoYouNeedToCloseCharity.Yes => Call("GET", appConfig.getGovUKUrl("deenrolCharities"))
+          case DoYouNeedToCloseCharity.No  => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.Charities))
         }
     }
   }

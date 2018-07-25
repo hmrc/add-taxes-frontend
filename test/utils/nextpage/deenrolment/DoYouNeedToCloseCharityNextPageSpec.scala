@@ -26,13 +26,13 @@ class DoYouNeedToCloseCharityNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.doYouNeedToCloseCharity,
       DoYouNeedToCloseCharity.Yes,
-      "#"
+      "https://www.gov.uk/guidance/how-to-close-a-charity"
     )
 
     behave like nextPage(
       NextPage.doYouNeedToCloseCharity,
       DoYouNeedToCloseCharity.No,
-      "#"
+      "http://localhost:9555/enrolment-management-frontend/HMRC-CHAR-ORG/remove-access-tax-scheme?continue=%2Fbusiness-account"
     )
   }
 }
