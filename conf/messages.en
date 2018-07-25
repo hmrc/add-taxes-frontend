@@ -156,10 +156,9 @@ organisationOnly.notNow = I don’t want to do this right now
 ##  RegisterExciseMovementControlSystem
 #######################################################
 registerExciseMovementControlSystem.title = Get a SEED excise ID first
-registerExciseMovementControlSystem.heading = Get a SEED excise ID first
-registerExciseMovementControlSystem.youNeedToRegister=You need to register for a SEED excise ID number before you can add Excise Movement and Control System (EMCS) to your account.
-registerExciseMovementControlSystem.comeBackToYourAccount=Come back to your account and add EMCS once your SEED number arrives.
-registerExciseMovementControlSystem.button=Continue - get a SEED number
+registerExciseMovementControlSystem.heading = You need a System for the Exchange of Excise Data (SEED) number to add this service
+registerExciseMovementControlSystem.youNeedToRegister= When you get this, sign in and add the Excise Movement and Control System to your account.
+registerExciseMovementControlSystem.button= Get a SEED number
 
 
 #######################################################
@@ -167,35 +166,33 @@ registerExciseMovementControlSystem.button=Continue - get a SEED number
 #######################################################
 doYouHaveASEEDNumber.title = Do you have a System for the Exchange of Excise Data (SEED) number?
 doYouHaveASEEDNumber.heading = Do you have a System for the Exchange of Excise Data (SEED) number?
-doYouHaveASEEDNumber.Yes = Yes - I have a SEED number
-doYouHaveASEEDNumber.No = No - I don’t have a SEED number
-doYouHaveASEEDNumber.checkYourAnswersLabel = doYouHaveASEEDNumber
-doYouHaveASEEDNumber.error.required = Select yes or no
+doYouHaveASEEDNumber.Yes = Yes
+doYouHaveASEEDNumber.No = No
+doYouHaveASEEDNumber.error.required = Select yes if you have a SEED number
 
 
 #######################################################
 ##  DoYouHaveEORINumber
 #######################################################
-economicOperatorsRegistrationAndIdentification.title = Do you have an Economic Operators Registration and Identification (EORI) number?
-economicOperatorsRegistrationAndIdentification.heading = Do you have an Economic Operators Registration and Identification (EORI) number?
-economicOperatorsRegistrationAndIdentification.Yes = Yes - I have an EORI number
-economicOperatorsRegistrationAndIdentification.No = No - I don’t have an EORI number
-economicOperatorsRegistrationAndIdentification.error.required = Select yes or no
+economicOperatorsRegistrationAndIdentification.title = Do you have an Economic Operator Registration and Identification (EORI) number?
+economicOperatorsRegistrationAndIdentification.heading = Do you have an Economic Operator Registration and Identification (EORI) number?
+economicOperatorsRegistrationAndIdentification.Yes = Yes
+economicOperatorsRegistrationAndIdentification.No = No
+economicOperatorsRegistrationAndIdentification.error.required = Select yes if you have an EORI number
 
 
 #######################################################
 ##  RegisterEORI
 #######################################################
-registerEORI.title = Get an EORI number first
-registerEORI.heading = Get an EORI number first
-registerEORI.continue = Continue - get an EORI number
+registerEORI.title = You need an EORI number to add this service
+registerEORI.heading = You need an EORI number to add this service
+registerEORI.continue = Get an EORI number
 
 
 #######################################################
 ##  RegisterEORI - ICS
 #######################################################
-registerEORIICS.p1 = You need an Economic Operators Registration and Identification (EORI) to add Import Control System (ICS) to your account.
-registerEORIICS.p2 = Come back to your account and add ICS once your EORI number arrives.
+registerEORIICS.p1 = When you get this, sign in and add the Import Control System to your account.
 
 
 #######################################################
@@ -249,8 +246,7 @@ registerEORIEBTI.p2 = Come back to your account and add eBTI once your EORI numb
 #######################################################
 ##  RegisterEORI - NCTS
 #######################################################
-registerEORINCTS.p1 = You need an Economic Operators Registration and Identification (EORI) to add New Computerised Transit System (NCTS) to your account.
-registerEORINCTS.p2 = Come back to your account and add NCTS once your EORI number arrives.
+registerEORINCTS.p1 = When you get this, sign in and add the New Computerised Transit System to your account.
 
 #######################################################
 ##  DoYouWantToAddImportExport
@@ -952,6 +948,15 @@ doYouNeedToStopGBD.heading = Do you need to stop using the General Betting Duty 
 doYouNeedToStopGBD.Yes = Yes
 doYouNeedToStopGBD.No = No, I need to deregister from General Betting Duty
 doYouNeedToStopGBD.error.required = Select yes if you need to stop using the General Betting Duty online service
+
+#######################################################
+##  StopFilingSelfAssessment
+#######################################################
+stopFilingSelfAssessment.title = Do you need to stop filing Self Assessment returns?
+stopFilingSelfAssessment.heading = Do you need to stop filing Self Assessment returns?
+stopFilingSelfAssessment.Yes = Yes
+stopFilingSelfAssessment.No = No, I need to stop using the Self Assessment online service
+stopFilingSelfAssessment.error.required = Select yes if you need to stop filing Self Assessment returns
 
 #######################################################
 ##  DoYouNeedToLeaveVATMOSS

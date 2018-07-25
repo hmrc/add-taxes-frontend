@@ -37,7 +37,7 @@ class DoYouNeedToCancelVATControllerSpec extends ControllerSpecBase {
   val formProvider = new DoYouNeedToCancelVATFormProvider()
   val form = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new DoYouNeedToCancelVATController(
       frontendAppConfig,
       messagesApi,
@@ -77,16 +77,16 @@ class DoYouNeedToCancelVATControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    "return OK if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+    "return OK" in {
+      val result = controller().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
     }
 
     for (option <- DoYouNeedToCancelVAT.options) {
-      s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
+      s"redirect to next page when '${option.value}' is submitted" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
-        val result = controller(dontGetAnyData).onSubmit()(postRequest)
+        val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)

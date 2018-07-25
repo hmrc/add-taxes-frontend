@@ -77,7 +77,7 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
     }
 
     for (option <- DoYouHaveEORINumber.options) {
-      s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
+      s"redirect to next page when '${option.value}' is submitted" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller.onSubmit()(postRequest)
 

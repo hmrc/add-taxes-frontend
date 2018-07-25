@@ -34,7 +34,7 @@ class DoYouHaveASEEDNumberControllerSpec extends ControllerSpecBase {
   val formProvider = new DoYouHaveASEEDNumberFormProvider()
   val form = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new DoYouHaveASEEDNumberController(
       frontendAppConfig,
       messagesApi,
@@ -74,15 +74,15 @@ class DoYouHaveASEEDNumberControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    "return OK if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+    "return OK" in {
+      val result = controller().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
     }
 
-    "redirect to next page when valid data is submitted and no existing data is found" in {
+    "redirect to next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (DoYouHaveASEEDNumber.options.head.value)))
-      val result = controller(dontGetAnyData).onSubmit()(postRequest)
+      val result = controller().onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)

@@ -36,7 +36,7 @@ class IsBusinessRegisteredForPAYEControllerSpec extends ControllerSpecBase {
 
   val viewAction = ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddErsEpayeRegistered")
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new IsBusinessRegisteredForPAYEController(
       frontendAppConfig,
       messagesApi,

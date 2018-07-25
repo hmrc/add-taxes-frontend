@@ -34,7 +34,7 @@ class HaveYouRegisteredForRebatedOilsControllerSpec extends ControllerSpecBase {
   val formProvider = new HaveYouRegisteredForRebatedOilsFormProvider()
   val form = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new HaveYouRegisteredForRebatedOilsController(
       frontendAppConfig,
       messagesApi,

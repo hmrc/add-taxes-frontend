@@ -35,16 +35,12 @@ class RegisterExciseMovementControlSystemViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       val view = doc.text()
 
-      view must include(
-        "You need to register for a SEED excise ID number before you can " +
-          "add Excise Movement and Control System (EMCS) to your account.")
-
-      view must include("Come back to your account and add EMCS once your SEED number arrives.")
+      view must include("When you get this, sign in and add the Excise Movement and Control System to your account.")
 
       assertLinkById(
         doc,
         "register-for-emcs",
-        "Continue - get a SEED number",
+        "Get a SEED number",
         "https://www.gov.uk/guidance/excise-movement-and-control-system-how-to-register-and-use#register-and-enrol",
         "RegisterEMCS:Click:Continue"
       )

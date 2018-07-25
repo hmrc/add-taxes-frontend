@@ -24,7 +24,7 @@ import views.html.other.gambling.rgd.registerRGD
 
 class RegisterRGDControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new RegisterRGDController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = registerRGD(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString

@@ -24,7 +24,7 @@ import views.html.other.alcohol.atwd.registerWarehousekeeper
 
 class RegisterWarehousekeeperControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new RegisterWarehousekeeperController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = registerWarehousekeeper(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString

@@ -26,5 +26,8 @@ POST       /ct/how-to-stop-ct                    controllers.deenrolment.StopCor
 GET        /vat/how-to-stop-vat                  controllers.deenrolment.DoYouNeedToCancelVATController.onPageLoad()
 POST       /vat/how-to-stop-vat                  controllers.deenrolment.DoYouNeedToCancelVATController.onSubmit()
 
+GET        /self-assessment/how-to-stop-filing   controllers.deenrolment.StopFilingSelfAssessmentController.onPageLoad()
+POST       /self-assessment/how-to-stop-filing   controllers.deenrolment.StopFilingSelfAssessmentController.onSubmit()
+
 GET        /vat/how-to-stop-vat-moss             controllers.deenrolment.DoYouNeedToLeaveVATMOSSController.onPageLoad()
 POST       /vat/how-to-stop-vat-moss             controllers.deenrolment.DoYouNeedToLeaveVATMOSSController.onSubmit()
