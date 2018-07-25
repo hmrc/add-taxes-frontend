@@ -35,7 +35,9 @@ class RegisterDefermentApprovalNumberViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       val view = doc.text()
 
-      view must include("When you get this, sign in and add Duty Deferment Electronic Statements to your account.")
+      view must include(
+        "When you get this, sign in and add Duty Deferment Electronic Statements to your account"
+      )
 
       assertLinkById(
         doc,
