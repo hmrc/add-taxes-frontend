@@ -198,11 +198,10 @@ registerEORIICS.p1 = When you get this, sign in and add the Import Control Syste
 #######################################################
 ##  RegisterDefermentApprovalNumber
 #######################################################
-registerDefermentApprovalNumber.title = Get a Deferment Approval Number (DAN) first
-registerDefermentApprovalNumber.heading = Get a Deferment Approval Number (DAN) first
-registerDefermentApprovalNumber.p1 = You need to get a Deferment Approval Number (DAN) before you can add Duty Deferment Electronic Statements to your account.
-registerDefermentApprovalNumber.p2 = Come back to your account and add Duty Deferment Electronic Statements your Deferment Approval Number (DAN) arrives.
-registerDefermentApprovalNumber.continue = Continue - get a DAN
+registerDefermentApprovalNumber.title = ​You need a Deferment Approval Number (DAN) to add this service
+registerDefermentApprovalNumber.heading = ​You need a Deferment Approval Number (DAN) to add this service
+registerDefermentApprovalNumber.p1 = When you get this, sign in and add Duty Deferment Electronic Statements to your account.
+registerDefermentApprovalNumber.continue = Apply for deferment approval
 
 
 #######################################################
@@ -210,9 +209,9 @@ registerDefermentApprovalNumber.continue = Continue - get a DAN
 #######################################################
 doYouHaveDAN.title = Do you have a Deferment Approval Number (DAN)?
 doYouHaveDAN.heading = Do you have a Deferment Approval Number (DAN)?
-doYouHaveDAN.Yes = Yes - I have a Deferment Approval Number
-doYouHaveDAN.No = No - I don’t have a DAN yet
-doYouHaveDAN.error.required = Select yes or no
+doYouHaveDAN.Yes = Yes
+doYouHaveDAN.No = No
+doYouHaveDAN.error.required = Select yes if you have a Deferment Approval Number
 
 
 #######################################################
