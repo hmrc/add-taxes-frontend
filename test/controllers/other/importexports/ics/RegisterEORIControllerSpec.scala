@@ -28,7 +28,7 @@ class RegisterEORIControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = IndexController.onPageLoad()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new RegisterEORIController(
       frontendAppConfig,
       messagesApi,

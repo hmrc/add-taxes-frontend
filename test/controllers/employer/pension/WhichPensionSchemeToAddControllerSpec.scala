@@ -41,7 +41,7 @@ class WhichPensionSchemeToAddControllerSpec extends ControllerSpecBase {
   val formProvider = new WhichPensionSchemeToAddFormProvider()
   val form = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new WhichPensionSchemeToAddController(
       frontendAppConfig,
       messagesApi,
@@ -83,16 +83,16 @@ class WhichPensionSchemeToAddControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    "return OK if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+    "return OK" in {
+      val result = controller().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
     }
 
     for (option <- WhichPensionSchemeToAdd.options) {
-      s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
+      s"redirect to next page when '${option.value}' is submitted" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
-        val result = controller(dontGetAnyData).onSubmit()(postRequest)
+        val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -104,21 +104,21 @@ class WhichPensionSchemeToAddControllerSpec extends ControllerSpecBase {
 
     "not return PSA option if the user has HMRC-PSA-ORG" in {
       val request = requestWithEnrolments("HMRC-PSA-ORG")
-      val result = controller(dontGetAnyData).radioOptions(request)
+      val result = controller().radioOptions(request)
 
       result mustBe Set(RadioOption("whichPensionSchemeToAdd", "practitioners"))
     }
 
     "not return PP option if the user has HMRC-PP-ORG" in {
       val request = requestWithEnrolments("HMRC-PP-ORG")
-      val result = controller(dontGetAnyData).radioOptions(request)
+      val result = controller().radioOptions(request)
 
       result mustBe Set(RadioOption("whichPensionSchemeToAdd", "administrators"))
     }
 
     "return both PSA and PP option if the user has no enrolment" in {
       val request = requestWithEnrolments("")
-      val result = controller(dontGetAnyData).radioOptions(request)
+      val result = controller().radioOptions(request)
 
       result mustBe Set(
         RadioOption("whichPensionSchemeToAdd", "administrators"),

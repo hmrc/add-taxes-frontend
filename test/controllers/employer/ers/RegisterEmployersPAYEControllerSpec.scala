@@ -24,7 +24,7 @@ import views.html.employer.ers.registerEmployersPAYE
 
 class RegisterEmployersPAYEControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new RegisterEmployersPAYEController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = registerEmployersPAYE(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString

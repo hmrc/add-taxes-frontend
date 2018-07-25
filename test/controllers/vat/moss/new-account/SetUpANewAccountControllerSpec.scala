@@ -24,7 +24,7 @@ import views.html.vat.moss.newaccount.setUpANewAccount
 
 class SetUpANewAccountControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new SetUpANewAccountController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = setUpANewAccount(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
