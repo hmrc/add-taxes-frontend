@@ -20,7 +20,7 @@ import play.api.data.Form
 import play.api.libs.json.JsString
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
+import controllers.actions._
 import controllers._
 import play.api.test.Helpers._
 import forms.deenrolment.DoYouNeedToStopRGDFormProvider
