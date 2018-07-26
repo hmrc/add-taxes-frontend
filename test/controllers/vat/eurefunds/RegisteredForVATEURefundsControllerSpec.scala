@@ -35,7 +35,7 @@ class RegisteredForVATEURefundsControllerSpec extends ControllerSpecBase {
   val form = formProvider()
   lazy val viewAction = ViewAction(routes.RegisteredForVATEURefundsController.onSubmit(), "VatEuRefundsNoVat")
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new RegisteredForVATEURefundsController(
       frontendAppConfig,
       messagesApi,
@@ -75,9 +75,9 @@ class RegisteredForVATEURefundsControllerSpec extends ControllerSpecBase {
     }
 
     for (option <- RegisteredForVAT.options) {
-      s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
+      s"redirect to next page when '${option.value}' is submitted" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
-        val result = controller(dontGetAnyData).onSubmit()(postRequest)
+        val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)

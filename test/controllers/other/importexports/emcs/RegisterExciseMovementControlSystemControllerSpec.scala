@@ -24,7 +24,7 @@ import views.html.other.importexports.emcs.registerExciseMovementControlSystem
 
 class RegisterExciseMovementControlSystemControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new RegisterExciseMovementControlSystemController(
       frontendAppConfig,
       messagesApi,

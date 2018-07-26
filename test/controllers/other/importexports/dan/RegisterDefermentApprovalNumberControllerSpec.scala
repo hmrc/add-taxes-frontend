@@ -24,7 +24,7 @@ import views.html.other.importexports.dan.registerDefermentApprovalNumber
 
 class RegisterDefermentApprovalNumberControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new RegisterDefermentApprovalNumberController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() =

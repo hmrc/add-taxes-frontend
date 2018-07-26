@@ -43,6 +43,7 @@ site.yes = Yes
 site.save_and_continue = Save and continue
 site.continue = Continue
 site.service_name = Business tax account
+site.service_title = {0} - Business tax account - GOV.UK
 site.textarea.char_limit = (Limit is {0} characters)
 site.signout = Sign out
 
@@ -966,3 +967,12 @@ doYouNeedToStopRGD.heading = Do you need to stop using the Remote Gaming Duty on
 doYouNeedToStopRGD.Yes = Yes
 doYouNeedToStopRGD.No = No, I need to deregister from Remote Gaming Duty
 doYouNeedToStopRGD.error.required = Select yes if you need to stop using the Remote Gaming Duty online service
+
+#######################################################
+##  DoYouNeedToCloseCharity
+#######################################################
+doYouNeedToCloseCharity.title = Do you need to close the charity?
+doYouNeedToCloseCharity.heading = Do you need to close the charity?
+doYouNeedToCloseCharity.Yes = Yes
+doYouNeedToCloseCharity.No = No, I need to stop using the Charities online service
+doYouNeedToCloseCharity.error.required = Select yes if you need to close the charity

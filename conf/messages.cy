@@ -43,6 +43,7 @@ site.yes = Yes
 site.save_and_continue = Save and continue
 site.continue = Parhau
 site.service_name = Cyfrif treth busnes
+site.service_title = {0} - Cyfrif treth busnes - GOV.UK
 site.textarea.char_limit = (Limit is {0} characters)
 site.signout = Allgofnodi
 
@@ -962,3 +963,12 @@ doYouNeedToStopRGD.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gw
 doYouNeedToStopRGD.Yes = Iawn
 doYouNeedToStopRGD.No = Na, mae angen i fi ddadgofrestru o’r Doll Hapchwarae o Bell
 doYouNeedToStopRGD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Hapchwarae o Bell
+
+#######################################################
+##  DoYouNeedToCloseCharity
+#######################################################
+doYouNeedToCloseCharity.title = A oes angen i chi gau’r elusen?
+doYouNeedToCloseCharity.heading = A oes angen i chi gau’r elusen?
+doYouNeedToCloseCharity.Yes = Iawn
+doYouNeedToCloseCharity.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Elusennau ar-lein
+doYouNeedToCloseCharity.error.required = Dewiswch Iawn os oes angen i chi gau’r elusen

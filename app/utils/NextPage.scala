@@ -120,3 +120,4 @@ object NextPage
     with DoYouNeedToCancelVATNextPage
     with StopFilingSelfAssessmentNextPage
     with DoYouNeedToStopRGDNextPage
+    with DoYouNeedToCloseCharityNextPage

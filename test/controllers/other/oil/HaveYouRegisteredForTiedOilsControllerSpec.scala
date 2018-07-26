@@ -33,7 +33,7 @@ class HaveYouRegisteredForTiedOilsControllerSpec extends ControllerSpecBase {
   val formProvider = new HaveYouRegisteredForTiedOilsFormProvider()
   val form = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new HaveYouRegisteredForTiedOilsController(
       frontendAppConfig,
       messagesApi,

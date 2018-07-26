@@ -24,7 +24,7 @@ import views.html.other.gambling.pbd.registerGTSFirst
 
 class RegisterGTSFirstControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new RegisterGTSFirstController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = registerGTSFirst(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString

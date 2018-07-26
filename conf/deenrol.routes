@@ -31,3 +31,6 @@ POST       /vat/how-to-stop-vat                  controllers.deenrolment.DoYouNe
 
 GET        /self-assessment/how-to-stop-filing   controllers.deenrolment.StopFilingSelfAssessmentController.onPageLoad()
 POST       /self-assessment/how-to-stop-filing   controllers.deenrolment.StopFilingSelfAssessmentController.onSubmit()
+
+GET        /charities/how-to-stop-charities      controllers.deenrolment.DoYouNeedToCloseCharityController.onPageLoad()
+POST       /charities/how-to-stop-charities      controllers.deenrolment.DoYouNeedToCloseCharityController.onSubmit()
