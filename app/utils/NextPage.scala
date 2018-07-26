@@ -119,4 +119,5 @@ object NextPage
     with StopCorporationTaxNextPage
     with DoYouNeedToCancelVATNextPage
     with StopFilingSelfAssessmentNextPage
+    with DoYouNeedToStopRGDNextPage
     with DoYouNeedToCloseCharityNextPage
