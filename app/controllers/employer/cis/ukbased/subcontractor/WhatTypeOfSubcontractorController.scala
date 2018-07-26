@@ -26,12 +26,13 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import forms.employer.cis.uk.subcontractor.WhatTypeOfSubcontractorFormProvider
 import identifiers.WhatTypeOfSubcontractorId
+import play.api.mvc.Call
 import views.html.employer.cis.ukbased.subcontractor.whatTypeOfSubcontractor
 
 class WhatTypeOfSubcontractorController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
   formProvider: WhatTypeOfSubcontractorFormProvider)

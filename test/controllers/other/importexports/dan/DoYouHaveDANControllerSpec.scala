@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.other.importexports.dan.DoYouHaveDANFormProvider
 import identifiers.DoYouHaveDANId
 import models.other.importexports.dan.DoYouHaveDAN
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.other.importexports.dan.doYouHaveDAN
 
@@ -40,7 +41,7 @@ class DoYouHaveDANControllerSpec extends ControllerSpecBase {
     new DoYouHaveDANController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

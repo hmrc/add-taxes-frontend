@@ -974,6 +974,15 @@ doYouNeedToCloseCharity.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r g
 doYouNeedToCloseCharity.error.required = Dewiswch Iawn os oes angen i chi gau’r elusen
 
 #######################################################
+##  DoYouNeedToLeaveVATMOSS
+#######################################################
+doYouNeedToLeaveVATMOSS.title = A oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn?
+doYouNeedToLeaveVATMOSS.heading = A oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn?
+doYouNeedToLeaveVATMOSS.Yes = Iawn
+doYouNeedToLeaveVATMOSS.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein
+doYouNeedToLeaveVATMOSS.error.required = Dewiswch Iawn os oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn
+
+#######################################################
 ##  DoYouNeedToStopPBD
 #######################################################
 doYouNeedToStopPBD.title = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio?

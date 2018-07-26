@@ -25,9 +25,9 @@ import controllers.employer.cis.ukbased.routes._
 
 trait IsYourBusinessInUKNextPage {
 
-  implicit val isYourBusinessInUK: NextPage[IsYourBusinessInUKId.type, IsYourBusinessInUK] = {
+  implicit val isYourBusinessInUK: NextPage[IsYourBusinessInUKId.type, IsYourBusinessInUK, Call] = {
 
-    new NextPage[IsYourBusinessInUKId.type, IsYourBusinessInUK] {
+    new NextPage[IsYourBusinessInUKId.type, IsYourBusinessInUK, Call] {
 
       override def get(b: IsYourBusinessInUK)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {

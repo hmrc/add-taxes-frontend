@@ -27,7 +27,7 @@ import forms.employer.pension.WhichPensionSchemeToAddFormProvider
 import identifiers.WhichPensionSchemeToAddId
 import models.employer.pension.WhichPensionSchemeToAdd
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
-import play.api.mvc.AnyContent
+import play.api.mvc.{AnyContent, Call}
 import play.api.test.FakeRequest
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
@@ -45,7 +45,7 @@ class WhichPensionSchemeToAddControllerSpec extends ControllerSpecBase {
     new WhichPensionSchemeToAddController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

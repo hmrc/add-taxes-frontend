@@ -22,10 +22,11 @@ import controllers.deenrolment.routes.StopFilingSelfAssessmentController
 import forms.deenrolment.HaveYouStoppedSelfEmploymentFormProvider
 import models.deenrolment.HaveYouStoppedSelfEmployment
 import play.api.data.Form
+import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import utils.{FakeNavigator, HmrcEnrolmentType}
 import utils.HmrcEnrolmentType.CORP_TAX
+import utils.{FakeNavigator, HmrcEnrolmentType}
 import views.html.deenrolment.haveYouStoppedSelfEmployment
 
 class HaveYouStoppedSelfEmploymentControllerSpec extends ControllerSpecBase {
@@ -39,7 +40,7 @@ class HaveYouStoppedSelfEmploymentControllerSpec extends ControllerSpecBase {
     new HaveYouStoppedSelfEmploymentController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction(enrolmentTypes: _*),
       formProvider)

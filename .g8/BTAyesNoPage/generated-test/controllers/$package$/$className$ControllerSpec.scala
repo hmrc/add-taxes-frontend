@@ -10,6 +10,7 @@ import play.api.test.Helpers._
 import forms.$package$.$className$FormProvider
 import identifiers.$className$Id
 import models.$package$.$className$
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.$package$.$className;format="decap"$
 
@@ -20,9 +21,9 @@ class $className$ControllerSpec extends ControllerSpecBase {
   val formProvider = new $className$FormProvider()
   val form = formProvider()
 
-  def controller() = new $className$Controller(
-    frontendAppConfig, messagesApi, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction, FakeServiceInfoAction, formProvider
-  )
+  def controller() =
+    new $className$Controller(frontendAppConfig, messagesApi, new FakeNavigator[Call](desiredRoute = onwardRoute), FakeAuthAction,
+      FakeServiceInfoAction, formProvider)
 
   def viewAsString(form: Form[_] = form) = $className;format="decap"$(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 

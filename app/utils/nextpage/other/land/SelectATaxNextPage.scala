@@ -25,8 +25,8 @@ import utils.NextPage
 
 trait SelectATaxNextPage {
 
-  implicit val selectATax: NextPage[SelectATaxId.type, SelectATax] = {
-    new NextPage[SelectATaxId.type, SelectATax] {
+  implicit val selectATax: NextPage[SelectATaxId.type, SelectATax, Call] = {
+    new NextPage[SelectATaxId.type, SelectATax, Call] {
       override def get(b: SelectATax)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case SelectATax.ATED => Call("GET", appConfig.atedUrl)

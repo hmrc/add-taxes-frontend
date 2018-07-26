@@ -25,8 +25,8 @@ import controllers.vat.moss.ukbased.{routes => vatMossUkRoutes}
 
 trait RegisteredForVATUKNextPage {
 
-  implicit val registeredForVATUk: NextPage[RegisteredForVATUkId.type, RegisteredForVATUk] = {
-    new NextPage[RegisteredForVATUkId.type, RegisteredForVATUk] {
+  implicit val registeredForVATUk: NextPage[RegisteredForVATUkId.type, RegisteredForVATUk, Call] = {
+    new NextPage[RegisteredForVATUkId.type, RegisteredForVATUk, Call] {
       override def get(b: RegisteredForVATUk)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case RegisteredForVATUk.Yes => vatMossUkRoutes.OnlineVATAccountController.onPageLoad()

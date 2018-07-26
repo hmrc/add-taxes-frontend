@@ -23,6 +23,7 @@ import controllers._
 import play.api.test.Helpers._
 import forms.vat.WhichVATServicesToAddFormProvider
 import models.vat.WhichVATServicesToAdd
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.vat.whichVATServicesToAdd
 
@@ -37,7 +38,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase {
     new WhichVATServicesToAddController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction(enrolments: _*),
       formProvider

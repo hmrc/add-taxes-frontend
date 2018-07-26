@@ -26,7 +26,7 @@ import models.OtherTaxes._
 import models.requests.ServiceInfoRequest
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.AnyContent
+import play.api.mvc.{AnyContent, Call}
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enrolments, Enumerable, Navigator, RadioOption}
@@ -37,7 +37,7 @@ import scala.concurrent.Future
 class OtherTaxesController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
   formProvider: OtherTaxesFormProvider)

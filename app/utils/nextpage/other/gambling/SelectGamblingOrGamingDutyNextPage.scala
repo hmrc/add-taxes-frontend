@@ -28,8 +28,9 @@ import models.other.gambling.SelectGamblingOrGamingDuty
 
 trait SelectGamblingOrGamingDutyNextPage {
 
-  implicit val selectGamblingOrGamingDuty: NextPage[SelectGamblingOrGamingDutyId.type, SelectGamblingOrGamingDuty] = {
-    new NextPage[SelectGamblingOrGamingDutyId.type, SelectGamblingOrGamingDuty] {
+  implicit val selectGamblingOrGamingDuty
+    : NextPage[SelectGamblingOrGamingDutyId.type, SelectGamblingOrGamingDuty, Call] = {
+    new NextPage[SelectGamblingOrGamingDutyId.type, SelectGamblingOrGamingDuty, Call] {
       override def get(b: models.other.gambling.SelectGamblingOrGamingDuty)(
         implicit appConfig: FrontendAppConfig,
         request: Request[_]): Call =

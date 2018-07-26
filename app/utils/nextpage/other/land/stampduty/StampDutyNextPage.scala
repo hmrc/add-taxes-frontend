@@ -25,8 +25,8 @@ import controllers.other.land.stampduty.{routes => stampDutyRoutes}
 
 trait StampDutyNextPage {
 
-  implicit val stampDuty: NextPage[StampDutyId.type, StampDuty] = {
-    new NextPage[StampDutyId.type, StampDuty] {
+  implicit val stampDuty: NextPage[StampDutyId.type, StampDuty, Call] = {
+    new NextPage[StampDutyId.type, StampDuty, Call] {
       override def get(b: StampDuty)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case StampDuty.Yes => Call("GET", appConfig.getPortalUrl("stampduty"))

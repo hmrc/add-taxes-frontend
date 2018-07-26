@@ -25,8 +25,8 @@ import controllers.vat.moss.ukbased.{routes => vatMossUkRoutes}
 
 trait OnlineVATAccountNextPage {
 
-  implicit val onlineVATAccount: NextPage[OnlineVATAccountId.type, OnlineVATAccount] = {
-    new NextPage[OnlineVATAccountId.type, OnlineVATAccount] {
+  implicit val onlineVATAccount: NextPage[OnlineVATAccountId.type, OnlineVATAccount, Call] = {
+    new NextPage[OnlineVATAccountId.type, OnlineVATAccount, Call] {
       override def get(b: OnlineVATAccount)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case OnlineVATAccount.Yes => vatMossUkRoutes.AddVATMOSSController.onPageLoad()

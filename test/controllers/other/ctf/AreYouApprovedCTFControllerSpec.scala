@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.other.ctf.AreYouApprovedCTFFormProvider
 import identifiers.AreYouApprovedCTFId
 import models.other.ctf.AreYouApprovedCTF
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.other.ctf.areYouApprovedCTF
 
@@ -40,7 +41,7 @@ class AreYouApprovedCTFControllerSpec extends ControllerSpecBase {
     new AreYouApprovedCTFController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

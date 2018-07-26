@@ -32,8 +32,8 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
   type WhatEmployerTaxDoYouWantToAddWithEnrolment = (WhatEmployerTaxDoYouWantToAdd, Enrolments)
 
   implicit val whatEmployerTaxDoYouWantToAdd
-    : NextPage[WhatEmployerTaxDoYouWantToAddId.type, WhatEmployerTaxDoYouWantToAddWithEnrolment] = {
-    new NextPage[WhatEmployerTaxDoYouWantToAddId.type, WhatEmployerTaxDoYouWantToAddWithEnrolment] {
+    : NextPage[WhatEmployerTaxDoYouWantToAddId.type, WhatEmployerTaxDoYouWantToAddWithEnrolment, Call] = {
+    new NextPage[WhatEmployerTaxDoYouWantToAddId.type, WhatEmployerTaxDoYouWantToAddWithEnrolment, Call] {
       override def get(details: WhatEmployerTaxDoYouWantToAddWithEnrolment)(
         implicit appConfig: FrontendAppConfig,
         request: Request[_]): Call =

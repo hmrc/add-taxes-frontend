@@ -24,6 +24,7 @@ import forms.other.oils.HaveYouRegisteredForTiedOilsFormProvider
 import identifiers.HaveYouRegisteredForTiedOilsId
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.Call
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import views.html.other.oil.haveYouRegisteredForTiedOils
@@ -33,7 +34,7 @@ import scala.concurrent.Future
 class HaveYouRegisteredForTiedOilsController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
   formProvider: HaveYouRegisteredForTiedOilsFormProvider)

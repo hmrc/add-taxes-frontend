@@ -24,8 +24,8 @@ import utils.{Enrolments, NextPage}
 
 trait DoYouNeedToStopRGDNextPage {
 
-  implicit val doYouNeedToStopRGD: NextPage[DoYouNeedToStopRGDId.type, DoYouNeedToStopRGD] = {
-    new NextPage[DoYouNeedToStopRGDId.type, DoYouNeedToStopRGD] {
+  implicit val doYouNeedToStopRGD: NextPage[DoYouNeedToStopRGDId.type, DoYouNeedToStopRGD, Call] = {
+    new NextPage[DoYouNeedToStopRGDId.type, DoYouNeedToStopRGD, Call] {
       override def get(b: DoYouNeedToStopRGD)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouNeedToStopRGD.Yes => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.RemoteGaming))

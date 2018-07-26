@@ -24,8 +24,8 @@ import utils.{Enrolments, NextPage}
 
 trait DoYouNeedToStopRONextPage {
 
-  implicit val doYouNeedToStopRO: NextPage[DoYouNeedToStopROId.type, DoYouNeedToStopRO] = {
-    new NextPage[DoYouNeedToStopROId.type, DoYouNeedToStopRO] {
+  implicit val doYouNeedToStopRO: NextPage[DoYouNeedToStopROId.type, DoYouNeedToStopRO, Call] = {
+    new NextPage[DoYouNeedToStopROId.type, DoYouNeedToStopRO, Call] {
       override def get(b: DoYouNeedToStopRO)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouNeedToStopRO.Yes => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.RebatedOils))

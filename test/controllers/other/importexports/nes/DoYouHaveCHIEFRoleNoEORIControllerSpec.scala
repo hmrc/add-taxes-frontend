@@ -22,6 +22,7 @@ import controllers.other.importexports.nes.routes._
 import forms.other.importexports.nes.DoYouHaveCHIEFRoleFormProvider
 import models.other.importexports.nes.DoYouHaveCHIEFRole
 import play.api.data.Form
+import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
@@ -39,7 +40,7 @@ class DoYouHaveCHIEFRoleNoEORIControllerSpec extends ControllerSpecBase {
     new DoYouHaveCHIEFRoleNoEORIController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

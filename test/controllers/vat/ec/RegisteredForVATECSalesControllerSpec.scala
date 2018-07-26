@@ -21,6 +21,7 @@ import controllers.actions.{FakeServiceInfoAction, _}
 import forms.vat.RegisteredForVATFormProvider
 import models.vat.RegisteredForVAT
 import play.api.data.Form
+import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
@@ -39,7 +40,7 @@ class RegisteredForVATECSalesControllerSpec extends ControllerSpecBase {
     new RegisteredForVATECSalesController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

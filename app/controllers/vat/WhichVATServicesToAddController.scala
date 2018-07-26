@@ -21,11 +21,12 @@ import controllers.actions._
 import forms.vat.WhichVATServicesToAddFormProvider
 import identifiers.WhichVATServicesToAddId
 import javax.inject.Inject
+
 import models.requests.ServiceInfoRequest
 import models.vat.WhichVATServicesToAdd
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.AnyContent
+import play.api.mvc.{AnyContent, Call}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enrolments, Enumerable, HmrcEnrolmentType, Navigator}
 import views.html.vat.whichVATServicesToAdd
@@ -33,7 +34,7 @@ import views.html.vat.whichVATServicesToAdd
 class WhichVATServicesToAddController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
   formProvider: WhichVATServicesToAddFormProvider)

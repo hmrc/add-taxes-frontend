@@ -17,16 +17,15 @@
 package controllers.deenrolment
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-
 import forms.deenrolment.DoYouNeedToStopPBDFormProvider
 import identifiers.DoYouNeedToStopPBDId
+import play.api.mvc.Call
 import views.html.deenrolment.doYouNeedToStopPBD
 
 import scala.concurrent.Future
@@ -34,7 +33,7 @@ import scala.concurrent.Future
 class DoYouNeedToStopPBDController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
   formProvider: DoYouNeedToStopPBDFormProvider)

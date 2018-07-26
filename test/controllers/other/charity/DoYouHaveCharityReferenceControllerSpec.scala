@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.other.charity.DoYouHaveCharityReferenceFormProvider
 import identifiers.DoYouHaveCharityReferenceId
 import models.other.charity.DoYouHaveCharityReference
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.other.charity.doYouHaveCharityReference
 
@@ -40,7 +41,7 @@ class DoYouHaveCharityReferenceControllerSpec extends ControllerSpecBase {
     new DoYouHaveCharityReferenceController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

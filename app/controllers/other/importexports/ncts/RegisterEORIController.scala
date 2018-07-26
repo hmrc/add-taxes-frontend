@@ -21,6 +21,7 @@ import javax.inject.Inject
 import config.FrontendAppConfig
 import controllers.actions._
 import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.Call
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.Navigator
 import views.html.other.importexports.ncts.registerEORI
@@ -30,7 +31,7 @@ class RegisterEORIController @Inject()(
   override val messagesApi: MessagesApi,
   authenticate: AuthAction,
   serviceInfo: ServiceInfoAction,
-  navigator: Navigator)
+  navigator: Navigator[Call])
     extends FrontendController
     with I18nSupport {
 

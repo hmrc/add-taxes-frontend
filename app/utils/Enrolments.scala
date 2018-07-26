@@ -130,7 +130,8 @@ object Enrolments {
     SA,
     VATGIANT,
     CT,
-    CTF
+    CTF,
+    VATMOSS
   )
 }
 

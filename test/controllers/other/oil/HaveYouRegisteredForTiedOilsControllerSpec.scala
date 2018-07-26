@@ -21,6 +21,7 @@ import controllers.actions._
 import forms.other.oils.HaveYouRegisteredForTiedOilsFormProvider
 import models.other.oil.HaveYouRegisteredForTiedOils
 import play.api.data.Form
+import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
@@ -37,7 +38,7 @@ class HaveYouRegisteredForTiedOilsControllerSpec extends ControllerSpecBase {
     new HaveYouRegisteredForTiedOilsController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

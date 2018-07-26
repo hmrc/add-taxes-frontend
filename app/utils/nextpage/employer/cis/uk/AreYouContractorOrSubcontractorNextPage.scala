@@ -30,9 +30,9 @@ trait AreYouContractorOrSubcontractorNextPage {
   type AreYouContractorOrSubcontractorWithRequest = (AreYouContractorOrSubcontractor, Enrolments)
 
   implicit val areYouContractorOrSubcontractor
-    : NextPage[AreYouContractorOrSubcontractorId.type, AreYouContractorOrSubcontractorWithRequest] = {
+    : NextPage[AreYouContractorOrSubcontractorId.type, AreYouContractorOrSubcontractorWithRequest, Call] = {
 
-    new NextPage[AreYouContractorOrSubcontractorId.type, AreYouContractorOrSubcontractorWithRequest] {
+    new NextPage[AreYouContractorOrSubcontractorId.type, AreYouContractorOrSubcontractorWithRequest, Call] {
 
       override def get(contractorOrSubcontractor: AreYouContractorOrSubcontractorWithRequest)(
         implicit appConfig: FrontendAppConfig,

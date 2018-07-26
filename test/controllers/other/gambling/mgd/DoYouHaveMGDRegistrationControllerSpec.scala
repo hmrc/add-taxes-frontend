@@ -21,6 +21,7 @@ import controllers.actions.{FakeServiceInfoAction, _}
 import forms.other.gambling.mgd.DoYouHaveMGDRegistrationFormProvider
 import models.other.gambling.mgd.DoYouHaveMGDRegistration
 import play.api.data.Form
+import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
@@ -37,7 +38,7 @@ class DoYouHaveMGDRegistrationControllerSpec extends ControllerSpecBase {
     new DoYouHaveMGDRegistrationController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

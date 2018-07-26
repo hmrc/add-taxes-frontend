@@ -29,9 +29,9 @@ trait HaveYouRegisteredPartnershipNextPage {
   type HaveYouRegisteredPartnershipWithRequest = (HaveYouRegisteredPartnership, Enrolments)
 
   implicit val haveYouRegisteredPartnership
-    : NextPage[HaveYouRegisteredPartnershipId.type, HaveYouRegisteredPartnershipWithRequest] = {
+    : NextPage[HaveYouRegisteredPartnershipId.type, HaveYouRegisteredPartnershipWithRequest, Call] = {
 
-    new NextPage[HaveYouRegisteredPartnershipId.type, HaveYouRegisteredPartnershipWithRequest] {
+    new NextPage[HaveYouRegisteredPartnershipId.type, HaveYouRegisteredPartnershipWithRequest, Call] {
 
       override def get(enrolmentDetails: HaveYouRegisteredPartnershipWithRequest)(
         implicit appConfig: FrontendAppConfig,

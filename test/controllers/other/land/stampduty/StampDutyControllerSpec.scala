@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.other.land.stampduty.StampDutyFormProvider
 import identifiers.StampDutyId
 import models.other.land.stampduty.StampDuty
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.other.land.stampduty.stampDuty
 
@@ -40,7 +41,7 @@ class StampDutyControllerSpec extends ControllerSpecBase {
     new StampDutyController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

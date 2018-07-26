@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.deenrolment.DoYouNeedToStopEPAYEFormProvider
 import identifiers.DoYouNeedToStopEPAYEId
 import models.deenrolment.DoYouNeedToStopEPAYE
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.deenrolment.doYouNeedToStopEPAYE
 
@@ -40,7 +41,7 @@ class DoYouNeedToStopEPAYEControllerSpec extends ControllerSpecBase {
     new DoYouNeedToStopEPAYEController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

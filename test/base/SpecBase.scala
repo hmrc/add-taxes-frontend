@@ -29,7 +29,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
 
   implicit def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
 
-  def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
+  implicit def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
 
   def fakeRequest = FakeRequest("", "")
 

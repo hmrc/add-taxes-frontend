@@ -26,8 +26,8 @@ import utils.{Enrolments, NextPage}
 
 trait AreYouRegisteredGTSNextPage {
 
-  implicit val gbdGTS: NextPage[AreYouRegisteredGTSId.GBD.type, AreYouRegisteredGTS] = {
-    new NextPage[AreYouRegisteredGTSId.GBD.type, AreYouRegisteredGTS] {
+  implicit val gbdGTS: NextPage[AreYouRegisteredGTSId.GBD.type, AreYouRegisteredGTS, Call] = {
+    new NextPage[AreYouRegisteredGTSId.GBD.type, AreYouRegisteredGTS, Call] {
       override def get(b: AreYouRegisteredGTS)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case AreYouRegisteredGTS.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.GeneralBetting))
