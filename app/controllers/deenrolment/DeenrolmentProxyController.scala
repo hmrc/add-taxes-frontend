@@ -25,7 +25,7 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Call
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.Enrolments
-import utils.Enrolments._
+import utils.Enrolments.{Charities, _}
 
 class DeenrolmentProxyController @Inject()(
   appConfig: FrontendAppConfig,
@@ -45,7 +45,8 @@ class DeenrolmentProxyController @Inject()(
       PSA            -> DoYouNeedToStopPSAController.onPageLoad(),
       CT             -> StopCorporationTaxController.onPageLoad(),
       VAT            -> DoYouNeedToCancelVATController.onPageLoad(),
-      GeneralBetting -> DoYouNeedToStopGBDController.onPageLoad()
+      GeneralBetting -> DoYouNeedToStopGBDController.onPageLoad(),
+      Charities      -> DoYouNeedToCloseCharityController.onPageLoad()
     )
 
     enrolmentRoutes.get(service) match {
