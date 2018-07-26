@@ -981,3 +981,12 @@ doYouNeedToLeaveVATMOSS.heading = A oes angen i chi adael y cynllun Gwasanaeth U
 doYouNeedToLeaveVATMOSS.Yes = Iawn
 doYouNeedToLeaveVATMOSS.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein
 doYouNeedToLeaveVATMOSS.error.required = Dewiswch Iawn os oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn
+
+#######################################################
+##  DoYouNeedToStopPBD
+#######################################################
+doYouNeedToStopPBD.title = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio?
+doYouNeedToStopPBD.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio?
+doYouNeedToStopPBD.Yes = Iawn
+doYouNeedToStopPBD.No = Na, mae angen i fi ddadgofrestru o’r Toll Cronfa Fetio
+doYouNeedToStopPBD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio

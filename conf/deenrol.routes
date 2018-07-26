@@ -37,3 +37,6 @@ POST       /charities/how-to-stop-charities      controllers.deenrolment.DoYouNe
 
 GET        /vat/how-to-stop-vat-moss             controllers.deenrolment.DoYouNeedToLeaveVATMOSSController.onPageLoad()
 POST       /vat/how-to-stop-vat-moss             controllers.deenrolment.DoYouNeedToLeaveVATMOSSController.onSubmit()
+
+GET        /gambling/how-to-stop-pbd             controllers.deenrolment.DoYouNeedToStopPBDController.onPageLoad()
+POST       /gambling/how-to-stop-pbd             controllers.deenrolment.DoYouNeedToStopPBDController.onSubmit()

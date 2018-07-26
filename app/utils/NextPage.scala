@@ -122,3 +122,4 @@ object NextPage
     with DoYouNeedToStopRGDNextPage
     with DoYouNeedToCloseCharityNextPage
     with DoYouNeedToLeaveVATMOSSNextPage
+    with DoYouNeedToStopPBDNextPage

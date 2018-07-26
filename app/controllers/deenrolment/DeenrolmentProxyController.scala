@@ -47,7 +47,8 @@ class DeenrolmentProxyController @Inject()(
       VAT            -> DoYouNeedToCancelVATController.onPageLoad(),
       GeneralBetting -> DoYouNeedToStopGBDController.onPageLoad(),
       Charities      -> DoYouNeedToCloseCharityController.onPageLoad(),
-      RemoteGaming   -> DoYouNeedToStopRGDController.onPageLoad()
+      RemoteGaming   -> DoYouNeedToStopRGDController.onPageLoad(),
+      PoolBetting    -> DoYouNeedToStopPBDController.onPageLoad()
     )
 
     enrolmentRoutes.get(service) match {
