@@ -25,7 +25,7 @@ import views.html.other.aeio.register.registerAEOI
 
 class RegisterAEOIControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new RegisterAEOIController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = registerAEOI(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString

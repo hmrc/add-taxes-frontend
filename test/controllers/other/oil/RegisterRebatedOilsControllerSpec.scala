@@ -24,7 +24,7 @@ import views.html.other.oil.registerRebatedOils
 
 class RegisterRebatedOilsControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new RegisterRebatedOilsController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = registerRebatedOils(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString

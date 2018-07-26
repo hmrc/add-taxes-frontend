@@ -24,7 +24,7 @@ import views.html.other.ctf.youNeedToBeApprovedCTF
 
 class YouNeedToBeApprovedCTFControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new YouNeedToBeApprovedCTFController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = youNeedToBeApprovedCTF(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString

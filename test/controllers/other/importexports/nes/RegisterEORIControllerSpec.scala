@@ -24,7 +24,7 @@ import views.html.other.importexports.nes.registerEORI
 
 class RegisterEORIControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new RegisterEORIController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = registerEORI(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString

@@ -23,14 +23,13 @@ import utils.Enrolments
 
 class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new DeenrolmentProxyController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   "DeenrolmentProxy Controller" must {
 
     val enrolments = Enrolments.values -
-      (Enrolments.AddCis, Enrolments.PSA, Enrolments.RebatedOils, Enrolments.EPAYE, Enrolments.SA, Enrolments.CT,
-      Enrolments.VAT, Enrolments.GeneralBetting, Enrolments.MachineGamingDuty)
+      (Enrolments.AddCis, Enrolments.PSA, Enrolments.RebatedOils, Enrolments.EPAYE, Enrolments.SA, Enrolments.CT, Enrolments.VAT, Enrolments.GeneralBetting, Enrolments.Charities, Enrolments.MachineGamingDuty)
 
     for (enrolment <- enrolments) {
       s"redirect to deenrolment management for $enrolment" in {
@@ -96,6 +95,13 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some("/business-account/deenrol/vat/how-to-stop-vat")
+    }
+
+    "redirect to how to stop Charities for HMCE-CHAR-ORG" in {
+      val result = controller().onPageLoad(Enrolments.Charities)(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some("/business-account/deenrol/charities/how-to-stop-charities")
     }
 
     "redirect to how to stop MGD for HMRC-MGD-ORG" in {
