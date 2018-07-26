@@ -21,7 +21,7 @@ class $className$ControllerSpec extends ControllerSpecBase {
   val formProvider = new $className$FormProvider()
   val form = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new $className$Controller(frontendAppConfig, messagesApi, new FakeNavigator[Call](desiredRoute = onwardRoute), FakeAuthAction,
       FakeServiceInfoAction, formProvider)
 
