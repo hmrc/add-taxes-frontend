@@ -29,7 +29,7 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
   "DeenrolmentProxy Controller" must {
 
     val enrolments = Enrolments.values -
-      (Enrolments.AddCis, Enrolments.PSA, Enrolments.RebatedOils, Enrolments.EPAYE, Enrolments.SA, Enrolments.CT, Enrolments.VAT, Enrolments.GeneralBetting)
+      (Enrolments.AddCis, Enrolments.PSA, Enrolments.RebatedOils, Enrolments.EPAYE, Enrolments.SA, Enrolments.CT, Enrolments.VAT, Enrolments.GeneralBetting, Enrolments.Charities)
 
     for (enrolment <- enrolments) {
       s"redirect to deenrolment management for $enrolment" in {
@@ -89,11 +89,19 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some("/business-account/deenrol/ct/how-to-stop-ct")
     }
+
     "redirect to how to stop VAT for HMCE-VATDEC-ORG" in {
       val result = controller().onPageLoad(Enrolments.VAT)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some("/business-account/deenrol/vat/how-to-stop-vat")
+    }
+
+    "redirect to how to stop Charities for HMCE-CHAR-ORG" in {
+      val result = controller().onPageLoad(Enrolments.Charities)(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some("/business-account/deenrol/charities/how-to-stop-charities")
     }
   }
 }
