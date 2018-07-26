@@ -17,47 +17,46 @@
 package views.deenrolment
 
 import play.api.data.Form
-import forms.deenrolment.DoYouNeedToCloseCharityFormProvider
-import models.deenrolment.DoYouNeedToCloseCharity
-import play.api.i18n.Messages
+import forms.deenrolment.DoYouNeedToStopRGDFormProvider
+import models.deenrolment.DoYouNeedToStopRGD
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.deenrolment.doYouNeedToCloseCharity
+import views.html.deenrolment.doYouNeedToStopRGD
 
-class DoYouNeedToCloseCharityViewSpec extends ViewBehaviours {
+class DoYouNeedToStopRGDViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "doYouNeedToCloseCharity"
+  val messageKeyPrefix = "doYouNeedToStopRGD"
 
-  val form = new DoYouNeedToCloseCharityFormProvider()()
+  val form = new DoYouNeedToStopRGDFormProvider()()
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => doYouNeedToCloseCharity(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView = () => doYouNeedToStopRGD(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm =
-    (form: Form[_]) => doYouNeedToCloseCharity(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    (form: Form[_]) => doYouNeedToStopRGD(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  "DoYouNeedToCloseCharity view" must {
+  "DoYouNeedToStopRGD view" must {
     behave like normalPage(createView, messageKeyPrefix)
   }
 
-  "DoYouNeedToCloseCharity view" when {
+  "DoYouNeedToStopRGD view" when {
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- DoYouNeedToCloseCharity.options) {
+        for (option <- DoYouNeedToStopRGD.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
       }
     }
 
-    for (option <- DoYouNeedToCloseCharity.options) {
+    for (option <- DoYouNeedToStopRGD.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for (unselectedOption <- DoYouNeedToCloseCharity.options.filterNot(_ == option)) {
+          for (unselectedOption <- DoYouNeedToStopRGD.options.filterNot(_ == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

@@ -46,12 +46,14 @@ class DeenrolmentProxyController @Inject()(
       CT             -> StopCorporationTaxController.onPageLoad(),
       VAT            -> DoYouNeedToCancelVATController.onPageLoad(),
       GeneralBetting -> DoYouNeedToStopGBDController.onPageLoad(),
-      Charities      -> DoYouNeedToCloseCharityController.onPageLoad()
+      Charities      -> DoYouNeedToCloseCharityController.onPageLoad(),
+      RemoteGaming   -> DoYouNeedToStopRGDController.onPageLoad()
     )
 
     enrolmentRoutes.get(service) match {
       case Some(call) => Redirect(call)
       case None       => Redirect(appConfig.emacDeenrolmentsUrl(service))
+
     }
   }
 }

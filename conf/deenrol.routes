@@ -20,6 +20,9 @@ POST       /psa/how-to-stop-psa                  controllers.deenrolment.DoYouNe
 GET        /gambling/how-to-stop-gbd             controllers.deenrolment.DoYouNeedToStopGBDController.onPageLoad()
 POST       /gambling/how-to-stop-gbd             controllers.deenrolment.DoYouNeedToStopGBDController.onSubmit()
 
+GET        /gambling/how-to-stop-rgd             controllers.deenrolment.DoYouNeedToStopRGDController.onPageLoad()
+POST       /gambling/how-to-stop-rgd             controllers.deenrolment.DoYouNeedToStopRGDController.onSubmit()
+
 GET        /ct/how-to-stop-ct                    controllers.deenrolment.StopCorporationTaxController.onPageLoad()
 POST       /ct/how-to-stop-ct                    controllers.deenrolment.StopCorporationTaxController.onSubmit()
 

@@ -29,7 +29,7 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
   "DeenrolmentProxy Controller" must {
 
     val enrolments = Enrolments.values -
-      (Enrolments.AddCis, Enrolments.PSA, Enrolments.RebatedOils, Enrolments.EPAYE, Enrolments.SA, Enrolments.CT, Enrolments.VAT, Enrolments.GeneralBetting, Enrolments.Charities, Enrolments.VATMOSS)
+      (Enrolments.AddCis, Enrolments.PSA, Enrolments.RebatedOils, Enrolments.EPAYE, Enrolments.SA, Enrolments.CT, Enrolments.VAT, Enrolments.GeneralBetting, Enrolments.Charities, Enrolments.VATMOSS, Enrolments.RemoteGaming)
 
     for (enrolment <- enrolments) {
       s"redirect to deenrolment management for $enrolment" in {
@@ -51,7 +51,8 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
       (Enrolments.VAT, "vat/how-to-stop-vat"),
       (Enrolments.GeneralBetting, "gambling/how-to-stop-gbd"),
       (Enrolments.VATMOSS, "vat/how-to-stop-vat-moss"),
-      (Enrolments.Charities, "charities/how-to-stop-charities")
+      (Enrolments.Charities, "charities/how-to-stop-charities"),
+      (Enrolments.RemoteGaming, "gambling/how-to-stop-rgd")
     )
 
     for ((enrolment, url) <- nonEmacRedirectEnrolments) {
