@@ -49,8 +49,9 @@ class $className$ViewSpec extends ViewBehaviours {
     "invalid data is sent" must {
       "prepend title with Error: " in {
         val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> ""))))
+        val title = messages(messages("site.service_title"), s"\$messageKeyPrefix.title")
 
-        assertEqualsMessage(doc, "title", "error.browser.title", messages(s"\$messageKeyPrefix.title"))
+        assertEqualsMessage(doc, "title", "error.browser.title", title)
       }
     }
   }

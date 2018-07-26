@@ -43,6 +43,7 @@ site.yes = Yes
 site.save_and_continue = Save and continue
 site.continue = Parhau
 site.service_name = Cyfrif treth busnes
+site.service_title = {0} - Cyfrif treth busnes - GOV.UK
 site.textarea.char_limit = (Limit is {0} characters)
 site.signout = Allgofnodi
 
