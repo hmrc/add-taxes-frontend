@@ -23,15 +23,16 @@ import utils.Enrolments
 
 class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new DeenrolmentProxyController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   "DeenrolmentProxy Controller" must {
 
-    val enrolments = Enrolments.values -
-      (
-        Enrolments.AddCis, Enrolments.PSA, Enrolments.RebatedOils, Enrolments.EPAYE, Enrolments.SA, Enrolments.CT,
-        Enrolments.VAT, Enrolments.GeneralBetting, Enrolments.PoolBetting
+    val enrolments =
+      Enrolments.values - (
+        Enrolments.AddCis, Enrolments.PSA, Enrolments.RebatedOils,
+        Enrolments.EPAYE, Enrolments.SA, Enrolments.CT,
+        Enrolments.VAT, Enrolments.GeneralBetting, Enrolments.Charities, Enrolments.RemoteGaming, Enrolments.PoolBetting
     )
 
     for (enrolment <- enrolments) {
@@ -86,17 +87,32 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
       redirectLocation(result) mustBe Some("/business-account/deenrol/gambling/how-to-stop-gbd")
     }
 
+    "redirect to how to stop RGD for HMRC-GTS-RGD" in {
+      val result = controller().onPageLoad(Enrolments.RemoteGaming)(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some("/business-account/deenrol/gambling/how-to-stop-rgd")
+    }
+
     "redirect to how to stop CT for IR-CT" in {
       val result = controller().onPageLoad(Enrolments.CT)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some("/business-account/deenrol/ct/how-to-stop-ct")
     }
+
     "redirect to how to stop VAT for HMCE-VATDEC-ORG" in {
       val result = controller().onPageLoad(Enrolments.VAT)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some("/business-account/deenrol/vat/how-to-stop-vat")
+    }
+
+    "redirect to how to stop Charities for HMCE-CHAR-ORG" in {
+      val result = controller().onPageLoad(Enrolments.Charities)(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some("/business-account/deenrol/charities/how-to-stop-charities")
     }
   }
 }

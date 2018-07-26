@@ -24,7 +24,7 @@ import views.html.other.land.stampduty.paperForms
 
 class PaperFormsControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new PaperFormsController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = paperForms(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString

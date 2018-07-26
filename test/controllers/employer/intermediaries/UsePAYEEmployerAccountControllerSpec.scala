@@ -24,7 +24,7 @@ import views.html.employer.intermediaries.usePAYEEmployerAccount
 
 class UsePAYEEmployerAccountControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new UsePAYEEmployerAccountController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = usePAYEEmployerAccount(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString

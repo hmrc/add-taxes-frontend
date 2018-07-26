@@ -24,7 +24,7 @@ import views.html.other.gambling.mgd.registerMGD
 
 class RegisterMGDControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new RegisterMGDController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = registerMGD(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString

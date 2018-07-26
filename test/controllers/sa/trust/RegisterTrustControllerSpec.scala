@@ -24,7 +24,7 @@ import views.html.sa.trust.registerTrust
 
 class RegisterTrustControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new RegisterTrustController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = registerTrust(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
