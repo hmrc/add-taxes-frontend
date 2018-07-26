@@ -25,6 +25,7 @@ import config.FrontendAppConfig
 import forms.other.importexports.DoYouHaveEORINumberFormProvider
 import identifiers.DoYouHaveEORINumberId
 import play.api.data.Form
+import play.api.mvc.Call
 import utils.Navigator
 import viewmodels.ViewAction
 import views.html.other.importexports.doYouHaveEORINumber
@@ -34,7 +35,7 @@ import scala.concurrent.Future
 class DoYouHaveEORINumberController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfo: ServiceInfoAction,
   formProvider: DoYouHaveEORINumberFormProvider)

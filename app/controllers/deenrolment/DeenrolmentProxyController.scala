@@ -18,12 +18,14 @@ package controllers.deenrolment
 
 import javax.inject.Inject
 
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import controllers.actions._
 import config.FrontendAppConfig
-import utils.Enrolments
+import controllers.actions._
 import controllers.deenrolment.routes._
+import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.Call
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.Enrolments
+import utils.Enrolments._
 
 class DeenrolmentProxyController @Inject()(
   appConfig: FrontendAppConfig,
@@ -34,18 +36,24 @@ class DeenrolmentProxyController @Inject()(
     with I18nSupport {
 
   def onPageLoad(service: Enrolments) = (authenticate andThen serviceInfo) { implicit request =>
-    service match {
-      case Enrolments.SA             => Redirect(HaveYouStoppedSelfEmploymentController.onPageLoad())
-      case Enrolments.RebatedOils    => Redirect(DoYouNeedToStopROController.onPageLoad())
-      case Enrolments.EPAYE          => Redirect(DoYouNeedToStopEPAYEController.onPageLoad())
-      case Enrolments.AddCis         => Redirect(DoYouWantToLeaveCISController.onPageLoad())
-      case Enrolments.PSA            => Redirect(DoYouNeedToStopPSAController.onPageLoad())
-      case Enrolments.CT             => Redirect(StopCorporationTaxController.onPageLoad())
-      case Enrolments.VAT            => Redirect(DoYouNeedToCancelVATController.onPageLoad())
-      case Enrolments.GeneralBetting => Redirect(DoYouNeedToStopGBDController.onPageLoad())
-      case Enrolments.RemoteGaming   => Redirect(DoYouNeedToStopRGDController.onPageLoad())
-      case Enrolments.Charities      => Redirect(DoYouNeedToCloseCharityController.onPageLoad())
-      case _                         => Redirect(appConfig.emacDeenrolmentsUrl(service))
+    val enrolmentRoutes: Map[Enrolments, Call] = Map(
+      VATMOSS        -> DoYouNeedToLeaveVATMOSSController.onPageLoad(),
+      SA             -> HaveYouStoppedSelfEmploymentController.onPageLoad(),
+      RebatedOils    -> DoYouNeedToStopROController.onPageLoad(),
+      EPAYE          -> DoYouNeedToStopEPAYEController.onPageLoad(),
+      AddCis         -> DoYouWantToLeaveCISController.onPageLoad(),
+      PSA            -> DoYouNeedToStopPSAController.onPageLoad(),
+      CT             -> StopCorporationTaxController.onPageLoad(),
+      VAT            -> DoYouNeedToCancelVATController.onPageLoad(),
+      GeneralBetting -> DoYouNeedToStopGBDController.onPageLoad(),
+      Charities      -> DoYouNeedToCloseCharityController.onPageLoad(),
+      RemoteGaming   -> DoYouNeedToStopRGDController.onPageLoad()
+    )
+
+    enrolmentRoutes.get(service) match {
+      case Some(call) => Redirect(call)
+      case None       => Redirect(appConfig.emacDeenrolmentsUrl(service))
+
     }
   }
 }

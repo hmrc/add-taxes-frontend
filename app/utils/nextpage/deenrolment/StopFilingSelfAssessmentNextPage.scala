@@ -24,8 +24,8 @@ import utils.{Enrolments, NextPage}
 
 trait StopFilingSelfAssessmentNextPage {
 
-  implicit val stopFilingSelfAssessment: NextPage[StopFilingSelfAssessmentId.type, StopFilingSelfAssessment] = {
-    new NextPage[StopFilingSelfAssessmentId.type, StopFilingSelfAssessment] {
+  implicit val stopFilingSelfAssessment: NextPage[StopFilingSelfAssessmentId.type, StopFilingSelfAssessment, Call] = {
+    new NextPage[StopFilingSelfAssessmentId.type, StopFilingSelfAssessment, Call] {
       override def get(b: StopFilingSelfAssessment)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case StopFilingSelfAssessment.Yes => Call("GET", appConfig.getBusinessAccountUrl("stop-sa"))

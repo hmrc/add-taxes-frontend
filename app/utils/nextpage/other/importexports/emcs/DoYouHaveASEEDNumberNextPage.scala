@@ -25,8 +25,8 @@ import utils.{Enrolments, NextPage}
 
 trait DoYouHaveASEEDNumberNextPage {
 
-  implicit val doYouHaveASEEDNumber: NextPage[DoYouHaveASEEDNumberId.type, DoYouHaveASEEDNumber] = {
-    new NextPage[DoYouHaveASEEDNumberId.type, DoYouHaveASEEDNumber] {
+  implicit val doYouHaveASEEDNumber: NextPage[DoYouHaveASEEDNumberId.type, DoYouHaveASEEDNumber, Call] = {
+    new NextPage[DoYouHaveASEEDNumberId.type, DoYouHaveASEEDNumber, Call] {
       override def get(b: DoYouHaveASEEDNumber)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouHaveASEEDNumber.Yes =>

@@ -24,8 +24,8 @@ import utils.{Enrolments, NextPage}
 
 trait DoYouNeedToCloseCharityNextPage {
 
-  implicit val doYouNeedToCloseCharity: NextPage[DoYouNeedToCloseCharityId.type, DoYouNeedToCloseCharity] = {
-    new NextPage[DoYouNeedToCloseCharityId.type, DoYouNeedToCloseCharity] {
+  implicit val doYouNeedToCloseCharity: NextPage[DoYouNeedToCloseCharityId.type, DoYouNeedToCloseCharity, Call] = {
+    new NextPage[DoYouNeedToCloseCharityId.type, DoYouNeedToCloseCharity, Call] {
       override def get(b: DoYouNeedToCloseCharity)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouNeedToCloseCharity.Yes => Call("GET", appConfig.getGovUKUrl("deenrolCharities"))

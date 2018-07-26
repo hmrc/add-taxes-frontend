@@ -30,8 +30,9 @@ import controllers.other.importexports.nes.{routes => nesRoutes}
 
 trait DoYouWantToAddImportExportNextPage {
 
-  implicit val doYouWantToAddImportExport: NextPage[DoYouWantToAddImportExportId.type, DoYouWantToAddImportExport] = {
-    new NextPage[DoYouWantToAddImportExportId.type, models.other.importexports.DoYouWantToAddImportExport] {
+  implicit val doYouWantToAddImportExport
+    : NextPage[DoYouWantToAddImportExportId.type, DoYouWantToAddImportExport, Call] = {
+    new NextPage[DoYouWantToAddImportExportId.type, models.other.importexports.DoYouWantToAddImportExport, Call] {
       override def get(b: models.other.importexports.DoYouWantToAddImportExport)(
         implicit appConfig: FrontendAppConfig,
         request: Request[_]): Call =

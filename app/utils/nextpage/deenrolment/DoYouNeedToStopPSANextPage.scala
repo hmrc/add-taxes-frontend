@@ -24,8 +24,8 @@ import utils.{Enrolments, NextPage}
 
 trait DoYouNeedToStopPSANextPage {
 
-  implicit val doYouNeedToStopPSA: NextPage[DoYouNeedToStopPSAId.type, DoYouNeedToStopPSA] = {
-    new NextPage[DoYouNeedToStopPSAId.type, DoYouNeedToStopPSA] {
+  implicit val doYouNeedToStopPSA: NextPage[DoYouNeedToStopPSAId.type, DoYouNeedToStopPSA, Call] = {
+    new NextPage[DoYouNeedToStopPSAId.type, DoYouNeedToStopPSA, Call] {
       override def get(b: DoYouNeedToStopPSA)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouNeedToStopPSA.Yes => Call("GET", appConfig.getGovUKUrl("stopPsa"))

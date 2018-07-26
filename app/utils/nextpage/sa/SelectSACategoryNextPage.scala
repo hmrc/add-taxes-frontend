@@ -29,9 +29,9 @@ trait SelectSACategoryNextPage {
 
   type SelectSACategoryWithAffinityGroup = (SelectSACategory, Option[AffinityGroup])
 
-  implicit val selectSACategory: NextPage[SelectSACategoryId.type, SelectSACategoryWithAffinityGroup] = {
+  implicit val selectSACategory: NextPage[SelectSACategoryId.type, SelectSACategoryWithAffinityGroup, Call] = {
 
-    new NextPage[SelectSACategoryId.type, SelectSACategoryWithAffinityGroup] {
+    new NextPage[SelectSACategoryId.type, SelectSACategoryWithAffinityGroup, Call] {
       override def get(saCategory: SelectSACategoryWithAffinityGroup)(
         implicit appConfig: FrontendAppConfig,
         request: Request[_]): Call =

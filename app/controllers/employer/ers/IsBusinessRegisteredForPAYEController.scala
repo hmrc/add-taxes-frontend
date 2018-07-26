@@ -24,6 +24,7 @@ import forms.employer.IsBusinessRegisteredForPAYEFormProvider
 import identifiers.IsBusinessRegisteredForPAYEId
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.Call
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.Navigator
 import viewmodels.ViewAction
@@ -33,7 +34,7 @@ class IsBusinessRegisteredForPAYEController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   authenticate: AuthAction,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   serviceInfo: ServiceInfoAction,
   formProvider: IsBusinessRegisteredForPAYEFormProvider)
     extends FrontendController

@@ -25,8 +25,8 @@ import utils.NextPage
 
 trait RegisteredForVATNextPage {
 
-  implicit val registeredForVAT: NextPage[RegisteredForVATId.type, RegisteredForVAT] = {
-    new NextPage[RegisteredForVATId.type, RegisteredForVAT] {
+  implicit val registeredForVAT: NextPage[RegisteredForVATId.type, RegisteredForVAT, Call] = {
+    new NextPage[RegisteredForVATId.type, RegisteredForVAT, Call] {
       override def get(b: RegisteredForVAT)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case RegisteredForVAT.Yes => vatMossRoutes.AlreadyRegisteredForVATMossController.onPageLoad()

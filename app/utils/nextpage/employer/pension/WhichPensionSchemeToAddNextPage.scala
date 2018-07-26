@@ -24,8 +24,8 @@ import utils.NextPage
 
 trait WhichPensionSchemeToAddNextPage {
 
-  implicit val whichPensionSchemeToAdd: NextPage[WhichPensionSchemeToAddId.type, WhichPensionSchemeToAdd] = {
-    new NextPage[WhichPensionSchemeToAddId.type, WhichPensionSchemeToAdd] {
+  implicit val whichPensionSchemeToAdd: NextPage[WhichPensionSchemeToAddId.type, WhichPensionSchemeToAdd, Call] = {
+    new NextPage[WhichPensionSchemeToAddId.type, WhichPensionSchemeToAdd, Call] {
       override def get(b: WhichPensionSchemeToAdd)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case WhichPensionSchemeToAdd.Administrators =>

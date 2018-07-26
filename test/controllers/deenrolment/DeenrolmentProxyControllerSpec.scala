@@ -28,12 +28,8 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
 
   "DeenrolmentProxy Controller" must {
 
-    val enrolments =
-      Enrolments.values - (
-        Enrolments.AddCis, Enrolments.PSA, Enrolments.RebatedOils,
-        Enrolments.EPAYE, Enrolments.SA, Enrolments.CT,
-        Enrolments.VAT, Enrolments.GeneralBetting, Enrolments.Charities, Enrolments.RemoteGaming
-    )
+    val enrolments = Enrolments.values -
+      (Enrolments.AddCis, Enrolments.PSA, Enrolments.RebatedOils, Enrolments.EPAYE, Enrolments.SA, Enrolments.CT, Enrolments.VAT, Enrolments.GeneralBetting, Enrolments.Charities, Enrolments.VATMOSS, Enrolments.RemoteGaming)
 
     for (enrolment <- enrolments) {
       s"redirect to deenrolment management for $enrolment" in {
@@ -45,74 +41,27 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
       }
     }
 
-    "redirect to how to stop cis for HMRC-CIS-ORG" in {
-      val result = controller().onPageLoad(Enrolments.AddCis)(fakeRequest)
+    val nonEmacRedirectEnrolments = List(
+      (Enrolments.AddCis, "cis/how-to-stop-cis"),
+      (Enrolments.PSA, "psa/how-to-stop-psa"),
+      (Enrolments.RebatedOils, "ro/how-to-stop-ro"),
+      (Enrolments.EPAYE, "epaye/how-to-stop-paye"),
+      (Enrolments.SA, "self-assessment/how-to-stop-sa"),
+      (Enrolments.CT, "ct/how-to-stop-ct"),
+      (Enrolments.VAT, "vat/how-to-stop-vat"),
+      (Enrolments.GeneralBetting, "gambling/how-to-stop-gbd"),
+      (Enrolments.VATMOSS, "vat/how-to-stop-vat-moss"),
+      (Enrolments.Charities, "charities/how-to-stop-charities"),
+      (Enrolments.RemoteGaming, "gambling/how-to-stop-rgd")
+    )
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/business-account/deenrol/cis/how-to-stop-cis")
-    }
+    for ((enrolment, url) <- nonEmacRedirectEnrolments) {
+      s"redirect to how to stop/leave for $enrolment" in {
+        val result = controller().onPageLoad(enrolment)(fakeRequest)
 
-    "redirect to how to stop rebated oils for HMCE-RO" in {
-      val result = controller().onPageLoad(Enrolments.RebatedOils)(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/business-account/deenrol/ro/how-to-stop-ro")
-    }
-
-    "redirect to how to stop epaye for IR-PAYE" in {
-      val result = controller().onPageLoad(Enrolments.EPAYE)(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/business-account/deenrol/epaye/how-to-stop-paye")
-    }
-
-    "redirect to how to stop psa for HMRC-PSA-ORG" in {
-      val result = controller().onPageLoad(Enrolments.PSA)(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/business-account/deenrol/psa/how-to-stop-psa")
-    }
-
-    "redirect to how to stop SA for IR-SA" in {
-      val result = controller().onPageLoad(Enrolments.SA)(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/business-account/deenrol/self-assessment/how-to-stop-sa")
-    }
-
-    "redirect to how to stop gbd for HMRC-GTS-GBD" in {
-      val result = controller().onPageLoad(Enrolments.GeneralBetting)(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/business-account/deenrol/gambling/how-to-stop-gbd")
-    }
-
-    "redirect to how to stop RGD for HMRC-GTS-RGD" in {
-      val result = controller().onPageLoad(Enrolments.RemoteGaming)(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/business-account/deenrol/gambling/how-to-stop-rgd")
-    }
-
-    "redirect to how to stop CT for IR-CT" in {
-      val result = controller().onPageLoad(Enrolments.CT)(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/business-account/deenrol/ct/how-to-stop-ct")
-    }
-
-    "redirect to how to stop VAT for HMCE-VATDEC-ORG" in {
-      val result = controller().onPageLoad(Enrolments.VAT)(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/business-account/deenrol/vat/how-to-stop-vat")
-    }
-
-    "redirect to how to stop Charities for HMCE-CHAR-ORG" in {
-      val result = controller().onPageLoad(Enrolments.Charities)(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/business-account/deenrol/charities/how-to-stop-charities")
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(s"/business-account/deenrol/$url")
+      }
     }
   }
 }

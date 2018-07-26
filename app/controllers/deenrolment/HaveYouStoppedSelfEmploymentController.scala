@@ -27,12 +27,15 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Result
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, HmrcEnrolmentType, Navigator}
+import forms.deenrolment.HaveYouStoppedSelfEmploymentFormProvider
+import identifiers.HaveYouStoppedSelfEmploymentId
+import play.api.mvc.Call
 import views.html.deenrolment.haveYouStoppedSelfEmployment
 
 class HaveYouStoppedSelfEmploymentController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
   formProvider: HaveYouStoppedSelfEmploymentFormProvider)

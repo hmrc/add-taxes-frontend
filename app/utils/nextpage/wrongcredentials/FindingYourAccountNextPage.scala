@@ -24,8 +24,8 @@ import utils.{ForgottenOptions, NextPage}
 
 trait FindingYourAccountNextPage {
 
-  implicit val findingYourAccount: NextPage[FindingYourAccountId.type, FindingYourAccount] = {
-    new NextPage[FindingYourAccountId.type, FindingYourAccount] {
+  implicit val findingYourAccount: NextPage[FindingYourAccountId.type, FindingYourAccount, Call] = {
+    new NextPage[FindingYourAccountId.type, FindingYourAccount, Call] {
       override def get(b: FindingYourAccount)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case FindingYourAccount.DontKnowPassword =>

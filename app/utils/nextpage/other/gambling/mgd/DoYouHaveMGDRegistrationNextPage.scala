@@ -25,8 +25,8 @@ import models.other.gambling.mgd.DoYouHaveMGDRegistration
 
 trait DoYouHaveMGDRegistrationNextPage {
 
-  implicit val doYouHaveMGDRegistration: NextPage[DoYouHaveMGDRegistrationId.type, DoYouHaveMGDRegistration] = {
-    new NextPage[DoYouHaveMGDRegistrationId.type, DoYouHaveMGDRegistration] {
+  implicit val doYouHaveMGDRegistration: NextPage[DoYouHaveMGDRegistrationId.type, DoYouHaveMGDRegistration, Call] = {
+    new NextPage[DoYouHaveMGDRegistrationId.type, DoYouHaveMGDRegistration, Call] {
       override def get(b: DoYouHaveMGDRegistration)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouHaveMGDRegistration.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.MachineGamingDuty))

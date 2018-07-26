@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.deenrolment.DoYouNeedToStopGBDFormProvider
 import identifiers.DoYouNeedToStopGBDId
 import models.deenrolment.DoYouNeedToStopGBD
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.deenrolment.doYouNeedToStopGBD
 
@@ -40,7 +41,7 @@ class DoYouNeedToStopGBDControllerSpec extends ControllerSpecBase {
     new DoYouNeedToStopGBDController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

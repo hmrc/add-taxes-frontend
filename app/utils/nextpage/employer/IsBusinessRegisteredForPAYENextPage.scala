@@ -28,8 +28,8 @@ import utils.NextPage
 trait IsBusinessRegisteredForPAYENextPage {
 
   implicit val isBusinessRegisteredForPAYE
-    : NextPage[IsBusinessRegisteredForPAYEId.CIS.type, IsBusinessRegisteredForPAYE] = {
-    new NextPage[IsBusinessRegisteredForPAYEId.CIS.type, IsBusinessRegisteredForPAYE] {
+    : NextPage[IsBusinessRegisteredForPAYEId.CIS.type, IsBusinessRegisteredForPAYE, Call] = {
+    new NextPage[IsBusinessRegisteredForPAYEId.CIS.type, IsBusinessRegisteredForPAYE, Call] {
       override def get(
         b: IsBusinessRegisteredForPAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
@@ -42,8 +42,8 @@ trait IsBusinessRegisteredForPAYENextPage {
   }
 
   implicit val eiIsBusinessRegisteredForPAYE
-    : NextPage[IsBusinessRegisteredForPAYEId.EI.type, IsBusinessRegisteredForPAYE] = {
-    new NextPage[IsBusinessRegisteredForPAYEId.EI.type, IsBusinessRegisteredForPAYE] {
+    : NextPage[IsBusinessRegisteredForPAYEId.EI.type, IsBusinessRegisteredForPAYE, Call] = {
+    new NextPage[IsBusinessRegisteredForPAYEId.EI.type, IsBusinessRegisteredForPAYE, Call] {
       override def get(
         b: IsBusinessRegisteredForPAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
@@ -56,8 +56,8 @@ trait IsBusinessRegisteredForPAYENextPage {
   }
 
   implicit val ersIsBusinessRegisteredForPAYE
-    : NextPage[IsBusinessRegisteredForPAYEId.ERS.type, IsBusinessRegisteredForPAYE] = {
-    new NextPage[IsBusinessRegisteredForPAYEId.ERS.type, IsBusinessRegisteredForPAYE] {
+    : NextPage[IsBusinessRegisteredForPAYEId.ERS.type, IsBusinessRegisteredForPAYE, Call] = {
+    new NextPage[IsBusinessRegisteredForPAYEId.ERS.type, IsBusinessRegisteredForPAYE, Call] {
       override def get(
         b: IsBusinessRegisteredForPAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {

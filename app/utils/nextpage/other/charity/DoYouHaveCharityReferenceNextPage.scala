@@ -25,8 +25,9 @@ import models.other.charity.DoYouHaveCharityReference
 
 trait DoYouHaveCharityReferenceNextPage {
 
-  implicit val doYouHaveCharityReference: NextPage[DoYouHaveCharityReferenceId.type, DoYouHaveCharityReference] = {
-    new NextPage[DoYouHaveCharityReferenceId.type, DoYouHaveCharityReference] {
+  implicit val doYouHaveCharityReference
+    : NextPage[DoYouHaveCharityReferenceId.type, DoYouHaveCharityReference, Call] = {
+    new NextPage[DoYouHaveCharityReferenceId.type, DoYouHaveCharityReference, Call] {
       override def get(b: DoYouHaveCharityReference)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouHaveCharityReference.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.Charities))

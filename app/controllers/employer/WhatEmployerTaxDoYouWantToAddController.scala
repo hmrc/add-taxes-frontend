@@ -17,6 +17,7 @@
 package controllers.employer
 
 import javax.inject.Inject
+
 import config.FrontendAppConfig
 import controllers.actions._
 import play.api.data.Form
@@ -26,6 +27,7 @@ import forms.employer.WhatEmployerTaxDoYouWantToAddFormProvider
 import identifiers.WhatEmployerTaxDoYouWantToAddId
 import models.employer.WhatEmployerTaxDoYouWantToAdd
 import models.employer.WhatEmployerTaxDoYouWantToAdd.{EPAYE, PS}
+import play.api.mvc.Call
 import uk.gov.hmrc.auth.core.Enrolments
 import utils.{Enumerable, Navigator, RadioOption}
 import views.html.employer.whatEmployerTaxDoYouWantToAdd
@@ -33,7 +35,7 @@ import views.html.employer.whatEmployerTaxDoYouWantToAdd
 class WhatEmployerTaxDoYouWantToAddController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
   formProvider: WhatEmployerTaxDoYouWantToAddFormProvider)
