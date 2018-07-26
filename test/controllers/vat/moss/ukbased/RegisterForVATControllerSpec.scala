@@ -24,7 +24,7 @@ import views.html.vat.moss.ukbased.registerForVAT
 
 class RegisterForVATControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new RegisterForVATController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = registerForVAT(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString

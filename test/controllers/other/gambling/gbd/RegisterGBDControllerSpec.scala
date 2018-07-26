@@ -24,7 +24,7 @@ import views.html.other.gambling.gbd.registerGBD
 
 class RegisterGBDControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new RegisterGBDController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = registerGBD(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString

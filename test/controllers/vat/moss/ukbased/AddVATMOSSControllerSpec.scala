@@ -24,7 +24,7 @@ import views.html.vat.moss.ukbased.addVATMOSS
 
 class AddVATMOSSControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new AddVATMOSSController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = addVATMOSS(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString

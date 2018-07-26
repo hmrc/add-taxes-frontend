@@ -23,7 +23,7 @@ import utils.Enrolments
 
 class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new DeenrolmentProxyController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   "DeenrolmentProxy Controller" must {

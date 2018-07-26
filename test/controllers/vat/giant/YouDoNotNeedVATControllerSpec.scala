@@ -24,7 +24,7 @@ import views.html.vat.giant.youDoNotNeedVAT
 
 class YouDoNotNeedVATControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new YouDoNotNeedVATController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = youDoNotNeedVAT(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString

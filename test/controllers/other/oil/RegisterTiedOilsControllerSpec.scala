@@ -24,7 +24,7 @@ import views.html.other.oil.registerTiedOils
 
 class RegisterTiedOilsControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new RegisterTiedOilsController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = registerTiedOils(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString

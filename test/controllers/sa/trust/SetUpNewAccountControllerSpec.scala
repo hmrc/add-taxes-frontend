@@ -24,7 +24,7 @@ import views.html.sa.trust.setUpNewAccount
 
 class SetUpNewAccountControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller() =
     new SetUpNewAccountController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
 
   def viewAsString() = setUpNewAccount(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
