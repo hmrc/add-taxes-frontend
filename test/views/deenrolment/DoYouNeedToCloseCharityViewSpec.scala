@@ -19,6 +19,7 @@ package views.deenrolment
 import play.api.data.Form
 import forms.deenrolment.DoYouNeedToCloseCharityFormProvider
 import models.deenrolment.DoYouNeedToCloseCharity
+import play.api.i18n.Messages
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.deenrolment.doYouNeedToCloseCharity
@@ -66,8 +67,9 @@ class DoYouNeedToCloseCharityViewSpec extends ViewBehaviours {
     "invalid data is sent" must {
       "prepend title with Error: " in {
         val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> ""))))
+        val title = messages("site.service_title", messages(s"$messageKeyPrefix.title"))
 
-        assertEqualsMessage(doc, "title", "error.browser.title", messages(s"$messageKeyPrefix.title"))
+        assertEqualsMessage(doc, "title", "error.browser.title", title)
       }
     }
   }
