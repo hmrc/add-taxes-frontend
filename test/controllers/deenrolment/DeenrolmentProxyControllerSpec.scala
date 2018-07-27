@@ -31,7 +31,7 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
     val enrolments = Enrolments.values -
       (Enrolments.AddCis, Enrolments.PSA, Enrolments.RebatedOils, Enrolments.EPAYE,
       Enrolments.SA, Enrolments.CT, Enrolments.VAT, Enrolments.GeneralBetting,
-      Enrolments.Charities, Enrolments.VATMOSS, Enrolments.RemoteGaming, Enrolments.PoolBetting)
+      Enrolments.Charities, Enrolments.VATMOSS, Enrolments.RemoteGaming, Enrolments.PoolBetting, Enrolments.ATWD)
 
     for (enrolment <- enrolments) {
       s"redirect to deenrolment management for $enrolment" in {
@@ -54,7 +54,8 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
       (Enrolments.GeneralBetting, "gambling/how-to-stop-gbd"),
       (Enrolments.VATMOSS, "vat/how-to-stop-vat-moss"),
       (Enrolments.Charities, "charities/how-to-stop-charities"),
-      (Enrolments.RemoteGaming, "gambling/how-to-stop-rgd")
+      (Enrolments.RemoteGaming, "gambling/how-to-stop-rgd"),
+      (Enrolments.PoolBetting, "gambling/how-to-stop-pbd")
     )
 
     for ((enrolment, url) <- nonEmacRedirectEnrolments) {
@@ -64,6 +65,15 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(s"/business-account/deenrol/$url")
       }
+    }
+
+    "redirect to deenrolment management for ATWD" in {
+      val result = controller().onPageLoad(Enrolments.ATWD)(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(
+        "http://localhost:9555/enrolment-management-frontend/HMCE-ATWD-ORG/remove-warehouse"
+      )
     }
   }
 }
