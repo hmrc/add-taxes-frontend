@@ -156,7 +156,7 @@ organisationOnly.notNow = I don’t want to do this right now
 #######################################################
 ##  RegisterExciseMovementControlSystem
 #######################################################
-registerExciseMovementControlSystem.title = Get a SEED excise ID first
+registerExciseMovementControlSystem.title = You need a System for the Exchange of Excise Data (SEED) number to add this service
 registerExciseMovementControlSystem.heading = You need a System for the Exchange of Excise Data (SEED) number to add this service
 registerExciseMovementControlSystem.youNeedToRegister= When you get this, sign in and add the Excise Movement and Control System to your account.
 registerExciseMovementControlSystem.button= Get a SEED number
