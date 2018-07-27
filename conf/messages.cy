@@ -140,7 +140,7 @@ otherTaxes.legend = Dewis treth neu fath o gynllun
 #######################################################
 ##  RegisterExciseMovementControlSystem
 #######################################################
-registerExciseMovementControlSystem.title = Dylech gael ID SEED ecséis yn gyntaf
+registerExciseMovementControlSystem.title = Mae angen rhif System ar gyfer Cyfnewid Data Ecséis (SEED) arnoch i ychwanegu’r gwasanaeth hwn
 registerExciseMovementControlSystem.heading = Mae angen rhif System ar gyfer Cyfnewid Data Ecséis (SEED) arnoch i ychwanegu’r gwasanaeth hwn
 registerExciseMovementControlSystem.youNeedToRegister= Pan gewch chi hwn, mewngofnodwch i’ch cyfrif ac ychwanegwch y System Symudiadau a Rheolaeth Ecséis.
 registerExciseMovementControlSystem.button= Cael rhif SEED
