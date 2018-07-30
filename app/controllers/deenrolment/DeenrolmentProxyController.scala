@@ -37,18 +37,19 @@ class DeenrolmentProxyController @Inject()(
 
   def onPageLoad(service: Enrolments) = (authenticate andThen serviceInfo) { implicit request =>
     val enrolmentRoutes: Map[Enrolments, Call] = Map(
-      VATMOSS        -> DoYouNeedToLeaveVATMOSSController.onPageLoad(),
-      SA             -> HaveYouStoppedSelfEmploymentController.onPageLoad(),
-      RebatedOils    -> DoYouNeedToStopROController.onPageLoad(),
-      EPAYE          -> DoYouNeedToStopEPAYEController.onPageLoad(),
-      AddCis         -> DoYouWantToLeaveCISController.onPageLoad(),
-      PSA            -> DoYouNeedToStopPSAController.onPageLoad(),
-      CT             -> StopCorporationTaxController.onPageLoad(),
-      VAT            -> DoYouNeedToCancelVATController.onPageLoad(),
-      GeneralBetting -> DoYouNeedToStopGBDController.onPageLoad(),
-      Charities      -> DoYouNeedToCloseCharityController.onPageLoad(),
-      RemoteGaming   -> DoYouNeedToStopRGDController.onPageLoad(),
-      PoolBetting    -> DoYouNeedToStopPBDController.onPageLoad()
+      VATMOSS         -> DoYouNeedToLeaveVATMOSSController.onPageLoad(),
+      VATMOSSNonUnion -> DoYouNeedToStopVatMossNUController.onPageLoad(),
+      SA              -> HaveYouStoppedSelfEmploymentController.onPageLoad(),
+      RebatedOils     -> DoYouNeedToStopROController.onPageLoad(),
+      EPAYE           -> DoYouNeedToStopEPAYEController.onPageLoad(),
+      AddCis          -> DoYouWantToLeaveCISController.onPageLoad(),
+      PSA             -> DoYouNeedToStopPSAController.onPageLoad(),
+      CT              -> StopCorporationTaxController.onPageLoad(),
+      VAT             -> DoYouNeedToCancelVATController.onPageLoad(),
+      GeneralBetting  -> DoYouNeedToStopGBDController.onPageLoad(),
+      Charities       -> DoYouNeedToCloseCharityController.onPageLoad(),
+      RemoteGaming    -> DoYouNeedToStopRGDController.onPageLoad(),
+      PoolBetting     -> DoYouNeedToStopPBDController.onPageLoad()
     )
 
     enrolmentRoutes.get(service) match {

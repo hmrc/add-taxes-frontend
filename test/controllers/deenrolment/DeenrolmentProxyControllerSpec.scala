@@ -31,7 +31,7 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
     val enrolments = Enrolments.values -
       (Enrolments.AddCis, Enrolments.PSA, Enrolments.RebatedOils, Enrolments.EPAYE,
       Enrolments.SA, Enrolments.CT, Enrolments.VAT, Enrolments.GeneralBetting,
-      Enrolments.Charities, Enrolments.VATMOSS, Enrolments.RemoteGaming, Enrolments.PoolBetting)
+      Enrolments.Charities, Enrolments.VATMOSS, Enrolments.RemoteGaming, Enrolments.PoolBetting, Enrolments.VATMOSSNonUnion)
 
     for (enrolment <- enrolments) {
       s"redirect to deenrolment management for $enrolment" in {
@@ -53,6 +53,7 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
       (Enrolments.VAT, "vat/how-to-stop-vat"),
       (Enrolments.GeneralBetting, "gambling/how-to-stop-gbd"),
       (Enrolments.VATMOSS, "vat/how-to-stop-vat-moss"),
+      (Enrolments.VATMOSSNonUnion, "vat/how-to-stop-vat-moss-nu"),
       (Enrolments.Charities, "charities/how-to-stop-charities"),
       (Enrolments.RemoteGaming, "gambling/how-to-stop-rgd")
     )
