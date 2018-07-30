@@ -49,13 +49,13 @@ class DeenrolmentProxyController @Inject()(
       GeneralBetting  -> DoYouNeedToStopGBDController.onPageLoad(),
       Charities       -> DoYouNeedToCloseCharityController.onPageLoad(),
       RemoteGaming    -> DoYouNeedToStopRGDController.onPageLoad(),
-      PoolBetting     -> DoYouNeedToStopPBDController.onPageLoad()
+      PoolBetting     -> DoYouNeedToStopPBDController.onPageLoad(),
+      ATWD            -> Call("GET", appConfig.atwdDeenrolmentUrl)
     )
 
     enrolmentRoutes.get(service) match {
       case Some(call) => Redirect(call)
       case None       => Redirect(appConfig.emacDeenrolmentsUrl(service))
-
     }
   }
 }
