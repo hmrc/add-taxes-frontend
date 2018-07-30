@@ -25,8 +25,8 @@ import controllers.other.alcohol.atwd.{routes => atwdRoutes}
 
 trait SelectAlcoholSchemeNextPage {
 
-  implicit val selectAlcoholScheme: NextPage[SelectAlcoholSchemeId.type, SelectAlcoholScheme] = {
-    new NextPage[SelectAlcoholSchemeId.type, SelectAlcoholScheme] {
+  implicit val selectAlcoholScheme: NextPage[SelectAlcoholSchemeId.type, SelectAlcoholScheme, Call] = {
+    new NextPage[SelectAlcoholSchemeId.type, SelectAlcoholScheme, Call] {
       override def get(b: SelectAlcoholScheme)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case SelectAlcoholScheme.ATWD => atwdRoutes.AreYouRegisteredWarehousekeeperController.onPageLoad()

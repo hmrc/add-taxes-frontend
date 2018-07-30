@@ -29,8 +29,8 @@ trait WhatTypeOfSubcontractorNextPage {
   type WhatTypeOfSubcontractorWithEnrolments = (WhatTypeOfSubcontractor, Enrolments)
 
   implicit val whatTypeOfSubcontractor
-    : NextPage[WhatTypeOfSubcontractorId.type, WhatTypeOfSubcontractorWithEnrolments] = {
-    new NextPage[WhatTypeOfSubcontractorId.type, WhatTypeOfSubcontractorWithEnrolments] {
+    : NextPage[WhatTypeOfSubcontractorId.type, WhatTypeOfSubcontractorWithEnrolments, Call] = {
+    new NextPage[WhatTypeOfSubcontractorId.type, WhatTypeOfSubcontractorWithEnrolments, Call] {
       override def get(
         b: WhatTypeOfSubcontractorWithEnrolments)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call = {
 

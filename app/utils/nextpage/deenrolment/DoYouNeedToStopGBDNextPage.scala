@@ -24,12 +24,12 @@ import utils.{Enrolments, NextPage}
 
 trait DoYouNeedToStopGBDNextPage {
 
-  implicit val doYouNeedToStopGBD: NextPage[DoYouNeedToStopGBDId.type, DoYouNeedToStopGBD] = {
-    new NextPage[DoYouNeedToStopGBDId.type, DoYouNeedToStopGBD] {
+  implicit val doYouNeedToStopGBD: NextPage[DoYouNeedToStopGBDId.type, DoYouNeedToStopGBD, Call] = {
+    new NextPage[DoYouNeedToStopGBDId.type, DoYouNeedToStopGBD, Call] {
       override def get(b: DoYouNeedToStopGBD)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouNeedToStopGBD.Yes => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.GeneralBetting))
-          case DoYouNeedToStopGBD.No  => Call("GET", appConfig.getGovUKUrl("deenrolGBD"))
+          case DoYouNeedToStopGBD.No  => Call("GET", appConfig.getGovUKUrl("deenrolGTS"))
         }
     }
   }

@@ -25,8 +25,8 @@ import utils.NextPage
 trait DoYouWantToBePaidNetOrGrossNextPage {
 
   implicit val doYouWantToBePaidNetOrGross
-    : NextPage[DoYouWantToBePaidNetOrGrossId.type, DoYouWantToBePaidNetOrGross] = {
-    new NextPage[DoYouWantToBePaidNetOrGrossId.type, DoYouWantToBePaidNetOrGross] {
+    : NextPage[DoYouWantToBePaidNetOrGrossId.type, DoYouWantToBePaidNetOrGross, Call] = {
+    new NextPage[DoYouWantToBePaidNetOrGrossId.type, DoYouWantToBePaidNetOrGross, Call] {
       override def get(
         b: DoYouWantToBePaidNetOrGross)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {

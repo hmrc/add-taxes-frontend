@@ -1,5 +1,7 @@
 # microservice specific routes
 
+GET        /:service                             controllers.deenrolment.DeenrolmentProxyController.onPageLoad(service: utils.Enrolments)
+
 GET        /cis/how-to-stop-cis                  controllers.deenrolment.DoYouWantToLeaveCISController.onPageLoad()
 POST       /cis/how-to-stop-cis                  controllers.deenrolment.DoYouWantToLeaveCISController.onSubmit()
 
@@ -12,13 +14,14 @@ POST       /ro/how-to-stop-ro                    controllers.deenrolment.DoYouNe
 GET        /epaye/how-to-stop-paye               controllers.deenrolment.DoYouNeedToStopEPAYEController.onPageLoad()
 POST       /epaye/how-to-stop-paye               controllers.deenrolment.DoYouNeedToStopEPAYEController.onSubmit()
 
-GET        /:service                             controllers.deenrolment.DeenrolmentProxyController.onPageLoad(service: utils.Enrolments)
-
 GET        /psa/how-to-stop-psa                  controllers.deenrolment.DoYouNeedToStopPSAController.onPageLoad()
 POST       /psa/how-to-stop-psa                  controllers.deenrolment.DoYouNeedToStopPSAController.onSubmit()
 
 GET        /gambling/how-to-stop-gbd             controllers.deenrolment.DoYouNeedToStopGBDController.onPageLoad()
 POST       /gambling/how-to-stop-gbd             controllers.deenrolment.DoYouNeedToStopGBDController.onSubmit()
+
+GET        /gambling/how-to-stop-rgd             controllers.deenrolment.DoYouNeedToStopRGDController.onPageLoad()
+POST       /gambling/how-to-stop-rgd             controllers.deenrolment.DoYouNeedToStopRGDController.onSubmit()
 
 GET        /ct/how-to-stop-ct                    controllers.deenrolment.StopCorporationTaxController.onPageLoad()
 POST       /ct/how-to-stop-ct                    controllers.deenrolment.StopCorporationTaxController.onSubmit()
@@ -28,3 +31,12 @@ POST       /vat/how-to-stop-vat                  controllers.deenrolment.DoYouNe
 
 GET        /self-assessment/how-to-stop-filing   controllers.deenrolment.StopFilingSelfAssessmentController.onPageLoad()
 POST       /self-assessment/how-to-stop-filing   controllers.deenrolment.StopFilingSelfAssessmentController.onSubmit()
+
+GET        /charities/how-to-stop-charities      controllers.deenrolment.DoYouNeedToCloseCharityController.onPageLoad()
+POST       /charities/how-to-stop-charities      controllers.deenrolment.DoYouNeedToCloseCharityController.onSubmit()
+
+GET        /vat/how-to-stop-vat-moss             controllers.deenrolment.DoYouNeedToLeaveVATMOSSController.onPageLoad()
+POST       /vat/how-to-stop-vat-moss             controllers.deenrolment.DoYouNeedToLeaveVATMOSSController.onSubmit()
+
+GET        /gambling/how-to-stop-pbd             controllers.deenrolment.DoYouNeedToStopPBDController.onPageLoad()
+POST       /gambling/how-to-stop-pbd             controllers.deenrolment.DoYouNeedToStopPBDController.onSubmit()

@@ -17,6 +17,7 @@
 package controllers.other.gambling.gbd
 
 import javax.inject.Inject
+
 import config.FrontendAppConfig
 import controllers.actions._
 import play.api.data.Form
@@ -25,6 +26,7 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import forms.other.gambling.gbd.AreYouRegisteredGTSFormProvider
 import identifiers.AreYouRegisteredGTSId
+import play.api.mvc.Call
 import viewmodels.ViewAction
 import views.html.other.gambling.areYouRegisteredGTS
 
@@ -33,7 +35,7 @@ import scala.concurrent.Future
 class AreYouRegisteredGTSController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
   formProvider: AreYouRegisteredGTSFormProvider)

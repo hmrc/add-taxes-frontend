@@ -24,6 +24,7 @@ import play.api.test.Helpers._
 import forms.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGrossFormProvider
 import identifiers.DoYouWantToBePaidNetOrGrossId
 import models.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGross
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.employer.cis.ukbased.subcontractor.doYouWantToBePaidNetOrGross
 
@@ -38,7 +39,7 @@ class DoYouWantToBePaidNetOrGrossControllerSpec extends ControllerSpecBase {
     new DoYouWantToBePaidNetOrGrossController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

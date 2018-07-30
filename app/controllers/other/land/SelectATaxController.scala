@@ -28,13 +28,13 @@ import forms.other.land.SelectATaxFormProvider
 import identifiers.SelectATaxId
 import models.other.land.SelectATax
 import models.requests.ServiceInfoRequest
-import play.api.mvc.AnyContent
+import play.api.mvc.{AnyContent, Call}
 import views.html.other.land.selectATax
 
 class SelectATaxController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
   formProvider: SelectATaxFormProvider)

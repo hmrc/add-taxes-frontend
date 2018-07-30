@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.vat.giant.WhatIsYourOrganisationFormProvider
 import identifiers.WhatIsYourOrganisationId
 import models.vat.giant.WhatIsYourOrganisation
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.vat.giant.whatIsYourOrganisation
 
@@ -40,7 +41,7 @@ class WhatIsYourOrganisationControllerSpec extends ControllerSpecBase {
     new WhatIsYourOrganisationController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

@@ -25,8 +25,8 @@ import utils.NextPage
 
 trait StopCorporationTaxNextPage {
 
-  implicit val stopCorporationTax: NextPage[StopCorporationTaxId.type, StopCorporationTax] = {
-    new NextPage[StopCorporationTaxId.type, StopCorporationTax] {
+  implicit val stopCorporationTax: NextPage[StopCorporationTaxId.type, StopCorporationTax, Call] = {
+    new NextPage[StopCorporationTaxId.type, StopCorporationTax, Call] {
       override def get(b: StopCorporationTax)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case StopCorporationTax.Stop    => Call("GET", appConfig.emacDeenrolmentsUrl(CT))

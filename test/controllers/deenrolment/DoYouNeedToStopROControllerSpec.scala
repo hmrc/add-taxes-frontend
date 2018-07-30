@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.deenrolment.DoYouNeedToStopROFormProvider
 import identifiers.DoYouNeedToStopROId
 import models.deenrolment.DoYouNeedToStopRO
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.deenrolment.doYouNeedToStopRO
 
@@ -40,7 +41,7 @@ class DoYouNeedToStopROControllerSpec extends ControllerSpecBase {
     new DoYouNeedToStopROController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

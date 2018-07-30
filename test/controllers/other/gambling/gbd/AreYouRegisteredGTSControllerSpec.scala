@@ -21,6 +21,7 @@ import controllers.actions.{FakeServiceInfoAction, _}
 import forms.other.gambling.gbd.AreYouRegisteredGTSFormProvider
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import play.api.data.Form
+import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
@@ -39,7 +40,7 @@ class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
     new AreYouRegisteredGTSController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

@@ -156,7 +156,7 @@ organisationOnly.notNow = I don’t want to do this right now
 #######################################################
 ##  RegisterExciseMovementControlSystem
 #######################################################
-registerExciseMovementControlSystem.title = Get a SEED excise ID first
+registerExciseMovementControlSystem.title = You need a System for the Exchange of Excise Data (SEED) number to add this service
 registerExciseMovementControlSystem.heading = You need a System for the Exchange of Excise Data (SEED) number to add this service
 registerExciseMovementControlSystem.youNeedToRegister= When you get this, sign in and add the Excise Movement and Control System to your account.
 registerExciseMovementControlSystem.button= Get a SEED number
@@ -957,3 +957,39 @@ stopFilingSelfAssessment.heading = Do you need to stop filing Self Assessment re
 stopFilingSelfAssessment.Yes = Yes
 stopFilingSelfAssessment.No = No, I need to stop using the Self Assessment online service
 stopFilingSelfAssessment.error.required = Select yes if you need to stop filing Self Assessment returns
+
+#######################################################
+##  DoYouNeedToStopRGD
+#######################################################
+doYouNeedToStopRGD.title = Do you need to stop using the Remote Gaming Duty online service?
+doYouNeedToStopRGD.heading = Do you need to stop using the Remote Gaming Duty online service?
+doYouNeedToStopRGD.Yes = Yes
+doYouNeedToStopRGD.No = No, I need to deregister from Remote Gaming Duty
+doYouNeedToStopRGD.error.required = Select yes if you need to stop using the Remote Gaming Duty online service
+
+#######################################################
+##  DoYouNeedToCloseCharity
+#######################################################
+doYouNeedToCloseCharity.title = Do you need to close the charity?
+doYouNeedToCloseCharity.heading = Do you need to close the charity?
+doYouNeedToCloseCharity.Yes = Yes
+doYouNeedToCloseCharity.No = No, I need to stop using the Charities online service
+doYouNeedToCloseCharity.error.required = Select yes if you need to close the charity
+
+#######################################################
+##  DoYouNeedToLeaveVATMOSS
+#######################################################
+doYouNeedToLeaveVATMOSS.title = Do you need to leave this VAT MOSS scheme?
+doYouNeedToLeaveVATMOSS.heading = Do you need to leave this VAT MOSS scheme?
+doYouNeedToLeaveVATMOSS.Yes = Yes
+doYouNeedToLeaveVATMOSS.No = No, I need to stop using the online service
+doYouNeedToLeaveVATMOSS.error.required = Select yes if you need to leave this VAT MOSS scheme
+
+#######################################################
+##  DoYouNeedToStopPBD
+#######################################################
+doYouNeedToStopPBD.title = Do you need to stop using the Pool Betting Duty online service?
+doYouNeedToStopPBD.heading = Do you need to stop using the Pool Betting Duty online service?
+doYouNeedToStopPBD.Yes = Yes
+doYouNeedToStopPBD.No = No, I need to deregister from Pool Betting Duty
+doYouNeedToStopPBD.error.required = Select yes if you need to stop using the Pool Betting Duty online service

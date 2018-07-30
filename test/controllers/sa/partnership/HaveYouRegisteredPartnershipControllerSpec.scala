@@ -23,6 +23,7 @@ import controllers._
 import play.api.test.Helpers._
 import forms.sa.partnership.HaveYouRegisteredPartnershipFormProvider
 import models.sa.partnership.HaveYouRegisteredPartnership
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.sa.partnership.haveYouRegisteredPartnership
 
@@ -37,7 +38,7 @@ class HaveYouRegisteredPartnershipControllerSpec extends ControllerSpecBase {
     new HaveYouRegisteredPartnershipController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

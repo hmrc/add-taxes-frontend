@@ -27,6 +27,7 @@ import utils.{Enumerable, HmrcEnrolmentType, Navigator, RadioOption}
 import forms.sa.SelectSACategoryFormProvider
 import identifiers.SelectSACategoryId
 import models.sa.SelectSACategory
+import play.api.mvc.Call
 import uk.gov.hmrc.auth.core.Enrolments
 import views.html.sa.selectSACategory
 import utils.&&
@@ -37,7 +38,7 @@ import play.api.mvc.Result
 class SelectSACategoryController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
   formProvider: SelectSACategoryFormProvider)

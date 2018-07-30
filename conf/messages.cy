@@ -140,7 +140,7 @@ otherTaxes.legend = Dewis treth neu fath o gynllun
 #######################################################
 ##  RegisterExciseMovementControlSystem
 #######################################################
-registerExciseMovementControlSystem.title = Dylech gael ID SEED ecséis yn gyntaf
+registerExciseMovementControlSystem.title = Mae angen rhif System ar gyfer Cyfnewid Data Ecséis (SEED) arnoch i ychwanegu’r gwasanaeth hwn
 registerExciseMovementControlSystem.heading = Mae angen rhif System ar gyfer Cyfnewid Data Ecséis (SEED) arnoch i ychwanegu’r gwasanaeth hwn
 registerExciseMovementControlSystem.youNeedToRegister= Pan gewch chi hwn, mewngofnodwch i’ch cyfrif ac ychwanegwch y System Symudiadau a Rheolaeth Ecséis.
 registerExciseMovementControlSystem.button= Cael rhif SEED
@@ -953,3 +953,39 @@ stopFilingSelfAssessment.heading = A oes angen i chi roi’r gorau i gyflwyno Ff
 stopFilingSelfAssessment.Yes = Iawn
 stopFilingSelfAssessment.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Hunanasesiad ar-lein
 stopFilingSelfAssessment.error.required = Dewiswch ’Iawn’ os oes angen i chi roi’r gorau i gyflwyno Ffurflenni Treth Hunanasesiad
+
+#######################################################
+##  DoYouNeedToStopRGD
+#######################################################
+doYouNeedToStopRGD.title = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Hapchwarae o Bell?
+doYouNeedToStopRGD.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Hapchwarae o Bell?
+doYouNeedToStopRGD.Yes = Iawn
+doYouNeedToStopRGD.No = Na, mae angen i fi ddadgofrestru o’r Doll Hapchwarae o Bell
+doYouNeedToStopRGD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Hapchwarae o Bell
+
+#######################################################
+##  DoYouNeedToCloseCharity
+#######################################################
+doYouNeedToCloseCharity.title = A oes angen i chi gau’r elusen?
+doYouNeedToCloseCharity.heading = A oes angen i chi gau’r elusen?
+doYouNeedToCloseCharity.Yes = Iawn
+doYouNeedToCloseCharity.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Elusennau ar-lein
+doYouNeedToCloseCharity.error.required = Dewiswch Iawn os oes angen i chi gau’r elusen
+
+#######################################################
+##  DoYouNeedToLeaveVATMOSS
+#######################################################
+doYouNeedToLeaveVATMOSS.title = A oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn?
+doYouNeedToLeaveVATMOSS.heading = A oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn?
+doYouNeedToLeaveVATMOSS.Yes = Iawn
+doYouNeedToLeaveVATMOSS.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein
+doYouNeedToLeaveVATMOSS.error.required = Dewiswch Iawn os oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn
+
+#######################################################
+##  DoYouNeedToStopPBD
+#######################################################
+doYouNeedToStopPBD.title = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio?
+doYouNeedToStopPBD.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio?
+doYouNeedToStopPBD.Yes = Iawn
+doYouNeedToStopPBD.No = Na, mae angen i fi ddadgofrestru o’r Toll Cronfa Fetio
+doYouNeedToStopPBD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio

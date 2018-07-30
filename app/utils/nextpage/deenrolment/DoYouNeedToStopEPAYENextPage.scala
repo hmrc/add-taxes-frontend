@@ -24,8 +24,8 @@ import utils.{Enrolments, NextPage}
 
 trait DoYouNeedToStopEPAYENextPage {
 
-  implicit val doYouNeedToStopEPAYE: NextPage[DoYouNeedToStopEPAYEId.type, DoYouNeedToStopEPAYE] = {
-    new NextPage[DoYouNeedToStopEPAYEId.type, DoYouNeedToStopEPAYE] {
+  implicit val doYouNeedToStopEPAYE: NextPage[DoYouNeedToStopEPAYEId.type, DoYouNeedToStopEPAYE, Call] = {
+    new NextPage[DoYouNeedToStopEPAYEId.type, DoYouNeedToStopEPAYE, Call] {
       override def get(b: DoYouNeedToStopEPAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouNeedToStopEPAYE.Yes => Call("GET", appConfig.getBusinessAccountUrl("epaye-remove"))

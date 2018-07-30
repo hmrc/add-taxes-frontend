@@ -17,12 +17,14 @@
 package controllers.vat.rcsl
 
 import javax.inject.Inject
+
 import controllers.actions._
 import config.FrontendAppConfig
 import forms.vat.RegisteredForVATFormProvider
 import identifiers.RegisteredForVATRCSLId
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.Call
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.Navigator
 import viewmodels.ViewAction
@@ -34,7 +36,7 @@ class RegisteredForVATRCSLController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   authenticate: AuthAction,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   serviceInfo: ServiceInfoAction,
   formProvider: RegisteredForVATFormProvider)
     extends FrontendController

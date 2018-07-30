@@ -25,8 +25,8 @@ import controllers.sa.trust.{routes => trustRoutes}
 
 trait HaveYouRegisteredTrustNextPage {
 
-  implicit val haveYouRegisteredTrust: NextPage[HaveYouRegisteredTrustId.type, HaveYouRegisteredTrust] = {
-    new NextPage[HaveYouRegisteredTrustId.type, HaveYouRegisteredTrust] {
+  implicit val haveYouRegisteredTrust: NextPage[HaveYouRegisteredTrustId.type, HaveYouRegisteredTrust, Call] = {
+    new NextPage[HaveYouRegisteredTrustId.type, HaveYouRegisteredTrust, Call] {
       override def get(b: HaveYouRegisteredTrust)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case HaveYouRegisteredTrust.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.RegisterTrusts))

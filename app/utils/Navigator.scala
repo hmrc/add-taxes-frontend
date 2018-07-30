@@ -23,9 +23,9 @@ import play.api.mvc.Request
 import play.api.mvc.Call
 
 @Singleton
-class Navigator @Inject()(frontendAppConfig: FrontendAppConfig) {
+class Navigator[C] @Inject()(frontendAppConfig: FrontendAppConfig) {
 
-  def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B], request: Request[_]): Call =
+  def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B, C], request: Request[_]): C =
     ev.get(b)(frontendAppConfig, request)
 
 }

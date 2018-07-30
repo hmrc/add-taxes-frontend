@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.vat.moss.iom.AlreadyRegisteredForVATMossFormProvider
 import identifiers.AlreadyRegisteredForVATMossId
 import models.vat.moss.iom.AlreadyRegisteredForVATMoss
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.vat.moss.iom.alreadyRegisteredForVATMoss
 
@@ -40,7 +41,7 @@ class AlreadyRegisteredForVATMossControllerSpec extends ControllerSpecBase {
     new AlreadyRegisteredForVATMossController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

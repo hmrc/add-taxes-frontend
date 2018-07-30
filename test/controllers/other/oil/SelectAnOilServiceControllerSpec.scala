@@ -22,7 +22,7 @@ import forms.other.oils.SelectAnOilServiceFormProvider
 import models.other.oil.SelectAnOilService
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import play.api.data.Form
-import play.api.mvc.AnyContent
+import play.api.mvc.{AnyContent, Call}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
@@ -42,7 +42,7 @@ class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
     new SelectAnOilServiceController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

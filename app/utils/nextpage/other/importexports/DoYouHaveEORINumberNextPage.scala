@@ -28,8 +28,8 @@ import utils.{Enrolments, NextPage}
 
 trait DoYouHaveEORINumberNextPage {
 
-  implicit val icsEori: NextPage[DoYouHaveEORINumberId.ICS.type, DoYouHaveEORINumber] = {
-    new NextPage[DoYouHaveEORINumberId.ICS.type, DoYouHaveEORINumber] {
+  implicit val icsEori: NextPage[DoYouHaveEORINumberId.ICS.type, DoYouHaveEORINumber, Call] = {
+    new NextPage[DoYouHaveEORINumberId.ICS.type, DoYouHaveEORINumber, Call] {
       override def get(b: DoYouHaveEORINumber)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouHaveEORINumber.Yes =>
@@ -39,8 +39,8 @@ trait DoYouHaveEORINumberNextPage {
     }
   }
 
-  implicit val ebtiEori: NextPage[DoYouHaveEORINumberId.EBTI.type, DoYouHaveEORINumber] = {
-    new NextPage[DoYouHaveEORINumberId.EBTI.type, DoYouHaveEORINumber] {
+  implicit val ebtiEori: NextPage[DoYouHaveEORINumberId.EBTI.type, DoYouHaveEORINumber, Call] = {
+    new NextPage[DoYouHaveEORINumberId.EBTI.type, DoYouHaveEORINumber, Call] {
       override def get(b: DoYouHaveEORINumber)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouHaveEORINumber.Yes =>
@@ -50,8 +50,8 @@ trait DoYouHaveEORINumberNextPage {
     }
   }
 
-  implicit val nctsEori: NextPage[DoYouHaveEORINumberId.NCTS.type, DoYouHaveEORINumber] = {
-    new NextPage[DoYouHaveEORINumberId.NCTS.type, DoYouHaveEORINumber] {
+  implicit val nctsEori: NextPage[DoYouHaveEORINumberId.NCTS.type, DoYouHaveEORINumber, Call] = {
+    new NextPage[DoYouHaveEORINumberId.NCTS.type, DoYouHaveEORINumber, Call] {
       override def get(b: DoYouHaveEORINumber)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouHaveEORINumber.Yes =>
@@ -61,8 +61,8 @@ trait DoYouHaveEORINumberNextPage {
     }
   }
 
-  implicit val nesEori: NextPage[DoYouHaveEORINumberId.NES.type, DoYouHaveEORINumber] = {
-    new NextPage[DoYouHaveEORINumberId.NES.type, DoYouHaveEORINumber] {
+  implicit val nesEori: NextPage[DoYouHaveEORINumberId.NES.type, DoYouHaveEORINumber, Call] = {
+    new NextPage[DoYouHaveEORINumberId.NES.type, DoYouHaveEORINumber, Call] {
       override def get(b: DoYouHaveEORINumber)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouHaveEORINumber.Yes => nesRoutes.DoYouHaveCHIEFRoleHasEORIController.onPageLoad()

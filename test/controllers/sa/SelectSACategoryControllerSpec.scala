@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.sa.SelectSACategoryFormProvider
 import identifiers.SelectSACategoryId
 import models.sa.SelectSACategory
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.sa.selectSACategory
 
@@ -40,7 +41,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
     new SelectSACategoryController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction(enrolmentTypes: _*),
       formProvider

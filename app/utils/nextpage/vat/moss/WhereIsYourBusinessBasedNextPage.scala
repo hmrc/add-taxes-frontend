@@ -28,8 +28,8 @@ import utils.{Enrolments, NextPage}
 
 trait WhereIsYourBusinessBasedNextPage {
 
-  implicit val whereIsYourBusinessBased: NextPage[WhereIsYourBusinessBasedId.type, WhereIsYourBusinessBased] = {
-    new NextPage[WhereIsYourBusinessBasedId.type, WhereIsYourBusinessBased] {
+  implicit val whereIsYourBusinessBased: NextPage[WhereIsYourBusinessBasedId.type, WhereIsYourBusinessBased, Call] = {
+    new NextPage[WhereIsYourBusinessBasedId.type, WhereIsYourBusinessBased, Call] {
       override def get(b: WhereIsYourBusinessBased)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case WhereIsYourBusinessBased.UK    => ukBasedRoutes.RegisteredForVATUkController.onPageLoad()

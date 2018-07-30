@@ -25,8 +25,8 @@ import utils.{Enrolments, NextPage}
 
 trait DoYouHaveDANNextPage {
 
-  implicit val doYouHaveDAN: NextPage[DoYouHaveDANId.type, DoYouHaveDAN] = {
-    new NextPage[DoYouHaveDANId.type, DoYouHaveDAN] {
+  implicit val doYouHaveDAN: NextPage[DoYouHaveDANId.type, DoYouHaveDAN, Call] = {
+    new NextPage[DoYouHaveDANId.type, DoYouHaveDAN, Call] {
       override def get(b: DoYouHaveDAN)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouHaveDAN.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.DefermentApprovalNumber))
