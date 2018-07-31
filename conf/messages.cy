@@ -140,7 +140,7 @@ otherTaxes.legend = Dewis treth neu fath o gynllun
 #######################################################
 ##  RegisterExciseMovementControlSystem
 #######################################################
-registerExciseMovementControlSystem.title = Dylech gael ID SEED ecséis yn gyntaf
+registerExciseMovementControlSystem.title = Mae angen rhif System ar gyfer Cyfnewid Data Ecséis (SEED) arnoch i ychwanegu’r gwasanaeth hwn
 registerExciseMovementControlSystem.heading = Mae angen rhif System ar gyfer Cyfnewid Data Ecséis (SEED) arnoch i ychwanegu’r gwasanaeth hwn
 registerExciseMovementControlSystem.youNeedToRegister= Pan gewch chi hwn, mewngofnodwch i’ch cyfrif ac ychwanegwch y System Symudiadau a Rheolaeth Ecséis.
 registerExciseMovementControlSystem.button= Cael rhif SEED
@@ -183,11 +183,10 @@ registerEORIICS.p1 = Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y System Rh
 #######################################################
 ##  RegisterDefermentApprovalNumber
 #######################################################
-registerDefermentApprovalNumber.title = Dylech gael Rhif Cymeradwyo Gohirio (DAN) yn gyntaf
-registerDefermentApprovalNumber.heading = Dylech gael Rhif Cymeradwyo Gohirio (DAN) yn gyntaf
-registerDefermentApprovalNumber.p1 = Mae angen i chi gael Rhif Cymeradwyo Gohirio (DAN) cyn y gallwch ychwanegu Datganiadau Electronig i Ohirio Tollau i’ch cyfrif.
-registerDefermentApprovalNumber.p2 = Dychwelwch i’ch cyfrif ac ychwanegu Datganiadau Electronig i Ohirio Tollau pan fydd eich Rhif Cymeradwyo Gohirio (DAN) yn cyrraedd.
-registerDefermentApprovalNumber.continue = Mynd yn eich blaen - cael DAN
+registerDefermentApprovalNumber.title = Mae angen Rhif Cymeradwyo Gohiriad arnoch i ychwanegu’r gwasanaeth hwn
+registerDefermentApprovalNumber.heading = Mae angen Rhif Cymeradwyo Gohiriad arnoch i ychwanegu’r gwasanaeth hwn
+registerDefermentApprovalNumber.p1 = Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y Datganiadau Electronig i Ohirio Tollau at eich cyfrif.
+registerDefermentApprovalNumber.continue = Gwneud cais i gymeradwyo gohiriad
 
 
 #######################################################
@@ -195,9 +194,9 @@ registerDefermentApprovalNumber.continue = Mynd yn eich blaen - cael DAN
 #######################################################
 doYouHaveDAN.title = A oes gennych Rif Cymeradwyo Gohirio (DAN)?
 doYouHaveDAN.heading = A oes gennych Rif Cymeradwyo Gohirio (DAN)?
-doYouHaveDAN.Yes = Oes - mae gennyf Rif Cymeradwyo Gohirio
-doYouHaveDAN.No = Nac oes - nid oes gennyf DAN ar hyn o bryd
-doYouHaveDAN.error.required = Dewis iawn neu na
+doYouHaveDAN.Yes = Iawn
+doYouHaveDAN.No = Na
+doYouHaveDAN.error.required = Dewiswch ‘Iawn’ os oes gennych Rif Cymeradwyo Gohiriad
 
 
 #######################################################
@@ -956,6 +955,15 @@ stopFilingSelfAssessment.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r 
 stopFilingSelfAssessment.error.required = Dewiswch ’Iawn’ os oes angen i chi roi’r gorau i gyflwyno Ffurflenni Treth Hunanasesiad
 
 #######################################################
+##  DoYouNeedToStopRGD
+#######################################################
+doYouNeedToStopRGD.title = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Hapchwarae o Bell?
+doYouNeedToStopRGD.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Hapchwarae o Bell?
+doYouNeedToStopRGD.Yes = Iawn
+doYouNeedToStopRGD.No = Na, mae angen i fi ddadgofrestru o’r Doll Hapchwarae o Bell
+doYouNeedToStopRGD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Hapchwarae o Bell
+
+#######################################################
 ##  DoYouNeedToCloseCharity
 #######################################################
 doYouNeedToCloseCharity.title = A oes angen i chi gau’r elusen?
@@ -963,6 +971,24 @@ doYouNeedToCloseCharity.heading = A oes angen i chi gau’r elusen?
 doYouNeedToCloseCharity.Yes = Iawn
 doYouNeedToCloseCharity.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Elusennau ar-lein
 doYouNeedToCloseCharity.error.required = Dewiswch Iawn os oes angen i chi gau’r elusen
+
+#######################################################
+##  DoYouNeedToLeaveVATMOSS
+#######################################################
+doYouNeedToLeaveVATMOSS.title = A oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn?
+doYouNeedToLeaveVATMOSS.heading = A oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn?
+doYouNeedToLeaveVATMOSS.Yes = Iawn
+doYouNeedToLeaveVATMOSS.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein
+doYouNeedToLeaveVATMOSS.error.required = Dewiswch Iawn os oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn
+
+#######################################################
+##  DoYouNeedToStopPBD
+#######################################################
+doYouNeedToStopPBD.title = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio?
+doYouNeedToStopPBD.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio?
+doYouNeedToStopPBD.Yes = Iawn
+doYouNeedToStopPBD.No = Na, mae angen i fi ddadgofrestru o’r Toll Cronfa Fetio
+doYouNeedToStopPBD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio
 
 #######################################################
 ##  DoYouNeedToStopMGDController

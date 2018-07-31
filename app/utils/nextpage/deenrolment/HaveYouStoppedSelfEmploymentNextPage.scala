@@ -25,8 +25,8 @@ import utils.{Enrolments, NextPage}
 trait HaveYouStoppedSelfEmploymentNextPage {
 
   implicit val haveYouStoppedSelfEmployment
-    : NextPage[HaveYouStoppedSelfEmploymentId.type, HaveYouStoppedSelfEmployment] = {
-    new NextPage[HaveYouStoppedSelfEmploymentId.type, HaveYouStoppedSelfEmployment] {
+    : NextPage[HaveYouStoppedSelfEmploymentId.type, HaveYouStoppedSelfEmployment, Call] = {
+    new NextPage[HaveYouStoppedSelfEmploymentId.type, HaveYouStoppedSelfEmployment, Call] {
       override def get(
         b: HaveYouStoppedSelfEmployment)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {

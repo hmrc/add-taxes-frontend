@@ -25,8 +25,8 @@ import utils.NextPage
 
 trait WhatIsYourOrganisationNextPage {
 
-  implicit val whatIsYourOrganisation: NextPage[WhatIsYourOrganisationId.type, WhatIsYourOrganisation] = {
-    new NextPage[WhatIsYourOrganisationId.type, WhatIsYourOrganisation] {
+  implicit val whatIsYourOrganisation: NextPage[WhatIsYourOrganisationId.type, WhatIsYourOrganisation, Call] = {
+    new NextPage[WhatIsYourOrganisationId.type, WhatIsYourOrganisation, Call] {
       override def get(b: WhatIsYourOrganisation)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case WhatIsYourOrganisation.Yes => Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.VATGIANT))

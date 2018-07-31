@@ -24,7 +24,7 @@ import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-
+import play.api.mvc.Call
 import forms.deenrolment.DoYouNeedToStopMGDFormProvider
 import identifiers.DoYouNeedToStopMGDId
 import views.html.deenrolment.doYouNeedToStopMGD
@@ -32,7 +32,7 @@ import views.html.deenrolment.doYouNeedToStopMGD
 class DoYouNeedToStopMGDController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
   formProvider: DoYouNeedToStopMGDFormProvider)

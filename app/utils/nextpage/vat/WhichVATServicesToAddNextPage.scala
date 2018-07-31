@@ -35,8 +35,9 @@ trait WhichVATServicesToAddNextPage {
 
   type WhichVATServicesToAddWithRequests = (WhichVATServicesToAdd, Option[AffinityGroup], Enrolments)
 
-  implicit val whichVATServicesToAdd: NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithRequests] = {
-    new NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithRequests] {
+  implicit val whichVATServicesToAdd
+    : NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithRequests, Call] = {
+    new NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithRequests, Call] {
       override def get(
         b: WhichVATServicesToAddWithRequests)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call = {
 

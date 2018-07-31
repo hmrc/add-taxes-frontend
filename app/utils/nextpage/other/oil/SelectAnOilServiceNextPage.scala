@@ -26,8 +26,8 @@ import utils.NextPage
 
 trait SelectAnOilServiceNextPage {
 
-  implicit val selectAnOilService: NextPage[SelectAnOilServiceId.type, SelectAnOilService] =
-    new NextPage[SelectAnOilServiceId.type, SelectAnOilService] {
+  implicit val selectAnOilService: NextPage[SelectAnOilServiceId.type, SelectAnOilService, Call] =
+    new NextPage[SelectAnOilServiceId.type, SelectAnOilService, Call] {
       override def get(b: SelectAnOilService)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case RebatedOilsEnquiryService => routes.HaveYouRegisteredForRebatedOilsController.onPageLoad()

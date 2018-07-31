@@ -23,6 +23,7 @@ import controllers._
 import play.api.test.Helpers._
 import forms.other.land.SelectATaxFormProvider
 import models.other.land.SelectATax
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.other.land.selectATax
 
@@ -37,7 +38,7 @@ class SelectATaxControllerSpec extends ControllerSpecBase {
     new SelectATaxController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction(enrolments: _*),
       formProvider

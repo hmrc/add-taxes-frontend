@@ -23,6 +23,7 @@ import controllers._
 import play.api.test.Helpers._
 import forms.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVATFormProvider
 import models.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVAT
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.employer.cis.ukbased.subcontractor.wasTurnoverMoreAfterVAT
 
@@ -37,7 +38,7 @@ class WasTurnoverMoreAfterVATControllerSpec extends ControllerSpecBase {
     new WasTurnoverMoreAfterVATController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

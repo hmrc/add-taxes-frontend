@@ -8,8 +8,8 @@ import utils.NextPage
 
 trait $className$NextPage {
 
-  implicit val $className;format="decap"$: NextPage[$className$Id.type, $model$] = {
-    new NextPage[$className$Id.type, $model$] {
+  implicit val $className;format="decap"$: NextPage[$className$Id.type, $model$, Call] = {
+    new NextPage[$className$Id.type, $model$, Call] {
       override def get(b: $model$)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case _ => ???

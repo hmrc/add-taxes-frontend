@@ -24,8 +24,8 @@ import utils.{Enrolments, NextPage}
 
 trait DoYouWantToLeaveCISNextPage {
 
-  implicit val doYouWantToLeaveCIS: NextPage[DoYouWantToLeaveCISId.type, DoYouWantToLeaveCIS] = {
-    new NextPage[DoYouWantToLeaveCISId.type, DoYouWantToLeaveCIS] {
+  implicit val doYouWantToLeaveCIS: NextPage[DoYouWantToLeaveCISId.type, DoYouWantToLeaveCIS, Call] = {
+    new NextPage[DoYouWantToLeaveCISId.type, DoYouWantToLeaveCIS, Call] {
       override def get(b: DoYouWantToLeaveCIS)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouWantToLeaveCIS.Yes => Call("GET", appConfig.getBusinessAccountUrl("cis-remove"))

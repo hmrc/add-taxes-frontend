@@ -24,9 +24,9 @@ import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-
 import forms.other.ctf.AreYouApprovedCTFFormProvider
 import identifiers.AreYouApprovedCTFId
+import play.api.mvc.Call
 import views.html.other.ctf.areYouApprovedCTF
 
 import scala.concurrent.Future
@@ -34,7 +34,7 @@ import scala.concurrent.Future
 class AreYouApprovedCTFController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
   formProvider: AreYouApprovedCTFFormProvider)

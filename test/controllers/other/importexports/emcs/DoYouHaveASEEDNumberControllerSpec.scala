@@ -21,6 +21,7 @@ import controllers.ControllerSpecBase
 import forms.other.importexports.emcs.DoYouHaveASEEDNumberFormProvider
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import play.api.data.Form
+import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
@@ -37,7 +38,7 @@ class DoYouHaveASEEDNumberControllerSpec extends ControllerSpecBase {
     new DoYouHaveASEEDNumberController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)

@@ -25,6 +25,7 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import utils.{Enumerable, Navigator}
 import forms.employer.cis.IsYourBusinessInUKFormProvider
 import identifiers.IsYourBusinessInUKId
+import play.api.mvc.Call
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.employer.cis.isYourBusinessInUK
 
@@ -33,7 +34,7 @@ import scala.concurrent.Future
 class IsYourBusinessInUKController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
   formProvider: IsYourBusinessInUKFormProvider)

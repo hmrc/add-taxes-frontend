@@ -4,6 +4,7 @@ import controllers._
 import controllers.actions._
 import forms.$modelPackage$.$model$FormProvider
 import play.api.data.Form
+import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
@@ -17,7 +18,7 @@ class $className$ControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new $className$Controller(frontendAppConfig, messagesApi, FakeAuthAction,
-      new FakeNavigator(desiredRoute = onwardRoute), FakeServiceInfoAction, formProvider)
+      new FakeNavigator[Call](desiredRoute = onwardRoute), FakeServiceInfoAction, formProvider)
 
   def viewAsString(form: Form[_] = form) = ???
 

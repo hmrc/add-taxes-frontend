@@ -26,6 +26,7 @@ import play.api.test.Helpers._
 import forms.deenrolment.StopCorporationTaxFormProvider
 import identifiers.StopCorporationTaxId
 import models.deenrolment.StopCorporationTax
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.deenrolment.stopCorporationTax
 
@@ -40,7 +41,7 @@ class StopCorporationTaxControllerSpec extends ControllerSpecBase {
     new StopCorporationTaxController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider)
