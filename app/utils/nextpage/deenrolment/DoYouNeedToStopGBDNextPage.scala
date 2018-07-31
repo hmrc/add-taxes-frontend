@@ -29,7 +29,7 @@ trait DoYouNeedToStopGBDNextPage {
       override def get(b: DoYouNeedToStopGBD)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouNeedToStopGBD.Yes => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.GeneralBetting))
-          case DoYouNeedToStopGBD.No  => Call("GET", appConfig.getGovUKUrl("deenrolGTS"))
+          case DoYouNeedToStopGBD.No  => Call("GET", appConfig.getGovUKUrl("deenrolGambling"))
         }
     }
   }

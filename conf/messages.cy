@@ -989,3 +989,12 @@ doYouNeedToStopPBD.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gw
 doYouNeedToStopPBD.Yes = Iawn
 doYouNeedToStopPBD.No = Na, mae angen i fi ddadgofrestru o’r Toll Cronfa Fetio
 doYouNeedToStopPBD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio
+
+#######################################################
+##  DoYouNeedToStopMGDController
+#######################################################
+doYouNeedToStopMGD.title = A oes angen i chi roi gorau i ddefnyddio’r gwasanaeth ar-lein Toll Peiriannau Hapchwarae?
+doYouNeedToStopMGD.heading = A oes angen i chi roi gorau i ddefnyddio’r gwasanaeth ar-lein Toll Peiriannau Hapchwarae?
+doYouNeedToStopMGD.Yes = Iawn
+doYouNeedToStopMGD.No = Na, mae angen i fi ddadgofrestru o’r Doll Peiriannau Hapchwarae
+doYouNeedToStopMGD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r Doll Peiriannau Hapchwarae

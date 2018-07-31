@@ -17,19 +17,19 @@
 package utils.nextpage.deenrolment
 
 import config.FrontendAppConfig
-import identifiers.DoYouNeedToStopPBDId
+import identifiers.DoYouNeedToStopMGDId
 import play.api.mvc.{Call, Request}
-import models.deenrolment.DoYouNeedToStopPBD
+import models.deenrolment.DoYouNeedToStopMGD
 import utils.{Enrolments, NextPage}
 
-trait DoYouNeedToStopPBDNextPage {
+trait DoYouNeedToStopMGDNextPage {
 
-  implicit val doYouNeedToStopPBD: NextPage[DoYouNeedToStopPBDId.type, DoYouNeedToStopPBD, Call] = {
-    new NextPage[DoYouNeedToStopPBDId.type, DoYouNeedToStopPBD, Call] {
-      override def get(b: DoYouNeedToStopPBD)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+  implicit val doYouNeedToStopMGD: NextPage[DoYouNeedToStopMGDId.type, DoYouNeedToStopMGD, Call] = {
+    new NextPage[DoYouNeedToStopMGDId.type, DoYouNeedToStopMGD, Call] {
+      override def get(b: DoYouNeedToStopMGD)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case DoYouNeedToStopPBD.Yes => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.PoolBetting))
-          case DoYouNeedToStopPBD.No  => Call("GET", appConfig.getGovUKUrl("deenrolGambling"))
+          case DoYouNeedToStopMGD.Yes => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.MachineGamesDuty))
+          case DoYouNeedToStopMGD.No  => Call("GET", appConfig.getGovUKUrl("deenrolGambling"))
         }
     }
   }

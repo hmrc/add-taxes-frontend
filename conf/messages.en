@@ -993,3 +993,12 @@ doYouNeedToStopPBD.heading = Do you need to stop using the Pool Betting Duty onl
 doYouNeedToStopPBD.Yes = Yes
 doYouNeedToStopPBD.No = No, I need to deregister from Pool Betting Duty
 doYouNeedToStopPBD.error.required = Select yes if you need to stop using the Pool Betting Duty online service
+
+#######################################################
+##  DoYouNeedToStopMGDController
+#######################################################
+doYouNeedToStopMGD.title = Do you need to stop using the Machine Games Duty online service?
+doYouNeedToStopMGD.heading = Do you need to stop using the Machine Games Duty online service?
+doYouNeedToStopMGD.Yes = Yes
+doYouNeedToStopMGD.No = No, I need to deregister from Machine Games Duty
+doYouNeedToStopMGD.error.required = Select yes if you need to stop using the Machine Games Duty online service
