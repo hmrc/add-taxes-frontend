@@ -72,7 +72,7 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(
-        "http://localhost:9555/enrolment-management-frontend/HMCE-ATWD-ORG/remove-warehouse"
+        "http://localhost:9555/enrolment-management-frontend/HMCE-ATWD-ORG/remove-warehouse?continue=/account"
       )
     }
 
