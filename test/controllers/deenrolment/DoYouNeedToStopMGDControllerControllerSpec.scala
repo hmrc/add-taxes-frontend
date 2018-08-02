@@ -17,33 +17,39 @@
 package controllers.deenrolment
 
 import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
+import utils.{FakeLoggingHelper, FakeNavigator}
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import play.api.test.Helpers._
 import forms.deenrolment.DoYouNeedToStopMGDFormProvider
+import handlers.FakeErrorHandler
 import identifiers.DoYouNeedToStopMGDId
 import models.deenrolment.DoYouNeedToStopMGD
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.deenrolment.doYouNeedToStopMGD
 
 class DoYouNeedToStopMGDControllerControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  val serverErrorTemplate = "An error has occurred"
 
   val formProvider = new DoYouNeedToStopMGDFormProvider()
   val form = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller(
+    dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap,
+    desiredRoute: Either[String, Call] = Right(onwardRoute)) =
     new DoYouNeedToStopMGDController(
       frontendAppConfig,
       messagesApi,
-      new FakeNavigator(desiredRoute = onwardRoute),
+      new FakeNavigator[Either[String, Call]](desiredRoute = desiredRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      new FakeErrorHandler(serverErrorTemplate = serverErrorTemplate),
+      new FakeLoggingHelper
+    )
 
   def viewAsString(form: Form[_] = form) =
     doYouNeedToStopMGD(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
@@ -90,6 +96,14 @@ class DoYouNeedToStopMGDControllerControllerSpec extends ControllerSpecBase {
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)
       }
+    }
+
+    "return internal server error" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouNeedToStopMGD.No.toString))
+      val result = controller(desiredRoute = Left("")).onSubmit()(postRequest)
+
+      status(result) mustBe INTERNAL_SERVER_ERROR
+      contentAsString(result) mustBe serverErrorTemplate
     }
   }
 }

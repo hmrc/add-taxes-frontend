@@ -20,16 +20,33 @@ import config.FrontendAppConfig
 import identifiers.DoYouNeedToStopMGDId
 import play.api.mvc.{Call, Request}
 import models.deenrolment.DoYouNeedToStopMGD
+import uk.gov.hmrc.auth.core.Enrolment
 import utils.{Enrolments, NextPage}
 
 trait DoYouNeedToStopMGDNextPage {
 
-  implicit val doYouNeedToStopMGD: NextPage[DoYouNeedToStopMGDId.type, DoYouNeedToStopMGD, Call] = {
-    new NextPage[DoYouNeedToStopMGDId.type, DoYouNeedToStopMGD, Call] {
-      override def get(b: DoYouNeedToStopMGD)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+  type DoYouNeedToStopMGDWithEnrolment = (DoYouNeedToStopMGD, Option[Enrolment])
+
+  implicit val doYouNeedToStopMGD
+    : NextPage[DoYouNeedToStopMGDId.type, DoYouNeedToStopMGDWithEnrolment, Either[String, Call]] = {
+    new NextPage[DoYouNeedToStopMGDId.type, DoYouNeedToStopMGDWithEnrolment, Either[String, Call]] {
+      override def get(b: DoYouNeedToStopMGDWithEnrolment)(
+        implicit appConfig: FrontendAppConfig,
+        request: Request[_]): Either[String, Call] =
         b match {
-          case DoYouNeedToStopMGD.Yes => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.MachineGamesDuty))
-          case DoYouNeedToStopMGD.No  => Call("GET", appConfig.getGovUKUrl("deenrolGambling"))
+
+          case (DoYouNeedToStopMGD.Yes, _) =>
+            Right(Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.MachineGamesDuty)))
+
+          case (DoYouNeedToStopMGD.No, Some(enrolment)) =>
+            enrolment.identifiers match {
+              case Nil    => Left(s"unable to find identifier for ${enrolment.key}")
+              case h :: _ => Right(Call("GET", appConfig.getPortalUrl("stopMGD", h.value)))
+            }
+          case (DoYouNeedToStopMGD.No, None) => Left("unable to find enrolment")
+//          case (DoYouNeedToStopMGD.No, _)     => Right(Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.VATMOSS)))
+//          case DoYouNeedToStopMGD.Yes => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.MachineGamesDuty))
+//          case DoYouNeedToStopMGD.No  => Call("GET", appConfig.getGovUKUrl("deenrolGambling"))
         }
     }
   }

@@ -17,22 +17,40 @@
 package utils.nextpage.deenrolment
 
 import models.deenrolment.DoYouNeedToStopMGD
+import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier}
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
 class DoYouNeedToStopMGDNextPageSpec extends NextPageSpecBase {
 
+  val enrolment = Enrolment("HMRC-MGD-ORG", List(EnrolmentIdentifier("ID", "1234567890")), "", None)
+
   "doYouNeedToStopMGD" when {
     behave like nextPage(
       NextPage.doYouNeedToStopMGD,
-      DoYouNeedToStopMGD.Yes,
-      "http://localhost:9555/enrolment-management-frontend/HMRC-MGD-ORG/remove-access-tax-scheme?continue=%2Fbusiness-account"
+      (DoYouNeedToStopMGD.Yes, None: Option[Enrolment]),
+      Right(
+        "http://localhost:9555/enrolment-management-frontend/HMRC-MGD-ORG/remove-access-tax-scheme?continue=%2Fbusiness-account")
     )
 
     behave like nextPage(
       NextPage.doYouNeedToStopMGD,
-      DoYouNeedToStopMGD.No,
-      "https://www.gov.uk/guidance/gambling-tax-service-online-service-guide-for-general-betting-duty-pool-betting-duty-and-remote-gaming-duty#registration-changes"
+      (DoYouNeedToStopMGD.No, Some(enrolment)),
+      Right("http://localhost:8080/portal/machine-games-duty-vars/org/1234567890?lang=eng")
+    )
+
+    behave like nextPage(
+      NextPage.doYouNeedToStopMGD,
+      (DoYouNeedToStopMGD.No, None: Option[Enrolment]),
+      Left("unable to find enrolment")
+    )
+
+    val enrolmentWithNoIdentifier = enrolment.copy(identifiers = List.empty)
+
+    behave like nextPage(
+      NextPage.doYouNeedToStopMGD,
+      (DoYouNeedToStopMGD.No, Some(enrolmentWithNoIdentifier)),
+      Left(s"unable to find identifier for ${enrolmentWithNoIdentifier.key}")
     )
   }
 }
