@@ -502,18 +502,17 @@ selectAlcoholScheme.error.required = Select a scheme
 #######################################################
 doYouHaveCharityReference.title = Do you have an HMRC Charities reference?
 doYouHaveCharityReference.heading = Do you have an HMRC Charities reference?
-doYouHaveCharityReference.Yes = Yes - we have an HMRC Charities reference
-doYouHaveCharityReference.No = No - we haven’t got an HMRC charities reference yet
-doYouHaveCharityReference.error.required = Select yes or no
+doYouHaveCharityReference.Yes = Yes
+doYouHaveCharityReference.No = No
+doYouHaveCharityReference.error.required = Select yes if you have an HMRC charities reference
 
 #######################################################
 ##  RegisterForCharity
 #######################################################
-registerForCharity.title = Register with HMRC as a Charity
-registerForCharity.heading = Register with HMRC as a Charity
-registerForCharity.p1 = You need to register with HMRC as a charity before you can add the Gift Aid service to your account.
-registerForCharity.p2 = We’ll send you a reference, which you can then use to add the service to your account.
-registerForCharity.continue = Continue - register with HMRC as a Charity
+registerForCharity.title = You need to register with HMRC as a charity before you add this service to your account
+registerForCharity.heading = You need to register with HMRC as a charity before you add this service to your account
+registerForCharity.p1 = When you get the reference, sign in and add this service.
+registerForCharity.continue = Register with HMRC as a charity
 
 #######################################################
 ##  UsePAYEEmployerAccount
