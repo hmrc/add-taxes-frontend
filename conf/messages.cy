@@ -447,11 +447,10 @@ doYouHaveMGDRegistration.error.required = Dewiswch Iawn os oes gennych rif cofre
 #######################################################
 ##  RegisterWarehousekeeper
 #######################################################
-registerWarehousekeeper.title = Cofrestrwch fel ceidwad warws ecséis yn gyntaf
-registerWarehousekeeper.heading = Cofrestrwch fel ceidwad warws ecséis yn gyntaf
-registerWarehousekeeper.p1 = Mae angen i chi gofrestru fel ceidwad warws ecséis cyn y gallwch ychwanegu ATWD i’ch cyfrif.
-registerWarehousekeeper.p2 = Byddwn yn anfon ID warws atoch. Dychwelwch i’ch cyfrif ac ychwanegu ATWD pan fyddwch yn ei gael.
-registerWarehousekeeper.continue = Mynd yn eich blaen - cofrestru fel ceidwad warws ecséis
+registerWarehousekeeper.title = Mae angen i chi fod yn geidwad warws cofrestredig i ychwanegu’r gwasanaeth hwn
+registerWarehousekeeper.heading = Mae angen i chi fod yn geidwad warws cofrestredig i ychwanegu’r gwasanaeth hwn
+registerWarehousekeeper.p1 = Pan gewch ID warws, mewngofnodwch ac ychwanegwch ‘Datganiadau Warysu Alcohol a Thybaco’ at eich cyfrif.
+registerWarehousekeeper.continue = Gwneud cais i fod yn geidwad warws cofrestredig
 
 #######################################################
 ##  AreYouRegisteredWarehousekeeper

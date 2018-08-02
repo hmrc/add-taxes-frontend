@@ -462,11 +462,10 @@ doYouHaveMGDRegistration.error.required = Select yes if you have a Machine Games
 #######################################################
 ##  RegisterWarehousekeeper
 #######################################################
-registerWarehousekeeper.title = Register as an excise warehousekeeper first
-registerWarehousekeeper.heading = Register as an excise warehousekeeper first
-registerWarehousekeeper.p1 = You need to register as an excise warehousekeeper before you can add ATWD to your account.
-registerWarehousekeeper.p2 = We’ll send you a warehouse ID. Come back to your account and add ATWD when you get it.
-registerWarehousekeeper.continue = Continue - register as an excise warehousekeeper
+registerWarehousekeeper.title = You need to be a registered excise warehousekeeper to add this service
+registerWarehousekeeper.heading = You need to be a registered excise warehousekeeper to add this service
+registerWarehousekeeper.p1 = When you get a warehouse ID, sign in and add Alcohol and Tobacco Warehousing Declarations to your account.
+registerWarehousekeeper.continue = Apply to be an excise warehousekeeper
 
 #######################################################
 ##  AreYouRegisteredWarehousekeeper
