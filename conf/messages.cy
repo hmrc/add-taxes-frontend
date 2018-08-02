@@ -65,13 +65,12 @@ selectAnOilService.error.required = Dewis gwasanaeth
 #######################################################
 ##  Have You Registered For Tied Oils
 #######################################################
-haveYouRegisteredForTiedOils.title = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’?
-haveYouRegisteredForTiedOils.heading = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’?
-haveYouRegisteredForTiedOils.message1 = Byddwn wedi anfon rhif cymeradwyo atoch
-haveYouRegisteredForTiedOils.yes = Ydw - mae gennyf rif cymeradwyo
-haveYouRegisteredForTiedOils.no = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
-haveYouRegisteredForTiedOils.checkYourAnswersLabel = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’?
-haveYouRegisteredForTiedOils.error.required = Dewis iawn neu na
+haveYouRegisteredForTiedOils.title = A ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew ‘Tied’?
+haveYouRegisteredForTiedOils.heading = A ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew ‘Tied’?
+haveYouRegisteredForTiedOils.message1 = Os ydych wedi cofrestru, bydd gennych rif cymeradwyo.
+haveYouRegisteredForTiedOils.yes = Iawn
+haveYouRegisteredForTiedOils.no = Na
+haveYouRegisteredForTiedOils.error.required = Dewiswch Iawn os ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew ‘Tied’
 
 
 #######################################################
@@ -92,7 +91,6 @@ haveYouRegisteredForRebatedOils.heading = A ydych eisoes wedi cofrestru ar gyfer
 haveYouRegisteredForRebatedOils.message1 = Byddwn wedi anfon rhif cymeradwyo atoch
 haveYouRegisteredForRebatedOils.yes = Ydw - mae gennyf rif cymeradwyo
 haveYouRegisteredForRebatedOils.no = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
-haveYouRegisteredForRebatedOils.checkYourAnswersLabel = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’?
 haveYouRegisteredForRebatedOils.error.required = Dewis iawn neu na
 
 
