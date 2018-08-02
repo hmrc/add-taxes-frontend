@@ -129,7 +129,7 @@ POST       /vat/ec                                      controllers.vat.ec.Regis
 GET        /vat/vat-giant                               controllers.vat.giant.WhatIsYourOrganisationController.onPageLoad()
 POST       /vat/vat-giant                               controllers.vat.giant.WhatIsYourOrganisationController.onSubmit()
 
-GET        /vat/vat-giant/do-not-need-service             controllers.vat.giant.YouDoNotNeedVATController.onPageLoad()
+GET        /vat/vat-giant/do-not-need-service           controllers.vat.giant.YouDoNotNeedVATController.onPageLoad()
 
 GET        /vat/eurefunds                               controllers.vat.eurefunds.RegisteredForVATEURefundsController.onPageLoad()
 POST       /vat/eurefunds                               controllers.vat.eurefunds.RegisteredForVATEURefundsController.onSubmit()
