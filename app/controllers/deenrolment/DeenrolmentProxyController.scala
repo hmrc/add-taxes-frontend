@@ -38,6 +38,7 @@ class DeenrolmentProxyController @Inject()(
   def onPageLoad(service: Enrolments) = (authenticate andThen serviceInfo) { implicit request =>
     val enrolmentRoutes: Map[Enrolments, Call] = Map(
       VATMOSS           -> DoYouNeedToLeaveVATMOSSController.onPageLoad(),
+      VATMOSSNonUnion   -> DoYouNeedToStopVatMossNUController.onPageLoad(),
       SA                -> HaveYouStoppedSelfEmploymentController.onPageLoad(),
       RebatedOils       -> DoYouNeedToStopROController.onPageLoad(),
       EPAYE             -> DoYouNeedToStopEPAYEController.onPageLoad(),
