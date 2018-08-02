@@ -76,11 +76,10 @@ haveYouRegisteredForTiedOils.error.required = Select yes if you have already reg
 #######################################################
 ##  Register Tied Oils
 #######################################################
-registerTiedOils.title = Register for Tied Oils Enquiry Service
-registerTiedOils.heading = Register for Tied Oils Enquiry Service
-registerTiedOils.message1 = You need to register for Tied Oils Enquiry Service before you can add it to your account.
-registerTiedOils.message2 = We’ll send you an approval number, which you can use to add Tied Oils Enquiry Service to the account.
-registerTiedOils.button.text = Continue - register for Tied Oils Enquiry Service
+registerTiedOils.title = You need to register for the Tied Oils Enquiry Service before you can add it to your account
+registerTiedOils.heading = You need to register for the Tied Oils Enquiry Service before you can add it to your account
+registerTiedOils.message1 = When you get an approval number, sign in to your account and add this service.
+registerTiedOils.button.text = Register for the Tied Oils Enquiry Service
 
 
 #######################################################

@@ -76,11 +76,10 @@ haveYouRegisteredForTiedOils.error.required = Dewiswch Iawn os ydych eisoes wedi
 #######################################################
 ##  Register Tied Oils
 #######################################################
-registerTiedOils.title = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’
-registerTiedOils.heading = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’
-registerTiedOils.message1 = Mae’n rhaid i chi gofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’ cyn y gallwch ei ychwanegu i’ch cyfrif.
-registerTiedOils.message2 = Byddwn yn anfon rhif cymeradwyo atoch. Gallwch ei ddefnyddio i ychwanegu Gwasanaeth Ymholiadau Olew ‘Tied’ i’r cyfrif.
-registerTiedOils.button.text = Mynd yn eich blaen - cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’
+registerTiedOils.title = Mae angen i chi gofrestru ar gyfer y Gwasanaeth Ymholiadau Olew ‘Tied’ cyn y gallwch ei ychwanegu iat eich cyfrif
+registerTiedOils.heading = Mae angen i chi gofrestru ar gyfer y Gwasanaeth Ymholiadau Olew ‘Tied’ cyn y gallwch ei ychwanegu iat eich cyfrif
+registerTiedOils.message1 = Pan gewch eich rhif cymeradwyo, mewngofnodwch i’ch cyfrif ac ychwanegwch y gwasanaeth hwn.
+registerTiedOils.button.text = Cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew ‘Tied’
 
 
 #######################################################
