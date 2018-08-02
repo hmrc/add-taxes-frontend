@@ -54,8 +54,8 @@ unauthorised.heading = You can’t access this service with this account
 #######################################################
 ##  Select An Oil Service
 #######################################################
-selectAnOilService.heading = Dewis gwasanaeth olew
-selectAnOilService.title = Dewis gwasanaeth olew
+selectAnOilService.heading = Pa gwasanaeth olew ei angen arnoch?
+selectAnOilService.title = Pa gwasanaeth olew ei angen arnoch?
 selectAnOilService.rebatedOilsEnquiryService = Gwasanaeth Ymholiadau Olew Ad-daliedig
 selectAnOilService.tiedOilsEnquiryService = Gwasanaeth Ymholiadau Olew ‘Tied’
 selectAnOilService.checkYourAnswersLabel = Dewis gwasanaeth olew
@@ -87,23 +87,21 @@ registerTiedOils.button.text = Mynd yn eich blaen - cofrestru ar gyfer Gwasanaet
 #######################################################
 ##  Have You Registered For Rebated Oils
 #######################################################
-haveYouRegisteredForRebatedOils.title = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’?
-haveYouRegisteredForRebatedOils.heading = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’?
-haveYouRegisteredForRebatedOils.message1 = Byddwn wedi anfon rhif cymeradwyo atoch
-haveYouRegisteredForRebatedOils.yes = Ydw - mae gennyf rif cymeradwyo
-haveYouRegisteredForRebatedOils.no = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
-haveYouRegisteredForRebatedOils.checkYourAnswersLabel = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’?
-haveYouRegisteredForRebatedOils.error.required = Dewis iawn neu na
+haveYouRegisteredForRebatedOils.title = A ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew Ad-daledig?
+haveYouRegisteredForRebatedOils.heading = A ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew Ad-daledig?
+haveYouRegisteredForRebatedOils.message1 = Os ydych wedi cofrestru, bydd gennych rif cymeradwyo.
+haveYouRegisteredForRebatedOils.yes = Iawn
+haveYouRegisteredForRebatedOils.no = Na
+haveYouRegisteredForRebatedOils.error.required = Dewiswch Iawn os ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew Ad-daledig
 
 
 #######################################################
 ##  Register Rebated Oils
 #######################################################
-registerRebatedOils.title = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’
-registerRebatedOils.heading = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’
-registerRebatedOils.message1 = Mae’n rhaid i chi gofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’ cyn y gallwch ei ychwanegu i’ch cyfrif.
-registerRebatedOils.message2 = Byddwn yn anfon rhif cymeradwyo atoch. Gallwch ei ddefnyddio i ychwanegu Gwasanaeth Ymholiadau Olew ‘Rebated’ i’r cyfrif.
-registerRebatedOils.button.text = Mynd yn eich blaen - cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’
+registerRebatedOils.title = Mae angen i chi gofrestru ar gyfer y Gwasanaeth Ymholiadau Olew Ad-daledig cyn y gallwch ei ychwanegu at eich cyfrif
+registerRebatedOils.heading = Mae angen i chi gofrestru ar gyfer y Gwasanaeth Ymholiadau Olew Ad-daledig cyn y gallwch ei ychwanegu at eich cyfrif
+registerRebatedOils.message1 = Pan gewch eich rhif cymeradwyo, mewngofnodwch i’ch cyfrif ac ychwanegwch y gwasanaeth hwn.
+registerRebatedOils.button.text = Cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew Ad-daledig
 
 
 #######################################################
