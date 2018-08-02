@@ -17,7 +17,7 @@
 package controllers.deenrolment
 
 import controllers._
-import controllers.actions.{FakeServiceInfoAction, _}
+import controllers.actions._
 import forms.deenrolment.DoYouNeedToStopVatMossNUFormProvider
 import handlers.FakeErrorHandler
 import models.deenrolment.DoYouNeedToStopVatMossNU
