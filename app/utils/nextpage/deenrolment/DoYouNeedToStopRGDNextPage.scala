@@ -29,7 +29,7 @@ trait DoYouNeedToStopRGDNextPage {
       override def get(b: DoYouNeedToStopRGD)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouNeedToStopRGD.Yes => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.RemoteGaming))
-          case DoYouNeedToStopRGD.No  => Call("GET", appConfig.getGovUKUrl("deenrolGTS"))
+          case DoYouNeedToStopRGD.No  => Call("GET", appConfig.getGovUKUrl("deenrolGambling"))
         }
     }
   }

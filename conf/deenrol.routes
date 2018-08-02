@@ -43,3 +43,6 @@ POST       /gambling/how-to-stop-pbd             controllers.deenrolment.DoYouNe
 
 GET        /vat/how-to-stop-vat-moss-nu          controllers.deenrolment.DoYouNeedToStopVatMossNUController.onPageLoad()
 POST       /vat/how-to-stop-vat-moss-nu          controllers.deenrolment.DoYouNeedToStopVatMossNUController.onSubmit()
+
+GET        /gambling/how-to-stop-mgd             controllers.deenrolment.DoYouNeedToStopMGDController.onPageLoad()
+POST       /gambling/how-to-stop-mgd             controllers.deenrolment.DoYouNeedToStopMGDController.onSubmit()

@@ -123,4 +123,5 @@ object NextPage
     with DoYouNeedToCloseCharityNextPage
     with DoYouNeedToLeaveVATMOSSNextPage
     with DoYouNeedToStopPBDNextPage
-    with utils.nextpage.deenrolment.DoYouNeedToStopVatMossNUNextPage
+    with DoYouNeedToStopVatMossNUNextPage
+    with DoYouNeedToStopMGDNextPage

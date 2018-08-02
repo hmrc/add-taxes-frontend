@@ -29,9 +29,12 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
   "DeenrolmentProxy Controller" must {
 
     val enrolments = Enrolments.values -
-      (Enrolments.AddCis, Enrolments.PSA, Enrolments.RebatedOils, Enrolments.EPAYE,
-      Enrolments.SA, Enrolments.CT, Enrolments.VAT, Enrolments.GeneralBetting,
-      Enrolments.Charities, Enrolments.VATMOSS, Enrolments.RemoteGaming, Enrolments.PoolBetting, Enrolments.VATMOSSNonUnion, Enrolments.ATWD)
+      (
+        Enrolments.AddCis, Enrolments.PSA, Enrolments.RebatedOils, Enrolments.EPAYE,
+        Enrolments.SA, Enrolments.CT, Enrolments.VAT, Enrolments.GeneralBetting,
+        Enrolments.Charities, Enrolments.VATMOSS, Enrolments.RemoteGaming, Enrolments.PoolBetting,
+        Enrolments.VATMOSSNonUnion, Enrolments.ATWD, Enrolments.MachineGamingDuty
+    )
 
     for (enrolment <- enrolments) {
       s"redirect to deenrolment management for $enrolment" in {
@@ -73,8 +76,15 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(
-        "http://localhost:9555/enrolment-management-frontend/HMCE-ATWD-ORG/remove-warehouse"
+        "http://localhost:9555/enrolment-management-frontend/HMCE-ATWD-ORG/remove-warehouse?continue=/account"
       )
+    }
+
+    "redirect to how to stop MGD for HMRC-MGD-ORG" in {
+      val result = controller().onPageLoad(Enrolments.MachineGamingDuty)(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some("/business-account/deenrol/gambling/how-to-stop-mgd")
     }
   }
 }
