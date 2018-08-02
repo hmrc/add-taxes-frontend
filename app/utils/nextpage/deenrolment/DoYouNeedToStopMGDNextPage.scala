@@ -44,9 +44,7 @@ trait DoYouNeedToStopMGDNextPage {
               case h :: _ => Right(Call("GET", appConfig.getPortalUrl("stopMGD", h.value)))
             }
           case (DoYouNeedToStopMGD.No, None) => Left("unable to find enrolment")
-//          case (DoYouNeedToStopMGD.No, _)     => Right(Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.VATMOSS)))
-//          case DoYouNeedToStopMGD.Yes => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.MachineGamesDuty))
-//          case DoYouNeedToStopMGD.No  => Call("GET", appConfig.getGovUKUrl("deenrolGambling"))
+
         }
     }
   }
