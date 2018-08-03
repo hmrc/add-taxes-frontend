@@ -65,23 +65,21 @@ selectAnOilService.error.required = Select a service
 #######################################################
 ##  Have You Registered For Tied Oils
 #######################################################
-haveYouRegisteredForTiedOils.title = Have you already registered for Tied Oils Enquiry Service?
-haveYouRegisteredForTiedOils.heading = Have you already registered for Tied Oils Enquiry Service?
-haveYouRegisteredForTiedOils.message1 = We’ll have sent you an approval number
-haveYouRegisteredForTiedOils.yes = Yes - I have an approval number
-haveYouRegisteredForTiedOils.no = No - I haven’t registered yet
-haveYouRegisteredForTiedOils.checkYourAnswersLabel = Have you already registered for Tied Oils Enquiry Service?
-haveYouRegisteredForTiedOils.error.required = Select yes or no
+haveYouRegisteredForTiedOils.title = Have you already registered for the Tied Oils Enquiry Service?
+haveYouRegisteredForTiedOils.heading = Have you already registered for the Tied Oils Enquiry Service?
+haveYouRegisteredForTiedOils.message1 = If you are registered, you will have an approval number.
+haveYouRegisteredForTiedOils.yes = Yes
+haveYouRegisteredForTiedOils.no = No
+haveYouRegisteredForTiedOils.error.required = Select yes if you have already registered for the Tied Oils Enquiry Service
 
 
 #######################################################
 ##  Register Tied Oils
 #######################################################
-registerTiedOils.title = Register for Tied Oils Enquiry Service
-registerTiedOils.heading = Register for Tied Oils Enquiry Service
-registerTiedOils.message1 = You need to register for Tied Oils Enquiry Service before you can add it to your account.
-registerTiedOils.message2 = We’ll send you an approval number, which you can use to add Tied Oils Enquiry Service to the account.
-registerTiedOils.button.text = Continue - register for Tied Oils Enquiry Service
+registerTiedOils.title = You need to register for the Tied Oils Enquiry Service before you can add it to your account
+registerTiedOils.heading = You need to register for the Tied Oils Enquiry Service before you can add it to your account
+registerTiedOils.message1 = When you get an approval number, sign in to your account and add this service.
+registerTiedOils.button.text = Register for the Tied Oils Enquiry Service
 
 
 #######################################################
@@ -459,21 +457,20 @@ doYouHaveMGDRegistration.error.required = Select yes if you have a Machine Games
 #######################################################
 ##  RegisterWarehousekeeper
 #######################################################
-registerWarehousekeeper.title = Register as an excise warehousekeeper first
-registerWarehousekeeper.heading = Register as an excise warehousekeeper first
-registerWarehousekeeper.p1 = You need to register as an excise warehousekeeper before you can add ATWD to your account.
-registerWarehousekeeper.p2 = We’ll send you a warehouse ID. Come back to your account and add ATWD when you get it.
-registerWarehousekeeper.continue = Continue - register as an excise warehousekeeper
+registerWarehousekeeper.title = You need to be a registered excise warehousekeeper to add this service
+registerWarehousekeeper.heading = You need to be a registered excise warehousekeeper to add this service
+registerWarehousekeeper.p1 = When you get a warehouse ID, sign in and add Alcohol and Tobacco Warehousing Declarations to your account.
+registerWarehousekeeper.continue = Apply to be an excise warehousekeeper
 
 #######################################################
 ##  AreYouRegisteredWarehousekeeper
 #######################################################
 areYouRegisteredWarehousekeeper.title = Are you a registered excise warehousekeeper?
 areYouRegisteredWarehousekeeper.heading = Are you a registered excise warehousekeeper?
-areYouRegisteredWarehousekeeper.p1 = We’ll have sent you a warehouse approval letter with a warehouse ID if you’re a registered excise warehousekeeper.
-areYouRegisteredWarehousekeeper.Yes = Yes - I have a warehouse ID
-areYouRegisteredWarehousekeeper.No = No - I’m not a registered warehousekeeper
-areYouRegisteredWarehousekeeper.error.required = Select yes or no
+areYouRegisteredWarehousekeeper.p1 = You will have a warehouse approval letter with a warehouse ID if you are.
+areYouRegisteredWarehousekeeper.Yes = Yes
+areYouRegisteredWarehousekeeper.No = No
+areYouRegisteredWarehousekeeper.error.required = Select yes if you are a registered warehousekeeper
 
 #######################################################
 ##  SelectSACategory
@@ -488,11 +485,11 @@ selectSACategory.error.required = Select a category
 #######################################################
 ##  SelectAlcoholScheme
 #######################################################
-selectAlcoholScheme.title = Select an alcohol scheme
-selectAlcoholScheme.heading = Select an alcohol scheme
+selectAlcoholScheme.title = Which scheme do you need?
+selectAlcoholScheme.heading = Which scheme do you need?
 selectAlcoholScheme.atwd = Alcohol & Tobacco Warehousing Declarations (ATWD)
 selectAlcoholScheme.awrs = Alcohol Wholesaler Registration Scheme (AWRS)
-selectAlcoholScheme.error.required = Select a scheme
+selectAlcoholScheme.error.required = Select which scheme you need
 
 #######################################################
 ##  DoYouHaveCharityReference

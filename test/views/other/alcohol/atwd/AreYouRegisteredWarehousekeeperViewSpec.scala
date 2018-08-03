@@ -55,9 +55,7 @@ class AreYouRegisteredWarehousekeeperViewSpec extends ViewBehaviours {
         val doc = asDocument(createView())
         val view = doc.text()
 
-        view must include(
-          "We’ll have sent you a warehouse approval letter with a warehouse ID " +
-            "if you’re a registered excise warehousekeeper.")
+        view must include("You will have a warehouse approval letter with a warehouse ID if you are.")
       }
     }
 
