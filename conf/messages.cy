@@ -317,13 +317,11 @@ registerRGD.continue = Cofrestru ar gyfer Toll Hapchwarae o Bell
 #######################################################
 ##  RegisterTrust
 #######################################################
-registerTrust.title = Cofrestru eich ymddiriedolaeth
-registerTrust.heading = Cofrestru eich ymddiriedolaeth
+registerTrust.title = Cofrestru’ch ymddiriedolaeth cyn i chi ychwanegu’r gwasanaeth hwn at eich cyfrif
+registerTrust.heading = Cofrestru’ch ymddiriedolaeth cyn i chi ychwanegu’r gwasanaeth hwn at eich cyfrif
 registerTrust.continue = Cofrestru eich ymddiriedolaeth
 registerTrust.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
-registerTrust.p1=Mae’n rhaid i chi gofrestru eich ymddiriedolaeth cyn y gallwch ei hychwanegu i’r cyfrif hwn.
-registerTrust.p2=Byddwn yn anfon Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth drwy’r post, ar ôl iddi gael ei chofrestru.
-registerTrust.p3=Byddwch yn gallu ychwanegu’r ymddiriedolaeth i’r cyfrif hwn gan ddefnyddio’r UTR.
+registerTrust.p1= Pan gewch Gyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth, mewngofnodwch i’ch cyfrif ac ychwanegwch Hunanasesiad Ar-lein ar gyfer Ymddiriedolaethau.
 
 #######################################################
 ##  HaveYouRegisteredTrust
