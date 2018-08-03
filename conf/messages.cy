@@ -341,7 +341,7 @@ haveYouRegisteredPartnership.title = A ydych eisoes wedi cofrestru eich partneri
 haveYouRegisteredPartnership.heading = A ydych eisoes wedi cofrestru eich partneriaeth?
 haveYouRegisteredPartnership.Yes = Iawn
 haveYouRegisteredPartnership.No = Na
-haveYouRegisteredPartnership.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru'ch partneriaeth a bod gennych UTR
+haveYouRegisteredPartnership.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru’ch partneriaeth a bod gennych UTR
 haveYouRegisteredPartnership.hintText = Byddwn wedi anfon Cyfeirnod Unigryw y Trethdalwr (UTR) atoch ar gyfer eich partneriaeth, os ydych eisoes wedi’i chofrestru.
 
 #######################################################
