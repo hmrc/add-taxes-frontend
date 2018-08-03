@@ -200,21 +200,10 @@ doYouHaveDAN.error.required = Dewiswch ‘Iawn’ os oes gennych Rif Cymeradwyo 
 #######################################################
 doYouHaveCHIEFRole.title = A oes gennych rôl defnyddiwr CHIEF?
 doYouHaveCHIEFRole.heading = A oes gennych rôl defnyddiwr CHIEF?
-doYouHaveCHIEFRole.p1 = Cod yw hwn a ddefnyddiwch i gyrchu System y Tollau ar gyfer Trin Nwyddau a Gaiff eu Mewnforio a’u Hallforio (CHIEF) i roi gwybodaeth am dollau drwy ddull electronig. Fel arfer, 5 llythyren yw hwn, e.e. ABCDE.
-doYouHaveCHIEFRole.Yes = Oes - mae gennyf rôl CHIEF
-doYouHaveCHIEFRole.No = Nac oes - nid oes gennyf rôl CHIEF ar hyn o bryd
-doYouHaveCHIEFRole.error.required = Dewis iawn neu na
-
-
-#######################################################
-##  DoYouHaveCHIEFRole
-#######################################################
-doYouHaveCHIEFRole.title = A oes gennych rôl defnyddiwr CHIEF?
-doYouHaveCHIEFRole.heading = A oes gennych rôl defnyddiwr CHIEF?
-doYouHaveCHIEFRole.p1 = Cod yw hwn a ddefnyddiwch i gyrchu System y Tollau ar gyfer Trin Nwyddau a Gaiff eu Mewnforio a’u Hallforio (CHIEF) i roi gwybodaeth am dollau drwy ddull electronig. Fel arfer, 5 llythyren yw hwn, e.e. ABCDE.
-doYouHaveCHIEFRole.Yes = Oes - mae gennyf rôl CHIEF
-doYouHaveCHIEFRole.No = Nac oes - nid oes gennyf rôl CHIEF ar hyn o bryd
-doYouHaveCHIEFRole.error.required = Dewis iawn neu na
+doYouHaveCHIEFRole.p1 = Cod yw hwn a ddefnyddiwch i gyrchu System y Tollau ar gyfer Trin Nwyddau a Gaiff eu Mewnforio a'u Hallforio (CHIEF) i roi gwybodaeth am dollau drwy ddull electronig.
+doYouHaveCHIEFRole.Yes = Iawn
+doYouHaveCHIEFRole.No = Na
+doYouHaveCHIEFRole.error.required = Dewiswch Iawn os oes gennych rôl defnyddiwr CHIEF
 
 
 #######################################################
@@ -247,30 +236,27 @@ doYouWantToAddImportExport.error.required = Dewis cynllun
 #######################################################
 ##  GetCHIEFRole
 #######################################################
-getCHIEFRole.title = Dylech gael rôl CHIEF yn gyntaf
-getCHIEFRole.heading = Dylech gael rôl CHIEF yn gyntaf
-getCHIEFRole.p1=Mae angen rôl CHIEF arnoch i ychwanegu System Allforio Genedlaethol (NES) i’ch cyfrif.
-getCHIEFRole.p2=E-bostiwch {0} gan roi manylion eich busnes i wneud cais am rôl CHIEF.
-getCHIEFRole.p3=Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rôl CHIEF wedi cyrraedd.
+getCHIEFRole.title = Bydd angen rôl defnyddiwr CHIEF arnoch i ychwanegu’r gwasanaeth hwn
+getCHIEFRole.heading = Bydd angen rôl defnyddiwr CHIEF arnoch i ychwanegu’r gwasanaeth hwn
+getCHIEFRole.p1= E-bostiwch fanylion eich busnes i {0} er mwyn gwneud cais am rôl CHIEF.
+getCHIEFRole.p2= Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y System Allforio Newydd at eich cyfrif.
 
 
 #######################################################
 ##  RegisterEORI - NES
 #######################################################
-registerEORINES.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu System Allforio Genedlaethol (NES) i’ch cyfrif.
-registerEORINES.p2 = Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rhif EORI wedi cyrraedd.
+registerEORINES.p1 = Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y System Allforio Newydd at eich cyfrif.
 
 
 #######################################################
 ##  GetEoriAndChiefRole
 #######################################################
-getEoriAndChiefRole.title = Dylech gael rhif EORI a rôl CHIEF
-getEoriAndChiefRole.heading = Dylech gael rhif EORI a rôl CHIEF
-getEoriAndChiefRole.p1=Mae angen rhif EORI a rôl CHIEF arnoch i ychwanegu System Allforio Genedlaethol (NES) i’ch cyfrif.
-getEoriAndChiefRole.p2=Mae angen i chi wneud y canlynol:
-getEoriAndChiefRole.p2.li1=E-bostiwch {0} gan roi manylion eich busnes i wneud cais am rôl CHIEF.
-getEoriAndChiefRole.p2.li2=llenwch ffurflen gais EORI
-getEoriAndChiefRole.p3=Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rhif EORI a’ch rôl CHIEF wedi cyrraedd.
+getEoriAndChiefRole.title = Mae angen rhif EORI a rôl defnyddiwr CHIEF arnoch i ychwanegu’r gwasanaeth hwn
+getEoriAndChiefRole.heading = Mae angen rhif EORI a rôl defnyddiwr CHIEF arnoch i ychwanegu’r gwasanaeth hwn
+getEoriAndChiefRole.p1= Mae angen i chi wneud y canlynol:
+getEoriAndChiefRole.p1.li1= cael rhif EORI
+getEoriAndChiefRole.p1.li2= gwneud cais am rôl defnyddiwr CHIEF – e-bostiwch fanylion eich busnes i {0}
+getEoriAndChiefRole.p2= Pan gewch chi’r rhain, mewngofnodwch ac ychwanegwch y System Allforio Newydd at eich cyfrif.
 
 #######################################################
 ##  WhichPensionSchemeToAdd
