@@ -994,6 +994,15 @@ doYouNeedToStopPBD.No = No, I need to deregister from Pool Betting Duty
 doYouNeedToStopPBD.error.required = Select yes if you need to stop using the Pool Betting Duty online service
 
 #######################################################
+##  DoYouNeedToStopVatMossNU
+#######################################################
+doYouNeedToStopVatMossNU.title = Do you need to leave this VAT MOSS scheme?
+doYouNeedToStopVatMossNU.heading = Do you need to leave this VAT MOSS scheme?
+doYouNeedToStopVatMossNU.Yes = Yes
+doYouNeedToStopVatMossNU.No = No, I need to stop using the online service
+doYouNeedToStopVatMossNU.error.required = Select yes if you need to leave this VAT MOSS scheme
+
+#######################################################
 ##  DoYouNeedToStopMGDController
 #######################################################
 doYouNeedToStopMGD.title = Do you need to stop using the Machine Games Duty online service?
