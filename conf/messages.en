@@ -541,9 +541,9 @@ registerForPAYE.notnow = I don’t want to do this right now
 #######################################################
 isBusinessRegisteredForPAYE.title = Is your business registered for PAYE for employers?
 isBusinessRegisteredForPAYE.heading = Is your business registered for PAYE for employers?
-isBusinessRegisteredForPAYE.Yes = Yes - the business is registered for PAYE for employers
-isBusinessRegisteredForPAYE.No = No - the business isn’t registered for PAYE for employers
-isBusinessRegisteredForPAYE.error.required = Select yes or no
+isBusinessRegisteredForPAYE.Yes = Yes
+isBusinessRegisteredForPAYE.No = No
+isBusinessRegisteredForPAYE.error.required = Select yes if your business is registered for PAYE for employers
 
 #######################################################
 ##  SelectGamblingOrGamingDuty
@@ -660,12 +660,11 @@ addEmployersPAYE.notnow = I don’t want to do this right now
 #######################################################
 ##  RegisterEmployersPAYE
 #######################################################
-registerEmployersPAYE.title = Register for PAYE for employers first
-registerEmployersPAYE.heading = Register for PAYE for employers first
-registerEmployersPAYE.subtext1 = You need to be registered for PAYE for employers before you can manage employment related securities (ERS) online.
-registerEmployersPAYE.subtext2 = Register for PAYE for employers, then come back and add employment related securities afterwards.
+registerEmployersPAYE.title = Register for PAYE for employers before you add this service
+registerEmployersPAYE.heading = Register for PAYE for employers before you add this service
+registerEmployersPAYE.subtext = When you have registered with this account, sign in and add employment related securities.
 registerEmployersPAYE.continue = Register for PAYE for employers
-registerEmployersPAYE.notnow = I don’t want to do this right now
+registerEmployersPAYE.notnow = I do not want to do this right now
 
 #######################################################
 ##  AreYouContractorOrSubcontractor

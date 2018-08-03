@@ -527,9 +527,9 @@ registerForPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 #######################################################
 isBusinessRegisteredForPAYE.title = A yw eich busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr?
 isBusinessRegisteredForPAYE.heading = A yw eich busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr?
-isBusinessRegisteredForPAYE.Yes = Ydy - mae’r busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
-isBusinessRegisteredForPAYE.No = Nac ydy - nid yw’r busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
-isBusinessRegisteredForPAYE.error.required = Dewis iawn neu na
+isBusinessRegisteredForPAYE.Yes = Iawn
+isBusinessRegisteredForPAYE.No = Na
+isBusinessRegisteredForPAYE.error.required = Dewiswch 'Iawn' os yw'ch busnes wedi'i gofrestru ar gyfer TWE i gyflogwyr
 
 #######################################################
 ##  SelectGamblingOrGamingDuty
@@ -637,10 +637,9 @@ addEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 #######################################################
 ##  RegisterEmployersPAYE
 #######################################################
-registerEmployersPAYE.title = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
-registerEmployersPAYE.heading = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
-registerEmployersPAYE.subtext1 = Mae angen i chi fod wedi cofrestru ar gyfer TWE i gyflogwyr cyn y gallwch reoli gwarantau ar sail cyflogaeth (ERS) ar-lein.
-registerEmployersPAYE.subtext2 = Cofrestrwch ar gyfer TWE i gyflogwyr, wedyn dychwelyd ac ychwanegu gwarantau ar sail cyflogaeth ar ôl hynny.
+registerEmployersPAYE.title = Cofrestru ar gyfer TWE i gyflogwyr cyn i chi ychwanegu’r gwasanaeth hwn
+registerEmployersPAYE.heading = Cofrestru ar gyfer TWE i gyflogwyr cyn i chi ychwanegu’r gwasanaeth hwn
+registerEmployersPAYE.subtext = Pan fyddwch wedi cofrestru gyda'r cyfrif hwn, dylech fewngofnodi ac ychwanegu gwarantau ar sail cyflogaeth.
 registerEmployersPAYE.continue = Cofrestru ar gyfer TWE i gyflogwyr
 registerEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
