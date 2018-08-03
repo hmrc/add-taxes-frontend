@@ -224,9 +224,7 @@ doYouHaveCHIEFRole.error.required = Dewis iawn neu na
 #######################################################
 ##  RegisterEORI - EBTI
 #######################################################
-registerEORIEBTI.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu Gwybodaeth Electronig am Dariff sy’n Rhwymo (eBTI) i’ch cyfrif.
-registerEORIEBTI.p2 = Dychwelwch i’ch cyfrif ac ychwanegu eBTI unwaith bod eich rhif EORI wedi cyrraedd.
-
+registerEORIEBTI.p1 = Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y Gwybodaeth Electronig am Dariff sy’n Rhwymo (eBTI) at eich cyfrif
 
 #######################################################
 ##  RegisterEORI - NCTS
