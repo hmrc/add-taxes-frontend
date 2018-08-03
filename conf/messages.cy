@@ -200,7 +200,7 @@ doYouHaveDAN.error.required = Dewiswch ‘Iawn’ os oes gennych Rif Cymeradwyo 
 #######################################################
 doYouHaveCHIEFRole.title = A oes gennych rôl defnyddiwr CHIEF?
 doYouHaveCHIEFRole.heading = A oes gennych rôl defnyddiwr CHIEF?
-doYouHaveCHIEFRole.p1 = Cod yw hwn a ddefnyddiwch i gyrchu System y Tollau ar gyfer Trin Nwyddau a Gaiff eu Mewnforio a'u Hallforio (CHIEF) i roi gwybodaeth am dollau drwy ddull electronig.
+doYouHaveCHIEFRole.p1 = Cod yw hwn a ddefnyddiwch i gyrchu System y Tollau ar gyfer Trin Nwyddau a Gaiff eu Mewnforio a’u Hallforio (CHIEF) i roi gwybodaeth am dollau drwy ddull electronig.
 doYouHaveCHIEFRole.Yes = Iawn
 doYouHaveCHIEFRole.No = Na
 doYouHaveCHIEFRole.error.required = Dewiswch Iawn os oes gennych rôl defnyddiwr CHIEF
