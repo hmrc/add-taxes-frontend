@@ -38,18 +38,6 @@ class IsYourBusinessInUKViewSpec extends ViewBehaviours {
 
   "IsYourBusinessInUK view" must {
     behave like normalPage(createView, messageKeyPrefix)
-
-    "Render the correct content" in {
-      val doc = asDocument(createView())
-      val view = doc.text()
-
-      view must include("Is your business based in the UK?")
-
-      view must include("Yes - my business is based in the UK")
-
-      view must include("No - my business isn’t based in the UK")
-
-    }
   }
 
   "IsYourBusinessInUK view" when {
