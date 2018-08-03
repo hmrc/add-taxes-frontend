@@ -14,58 +14,49 @@
  * limitations under the License.
  */
 
-package views.other.alcohol.atwd
+package views.deenrolment
 
 import play.api.data.Form
-import forms.other.alcohol.atwd.AreYouRegisteredWarehousekeeperFormProvider
-import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
+import forms.deenrolment.DoYouNeedToStopVatMossNUFormProvider
+import models.deenrolment.DoYouNeedToStopVatMossNU
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.other.alcohol.atwd.areYouRegisteredWarehousekeeper
+import views.html.deenrolment.doYouNeedToStopVatMossNU
 
-class AreYouRegisteredWarehousekeeperViewSpec extends ViewBehaviours {
+class DoYouNeedToStopVatMossNUViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "areYouRegisteredWarehousekeeper"
+  val messageKeyPrefix = "doYouNeedToStopVatMossNU"
 
-  val form = new AreYouRegisteredWarehousekeeperFormProvider()()
+  val form = new DoYouNeedToStopVatMossNUFormProvider()()
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView =
-    () => areYouRegisteredWarehousekeeper(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView = () => doYouNeedToStopVatMossNU(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm =
-    (form: Form[_]) =>
-      areYouRegisteredWarehousekeeper(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    (form: Form[_]) => doYouNeedToStopVatMossNU(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  "AreYouRegisteredWarehousekeeper view" must {
+  "DoYouNeedToStopVatMossNU view" must {
     behave like normalPage(createView, messageKeyPrefix)
   }
 
-  "AreYouRegisteredWarehousekeeper view" when {
+  "DoYouNeedToStopVatMossNU view" when {
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- AreYouRegisteredWarehousekeeper.options) {
+        for (option <- DoYouNeedToStopVatMossNU.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
       }
-
-      "have content" in {
-        val doc = asDocument(createView())
-        val view = doc.text()
-
-        view must include("You will have a warehouse approval letter with a warehouse ID if you are.")
-      }
     }
 
-    for (option <- AreYouRegisteredWarehousekeeper.options) {
+    for (option <- DoYouNeedToStopVatMossNU.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for (unselectedOption <- AreYouRegisteredWarehousekeeper.options.filterNot(o => o == option)) {
+          for (unselectedOption <- DoYouNeedToStopVatMossNU.options.filterNot(_ == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }
