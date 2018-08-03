@@ -351,9 +351,9 @@ haveYouRegisteredPartnership.hintText = Byddwn wedi anfon Cyfeirnod Unigryw y Tr
 #######################################################
 doYouWantToAddPartner.title = A ydych eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes?
 doYouWantToAddPartner.heading = A ydych eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes?
-doYouWantToAddPartner.Yes = Ydw - rwyf eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes
-doYouWantToAddPartner.No = Nac ydw - rwyf eisiau gwneud rhywbeth arall
-doYouWantToAddPartner.error.required = Dewis iawn neu na
+doYouWantToAddPartner.Yes = Iawn
+doYouWantToAddPartner.No = Na
+doYouWantToAddPartner.error.required = Dewiswch ‘Iawn’ os ydych eisiau ychwanegu partner at bartneriaeth sy’n bodoli eisoes
 
 #######################################################
 ##  RegisterAEOI
