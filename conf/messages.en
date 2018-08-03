@@ -180,8 +180,8 @@ economicOperatorsRegistrationAndIdentification.error.required = Select yes if yo
 #######################################################
 ##  RegisterEORI
 #######################################################
-registerEORI.title = You need an EORI number to add this service
-registerEORI.heading = You need an EORI number to add this service
+registerEORI.title = You need an Economic Operator Registration and Identification (EORI) numberI number to add this service
+registerEORI.heading = You need an Economic Operator Registration and Identification (EORI) numberI number to add this service
 registerEORI.continue = Get an EORI number
 
 
@@ -234,8 +234,7 @@ doYouHaveCHIEFRole.error.required = Select yes or no
 #######################################################
 ##  RegisterEORI - EBTI
 #######################################################
-registerEORIEBTI.p1 = You need an Economic Operators Registration and Identification (EORI) to add electronic Binding Tariff Information (eBTI) to your account.
-registerEORIEBTI.p2 = Come back to your account and add eBTI once your EORI number arrives.
+registerEORIEBTI.p1 = When you get this, sign in and add the electronic Binding Tariff Information (eBTI) to your account.
 
 
 #######################################################
