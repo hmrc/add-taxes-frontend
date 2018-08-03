@@ -16,31 +16,31 @@
 
 package controllers.deenrolment
 
-import play.api.data.Form
-import utils.{FakeLoggingHelper, FakeNavigator}
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
-import forms.deenrolment.DoYouNeedToStopMGDFormProvider
+import controllers.actions._
+import forms.deenrolment.DoYouNeedToStopVatMossNUFormProvider
 import handlers.FakeErrorHandler
-import identifiers.DoYouNeedToStopMGDId
-import models.deenrolment.DoYouNeedToStopMGD
+import models.deenrolment.DoYouNeedToStopVatMossNU
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import views.html.deenrolment.doYouNeedToStopMGD
+import utils.{FakeLoggingHelper, FakeNavigator}
+import views.html.deenrolment.doYouNeedToStopVatMossNU
 
-class DoYouNeedToStopMGDControllerControllerSpec extends ControllerSpecBase {
+class DoYouNeedToStopVatMossNUControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = controllers.routes.IndexController.onPageLoad()
   val serverErrorTemplate = "An error has occurred"
 
-  val formProvider = new DoYouNeedToStopMGDFormProvider()
+  val formProvider = new DoYouNeedToStopVatMossNUFormProvider()
   val form = formProvider()
 
   def controller(
     dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap,
-    desiredRoute: Either[String, Call] = Right(onwardRoute)) =
-    new DoYouNeedToStopMGDController(
+    desiredRoute: Either[String, Call] = Right(onwardRoute)
+  ) =
+    new DoYouNeedToStopVatMossNUController(
       frontendAppConfig,
       messagesApi,
       new FakeNavigator[Either[String, Call]](desiredRoute = desiredRoute),
@@ -52,9 +52,9 @@ class DoYouNeedToStopMGDControllerControllerSpec extends ControllerSpecBase {
     )
 
   def viewAsString(form: Form[_] = form) =
-    doYouNeedToStopMGD(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    doYouNeedToStopVatMossNU(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  "DoYouNeedToStopMGDController Controller" must {
+  "DoYouNeedToStopVatMossNU Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad()(fakeRequest)
@@ -64,7 +64,7 @@ class DoYouNeedToStopMGDControllerControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouNeedToStopMGD.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouNeedToStopVatMossNU.options.head.value))
 
       val result = controller().onSubmit()(postRequest)
 
@@ -82,28 +82,20 @@ class DoYouNeedToStopMGDControllerControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    "return OK if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+    "return OK" in {
+      val result = controller().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
     }
 
-    for (option <- DoYouNeedToStopMGD.options) {
-      s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
+    for (option <- DoYouNeedToStopVatMossNU.options) {
+      s"redirect to next page when '${option.value}' is submitted" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
-        val result = controller(dontGetAnyData).onSubmit()(postRequest)
+        val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)
       }
-    }
-
-    "return internal server error" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouNeedToStopMGD.No.toString))
-      val result = controller(desiredRoute = Left("")).onSubmit()(postRequest)
-
-      status(result) mustBe INTERNAL_SERVER_ERROR
-      contentAsString(result) mustBe serverErrorTemplate
     }
   }
 }

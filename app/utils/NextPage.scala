@@ -123,4 +123,5 @@ object NextPage
     with DoYouNeedToCloseCharityNextPage
     with DoYouNeedToLeaveVATMOSSNextPage
     with DoYouNeedToStopPBDNextPage
+    with DoYouNeedToStopVatMossNUNextPage
     with DoYouNeedToStopMGDNextPage

@@ -22,22 +22,25 @@ import config.FrontendAppConfig
 import controllers.actions._
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enrolments, Enumerable, LoggingHelper, Navigator}
 import play.api.mvc.Call
-import forms.deenrolment.DoYouNeedToStopMGDFormProvider
-import handlers.ErrorHandler
-import identifiers.DoYouNeedToStopMGDId
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enrolments, Enumerable, Navigator}
+import forms.deenrolment.DoYouNeedToStopVatMossNUFormProvider
+import identifiers.DoYouNeedToStopVatMossNUId
+import views.html.deenrolment.doYouNeedToStopVatMossNU
 import models.requests.ServiceInfoRequest
-import views.html.deenrolment.doYouNeedToStopMGD
+import scala.concurrent.Future
+import utils.LoggingHelper
+import controllers.actions._
+import handlers.ErrorHandler
 
-class DoYouNeedToStopMGDController @Inject()(
+class DoYouNeedToStopVatMossNUController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   navigator: Navigator[Either[String, Call]],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
-  formProvider: DoYouNeedToStopMGDFormProvider,
+  formProvider: DoYouNeedToStopVatMossNUFormProvider,
   errorHandler: ErrorHandler,
   log: LoggingHelper)
     extends FrontendController
@@ -47,7 +50,7 @@ class DoYouNeedToStopMGDController @Inject()(
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouNeedToStopMGD(appConfig, form)(request.serviceInfoContent))
+    Ok(doYouNeedToStopVatMossNU(appConfig, form)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
@@ -55,11 +58,9 @@ class DoYouNeedToStopMGDController @Inject()(
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          BadRequest(doYouNeedToStopMGD(appConfig, formWithErrors)(request.serviceInfoContent)),
+          BadRequest(doYouNeedToStopVatMossNU(appConfig, formWithErrors)(request.serviceInfoContent)),
         (value) => {
-
-          val nextPage = navigator.nextPage(DoYouNeedToStopMGDId, (value, mgdEnrolment))
-
+          val nextPage = navigator.nextPage(DoYouNeedToStopVatMossNUId, (value, vatMossNUEnrolment))
           nextPage match {
             case Right(c) => Redirect(c)
             case Left(s) => {
@@ -71,6 +72,7 @@ class DoYouNeedToStopMGDController @Inject()(
       )
   }
 
-  def mgdEnrolment(implicit r: ServiceInfoRequest[_]) =
-    r.request.enrolments.getEnrolment(Enrolments.MachineGamingDuty.toString)
+  def vatMossNUEnrolment(implicit r: ServiceInfoRequest[_]) =
+    r.request.enrolments.getEnrolment(Enrolments.VATMOSSNonUnion.toString)
+
 }
