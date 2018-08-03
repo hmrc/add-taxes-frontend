@@ -36,15 +36,11 @@ class RegisterAEOIViewSpec extends ViewBehaviours {
       assertLinkById(
         doc,
         "continue",
-        "Continue - register for AEOI",
+        "Register for AEOI",
         "http://localhost:8080/portal/fatca-registration?lang=eng",
         "RegisterAeoi:Click:Continue")
 
-      assertContainsText(doc, "You need to register for AEOI before you can add it to your account.")
-      assertContainsText(
-        doc,
-        "We’ll send you an Automatic Exchange of Information ID, which you can use to add AEOI to the account.")
-
+      assertContainsText(doc, "When you get your AEOI ID, sign in and add this service.")
     }
   }
 }
