@@ -33,14 +33,13 @@ class RegisterWarehousekeeperViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       val view = doc.text()
 
-      view must include("You need to register as an excise warehousekeeper before you can add ATWD to your account.")
-
-      view must include("We’ll send you a warehouse ID. Come back to your account and add ATWD when you get it.")
+      view must include(
+        "When you get a warehouse ID, sign in and add Alcohol and Tobacco Warehousing Declarations to your account.")
 
       assertLinkById(
         doc,
         "continue",
-        "Continue - register as an excise warehousekeeper",
+        "Apply to be an excise warehousekeeper",
         "https://www.gov.uk/government/publications/excise-warehousing-application-to-be-an-excise-warehousekeeper-ex61",
         "RegisterAtwd:Click:Continue"
       )

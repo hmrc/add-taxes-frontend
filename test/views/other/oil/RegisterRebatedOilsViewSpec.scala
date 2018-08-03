@@ -32,28 +32,18 @@ class RegisterRebatedOilsViewSpec extends ViewBehaviours {
 
   "RegisterRebatedOils view" when {
     "rendered" must {
-      "contain 'You need to register for Rebated Oils Enquiry Service before you can add it to your account.' for the first paragraph" in {
+      "contain correct content" in {
         val doc = asDocument(createView())
 
-        doc
-          .getElementById("hint-message")
-          .text() mustBe "You need to register for Rebated Oils Enquiry Service before you can add it to your account."
+        doc.text() must include("When you get an approval number, sign in to your account and add this service.")
       }
 
-      "contain 'We’ll send you an approval number, which you can use to add Rebated Oils Enquiry Service to the account.' for the second paragraph" in {
-        val doc = asDocument(createView())
-
-        doc
-          .getElementById("hint-message-2")
-          .text() mustBe "We’ll send you an approval number, which you can use to add Rebated Oils Enquiry Service to the account."
-      }
-
-      "contain 'Continue - register for Rebated Oils Enquiry Service' for the button text" in {
+      "contain 'Register for the Rebated Oils Enquiry Service' for the button text" in {
         val doc = asDocument(createView())
 
         doc
           .getElementById("register-for-rebatedoils")
-          .text() mustBe "Continue - register for Rebated Oils Enquiry Service"
+          .text() mustBe "Register for the Rebated Oils Enquiry Service"
       }
     }
   }
