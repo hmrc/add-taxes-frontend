@@ -54,8 +54,8 @@ unauthorised.heading = You can’t access this service with this account
 #######################################################
 ##  Select An Oil Service
 #######################################################
-selectAnOilService.heading = Select an oil service
-selectAnOilService.title = Select an oil service
+selectAnOilService.heading = Which oil service do you need?
+selectAnOilService.title = Which oil service do you need?
 selectAnOilService.rebatedOilsEnquiryService = Rebated Oils Enquiry Service
 selectAnOilService.tiedOilsEnquiryService = Tied Oils Enquiry Service
 selectAnOilService.checkYourAnswersLabel = Select an oil service
@@ -85,22 +85,21 @@ registerTiedOils.button.text = Register for the Tied Oils Enquiry Service
 #######################################################
 ##  Have You Registered For Rebated Oils
 #######################################################
-haveYouRegisteredForRebatedOils.title = Have you already registered for Rebated Oils Enquiry Service?
-haveYouRegisteredForRebatedOils.heading = Have you already registered for Rebated Oils Enquiry Service?
-haveYouRegisteredForRebatedOils.message1 = We’ll have sent you an approval number
-haveYouRegisteredForRebatedOils.yes = Yes - I have an approval number
-haveYouRegisteredForRebatedOils.no = No - I haven’t registered yet
-haveYouRegisteredForRebatedOils.error.required = Select yes or no
+haveYouRegisteredForRebatedOils.title = Have you already registered for the Rebated Oils Enquiry Service?
+haveYouRegisteredForRebatedOils.heading = Have you already registered for the Rebated Oils Enquiry Service?
+haveYouRegisteredForRebatedOils.message1 = If you are registered, you will have an approval number.
+haveYouRegisteredForRebatedOils.yes = Yes
+haveYouRegisteredForRebatedOils.no = No
+haveYouRegisteredForRebatedOils.error.required = Select yes if you have already registered for the Rebated Oils Enquiry Service
 
 
 #######################################################
 ##  Register Rebated Oils
 #######################################################
-registerRebatedOils.title = Register for Rebated Oils Enquiry Service
-registerRebatedOils.heading = Register for Rebated Oils Enquiry Service
-registerRebatedOils.message1 = You need to register for Rebated Oils Enquiry Service before you can add it to your account.
-registerRebatedOils.message2 = We’ll send you an approval number, which you can use to add Rebated Oils Enquiry Service to the account.
-registerRebatedOils.button.text = Continue - register for Rebated Oils Enquiry Service
+registerRebatedOils.title = You need to register for the Rebated Oils Enquiry Service before you can add it to your account
+registerRebatedOils.heading = You need to register for the Rebated Oils Enquiry Service before you can add it to your account
+registerRebatedOils.message1 = When you get an approval number, sign in to your account and add this service.
+registerRebatedOils.button.text = Register for the Rebated Oils Enquiry Service
 
 
 #######################################################
