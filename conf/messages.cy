@@ -461,12 +461,12 @@ areYouRegisteredWarehousekeeper.error.required = Dewiswch Iawn os ydych yn geidw
 #######################################################
 ##  SelectSACategory
 #######################################################
-selectSACategory.title = Dewiswch gategori Hunanasesiad
-selectSACategory.heading = Dewiswch gategori Hunanasesiad
+selectSACategory.title = Pa rai o’r rhain sy’n eich disgrifio orau?
+selectSACategory.heading = Pa rai o’r rhain sy’n eich disgrifio orau?
 selectSACategory.Sa = Unigolyn neu unig fasnachwr
 selectSACategory.Partnership = Partneriaeth
 selectSACategory.Trust = Ymddiriedolaeth
-selectSACategory.error.required = Dewis categori
+selectSACategory.error.required = Dewiswch pa rai o’r rhain sy’n eich disgrifio orau
 
 #######################################################
 ##  SelectAlcoholScheme
