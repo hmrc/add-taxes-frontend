@@ -54,8 +54,8 @@ unauthorised.heading = You can’t access this service with this account
 #######################################################
 ##  Select An Oil Service
 #######################################################
-selectAnOilService.heading = Dewis gwasanaeth olew
-selectAnOilService.title = Dewis gwasanaeth olew
+selectAnOilService.heading = Pa gwasanaeth olew ei angen arnoch?
+selectAnOilService.title = Pa gwasanaeth olew ei angen arnoch?
 selectAnOilService.rebatedOilsEnquiryService = Gwasanaeth Ymholiadau Olew Ad-daliedig
 selectAnOilService.tiedOilsEnquiryService = Gwasanaeth Ymholiadau Olew ‘Tied’
 selectAnOilService.checkYourAnswersLabel = Dewis gwasanaeth olew
@@ -65,45 +65,41 @@ selectAnOilService.error.required = Dewis gwasanaeth
 #######################################################
 ##  Have You Registered For Tied Oils
 #######################################################
-haveYouRegisteredForTiedOils.title = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’?
-haveYouRegisteredForTiedOils.heading = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’?
-haveYouRegisteredForTiedOils.message1 = Byddwn wedi anfon rhif cymeradwyo atoch
-haveYouRegisteredForTiedOils.yes = Ydw - mae gennyf rif cymeradwyo
-haveYouRegisteredForTiedOils.no = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
-haveYouRegisteredForTiedOils.checkYourAnswersLabel = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’?
-haveYouRegisteredForTiedOils.error.required = Dewis iawn neu na
+haveYouRegisteredForTiedOils.title = A ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew ‘Tied’?
+haveYouRegisteredForTiedOils.heading = A ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew ‘Tied’?
+haveYouRegisteredForTiedOils.message1 = Os ydych wedi cofrestru, bydd gennych rif cymeradwyo.
+haveYouRegisteredForTiedOils.yes = Iawn
+haveYouRegisteredForTiedOils.no = Na
+haveYouRegisteredForTiedOils.error.required = Dewiswch Iawn os ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew ‘Tied’
 
 
 #######################################################
 ##  Register Tied Oils
 #######################################################
-registerTiedOils.title = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’
-registerTiedOils.heading = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’
-registerTiedOils.message1 = Mae’n rhaid i chi gofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’ cyn y gallwch ei ychwanegu i’ch cyfrif.
-registerTiedOils.message2 = Byddwn yn anfon rhif cymeradwyo atoch. Gallwch ei ddefnyddio i ychwanegu Gwasanaeth Ymholiadau Olew ‘Tied’ i’r cyfrif.
-registerTiedOils.button.text = Mynd yn eich blaen - cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’
+registerTiedOils.title = Mae angen i chi gofrestru ar gyfer y Gwasanaeth Ymholiadau Olew ‘Tied’ cyn y gallwch ei ychwanegu iat eich cyfrif
+registerTiedOils.heading = Mae angen i chi gofrestru ar gyfer y Gwasanaeth Ymholiadau Olew ‘Tied’ cyn y gallwch ei ychwanegu iat eich cyfrif
+registerTiedOils.message1 = Pan gewch eich rhif cymeradwyo, mewngofnodwch i’ch cyfrif ac ychwanegwch y gwasanaeth hwn.
+registerTiedOils.button.text = Cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew ‘Tied’
 
 
 #######################################################
 ##  Have You Registered For Rebated Oils
 #######################################################
-haveYouRegisteredForRebatedOils.title = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’?
-haveYouRegisteredForRebatedOils.heading = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’?
-haveYouRegisteredForRebatedOils.message1 = Byddwn wedi anfon rhif cymeradwyo atoch
-haveYouRegisteredForRebatedOils.yes = Ydw - mae gennyf rif cymeradwyo
-haveYouRegisteredForRebatedOils.no = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
-haveYouRegisteredForRebatedOils.checkYourAnswersLabel = A ydych eisoes wedi cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’?
-haveYouRegisteredForRebatedOils.error.required = Dewis iawn neu na
+haveYouRegisteredForRebatedOils.title = A ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew Ad-daledig?
+haveYouRegisteredForRebatedOils.heading = A ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew Ad-daledig?
+haveYouRegisteredForRebatedOils.message1 = Os ydych wedi cofrestru, bydd gennych rif cymeradwyo.
+haveYouRegisteredForRebatedOils.yes = Iawn
+haveYouRegisteredForRebatedOils.no = Na
+haveYouRegisteredForRebatedOils.error.required = Dewiswch Iawn os ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew Ad-daledig
 
 
 #######################################################
 ##  Register Rebated Oils
 #######################################################
-registerRebatedOils.title = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’
-registerRebatedOils.heading = Cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’
-registerRebatedOils.message1 = Mae’n rhaid i chi gofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Tied’ cyn y gallwch ei ychwanegu i’ch cyfrif.
-registerRebatedOils.message2 = Byddwn yn anfon rhif cymeradwyo atoch. Gallwch ei ddefnyddio i ychwanegu Gwasanaeth Ymholiadau Olew ‘Rebated’ i’r cyfrif.
-registerRebatedOils.button.text = Mynd yn eich blaen - cofrestru ar gyfer Gwasanaeth Ymholiadau Olew ‘Rebated’
+registerRebatedOils.title = Mae angen i chi gofrestru ar gyfer y Gwasanaeth Ymholiadau Olew Ad-daledig cyn y gallwch ei ychwanegu at eich cyfrif
+registerRebatedOils.heading = Mae angen i chi gofrestru ar gyfer y Gwasanaeth Ymholiadau Olew Ad-daledig cyn y gallwch ei ychwanegu at eich cyfrif
+registerRebatedOils.message1 = Pan gewch eich rhif cymeradwyo, mewngofnodwch i’ch cyfrif ac ychwanegwch y gwasanaeth hwn.
+registerRebatedOils.button.text = Cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew Ad-daledig
 
 
 #######################################################
@@ -447,21 +443,20 @@ doYouHaveMGDRegistration.error.required = Dewiswch Iawn os oes gennych rif cofre
 #######################################################
 ##  RegisterWarehousekeeper
 #######################################################
-registerWarehousekeeper.title = Cofrestrwch fel ceidwad warws ecséis yn gyntaf
-registerWarehousekeeper.heading = Cofrestrwch fel ceidwad warws ecséis yn gyntaf
-registerWarehousekeeper.p1 = Mae angen i chi gofrestru fel ceidwad warws ecséis cyn y gallwch ychwanegu ATWD i’ch cyfrif.
-registerWarehousekeeper.p2 = Byddwn yn anfon ID warws atoch. Dychwelwch i’ch cyfrif ac ychwanegu ATWD pan fyddwch yn ei gael.
-registerWarehousekeeper.continue = Mynd yn eich blaen - cofrestru fel ceidwad warws ecséis
+registerWarehousekeeper.title = Mae angen i chi fod yn geidwad warws cofrestredig i ychwanegu’r gwasanaeth hwn
+registerWarehousekeeper.heading = Mae angen i chi fod yn geidwad warws cofrestredig i ychwanegu’r gwasanaeth hwn
+registerWarehousekeeper.p1 = Pan gewch ID warws, mewngofnodwch ac ychwanegwch ‘Datganiadau Warysu Alcohol a Thybaco’ at eich cyfrif.
+registerWarehousekeeper.continue = Gwneud cais i fod yn geidwad warws cofrestredig
 
 #######################################################
 ##  AreYouRegisteredWarehousekeeper
 #######################################################
 areYouRegisteredWarehousekeeper.title = A ydych yn geidwad warws ecséis cofrestredig?
 areYouRegisteredWarehousekeeper.heading = A ydych yn geidwad warws ecséis cofrestredig?
-areYouRegisteredWarehousekeeper.p1 = Byddwn wedi anfon llythyr yn cymeradwyo’r warws, gydag ID warws, atoch os ydych yn geidwad warws ecséis cofrestredig.
-areYouRegisteredWarehousekeeper.Yes = Ydw - mae gennyf ID warws
-areYouRegisteredWarehousekeeper.No = Nac ydw - nid wyf yn geidwad warws cofrestredig
-areYouRegisteredWarehousekeeper.error.required = Dewis iawn neu na
+areYouRegisteredWarehousekeeper.p1 = Bydd gennych lythyr yn cymeradwyo’r warws, gydag ID warws os ydych.
+areYouRegisteredWarehousekeeper.Yes = Iawn
+areYouRegisteredWarehousekeeper.No = Na
+areYouRegisteredWarehousekeeper.error.required = Dewiswch Iawn os ydych yn geidwad warws cofrestredig
 
 #######################################################
 ##  SelectSACategory
@@ -476,29 +471,28 @@ selectSACategory.error.required = Dewis categori
 #######################################################
 ##  SelectAlcoholScheme
 #######################################################
-selectAlcoholScheme.title = Dewis cynllun alcohol
-selectAlcoholScheme.heading = Dewis cynllun alcohol
+selectAlcoholScheme.title = Pa gynllun sydd ei angen arnoch?
+selectAlcoholScheme.heading = Pa gynllun sydd ei angen arnoch?
 selectAlcoholScheme.atwd = Datganiadau Warysu Alcohol a Thybaco (ATWD)
 selectAlcoholScheme.awrs = Cynllun Cofrestru Cyfanwerthwyr Alcohol (AWRS)
-selectAlcoholScheme.error.required = Dewis cynllun
+selectAlcoholScheme.error.required = Dewiswch pa gynllun sydd ei angen arnoch
 
 #######################################################
 ##  DoYouHaveCharityReference
 #######################################################
 doYouHaveCharityReference.title = A oes gennych gyfeirnod Elusennau CThEM?
 doYouHaveCharityReference.heading = A oes gennych gyfeirnod Elusennau CThEM?
-doYouHaveCharityReference.Yes = Oes - mae gennym gyfeirnod Elusennau CThEM
-doYouHaveCharityReference.No = Nac oes - nid oes gennym gyfeirnod Elusennau CThEM ar hyn o bryd
-doYouHaveCharityReference.error.required = Dewis iawn neu na
+doYouHaveCharityReference.Yes = Iawn
+doYouHaveCharityReference.No = Na
+doYouHaveCharityReference.error.required = Dewiswch Iawn os oes gennych gyfeirnod Elusennau CThEM
 
 #######################################################
 ##  RegisterForCharity
 #######################################################
-registerForCharity.title = Cofrestru fel Elusen gyda CThEM
-registerForCharity.heading = Cofrestru fel Elusen gyda CThEM
-registerForCharity.p1 = Mae angen i chi gofrestru fel elusen gyda CThEM cyn y gallwch ychwanegu’r gwasanaeth Rhodd Cymorth i’ch cyfrif.
-registerForCharity.p2 = Byddwn yn anfon cyfeirnod atoch. Gallwch ei ddefnyddio, wedyn, i ychwanegu’r gwasanaeth i’ch cyfrif.
-registerForCharity.continue = Mynd yn eich blaen - cofrestru fel Elusen gyda CThEM
+registerForCharity.title = Mae angen i chi gofrestru fel elusen gyda CThEM cyn y gallwch ychwanegu’r gwasanaeth hwn at eich cyfrif
+registerForCharity.heading = Mae angen i chi gofrestru fel elusen gyda CThEM cyn y gallwch ychwanegu’r gwasanaeth hwn at eich cyfrif
+registerForCharity.p1 = Pan gewch y cyfeirnod, mewngofnodwch i’ch cyfrif ac ychwanegwch y gwasanaeth hwn.
+registerForCharity.continue = Cofrestru fel elusen gyda CThEM
 
 #######################################################
 ##  UsePAYEEmployerAccount
@@ -989,6 +983,15 @@ doYouNeedToStopPBD.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gw
 doYouNeedToStopPBD.Yes = Iawn
 doYouNeedToStopPBD.No = Na, mae angen i fi ddadgofrestru o’r Toll Cronfa Fetio
 doYouNeedToStopPBD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio
+
+#######################################################
+##  DoYouNeedToStopVatMossNU
+#######################################################
+doYouNeedToStopVatMossNU.title = A oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn?
+doYouNeedToStopVatMossNU.heading = A oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn?
+doYouNeedToStopVatMossNU.Yes = Iawn
+doYouNeedToStopVatMossNU.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein
+doYouNeedToStopVatMossNU.error.required = Dewiswch Iawn os oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn
 
 #######################################################
 ##  DoYouNeedToStopMGDController

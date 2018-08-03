@@ -17,34 +17,29 @@
 package utils.nextpage.deenrolment
 
 import config.FrontendAppConfig
-import identifiers.DoYouNeedToStopMGDId
+import identifiers.DoYouNeedToStopVatMossNUId
 import play.api.mvc.{Call, Request}
-import models.deenrolment.DoYouNeedToStopMGD
-import uk.gov.hmrc.auth.core.Enrolment
+import models.deenrolment.DoYouNeedToStopVatMossNU
 import utils.{Enrolments, NextPage}
+import uk.gov.hmrc.auth.core.Enrolment
 
-trait DoYouNeedToStopMGDNextPage {
+trait DoYouNeedToStopVatMossNUNextPage {
 
-  type DoYouNeedToStopMGDWithEnrolment = (DoYouNeedToStopMGD, Option[Enrolment])
-
-  implicit val doYouNeedToStopMGD
-    : NextPage[DoYouNeedToStopMGDId.type, DoYouNeedToStopMGDWithEnrolment, Either[String, Call]] = {
-    new NextPage[DoYouNeedToStopMGDId.type, DoYouNeedToStopMGDWithEnrolment, Either[String, Call]] {
-      override def get(b: DoYouNeedToStopMGDWithEnrolment)(
+  implicit val doYouNeedToStopVatMossNU
+    : NextPage[DoYouNeedToStopVatMossNUId.type, (DoYouNeedToStopVatMossNU, Option[Enrolment]), Either[String, Call]] = {
+    new NextPage[DoYouNeedToStopVatMossNUId.type, (DoYouNeedToStopVatMossNU, Option[Enrolment]), Either[String, Call]] {
+      override def get(b: (DoYouNeedToStopVatMossNU, Option[Enrolment]))(
         implicit appConfig: FrontendAppConfig,
         request: Request[_]): Either[String, Call] =
         b match {
-
-          case (DoYouNeedToStopMGD.Yes, _) =>
-            Right(Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.MachineGamesDuty)))
-
-          case (DoYouNeedToStopMGD.No, Some(enrolment)) =>
+          case (DoYouNeedToStopVatMossNU.Yes, Some(enrolment)) =>
             enrolment.identifiers match {
               case Nil    => Left(s"unable to find identifier for ${enrolment.key}")
-              case h :: _ => Right(Call("GET", appConfig.getPortalUrl("stopMGD", h.value)))
+              case h :: _ => Right(Call("GET", appConfig.getPortalUrl("mossChangeDetails", h.value)))
             }
-          case (DoYouNeedToStopMGD.No, None) => Left("unable to find enrolment")
-
+          case (DoYouNeedToStopVatMossNU.Yes, None) => Left("unable to find enrolment")
+          case (DoYouNeedToStopVatMossNU.No, _) =>
+            Right(Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.VATMOSSNonUnion)))
         }
     }
   }
