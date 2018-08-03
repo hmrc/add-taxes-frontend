@@ -377,20 +377,20 @@ doYouWantToAddPartner.error.required = Select yes or no
 #######################################################
 ##  RegisterAEOI
 #######################################################
-registerAEOI.title = Register for Automatic Exchange of Information (AEOI)
-registerAEOI.heading = Register for Automatic Exchange of Information (AEOI)
-registerAEOI.continue = Continue - register for AEOI
-registerAEOI.detail.1 = You need to register for AEOI before you can add it to your account.
-registerAEOI.detail.2 = We’ll send you an Automatic Exchange of Information ID, which you can use to add AEOI to the account.
+registerAEOI.title = You need to register for Automatic Exchange of Information (AEOI) before you add it to your account
+registerAEOI.heading = You need to register for Automatic Exchange of Information (AEOI) before you add it to your account
+registerAEOI.continue = Register for AEOI
+registerAEOI.detail = When you get your AEOI ID, sign in and add this service.
+
 #######################################################
 ##  HaveYouRegisteredAEOI
 #######################################################
 haveYouRegisteredAEOI.title = Have you already registered for Automatic Exchange of Information (AEOI)?
 haveYouRegisteredAEOI.heading = Have you already registered for Automatic Exchange of Information (AEOI)?
-haveYouRegisteredAEOI.Yes = Yes - I have an ID
-haveYouRegisteredAEOI.No = No - I haven’t registered yet
-haveYouRegisteredAEOI.error.required = Select yes or no
-haveYouRegisteredAEOI.p1 = We’ll have sent you an Automatic Exchange of Information ID
+haveYouRegisteredAEOI.Yes = Yes
+haveYouRegisteredAEOI.No = No
+haveYouRegisteredAEOI.error.required = Select yes if you have registered for Automatic Exchange of Information
+haveYouRegisteredAEOI.p1 = You will have an Automatic Exchange of Information ID.
 
 #######################################################
 ##  AddVATMOSS

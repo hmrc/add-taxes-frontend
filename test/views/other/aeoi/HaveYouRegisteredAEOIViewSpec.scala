@@ -50,9 +50,9 @@ class HaveYouRegisteredAEOIViewSpec extends ViewBehaviours {
       }
     }
 
-    "contain 'We’ll have sent you an Automatic Exchange of Information ID'" in {
+    "contain 'You will have an Automatic Exchange of Information ID.'" in {
       val doc = asDocument(createView())
-      assertContainsText(doc, "We’ll have sent you an Automatic Exchange of Information ID")
+      assertContainsText(doc, "You will have an Automatic Exchange of Information ID.")
     }
 
     for (option <- HaveYouRegisteredAEOI.options) {
