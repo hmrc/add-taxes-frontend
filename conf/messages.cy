@@ -330,7 +330,7 @@ haveYouRegisteredTrust.title = A ydych wedi cofrestru eich ymddiriedolaeth?
 haveYouRegisteredTrust.heading = A ydych wedi cofrestru eich ymddiriedolaeth?
 haveYouRegisteredTrust.Yes = Iawn
 haveYouRegisteredTrust.No = Na
-haveYouRegisteredTrust.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru'ch ymddiriedolaeth
+haveYouRegisteredTrust.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru’ch ymddiriedolaeth
 haveYouRegisteredTrust.hintText = Mae’ch ymddiriedolaeth wedi’i chofrestru os gwnaethoch anfon {0} atom, a’ch bod wedi cael Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth drwy’r post.
 haveYouRegisteredTrust.form.g41=ffurflen G41
 
