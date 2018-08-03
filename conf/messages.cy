@@ -447,21 +447,20 @@ doYouHaveMGDRegistration.error.required = Dewiswch Iawn os oes gennych rif cofre
 #######################################################
 ##  RegisterWarehousekeeper
 #######################################################
-registerWarehousekeeper.title = Cofrestrwch fel ceidwad warws ecséis yn gyntaf
-registerWarehousekeeper.heading = Cofrestrwch fel ceidwad warws ecséis yn gyntaf
-registerWarehousekeeper.p1 = Mae angen i chi gofrestru fel ceidwad warws ecséis cyn y gallwch ychwanegu ATWD i’ch cyfrif.
-registerWarehousekeeper.p2 = Byddwn yn anfon ID warws atoch. Dychwelwch i’ch cyfrif ac ychwanegu ATWD pan fyddwch yn ei gael.
-registerWarehousekeeper.continue = Mynd yn eich blaen - cofrestru fel ceidwad warws ecséis
+registerWarehousekeeper.title = Mae angen i chi fod yn geidwad warws cofrestredig i ychwanegu’r gwasanaeth hwn
+registerWarehousekeeper.heading = Mae angen i chi fod yn geidwad warws cofrestredig i ychwanegu’r gwasanaeth hwn
+registerWarehousekeeper.p1 = Pan gewch ID warws, mewngofnodwch ac ychwanegwch ‘Datganiadau Warysu Alcohol a Thybaco’ at eich cyfrif.
+registerWarehousekeeper.continue = Gwneud cais i fod yn geidwad warws cofrestredig
 
 #######################################################
 ##  AreYouRegisteredWarehousekeeper
 #######################################################
 areYouRegisteredWarehousekeeper.title = A ydych yn geidwad warws ecséis cofrestredig?
 areYouRegisteredWarehousekeeper.heading = A ydych yn geidwad warws ecséis cofrestredig?
-areYouRegisteredWarehousekeeper.p1 = Byddwn wedi anfon llythyr yn cymeradwyo’r warws, gydag ID warws, atoch os ydych yn geidwad warws ecséis cofrestredig.
-areYouRegisteredWarehousekeeper.Yes = Ydw - mae gennyf ID warws
-areYouRegisteredWarehousekeeper.No = Nac ydw - nid wyf yn geidwad warws cofrestredig
-areYouRegisteredWarehousekeeper.error.required = Dewis iawn neu na
+areYouRegisteredWarehousekeeper.p1 = Bydd gennych lythyr yn cymeradwyo’r warws, gydag ID warws os ydych.
+areYouRegisteredWarehousekeeper.Yes = Iawn
+areYouRegisteredWarehousekeeper.No = Na
+areYouRegisteredWarehousekeeper.error.required = Dewiswch Iawn os ydych yn geidwad warws cofrestredig
 
 #######################################################
 ##  SelectSACategory
@@ -476,11 +475,11 @@ selectSACategory.error.required = Dewis categori
 #######################################################
 ##  SelectAlcoholScheme
 #######################################################
-selectAlcoholScheme.title = Dewis cynllun alcohol
-selectAlcoholScheme.heading = Dewis cynllun alcohol
+selectAlcoholScheme.title = Pa gynllun sydd ei angen arnoch?
+selectAlcoholScheme.heading = Pa gynllun sydd ei angen arnoch?
 selectAlcoholScheme.atwd = Datganiadau Warysu Alcohol a Thybaco (ATWD)
 selectAlcoholScheme.awrs = Cynllun Cofrestru Cyfanwerthwyr Alcohol (AWRS)
-selectAlcoholScheme.error.required = Dewis cynllun
+selectAlcoholScheme.error.required = Dewiswch pa gynllun sydd ei angen arnoch
 
 #######################################################
 ##  DoYouHaveCharityReference
