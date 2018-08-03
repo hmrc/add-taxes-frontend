@@ -341,10 +341,10 @@ haveYouRegisteredTrust.form.g41=ffurflen G41
 #######################################################
 haveYouRegisteredPartnership.title = A ydych eisoes wedi cofrestru eich partneriaeth?
 haveYouRegisteredPartnership.heading = A ydych eisoes wedi cofrestru eich partneriaeth?
-haveYouRegisteredPartnership.Yes = Ydw - rwyf wedi cofrestru’r bartneriaeth ac mae gennyf UTR
-haveYouRegisteredPartnership.No = Nac ydw - nid wyf wedi cofrestru’r bartneriaeth
-haveYouRegisteredPartnership.error.required = Dewis iawn neu na
-haveYouRegisteredPartnership.hintText = Byddwn wedi anfon Cyfeirnod Unigryw y Trethdalwr (UTR) atoch ar gyfer eich partneriaeth, os ydych eisoes wedi’i chofrestru
+haveYouRegisteredPartnership.Yes = Iawn
+haveYouRegisteredPartnership.No = Na
+haveYouRegisteredPartnership.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru'ch partneriaeth a bod gennych UTR
+haveYouRegisteredPartnership.hintText = Byddwn wedi anfon Cyfeirnod Unigryw y Trethdalwr (UTR) atoch ar gyfer eich partneriaeth, os ydych eisoes wedi’i chofrestru.
 
 #######################################################
 ##  DoYouWantToAddPartner

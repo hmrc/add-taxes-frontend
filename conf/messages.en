@@ -355,10 +355,10 @@ registerRGD.continue = Register for the Remote Gaming Duty
 #######################################################
 haveYouRegisteredPartnership.title = Have you already registered your partnership?
 haveYouRegisteredPartnership.heading = Have you already registered your partnership?
-haveYouRegisteredPartnership.Yes = Yes - I’ve registered the partnership and have a UTR
-haveYouRegisteredPartnership.No = No - I haven’t registered the partnership
-haveYouRegisteredPartnership.error.required = Select yes or no
-haveYouRegisteredPartnership.hintText = We’ll have sent you a Unique Taxpayer Reference (UTR) for your partnership, if you’ve already registered it
+haveYouRegisteredPartnership.Yes = Yes
+haveYouRegisteredPartnership.No = No
+haveYouRegisteredPartnership.error.required = Select yes if you have already registered your partnership and have the UTR
+haveYouRegisteredPartnership.hintText = We will have sent you a Unique Taxpayer Reference (UTR) for your partnership, if you have already registered it.
 
 #######################################################
 ##  DoYouWantToAddPartner
