@@ -482,18 +482,17 @@ selectAlcoholScheme.error.required = Dewiswch pa gynllun sydd ei angen arnoch
 #######################################################
 doYouHaveCharityReference.title = A oes gennych gyfeirnod Elusennau CThEM?
 doYouHaveCharityReference.heading = A oes gennych gyfeirnod Elusennau CThEM?
-doYouHaveCharityReference.Yes = Oes - mae gennym gyfeirnod Elusennau CThEM
-doYouHaveCharityReference.No = Nac oes - nid oes gennym gyfeirnod Elusennau CThEM ar hyn o bryd
-doYouHaveCharityReference.error.required = Dewis iawn neu na
+doYouHaveCharityReference.Yes = Iawn
+doYouHaveCharityReference.No = Na
+doYouHaveCharityReference.error.required = Dewiswch Iawn os oes gennych gyfeirnod Elusennau CThEM
 
 #######################################################
 ##  RegisterForCharity
 #######################################################
-registerForCharity.title = Cofrestru fel Elusen gyda CThEM
-registerForCharity.heading = Cofrestru fel Elusen gyda CThEM
-registerForCharity.p1 = Mae angen i chi gofrestru fel elusen gyda CThEM cyn y gallwch ychwanegu’r gwasanaeth Rhodd Cymorth i’ch cyfrif.
-registerForCharity.p2 = Byddwn yn anfon cyfeirnod atoch. Gallwch ei ddefnyddio, wedyn, i ychwanegu’r gwasanaeth i’ch cyfrif.
-registerForCharity.continue = Mynd yn eich blaen - cofrestru fel Elusen gyda CThEM
+registerForCharity.title = Mae angen i chi gofrestru fel elusen gyda CThEM cyn y gallwch ychwanegu’r gwasanaeth hwn at eich cyfrif
+registerForCharity.heading = Mae angen i chi gofrestru fel elusen gyda CThEM cyn y gallwch ychwanegu’r gwasanaeth hwn at eich cyfrif
+registerForCharity.p1 = Pan gewch y cyfeirnod, mewngofnodwch i’ch cyfrif ac ychwanegwch y gwasanaeth hwn.
+registerForCharity.continue = Cofrestru fel elusen gyda CThEM
 
 #######################################################
 ##  UsePAYEEmployerAccount
