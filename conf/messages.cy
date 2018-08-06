@@ -618,10 +618,10 @@ whichVATServicesToAdd.error.required = Dewis gwasanaeth TAW
 #######################################################
 ##  UseEmployersPAYE
 #######################################################
-useEmployersPAYE.title = Defnyddio eich cyfrif TWE i gyflogwyr
-useEmployersPAYE.heading = Defnyddio eich cyfrif TWE i gyflogwyr
-useEmployersPAYE.subtext = Mae’n rhaid i chi reoli gwarantau ar sail cyflogaeth (ERS) yn yr un cyfrif ag yr ydych yn rheoli TWE i gyflogwyr.
-useEmployersPAYE.continue = Mewngofnodi i’ch cyfrif TWE i gyflogwyr
+useEmployersPAYE.title = Ychwanegu gwarantau ar sail cyflogaeth (ERS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+useEmployersPAYE.heading = Ychwanegu gwarantau ar sail cyflogaeth (ERS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+useEmployersPAYE.subtext = Mewngofnodi i'ch cyfrif arall ac ychwanegu ERS.
+useEmployersPAYE.continue = Mewngofnodi i'r cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
 useEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
 #######################################################

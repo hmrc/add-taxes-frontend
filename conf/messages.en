@@ -641,11 +641,11 @@ registerInHomeCountry.callUs = call us.
 #######################################################
 ##  UseEmployersPAYE
 #######################################################
-useEmployersPAYE.title = Use your PAYE for employers account
-useEmployersPAYE.heading = Use your PAYE for employers account
-useEmployersPAYE.subtext = You have to manage employment related securities (ERS) in the same account that you manage PAYE for employers.
-useEmployersPAYE.continue = Sign in to your PAYE for employers account
-useEmployersPAYE.notnow = I don’t want to do this right now
+useEmployersPAYE.title = Add employment related securities (ERS) to the account you use for PAYE for employers
+useEmployersPAYE.heading = Add employment related securities (ERS) to the account you use for PAYE for employers
+useEmployersPAYE.subtext = Sign in to your other account and add ERS.
+useEmployersPAYE.continue = Sign in to the account you use for PAYE for employers
+useEmployersPAYE.notnow = 	I do not want to do this now
 
 #######################################################
 ##  AddEmployersPAYE
