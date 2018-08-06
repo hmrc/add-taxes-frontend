@@ -786,31 +786,31 @@ setUpANewAccount.subtext3 = a byddwn yn eich helpu i wneud hyn dros y ffôn.
 #######################################################
 ##  PaperForms
 #######################################################
-paperForms.title = Defnyddiwch ffurflenni papur
-paperForms.p1 = Mae’r gwasanaeth Tollau Stamp ar-lein dim ond ar gyfer gweithwyr proffesiynol sy’n gweithredu ar ran cleientiaid.
-paperForms.p2 = Mae angen i chi lenwi ffurflenni papur ar gyfer Tollau Stamp os ydych yn prynu’r tir neu’r eiddo eich hun.
-paperForms.heading = Defnyddiwch ffurflenni papur
-paperForms.continue = Mynd yn eich blaen i ffurflenni papur
+paperForms.title = Ni allwch ychwanegu Trethi Stamp Ar-lein
+paperForms.p1 = Mae hwn ond ar gyfer gweithwyr proffesiynol sy’n gweithredu ar ran cleientiaid.
+paperForms.p2 = Mae angen i chi lenwi ffurflenni papur ar gyfer Tollau Stamp os ydych yn prynu’r tir neu’r eiddo i chi’ch hun.
+paperForms.heading = Ni allwch ychwanegu Trethi Stamp Ar-lein
+paperForms.continue = Llenwi ffurflenni papur
 
 #######################################################
 ##  StampDuty
 #######################################################
 stampDuty.title = A yw’r gwasanaeth hwn ar gyfer eich busnes?
 stampDuty.heading = A yw’r gwasanaeth hwn ar gyfer eich busnes?
-stampDuty.p1 = Er enghraifft, rydych yn gyfreithiwr neu’n drawsgludwr
-stampDuty.Yes = Ydy - mae’r gwasanaeth hwn at ddibenion busnes
-stampDuty.No = Nac ydy - rwy’n prynu eiddo ar gyfer fy hun
-stampDuty.error.required = Dewis iawn neu na
+stampDuty.p1 = Dewiswch ‘Iawn’ os ydych yn gyfreithiwr neu’n drawsgludwr. Dewiswch ‘Na’ os ydych yn prynu eiddo i chi’ch hun.
+stampDuty.Yes = Iawn
+stampDuty.No = Na
+stampDuty.error.required = Dewiswch ‘Iawn’ os yw’r gwasanaeth hwn ar gyfer eich busnes
 
 #######################################################
 ##  SelectATax
 #######################################################
-selectATax.title = Dewis treth
-selectATax.heading = Dewis treth
+selectATax.title = Pa dreth y mae angen i chi ei hychwanegu?
+selectATax.heading = Pa dreth y mae angen i chi ei hychwanegu?
 selectATax.ATED = Treth Flynyddol ar Anheddau wedi’u Hamgáu (ATED)
-selectATax.SBT = Treth Drafodiadau Tir ac Adeiladau - yr Alban yn unig
+selectATax.LBT = Treth Drafodiadau Tir ac Adeiladau - yr Alban yn unig
 selectATax.SDLT = Treth Dir y Tollau Stamp (SDLT) - ddim ar gyfer yr Alban
-selectATax.error.required = Dewis treth
+selectATax.error.required = Dewiswch pa dreth y mae angen i chi ei hychwanegu
 
 #######################################################
 ##  DoYouHavePBDRegistration
