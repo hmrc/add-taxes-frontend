@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package models.vat.moss.iom
+package models.vat.moss
 
 import utils.{Enumerable, RadioOption, WithName}
 

@@ -19,11 +19,11 @@ package controllers.vat.moss.iom
 import javax.inject.Inject
 import config.FrontendAppConfig
 import controllers.actions._
+import forms.vat.moss.AlreadyRegisteredForVATMossFormProvider
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-import forms.vat.moss.iom.AlreadyRegisteredForVATMossFormProvider
 import identifiers.AlreadyRegisteredForVATMossId
 import play.api.mvc.Call
 import viewmodels.ViewAction

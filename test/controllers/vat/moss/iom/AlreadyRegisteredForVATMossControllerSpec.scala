@@ -22,10 +22,10 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeNavigator
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
+import forms.vat.moss.AlreadyRegisteredForVATMossFormProvider
 import play.api.test.Helpers._
-import forms.vat.moss.iom.AlreadyRegisteredForVATMossFormProvider
 import identifiers.AlreadyRegisteredForVATMossId
-import models.vat.moss.iom.AlreadyRegisteredForVATMoss
+import models.vat.moss.AlreadyRegisteredForVATMoss
 import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import viewmodels.ViewAction

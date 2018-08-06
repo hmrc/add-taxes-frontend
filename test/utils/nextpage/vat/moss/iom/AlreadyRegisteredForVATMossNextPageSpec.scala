@@ -15,8 +15,7 @@
  */
 
 package utils.nextpage.vat.moss.iom
-
-import models.vat.moss.iom.AlreadyRegisteredForVATMoss
+import models.vat.moss.AlreadyRegisteredForVATMoss
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 

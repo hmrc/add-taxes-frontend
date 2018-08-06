@@ -18,8 +18,8 @@ package utils.nextpage.vat.moss.iom
 
 import config.FrontendAppConfig
 import identifiers.AlreadyRegisteredForVATMossId
+import models.vat.moss.AlreadyRegisteredForVATMoss
 import play.api.mvc.{Call, Request}
-import models.vat.moss.iom.AlreadyRegisteredForVATMoss
 import utils.{Enrolments, NextPage}
 
 trait AlreadyRegisteredForVATMossNextPage {

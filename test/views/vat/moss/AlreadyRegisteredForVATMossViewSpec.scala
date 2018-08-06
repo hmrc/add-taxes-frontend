@@ -17,8 +17,8 @@
 package views.vat.moss
 
 import controllers.vat.moss.iom.routes
-import forms.vat.moss.iom.AlreadyRegisteredForVATMossFormProvider
-import models.vat.moss.iom.AlreadyRegisteredForVATMoss
+import forms.vat.moss.AlreadyRegisteredForVATMossFormProvider
+import models.vat.moss.AlreadyRegisteredForVATMoss
 import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import viewmodels.ViewAction
