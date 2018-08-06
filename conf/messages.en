@@ -54,8 +54,8 @@ unauthorised.heading = You can’t access this service with this account
 #######################################################
 ##  Select An Oil Service
 #######################################################
-selectAnOilService.heading = Select an oil service
-selectAnOilService.title = Select an oil service
+selectAnOilService.heading = Which oil service do you need?
+selectAnOilService.title = Which oil service do you need?
 selectAnOilService.rebatedOilsEnquiryService = Rebated Oils Enquiry Service
 selectAnOilService.tiedOilsEnquiryService = Tied Oils Enquiry Service
 selectAnOilService.checkYourAnswersLabel = Select an oil service
@@ -65,46 +65,41 @@ selectAnOilService.error.required = Select a service
 #######################################################
 ##  Have You Registered For Tied Oils
 #######################################################
-haveYouRegisteredForTiedOils.title = Have you already registered for Tied Oils Enquiry Service?
-haveYouRegisteredForTiedOils.heading = Have you already registered for Tied Oils Enquiry Service?
-haveYouRegisteredForTiedOils.message1 = We’ll have sent you an approval number
-haveYouRegisteredForTiedOils.yes = Yes - I have an approval number
-haveYouRegisteredForTiedOils.no = No - I haven’t registered yet
-haveYouRegisteredForTiedOils.checkYourAnswersLabel = Have you already registered for Tied Oils Enquiry Service?
-haveYouRegisteredForTiedOils.error.required = Select yes or no
+haveYouRegisteredForTiedOils.title = Have you already registered for the Tied Oils Enquiry Service?
+haveYouRegisteredForTiedOils.heading = Have you already registered for the Tied Oils Enquiry Service?
+haveYouRegisteredForTiedOils.message1 = If you are registered, you will have an approval number.
+haveYouRegisteredForTiedOils.yes = Yes
+haveYouRegisteredForTiedOils.no = No
+haveYouRegisteredForTiedOils.error.required = Select yes if you have already registered for the Tied Oils Enquiry Service
 
 
 #######################################################
 ##  Register Tied Oils
 #######################################################
-registerTiedOils.title = Register for Tied Oils Enquiry Service
-registerTiedOils.heading = Register for Tied Oils Enquiry Service
-registerTiedOils.message1 = You need to register for Tied Oils Enquiry Service before you can add it to your account.
-registerTiedOils.message2 = We’ll send you an approval number, which you can use to add Tied Oils Enquiry Service to the account.
-registerTiedOils.button.text = Continue - register for Tied Oils Enquiry Service
+registerTiedOils.title = You need to register for the Tied Oils Enquiry Service before you can add it to your account
+registerTiedOils.heading = You need to register for the Tied Oils Enquiry Service before you can add it to your account
+registerTiedOils.message1 = When you get an approval number, sign in to your account and add this service.
+registerTiedOils.button.text = Register for the Tied Oils Enquiry Service
 
 
 #######################################################
 ##  Have You Registered For Rebated Oils
 #######################################################
-haveYouRegisteredForRebatedOils.title = Have you already registered for Rebated Oils Enquiry Service?
-haveYouRegisteredForRebatedOils.heading = Have you already registered for Rebated Oils Enquiry Service?
-haveYouRegisteredForRebatedOils.message1 = We’ll have sent you an approval number
-haveYouRegisteredForRebatedOils.yes = Yes - I have an approval number
-haveYouRegisteredForRebatedOils.no = No - I haven’t registered yet
-haveYouRegisteredForRebatedOils.checkYourAnswersLabel = Have you already registered for Rebated Oils Enquiry Service?
-haveYouRegisteredForRebatedOils.checkYourAnswersLabel = Have you already registered for Rebated Oils Enquiry Service?
-haveYouRegisteredForRebatedOils.error.required = Select yes or no
+haveYouRegisteredForRebatedOils.title = Have you already registered for the Rebated Oils Enquiry Service?
+haveYouRegisteredForRebatedOils.heading = Have you already registered for the Rebated Oils Enquiry Service?
+haveYouRegisteredForRebatedOils.message1 = If you are registered, you will have an approval number.
+haveYouRegisteredForRebatedOils.yes = Yes
+haveYouRegisteredForRebatedOils.no = No
+haveYouRegisteredForRebatedOils.error.required = Select yes if you have already registered for the Rebated Oils Enquiry Service
 
 
 #######################################################
 ##  Register Rebated Oils
 #######################################################
-registerRebatedOils.title = Register for Rebated Oils Enquiry Service
-registerRebatedOils.heading = Register for Rebated Oils Enquiry Service
-registerRebatedOils.message1 = You need to register for Rebated Oils Enquiry Service before you can add it to your account.
-registerRebatedOils.message2 = We’ll send you an approval number, which you can use to add Rebated Oils Enquiry Service to the account.
-registerRebatedOils.button.text = Continue - register for Rebated Oils Enquiry Service
+registerRebatedOils.title = You need to register for the Rebated Oils Enquiry Service before you can add it to your account
+registerRebatedOils.heading = You need to register for the Rebated Oils Enquiry Service before you can add it to your account
+registerRebatedOils.message1 = When you get an approval number, sign in to your account and add this service.
+registerRebatedOils.button.text = Register for the Rebated Oils Enquiry Service
 
 
 #######################################################
@@ -185,8 +180,8 @@ economicOperatorsRegistrationAndIdentification.error.required = Select yes if yo
 #######################################################
 ##  RegisterEORI
 #######################################################
-registerEORI.title = You need an EORI number to add this service
-registerEORI.heading = You need an EORI number to add this service
+registerEORI.title = You need an Economic Operator Registration and Identification (EORI) number to add this service
+registerEORI.heading = You need an Economic Operator Registration and Identification (EORI) number to add this service
 registerEORI.continue = Get an EORI number
 
 
@@ -239,8 +234,7 @@ doYouHaveCHIEFRole.error.required = Select yes or no
 #######################################################
 ##  RegisterEORI - EBTI
 #######################################################
-registerEORIEBTI.p1 = You need an Economic Operators Registration and Identification (EORI) to add electronic Binding Tariff Information (eBTI) to your account.
-registerEORIEBTI.p2 = Come back to your account and add eBTI once your EORI number arrives.
+registerEORIEBTI.p1 = When you get this, sign in and add the electronic Binding Tariff Information (eBTI) to your account.
 
 
 #######################################################
@@ -377,20 +371,20 @@ doYouWantToAddPartner.error.required = Select yes or no
 #######################################################
 ##  RegisterAEOI
 #######################################################
-registerAEOI.title = Register for Automatic Exchange of Information (AEOI)
-registerAEOI.heading = Register for Automatic Exchange of Information (AEOI)
-registerAEOI.continue = Continue - register for AEOI
-registerAEOI.detail.1 = You need to register for AEOI before you can add it to your account.
-registerAEOI.detail.2 = We’ll send you an Automatic Exchange of Information ID, which you can use to add AEOI to the account.
+registerAEOI.title = You need to register for Automatic Exchange of Information (AEOI) before you add it to your account
+registerAEOI.heading = You need to register for Automatic Exchange of Information (AEOI) before you add it to your account
+registerAEOI.continue = Register for AEOI
+registerAEOI.detail = When you get your AEOI ID, sign in and add this service.
+
 #######################################################
 ##  HaveYouRegisteredAEOI
 #######################################################
 haveYouRegisteredAEOI.title = Have you already registered for Automatic Exchange of Information (AEOI)?
 haveYouRegisteredAEOI.heading = Have you already registered for Automatic Exchange of Information (AEOI)?
-haveYouRegisteredAEOI.Yes = Yes - I have an ID
-haveYouRegisteredAEOI.No = No - I haven’t registered yet
-haveYouRegisteredAEOI.error.required = Select yes or no
-haveYouRegisteredAEOI.p1 = We’ll have sent you an Automatic Exchange of Information ID
+haveYouRegisteredAEOI.Yes = Yes
+haveYouRegisteredAEOI.No = No
+haveYouRegisteredAEOI.error.required = Select yes if you have registered for Automatic Exchange of Information
+haveYouRegisteredAEOI.p1 = You will have an Automatic Exchange of Information ID.
 
 #######################################################
 ##  AddVATMOSS
@@ -501,18 +495,17 @@ selectAlcoholScheme.error.required = Select which scheme you need
 #######################################################
 doYouHaveCharityReference.title = Do you have an HMRC Charities reference?
 doYouHaveCharityReference.heading = Do you have an HMRC Charities reference?
-doYouHaveCharityReference.Yes = Yes - we have an HMRC Charities reference
-doYouHaveCharityReference.No = No - we haven’t got an HMRC charities reference yet
-doYouHaveCharityReference.error.required = Select yes or no
+doYouHaveCharityReference.Yes = Yes
+doYouHaveCharityReference.No = No
+doYouHaveCharityReference.error.required = Select yes if you have an HMRC charities reference
 
 #######################################################
 ##  RegisterForCharity
 #######################################################
-registerForCharity.title = Register with HMRC as a Charity
-registerForCharity.heading = Register with HMRC as a Charity
-registerForCharity.p1 = You need to register with HMRC as a charity before you can add the Gift Aid service to your account.
-registerForCharity.p2 = We’ll send you a reference, which you can then use to add the service to your account.
-registerForCharity.continue = Continue - register with HMRC as a Charity
+registerForCharity.title = You need to register with HMRC as a charity before you add this service to your account
+registerForCharity.heading = You need to register with HMRC as a charity before you add this service to your account
+registerForCharity.p1 = When you get the reference, sign in and add this service.
+registerForCharity.continue = Register with HMRC as a charity
 
 #######################################################
 ##  UsePAYEEmployerAccount

@@ -32,7 +32,7 @@ class WhatIsYourOrganisationNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.whatIsYourOrganisation,
       WhatIsYourOrganisation.No,
-      "/business-account/add-tax/vat/vat-giant/dont-need-service"
+      "/business-account/add-tax/vat/vat-giant/do-not-need-service"
     )
   }
 }
