@@ -183,7 +183,7 @@ economicOperatorsRegistrationAndIdentification.error.required = Select yes if yo
 registerEORI.title = You need an EORI number to add this service
 registerEORI.heading = You need an EORI number to add this service
 registerEORI.continue = Get an EORI number
-
+registerEORI.continue = Get an EORI number
 
 #######################################################
 ##  RegisterEORI - ICS

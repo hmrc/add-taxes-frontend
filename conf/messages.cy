@@ -512,7 +512,7 @@ doesBusinessManagePAYE.heading = A yw eich busnes yn rheoli TWE i gyflogwyr ar-l
 doesBusinessManagePAYE.p1 = Os ydych, cewch gyfrif ar-lein arall gyda CThEM, fel yr un hwn, gyda Dynodydd Defnyddiwr (ID) a chyfrinair gwahanol.
 doesBusinessManagePAYE.Yes = Iawn
 doesBusinessManagePAYE.No = Na
-doesBusinessManagePAYE.error.required = Dewiswch ’Iawn’ os yw’ch busnes yn rheoli TWE i gyflogwyr ar-lein
+doesBusinessManagePAYE.error.required = Dewiswch ‘Iawn’ os yw’ch busnes yn rheoli TWE i gyflogwyr ar-lein
 
 #######################################################
 ##  RegisterForPAYE
@@ -530,7 +530,7 @@ isBusinessRegisteredForPAYE.title = A yw eich busnes wedi’i gofrestru ar gyfer
 isBusinessRegisteredForPAYE.heading = A yw eich busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr?
 isBusinessRegisteredForPAYE.Yes = Iawn
 isBusinessRegisteredForPAYE.No = Na
-isBusinessRegisteredForPAYE.error.required = Dewiswch ’Iawn’ os yw’ch busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
+isBusinessRegisteredForPAYE.error.required = Dewiswch ‘Iawn’ os yw’ch busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
 
 #######################################################
 ##  SelectGamblingOrGamingDuty
@@ -743,7 +743,7 @@ isYourBusinessInUK.title = A yw eich busnes wedi’i leoli yn y DU?
 isYourBusinessInUK.heading = A yw eich busnes wedi’i leoli yn y DU?
 isYourBusinessInUK.Yes = Iawn
 isYourBusinessInUK.No = Na
-isYourBusinessInUK.error.required = Dewiswch ’Iawn’ os yw’ch busnes wedi’i leoli yn y DU
+isYourBusinessInUK.error.required = Dewiswch ‘Iawn’ os yw’ch busnes wedi’i leoli yn y DU
 
 
 #######################################################
@@ -947,7 +947,7 @@ stopFilingSelfAssessment.title = A oes angen i chi roi’r gorau i gyflwyno Ffur
 stopFilingSelfAssessment.heading = A oes angen i chi roi’r gorau i gyflwyno Ffurflenni Treth Hunanasesiad?
 stopFilingSelfAssessment.Yes = Iawn
 stopFilingSelfAssessment.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Hunanasesiad ar-lein
-stopFilingSelfAssessment.error.required = Dewiswch ’Iawn’ os oes angen i chi roi’r gorau i gyflwyno Ffurflenni Treth Hunanasesiad
+stopFilingSelfAssessment.error.required = Dewiswch ‘Iawn’ os oes angen i chi roi’r gorau i gyflwyno Ffurflenni Treth Hunanasesiad
 
 #######################################################
 ##  DoYouNeedToStopRGD
