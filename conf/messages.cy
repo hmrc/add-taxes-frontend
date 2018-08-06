@@ -508,10 +508,10 @@ usePAYEEmployerAccount.p1 = Dylech reoli CIS yn yr un cyfrif ag yr ydych yn rheo
 #######################################################
 doesBusinessManagePAYE.title = A yw eich busnes yn rheoli TWE i gyflogwyr ar-lein?
 doesBusinessManagePAYE.heading = A yw eich busnes yn rheoli TWE i gyflogwyr ar-lein?
-doesBusinessManagePAYE.p1 = Bydd gennych gyfrif CThEM ar-lein fel yr un hwn, ond bydd yn defnyddio ID Defnyddiwr a chyfrinair gwahanol
-doesBusinessManagePAYE.Yes = Ydym - rydym yn rheoli TWE i gyflogwyr ar-lein
-doesBusinessManagePAYE.No = Nac ydym - nid ydym yn rheoli TWE i gyflogwyr ar-lein
-doesBusinessManagePAYE.error.required = Dewis iawn neu na
+doesBusinessManagePAYE.p1 = Os ydych, cewch gyfrif ar-lein arall gyda CThEM, fel yr un hwn, gyda Dynodydd Defnyddiwr (ID) a chyfrinair gwahanol.
+doesBusinessManagePAYE.Yes = Iawn
+doesBusinessManagePAYE.No = Na
+doesBusinessManagePAYE.error.required = Dewiswch 'Iawn' os yw'ch busnes yn rheoli TWE i gyflogwyr ar-lein
 
 #######################################################
 ##  RegisterForPAYE

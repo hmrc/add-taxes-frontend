@@ -522,10 +522,10 @@ usePAYEEmployerAccount.p1 = You should manage CIS in the same account that you m
 #######################################################
 doesBusinessManagePAYE.title = Does your business manage PAYE for employers online?
 doesBusinessManagePAYE.heading = Does your business manage PAYE for employers online?
-doesBusinessManagePAYE.p1 = You’ll have an online HMRC account like this one, but it will use a different User ID and password
-doesBusinessManagePAYE.Yes = Yes - we manage PAYE for employers online
-doesBusinessManagePAYE.No = No - we don’t manage PAYE for employers online
-doesBusinessManagePAYE.error.required = Select yes or no
+doesBusinessManagePAYE.p1 = If you do, you will have another online HMRC account like this one, with a different User ID and password.
+doesBusinessManagePAYE.Yes = Yes
+doesBusinessManagePAYE.No = No
+doesBusinessManagePAYE.error.required = Select yes if your business manages PAYE for employers online
 
 #######################################################
 ##  RegisterForPAYE
