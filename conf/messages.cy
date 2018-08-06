@@ -220,9 +220,7 @@ doYouHaveCHIEFRole.error.required = Dewis iawn neu na
 #######################################################
 ##  RegisterEORI - EBTI
 #######################################################
-registerEORIEBTI.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu Gwybodaeth Electronig am Dariff sy’n Rhwymo (eBTI) i’ch cyfrif.
-registerEORIEBTI.p2 = Dychwelwch i’ch cyfrif ac ychwanegu eBTI unwaith bod eich rhif EORI wedi cyrraedd.
-
+registerEORIEBTI.p1 = Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y Gwybodaeth Electronig am Dariff sy’n Rhwymo (eBTI) at eich cyfrif
 
 #######################################################
 ##  RegisterEORI - NCTS
@@ -358,20 +356,20 @@ doYouWantToAddPartner.error.required = Dewis iawn neu na
 #######################################################
 ##  RegisterAEOI
 #######################################################
-registerAEOI.title = Cofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig (AEOI)
-registerAEOI.heading = Cofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig (AEOI)
-registerAEOI.continue = Mynd yn eich blaen - cofrestru ar gyfer AEOI
-registerAEOI.detail.1 = Mae’n rhaid i chi gofrestru ar gyfer AEOI cyn y gallwch ei ychwanegu i’ch cyfrif.
-registerAEOI.detail.2 = Byddwn yn anfon ID Cyfnewid Gwybodaeth yn Awtomatig atoch. Gallwch ei ddefnyddio i ychwanegu AEOI i’r cyfrif.
+registerAEOI.title = Mae’n rhaid i chi gofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig (AEOI) cyn y gallwch ei ychwanegu at eich cyfrif
+registerAEOI.heading = Mae’n rhaid i chi gofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig (AEOI) cyn y gallwch ei ychwanegu at eich cyfrif
+registerAEOI.continue = Cofrestru ar gyfer AEOI
+registerAEOI.detail = Pan gewch ID AEOI, mewngofnodwch ac ychwanegwch y gwasanaeth hwn.
+
 #######################################################
 ##  HaveYouRegisteredAEOI
 #######################################################
 haveYouRegisteredAEOI.title = A ydych eisoes wedi cofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig (AEOI)?
 haveYouRegisteredAEOI.heading = A ydych eisoes wedi cofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig (AEOI)?
-haveYouRegisteredAEOI.Yes = Ydw - mae gennyf ID
-haveYouRegisteredAEOI.No = Nac ydw - nid wyf wedi cofrestru ar hyn o bryd
-haveYouRegisteredAEOI.error.required = Dewis iawn neu na
-haveYouRegisteredAEOI.p1 = Byddwn wedi anfon ID Cyfnewid Gwybodaeth yn Awtomatig atoch
+haveYouRegisteredAEOI.Yes = Iawn
+haveYouRegisteredAEOI.No = Na
+haveYouRegisteredAEOI.error.required = Dewiswch Iawn os ydych eisoes wedi cofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig
+haveYouRegisteredAEOI.p1 = Bydd gennych ID Cyfnewid Gwybodaeth yn Awtomatig.
 
 ##  AddVATMOSS
 #######################################################
@@ -482,18 +480,17 @@ selectAlcoholScheme.error.required = Dewiswch pa gynllun sydd ei angen arnoch
 #######################################################
 doYouHaveCharityReference.title = A oes gennych gyfeirnod Elusennau CThEM?
 doYouHaveCharityReference.heading = A oes gennych gyfeirnod Elusennau CThEM?
-doYouHaveCharityReference.Yes = Oes - mae gennym gyfeirnod Elusennau CThEM
-doYouHaveCharityReference.No = Nac oes - nid oes gennym gyfeirnod Elusennau CThEM ar hyn o bryd
-doYouHaveCharityReference.error.required = Dewis iawn neu na
+doYouHaveCharityReference.Yes = Iawn
+doYouHaveCharityReference.No = Na
+doYouHaveCharityReference.error.required = Dewiswch Iawn os oes gennych gyfeirnod Elusennau CThEM
 
 #######################################################
 ##  RegisterForCharity
 #######################################################
-registerForCharity.title = Cofrestru fel Elusen gyda CThEM
-registerForCharity.heading = Cofrestru fel Elusen gyda CThEM
-registerForCharity.p1 = Mae angen i chi gofrestru fel elusen gyda CThEM cyn y gallwch ychwanegu’r gwasanaeth Rhodd Cymorth i’ch cyfrif.
-registerForCharity.p2 = Byddwn yn anfon cyfeirnod atoch. Gallwch ei ddefnyddio, wedyn, i ychwanegu’r gwasanaeth i’ch cyfrif.
-registerForCharity.continue = Mynd yn eich blaen - cofrestru fel Elusen gyda CThEM
+registerForCharity.title = Mae angen i chi gofrestru fel elusen gyda CThEM cyn y gallwch ychwanegu’r gwasanaeth hwn at eich cyfrif
+registerForCharity.heading = Mae angen i chi gofrestru fel elusen gyda CThEM cyn y gallwch ychwanegu’r gwasanaeth hwn at eich cyfrif
+registerForCharity.p1 = Pan gewch y cyfeirnod, mewngofnodwch i’ch cyfrif ac ychwanegwch y gwasanaeth hwn.
+registerForCharity.continue = Cofrestru fel elusen gyda CThEM
 
 #######################################################
 ##  UsePAYEEmployerAccount
@@ -664,26 +661,26 @@ doYouWantToBePaidNetOrGross.subtext2 = Os ydych am gael eich talu’n gros, rhai
 doYouWantToBePaidNetOrGross.subtext2.anchorText = wirio eich bod yn gymwys i gael taliadau o’r fath
 doYouWantToBePaidNetOrGross.paidNet = Rwyf eisiau cael fy nhalu’n net
 doYouWantToBePaidNetOrGross.paidGross = Rwyf eisiau cael fy nhalu’n gros
-doYouWantToBePaidNetOrGross.error.required = Mae’n rhaid i chi wneud dewis
+doYouWantToBePaidNetOrGross.error.required = Dewiswch p’un a ydych am gael eich talu’n net neu’n gros
 
 #######################################################
 ##  WasTurnoverMoreAfterVAT
 #######################################################
 wasTurnoverMoreAfterVAT.title = A oedd eich trosiant ar gyfer y 12 mis diwethaf dros £30,000 ar ôl TAW?
 wasTurnoverMoreAfterVAT.heading = A oedd eich trosiant ar gyfer y 12 mis diwethaf dros £30,000 ar ôl TAW?
-wasTurnoverMoreAfterVAT.Yes = Oedd - roedd fy nhrosiant dros £30,000
-wasTurnoverMoreAfterVAT.No = Nac oedd - roedd fy nhrosiant yn llai na £30,000
-wasTurnoverMoreAfterVAT.error.required = Dewis iawn neu na
+wasTurnoverMoreAfterVAT.Yes = Iawn
+wasTurnoverMoreAfterVAT.No = Na
+wasTurnoverMoreAfterVAT.error.required = Dewiswch ‘Iawn’ os oedd eich trosiant dros £30,000 ar ôl TAW
 
 #######################################################
 ##  WhatTypeOfSubcontractor
 #######################################################
-whatTypeOfSubcontractor.title = Pa fath o isgontractiwr ydych chi?
-whatTypeOfSubcontractor.heading = Pa fath o isgontractiwr ydych chi?
+whatTypeOfSubcontractor.title = 	Pa rai o’r rhain sy’n eich disgrifio orau?
+whatTypeOfSubcontractor.heading = 	Pa rai o’r rhain sy’n eich disgrifio orau?
 whatTypeOfSubcontractor.soleTrader = Unig fasnachwr
 whatTypeOfSubcontractor.partnership = Partneriaeth
 whatTypeOfSubcontractor.limitedCompany = Cwmni Cyfyngedig
-whatTypeOfSubcontractor.error.required = Dewis math o fusnes
+whatTypeOfSubcontractor.error.required = Dewiswch pa rai o’r rhain sy’n eich disgrifio orau
 
 #######################################################
 ##  UsePAYEEmployerIntermediariesAccount
