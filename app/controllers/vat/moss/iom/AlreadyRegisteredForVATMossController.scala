@@ -17,7 +17,6 @@
 package controllers.vat.moss.iom
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import play.api.data.Form
@@ -27,7 +26,8 @@ import utils.{Enumerable, Navigator}
 import forms.vat.moss.iom.AlreadyRegisteredForVATMossFormProvider
 import identifiers.AlreadyRegisteredForVATMossId
 import play.api.mvc.Call
-import views.html.vat.moss.iom.alreadyRegisteredForVATMoss
+import viewmodels.ViewAction
+import views.html.vat.moss.alreadyRegisteredForVATMoss
 
 import scala.concurrent.Future
 
@@ -43,9 +43,10 @@ class AlreadyRegisteredForVATMossController @Inject()(
     with Enumerable.Implicits {
 
   val form = formProvider()
+  val viewAction = ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossNoVatIomVatRegistered")
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(alreadyRegisteredForVATMoss(appConfig, form)(request.serviceInfoContent))
+    Ok(alreadyRegisteredForVATMoss(appConfig, form, viewAction)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
@@ -54,7 +55,7 @@ class AlreadyRegisteredForVATMossController @Inject()(
       .fold(
         (formWithErrors: Form[_]) =>
           Future.successful(
-            BadRequest(alreadyRegisteredForVATMoss(appConfig, formWithErrors)(request.serviceInfoContent))),
+            BadRequest(alreadyRegisteredForVATMoss(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
         (value) => Future.successful(Redirect(navigator.nextPage(AlreadyRegisteredForVATMossId, value)))
       )
   }

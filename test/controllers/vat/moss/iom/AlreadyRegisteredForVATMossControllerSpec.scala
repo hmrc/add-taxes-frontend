@@ -28,7 +28,8 @@ import identifiers.AlreadyRegisteredForVATMossId
 import models.vat.moss.iom.AlreadyRegisteredForVATMoss
 import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
-import views.html.vat.moss.iom.alreadyRegisteredForVATMoss
+import viewmodels.ViewAction
+import views.html.vat.moss.alreadyRegisteredForVATMoss
 
 class AlreadyRegisteredForVATMossControllerSpec extends ControllerSpecBase {
 
@@ -36,6 +37,7 @@ class AlreadyRegisteredForVATMossControllerSpec extends ControllerSpecBase {
 
   val formProvider = new AlreadyRegisteredForVATMossFormProvider()
   val form = formProvider()
+  val viewAction = ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossNoVatIomVatRegistered")
 
   def controller() =
     new AlreadyRegisteredForVATMossController(
@@ -47,7 +49,7 @@ class AlreadyRegisteredForVATMossControllerSpec extends ControllerSpecBase {
       formProvider)
 
   def viewAsString(form: Form[_] = form) =
-    alreadyRegisteredForVATMoss(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    alreadyRegisteredForVATMoss(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "AlreadyRegisteredForVATMoss Controller" must {
 
