@@ -627,10 +627,9 @@ useEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 #######################################################
 ##  AddEmployersPAYE
 #######################################################
-addEmployersPAYE.title = Ychwanegwch TWE i gyflogwyr yn gyntaf
-addEmployersPAYE.heading = Ychwanegwch TWE i gyflogwyr yn gyntaf
-addEmployersPAYE.subtext1 = Mae’n rhaid i chi reoli TWE i gyflogwyr ar-lein cyn y gallwch reoli gwarantau ar sail cyflogaeth (ERS).
-addEmployersPAYE.subtext2 = Ychwanegwch TWE i gyflogwyr i’r cyfrif hwn, wedyn dychwelyd ac ychwanegu gwarantau ar sail cyflogaeth (ERS) ar ôl hynny.
+addEmployersPAYE.title = Mae angen i chi reoli TWE i gyflogwyr ar-lein cyn i chi ychwanegu'r cynllun hwn
+addEmployersPAYE.heading = Mae angen i chi reoli TWE i gyflogwyr ar-lein cyn i chi ychwanegu'r cynllun hwn
+addEmployersPAYE.subtext = Pan fydd hwn gennych, dylech fewngofnodi i'ch cyfrif ac ychwanegu gwarantau ar sail cyflogaeth (ERS).
 addEmployersPAYE.continue = Ychwanegu TWE i gyflogwyr
 addEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 

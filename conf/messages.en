@@ -650,12 +650,11 @@ useEmployersPAYE.notnow = 	I do not want to do this now
 #######################################################
 ##  AddEmployersPAYE
 #######################################################
-addEmployersPAYE.title = Add PAYE for employers first
-addEmployersPAYE.heading = Add PAYE for employers first
-addEmployersPAYE.subtext1 = You have to manage PAYE for employers online before you can manage employment related securities (ERS).
-addEmployersPAYE.subtext2 = Add PAYE for employers to this account, then come back and add employment related securities (ERS) afterwards.
+addEmployersPAYE.title = You need to manage PAYE for employers online before you add this scheme
+addEmployersPAYE.heading = You need to manage PAYE for employers online before you add this scheme
+addEmployersPAYE.subtext = When you have got this, sign in to your account and add employment related securities (ERS).
 addEmployersPAYE.continue = Add PAYE for employers
-addEmployersPAYE.notnow = I don’t want to do this right now
+addEmployersPAYE.notnow = I do not want to do this now
 
 #######################################################
 ##  RegisterEmployersPAYE
