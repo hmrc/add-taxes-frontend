@@ -40,20 +40,6 @@ class AreYouContractorOrSubcontractorViewSpec extends ViewBehaviours {
 
   "AreYouContractorOrSubcontractor view" must {
     behave like normalPage(createView, messageKeyPrefix)
-
-    "Render the correct content" in {
-      val doc = asDocument(createView())
-      val view = doc.text()
-
-      view must include("Are you a contractor or subcontractor?")
-
-      view must include(
-        "If you are both, you will need to do this twice. Select an option then come back and select the other.")
-
-      view must include("Contractor, employs and pays subcontractors")
-
-      view must include("Subcontractor, works for other construction businesses")
-    }
   }
 
   "AreYouContractorOrSubcontractor view" when {
