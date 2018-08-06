@@ -24,7 +24,7 @@ import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-import identifiers.AlreadyRegisteredForVATMossId
+import identifiers.AlreadyRegisteredForVATMossId.IsleOfMan
 import play.api.mvc.Call
 import viewmodels.ViewAction
 import views.html.vat.moss.alreadyRegisteredForVATMoss
@@ -43,7 +43,8 @@ class AlreadyRegisteredForVATMossController @Inject()(
     with Enumerable.Implicits {
 
   val form = formProvider()
-  val viewAction = ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossNoVatIomVatRegistered")
+  lazy val viewAction =
+    ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossNoVatIomVatRegistered")
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(alreadyRegisteredForVATMoss(appConfig, form, viewAction)(request.serviceInfoContent))
@@ -56,7 +57,7 @@ class AlreadyRegisteredForVATMossController @Inject()(
         (formWithErrors: Form[_]) =>
           Future.successful(
             BadRequest(alreadyRegisteredForVATMoss(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(AlreadyRegisteredForVATMossId, value)))
+        (value) => Future.successful(Redirect(navigator.nextPage(IsleOfMan, value)))
       )
   }
 }

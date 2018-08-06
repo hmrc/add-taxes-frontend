@@ -24,9 +24,9 @@ import utils.{Enrolments, NextPage}
 
 trait AlreadyRegisteredForVATMossNextPage {
 
-  implicit val alreadyRegisteredForVATMoss
-    : NextPage[AlreadyRegisteredForVATMossId.type, AlreadyRegisteredForVATMoss, Call] = {
-    new NextPage[AlreadyRegisteredForVATMossId.type, AlreadyRegisteredForVATMoss, Call] {
+  implicit val alreadyRegisteredForVATMossIOM
+    : NextPage[AlreadyRegisteredForVATMossId.IsleOfMan.type, AlreadyRegisteredForVATMoss, Call] = {
+    new NextPage[AlreadyRegisteredForVATMossId.IsleOfMan.type, AlreadyRegisteredForVATMoss, Call] {
       override def get(
         b: AlreadyRegisteredForVATMoss)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {

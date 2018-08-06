@@ -34,7 +34,7 @@ class AlreadyRegisteredForVATMossControllerSpec extends ControllerSpecBase {
   val formProvider = new AlreadyRegisteredForVATMossFormProvider()
   val form = formProvider()
   lazy val viewAction =
-    ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossNoVatUkVatRegistered")
+    ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossUkVatRegistered")
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new AlreadyRegisteredForVATMossController(

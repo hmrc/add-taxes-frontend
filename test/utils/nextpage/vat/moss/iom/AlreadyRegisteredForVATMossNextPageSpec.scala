@@ -23,13 +23,13 @@ class AlreadyRegisteredForVATMossNextPageSpec extends NextPageSpecBase {
 
   "alreadyRegisteredForVATMoss" when {
     behave like nextPage(
-      NextPage.alreadyRegisteredForVATMoss,
+      NextPage.alreadyRegisteredForVATMossIOM,
       AlreadyRegisteredForVATMoss.No,
       "http://localhost:8080/portal/moss-registration/org/provide-vat-details?lang=eng"
     )
 
     behave like nextPage(
-      NextPage.alreadyRegisteredForVATMoss,
+      NextPage.alreadyRegisteredForVATMossIOM,
       AlreadyRegisteredForVATMoss.Yes,
       "http://localhost:9555/enrolment-management-frontend/HMRC-MOSS-U-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
     )

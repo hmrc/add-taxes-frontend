@@ -19,12 +19,12 @@ package controllers.vat.moss.ukbased
 import config.FrontendAppConfig
 import controllers.actions._
 import forms.vat.moss.AlreadyRegisteredForVATMossFormProvider
-import identifiers.AlreadyRegisteredForVATMossId
+import identifiers.AlreadyRegisteredForVATMossId.UkBased
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.{AnyContent, Call}
+import play.api.mvc.Call
 import play.twirl.api.Html
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.Navigator
@@ -42,7 +42,8 @@ class AlreadyRegisteredForVATMossController @Inject()(
     with I18nSupport {
 
   val form = formProvider()
-  val viewAction = ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossNoVatUkVatRegistered")
+  lazy val viewAction =
+    ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossUkVatRegistered")
 
   def view(form: Form[_] = form)(implicit request: ServiceInfoRequest[_]): Html =
     alreadyRegisteredForVATMoss(appConfig, form, viewAction)(request.serviceInfoContent)
@@ -52,11 +53,19 @@ class AlreadyRegisteredForVATMossController @Inject()(
   }
 
   def onSubmit = (authenticate andThen serviceInfo) { implicit request =>
+    println("**************************************************")
+    println("**************************************************")
+    println("**************************************************")
+    println("**************************************************")
+    println("**************************************************")
+    println("**************************************************")
+    println("**************************************************")
+
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) => BadRequest(view(formWithErrors)),
-        (value) => Redirect(navigator.nextPage(AlreadyRegisteredForVATMossId, value))
+        (value) => Redirect(navigator.nextPage(UkBased, value))
       )
   }
 }
