@@ -661,26 +661,26 @@ doYouWantToBePaidNetOrGross.subtext2 = Os ydych am gael eich talu’n gros, rhai
 doYouWantToBePaidNetOrGross.subtext2.anchorText = wirio eich bod yn gymwys i gael taliadau o’r fath
 doYouWantToBePaidNetOrGross.paidNet = Rwyf eisiau cael fy nhalu’n net
 doYouWantToBePaidNetOrGross.paidGross = Rwyf eisiau cael fy nhalu’n gros
-doYouWantToBePaidNetOrGross.error.required = Mae’n rhaid i chi wneud dewis
+doYouWantToBePaidNetOrGross.error.required = Dewiswch p’un a ydych am gael eich talu’n net neu’n gros
 
 #######################################################
 ##  WasTurnoverMoreAfterVAT
 #######################################################
 wasTurnoverMoreAfterVAT.title = A oedd eich trosiant ar gyfer y 12 mis diwethaf dros £30,000 ar ôl TAW?
 wasTurnoverMoreAfterVAT.heading = A oedd eich trosiant ar gyfer y 12 mis diwethaf dros £30,000 ar ôl TAW?
-wasTurnoverMoreAfterVAT.Yes = Oedd - roedd fy nhrosiant dros £30,000
-wasTurnoverMoreAfterVAT.No = Nac oedd - roedd fy nhrosiant yn llai na £30,000
-wasTurnoverMoreAfterVAT.error.required = Dewis iawn neu na
+wasTurnoverMoreAfterVAT.Yes = Iawn
+wasTurnoverMoreAfterVAT.No = Na
+wasTurnoverMoreAfterVAT.error.required = Dewiswch ‘Iawn’ os oedd eich trosiant dros £30,000 ar ôl TAW
 
 #######################################################
 ##  WhatTypeOfSubcontractor
 #######################################################
-whatTypeOfSubcontractor.title = Pa fath o isgontractiwr ydych chi?
-whatTypeOfSubcontractor.heading = Pa fath o isgontractiwr ydych chi?
+whatTypeOfSubcontractor.title = 	Pa rai o’r rhain sy’n eich disgrifio orau?
+whatTypeOfSubcontractor.heading = 	Pa rai o’r rhain sy’n eich disgrifio orau?
 whatTypeOfSubcontractor.soleTrader = Unig fasnachwr
 whatTypeOfSubcontractor.partnership = Partneriaeth
 whatTypeOfSubcontractor.limitedCompany = Cwmni Cyfyngedig
-whatTypeOfSubcontractor.error.required = Dewis math o fusnes
+whatTypeOfSubcontractor.error.required = Dewiswch pa rai o’r rhain sy’n eich disgrifio orau
 
 #######################################################
 ##  UsePAYEEmployerIntermediariesAccount
