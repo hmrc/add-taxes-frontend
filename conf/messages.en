@@ -180,8 +180,8 @@ economicOperatorsRegistrationAndIdentification.error.required = Select yes if yo
 #######################################################
 ##  RegisterEORI
 #######################################################
-registerEORI.title = You need an Economic Operator Registration and Identification (EORI) numberI number to add this service
-registerEORI.heading = You need an Economic Operator Registration and Identification (EORI) numberI number to add this service
+registerEORI.title = You need an Economic Operator Registration and Identification (EORI) number to add this service
+registerEORI.heading = You need an Economic Operator Registration and Identification (EORI) number to add this service
 registerEORI.continue = Get an EORI number
 
 
