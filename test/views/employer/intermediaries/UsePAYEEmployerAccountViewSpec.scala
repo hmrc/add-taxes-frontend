@@ -22,7 +22,7 @@ import views.html.employer.intermediaries.usePAYEEmployerAccount
 
 class UsePAYEEmployerAccountViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "usePAYEEmployerAccount"
+  val messageKeyPrefix = "usePAYEEmployerIntermediariesAccount"
 
   def createView = () => usePAYEEmployerAccount(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
@@ -33,15 +33,14 @@ class UsePAYEEmployerAccountViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       val view = doc.text()
 
-      view must include(
-        "You should manage employment intermediaries in the same account that you manage PAYE for employers.")
-
       view must include("It will make it easier to manage both schemes.")
+
+      view must include("Sign in to your other account and add employment intermediaries.")
 
       assertLinkById(
         doc,
         "continue",
-        "Sign in to your PAYE for employers account",
+        "Sign in to the account you use for PAYE for employers",
         "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fbusiness-account",
         "AddIntermediariesOtherAccount:Click:SignIn"
       )
@@ -49,7 +48,7 @@ class UsePAYEEmployerAccountViewSpec extends ViewBehaviours {
       assertLinkById(
         doc,
         "sign-in",
-        "I want to add intermediaries in this account",
+        "I want to add intermediaries to this account",
         "/employment-intermediary-report/not-enrolled",
         "AddIntermediariesOtherAccount:Click:AddToAccount"
       )

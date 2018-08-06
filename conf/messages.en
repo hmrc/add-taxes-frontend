@@ -521,10 +521,10 @@ usePAYEEmployerAccount.p1 = You should manage CIS in the same account that you m
 #######################################################
 doesBusinessManagePAYE.title = Does your business manage PAYE for employers online?
 doesBusinessManagePAYE.heading = Does your business manage PAYE for employers online?
-doesBusinessManagePAYE.p1 = You’ll have an online HMRC account like this one, but it will use a different User ID and password
-doesBusinessManagePAYE.Yes = Yes - we manage PAYE for employers online
-doesBusinessManagePAYE.No = No - we don’t manage PAYE for employers online
-doesBusinessManagePAYE.error.required = Select yes or no
+doesBusinessManagePAYE.p1 = If you do, you will have another online HMRC account like this one, with a different User ID and password.
+doesBusinessManagePAYE.Yes = Yes
+doesBusinessManagePAYE.No = No
+doesBusinessManagePAYE.error.required = Select yes if your business manages PAYE for employers online
 
 #######################################################
 ##  RegisterForPAYE
@@ -540,9 +540,9 @@ registerForPAYE.notnow = I don’t want to do this right now
 #######################################################
 isBusinessRegisteredForPAYE.title = Is your business registered for PAYE for employers?
 isBusinessRegisteredForPAYE.heading = Is your business registered for PAYE for employers?
-isBusinessRegisteredForPAYE.Yes = Yes - the business is registered for PAYE for employers
-isBusinessRegisteredForPAYE.No = No - the business isn’t registered for PAYE for employers
-isBusinessRegisteredForPAYE.error.required = Select yes or no
+isBusinessRegisteredForPAYE.Yes = Yes
+isBusinessRegisteredForPAYE.No = No
+isBusinessRegisteredForPAYE.error.required = Select yes if your business is registered for PAYE for employers
 
 #######################################################
 ##  SelectGamblingOrGamingDuty
@@ -708,24 +708,23 @@ whatTypeOfSubcontractor.limitedCompany = Limited Company
 whatTypeOfSubcontractor.error.required = Select a business type
 
 #######################################################
-##  UsePAYEEmployerAccountIntermediaries
+##  UsePAYEEmployerIntermediariesAccount
 #######################################################
-usePAYEEmployerIntermediariesAccount.title = Use your PAYE for employers account
-usePAYEEmployerIntermediariesAccount.heading = Use your PAYE for employers account
-usePAYEEmployerIntermediariesAccount.continue = Sign in to your PAYE for employers account
-usePAYEEmployerIntermediariesAccount.addAccount = I want to add intermediaries in this account
-usePAYEEmployerIntermediariesAccount.p1 = You should manage employment intermediaries in the same account that you manage PAYE for employers.
-usePAYEEmployerIntermediariesAccount.p2 = It will make it easier to manage both schemes.
+usePAYEEmployerIntermediariesAccount.title = Add employment intermediaries to the account you use for PAYE for employers
+usePAYEEmployerIntermediariesAccount.heading = Add employment intermediaries to the account you use for PAYE for employers
+usePAYEEmployerIntermediariesAccount.continue = Sign in to the account you use for PAYE for employers
+usePAYEEmployerIntermediariesAccount.addAccount = I want to add intermediaries to this account
+usePAYEEmployerIntermediariesAccount.p1 = It will make it easier to manage both schemes.
+usePAYEEmployerIntermediariesAccount.p2 = Sign in to your other account and add employment intermediaries.
 
 #######################################################
 ##  RegisterForPAYEIntermediaries
 #######################################################
-registerForPAYEIntermediaries.title = Register for PAYE for employers first
-registerForPAYEIntermediaries.heading = Register for PAYE for employers first
-registerForPAYEIntermediaries.p1=You need to be registered for PAYE for employers before you can manage employment intermediaries online.
-registerForPAYEIntermediaries.p2=Register for PAYE for employers, then come back and add employment intermediaries afterwards.
+registerForPAYEIntermediaries.title = Register for PAYE for employers before you add this service
+registerForPAYEIntermediaries.heading = Register for PAYE for employers before you add this service
+registerForPAYEIntermediaries.p1= When you have registered with this account, sign in and add employment intermediaries online.
 registerForPAYEIntermediaries.continue = Register for PAYE for employers
-registerForPAYEIntermediaries.notnow = I don’t want to do this right now
+registerForPAYEIntermediaries.notnow = I do not want to do this now
 
 #######################################################
 ##  WhatEmployerTaxDoYouWantToAdd

@@ -506,10 +506,10 @@ usePAYEEmployerAccount.p1 = Dylech reoli CIS yn yr un cyfrif ag yr ydych yn rheo
 #######################################################
 doesBusinessManagePAYE.title = A yw eich busnes yn rheoli TWE i gyflogwyr ar-lein?
 doesBusinessManagePAYE.heading = A yw eich busnes yn rheoli TWE i gyflogwyr ar-lein?
-doesBusinessManagePAYE.p1 = Bydd gennych gyfrif CThEM ar-lein fel yr un hwn, ond bydd yn defnyddio ID Defnyddiwr a chyfrinair gwahanol
-doesBusinessManagePAYE.Yes = Ydym - rydym yn rheoli TWE i gyflogwyr ar-lein
-doesBusinessManagePAYE.No = Nac ydym - nid ydym yn rheoli TWE i gyflogwyr ar-lein
-doesBusinessManagePAYE.error.required = Dewis iawn neu na
+doesBusinessManagePAYE.p1 = Os ydych, cewch gyfrif ar-lein arall gyda CThEM, fel yr un hwn, gyda Dynodydd Defnyddiwr (ID) a chyfrinair gwahanol.
+doesBusinessManagePAYE.Yes = Iawn
+doesBusinessManagePAYE.No = Na
+doesBusinessManagePAYE.error.required = Dewiswch ’Iawn’ os yw’ch busnes yn rheoli TWE i gyflogwyr ar-lein
 
 #######################################################
 ##  RegisterForPAYE
@@ -525,9 +525,9 @@ registerForPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 #######################################################
 isBusinessRegisteredForPAYE.title = A yw eich busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr?
 isBusinessRegisteredForPAYE.heading = A yw eich busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr?
-isBusinessRegisteredForPAYE.Yes = Ydy - mae’r busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
-isBusinessRegisteredForPAYE.No = Nac ydy - nid yw’r busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
-isBusinessRegisteredForPAYE.error.required = Dewis iawn neu na
+isBusinessRegisteredForPAYE.Yes = Iawn
+isBusinessRegisteredForPAYE.No = Na
+isBusinessRegisteredForPAYE.error.required = Dewiswch ’Iawn’ os yw’ch busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
 
 #######################################################
 ##  SelectGamblingOrGamingDuty
@@ -685,20 +685,19 @@ whatTypeOfSubcontractor.error.required = Dewis math o fusnes
 #######################################################
 ##  UsePAYEEmployerIntermediariesAccount
 #######################################################
-usePAYEEmployerIntermediariesAccount.title = Defnyddio eich cyfrif TWE i gyflogwyr
-usePAYEEmployerIntermediariesAccount.heading = Defnyddio eich cyfrif TWE i gyflogwyr
-usePAYEEmployerIntermediariesAccount.continue = Mewngofnodi i’ch cyfrif TWE i gyflogwyr
-usePAYEEmployerIntermediariesAccount.addAccount = Rwyf eisiau ychwanegu cyfryngwyr yn y cyfrif hwn
-usePAYEEmployerIntermediariesAccount.p1 = Dylech reoli cyfryngwyr cyflogaeth yn yr un cyfrif ag yr ydych yn rheoli TWE i gyflogwyr.
-usePAYEEmployerIntermediariesAccount.p2 = Bydd hynny’n ei wneud yn haws rheoli’r ddau gynllun.
+usePAYEEmployerIntermediariesAccount.title = Ychwanegu cyfryngwyr cyflogaeth at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+usePAYEEmployerIntermediariesAccount.heading = Ychwanegu cyfryngwyr cyflogaeth at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+usePAYEEmployerIntermediariesAccount.continue = Mewngofnodi i’r cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+usePAYEEmployerIntermediariesAccount.addAccount = Rwyf eisiau ychwanegu cyfryngwyr at y cyfrif hwn
+usePAYEEmployerIntermediariesAccount.p1 = Bydd hynny’n ei wneud yn haws rheoli’r ddau gynllun.
+usePAYEEmployerIntermediariesAccount.p2 = Mewngofnodi i’ch cyfrif arall ac ychwanegu cyfryngwyr cyflogaeth.
 
 #######################################################
 ##  RegisterForPAYEIntermediaries
 #######################################################
-registerForPAYEIntermediaries.title = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
-registerForPAYEIntermediaries.heading = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
-registerForPAYEIntermediaries.p1=Mae’n rhaid eich bod wedi cofrestru ar gyfer TWE i gyflogwyr cyn y gallwch reoli cyfryngwyr cyflogaeth ar-lein.
-registerForPAYEIntermediaries.p2=Cofrestrwch ar gyfer TWE i gyflogwyr, wedyn dychwelyd ac ychwanegu cyfryngwyr cyflogaeth ar ôl hynny.
+registerForPAYEIntermediaries.title = Cofrestru ar gyfer TWE i gyflogwyr cyn i chi ychwanegu’r gwasanaeth hwn
+registerForPAYEIntermediaries.heading = Cofrestru ar gyfer TWE i gyflogwyr cyn i chi ychwanegu’r gwasanaeth hwn
+registerForPAYEIntermediaries.p1= Pan fyddwch wedi cofrestru gyda’r cyfrif hwn, dylech fewngofnodi ac ychwanegu cyfryngwyr cyflogaeth ar-lein.
 registerForPAYEIntermediaries.continue = Cofrestru ar gyfer TWE i gyflogwyr
 registerForPAYEIntermediaries.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
