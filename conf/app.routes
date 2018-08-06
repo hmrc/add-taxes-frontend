@@ -246,5 +246,5 @@ POST       /other/ctf/ctf-provider                      controllers.other.ctf.Ar
 
 GET        /other/ctf/ctf-11                            controllers.other.ctf.YouNeedToBeApprovedCTFController.onPageLoad()
 
-GET        /vat/moss/zzz                                controllers.vat.moss.ukbased.AlreadyRegisteredForVATMossController.onPageLoad()
-POST       /vat/moss/zzz                                controllers.vat.moss.ukbased.AlreadyRegisteredForVATMossController.onSubmit()
+GET        /vat/moss-uk/vat-registered                  controllers.vat.moss.ukbased.AlreadyRegisteredForVATMossController.onPageLoad()
+POST       /vat/moss-uk/vat-registered                  controllers.vat.moss.ukbased.AlreadyRegisteredForVATMossController.onSubmit()
