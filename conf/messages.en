@@ -58,8 +58,7 @@ selectAnOilService.heading = Which oil service do you need?
 selectAnOilService.title = Which oil service do you need?
 selectAnOilService.rebatedOilsEnquiryService = Rebated Oils Enquiry Service
 selectAnOilService.tiedOilsEnquiryService = Tied Oils Enquiry Service
-selectAnOilService.checkYourAnswersLabel = Select an oil service
-selectAnOilService.error.required = Select a service
+selectAnOilService.error.required = Select which oil service you need
 
 
 #######################################################
