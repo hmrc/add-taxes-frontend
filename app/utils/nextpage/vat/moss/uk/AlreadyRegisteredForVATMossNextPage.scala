@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package utils.nextpage.vat.moss.iom
+package utils.nextpage.vat.moss.uk
 
 import config.FrontendAppConfig
 import identifiers.AlreadyRegisteredForVATMossId
@@ -24,14 +24,14 @@ import utils.{Enrolments, NextPage}
 
 trait AlreadyRegisteredForVATMossNextPage {
 
-  implicit val alreadyRegisteredForVATMossIOM
-    : NextPage[AlreadyRegisteredForVATMossId.IsleOfMan.type, AlreadyRegisteredForVATMoss, Call] = {
-    new NextPage[AlreadyRegisteredForVATMossId.IsleOfMan.type, AlreadyRegisteredForVATMoss, Call] {
+  implicit val alreadyRegisteredForVATMossUk
+    : NextPage[AlreadyRegisteredForVATMossId.UkBased.type, AlreadyRegisteredForVATMoss, Call] = {
+    new NextPage[AlreadyRegisteredForVATMossId.UkBased.type, AlreadyRegisteredForVATMoss, Call] {
       override def get(
         b: AlreadyRegisteredForVATMoss)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case AlreadyRegisteredForVATMoss.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.VATMOSS))
-          case AlreadyRegisteredForVATMoss.No  => Call("GET", appConfig.getPortalUrl("vatmoss"))
+          case AlreadyRegisteredForVATMoss.No  => Call("GET", appConfig.getPortalUrl("mossRegistration"))
         }
     }
   }

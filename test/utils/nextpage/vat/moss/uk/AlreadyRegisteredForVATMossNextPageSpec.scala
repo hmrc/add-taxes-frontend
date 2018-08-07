@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package utils.nextpage.vat.moss.iom
+package utils.nextpage.vat.moss.uk
+
 import models.vat.moss.AlreadyRegisteredForVATMoss
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
@@ -23,13 +24,13 @@ class AlreadyRegisteredForVATMossNextPageSpec extends NextPageSpecBase {
 
   "alreadyRegisteredForVATMoss" when {
     behave like nextPage(
-      NextPage.alreadyRegisteredForVATMossIOM,
+      NextPage.alreadyRegisteredForVATMossUk,
       AlreadyRegisteredForVATMoss.No,
-      "http://localhost:8080/portal/moss-registration/org/provide-vat-details?lang=eng"
+      "http://localhost:8080/portal/moss-registration/org/introduction?lang=eng"
     )
 
     behave like nextPage(
-      NextPage.alreadyRegisteredForVATMossIOM,
+      NextPage.alreadyRegisteredForVATMossUk,
       AlreadyRegisteredForVATMoss.Yes,
       "http://localhost:9555/enrolment-management-frontend/HMRC-MOSS-U-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
