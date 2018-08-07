@@ -58,8 +58,7 @@ selectAnOilService.heading = Pa gwasanaeth olew ei angen arnoch?
 selectAnOilService.title = Pa gwasanaeth olew ei angen arnoch?
 selectAnOilService.rebatedOilsEnquiryService = Gwasanaeth Ymholiadau Olew Ad-daliedig
 selectAnOilService.tiedOilsEnquiryService = Gwasanaeth Ymholiadau Olew ‘Tied’
-selectAnOilService.checkYourAnswersLabel = Dewis gwasanaeth olew
-selectAnOilService.error.required = Dewis gwasanaeth
+selectAnOilService.error.required = Dewiswch ba gwasanaeth olew ei angen arnoch
 
 
 #######################################################
