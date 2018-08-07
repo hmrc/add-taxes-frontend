@@ -22,7 +22,7 @@ import views.html.employer.intermediaries.registerForPAYE
 
 class RegisterForPAYEViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "registerForPAYE"
+  val messageKeyPrefix = "registerForPAYEIntermediaries"
 
   def createView = () => registerForPAYE(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 

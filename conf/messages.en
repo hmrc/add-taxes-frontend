@@ -179,10 +179,10 @@ economicOperatorsRegistrationAndIdentification.error.required = Select yes if yo
 #######################################################
 ##  RegisterEORI
 #######################################################
-registerEORI.title = You need an EORI number to add this service
-registerEORI.heading = You need an EORI number to add this service
+registerEORI.title = You need an Economic Operator Registration and Identification (EORI) number to add this service
+registerEORI.heading = You need an Economic Operator Registration and Identification (EORI) number to add this service
 registerEORI.continue = Get an EORI number
-
+registerEORI.continue = Get an EORI number
 
 #######################################################
 ##  RegisterEORI - ICS
@@ -233,8 +233,7 @@ doYouHaveCHIEFRole.error.required = Select yes or no
 #######################################################
 ##  RegisterEORI - EBTI
 #######################################################
-registerEORIEBTI.p1 = You need an Economic Operators Registration and Identification (EORI) to add electronic Binding Tariff Information (eBTI) to your account.
-registerEORIEBTI.p2 = Come back to your account and add eBTI once your EORI number arrives.
+registerEORIEBTI.p1 = When you get this, sign in and add the electronic Binding Tariff Information (eBTI) to your account.
 
 
 #######################################################
@@ -371,20 +370,20 @@ doYouWantToAddPartner.error.required = Select yes or no
 #######################################################
 ##  RegisterAEOI
 #######################################################
-registerAEOI.title = Register for Automatic Exchange of Information (AEOI)
-registerAEOI.heading = Register for Automatic Exchange of Information (AEOI)
-registerAEOI.continue = Continue - register for AEOI
-registerAEOI.detail.1 = You need to register for AEOI before you can add it to your account.
-registerAEOI.detail.2 = We’ll send you an Automatic Exchange of Information ID, which you can use to add AEOI to the account.
+registerAEOI.title = You need to register for Automatic Exchange of Information (AEOI) before you add it to your account
+registerAEOI.heading = You need to register for Automatic Exchange of Information (AEOI) before you add it to your account
+registerAEOI.continue = Register for AEOI
+registerAEOI.detail = When you get your AEOI ID, sign in and add this service.
+
 #######################################################
 ##  HaveYouRegisteredAEOI
 #######################################################
 haveYouRegisteredAEOI.title = Have you already registered for Automatic Exchange of Information (AEOI)?
 haveYouRegisteredAEOI.heading = Have you already registered for Automatic Exchange of Information (AEOI)?
-haveYouRegisteredAEOI.Yes = Yes - I have an ID
-haveYouRegisteredAEOI.No = No - I haven’t registered yet
-haveYouRegisteredAEOI.error.required = Select yes or no
-haveYouRegisteredAEOI.p1 = We’ll have sent you an Automatic Exchange of Information ID
+haveYouRegisteredAEOI.Yes = Yes
+haveYouRegisteredAEOI.No = No
+haveYouRegisteredAEOI.error.required = Select yes if you have registered for Automatic Exchange of Information
+haveYouRegisteredAEOI.p1 = You will have an Automatic Exchange of Information ID.
 
 #######################################################
 ##  AddVATMOSS
@@ -495,55 +494,54 @@ selectAlcoholScheme.error.required = Select which scheme you need
 #######################################################
 doYouHaveCharityReference.title = Do you have an HMRC Charities reference?
 doYouHaveCharityReference.heading = Do you have an HMRC Charities reference?
-doYouHaveCharityReference.Yes = Yes - we have an HMRC Charities reference
-doYouHaveCharityReference.No = No - we haven’t got an HMRC charities reference yet
-doYouHaveCharityReference.error.required = Select yes or no
+doYouHaveCharityReference.Yes = Yes
+doYouHaveCharityReference.No = No
+doYouHaveCharityReference.error.required = Select yes if you have an HMRC charities reference
 
 #######################################################
 ##  RegisterForCharity
 #######################################################
-registerForCharity.title = Register with HMRC as a Charity
-registerForCharity.heading = Register with HMRC as a Charity
-registerForCharity.p1 = You need to register with HMRC as a charity before you can add the Gift Aid service to your account.
-registerForCharity.p2 = We’ll send you a reference, which you can then use to add the service to your account.
-registerForCharity.continue = Continue - register with HMRC as a Charity
+registerForCharity.title = You need to register with HMRC as a charity before you add this service to your account
+registerForCharity.heading = You need to register with HMRC as a charity before you add this service to your account
+registerForCharity.p1 = When you get the reference, sign in and add this service.
+registerForCharity.continue = Register with HMRC as a charity
 
 #######################################################
 ##  UsePAYEEmployerAccount
 #######################################################
-usePAYEEmployerAccount.title = Use your PAYE for employers account
-usePAYEEmployerAccount.heading = Use your PAYE for employers account
-usePAYEEmployerAccount.continue = Sign in to your PAYE for employers account
-usePAYEEmployerAccount.addAccount = I want to add CIS in this account
-usePAYEEmployerAccount.p1 = You should manage CIS in the same account that you manage PAYE for employers.
+usePAYEEmployerAccount.title = Add the Construction Industry Scheme (CIS) to the account you use for PAYE for employers
+usePAYEEmployerAccount.heading = Add the Construction Industry Scheme (CIS) to the account you use for PAYE for employers
+usePAYEEmployerAccount.continue = Sign in to the account you use for PAYE for employers
+usePAYEEmployerAccount.addAccount = I want to add CIS to this account
+usePAYEEmployerAccount.p1 = Sign in to your other account and add the CIS.
 
 #######################################################
 ##  DoesBusinessManagePAYE
 #######################################################
 doesBusinessManagePAYE.title = Does your business manage PAYE for employers online?
 doesBusinessManagePAYE.heading = Does your business manage PAYE for employers online?
-doesBusinessManagePAYE.p1 = You’ll have an online HMRC account like this one, but it will use a different User ID and password
-doesBusinessManagePAYE.Yes = Yes - we manage PAYE for employers online
-doesBusinessManagePAYE.No = No - we don’t manage PAYE for employers online
-doesBusinessManagePAYE.error.required = Select yes or no
+doesBusinessManagePAYE.p1 = If you do, you will have another online HMRC account like this one, with a different User ID and password.
+doesBusinessManagePAYE.Yes = Yes
+doesBusinessManagePAYE.No = No
+doesBusinessManagePAYE.error.required = Select yes if your business manages PAYE for employers online
 
 #######################################################
 ##  RegisterForPAYE
 #######################################################
-registerForPAYE.title = Register for PAYE for employers first
-registerForPAYE.heading = Register for PAYE for employers first
-registerForPAYE.p1 = You need to be registered for PAYE for employers if you want to register for CIS as a contractor.
+registerForPAYE.title = You need to register for PAYE for employers before you add this scheme
+registerForPAYE.heading = You need to register for PAYE for employers before you add this scheme
+registerForPAYE.p1 = When you have registered, sign in to your account and add the Construction Industry Scheme.
 registerForPAYE.continue = Register for PAYE for employers
-registerForPAYE.notnow = I don’t want to do this right now
+registerForPAYE.notnow = I do not want to do this now
 
 #######################################################
 ##  IsBusinessRegisteredForPAYE
 #######################################################
 isBusinessRegisteredForPAYE.title = Is your business registered for PAYE for employers?
 isBusinessRegisteredForPAYE.heading = Is your business registered for PAYE for employers?
-isBusinessRegisteredForPAYE.Yes = Yes - the business is registered for PAYE for employers
-isBusinessRegisteredForPAYE.No = No - the business isn’t registered for PAYE for employers
-isBusinessRegisteredForPAYE.error.required = Select yes or no
+isBusinessRegisteredForPAYE.Yes = Yes
+isBusinessRegisteredForPAYE.No = No
+isBusinessRegisteredForPAYE.error.required = Select yes if your business is registered for PAYE for employers
 
 #######################################################
 ##  SelectGamblingOrGamingDuty
@@ -672,10 +670,10 @@ registerEmployersPAYE.notnow = I don’t want to do this right now
 #######################################################
 areYouContractorOrSubcontractor.title = Are you a contractor or subcontractor?
 areYouContractorOrSubcontractor.heading = Are you a contractor or subcontractor?
-areYouContractorOrSubcontractor.Contractor = Contractor, employs and pays subcontractors
-areYouContractorOrSubcontractor.Subcontractor = Subcontractor, works for other construction businesses
+areYouContractorOrSubcontractor.Contractor = Contractor, I employ and pay subcontractors
+areYouContractorOrSubcontractor.Subcontractor = Subcontractor, I work for other construction businesses
 areYouContractorOrSubcontractor.error.required = Select if you are a contractor or subcontractor
-areYouContractorOrSubcontractor.p1=If you are both, you will need to do this twice. Select an option then come back and select the other.
+areYouContractorOrSubcontractor.p1=If you are both, you will need to register for the Construction Industry Scheme (CIS) twice. Select an option then come back and select the other.
 
 #######################################################
 ##  DoYouWantToBePaidNetOrGross
@@ -687,26 +685,26 @@ doYouWantToBePaidNetOrGross.subtext2 = If you want to be paid gross, you must {0
 doYouWantToBePaidNetOrGross.subtext2.anchorText = check if you qualify for gross payments
 doYouWantToBePaidNetOrGross.paidNet = I want to be paid net
 doYouWantToBePaidNetOrGross.paidGross = I want to be paid gross
-doYouWantToBePaidNetOrGross.error.required = You must make a selection
+doYouWantToBePaidNetOrGross.error.required = Select if you want to be paid net or gross
 
 #######################################################
 ##  WasTurnoverMoreAfterVAT
 #######################################################
 wasTurnoverMoreAfterVAT.title = Was your turnover for the last 12 months more than £30,000 after VAT?
 wasTurnoverMoreAfterVAT.heading = Was your turnover for the last 12 months more than £30,000 after VAT?
-wasTurnoverMoreAfterVAT.Yes = Yes - my turnover was more than £30,000
-wasTurnoverMoreAfterVAT.No = No - my turnover was less than £30,000
-wasTurnoverMoreAfterVAT.error.required = Select yes or no
+wasTurnoverMoreAfterVAT.Yes = Yes
+wasTurnoverMoreAfterVAT.No = No
+wasTurnoverMoreAfterVAT.error.required = Select yes if your turnover was more than £30,000 after VAT
 
 #######################################################
 ##  WhatTypeOfSubcontractor
 #######################################################
-whatTypeOfSubcontractor.title = What type of subcontractor are you?
-whatTypeOfSubcontractor.heading = What type of subcontractor are you?
+whatTypeOfSubcontractor.title = Which of these best describes you?
+whatTypeOfSubcontractor.heading = Which of these best describes you?
 whatTypeOfSubcontractor.soleTrader = Sole Trader
 whatTypeOfSubcontractor.partnership = Partnership
 whatTypeOfSubcontractor.limitedCompany = Limited Company
-whatTypeOfSubcontractor.error.required = Select a business type
+whatTypeOfSubcontractor.error.required = Select which of these best describes you
 
 #######################################################
 ##  UsePAYEEmployerAccountIntermediaries
@@ -734,7 +732,7 @@ registerForPAYEIntermediaries.notnow = I don’t want to do this right now
 whatEmployerTaxDoYouWantToAdd.title = Which employer tax do you want to add?
 whatEmployerTaxDoYouWantToAdd.heading = Which employer tax do you want to add?
 whatEmployerTaxDoYouWantToAdd.epaye = PAYE for employers
-whatEmployerTaxDoYouWantToAdd.cis = Construction industry scheme (CIS)
+whatEmployerTaxDoYouWantToAdd.cis = Construction Industry Scheme (CIS)
 whatEmployerTaxDoYouWantToAdd.pension = Pension schemes
 whatEmployerTaxDoYouWantToAdd.ers = Employment related securities (ERS)
 whatEmployerTaxDoYouWantToAdd.intermediaries = Employment intermediaries (for agencies)
@@ -745,9 +743,9 @@ whatEmployerTaxDoYouWantToAdd.error.required = Select a tax type
 #######################################################
 isYourBusinessInUK.title = Is your business based in the UK?
 isYourBusinessInUK.heading = Is your business based in the UK?
-isYourBusinessInUK.Yes = Yes - my business is based in the UK
-isYourBusinessInUK.No = No - my business isn’t based in the UK
-isYourBusinessInUK.error.required = Select yes or no
+isYourBusinessInUK.Yes = Yes
+isYourBusinessInUK.No = No
+isYourBusinessInUK.error.required = Select yes if your business is based in the UK
 
 
 #######################################################

@@ -21,7 +21,7 @@ import controllers.vat.ec.{routes => ecRoutes}
 import controllers.vat.eurefunds.{routes => euRoutes}
 import controllers.vat.giant.{routes => giantRoutes}
 import controllers.vat.moss.{routes => mossRoutes}
-import controllers.vat.moss.noneu.{routes => noneuRoutes}
+import controllers.vat.moss.ukbased.{routes => ukbasedRoutes}
 import controllers.vat.moss.newaccount.{routes => newAccountRoutes}
 import controllers.vat.rcsl.{routes => rcslRoutes}
 import identifiers.WhichVATServicesToAddId
@@ -77,7 +77,7 @@ trait WhichVATServicesToAddNextPage {
   def getVATMOSSCall(affinity: Option[AffinityGroup], enrolments: Enrolments): Call =
     (affinity, enrolments) match {
       case (Some(AffinityGroup.Individual), _) => newAccountRoutes.SetUpANewAccountController.onPageLoad()
-      case (_, HmrcEnrolmentType.VAT())        => noneuRoutes.HaveYouRegisteredForVATMOSSController.onPageLoad()
+      case (_, HmrcEnrolmentType.VAT())        => ukbasedRoutes.AlreadyRegisteredForVATMossController.onPageLoad()
       case (_, _)                              => mossRoutes.WhereIsYourBusinessBasedController.onPageLoad()
     }
 }
