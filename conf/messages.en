@@ -662,7 +662,7 @@ registerEmployersPAYE.title = Register for PAYE for employers before you add thi
 registerEmployersPAYE.heading = Register for PAYE for employers before you add this service
 registerEmployersPAYE.subtext = When you have registered with this account, sign in and add employment related securities.
 registerEmployersPAYE.continue = Register for PAYE for employers
-registerEmployersPAYE.notnow = I do not want to do this right now
+registerEmployersPAYE.notnow = I do not want to do this now
 
 #######################################################
 ##  AreYouContractorOrSubcontractor
