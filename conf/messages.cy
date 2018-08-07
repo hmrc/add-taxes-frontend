@@ -511,7 +511,7 @@ doesBusinessManagePAYE.heading = A yw eich busnes yn rheoli TWE i gyflogwyr ar-l
 doesBusinessManagePAYE.p1 = Os ydych, cewch gyfrif ar-lein arall gyda CThEM, fel yr un hwn, gyda Dynodydd Defnyddiwr (ID) a chyfrinair gwahanol.
 doesBusinessManagePAYE.Yes = Iawn
 doesBusinessManagePAYE.No = Na
-doesBusinessManagePAYE.error.required = Dewiswch 'Iawn' os yw'ch busnes yn rheoli TWE i gyflogwyr ar-lein
+doesBusinessManagePAYE.error.required = Dewiswch ’Iawn’ os yw’ch busnes yn rheoli TWE i gyflogwyr ar-lein
 
 #######################################################
 ##  RegisterForPAYE
@@ -529,7 +529,7 @@ isBusinessRegisteredForPAYE.title = A yw eich busnes wedi’i gofrestru ar gyfer
 isBusinessRegisteredForPAYE.heading = A yw eich busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr?
 isBusinessRegisteredForPAYE.Yes = Iawn
 isBusinessRegisteredForPAYE.No = Na
-isBusinessRegisteredForPAYE.error.required = Dewiswch 'Iawn' os yw'ch busnes wedi'i gofrestru ar gyfer TWE i gyflogwyr
+isBusinessRegisteredForPAYE.error.required = Dewiswch ’Iawn’ os yw’ch busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
 
 #######################################################
 ##  SelectGamblingOrGamingDuty
@@ -620,16 +620,16 @@ whichVATServicesToAdd.error.required = Dewis gwasanaeth TAW
 #######################################################
 useEmployersPAYE.title = Ychwanegu gwarantau ar sail cyflogaeth (ERS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
 useEmployersPAYE.heading = Ychwanegu gwarantau ar sail cyflogaeth (ERS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
-useEmployersPAYE.subtext = Mewngofnodi i'ch cyfrif arall ac ychwanegu ERS.
-useEmployersPAYE.continue = Mewngofnodi i'r cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+useEmployersPAYE.subtext = Mewngofnodi i’ch cyfrif arall ac ychwanegu ERS.
+useEmployersPAYE.continue = Mewngofnodi i’r cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
 useEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
 #######################################################
 ##  AddEmployersPAYE
 #######################################################
-addEmployersPAYE.title = Mae angen i chi reoli TWE i gyflogwyr ar-lein cyn i chi ychwanegu'r cynllun hwn
-addEmployersPAYE.heading = Mae angen i chi reoli TWE i gyflogwyr ar-lein cyn i chi ychwanegu'r cynllun hwn
-addEmployersPAYE.subtext = Pan fydd hwn gennych, dylech fewngofnodi i'ch cyfrif ac ychwanegu gwarantau ar sail cyflogaeth (ERS).
+addEmployersPAYE.title = Mae angen i chi reoli TWE i gyflogwyr ar-lein cyn i chi ychwanegu’r cynllun hwn
+addEmployersPAYE.heading = Mae angen i chi reoli TWE i gyflogwyr ar-lein cyn i chi ychwanegu’r cynllun hwn
+addEmployersPAYE.subtext = Pan fydd hwn gennych, dylech fewngofnodi i’ch cyfrif ac ychwanegu gwarantau ar sail cyflogaeth (ERS).
 addEmployersPAYE.continue = Ychwanegu TWE i gyflogwyr
 addEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
@@ -638,7 +638,7 @@ addEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 #######################################################
 registerEmployersPAYE.title = Cofrestru ar gyfer TWE i gyflogwyr cyn i chi ychwanegu’r gwasanaeth hwn
 registerEmployersPAYE.heading = Cofrestru ar gyfer TWE i gyflogwyr cyn i chi ychwanegu’r gwasanaeth hwn
-registerEmployersPAYE.subtext = Pan fyddwch wedi cofrestru gyda'r cyfrif hwn, dylech fewngofnodi ac ychwanegu gwarantau ar sail cyflogaeth.
+registerEmployersPAYE.subtext = Pan fyddwch wedi cofrestru gyda’r cyfrif hwn, dylech fewngofnodi ac ychwanegu gwarantau ar sail cyflogaeth.
 registerEmployersPAYE.continue = Cofrestru ar gyfer TWE i gyflogwyr
 registerEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
