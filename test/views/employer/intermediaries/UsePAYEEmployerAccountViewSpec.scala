@@ -22,7 +22,7 @@ import views.html.employer.intermediaries.usePAYEEmployerAccount
 
 class UsePAYEEmployerAccountViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "usePAYEEmployerAccount"
+  val messageKeyPrefix = "usePAYEEmployerIntermediariesAccount"
 
   def createView = () => usePAYEEmployerAccount(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 

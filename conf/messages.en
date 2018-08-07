@@ -180,10 +180,10 @@ economicOperatorsRegistrationAndIdentification.error.required = Select yes if yo
 #######################################################
 ##  RegisterEORI
 #######################################################
-registerEORI.title = You need an EORI number to add this service
-registerEORI.heading = You need an EORI number to add this service
+registerEORI.title = You need an Economic Operator Registration and Identification (EORI) number to add this service
+registerEORI.heading = You need an Economic Operator Registration and Identification (EORI) number to add this service
 registerEORI.continue = Get an EORI number
-
+registerEORI.continue = Get an EORI number
 
 #######################################################
 ##  RegisterEORI - ICS
@@ -234,8 +234,7 @@ doYouHaveCHIEFRole.error.required = Select yes or no
 #######################################################
 ##  RegisterEORI - EBTI
 #######################################################
-registerEORIEBTI.p1 = You need an Economic Operators Registration and Identification (EORI) to add electronic Binding Tariff Information (eBTI) to your account.
-registerEORIEBTI.p2 = Come back to your account and add eBTI once your EORI number arrives.
+registerEORIEBTI.p1 = When you get this, sign in and add the electronic Binding Tariff Information (eBTI) to your account.
 
 
 #######################################################
@@ -511,11 +510,11 @@ registerForCharity.continue = Register with HMRC as a charity
 #######################################################
 ##  UsePAYEEmployerAccount
 #######################################################
-usePAYEEmployerAccount.title = Use your PAYE for employers account
-usePAYEEmployerAccount.heading = Use your PAYE for employers account
-usePAYEEmployerAccount.continue = Sign in to your PAYE for employers account
-usePAYEEmployerAccount.addAccount = I want to add CIS in this account
-usePAYEEmployerAccount.p1 = You should manage CIS in the same account that you manage PAYE for employers.
+usePAYEEmployerAccount.title = Add the Construction Industry Scheme (CIS) to the account you use for PAYE for employers
+usePAYEEmployerAccount.heading = Add the Construction Industry Scheme (CIS) to the account you use for PAYE for employers
+usePAYEEmployerAccount.continue = Sign in to the account you use for PAYE for employers
+usePAYEEmployerAccount.addAccount = I want to add CIS to this account
+usePAYEEmployerAccount.p1 = Sign in to your other account and add the CIS.
 
 #######################################################
 ##  DoesBusinessManagePAYE
@@ -530,11 +529,11 @@ doesBusinessManagePAYE.error.required = Select yes if your business manages PAYE
 #######################################################
 ##  RegisterForPAYE
 #######################################################
-registerForPAYE.title = Register for PAYE for employers first
-registerForPAYE.heading = Register for PAYE for employers first
-registerForPAYE.p1 = You need to be registered for PAYE for employers if you want to register for CIS as a contractor.
+registerForPAYE.title = You need to register for PAYE for employers before you add this scheme
+registerForPAYE.heading = You need to register for PAYE for employers before you add this scheme
+registerForPAYE.p1 = When you have registered, sign in to your account and add the Construction Industry Scheme.
 registerForPAYE.continue = Register for PAYE for employers
-registerForPAYE.notnow = I don’t want to do this right now
+registerForPAYE.notnow = I do not want to do this now
 
 #######################################################
 ##  IsBusinessRegisteredForPAYE
@@ -670,10 +669,10 @@ registerEmployersPAYE.notnow = I do not want to do this right now
 #######################################################
 areYouContractorOrSubcontractor.title = Are you a contractor or subcontractor?
 areYouContractorOrSubcontractor.heading = Are you a contractor or subcontractor?
-areYouContractorOrSubcontractor.Contractor = Contractor, employs and pays subcontractors
-areYouContractorOrSubcontractor.Subcontractor = Subcontractor, works for other construction businesses
+areYouContractorOrSubcontractor.Contractor = Contractor, I employ and pay subcontractors
+areYouContractorOrSubcontractor.Subcontractor = Subcontractor, I work for other construction businesses
 areYouContractorOrSubcontractor.error.required = Select if you are a contractor or subcontractor
-areYouContractorOrSubcontractor.p1=If you are both, you will need to do this twice. Select an option then come back and select the other.
+areYouContractorOrSubcontractor.p1=If you are both, you will need to register for the Construction Industry Scheme (CIS) twice. Select an option then come back and select the other.
 
 #######################################################
 ##  DoYouWantToBePaidNetOrGross
@@ -685,26 +684,26 @@ doYouWantToBePaidNetOrGross.subtext2 = If you want to be paid gross, you must {0
 doYouWantToBePaidNetOrGross.subtext2.anchorText = check if you qualify for gross payments
 doYouWantToBePaidNetOrGross.paidNet = I want to be paid net
 doYouWantToBePaidNetOrGross.paidGross = I want to be paid gross
-doYouWantToBePaidNetOrGross.error.required = You must make a selection
+doYouWantToBePaidNetOrGross.error.required = Select if you want to be paid net or gross
 
 #######################################################
 ##  WasTurnoverMoreAfterVAT
 #######################################################
 wasTurnoverMoreAfterVAT.title = Was your turnover for the last 12 months more than £30,000 after VAT?
 wasTurnoverMoreAfterVAT.heading = Was your turnover for the last 12 months more than £30,000 after VAT?
-wasTurnoverMoreAfterVAT.Yes = Yes - my turnover was more than £30,000
-wasTurnoverMoreAfterVAT.No = No - my turnover was less than £30,000
-wasTurnoverMoreAfterVAT.error.required = Select yes or no
+wasTurnoverMoreAfterVAT.Yes = Yes
+wasTurnoverMoreAfterVAT.No = No
+wasTurnoverMoreAfterVAT.error.required = Select yes if your turnover was more than £30,000 after VAT
 
 #######################################################
 ##  WhatTypeOfSubcontractor
 #######################################################
-whatTypeOfSubcontractor.title = What type of subcontractor are you?
-whatTypeOfSubcontractor.heading = What type of subcontractor are you?
+whatTypeOfSubcontractor.title = Which of these best describes you?
+whatTypeOfSubcontractor.heading = Which of these best describes you?
 whatTypeOfSubcontractor.soleTrader = Sole Trader
 whatTypeOfSubcontractor.partnership = Partnership
 whatTypeOfSubcontractor.limitedCompany = Limited Company
-whatTypeOfSubcontractor.error.required = Select a business type
+whatTypeOfSubcontractor.error.required = Select which of these best describes you
 
 #######################################################
 ##  UsePAYEEmployerAccountIntermediaries
@@ -732,7 +731,7 @@ registerForPAYEIntermediaries.notnow = I don’t want to do this right now
 whatEmployerTaxDoYouWantToAdd.title = Which employer tax do you want to add?
 whatEmployerTaxDoYouWantToAdd.heading = Which employer tax do you want to add?
 whatEmployerTaxDoYouWantToAdd.epaye = PAYE for employers
-whatEmployerTaxDoYouWantToAdd.cis = Construction industry scheme (CIS)
+whatEmployerTaxDoYouWantToAdd.cis = Construction Industry Scheme (CIS)
 whatEmployerTaxDoYouWantToAdd.pension = Pension schemes
 whatEmployerTaxDoYouWantToAdd.ers = Employment related securities (ERS)
 whatEmployerTaxDoYouWantToAdd.intermediaries = Employment intermediaries (for agencies)
@@ -743,9 +742,9 @@ whatEmployerTaxDoYouWantToAdd.error.required = Select a tax type
 #######################################################
 isYourBusinessInUK.title = Is your business based in the UK?
 isYourBusinessInUK.heading = Is your business based in the UK?
-isYourBusinessInUK.Yes = Yes - my business is based in the UK
-isYourBusinessInUK.No = No - my business isn’t based in the UK
-isYourBusinessInUK.error.required = Select yes or no
+isYourBusinessInUK.Yes = Yes
+isYourBusinessInUK.No = No
+isYourBusinessInUK.error.required = Select yes if your business is based in the UK
 
 
 #######################################################
