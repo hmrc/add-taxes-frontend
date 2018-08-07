@@ -138,7 +138,7 @@ otherTaxes.legend = Dewis treth neu fath o gynllun
 #######################################################
 registerExciseMovementControlSystem.title = Mae angen rhif System ar gyfer Cyfnewid Data Ecséis (SEED) arnoch i ychwanegu’r gwasanaeth hwn
 registerExciseMovementControlSystem.heading = Mae angen rhif System ar gyfer Cyfnewid Data Ecséis (SEED) arnoch i ychwanegu’r gwasanaeth hwn
-registerExciseMovementControlSystem.youNeedToRegister= Pan gewch chi hwn, mewngofnodwch i’ch cyfrif ac ychwanegwch y System Symudiadau a Rheolaeth Ecséis.
+registerExciseMovementControlSystem.youNeedToRegister= Pan gewch chi hwn, mewngofnodwch i’ch cyfrif ac ychwanegwch y System Symudiadau a Rheolaeth Ecséis at eich cyfrif.
 registerExciseMovementControlSystem.button= Cael rhif SEED
 
 
@@ -179,8 +179,8 @@ registerEORIICS.p1 = Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y System Rh
 #######################################################
 ##  RegisterDefermentApprovalNumber
 #######################################################
-registerDefermentApprovalNumber.title = Mae angen Rhif Cymeradwyo Gohiriad arnoch i ychwanegu’r gwasanaeth hwn
-registerDefermentApprovalNumber.heading = Mae angen Rhif Cymeradwyo Gohiriad arnoch i ychwanegu’r gwasanaeth hwn
+registerDefermentApprovalNumber.title = Mae angen Rhif Cymeradwyo Gohiriad (DAN) arnoch i ychwanegu’r gwasanaeth hwn
+registerDefermentApprovalNumber.heading = Mae angen Rhif Cymeradwyo Gohiriad (DAN) arnoch i ychwanegu’r gwasanaeth hwn
 registerDefermentApprovalNumber.p1 = Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y Datganiadau Electronig i Ohirio Tollau at eich cyfrif.
 registerDefermentApprovalNumber.continue = Gwneud cais i gymeradwyo gohiriad
 
@@ -605,10 +605,10 @@ registeredForVATECSales.error.required = Dewiswch Iawn os yw’r busnes wedi’i
 whichVATServicesToAdd.title = Pa wasanaeth TAW ydych eisiau ei ychwanegu?
 whichVATServicesToAdd.heading = Pa wasanaeth TAW ydych eisiau ei ychwanegu?
 whichVATServicesToAdd.vat = TAW
-whichVATServicesToAdd.ecsales = Rhestr Gwerthiannau yn y GE, Rhoi gwybod am werthiannau a wnaed i gyflenwyr yr UE sydd wedi cofrestru ar gyfer TAW
+whichVATServicesToAdd.ecsales = Rhestr Gwerthiannau yn y GE, rhoi gwybod am werthiannau a wnaed i gyflenwyr yr UE sydd wedi cofrestru ar gyfer TAW
 whichVATServicesToAdd.giant = Ymddiriedolaethau Gwybodaeth Llywodraeth ac Iechyd Cenedlaethol (GIANT)
-whichVATServicesToAdd.eurefunds = Ad-daliadau yn yr UE, Gwneud cais i gael TAW y gwnaethoch ei thalu yn yr UE yn ôl
-whichVATServicesToAdd.rcsl = Rhestr Gwerthiannau Tâl Gwrthdro (RCSL), Rhoi gwybod am werthiannau sydd â TAW Tâl Gwrthdro
+whichVATServicesToAdd.eurefunds = Ad-daliadau yn yr UE, gwneud cais i gael TAW y gwnaethoch ei thalu yn yr UE yn ôl
+whichVATServicesToAdd.rcsl = Rhestr Gwerthiannau Tâl Gwrthdro (RCSL), rhoi gwybod am werthiannau sydd â TAW Tâl Gwrthdro
 whichVATServicesToAdd.moss = Gwasanaeth Un Cam (GUC), TAW ar gyfer gwasanaethau digidol a werthwyd yn yr UE
 whichVATServicesToAdd.nova = Hysbysiad o Gerbydau’n Cyrraedd (NOVA)
 whichVATServicesToAdd.error.required = Dewis gwasanaeth TAW
