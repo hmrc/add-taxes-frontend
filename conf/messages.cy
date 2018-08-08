@@ -617,16 +617,16 @@ whichVATServicesToAdd.error.required = Dewis gwasanaeth TAW
 #######################################################
 useEmployersPAYE.title = Ychwanegu gwarantau ar sail cyflogaeth (ERS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
 useEmployersPAYE.heading = Ychwanegu gwarantau ar sail cyflogaeth (ERS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
-useEmployersPAYE.subtext = Mewngofnodi i'ch cyfrif arall ac ychwanegu ERS.
-useEmployersPAYE.continue = Mewngofnodi i'r cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+useEmployersPAYE.subtext = Mewngofnodi i’ch cyfrif arall ac ychwanegu ERS.
+useEmployersPAYE.continue = Mewngofnodi i’r cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
 useEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
 #######################################################
 ##  AddEmployersPAYE
 #######################################################
-addEmployersPAYE.title = Mae angen i chi reoli TWE i gyflogwyr ar-lein cyn i chi ychwanegu'r cynllun hwn
-addEmployersPAYE.heading = Mae angen i chi reoli TWE i gyflogwyr ar-lein cyn i chi ychwanegu'r cynllun hwn
-addEmployersPAYE.subtext = Pan fydd hwn gennych, dylech fewngofnodi i'ch cyfrif ac ychwanegu gwarantau ar sail cyflogaeth (ERS).
+addEmployersPAYE.title = Mae angen i chi reoli TWE i gyflogwyr ar-lein cyn i chi ychwanegu’r cynllun hwn
+addEmployersPAYE.heading = Mae angen i chi reoli TWE i gyflogwyr ar-lein cyn i chi ychwanegu’r cynllun hwn
+addEmployersPAYE.subtext = Pan fydd hwn gennych, dylech fewngofnodi i’ch cyfrif ac ychwanegu gwarantau ar sail cyflogaeth (ERS).
 addEmployersPAYE.continue = Ychwanegu TWE i gyflogwyr
 addEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
@@ -635,7 +635,7 @@ addEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 #######################################################
 registerEmployersPAYE.title = Cofrestru ar gyfer TWE i gyflogwyr cyn i chi ychwanegu’r gwasanaeth hwn
 registerEmployersPAYE.heading = Cofrestru ar gyfer TWE i gyflogwyr cyn i chi ychwanegu’r gwasanaeth hwn
-registerEmployersPAYE.subtext = Pan fyddwch wedi cofrestru gyda'r cyfrif hwn, dylech fewngofnodi ac ychwanegu gwarantau ar sail cyflogaeth.
+registerEmployersPAYE.subtext = Pan fyddwch wedi cofrestru gyda’r cyfrif hwn, dylech fewngofnodi ac ychwanegu gwarantau ar sail cyflogaeth.
 registerEmployersPAYE.continue = Cofrestru ar gyfer TWE i gyflogwyr
 registerEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
