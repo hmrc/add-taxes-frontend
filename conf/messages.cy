@@ -270,15 +270,6 @@ getEoriAndChiefRole.p2.li2=llenwch ffurflen gais EORI
 getEoriAndChiefRole.p3=Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rhif EORI a’ch rôl CHIEF wedi cyrraedd.
 
 #######################################################
-##  WhichPensionSchemeToAdd
-#######################################################
-whichPensionSchemeToAdd.title = Pa gynllun pensiwn ydych eisiau ei ychwanegu?
-whichPensionSchemeToAdd.heading = Pa gynllun pensiwn ydych eisiau ei ychwanegu?
-whichPensionSchemeToAdd.administrators = Cynlluniau Pensiwn Ar-lein ar gyfer Gweinyddwyr
-whichPensionSchemeToAdd.practitioners = Cynlluniau Pensiwn Ar-lein ar gyfer Ymarferwyr
-whichPensionSchemeToAdd.error.required = Dewis cynllun
-
-#######################################################
 ##  RegisterGBD
 #######################################################
 registerGBD.title = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf

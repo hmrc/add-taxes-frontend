@@ -121,7 +121,7 @@ class WhatEmployerTaxDoYouWantToAddControllerSpec extends ControllerSpecBase {
       val radioOptions =
         WhatEmployerTaxDoYouWantToAdd.options.filterNot(_.value == WhatEmployerTaxDoYouWantToAdd.PS.toString)
 
-      "on page load and enrolled for Pension schemes && Administrator" in {
+      "on page load and enrolled for Pension schemes and Administrators" in {
         val result = controller()(HmrcEnrolmentType.PSA, HmrcEnrolmentType.PP).onPageLoad()(fakeRequest)
         val view = viewAsString(radioOptions = radioOptions)
 
