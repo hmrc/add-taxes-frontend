@@ -19,7 +19,6 @@ package utils.nextpage.employer
 import config.FrontendAppConfig
 import controllers.employer.ers.{routes => ersRoutes}
 import controllers.employer.intermediaries.{routes => intRoutes}
-import controllers.employer.pension.{routes => pensionRoutes}
 import controllers.employer.cis.{routes => cisRoutes}
 import identifiers.WhatEmployerTaxDoYouWantToAddId
 import models.employer.WhatEmployerTaxDoYouWantToAdd
