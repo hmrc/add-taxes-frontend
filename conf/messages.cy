@@ -314,23 +314,21 @@ registerRGD.continue = Cofrestru ar gyfer Toll Hapchwarae o Bell
 #######################################################
 ##  RegisterTrust
 #######################################################
-registerTrust.title = Cofrestru eich ymddiriedolaeth
-registerTrust.heading = Cofrestru eich ymddiriedolaeth
+registerTrust.title = Cofrestru’ch ymddiriedolaeth cyn i chi ychwanegu’r gwasanaeth hwn at eich cyfrif
+registerTrust.heading = Cofrestru’ch ymddiriedolaeth cyn i chi ychwanegu’r gwasanaeth hwn at eich cyfrif
 registerTrust.continue = Cofrestru eich ymddiriedolaeth
 registerTrust.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
-registerTrust.p1=Mae’n rhaid i chi gofrestru eich ymddiriedolaeth cyn y gallwch ei hychwanegu i’r cyfrif hwn.
-registerTrust.p2=Byddwn yn anfon Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth drwy’r post, ar ôl iddi gael ei chofrestru.
-registerTrust.p3=Byddwch yn gallu ychwanegu’r ymddiriedolaeth i’r cyfrif hwn gan ddefnyddio’r UTR.
+registerTrust.p1= Pan gewch Gyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth, mewngofnodwch i’ch cyfrif ac ychwanegwch Hunanasesiad Ar-lein ar gyfer Ymddiriedolaethau.
 
 #######################################################
 ##  HaveYouRegisteredTrust
 #######################################################
 haveYouRegisteredTrust.title = A ydych wedi cofrestru eich ymddiriedolaeth?
 haveYouRegisteredTrust.heading = A ydych wedi cofrestru eich ymddiriedolaeth?
-haveYouRegisteredTrust.Yes = Ydw - mae’r ymddiriedolaeth eisoes wedi’i chofrestru
-haveYouRegisteredTrust.No = Nac ydw - nid yw’r ymddiriedolaeth wedi’i chofrestru ar hyn o bryd
-haveYouRegisteredTrust.error.required = Dewis iawn neu na
-haveYouRegisteredTrust.hintText = Mae eich ymddiriedolaeth wedi’i chofrestru os gwnaethoch anfon {0} atom, a’ch bod wedi cael Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth drwy’r post
+haveYouRegisteredTrust.Yes = Iawn
+haveYouRegisteredTrust.No = Na
+haveYouRegisteredTrust.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru’ch ymddiriedolaeth
+haveYouRegisteredTrust.hintText = Mae’ch ymddiriedolaeth wedi’i chofrestru os gwnaethoch anfon {0} atom, a’ch bod wedi cael Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth drwy’r post.
 haveYouRegisteredTrust.form.g41=ffurflen G41
 
 #######################################################
@@ -338,19 +336,19 @@ haveYouRegisteredTrust.form.g41=ffurflen G41
 #######################################################
 haveYouRegisteredPartnership.title = A ydych eisoes wedi cofrestru eich partneriaeth?
 haveYouRegisteredPartnership.heading = A ydych eisoes wedi cofrestru eich partneriaeth?
-haveYouRegisteredPartnership.Yes = Ydw - rwyf wedi cofrestru’r bartneriaeth ac mae gennyf UTR
-haveYouRegisteredPartnership.No = Nac ydw - nid wyf wedi cofrestru’r bartneriaeth
-haveYouRegisteredPartnership.error.required = Dewis iawn neu na
-haveYouRegisteredPartnership.hintText = Byddwn wedi anfon Cyfeirnod Unigryw y Trethdalwr (UTR) atoch ar gyfer eich partneriaeth, os ydych eisoes wedi’i chofrestru
+haveYouRegisteredPartnership.Yes = Iawn
+haveYouRegisteredPartnership.No = Na
+haveYouRegisteredPartnership.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru’ch partneriaeth a bod gennych UTR
+haveYouRegisteredPartnership.hintText = Byddwn wedi anfon Cyfeirnod Unigryw y Trethdalwr (UTR) atoch ar gyfer eich partneriaeth, os ydych eisoes wedi’i chofrestru.
 
 #######################################################
 ##  DoYouWantToAddPartner
 #######################################################
 doYouWantToAddPartner.title = A ydych eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes?
 doYouWantToAddPartner.heading = A ydych eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes?
-doYouWantToAddPartner.Yes = Ydw - rwyf eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes
-doYouWantToAddPartner.No = Nac ydw - rwyf eisiau gwneud rhywbeth arall
-doYouWantToAddPartner.error.required = Dewis iawn neu na
+doYouWantToAddPartner.Yes = Iawn
+doYouWantToAddPartner.No = Na
+doYouWantToAddPartner.error.required = Dewiswch ‘Iawn’ os ydych eisiau ychwanegu partner at bartneriaeth sy’n bodoli eisoes
 
 #######################################################
 ##  RegisterAEOI
@@ -458,12 +456,12 @@ areYouRegisteredWarehousekeeper.error.required = Dewiswch Iawn os ydych yn geidw
 #######################################################
 ##  SelectSACategory
 #######################################################
-selectSACategory.title = Dewiswch gategori Hunanasesiad
-selectSACategory.heading = Dewiswch gategori Hunanasesiad
+selectSACategory.title = Pa rai o’r rhain sy’n eich disgrifio orau?
+selectSACategory.heading = Pa rai o’r rhain sy’n eich disgrifio orau?
 selectSACategory.Sa = Unigolyn neu unig fasnachwr
 selectSACategory.Partnership = Partneriaeth
 selectSACategory.Trust = Ymddiriedolaeth
-selectSACategory.error.required = Dewis categori
+selectSACategory.error.required = Dewiswch pa rai o’r rhain sy’n eich disgrifio orau
 
 #######################################################
 ##  SelectAlcoholScheme
