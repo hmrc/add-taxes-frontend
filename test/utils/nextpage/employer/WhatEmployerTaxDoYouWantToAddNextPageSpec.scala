@@ -59,7 +59,7 @@ class WhatEmployerTaxDoYouWantToAddNextPageSpec extends NextPageSpecBase {
     NextPage.whatEmployerTaxDoYouWantToAdd,
     nextPagePensionWithEnrolment,
     WhatEmployerTaxDoYouWantToAdd.PS.toString,
-    "/business-account/add-tax/employer/pension",
+    "http://localhost:8080/portal/service/pensions-practitioners?action=enrol&step=hasid&lang=eng",
     "EPAYE enrolments"
   )
 
@@ -69,7 +69,7 @@ class WhatEmployerTaxDoYouWantToAddNextPageSpec extends NextPageSpecBase {
     NextPage.whatEmployerTaxDoYouWantToAdd,
     nextPagePensionNoEnrolment,
     WhatEmployerTaxDoYouWantToAdd.PS.toString,
-    "/business-account/add-tax/employer/pension",
+    "http://localhost:8080/portal/service/pensions-practitioners?action=enrol&step=hasid&lang=eng",
     "no enrolments"
   )
 

@@ -43,7 +43,7 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
           case (WhatEmployerTaxDoYouWantToAdd.CIS, _) =>
             cisRoutes.IsYourBusinessInUKController.onPageLoad()
           case (WhatEmployerTaxDoYouWantToAdd.PS, _) =>
-            pensionRoutes.WhichPensionSchemeToAddController.onPageLoad()
+            Call("GET", appConfig.getPortalUrl("pensionPractitioners"))
           case (WhatEmployerTaxDoYouWantToAdd.ERS, HmrcEnrolmentType.EPAYE()) =>
             Call("GET", appConfig.getPortalUrl("enrolERS"))
           case (WhatEmployerTaxDoYouWantToAdd.ERS, _) =>
