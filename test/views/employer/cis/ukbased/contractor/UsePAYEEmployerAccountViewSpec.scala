@@ -34,18 +34,18 @@ class UsePAYEEmployerAccountViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       val view = doc.text()
 
-      view must include("You should manage CIS in the same account that you manage PAYE for employers.")
+      view must include("Add the Construction Industry Scheme (CIS) to the account you use for PAYE for employers")
 
-      view must include("Use your PAYE for employers account")
+      view must include("Sign in to your other account and add the CIS.")
 
-      view must include("Sign in to your PAYE for employers account")
+      view must include("Sign in to the account you use for PAYE for employers")
 
-      view must include("I want to add CIS in this account")
+      view must include("I want to add CIS to this account")
 
       assertLinkById(
         doc,
         "continue",
-        "Sign in to your PAYE for employers account",
+        "Sign in to the account you use for PAYE for employers",
         "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fbusiness-account",
         "CisUkContractorEpayeOtherAccount:Click:SignIn"
       )
@@ -53,7 +53,7 @@ class UsePAYEEmployerAccountViewSpec extends ViewBehaviours {
       assertLinkById(
         doc,
         "add-to-this-account",
-        "I want to add CIS in this account",
+        "I want to add CIS to this account",
         "http://localhost:9555/enrolment-management-frontend/HMRC-CIS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account",
         "CisUkContractorEpayeOtherAccount:Click:AddToAccount"
       )

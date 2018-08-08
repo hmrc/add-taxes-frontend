@@ -17,7 +17,7 @@
 package utils
 
 import config.FrontendAppConfig
-import play.api.mvc.{Call, Request}
+import play.api.mvc.Request
 import utils.nextpage.OtherTaxesNextPage
 import utils.nextpage.deenrolment._
 import utils.nextpage.employer._
@@ -51,6 +51,7 @@ import utils.nextpage.vat.giant.WhatIsYourOrganisationNextPage
 import utils.nextpage.vat.moss.WhereIsYourBusinessBasedNextPage
 import utils.nextpage.vat.moss.iom._
 import utils.nextpage.vat.moss.noneu.HaveYouRegisteredForVATMOSSNextPage
+import utils.nextpage.vat.moss.{uk => vatuk}
 import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
 import utils.nextpage.vat.rcsl.RegisteredForVATRCSLNextPage
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
@@ -125,3 +126,4 @@ object NextPage
     with DoYouNeedToStopPBDNextPage
     with DoYouNeedToStopVatMossNUNextPage
     with DoYouNeedToStopMGDNextPage
+    with vatuk.AlreadyRegisteredForVATMossNextPage

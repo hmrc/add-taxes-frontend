@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package forms.vat.moss.iom
-
-import javax.inject.Inject
+package forms.vat.moss
 
 import forms.FormErrorHelper
 import forms.mappings.Mappings
+import javax.inject.Inject
+import models.vat.moss.AlreadyRegisteredForVATMoss
 import play.api.data.Form
-import models.vat.moss.iom.AlreadyRegisteredForVATMoss
 
 class AlreadyRegisteredForVATMossFormProvider @Inject() extends FormErrorHelper with Mappings {
 

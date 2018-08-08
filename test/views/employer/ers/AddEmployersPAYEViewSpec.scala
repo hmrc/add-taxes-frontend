@@ -33,11 +33,7 @@ class AddEmployersPAYEViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       val view = doc.text()
 
-      view must include(
-        "You have to manage PAYE for employers online before you can manage employment related securities (ERS).")
-
-      view must include(
-        "Add PAYE for employers to this account, then come back and add employment related securities (ERS) afterwards.")
+      view must include("When you have got this, sign in to your account and add employment related securities (ERS).")
 
       assertLinkById(
         doc,
@@ -50,7 +46,7 @@ class AddEmployersPAYEViewSpec extends ViewBehaviours {
       assertLinkById(
         doc,
         "not-now",
-        "I don’t want to do this right now",
+        "I do not want to do this now",
         "http://localhost:9020/business-account",
         "AddErsNotEnrolledEpaye:Click:NotNow"
       )

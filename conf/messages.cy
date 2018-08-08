@@ -58,8 +58,7 @@ selectAnOilService.heading = Pa gwasanaeth olew ei angen arnoch?
 selectAnOilService.title = Pa gwasanaeth olew ei angen arnoch?
 selectAnOilService.rebatedOilsEnquiryService = Gwasanaeth Ymholiadau Olew Ad-daliedig
 selectAnOilService.tiedOilsEnquiryService = Gwasanaeth Ymholiadau Olew ‘Tied’
-selectAnOilService.checkYourAnswersLabel = Dewis gwasanaeth olew
-selectAnOilService.error.required = Dewis gwasanaeth
+selectAnOilService.error.required = Dewiswch ba gwasanaeth olew ei angen arnoch
 
 
 #######################################################
@@ -315,23 +314,21 @@ registerRGD.continue = Cofrestru ar gyfer Toll Hapchwarae o Bell
 #######################################################
 ##  RegisterTrust
 #######################################################
-registerTrust.title = Cofrestru eich ymddiriedolaeth
-registerTrust.heading = Cofrestru eich ymddiriedolaeth
+registerTrust.title = Cofrestru’ch ymddiriedolaeth cyn i chi ychwanegu’r gwasanaeth hwn at eich cyfrif
+registerTrust.heading = Cofrestru’ch ymddiriedolaeth cyn i chi ychwanegu’r gwasanaeth hwn at eich cyfrif
 registerTrust.continue = Cofrestru eich ymddiriedolaeth
 registerTrust.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
-registerTrust.p1=Mae’n rhaid i chi gofrestru eich ymddiriedolaeth cyn y gallwch ei hychwanegu i’r cyfrif hwn.
-registerTrust.p2=Byddwn yn anfon Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth drwy’r post, ar ôl iddi gael ei chofrestru.
-registerTrust.p3=Byddwch yn gallu ychwanegu’r ymddiriedolaeth i’r cyfrif hwn gan ddefnyddio’r UTR.
+registerTrust.p1= Pan gewch Gyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth, mewngofnodwch i’ch cyfrif ac ychwanegwch Hunanasesiad Ar-lein ar gyfer Ymddiriedolaethau.
 
 #######################################################
 ##  HaveYouRegisteredTrust
 #######################################################
 haveYouRegisteredTrust.title = A ydych wedi cofrestru eich ymddiriedolaeth?
 haveYouRegisteredTrust.heading = A ydych wedi cofrestru eich ymddiriedolaeth?
-haveYouRegisteredTrust.Yes = Ydw - mae’r ymddiriedolaeth eisoes wedi’i chofrestru
-haveYouRegisteredTrust.No = Nac ydw - nid yw’r ymddiriedolaeth wedi’i chofrestru ar hyn o bryd
-haveYouRegisteredTrust.error.required = Dewis iawn neu na
-haveYouRegisteredTrust.hintText = Mae eich ymddiriedolaeth wedi’i chofrestru os gwnaethoch anfon {0} atom, a’ch bod wedi cael Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth drwy’r post
+haveYouRegisteredTrust.Yes = Iawn
+haveYouRegisteredTrust.No = Na
+haveYouRegisteredTrust.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru’ch ymddiriedolaeth
+haveYouRegisteredTrust.hintText = Mae’ch ymddiriedolaeth wedi’i chofrestru os gwnaethoch anfon {0} atom, a’ch bod wedi cael Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth drwy’r post.
 haveYouRegisteredTrust.form.g41=ffurflen G41
 
 #######################################################
@@ -339,19 +336,19 @@ haveYouRegisteredTrust.form.g41=ffurflen G41
 #######################################################
 haveYouRegisteredPartnership.title = A ydych eisoes wedi cofrestru eich partneriaeth?
 haveYouRegisteredPartnership.heading = A ydych eisoes wedi cofrestru eich partneriaeth?
-haveYouRegisteredPartnership.Yes = Ydw - rwyf wedi cofrestru’r bartneriaeth ac mae gennyf UTR
-haveYouRegisteredPartnership.No = Nac ydw - nid wyf wedi cofrestru’r bartneriaeth
-haveYouRegisteredPartnership.error.required = Dewis iawn neu na
-haveYouRegisteredPartnership.hintText = Byddwn wedi anfon Cyfeirnod Unigryw y Trethdalwr (UTR) atoch ar gyfer eich partneriaeth, os ydych eisoes wedi’i chofrestru
+haveYouRegisteredPartnership.Yes = Iawn
+haveYouRegisteredPartnership.No = Na
+haveYouRegisteredPartnership.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru’ch partneriaeth a bod gennych UTR
+haveYouRegisteredPartnership.hintText = Byddwn wedi anfon Cyfeirnod Unigryw y Trethdalwr (UTR) atoch ar gyfer eich partneriaeth, os ydych eisoes wedi’i chofrestru.
 
 #######################################################
 ##  DoYouWantToAddPartner
 #######################################################
 doYouWantToAddPartner.title = A ydych eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes?
 doYouWantToAddPartner.heading = A ydych eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes?
-doYouWantToAddPartner.Yes = Ydw - rwyf eisiau ychwanegu partner i bartneriaeth sy’n bodoli eisoes
-doYouWantToAddPartner.No = Nac ydw - rwyf eisiau gwneud rhywbeth arall
-doYouWantToAddPartner.error.required = Dewis iawn neu na
+doYouWantToAddPartner.Yes = Iawn
+doYouWantToAddPartner.No = Na
+doYouWantToAddPartner.error.required = Dewiswch ‘Iawn’ os ydych eisiau ychwanegu partner at bartneriaeth sy’n bodoli eisoes
 
 #######################################################
 ##  RegisterAEOI
@@ -459,12 +456,12 @@ areYouRegisteredWarehousekeeper.error.required = Dewiswch Iawn os ydych yn geidw
 #######################################################
 ##  SelectSACategory
 #######################################################
-selectSACategory.title = Dewiswch gategori Hunanasesiad
-selectSACategory.heading = Dewiswch gategori Hunanasesiad
+selectSACategory.title = Pa rai o’r rhain sy’n eich disgrifio orau?
+selectSACategory.heading = Pa rai o’r rhain sy’n eich disgrifio orau?
 selectSACategory.Sa = Unigolyn neu unig fasnachwr
 selectSACategory.Partnership = Partneriaeth
 selectSACategory.Trust = Ymddiriedolaeth
-selectSACategory.error.required = Dewis categori
+selectSACategory.error.required = Dewiswch pa rai o’r rhain sy’n eich disgrifio orau
 
 #######################################################
 ##  SelectAlcoholScheme
@@ -495,11 +492,11 @@ registerForCharity.continue = Cofrestru fel elusen gyda CThEM
 #######################################################
 ##  UsePAYEEmployerAccount
 #######################################################
-usePAYEEmployerAccount.title = Defnyddio eich cyfrif TWE i gyflogwyr
-usePAYEEmployerAccount.heading = Defnyddio eich cyfrif TWE i gyflogwyr
-usePAYEEmployerAccount.continue = Mewngofnodi i’ch cyfrif TWE i gyflogwyr
-usePAYEEmployerAccount.addAccount = Rwyf eisiau ychwanegu CIS yn y cyfrif hwn
-usePAYEEmployerAccount.p1 = Dylech reoli CIS yn yr un cyfrif ag yr ydych yn rheoli TWE i gyflogwyr.
+usePAYEEmployerAccount.title = Ychwanegu Cynllun y Diwydiant Adeiladu (CIS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+usePAYEEmployerAccount.heading = Ychwanegu Cynllun y Diwydiant Adeiladu (CIS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+usePAYEEmployerAccount.continue = Mewngofnodi i’r cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+usePAYEEmployerAccount.addAccount = Rwyf eisiau ychwanegu CIS at y cyfrif hwn
+usePAYEEmployerAccount.p1 = Mewngofnodi i’ch cyfrif arall ac ychwanegu’r CIS.
 
 #######################################################
 ##  DoesBusinessManagePAYE
@@ -509,14 +506,15 @@ doesBusinessManagePAYE.heading = A yw eich busnes yn rheoli TWE i gyflogwyr ar-l
 doesBusinessManagePAYE.p1 = Os ydych, cewch gyfrif ar-lein arall gyda CThEM, fel yr un hwn, gyda Dynodydd Defnyddiwr (ID) a chyfrinair gwahanol.
 doesBusinessManagePAYE.Yes = Iawn
 doesBusinessManagePAYE.No = Na
-doesBusinessManagePAYE.error.required = Dewiswch ’Iawn’ os yw’ch busnes yn rheoli TWE i gyflogwyr ar-lein
+doesBusinessManagePAYE.error.required = Dewiswch ‘Iawn’ os yw’ch busnes yn rheoli TWE i gyflogwyr ar-lein
+
 
 #######################################################
 ##  RegisterForPAYE
 #######################################################
-registerForPAYE.title = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
-registerForPAYE.heading = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
-registerForPAYE.p1 = Mae angen i chi fod wedi cofrestru ar gyfer TWE i gyflogwyr os ydych eisiau cofrestru ar gyfer CIS fel contractwr.
+registerForPAYE.title = Bydd angen i chi gofrestru ar gyfer TWE i gyflogwyr cyn i chi ychwanegu’r cynllun hwn
+registerForPAYE.heading = Bydd angen i chi gofrestru ar gyfer TWE i gyflogwyr cyn i chi ychwanegu’r cynllun hwn
+registerForPAYE.p1 = Pan fyddwch wedi cofrestru, dylech fewngofnodi i’ch cyfrif ac ychwanegu Cynllun y Diwydiant Adeiladu.
 registerForPAYE.continue = Cofrestru ar gyfer TWE i gyflogwyr
 registerForPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
@@ -527,7 +525,8 @@ isBusinessRegisteredForPAYE.title = A yw eich busnes wedi’i gofrestru ar gyfer
 isBusinessRegisteredForPAYE.heading = A yw eich busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr?
 isBusinessRegisteredForPAYE.Yes = Iawn
 isBusinessRegisteredForPAYE.No = Na
-isBusinessRegisteredForPAYE.error.required = Dewiswch ’Iawn’ os yw’ch busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
+isBusinessRegisteredForPAYE.error.required = Dewiswch ‘Iawn’ os yw’ch busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
+
 
 #######################################################
 ##  SelectGamblingOrGamingDuty
@@ -616,29 +615,27 @@ whichVATServicesToAdd.error.required = Dewis gwasanaeth TAW
 #######################################################
 ##  UseEmployersPAYE
 #######################################################
-useEmployersPAYE.title = Defnyddio eich cyfrif TWE i gyflogwyr
-useEmployersPAYE.heading = Defnyddio eich cyfrif TWE i gyflogwyr
-useEmployersPAYE.subtext = Mae’n rhaid i chi reoli gwarantau ar sail cyflogaeth (ERS) yn yr un cyfrif ag yr ydych yn rheoli TWE i gyflogwyr.
-useEmployersPAYE.continue = Mewngofnodi i’ch cyfrif TWE i gyflogwyr
+useEmployersPAYE.title = Ychwanegu gwarantau ar sail cyflogaeth (ERS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+useEmployersPAYE.heading = Ychwanegu gwarantau ar sail cyflogaeth (ERS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+useEmployersPAYE.subtext = Mewngofnodi i’ch cyfrif arall ac ychwanegu ERS.
+useEmployersPAYE.continue = Mewngofnodi i’r cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
 useEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
 #######################################################
 ##  AddEmployersPAYE
 #######################################################
-addEmployersPAYE.title = Ychwanegwch TWE i gyflogwyr yn gyntaf
-addEmployersPAYE.heading = Ychwanegwch TWE i gyflogwyr yn gyntaf
-addEmployersPAYE.subtext1 = Mae’n rhaid i chi reoli TWE i gyflogwyr ar-lein cyn y gallwch reoli gwarantau ar sail cyflogaeth (ERS).
-addEmployersPAYE.subtext2 = Ychwanegwch TWE i gyflogwyr i’r cyfrif hwn, wedyn dychwelyd ac ychwanegu gwarantau ar sail cyflogaeth (ERS) ar ôl hynny.
+addEmployersPAYE.title = Mae angen i chi reoli TWE i gyflogwyr ar-lein cyn i chi ychwanegu’r cynllun hwn
+addEmployersPAYE.heading = Mae angen i chi reoli TWE i gyflogwyr ar-lein cyn i chi ychwanegu’r cynllun hwn
+addEmployersPAYE.subtext = Pan fydd hwn gennych, dylech fewngofnodi i’ch cyfrif ac ychwanegu gwarantau ar sail cyflogaeth (ERS).
 addEmployersPAYE.continue = Ychwanegu TWE i gyflogwyr
 addEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
 #######################################################
 ##  RegisterEmployersPAYE
 #######################################################
-registerEmployersPAYE.title = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
-registerEmployersPAYE.heading = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
-registerEmployersPAYE.subtext1 = Mae angen i chi fod wedi cofrestru ar gyfer TWE i gyflogwyr cyn y gallwch reoli gwarantau ar sail cyflogaeth (ERS) ar-lein.
-registerEmployersPAYE.subtext2 = Cofrestrwch ar gyfer TWE i gyflogwyr, wedyn dychwelyd ac ychwanegu gwarantau ar sail cyflogaeth ar ôl hynny.
+registerEmployersPAYE.title = Cofrestru ar gyfer TWE i gyflogwyr cyn i chi ychwanegu’r gwasanaeth hwn
+registerEmployersPAYE.heading = Cofrestru ar gyfer TWE i gyflogwyr cyn i chi ychwanegu’r gwasanaeth hwn
+registerEmployersPAYE.subtext = Pan fyddwch wedi cofrestru gyda’r cyfrif hwn, dylech fewngofnodi ac ychwanegu gwarantau ar sail cyflogaeth.
 registerEmployersPAYE.continue = Cofrestru ar gyfer TWE i gyflogwyr
 registerEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
@@ -661,26 +658,26 @@ doYouWantToBePaidNetOrGross.subtext2 = Os ydych am gael eich talu’n gros, rhai
 doYouWantToBePaidNetOrGross.subtext2.anchorText = wirio eich bod yn gymwys i gael taliadau o’r fath
 doYouWantToBePaidNetOrGross.paidNet = Rwyf eisiau cael fy nhalu’n net
 doYouWantToBePaidNetOrGross.paidGross = Rwyf eisiau cael fy nhalu’n gros
-doYouWantToBePaidNetOrGross.error.required = Mae’n rhaid i chi wneud dewis
+doYouWantToBePaidNetOrGross.error.required = Dewiswch p’un a ydych am gael eich talu’n net neu’n gros
 
 #######################################################
 ##  WasTurnoverMoreAfterVAT
 #######################################################
 wasTurnoverMoreAfterVAT.title = A oedd eich trosiant ar gyfer y 12 mis diwethaf dros £30,000 ar ôl TAW?
 wasTurnoverMoreAfterVAT.heading = A oedd eich trosiant ar gyfer y 12 mis diwethaf dros £30,000 ar ôl TAW?
-wasTurnoverMoreAfterVAT.Yes = Oedd - roedd fy nhrosiant dros £30,000
-wasTurnoverMoreAfterVAT.No = Nac oedd - roedd fy nhrosiant yn llai na £30,000
-wasTurnoverMoreAfterVAT.error.required = Dewis iawn neu na
+wasTurnoverMoreAfterVAT.Yes = Iawn
+wasTurnoverMoreAfterVAT.No = Na
+wasTurnoverMoreAfterVAT.error.required = Dewiswch ‘Iawn’ os oedd eich trosiant dros £30,000 ar ôl TAW
 
 #######################################################
 ##  WhatTypeOfSubcontractor
 #######################################################
-whatTypeOfSubcontractor.title = Pa fath o isgontractiwr ydych chi?
-whatTypeOfSubcontractor.heading = Pa fath o isgontractiwr ydych chi?
+whatTypeOfSubcontractor.title = 	Pa rai o’r rhain sy’n eich disgrifio orau?
+whatTypeOfSubcontractor.heading = 	Pa rai o’r rhain sy’n eich disgrifio orau?
 whatTypeOfSubcontractor.soleTrader = Unig fasnachwr
 whatTypeOfSubcontractor.partnership = Partneriaeth
 whatTypeOfSubcontractor.limitedCompany = Cwmni Cyfyngedig
-whatTypeOfSubcontractor.error.required = Dewis math o fusnes
+whatTypeOfSubcontractor.error.required = Dewiswch pa rai o’r rhain sy’n eich disgrifio orau
 
 #######################################################
 ##  UsePAYEEmployerIntermediariesAccount
@@ -727,19 +724,19 @@ whatEmployerTaxDoYouWantToAdd.error.required = Dewis y math o dreth
 #######################################################
 areYouContractorOrSubcontractor.title = Ydych chi’n gontractwr neu’n isgontractwr?
 areYouContractorOrSubcontractor.heading = Ydych chi’n gontractwr neu’n isgontractwr?
-areYouContractorOrSubcontractor.Contractor = Contractwr - yn cyflogi ac yn talu isgontractwyr
-areYouContractorOrSubcontractor.Subcontractor = Isgontractwr - yn gweithio i fusnesau adeiladu eraill
+areYouContractorOrSubcontractor.Contractor = Contractwr, rwy’n cyflogi ac yn talu isgontractwyr
+areYouContractorOrSubcontractor.Subcontractor = Isgontractwr, rwy’n gweithio i fusnesau adeiladu eraill
 areYouContractorOrSubcontractor.error.required = Dewiswch p’un a ydych yn gontractwr neu’n isgontractwr
-areYouContractorOrSubcontractor.p1=Os ydych y ddau, bydd rhaid i chi wneud hyn ddwywaith. Dewiswch opsiwn, yna dychwelwch a dewiswch y llall.
+areYouContractorOrSubcontractor.p1=Os ydych y naill a’r llall, bydd angen i chi gofrestru ddwywaith ar gyfer Cynllun y Diwydiant Adeiladu (CIS). Dewiswch opsiwn, yna dychwelwch a dewiswch y llall.
 
 #######################################################
 ##  IsYourBusinessInUK
 #######################################################
 isYourBusinessInUK.title = A yw eich busnes wedi’i leoli yn y DU?
 isYourBusinessInUK.heading = A yw eich busnes wedi’i leoli yn y DU?
-isYourBusinessInUK.Yes = Ydy - mae fy musnes wedi’i leoli yn y DU
-isYourBusinessInUK.No = Nac ydy - nid yw fy musnes wedi’i leoli yn y DU
-isYourBusinessInUK.error.required = Dewis iawn neu na
+isYourBusinessInUK.Yes = Iawn
+isYourBusinessInUK.No = Na
+isYourBusinessInUK.error.required = Dewiswch ‘Iawn’ os yw’ch busnes wedi’i leoli yn y DU
 
 
 #######################################################
@@ -943,7 +940,7 @@ stopFilingSelfAssessment.title = A oes angen i chi roi’r gorau i gyflwyno Ffur
 stopFilingSelfAssessment.heading = A oes angen i chi roi’r gorau i gyflwyno Ffurflenni Treth Hunanasesiad?
 stopFilingSelfAssessment.Yes = Iawn
 stopFilingSelfAssessment.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Hunanasesiad ar-lein
-stopFilingSelfAssessment.error.required = Dewiswch ’Iawn’ os oes angen i chi roi’r gorau i gyflwyno Ffurflenni Treth Hunanasesiad
+stopFilingSelfAssessment.error.required = Dewiswch ‘Iawn’ os oes angen i chi roi’r gorau i gyflwyno Ffurflenni Treth Hunanasesiad
 
 #######################################################
 ##  DoYouNeedToStopRGD
