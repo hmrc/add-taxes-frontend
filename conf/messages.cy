@@ -674,7 +674,7 @@ whatTypeOfSubcontractor.title = 	Pa rai o’r rhain sy’n eich disgrifio orau?
 whatTypeOfSubcontractor.heading = 	Pa rai o’r rhain sy’n eich disgrifio orau?
 whatTypeOfSubcontractor.soleTrader = Unig fasnachwr
 whatTypeOfSubcontractor.partnership = Partneriaeth
-whatTypeOfSubcontractor.limitedCompany = Cwmni Cyfyngedig
+whatTypeOfSubcontractor.limitedCompany = Cwmni cyfyngedig
 whatTypeOfSubcontractor.error.required = Dewiswch pa rai o’r rhain sy’n eich disgrifio orau
 
 #######################################################

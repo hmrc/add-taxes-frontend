@@ -697,9 +697,9 @@ wasTurnoverMoreAfterVAT.error.required = Select yes if your turnover was more th
 #######################################################
 whatTypeOfSubcontractor.title = Which of these best describes you?
 whatTypeOfSubcontractor.heading = Which of these best describes you?
-whatTypeOfSubcontractor.soleTrader = Sole Trader
+whatTypeOfSubcontractor.soleTrader = Sole trader
 whatTypeOfSubcontractor.partnership = Partnership
-whatTypeOfSubcontractor.limitedCompany = Limited Company
+whatTypeOfSubcontractor.limitedCompany = Limited company
 whatTypeOfSubcontractor.error.required = Select which of these best describes you
 
 #######################################################
