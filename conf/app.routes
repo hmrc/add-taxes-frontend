@@ -248,3 +248,6 @@ GET        /other/ctf/ctf-11                            controllers.other.ctf.Yo
 
 GET        /vat/moss-uk/vat-registered                  controllers.vat.moss.ukbased.AlreadyRegisteredForVATMossController.onPageLoad()
 POST       /vat/moss-uk/vat-registered                  controllers.vat.moss.ukbased.AlreadyRegisteredForVATMossController.onSubmit()
+
+GET        /vat/have-vrn                  controllers.vat.DoYouHaveVATRegNumberController.onPageLoad()
+POST       /vat/have-vrn                  controllers.vat.DoYouHaveVATRegNumberController.onSubmit()

@@ -127,3 +127,4 @@ object NextPage
     with DoYouNeedToStopVatMossNUNextPage
     with DoYouNeedToStopMGDNextPage
     with vatuk.AlreadyRegisteredForVATMossNextPage
+    with utils.nextpage.vat.DoYouHaveVATRegNumberNextPage

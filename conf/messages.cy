@@ -994,3 +994,12 @@ doYouNeedToStopMGD.heading = A oes angen i chi roi gorau i ddefnyddio’r gwasan
 doYouNeedToStopMGD.Yes = Iawn
 doYouNeedToStopMGD.No = Na, mae angen i fi ddadgofrestru o’r Doll Peiriannau Hapchwarae
 doYouNeedToStopMGD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r Doll Peiriannau Hapchwarae
+
+#######################################################
+##  DoYouHaveVATRegNumber
+#######################################################
+doYouHaveVATRegNumber.title = A oes gennych rif cofrestru TAW?
+doYouHaveVATRegNumber.heading = A oes gennych rif cofrestru TAW?
+doYouHaveVATRegNumber.Yes = Iawn
+doYouHaveVATRegNumber.No = Na
+doYouHaveVATRegNumber.error.required = Dewiswch ‘Iawn’ os oes gennych rif cofrestru TAW
