@@ -711,14 +711,14 @@ registerInHomeCountry.callUs = ein ffonio.
 #######################################################
 ##  WhatEmployerTaxDoYouWantToAdd
 #######################################################
-whatEmployerTaxDoYouWantToAdd.title = Pa dreth y cyflogwr ydych eisiau ei hychwanegu?
-whatEmployerTaxDoYouWantToAdd.heading = Pa dreth y cyflogwr ydych eisiau ei hychwanegu?
+whatEmployerTaxDoYouWantToAdd.title = Pa gynllun neu dreth i gyflogwr sydd ei angen arnoch?
+whatEmployerTaxDoYouWantToAdd.heading = Pa gynllun neu dreth i gyflogwr sydd ei angen arnoch?
 whatEmployerTaxDoYouWantToAdd.epaye = TWE i gyflogwyr
 whatEmployerTaxDoYouWantToAdd.cis = Cynllun y Diwydiant Adeiladu (CIS)
-whatEmployerTaxDoYouWantToAdd.pension = Cynlluniau pensiwn
+whatEmployerTaxDoYouWantToAdd.pension = Cynlluniau Pensiwn Ar-lein ar gyfer Gweinyddwyr
 whatEmployerTaxDoYouWantToAdd.ers = Gwarantau ar Sail Cyflogaeth (ERS)
 whatEmployerTaxDoYouWantToAdd.intermediaries = Cyfryngwyr cyflogaeth (ar gyfer asiantaethau)
-whatEmployerTaxDoYouWantToAdd.error.required = Dewis y math o dreth
+whatEmployerTaxDoYouWantToAdd.error.required = Dewiswch ba gynllun neu dreth i gyflogwr sydd ei angen arnoch
 
 #######################################################
 ##  AreYouContractorOrSubcontractor
