@@ -615,29 +615,27 @@ whichVATServicesToAdd.error.required = Dewis gwasanaeth TAW
 #######################################################
 ##  UseEmployersPAYE
 #######################################################
-useEmployersPAYE.title = Defnyddio eich cyfrif TWE i gyflogwyr
-useEmployersPAYE.heading = Defnyddio eich cyfrif TWE i gyflogwyr
-useEmployersPAYE.subtext = Mae’n rhaid i chi reoli gwarantau ar sail cyflogaeth (ERS) yn yr un cyfrif ag yr ydych yn rheoli TWE i gyflogwyr.
-useEmployersPAYE.continue = Mewngofnodi i’ch cyfrif TWE i gyflogwyr
+useEmployersPAYE.title = Ychwanegu gwarantau ar sail cyflogaeth (ERS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+useEmployersPAYE.heading = Ychwanegu gwarantau ar sail cyflogaeth (ERS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+useEmployersPAYE.subtext = Mewngofnodi i’ch cyfrif arall ac ychwanegu ERS.
+useEmployersPAYE.continue = Mewngofnodi i’r cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
 useEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
 #######################################################
 ##  AddEmployersPAYE
 #######################################################
-addEmployersPAYE.title = Ychwanegwch TWE i gyflogwyr yn gyntaf
-addEmployersPAYE.heading = Ychwanegwch TWE i gyflogwyr yn gyntaf
-addEmployersPAYE.subtext1 = Mae’n rhaid i chi reoli TWE i gyflogwyr ar-lein cyn y gallwch reoli gwarantau ar sail cyflogaeth (ERS).
-addEmployersPAYE.subtext2 = Ychwanegwch TWE i gyflogwyr i’r cyfrif hwn, wedyn dychwelyd ac ychwanegu gwarantau ar sail cyflogaeth (ERS) ar ôl hynny.
+addEmployersPAYE.title = Mae angen i chi reoli TWE i gyflogwyr ar-lein cyn i chi ychwanegu’r cynllun hwn
+addEmployersPAYE.heading = Mae angen i chi reoli TWE i gyflogwyr ar-lein cyn i chi ychwanegu’r cynllun hwn
+addEmployersPAYE.subtext = Pan fydd hwn gennych, dylech fewngofnodi i’ch cyfrif ac ychwanegu gwarantau ar sail cyflogaeth (ERS).
 addEmployersPAYE.continue = Ychwanegu TWE i gyflogwyr
 addEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
 #######################################################
 ##  RegisterEmployersPAYE
 #######################################################
-registerEmployersPAYE.title = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
-registerEmployersPAYE.heading = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
-registerEmployersPAYE.subtext1 = Mae angen i chi fod wedi cofrestru ar gyfer TWE i gyflogwyr cyn y gallwch reoli gwarantau ar sail cyflogaeth (ERS) ar-lein.
-registerEmployersPAYE.subtext2 = Cofrestrwch ar gyfer TWE i gyflogwyr, wedyn dychwelyd ac ychwanegu gwarantau ar sail cyflogaeth ar ôl hynny.
+registerEmployersPAYE.title = Cofrestru ar gyfer TWE i gyflogwyr cyn i chi ychwanegu’r gwasanaeth hwn
+registerEmployersPAYE.heading = Cofrestru ar gyfer TWE i gyflogwyr cyn i chi ychwanegu’r gwasanaeth hwn
+registerEmployersPAYE.subtext = Pan fyddwch wedi cofrestru gyda’r cyfrif hwn, dylech fewngofnodi ac ychwanegu gwarantau ar sail cyflogaeth.
 registerEmployersPAYE.continue = Cofrestru ar gyfer TWE i gyflogwyr
 registerEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
