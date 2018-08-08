@@ -16,18 +16,15 @@
 
 package controllers.vat
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions._
 import forms.vat.DoYouHaveVATRegNumberFormProvider
-import identifiers.DoYouHaveVATRegNumberId
 import models.vat.DoYouHaveVATRegNumber
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.vat.doYouHaveVATRegNumber
 
 class DoYouHaveVATRegNumberControllerSpec extends ControllerSpecBase {
