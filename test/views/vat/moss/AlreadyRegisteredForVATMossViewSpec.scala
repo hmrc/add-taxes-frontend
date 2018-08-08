@@ -14,27 +14,32 @@
  * limitations under the License.
  */
 
-package views.vat.moss.iom
+package views.vat.moss
 
+import controllers.vat.moss.iom.routes
+import forms.vat.moss.AlreadyRegisteredForVATMossFormProvider
+import models.vat.moss.AlreadyRegisteredForVATMoss
 import play.api.data.Form
-import forms.vat.moss.iom.AlreadyRegisteredForVATMossFormProvider
-import models.vat.moss.iom.AlreadyRegisteredForVATMoss
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
+import viewmodels.ViewAction
 import views.behaviours.ViewBehaviours
-import views.html.vat.moss.iom.alreadyRegisteredForVATMoss
+import views.html.vat.moss.alreadyRegisteredForVATMoss
 
 class AlreadyRegisteredForVATMossViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "alreadyRegisteredForVATMoss"
 
   val form = new AlreadyRegisteredForVATMossFormProvider()()
+  val viewAction = ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossNoVatIomVatRegistered")
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView = () => alreadyRegisteredForVATMoss(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => Html =
+    () => alreadyRegisteredForVATMoss(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) => alreadyRegisteredForVATMoss(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[_] => Html =
+    (form: Form[_]) =>
+      alreadyRegisteredForVATMoss(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
 
   "AlreadyRegisteredForVATMoss view" must {
     behave like normalPage(createView, messageKeyPrefix)

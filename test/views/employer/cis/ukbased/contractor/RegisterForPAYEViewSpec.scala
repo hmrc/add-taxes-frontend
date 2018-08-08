@@ -34,14 +34,13 @@ class RegisterForPAYEViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       val view = doc.text()
 
-      view must include("Register for PAYE for employers first")
+      view must include("You need to register for PAYE for employers before you add this scheme")
 
-      view must include(
-        "You need to be registered for PAYE for employers if you want to register for CIS as a contractor.")
+      view must include("When you have registered, sign in to your account and add the Construction Industry Scheme.")
 
       view must include("Register for PAYE for employers")
 
-      view must include("I don’t want to do this right now")
+      view must include("I do not want to do this now")
 
       assertLinkById(
         doc,
@@ -54,7 +53,7 @@ class RegisterForPAYEViewSpec extends ViewBehaviours {
       assertLinkById(
         doc,
         "not-now",
-        "I don’t want to do this right now",
+        "I do not want to do this now",
         "http://localhost:9020/business-account",
         "CisUkContractorRegisterEpaye:Click:NotNow"
       )
