@@ -33,11 +33,7 @@ class RegisterEORIViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       val view = doc.text()
 
-      view must include(
-        "You need an Economic Operators Registration and Identification (EORI) to add National " +
-          "Export System (NES) to your account.")
-
-      view must include("Come back to your account and add (NES) once your EORI number arrives.")
+      view must include("When you get this, sign in and add the New Export System to your account.")
 
       assertLinkById(
         doc,
