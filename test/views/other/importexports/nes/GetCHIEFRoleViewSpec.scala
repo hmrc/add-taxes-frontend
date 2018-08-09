@@ -33,12 +33,9 @@ class GetCHIEFRoleViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       val view = doc.text()
 
-      view must include("You need a CHIEF role to add National Export System (NES) to your account.")
+      view must include("When you get this, sign in and add the New Export System to your account.")
 
-      view must include("Email chief.operations@hmrc.gsi.gov.uk your business details to request a CHIEF role.")
-
-      view must include("Come back to your account and add NES once your CHIEF role arrives")
-
+      view must include("Email your business details to chief.operations@hmrc.gsi.gov.uk to request a CHIEF role.")
     }
   }
 }
