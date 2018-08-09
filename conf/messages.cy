@@ -996,3 +996,12 @@ doYouNeedToStopMGD.heading = A oes angen i chi roi gorau i ddefnyddio’r gwasan
 doYouNeedToStopMGD.Yes = Iawn
 doYouNeedToStopMGD.No = Na, mae angen i fi ddadgofrestru o’r Doll Peiriannau Hapchwarae
 doYouNeedToStopMGD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r Doll Peiriannau Hapchwarae
+
+#######################################################
+##  DoYouHaveCorpTaxUTR
+#######################################################
+doYouHaveCorpTaxUTR.title = A oes gennych Gyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Treth Gorfforaeth?
+doYouHaveCorpTaxUTR.heading = A oes gennych Gyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Treth Gorfforaeth?
+doYouHaveCorpTaxUTR.Yes = Iawn
+doYouHaveCorpTaxUTR.No = Na
+doYouHaveCorpTaxUTR.error.required = Dewiswch ‘Iawn’ os oes gennych Gyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Treth Gorfforaeth

@@ -1000,3 +1000,12 @@ doYouNeedToStopMGD.heading = Do you need to stop using the Machine Games Duty on
 doYouNeedToStopMGD.Yes = Yes
 doYouNeedToStopMGD.No = No, I need to deregister from Machine Games Duty
 doYouNeedToStopMGD.error.required = Select yes if you need to stop using the Machine Games Duty online service
+
+#######################################################
+##  DoYouHaveCorpTaxUTR
+#######################################################
+doYouHaveCorpTaxUTR.title = Do you have a Corporation Tax Unique Taxpayer Reference (UTR)?
+doYouHaveCorpTaxUTR.heading = Do you have a Corporation Tax Unique Taxpayer Reference (UTR)?
+doYouHaveCorpTaxUTR.Yes = Yes
+doYouHaveCorpTaxUTR.No = No
+doYouHaveCorpTaxUTR.error.required = Select yes if you have a Corporation Tax Unique Taxpayer Reference (UTR)

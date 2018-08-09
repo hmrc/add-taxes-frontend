@@ -19,6 +19,7 @@ package utils
 import config.FrontendAppConfig
 import play.api.mvc.Request
 import utils.nextpage.OtherTaxesNextPage
+import utils.nextpage.corporation.DoYouHaveCorpTaxUTRNextPage
 import utils.nextpage.deenrolment._
 import utils.nextpage.employer._
 import utils.nextpage.employer.cis.IsYourBusinessInUKNextPage
@@ -48,11 +49,10 @@ import utils.nextpage.vat.WhichVATServicesToAddNextPage
 import utils.nextpage.vat.ec.RegisteredForVATECSalesNextPage
 import utils.nextpage.vat.eurefunds.RegisteredForVATEURefundsNextPage
 import utils.nextpage.vat.giant.WhatIsYourOrganisationNextPage
-import utils.nextpage.vat.moss.WhereIsYourBusinessBasedNextPage
 import utils.nextpage.vat.moss.iom._
 import utils.nextpage.vat.moss.noneu.HaveYouRegisteredForVATMOSSNextPage
-import utils.nextpage.vat.moss.{uk => vatuk}
 import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
+import utils.nextpage.vat.moss.{WhereIsYourBusinessBasedNextPage, uk => vatuk}
 import utils.nextpage.vat.rcsl.RegisteredForVATRCSLNextPage
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 
@@ -127,3 +127,4 @@ object NextPage
     with DoYouNeedToStopVatMossNUNextPage
     with DoYouNeedToStopMGDNextPage
     with vatuk.AlreadyRegisteredForVATMossNextPage
+    with DoYouHaveCorpTaxUTRNextPage
