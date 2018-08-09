@@ -772,31 +772,31 @@ setUpANewAccount.subtext3 = and we’ll help you do this over the phone.
 #######################################################
 ##  PaperForms
 #######################################################
-paperForms.title = Use paper forms
-paperForms.p1 = The online Stamp Duty service is only for professionals acting on behalf of clients.
-paperForms.p2 = You need to complete paper forms for Stamp Duty if you’re purchasing the land or property yourself.
-paperForms.heading = Use paper forms
-paperForms.continue = Continue to paper forms
+paperForms.title = You cannot add Stamp Taxes Online
+paperForms.p1 = This is only for professionals acting on behalf of clients.
+paperForms.p2 = You need to complete paper forms for Stamp Duty if you are purchasing the land or property for yourself.
+paperForms.heading = You cannot add Stamp Taxes Online
+paperForms.continue = Fill in paper forms
 
 #######################################################
 ##  StampDuty
 #######################################################
 stampDuty.title = Is this service for your business?
 stampDuty.heading = Is this service for your business?
-stampDuty.p1 = For example you’re a solicitor or conveyancer
-stampDuty.Yes = Yes - this service is for business purposes
-stampDuty.No = No - I’m buying a property for myself
-stampDuty.error.required = Select yes or no
+stampDuty.p1 = Select yes if you are a solicitor or conveyancer. Select no if you are buying a property for yourself.
+stampDuty.Yes = Yes
+stampDuty.No = No
+stampDuty.error.required = Select yes if this service is for your business
 
 #######################################################
 ##  SelectATax
 #######################################################
-selectATax.title = Select a tax
-selectATax.heading = Select a tax
+selectATax.title = Which tax do you need?
+selectATax.heading = Which tax do you need?
 selectATax.ATED = Annual Tax on Enveloped Dwellings (ATED)
 selectATax.LBT = Land and Buildings Transaction Tax - Scotland only
 selectATax.SDLT = Stamp Duty Land Tax (SDLT) - not for Scotland
-selectATax.error.required = Select a tax
+selectATax.error.required = Select which tax you need
 
 #######################################################
 ##  DoYouHavePBDRegistration
