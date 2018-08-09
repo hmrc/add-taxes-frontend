@@ -45,7 +45,8 @@ class StampDutyViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
 
-        doc.text() must include("For example you’re a solicitor or conveyancer")
+        doc.text() must include(
+          "Select yes if you are a solicitor or conveyancer. Select no if you are buying a property for yourself.")
 
         for (option <- StampDuty.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)

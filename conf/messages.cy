@@ -199,21 +199,10 @@ doYouHaveDAN.error.required = Dewiswch ‘Iawn’ os oes gennych Rif Cymeradwyo 
 #######################################################
 doYouHaveCHIEFRole.title = A oes gennych rôl defnyddiwr CHIEF?
 doYouHaveCHIEFRole.heading = A oes gennych rôl defnyddiwr CHIEF?
-doYouHaveCHIEFRole.p1 = Cod yw hwn a ddefnyddiwch i gyrchu System y Tollau ar gyfer Trin Nwyddau a Gaiff eu Mewnforio a’u Hallforio (CHIEF) i roi gwybodaeth am dollau drwy ddull electronig. Fel arfer, 5 llythyren yw hwn, e.e. ABCDE.
-doYouHaveCHIEFRole.Yes = Oes - mae gennyf rôl CHIEF
-doYouHaveCHIEFRole.No = Nac oes - nid oes gennyf rôl CHIEF ar hyn o bryd
-doYouHaveCHIEFRole.error.required = Dewis iawn neu na
-
-
-#######################################################
-##  DoYouHaveCHIEFRole
-#######################################################
-doYouHaveCHIEFRole.title = A oes gennych rôl defnyddiwr CHIEF?
-doYouHaveCHIEFRole.heading = A oes gennych rôl defnyddiwr CHIEF?
-doYouHaveCHIEFRole.p1 = Cod yw hwn a ddefnyddiwch i gyrchu System y Tollau ar gyfer Trin Nwyddau a Gaiff eu Mewnforio a’u Hallforio (CHIEF) i roi gwybodaeth am dollau drwy ddull electronig. Fel arfer, 5 llythyren yw hwn, e.e. ABCDE.
-doYouHaveCHIEFRole.Yes = Oes - mae gennyf rôl CHIEF
-doYouHaveCHIEFRole.No = Nac oes - nid oes gennyf rôl CHIEF ar hyn o bryd
-doYouHaveCHIEFRole.error.required = Dewis iawn neu na
+doYouHaveCHIEFRole.p1 = Cod yw hwn a ddefnyddiwch i gyrchu System y Tollau ar gyfer Trin Nwyddau a Gaiff eu Mewnforio a’u Hallforio (CHIEF) i roi gwybodaeth am dollau drwy ddull electronig.
+doYouHaveCHIEFRole.Yes = Iawn
+doYouHaveCHIEFRole.No = Na
+doYouHaveCHIEFRole.error.required = Dewiswch Iawn os oes gennych rôl defnyddiwr CHIEF
 
 
 #######################################################
@@ -244,30 +233,27 @@ doYouWantToAddImportExport.error.required = Dewis cynllun
 #######################################################
 ##  GetCHIEFRole
 #######################################################
-getCHIEFRole.title = Dylech gael rôl CHIEF yn gyntaf
-getCHIEFRole.heading = Dylech gael rôl CHIEF yn gyntaf
-getCHIEFRole.p1=Mae angen rôl CHIEF arnoch i ychwanegu System Allforio Genedlaethol (NES) i’ch cyfrif.
-getCHIEFRole.p2=E-bostiwch {0} gan roi manylion eich busnes i wneud cais am rôl CHIEF.
-getCHIEFRole.p3=Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rôl CHIEF wedi cyrraedd.
+getCHIEFRole.title = Bydd angen rôl defnyddiwr CHIEF arnoch i ychwanegu’r gwasanaeth hwn
+getCHIEFRole.heading = Bydd angen rôl defnyddiwr CHIEF arnoch i ychwanegu’r gwasanaeth hwn
+getCHIEFRole.p1= E-bostiwch fanylion eich busnes i {0} er mwyn gwneud cais am rôl CHIEF.
+getCHIEFRole.p2= Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y System Allforio Newydd at eich cyfrif.
 
 
 #######################################################
 ##  RegisterEORI - NES
 #######################################################
-registerEORINES.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu System Allforio Genedlaethol (NES) i’ch cyfrif.
-registerEORINES.p2 = Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rhif EORI wedi cyrraedd.
+registerEORINES.p1 = Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y System Allforio Newydd at eich cyfrif.
 
 
 #######################################################
 ##  GetEoriAndChiefRole
 #######################################################
-getEoriAndChiefRole.title = Dylech gael rhif EORI a rôl CHIEF
-getEoriAndChiefRole.heading = Dylech gael rhif EORI a rôl CHIEF
-getEoriAndChiefRole.p1=Mae angen rhif EORI a rôl CHIEF arnoch i ychwanegu System Allforio Genedlaethol (NES) i’ch cyfrif.
-getEoriAndChiefRole.p2=Mae angen i chi wneud y canlynol:
-getEoriAndChiefRole.p2.li1=E-bostiwch {0} gan roi manylion eich busnes i wneud cais am rôl CHIEF.
-getEoriAndChiefRole.p2.li2=llenwch ffurflen gais EORI
-getEoriAndChiefRole.p3=Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rhif EORI a’ch rôl CHIEF wedi cyrraedd.
+getEoriAndChiefRole.title = Mae angen rhif EORI a rôl defnyddiwr CHIEF arnoch i ychwanegu’r gwasanaeth hwn
+getEoriAndChiefRole.heading = Mae angen rhif EORI a rôl defnyddiwr CHIEF arnoch i ychwanegu’r gwasanaeth hwn
+getEoriAndChiefRole.p1= Mae angen i chi wneud y canlynol:
+getEoriAndChiefRole.p1.li1= cael rhif EORI
+getEoriAndChiefRole.p1.li2= gwneud cais am rôl defnyddiwr CHIEF – e-bostiwch fanylion eich busnes i {0}
+getEoriAndChiefRole.p2= Pan gewch chi’r rhain, mewngofnodwch ac ychwanegwch y System Allforio Newydd at eich cyfrif.
 
 #######################################################
 ##  WhichPensionSchemeToAdd
@@ -782,31 +768,31 @@ setUpANewAccount.subtext3 = a byddwn yn eich helpu i wneud hyn dros y ffôn.
 #######################################################
 ##  PaperForms
 #######################################################
-paperForms.title = Defnyddiwch ffurflenni papur
-paperForms.p1 = Mae’r gwasanaeth Tollau Stamp ar-lein dim ond ar gyfer gweithwyr proffesiynol sy’n gweithredu ar ran cleientiaid.
-paperForms.p2 = Mae angen i chi lenwi ffurflenni papur ar gyfer Tollau Stamp os ydych yn prynu’r tir neu’r eiddo eich hun.
-paperForms.heading = Defnyddiwch ffurflenni papur
-paperForms.continue = Mynd yn eich blaen i ffurflenni papur
+paperForms.title = Ni allwch ychwanegu Trethi Stamp Ar-lein
+paperForms.p1 = Mae hwn ond ar gyfer gweithwyr proffesiynol sy’n gweithredu ar ran cleientiaid.
+paperForms.p2 = Mae angen i chi lenwi ffurflenni papur ar gyfer Tollau Stamp os ydych yn prynu’r tir neu’r eiddo i chi’ch hun.
+paperForms.heading = Ni allwch ychwanegu Trethi Stamp Ar-lein
+paperForms.continue = Llenwi ffurflenni papur
 
 #######################################################
 ##  StampDuty
 #######################################################
 stampDuty.title = A yw’r gwasanaeth hwn ar gyfer eich busnes?
 stampDuty.heading = A yw’r gwasanaeth hwn ar gyfer eich busnes?
-stampDuty.p1 = Er enghraifft, rydych yn gyfreithiwr neu’n drawsgludwr
-stampDuty.Yes = Ydy - mae’r gwasanaeth hwn at ddibenion busnes
-stampDuty.No = Nac ydy - rwy’n prynu eiddo ar gyfer fy hun
-stampDuty.error.required = Dewis iawn neu na
+stampDuty.p1 = Dewiswch ‘Iawn’ os ydych yn gyfreithiwr neu’n drawsgludwr. Dewiswch ‘Na’ os ydych yn prynu eiddo i chi’ch hun.
+stampDuty.Yes = Iawn
+stampDuty.No = Na
+stampDuty.error.required = Dewiswch ‘Iawn’ os yw’r gwasanaeth hwn ar gyfer eich busnes
 
 #######################################################
 ##  SelectATax
 #######################################################
-selectATax.title = Dewis treth
-selectATax.heading = Dewis treth
+selectATax.title = Pa dreth y mae angen i chi ei hychwanegu?
+selectATax.heading = Pa dreth y mae angen i chi ei hychwanegu?
 selectATax.ATED = Treth Flynyddol ar Anheddau wedi’u Hamgáu (ATED)
-selectATax.SBT = Treth Drafodiadau Tir ac Adeiladau - yr Alban yn unig
+selectATax.LBT = Treth Drafodiadau Tir ac Adeiladau - yr Alban yn unig
 selectATax.SDLT = Treth Dir y Tollau Stamp (SDLT) - ddim ar gyfer yr Alban
-selectATax.error.required = Dewis treth
+selectATax.error.required = Dewiswch pa dreth y mae angen i chi ei hychwanegu
 
 #######################################################
 ##  DoYouHavePBDRegistration
