@@ -33,15 +33,13 @@ class GetEoriAndChiefRoleViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       val view = doc.text()
 
-      view must include("You need an EORI number and a CHIEF role to add National Export System (NES) to your account.")
-
       view must include("You need to:")
 
-      view must include("email chief.operations@hmrc.gsi.gov.uk your business details to request a CHIEF role")
+      view must include("get an EORI number")
 
-      view must include("complete an EORI request form")
+      view must include("request a CHIEF user role, email your business details to chief.operations@hmrc.gsi.gov.uk")
 
-      view must include("Come back to your account and add NES once your EORI number and CHIEF role arrive.")
+      view must include("When you get these, sign in and add the New Export System to your account.")
 
     }
   }

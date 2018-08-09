@@ -27,23 +27,21 @@
 
     <p>@messages("getEoriAndChiefRole.p1")</p>
 
-    <p>@messages("getEoriAndChiefRole.p2")</p>
-
     <ul class="bullets">
-
-        <li>
-            @Html(
-                messages("getEoriAndChiefRole.p2.li1",
-                s"""<a id="mail-chief" href="mailto:${appConfig.chiefOperationsEmail}?Subject=CHIEF%20request">${appConfig.chiefOperationsEmail}</a>"""))
-        </li>
 
         <li>
             <a id="eori-request-form"
                data-journey-click="GetEoriAndChief:Click:EORIRequestForm"
-               href='@appConfig.getGovUKUrl("chiefeori")'>@messages("getEoriAndChiefRole.p2.li2")</a>
+               href='@appConfig.getGovUKUrl("chiefeori")'>@messages("getEoriAndChiefRole.p1.li1")</a>
+        </li>
+
+        <li>
+            @Html(
+                messages("getEoriAndChiefRole.p1.li2",
+                s"""<a id="mail-chief" href="mailto:${appConfig.chiefOperationsEmail}?Subject=CHIEF%20request">${appConfig.chiefOperationsEmail}</a>"""))
         </li>
 
     </ul>
 
-    <p>@messages("getEoriAndChiefRole.p3")</p>
+    <p>@messages("getEoriAndChiefRole.p2")</p>
 }
