@@ -33,14 +33,14 @@ class PaperFormsViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       val view = doc.text()
 
-      view must include("The online Stamp Duty service is only for professionals acting on behalf of clients.")
+      view must include("This is only for professionals acting on behalf of clients.")
       view must include(
-        "You need to complete paper forms for Stamp Duty if you’re purchasing the land or property yourself.")
+        "You need to complete paper forms for Stamp Duty if you are purchasing the land or property for yourself.")
 
       assertLinkById(
         doc,
         "continue",
-        "Continue to paper forms",
+        "Fill in paper forms",
         "https://www.gov.uk/guidance/sdlt-completing-the-paper-return",
         "RegisterSdltPaperForms:Click:Continue"
       )

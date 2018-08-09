@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package forms.vat.moss.iom
+package forms.vat.moss
 
 import forms.behaviours.FormBehaviours
 import models._
-import models.vat.moss.iom._
+import models.vat.moss.AlreadyRegisteredForVATMoss
 
 class AlreadyRegisteredForVATMossFormProviderSpec extends FormBehaviours {
 

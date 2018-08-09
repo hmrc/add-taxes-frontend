@@ -70,7 +70,7 @@ class DoYouHaveCHIEFRoleViewSpec extends ViewBehaviours {
 
         view must include(
           "This is a code you use to access the Customs Handling of Import and Export " +
-            "Freight system (CHIEF) to enter customs information electronically. It’s normally 5 letters, eg ABCDE.")
+            "Freight system (CHIEF) to enter customs information electronically.")
       }
     }
 

@@ -16,6 +16,14 @@
 
 package identifiers
 
-case object AlreadyRegisteredForVATMossId extends Identifier {
-  override def toString: String = "alreadyRegisteredForVATMoss"
+trait AlreadyRegisteredForVATMossId extends Identifier
+
+object AlreadyRegisteredForVATMossId {
+  case object IsleOfMan extends AlreadyRegisteredForVATMossId {
+    override def toString: String = "alreadyRegisteredForVATMossIsleOfMan"
+  }
+
+  case object UkBased extends AlreadyRegisteredForVATMossId {
+    override def toString: String = "alreadyRegisteredForVATMossUkBased"
+  }
 }

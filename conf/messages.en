@@ -58,8 +58,7 @@ selectAnOilService.heading = Which oil service do you need?
 selectAnOilService.title = Which oil service do you need?
 selectAnOilService.rebatedOilsEnquiryService = Rebated Oils Enquiry Service
 selectAnOilService.tiedOilsEnquiryService = Tied Oils Enquiry Service
-selectAnOilService.checkYourAnswersLabel = Select an oil service
-selectAnOilService.error.required = Select a service
+selectAnOilService.error.required = Select which oil service you need
 
 
 #######################################################
@@ -215,21 +214,11 @@ doYouHaveDAN.error.required = Select yes if you have a Deferment Approval Number
 #######################################################
 doYouHaveCHIEFRole.title = Do you have a CHIEF user role?
 doYouHaveCHIEFRole.heading = Do you have a CHIEF user role?
-doYouHaveCHIEFRole.p1 = This is a code you use to access the Customs Handling of Import and Export Freight system (CHIEF) to enter customs information electronically. It’s normally 5 letters, eg ABCDE.
-doYouHaveCHIEFRole.Yes = Yes - I have a CHIEF role
-doYouHaveCHIEFRole.No = No - I don’t have a CHIEF role yet
-doYouHaveCHIEFRole.error.required = Select yes or no
+doYouHaveCHIEFRole.p1 = This is a code you use to access the Customs Handling of Import and Export Freight system (CHIEF) to enter customs information electronically.
+doYouHaveCHIEFRole.Yes = Yes
+doYouHaveCHIEFRole.No = No
+doYouHaveCHIEFRole.error.required = Select yes if you have a CHIEF user role
 
-
-#######################################################
-##  DoYouHaveCHIEFRole
-#######################################################
-doYouHaveCHIEFRole.title = Do you have a CHIEF user role?
-doYouHaveCHIEFRole.heading = Do you have a CHIEF user role?
-doYouHaveCHIEFRole.p1 = This is a code you use to access the Customs Handling of Import and Export Freight system (CHIEF) to enter customs information electronically. It’s normally 5 letters, eg ABCDE.
-doYouHaveCHIEFRole.Yes = Yes - I have a CHIEF role
-doYouHaveCHIEFRole.No = No - I don’t have a CHIEF role yet
-doYouHaveCHIEFRole.error.required = Select yes or no
 
 #######################################################
 ##  RegisterEORI - EBTI
@@ -260,51 +249,46 @@ doYouWantToAddImportExport.error.required = Select a scheme
 #######################################################
 ##  GetCHIEFRole
 #######################################################
-getCHIEFRole.title = Get a CHIEF role first
-getCHIEFRole.heading = Get a CHIEF role first
-getCHIEFRole.p1=You need a CHIEF role to add National Export System (NES) to your account.
-getCHIEFRole.p2=Email {0} your business details to request a CHIEF role.
-getCHIEFRole.p3=Come back to your account and add NES once your CHIEF role arrives.
+getCHIEFRole.title = You need a CHIEF user role to add this service
+getCHIEFRole.heading = You need a CHIEF user role to add this service
+getCHIEFRole.p1= Email your business details to {0} to request a CHIEF role.
+getCHIEFRole.p2= When you get this, sign in and add the New Export System to your account.
 
 
 #######################################################
 ##  RegisterEORI - NES
 #######################################################
-registerEORINES.p1 = You need an Economic Operators Registration and Identification (EORI) to add National Export System (NES) to your account.
-registerEORINES.p2 = Come back to your account and add (NES) once your EORI number arrives.
+registerEORINES.p1 = When you get this, sign in and add the New Export System to your account.
 
 
 #######################################################
 ##  GetEoriAndChiefRole
 #######################################################
-getEoriAndChiefRole.title = Get an EORI number and CHIEF role
-getEoriAndChiefRole.heading = Get an EORI number and CHIEF role
-getEoriAndChiefRole.p1=You need an EORI number and a CHIEF role to add National Export System (NES) to your account.
-getEoriAndChiefRole.p2=You need to:
-getEoriAndChiefRole.p2.li1=email {0} your business details to request a CHIEF role
-getEoriAndChiefRole.p2.li2=complete an EORI request form
-getEoriAndChiefRole.p3=Come back to your account and add NES once your EORI number and CHIEF role arrive.
+getEoriAndChiefRole.title = You need an EORI number and CHIEF role to add this service
+getEoriAndChiefRole.heading = You need an EORI number and CHIEF role to add this service
+getEoriAndChiefRole.p1=You need to:
+getEoriAndChiefRole.p1.li1= get an EORI number
+getEoriAndChiefRole.p1.li2= request a CHIEF user role, email your business details to {0}
+getEoriAndChiefRole.p2= When you get these, sign in and add the New Export System to your account.
 
 #######################################################
 ##  RegisterTrust
 #######################################################
-registerTrust.title = Register your trust
-registerTrust.heading = Register your trust
+registerTrust.title = Register your trust before you add this service to your account
+registerTrust.heading = Register your trust before you add this service to your account
 registerTrust.continue = Register your trust
 registerTrust.notnow = I don’t want to do this right now
-registerTrust.p1=You need to register your trust before you can add it to this account.
-registerTrust.p2=We’ll send you a Unique Taxpayer Reference (UTR) for the trust in the post once it’s registered.
-registerTrust.p3=You’ll be able to add the trust to this account using the UTR.
+registerTrust.p1= When you get a Unique Taxpayer Reference (UTR) for the trust, sign in to your account and add Self Assessment Online for Trusts.
 
 #######################################################
 ##  HaveYouRegisteredTrust
 #######################################################
 haveYouRegisteredTrust.title = Have you registered your trust?
 haveYouRegisteredTrust.heading = Have you registered your trust?
-haveYouRegisteredTrust.Yes = Yes - the trust is already registered
-haveYouRegisteredTrust.No = No - the trust isn’t registered yet
-haveYouRegisteredTrust.error.required = Select yes or no
-haveYouRegisteredTrust.hintText = Your trust is registered if you sent us a {0} and received a Unique Taxpayer Reference (UTR) for the trust in the post
+haveYouRegisteredTrust.Yes = Yes
+haveYouRegisteredTrust.No = No
+haveYouRegisteredTrust.error.required = Select yes if you have already registered your trust
+haveYouRegisteredTrust.hintText = Your trust is registered if you sent us a {0} and received a Unique Taxpayer Reference (UTR) for the trust in the post.
 haveYouRegisteredTrust.form.g41=form G41
 
 #######################################################
@@ -354,19 +338,19 @@ registerRGD.continue = Register for the Remote Gaming Duty
 #######################################################
 haveYouRegisteredPartnership.title = Have you already registered your partnership?
 haveYouRegisteredPartnership.heading = Have you already registered your partnership?
-haveYouRegisteredPartnership.Yes = Yes - I’ve registered the partnership and have a UTR
-haveYouRegisteredPartnership.No = No - I haven’t registered the partnership
-haveYouRegisteredPartnership.error.required = Select yes or no
-haveYouRegisteredPartnership.hintText = We’ll have sent you a Unique Taxpayer Reference (UTR) for your partnership, if you’ve already registered it
+haveYouRegisteredPartnership.Yes = Yes
+haveYouRegisteredPartnership.No = No
+haveYouRegisteredPartnership.error.required = Select yes if you have already registered your partnership and have the UTR
+haveYouRegisteredPartnership.hintText = We will have sent you a Unique Taxpayer Reference (UTR) for your partnership, if you have already registered it.
 
 #######################################################
 ##  DoYouWantToAddPartner
 #######################################################
 doYouWantToAddPartner.title = Do you want to add a partner to an existing partnership?
 doYouWantToAddPartner.heading = Do you want to add a partner to an existing partnership?
-doYouWantToAddPartner.Yes = Yes - I want to add a partner to an existing partnership
-doYouWantToAddPartner.No = No - I want to do something else
-doYouWantToAddPartner.error.required = Select yes or no
+doYouWantToAddPartner.Yes = Yes
+doYouWantToAddPartner.No = No
+doYouWantToAddPartner.error.required = Select yes if you want to add a partner to an existing partnership
 
 #######################################################
 ##  RegisterAEOI
@@ -474,12 +458,12 @@ areYouRegisteredWarehousekeeper.error.required = Select yes if you are a registe
 #######################################################
 ##  SelectSACategory
 #######################################################
-selectSACategory.title = Select a Self Assessment category
-selectSACategory.heading = Select a Self Assessment category
+selectSACategory.title = Which of these best describes you?
+selectSACategory.heading = Which of these best describes you?
 selectSACategory.Sa = Individual or sole trader
 selectSACategory.Partnership = Partnership
 selectSACategory.Trust = Trust
-selectSACategory.error.required = Select a category
+selectSACategory.error.required = Select which of these best describes you
 
 #######################################################
 ##  SelectAlcoholScheme
@@ -640,31 +624,29 @@ registerInHomeCountry.callUs = call us.
 #######################################################
 ##  UseEmployersPAYE
 #######################################################
-useEmployersPAYE.title = Use your PAYE for employers account
-useEmployersPAYE.heading = Use your PAYE for employers account
-useEmployersPAYE.subtext = You have to manage employment related securities (ERS) in the same account that you manage PAYE for employers.
-useEmployersPAYE.continue = Sign in to your PAYE for employers account
-useEmployersPAYE.notnow = I don’t want to do this right now
+useEmployersPAYE.title = Add employment related securities (ERS) to the account you use for PAYE for employers
+useEmployersPAYE.heading = Add employment related securities (ERS) to the account you use for PAYE for employers
+useEmployersPAYE.subtext = Sign in to your other account and add ERS.
+useEmployersPAYE.continue = Sign in to the account you use for PAYE for employers
+useEmployersPAYE.notnow = 	I do not want to do this now
 
 #######################################################
 ##  AddEmployersPAYE
 #######################################################
-addEmployersPAYE.title = Add PAYE for employers first
-addEmployersPAYE.heading = Add PAYE for employers first
-addEmployersPAYE.subtext1 = You have to manage PAYE for employers online before you can manage employment related securities (ERS).
-addEmployersPAYE.subtext2 = Add PAYE for employers to this account, then come back and add employment related securities (ERS) afterwards.
+addEmployersPAYE.title = You need to manage PAYE for employers online before you add this scheme
+addEmployersPAYE.heading = You need to manage PAYE for employers online before you add this scheme
+addEmployersPAYE.subtext = When you have got this, sign in to your account and add employment related securities (ERS).
 addEmployersPAYE.continue = Add PAYE for employers
-addEmployersPAYE.notnow = I don’t want to do this right now
+addEmployersPAYE.notnow = I do not want to do this now
 
 #######################################################
 ##  RegisterEmployersPAYE
 #######################################################
-registerEmployersPAYE.title = Register for PAYE for employers first
-registerEmployersPAYE.heading = Register for PAYE for employers first
-registerEmployersPAYE.subtext1 = You need to be registered for PAYE for employers before you can manage employment related securities (ERS) online.
-registerEmployersPAYE.subtext2 = Register for PAYE for employers, then come back and add employment related securities afterwards.
+registerEmployersPAYE.title = Register for PAYE for employers before you add this service
+registerEmployersPAYE.heading = Register for PAYE for employers before you add this service
+registerEmployersPAYE.subtext = When you have registered with this account, sign in and add employment related securities.
 registerEmployersPAYE.continue = Register for PAYE for employers
-registerEmployersPAYE.notnow = I don’t want to do this right now
+registerEmployersPAYE.notnow = I do not want to do this now
 
 #######################################################
 ##  AreYouContractorOrSubcontractor
@@ -702,30 +684,29 @@ wasTurnoverMoreAfterVAT.error.required = Select yes if your turnover was more th
 #######################################################
 whatTypeOfSubcontractor.title = Which of these best describes you?
 whatTypeOfSubcontractor.heading = Which of these best describes you?
-whatTypeOfSubcontractor.soleTrader = Sole Trader
+whatTypeOfSubcontractor.soleTrader = Sole trader
 whatTypeOfSubcontractor.partnership = Partnership
-whatTypeOfSubcontractor.limitedCompany = Limited Company
+whatTypeOfSubcontractor.limitedCompany = Limited company
 whatTypeOfSubcontractor.error.required = Select which of these best describes you
 
 #######################################################
-##  UsePAYEEmployerAccountIntermediaries
+##  UsePAYEEmployerIntermediariesAccount
 #######################################################
-usePAYEEmployerIntermediariesAccount.title = Use your PAYE for employers account
-usePAYEEmployerIntermediariesAccount.heading = Use your PAYE for employers account
-usePAYEEmployerIntermediariesAccount.continue = Sign in to your PAYE for employers account
-usePAYEEmployerIntermediariesAccount.addAccount = I want to add intermediaries in this account
-usePAYEEmployerIntermediariesAccount.p1 = You should manage employment intermediaries in the same account that you manage PAYE for employers.
-usePAYEEmployerIntermediariesAccount.p2 = It will make it easier to manage both schemes.
+usePAYEEmployerIntermediariesAccount.title = Add employment intermediaries to the account you use for PAYE for employers
+usePAYEEmployerIntermediariesAccount.heading = Add employment intermediaries to the account you use for PAYE for employers
+usePAYEEmployerIntermediariesAccount.continue = Sign in to the account you use for PAYE for employers
+usePAYEEmployerIntermediariesAccount.addAccount = I want to add intermediaries to this account
+usePAYEEmployerIntermediariesAccount.p1 = It will make it easier to manage both schemes.
+usePAYEEmployerIntermediariesAccount.p2 = Sign in to your other account and add employment intermediaries.
 
 #######################################################
 ##  RegisterForPAYEIntermediaries
 #######################################################
-registerForPAYEIntermediaries.title = Register for PAYE for employers first
-registerForPAYEIntermediaries.heading = Register for PAYE for employers first
-registerForPAYEIntermediaries.p1=You need to be registered for PAYE for employers before you can manage employment intermediaries online.
-registerForPAYEIntermediaries.p2=Register for PAYE for employers, then come back and add employment intermediaries afterwards.
+registerForPAYEIntermediaries.title = Register for PAYE for employers before you add this service
+registerForPAYEIntermediaries.heading = Register for PAYE for employers before you add this service
+registerForPAYEIntermediaries.p1= When you have registered with this account, sign in and add employment intermediaries online.
 registerForPAYEIntermediaries.continue = Register for PAYE for employers
-registerForPAYEIntermediaries.notnow = I don’t want to do this right now
+registerForPAYEIntermediaries.notnow = I do not want to do this now
 
 #######################################################
 ##  WhatEmployerTaxDoYouWantToAdd
@@ -790,31 +771,31 @@ setUpANewAccount.subtext3 = and we’ll help you do this over the phone.
 #######################################################
 ##  PaperForms
 #######################################################
-paperForms.title = Use paper forms
-paperForms.p1 = The online Stamp Duty service is only for professionals acting on behalf of clients.
-paperForms.p2 = You need to complete paper forms for Stamp Duty if you’re purchasing the land or property yourself.
-paperForms.heading = Use paper forms
-paperForms.continue = Continue to paper forms
+paperForms.title = You cannot add Stamp Taxes Online
+paperForms.p1 = This is only for professionals acting on behalf of clients.
+paperForms.p2 = You need to complete paper forms for Stamp Duty if you are purchasing the land or property for yourself.
+paperForms.heading = You cannot add Stamp Taxes Online
+paperForms.continue = Fill in paper forms
 
 #######################################################
 ##  StampDuty
 #######################################################
 stampDuty.title = Is this service for your business?
 stampDuty.heading = Is this service for your business?
-stampDuty.p1 = For example you’re a solicitor or conveyancer
-stampDuty.Yes = Yes - this service is for business purposes
-stampDuty.No = No - I’m buying a property for myself
-stampDuty.error.required = Select yes or no
+stampDuty.p1 = Select yes if you are a solicitor or conveyancer. Select no if you are buying a property for yourself.
+stampDuty.Yes = Yes
+stampDuty.No = No
+stampDuty.error.required = Select yes if this service is for your business
 
 #######################################################
 ##  SelectATax
 #######################################################
-selectATax.title = Select a tax
-selectATax.heading = Select a tax
+selectATax.title = Which tax do you need?
+selectATax.heading = Which tax do you need?
 selectATax.ATED = Annual Tax on Enveloped Dwellings (ATED)
 selectATax.LBT = Land and Buildings Transaction Tax - Scotland only
 selectATax.SDLT = Stamp Duty Land Tax (SDLT) - not for Scotland
-selectATax.error.required = Select a tax
+selectATax.error.required = Select which tax you need
 
 #######################################################
 ##  DoYouHavePBDRegistration

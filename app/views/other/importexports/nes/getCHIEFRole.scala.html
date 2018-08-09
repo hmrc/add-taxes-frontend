@@ -25,7 +25,7 @@
 
     @components.heading("getCHIEFRole.heading")
 
-    <p>@messages("getCHIEFRole.p1")</p>
-    <p>@Html(messages("getCHIEFRole.p2", s"""<a id="mail-chief" href="mailto:${appConfig.chiefOperationsEmail}?Subject=CHIEF%20request">${appConfig.chiefOperationsEmail}</a>"""))</p>
-    <p>@messages("getCHIEFRole.p3")</p>
+    <p>@Html(messages("getCHIEFRole.p1", s"""<a id="mail-chief" href="mailto:${appConfig.chiefOperationsEmail}?Subject=CHIEF%20request">${appConfig.chiefOperationsEmail}</a>"""))</p>
+
+    <p>@messages("getCHIEFRole.p2")</p>
 }
