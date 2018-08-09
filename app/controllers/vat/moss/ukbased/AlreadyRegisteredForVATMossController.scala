@@ -14,50 +14,50 @@
  * limitations under the License.
  */
 
-package controllers.vat.moss.iom
+package controllers.vat.moss.ukbased
 
-import javax.inject.Inject
 import config.FrontendAppConfig
 import controllers.actions._
 import forms.vat.moss.AlreadyRegisteredForVATMossFormProvider
+import identifiers.AlreadyRegisteredForVATMossId.UkBased
+import javax.inject.Inject
+import models.requests.ServiceInfoRequest
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
-import identifiers.AlreadyRegisteredForVATMossId.IsleOfMan
 import play.api.mvc.Call
+import play.twirl.api.Html
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.Navigator
 import viewmodels.ViewAction
 import views.html.vat.moss.alreadyRegisteredForVATMoss
-
-import scala.concurrent.Future
 
 class AlreadyRegisteredForVATMossController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
   authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
+  navigator: Navigator[Call],
+  serviceInfo: ServiceInfoAction,
   formProvider: AlreadyRegisteredForVATMossFormProvider)
     extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+    with I18nSupport {
 
   val form = formProvider()
   lazy val viewAction =
-    ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossNoVatIomVatRegistered")
+    ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossUkVatRegistered")
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(alreadyRegisteredForVATMoss(appConfig, form, viewAction)(request.serviceInfoContent))
+  def view(form: Form[_] = form)(implicit request: ServiceInfoRequest[_]): Html =
+    alreadyRegisteredForVATMoss(appConfig, form, viewAction)(request.serviceInfoContent)
+
+  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
+    Ok(view())
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit = (authenticate andThen serviceInfo) { implicit request =>
     form
       .bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(alreadyRegisteredForVATMoss(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(IsleOfMan, value)))
+        (formWithErrors: Form[_]) => BadRequest(view(formWithErrors)),
+        (value) => Redirect(navigator.nextPage(UkBased, value))
       )
   }
 }
