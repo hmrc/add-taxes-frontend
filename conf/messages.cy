@@ -54,11 +54,11 @@ unauthorised.heading = You can’t access this service with this account
 #######################################################
 ##  Select An Oil Service
 #######################################################
-selectAnOilService.heading = Pa gwasanaeth olew ei angen arnoch?
-selectAnOilService.title = Pa gwasanaeth olew ei angen arnoch?
+selectAnOilService.heading = Pa wasanaeth olew sydd ei angen arnoch?
+selectAnOilService.title = Pa wasanaeth olew sydd ei angen arnoch?
 selectAnOilService.rebatedOilsEnquiryService = Gwasanaeth Ymholiadau Olew Ad-daliedig
 selectAnOilService.tiedOilsEnquiryService = Gwasanaeth Ymholiadau Olew ‘Tied’
-selectAnOilService.error.required = Dewiswch ba gwasanaeth olew ei angen arnoch
+selectAnOilService.error.required = Dewiswch ba wasanaeth olew sydd ei angen arnoch
 
 
 #######################################################
