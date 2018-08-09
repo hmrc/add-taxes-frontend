@@ -56,7 +56,7 @@ class DoesBusinessManagePAYEViewSpec extends ViewBehaviours {
       val view = doc.text()
 
       view must include(
-        "You’ll have an online HMRC account like this one, but it will use a different User ID and password")
+        "If you do, you will have another online HMRC account like this one, with a different User ID and password.")
 
     }
   }

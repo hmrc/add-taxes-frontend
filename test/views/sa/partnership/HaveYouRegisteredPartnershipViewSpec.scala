@@ -47,7 +47,7 @@ class HaveYouRegisteredPartnershipViewSpec extends ViewBehaviours {
       view must include("Have you already registered your partnership?")
 
       view must include(
-        "We’ll have sent you a Unique Taxpayer Reference (UTR) for your partnership, if you’ve already registered it")
+        "We will have sent you a Unique Taxpayer Reference (UTR) for your partnership, if you have already registered it.")
     }
   }
 
