@@ -123,6 +123,9 @@ POST       /self-assessment                             controllers.sa.SelectSAC
 GET        /vat                                         controllers.vat.WhichVATServicesToAddController.onPageLoad()
 POST       /vat                                         controllers.vat.WhichVATServicesToAddController.onSubmit()
 
+GET        /vat/have-vrn                                controllers.vat.DoYouHaveVATRegNumberController.onPageLoad()
+POST       /vat/have-vrn                                controllers.vat.DoYouHaveVATRegNumberController.onSubmit()
+
 GET        /vat/ec                                      controllers.vat.ec.RegisteredForVATECSalesController.onPageLoad()
 POST       /vat/ec                                      controllers.vat.ec.RegisteredForVATECSalesController.onSubmit()
 
@@ -248,3 +251,4 @@ GET        /other/ctf/ctf-11                            controllers.other.ctf.Yo
 
 GET        /vat/moss-uk/vat-registered                  controllers.vat.moss.ukbased.AlreadyRegisteredForVATMossController.onPageLoad()
 POST       /vat/moss-uk/vat-registered                  controllers.vat.moss.ukbased.AlreadyRegisteredForVATMossController.onSubmit()
+

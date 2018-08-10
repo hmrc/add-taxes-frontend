@@ -984,3 +984,12 @@ doYouNeedToStopMGD.heading = Do you need to stop using the Machine Games Duty on
 doYouNeedToStopMGD.Yes = Yes
 doYouNeedToStopMGD.No = No, I need to deregister from Machine Games Duty
 doYouNeedToStopMGD.error.required = Select yes if you need to stop using the Machine Games Duty online service
+
+#######################################################
+##  DoYouHaveVATRegNumber
+#######################################################
+doYouHaveVATRegNumber.title = Do you have a VAT registration number?
+doYouHaveVATRegNumber.heading = Do you have a VAT registration number?
+doYouHaveVATRegNumber.Yes = Yes
+doYouHaveVATRegNumber.No = No
+doYouHaveVATRegNumber.error.required = Select yes if you have a VAT registration number
