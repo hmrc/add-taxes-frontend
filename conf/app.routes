@@ -76,9 +76,6 @@ GET        /other/import-export/nes/no-eori/register-both       controllers.othe
 
 GET        /other/import-export/nes/has-eori/register-chief     controllers.other.importexports.nes.GetCHIEFRoleController.onPageLoad()
 
-GET        /employer/pension                            controllers.employer.pension.WhichPensionSchemeToAddController.onPageLoad()
-POST       /employer/pension                            controllers.employer.pension.WhichPensionSchemeToAddController.onSubmit()
-
 GET        /other/gambling/gbd/register                 controllers.other.gambling.gbd.RegisterGBDController.onPageLoad()
 
 GET        /other/gambling/gbd                          controllers.other.gambling.gbd.AreYouRegisteredGTSController.onPageLoad()
@@ -122,6 +119,9 @@ POST       /self-assessment                             controllers.sa.SelectSAC
 
 GET        /vat                                         controllers.vat.WhichVATServicesToAddController.onPageLoad()
 POST       /vat                                         controllers.vat.WhichVATServicesToAddController.onSubmit()
+
+GET        /vat/have-vrn                                controllers.vat.DoYouHaveVATRegNumberController.onPageLoad()
+POST       /vat/have-vrn                                controllers.vat.DoYouHaveVATRegNumberController.onSubmit()
 
 GET        /vat/ec                                      controllers.vat.ec.RegisteredForVATECSalesController.onPageLoad()
 POST       /vat/ec                                      controllers.vat.ec.RegisteredForVATECSalesController.onSubmit()

@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-package forms.employer.pension
+package forms.vat
 
 import forms.behaviours.FormBehaviours
 import models._
-import models.employer.pension._
+import models.vat._
 
-class WhichPensionSchemeToAddFormProviderSpec extends FormBehaviours {
+class DoYouHaveVATRegNumberFormProviderSpec extends FormBehaviours {
 
   val validData: Map[String, String] = Map(
-    "value" -> WhichPensionSchemeToAdd.options.head.value
+    "value" -> DoYouHaveVATRegNumber.options.head.value
   )
 
-  val form = new WhichPensionSchemeToAddFormProvider()()
+  val form = new DoYouHaveVATRegNumberFormProvider()()
 
-  "WhichPensionSchemeToAdd form" must {
+  "DoYouHaveVATRegNumber form" must {
 
-    behave like questionForm[WhichPensionSchemeToAdd](WhichPensionSchemeToAdd.values.head)
+    behave like questionForm[DoYouHaveVATRegNumber](DoYouHaveVATRegNumber.values.head)
 
     behave like formWithOptionField(
-      Field("value", Required -> "whichPensionSchemeToAdd.error.required", Invalid -> "error.invalid"),
-      WhichPensionSchemeToAdd.options.toSeq.map(_.value): _*)
+      Field("value", Required -> "doYouHaveVATRegNumber.error.required", Invalid -> "error.invalid"),
+      DoYouHaveVATRegNumber.options.toSeq.map(_.value): _*)
   }
 }

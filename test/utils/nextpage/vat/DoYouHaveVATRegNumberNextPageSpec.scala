@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-package utils.nextpage.employer.pension
+package utils.nextpage.vat
 
-import models.employer.pension.WhichPensionSchemeToAdd
+import models.vat.DoYouHaveVATRegNumber
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
-class WhichPensionSchemeToAddNextPageSpec extends NextPageSpecBase {
+class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase {
 
-  "WhichPensionSchemeToAdd" when {
+  "doYouHaveVATRegNumber" when {
     behave like nextPage(
-      NextPage.whichPensionSchemeToAdd,
-      WhichPensionSchemeToAdd.Administrators,
-      "http://localhost:8080/portal/service/pensions-administrators?action=enrol&step=hasid&lang=eng"
+      NextPage.doYouHaveVATRegNumber,
+      DoYouHaveVATRegNumber.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMCE-VATDEC-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
 
     behave like nextPage(
-      NextPage.whichPensionSchemeToAdd,
-      WhichPensionSchemeToAdd.Practitioners,
-      "http://localhost:8080/portal/service/pensions-practitioners?action=enrol&step=hasid&lang=eng"
+      NextPage.doYouHaveVATRegNumber,
+      DoYouHaveVATRegNumber.No,
+      "http://localhost:8080/portal/business-registration/business-allowed?lang=eng"
     )
   }
 }

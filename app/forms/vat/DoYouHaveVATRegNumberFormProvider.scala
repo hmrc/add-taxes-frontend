@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package forms.employer.pension
+package forms.vat
 
 import javax.inject.Inject
 
 import forms.FormErrorHelper
 import forms.mappings.Mappings
 import play.api.data.Form
-import models.employer.pension.WhichPensionSchemeToAdd
+import models.vat.DoYouHaveVATRegNumber
 
-class WhichPensionSchemeToAddFormProvider @Inject() extends FormErrorHelper with Mappings {
+class DoYouHaveVATRegNumberFormProvider @Inject() extends FormErrorHelper with Mappings {
 
-  def apply(): Form[WhichPensionSchemeToAdd] =
+  def apply(): Form[DoYouHaveVATRegNumber] =
     Form(
-      "value" -> enumerable[WhichPensionSchemeToAdd]("whichPensionSchemeToAdd.error.required")
+      "value" -> enumerable[DoYouHaveVATRegNumber]("doYouHaveVATRegNumber.error.required")
     )
 }

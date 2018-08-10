@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-package models.employer.pension
+package models.vat
 
 import utils.{Enumerable, RadioOption, WithName}
 
-sealed trait WhichPensionSchemeToAdd
+sealed trait DoYouHaveVATRegNumber
 
-object WhichPensionSchemeToAdd {
+object DoYouHaveVATRegNumber {
 
-  case object Administrators extends WithName("administrators") with WhichPensionSchemeToAdd
-  case object Practitioners extends WithName("practitioners") with WhichPensionSchemeToAdd
+  case object Yes extends WithName("Yes") with DoYouHaveVATRegNumber
+  case object No extends WithName("No") with DoYouHaveVATRegNumber
 
-  val values: Set[WhichPensionSchemeToAdd] = Set(
-    Administrators,
-    Practitioners
+  val values: Set[DoYouHaveVATRegNumber] = Set(
+    Yes,
+    No
   )
 
   val options: Set[RadioOption] = values.map { value =>
-    RadioOption("whichPensionSchemeToAdd", value.toString)
+    RadioOption("doYouHaveVATRegNumber", value.toString)
   }
 
-  implicit val enumerable: Enumerable[WhichPensionSchemeToAdd] =
+  implicit val enumerable: Enumerable[DoYouHaveVATRegNumber] =
     Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }

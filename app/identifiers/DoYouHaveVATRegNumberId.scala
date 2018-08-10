@@ -16,6 +16,6 @@
 
 package identifiers
 
-case object WhichPensionSchemeToAddId extends Identifier {
-  override def toString: String = "whichPensionSchemeToAdd"
+case object DoYouHaveVATRegNumberId extends Identifier {
+  override def toString: String = "doYouHaveVATRegNumber"
 }
