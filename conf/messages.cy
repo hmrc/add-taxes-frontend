@@ -54,11 +54,11 @@ unauthorised.heading = You can’t access this service with this account
 #######################################################
 ##  Select An Oil Service
 #######################################################
-selectAnOilService.heading = Pa gwasanaeth olew ei angen arnoch?
-selectAnOilService.title = Pa gwasanaeth olew ei angen arnoch?
+selectAnOilService.heading = Pa wasanaeth olew sydd ei angen arnoch?
+selectAnOilService.title = Pa wasanaeth olew sydd ei angen arnoch?
 selectAnOilService.rebatedOilsEnquiryService = Gwasanaeth Ymholiadau Olew Ad-daliedig
 selectAnOilService.tiedOilsEnquiryService = Gwasanaeth Ymholiadau Olew ‘Tied’
-selectAnOilService.error.required = Dewiswch ba gwasanaeth olew ei angen arnoch
+selectAnOilService.error.required = Dewiswch ba wasanaeth olew sydd ei angen arnoch
 
 
 #######################################################
@@ -69,7 +69,7 @@ haveYouRegisteredForTiedOils.heading = A ydych eisoes wedi cofrestru ar gyfer y 
 haveYouRegisteredForTiedOils.message1 = Os ydych wedi cofrestru, bydd gennych rif cymeradwyo.
 haveYouRegisteredForTiedOils.yes = Iawn
 haveYouRegisteredForTiedOils.no = Na
-haveYouRegisteredForTiedOils.error.required = Dewiswch Iawn os ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew ‘Tied’
+haveYouRegisteredForTiedOils.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew ‘Tied’
 
 
 #######################################################
@@ -89,7 +89,7 @@ haveYouRegisteredForRebatedOils.heading = A ydych eisoes wedi cofrestru ar gyfer
 haveYouRegisteredForRebatedOils.message1 = Os ydych wedi cofrestru, bydd gennych rif cymeradwyo.
 haveYouRegisteredForRebatedOils.yes = Iawn
 haveYouRegisteredForRebatedOils.no = Na
-haveYouRegisteredForRebatedOils.error.required = Dewiswch Iawn os ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew Ad-daledig
+haveYouRegisteredForRebatedOils.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew Ad-daledig
 
 
 #######################################################
@@ -137,7 +137,7 @@ otherTaxes.legend = Dewis treth neu fath o gynllun
 #######################################################
 registerExciseMovementControlSystem.title = Mae angen rhif System ar gyfer Cyfnewid Data Ecséis (SEED) arnoch i ychwanegu’r gwasanaeth hwn
 registerExciseMovementControlSystem.heading = Mae angen rhif System ar gyfer Cyfnewid Data Ecséis (SEED) arnoch i ychwanegu’r gwasanaeth hwn
-registerExciseMovementControlSystem.youNeedToRegister= Pan gewch chi hwn, mewngofnodwch i’ch cyfrif ac ychwanegwch y System Symudiadau a Rheolaeth Ecséis.
+registerExciseMovementControlSystem.youNeedToRegister= Pan gewch chi hwn, mewngofnodwch i’ch cyfrif ac ychwanegwch y System Symudiadau a Rheolaeth Ecséis at eich cyfrif.
 registerExciseMovementControlSystem.button= Cael rhif SEED
 
 
@@ -178,8 +178,8 @@ registerEORIICS.p1 = Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y System Rh
 #######################################################
 ##  RegisterDefermentApprovalNumber
 #######################################################
-registerDefermentApprovalNumber.title = Mae angen Rhif Cymeradwyo Gohiriad arnoch i ychwanegu’r gwasanaeth hwn
-registerDefermentApprovalNumber.heading = Mae angen Rhif Cymeradwyo Gohiriad arnoch i ychwanegu’r gwasanaeth hwn
+registerDefermentApprovalNumber.title = Mae angen Rhif Cymeradwyo Gohiriad (DAN) arnoch i ychwanegu’r gwasanaeth hwn
+registerDefermentApprovalNumber.heading = Mae angen Rhif Cymeradwyo Gohiriad (DAN) arnoch i ychwanegu’r gwasanaeth hwn
 registerDefermentApprovalNumber.p1 = Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y Datganiadau Electronig i Ohirio Tollau at eich cyfrif.
 registerDefermentApprovalNumber.continue = Gwneud cais i gymeradwyo gohiriad
 
@@ -199,21 +199,10 @@ doYouHaveDAN.error.required = Dewiswch ‘Iawn’ os oes gennych Rif Cymeradwyo 
 #######################################################
 doYouHaveCHIEFRole.title = A oes gennych rôl defnyddiwr CHIEF?
 doYouHaveCHIEFRole.heading = A oes gennych rôl defnyddiwr CHIEF?
-doYouHaveCHIEFRole.p1 = Cod yw hwn a ddefnyddiwch i gyrchu System y Tollau ar gyfer Trin Nwyddau a Gaiff eu Mewnforio a’u Hallforio (CHIEF) i roi gwybodaeth am dollau drwy ddull electronig. Fel arfer, 5 llythyren yw hwn, e.e. ABCDE.
-doYouHaveCHIEFRole.Yes = Oes - mae gennyf rôl CHIEF
-doYouHaveCHIEFRole.No = Nac oes - nid oes gennyf rôl CHIEF ar hyn o bryd
-doYouHaveCHIEFRole.error.required = Dewis iawn neu na
-
-
-#######################################################
-##  DoYouHaveCHIEFRole
-#######################################################
-doYouHaveCHIEFRole.title = A oes gennych rôl defnyddiwr CHIEF?
-doYouHaveCHIEFRole.heading = A oes gennych rôl defnyddiwr CHIEF?
-doYouHaveCHIEFRole.p1 = Cod yw hwn a ddefnyddiwch i gyrchu System y Tollau ar gyfer Trin Nwyddau a Gaiff eu Mewnforio a’u Hallforio (CHIEF) i roi gwybodaeth am dollau drwy ddull electronig. Fel arfer, 5 llythyren yw hwn, e.e. ABCDE.
-doYouHaveCHIEFRole.Yes = Oes - mae gennyf rôl CHIEF
-doYouHaveCHIEFRole.No = Nac oes - nid oes gennyf rôl CHIEF ar hyn o bryd
-doYouHaveCHIEFRole.error.required = Dewis iawn neu na
+doYouHaveCHIEFRole.p1 = Cod yw hwn a ddefnyddiwch i gyrchu System y Tollau ar gyfer Trin Nwyddau a Gaiff eu Mewnforio a’u Hallforio (CHIEF) i roi gwybodaeth am dollau drwy ddull electronig.
+doYouHaveCHIEFRole.Yes = Iawn
+doYouHaveCHIEFRole.No = Na
+doYouHaveCHIEFRole.error.required = Dewiswch ‘Iawn’ os oes gennych rôl defnyddiwr CHIEF
 
 
 #######################################################
@@ -244,30 +233,27 @@ doYouWantToAddImportExport.error.required = Dewis cynllun
 #######################################################
 ##  GetCHIEFRole
 #######################################################
-getCHIEFRole.title = Dylech gael rôl CHIEF yn gyntaf
-getCHIEFRole.heading = Dylech gael rôl CHIEF yn gyntaf
-getCHIEFRole.p1=Mae angen rôl CHIEF arnoch i ychwanegu System Allforio Genedlaethol (NES) i’ch cyfrif.
-getCHIEFRole.p2=E-bostiwch {0} gan roi manylion eich busnes i wneud cais am rôl CHIEF.
-getCHIEFRole.p3=Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rôl CHIEF wedi cyrraedd.
+getCHIEFRole.title = Bydd angen rôl defnyddiwr CHIEF arnoch i ychwanegu’r gwasanaeth hwn
+getCHIEFRole.heading = Bydd angen rôl defnyddiwr CHIEF arnoch i ychwanegu’r gwasanaeth hwn
+getCHIEFRole.p1= E-bostiwch fanylion eich busnes i {0} er mwyn gwneud cais am rôl CHIEF.
+getCHIEFRole.p2= Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y System Allforio Newydd at eich cyfrif.
 
 
 #######################################################
 ##  RegisterEORI - NES
 #######################################################
-registerEORINES.p1 = Mae angen rhif Cofrestru ac Adnabod Gweithredwr Economaidd (EORI) arnoch i ychwanegu System Allforio Genedlaethol (NES) i’ch cyfrif.
-registerEORINES.p2 = Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rhif EORI wedi cyrraedd.
+registerEORINES.p1 = Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y System Allforio Newydd at eich cyfrif.
 
 
 #######################################################
 ##  GetEoriAndChiefRole
 #######################################################
-getEoriAndChiefRole.title = Dylech gael rhif EORI a rôl CHIEF
-getEoriAndChiefRole.heading = Dylech gael rhif EORI a rôl CHIEF
-getEoriAndChiefRole.p1=Mae angen rhif EORI a rôl CHIEF arnoch i ychwanegu System Allforio Genedlaethol (NES) i’ch cyfrif.
-getEoriAndChiefRole.p2=Mae angen i chi wneud y canlynol:
-getEoriAndChiefRole.p2.li1=E-bostiwch {0} gan roi manylion eich busnes i wneud cais am rôl CHIEF.
-getEoriAndChiefRole.p2.li2=llenwch ffurflen gais EORI
-getEoriAndChiefRole.p3=Dychwelwch i’ch cyfrif ac ychwanegwch NES unwaith bod eich rhif EORI a’ch rôl CHIEF wedi cyrraedd.
+getEoriAndChiefRole.title = Mae angen rhif EORI a rôl defnyddiwr CHIEF arnoch i ychwanegu’r gwasanaeth hwn
+getEoriAndChiefRole.heading = Mae angen rhif EORI a rôl defnyddiwr CHIEF arnoch i ychwanegu’r gwasanaeth hwn
+getEoriAndChiefRole.p1= Mae angen i chi wneud y canlynol:
+getEoriAndChiefRole.p1.li1= cael rhif EORI
+getEoriAndChiefRole.p1.li2= gwneud cais am rôl defnyddiwr CHIEF – e-bostiwch fanylion eich busnes i {0}
+getEoriAndChiefRole.p2= Pan gewch chi’r rhain, mewngofnodwch ac ychwanegwch y System Allforio Newydd at eich cyfrif.
 
 #######################################################
 ##  WhichPensionSchemeToAdd
@@ -293,7 +279,7 @@ areYouRegisteredGTS.title = A oes gennych rif cofrestru Toll Fetio Gyffredinol?
 areYouRegisteredGTS.heading = A oes gennych rif cofrestru Toll Fetio Gyffredinol?
 areYouRegisteredGTS.Yes = Iawn
 areYouRegisteredGTS.No = Na
-areYouRegisteredGTS.error.required = Dewiswch Iawn os oes gennych rif cofrestru ar gyfer Toll Fetio Gyffredinol
+areYouRegisteredGTS.error.required = Dewiswch ‘Iawn’ os oes gennych rif cofrestru ar gyfer Toll Fetio Gyffredinol
 
 #######################################################
 ##  RegisterGTSFirst
@@ -365,7 +351,7 @@ haveYouRegisteredAEOI.title = A ydych eisoes wedi cofrestru ar gyfer Cyfnewid Gw
 haveYouRegisteredAEOI.heading = A ydych eisoes wedi cofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig (AEOI)?
 haveYouRegisteredAEOI.Yes = Iawn
 haveYouRegisteredAEOI.No = Na
-haveYouRegisteredAEOI.error.required = Dewiswch Iawn os ydych eisoes wedi cofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig
+haveYouRegisteredAEOI.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig
 haveYouRegisteredAEOI.p1 = Bydd gennych ID Cyfnewid Gwybodaeth yn Awtomatig.
 
 ##  AddVATMOSS
@@ -433,7 +419,7 @@ doYouHaveMGDRegistration.title = A oes gennych rif cofrestru Toll Peiriannau Hap
 doYouHaveMGDRegistration.heading = A oes gennych rif cofrestru Toll Peiriannau Hapchwarae?
 doYouHaveMGDRegistration.Yes = Iawn
 doYouHaveMGDRegistration.No = Na
-doYouHaveMGDRegistration.error.required = Dewiswch Iawn os oes gennych rif cofrestru ar gyfer Toll Peiriannau Hapchwarae
+doYouHaveMGDRegistration.error.required = Dewiswch ‘Iawn’ os oes gennych rif cofrestru ar gyfer Toll Peiriannau Hapchwarae
 
 #######################################################
 ##  RegisterWarehousekeeper
@@ -451,7 +437,7 @@ areYouRegisteredWarehousekeeper.heading = A ydych yn geidwad warws ecséis cofre
 areYouRegisteredWarehousekeeper.p1 = Bydd gennych lythyr yn cymeradwyo’r warws, gydag ID warws os ydych.
 areYouRegisteredWarehousekeeper.Yes = Iawn
 areYouRegisteredWarehousekeeper.No = Na
-areYouRegisteredWarehousekeeper.error.required = Dewiswch Iawn os ydych yn geidwad warws cofrestredig
+areYouRegisteredWarehousekeeper.error.required = Dewiswch ‘Iawn’ os ydych yn geidwad warws cofrestredig
 
 #######################################################
 ##  SelectSACategory
@@ -479,7 +465,7 @@ doYouHaveCharityReference.title = A oes gennych gyfeirnod Elusennau CThEM?
 doYouHaveCharityReference.heading = A oes gennych gyfeirnod Elusennau CThEM?
 doYouHaveCharityReference.Yes = Iawn
 doYouHaveCharityReference.No = Na
-doYouHaveCharityReference.error.required = Dewiswch Iawn os oes gennych gyfeirnod Elusennau CThEM
+doYouHaveCharityReference.error.required = Dewiswch ‘Iawn’ os oes gennych gyfeirnod Elusennau CThEM
 
 #######################################################
 ##  RegisterForCharity
@@ -508,6 +494,7 @@ doesBusinessManagePAYE.Yes = Iawn
 doesBusinessManagePAYE.No = Na
 doesBusinessManagePAYE.error.required = Dewiswch ‘Iawn’ os yw’ch busnes yn rheoli TWE i gyflogwyr ar-lein
 
+
 #######################################################
 ##  RegisterForPAYE
 #######################################################
@@ -525,6 +512,7 @@ isBusinessRegisteredForPAYE.heading = A yw eich busnes wedi’i gofrestru ar gyf
 isBusinessRegisteredForPAYE.Yes = Iawn
 isBusinessRegisteredForPAYE.No = Na
 isBusinessRegisteredForPAYE.error.required = Dewiswch ‘Iawn’ os yw’ch busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
+
 
 #######################################################
 ##  SelectGamblingOrGamingDuty
@@ -594,7 +582,7 @@ registeredForVATECSales.title = A yw’r busnes wedi’i gofrestru ar gyfer TAW?
 registeredForVATECSales.heading = A yw’r busnes wedi’i gofrestru ar gyfer TAW?
 registeredForVATECSales.Yes = Iawn
 registeredForVATECSales.No = Na
-registeredForVATECSales.error.required = Dewiswch Iawn os yw’r busnes wedi’i gofrestru ar gyfer TAW
+registeredForVATECSales.error.required = Dewiswch ‘Iawn’ os yw’r busnes wedi’i gofrestru ar gyfer TAW
 
 #######################################################
 ##  WhichVATServicesToAdd
@@ -602,10 +590,10 @@ registeredForVATECSales.error.required = Dewiswch Iawn os yw’r busnes wedi’i
 whichVATServicesToAdd.title = Pa wasanaeth TAW ydych eisiau ei ychwanegu?
 whichVATServicesToAdd.heading = Pa wasanaeth TAW ydych eisiau ei ychwanegu?
 whichVATServicesToAdd.vat = TAW
-whichVATServicesToAdd.ecsales = Rhestr Gwerthiannau yn y GE, Rhoi gwybod am werthiannau a wnaed i gyflenwyr yr UE sydd wedi cofrestru ar gyfer TAW
+whichVATServicesToAdd.ecsales = Rhestr Gwerthiannau yn y GE, rhoi gwybod am werthiannau a wnaed i gyflenwyr yr UE sydd wedi cofrestru ar gyfer TAW
 whichVATServicesToAdd.giant = Ymddiriedolaethau Gwybodaeth Llywodraeth ac Iechyd Cenedlaethol (GIANT)
-whichVATServicesToAdd.eurefunds = Ad-daliadau yn yr UE, Gwneud cais i gael TAW y gwnaethoch ei thalu yn yr UE yn ôl
-whichVATServicesToAdd.rcsl = Rhestr Gwerthiannau Tâl Gwrthdro (RCSL), Rhoi gwybod am werthiannau sydd â TAW Tâl Gwrthdro
+whichVATServicesToAdd.eurefunds = Ad-daliadau yn yr UE, gwneud cais i gael TAW y gwnaethoch ei thalu yn yr UE yn ôl
+whichVATServicesToAdd.rcsl = Rhestr Gwerthiannau Tâl Gwrthdro (RCSL), rhoi gwybod am werthiannau sydd â TAW Tâl Gwrthdro
 whichVATServicesToAdd.moss = Gwasanaeth Un Cam (GUC), TAW ar gyfer gwasanaethau digidol a werthwyd yn yr UE
 whichVATServicesToAdd.nova = Hysbysiad o Gerbydau’n Cyrraedd (NOVA)
 whichVATServicesToAdd.error.required = Dewis gwasanaeth TAW
@@ -674,26 +662,25 @@ whatTypeOfSubcontractor.title = 	Pa rai o’r rhain sy’n eich disgrifio orau?
 whatTypeOfSubcontractor.heading = 	Pa rai o’r rhain sy’n eich disgrifio orau?
 whatTypeOfSubcontractor.soleTrader = Unig fasnachwr
 whatTypeOfSubcontractor.partnership = Partneriaeth
-whatTypeOfSubcontractor.limitedCompany = Cwmni Cyfyngedig
+whatTypeOfSubcontractor.limitedCompany = Cwmni cyfyngedig
 whatTypeOfSubcontractor.error.required = Dewiswch pa rai o’r rhain sy’n eich disgrifio orau
 
 #######################################################
 ##  UsePAYEEmployerIntermediariesAccount
 #######################################################
-usePAYEEmployerIntermediariesAccount.title = Defnyddio eich cyfrif TWE i gyflogwyr
-usePAYEEmployerIntermediariesAccount.heading = Defnyddio eich cyfrif TWE i gyflogwyr
-usePAYEEmployerIntermediariesAccount.continue = Mewngofnodi i’ch cyfrif TWE i gyflogwyr
-usePAYEEmployerIntermediariesAccount.addAccount = Rwyf eisiau ychwanegu cyfryngwyr yn y cyfrif hwn
-usePAYEEmployerIntermediariesAccount.p1 = Dylech reoli cyfryngwyr cyflogaeth yn yr un cyfrif ag yr ydych yn rheoli TWE i gyflogwyr.
-usePAYEEmployerIntermediariesAccount.p2 = Bydd hynny’n ei wneud yn haws rheoli’r ddau gynllun.
+usePAYEEmployerIntermediariesAccount.title = Ychwanegu cyfryngwyr cyflogaeth at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+usePAYEEmployerIntermediariesAccount.heading = Ychwanegu cyfryngwyr cyflogaeth at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+usePAYEEmployerIntermediariesAccount.continue = Mewngofnodi i’r cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+usePAYEEmployerIntermediariesAccount.addAccount = Rwyf eisiau ychwanegu cyfryngwyr at y cyfrif hwn
+usePAYEEmployerIntermediariesAccount.p1 = Bydd hynny’n ei wneud yn haws rheoli’r ddau gynllun.
+usePAYEEmployerIntermediariesAccount.p2 = Mewngofnodi i’ch cyfrif arall ac ychwanegu cyfryngwyr cyflogaeth.
 
 #######################################################
 ##  RegisterForPAYEIntermediaries
 #######################################################
-registerForPAYEIntermediaries.title = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
-registerForPAYEIntermediaries.heading = Cofrestrwch ar gyfer TWE i gyflogwyr yn gyntaf
-registerForPAYEIntermediaries.p1=Mae’n rhaid eich bod wedi cofrestru ar gyfer TWE i gyflogwyr cyn y gallwch reoli cyfryngwyr cyflogaeth ar-lein.
-registerForPAYEIntermediaries.p2=Cofrestrwch ar gyfer TWE i gyflogwyr, wedyn dychwelyd ac ychwanegu cyfryngwyr cyflogaeth ar ôl hynny.
+registerForPAYEIntermediaries.title = Cofrestru ar gyfer TWE i gyflogwyr cyn i chi ychwanegu’r gwasanaeth hwn
+registerForPAYEIntermediaries.heading = Cofrestru ar gyfer TWE i gyflogwyr cyn i chi ychwanegu’r gwasanaeth hwn
+registerForPAYEIntermediaries.p1= Pan fyddwch wedi cofrestru gyda’r cyfrif hwn, dylech fewngofnodi ac ychwanegu cyfryngwyr cyflogaeth ar-lein.
 registerForPAYEIntermediaries.continue = Cofrestru ar gyfer TWE i gyflogwyr
 registerForPAYEIntermediaries.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
@@ -781,31 +768,31 @@ setUpANewAccount.subtext3 = a byddwn yn eich helpu i wneud hyn dros y ffôn.
 #######################################################
 ##  PaperForms
 #######################################################
-paperForms.title = Defnyddiwch ffurflenni papur
-paperForms.p1 = Mae’r gwasanaeth Tollau Stamp ar-lein dim ond ar gyfer gweithwyr proffesiynol sy’n gweithredu ar ran cleientiaid.
-paperForms.p2 = Mae angen i chi lenwi ffurflenni papur ar gyfer Tollau Stamp os ydych yn prynu’r tir neu’r eiddo eich hun.
-paperForms.heading = Defnyddiwch ffurflenni papur
-paperForms.continue = Mynd yn eich blaen i ffurflenni papur
+paperForms.title = Ni allwch ychwanegu Trethi Stamp Ar-lein
+paperForms.p1 = Mae hwn ond ar gyfer gweithwyr proffesiynol sy’n gweithredu ar ran cleientiaid.
+paperForms.p2 = Mae angen i chi lenwi ffurflenni papur ar gyfer Tollau Stamp os ydych yn prynu’r tir neu’r eiddo i chi’ch hun.
+paperForms.heading = Ni allwch ychwanegu Trethi Stamp Ar-lein
+paperForms.continue = Llenwi ffurflenni papur
 
 #######################################################
 ##  StampDuty
 #######################################################
 stampDuty.title = A yw’r gwasanaeth hwn ar gyfer eich busnes?
 stampDuty.heading = A yw’r gwasanaeth hwn ar gyfer eich busnes?
-stampDuty.p1 = Er enghraifft, rydych yn gyfreithiwr neu’n drawsgludwr
-stampDuty.Yes = Ydy - mae’r gwasanaeth hwn at ddibenion busnes
-stampDuty.No = Nac ydy - rwy’n prynu eiddo ar gyfer fy hun
-stampDuty.error.required = Dewis iawn neu na
+stampDuty.p1 = Dewiswch ‘Iawn’ os ydych yn gyfreithiwr neu’n drawsgludwr. Dewiswch ‘Na’ os ydych yn prynu eiddo i chi’ch hun.
+stampDuty.Yes = Iawn
+stampDuty.No = Na
+stampDuty.error.required = Dewiswch ‘Iawn’ os yw’r gwasanaeth hwn ar gyfer eich busnes
 
 #######################################################
 ##  SelectATax
 #######################################################
-selectATax.title = Dewis treth
-selectATax.heading = Dewis treth
+selectATax.title = Pa dreth y mae angen i chi ei hychwanegu?
+selectATax.heading = Pa dreth y mae angen i chi ei hychwanegu?
 selectATax.ATED = Treth Flynyddol ar Anheddau wedi’u Hamgáu (ATED)
-selectATax.SBT = Treth Drafodiadau Tir ac Adeiladau - yr Alban yn unig
+selectATax.LBT = Treth Drafodiadau Tir ac Adeiladau - yr Alban yn unig
 selectATax.SDLT = Treth Dir y Tollau Stamp (SDLT) - ddim ar gyfer yr Alban
-selectATax.error.required = Dewis treth
+selectATax.error.required = Dewiswch pa dreth y mae angen i chi ei hychwanegu
 
 #######################################################
 ##  DoYouHavePBDRegistration
@@ -814,7 +801,7 @@ doYouHavePBDRegistration.title = A oes gennych rif cofrestru Toll Cronfa Fetio?
 doYouHavePBDRegistration.heading = A oes gennych rif cofrestru Toll Cronfa Fetio?
 doYouHavePBDRegistration.Yes = Iawn
 doYouHavePBDRegistration.No = Na
-doYouHavePBDRegistration.error.required = Dewiswch Iawn os oes gennych rif cofrestru ar gyfer Toll Cronfa Fetio
+doYouHavePBDRegistration.error.required = Dewiswch ‘Iawn’ os oes gennych rif cofrestru ar gyfer Toll Cronfa Fetio
 
 #######################################################
 ##  DoYouHaveRGDRegistration
@@ -823,7 +810,7 @@ doYouHaveRGDRegistration.title = A oes gennych rif cofrestru Toll Hapchwarae o B
 doYouHaveRGDRegistration.heading = A oes gennych rif cofrestru Toll Hapchwarae o Bell?
 doYouHaveRGDRegistration.Yes = Iawn
 doYouHaveRGDRegistration.No = Na
-doYouHaveRGDRegistration.error.required = Dewiswch Iawn os oes gennych rif cofrestru ar gyfer Toll Hapchwarae o Bell
+doYouHaveRGDRegistration.error.required = Dewiswch ‘Iawn’ os oes gennych rif cofrestru ar gyfer Toll Hapchwarae o Bell
 
 #######################################################
 ##  DoYouWantToLeaveCIS
@@ -832,7 +819,7 @@ doYouWantToLeaveCIS.title = A oes angen i chi adael Cynllun y Diwydiant Adeiladu
 doYouWantToLeaveCIS.heading = A oes angen i chi adael Cynllun y Diwydiant Adeiladu (CIS)?
 doYouWantToLeaveCIS.Yes = Iawn, rwyf wedi rhoi’r gorau i fod yn gontractwr neu isgontractwr
 doYouWantToLeaveCIS.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein
-doYouWantToLeaveCIS.error.required = Dewiswch Iawn os oes angen i chi adael Cynllun y Diwydiant Adeiladu
+doYouWantToLeaveCIS.error.required = Dewiswch ‘Iawn’ os oes angen i chi adael Cynllun y Diwydiant Adeiladu
 
 #######################################################
 ##  DoYouNeedToStopRO
@@ -841,7 +828,7 @@ doYouNeedToStopRO.title = A oes angen i chi roi’r gorau i ddefnyddio’r gwasa
 doYouNeedToStopRO.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Ymholiadau Olew Ad-daliedig?
 doYouNeedToStopRO.Yes = Iawn
 doYouNeedToStopRO.No = Na, mae angen i fi ddadgofrestru o’r cynllun Ymholiadau Olew Ad-daliedig
-doYouNeedToStopRO.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Olew Ad-daliedig
+doYouNeedToStopRO.error.required = Dewiswch ‘Iawn’ os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Olew Ad-daliedig
 
 #######################################################
 ##  DoYouNeedToStopEPAYE
@@ -850,7 +837,7 @@ doYouNeedToStopEPAYE.title = A yw’ch busnes wedi rhoi’r gorau i gyflogi pobl
 doYouNeedToStopEPAYE.heading = A yw’ch busnes wedi rhoi’r gorau i gyflogi pobl?
 doYouNeedToStopEPAYE.Yes = Iawn
 doYouNeedToStopEPAYE.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein TWE i gyflogwyr
-doYouNeedToStopEPAYE.error.required = Dewiswch Iawn os yw’ch busnes wedi rhoi’r gorau i gyflogi pobl
+doYouNeedToStopEPAYE.error.required = Dewiswch ‘Iawn’ os yw’ch busnes wedi rhoi’r gorau i gyflogi pobl
 
 #######################################################
 ##  DoYouNeedToStopPSA
@@ -859,7 +846,7 @@ doYouNeedToStopPSA.title = A oes angen i chi roi’r gorau i weithredu fel gwein
 doYouNeedToStopPSA.heading = A oes angen i chi roi’r gorau i weithredu fel gweinyddwr cynllun pensiwn?
 doYouNeedToStopPSA.Yes = Iawn
 doYouNeedToStopPSA.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein
-doYouNeedToStopPSA.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i weithredu fel gweinyddwr cynllun pensiwn
+doYouNeedToStopPSA.error.required = Dewiswch ‘Iawn’ os oes angen i chi roi’r gorau i weithredu fel gweinyddwr cynllun pensiwn
 
 #######################################################
 ##  HaveYouStoppedSelfEmployment
@@ -868,7 +855,7 @@ haveYouStoppedSelfEmployment.title = A ydych wedi rhoi’r gorau i hunangyflogae
 haveYouStoppedSelfEmployment.heading = A ydych wedi rhoi’r gorau i hunangyflogaeth?
 haveYouStoppedSelfEmployment.Yes = Iawn
 haveYouStoppedSelfEmployment.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Hunanasesiad ar-lein
-haveYouStoppedSelfEmployment.error.required = Dewiswch Iawn os ydych wedi rhoi’r gorau i hunangyflogaeth
+haveYouStoppedSelfEmployment.error.required = Dewiswch ‘Iawn’ os ydych wedi rhoi’r gorau i hunangyflogaeth
 
 #######################################################
 ##  AreYouApprovedCTF
@@ -913,7 +900,7 @@ doYouNeedToCancelVAT.title = A oes angen i chi ddileu cofrestriad TAW a rhoi’r
 doYouNeedToCancelVAT.heading = A oes angen i chi ddileu cofrestriad TAW a rhoi’r gorau i gyflwyno Ffurflenni TAW?
 doYouNeedToCancelVAT.Yes = Iawn
 doYouNeedToCancelVAT.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth TAW ar-lein
-doYouNeedToCancelVAT.error.required = Dewiswch Iawn os oes angen i chi ddileu cofrestriad TAW a rhoi’r gorau i gyflwyno Ffurflenni TAW
+doYouNeedToCancelVAT.error.required = Dewiswch ‘Iawn’ os oes angen i chi ddileu cofrestriad TAW a rhoi’r gorau i gyflwyno Ffurflenni TAW
 
 #######################################################
 ##  YouNeedToBeApprovedCTF
@@ -930,7 +917,7 @@ doYouNeedToStopGBD.title = A oes angen i chi roi’r gorau i ddefnyddio’r gwas
 doYouNeedToStopGBD.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Fetio Gyffredinol?
 doYouNeedToStopGBD.Yes = Iawn
 doYouNeedToStopGBD.No = Na, mae angen i fi ddadgofrestru o’r Doll Fetio Gyffredinol
-doYouNeedToStopGBD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Fetio Gyffredinol
+doYouNeedToStopGBD.error.required = Dewiswch ‘Iawn’ os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Fetio Gyffredinol
 
 #######################################################
 ##  StopFilingSelfAssessment
@@ -948,7 +935,7 @@ doYouNeedToStopRGD.title = A oes angen i chi roi’r gorau i ddefnyddio’r gwas
 doYouNeedToStopRGD.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Hapchwarae o Bell?
 doYouNeedToStopRGD.Yes = Iawn
 doYouNeedToStopRGD.No = Na, mae angen i fi ddadgofrestru o’r Doll Hapchwarae o Bell
-doYouNeedToStopRGD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Hapchwarae o Bell
+doYouNeedToStopRGD.error.required = Dewiswch ‘Iawn’ os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Hapchwarae o Bell
 
 #######################################################
 ##  DoYouNeedToCloseCharity
@@ -957,7 +944,7 @@ doYouNeedToCloseCharity.title = A oes angen i chi gau’r elusen?
 doYouNeedToCloseCharity.heading = A oes angen i chi gau’r elusen?
 doYouNeedToCloseCharity.Yes = Iawn
 doYouNeedToCloseCharity.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Elusennau ar-lein
-doYouNeedToCloseCharity.error.required = Dewiswch Iawn os oes angen i chi gau’r elusen
+doYouNeedToCloseCharity.error.required = Dewiswch ‘Iawn’ os oes angen i chi gau’r elusen
 
 #######################################################
 ##  DoYouNeedToLeaveVATMOSS
@@ -966,7 +953,7 @@ doYouNeedToLeaveVATMOSS.title = A oes angen i chi adael y cynllun Gwasanaeth Un 
 doYouNeedToLeaveVATMOSS.heading = A oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn?
 doYouNeedToLeaveVATMOSS.Yes = Iawn
 doYouNeedToLeaveVATMOSS.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein
-doYouNeedToLeaveVATMOSS.error.required = Dewiswch Iawn os oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn
+doYouNeedToLeaveVATMOSS.error.required = Dewiswch ‘Iawn’ os oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn
 
 #######################################################
 ##  DoYouNeedToStopPBD
@@ -975,7 +962,7 @@ doYouNeedToStopPBD.title = A oes angen i chi roi’r gorau i ddefnyddio’r gwas
 doYouNeedToStopPBD.heading = A oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio?
 doYouNeedToStopPBD.Yes = Iawn
 doYouNeedToStopPBD.No = Na, mae angen i fi ddadgofrestru o’r Toll Cronfa Fetio
-doYouNeedToStopPBD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio
+doYouNeedToStopPBD.error.required = Dewiswch ‘Iawn’ os oes angen i chi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein Toll Cronfa Fetio
 
 #######################################################
 ##  DoYouNeedToStopVatMossNU
@@ -984,7 +971,7 @@ doYouNeedToStopVatMossNU.title = A oes angen i chi adael y cynllun Gwasanaeth Un
 doYouNeedToStopVatMossNU.heading = A oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn?
 doYouNeedToStopVatMossNU.Yes = Iawn
 doYouNeedToStopVatMossNU.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth ar-lein
-doYouNeedToStopVatMossNU.error.required = Dewiswch Iawn os oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn
+doYouNeedToStopVatMossNU.error.required = Dewiswch ‘Iawn’ os oes angen i chi adael y cynllun Gwasanaeth Un Cam ar gyfer TAW hwn
 
 #######################################################
 ##  DoYouNeedToStopMGDController
@@ -993,7 +980,7 @@ doYouNeedToStopMGD.title = A oes angen i chi roi gorau i ddefnyddio’r gwasanae
 doYouNeedToStopMGD.heading = A oes angen i chi roi gorau i ddefnyddio’r gwasanaeth ar-lein Toll Peiriannau Hapchwarae?
 doYouNeedToStopMGD.Yes = Iawn
 doYouNeedToStopMGD.No = Na, mae angen i fi ddadgofrestru o’r Doll Peiriannau Hapchwarae
-doYouNeedToStopMGD.error.required = Dewiswch Iawn os oes angen i chi roi’r gorau i ddefnyddio’r Doll Peiriannau Hapchwarae
+doYouNeedToStopMGD.error.required = Dewiswch ‘Iawn’ os oes angen i chi roi’r gorau i ddefnyddio’r Doll Peiriannau Hapchwarae
 
 #######################################################
 ##  DoYouHaveVATRegNumber
