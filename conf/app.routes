@@ -252,3 +252,5 @@ GET        /other/ctf/ctf-11                            controllers.other.ctf.Yo
 GET        /vat/moss-uk/vat-registered                  controllers.vat.moss.ukbased.AlreadyRegisteredForVATMossController.onPageLoad()
 POST       /vat/moss-uk/vat-registered                  controllers.vat.moss.ukbased.AlreadyRegisteredForVATMossController.onSubmit()
 
+
+GET        /self-assessment/enter-sa-utr                       controllers.sa.EnterSAUTRController.onPageLoad()

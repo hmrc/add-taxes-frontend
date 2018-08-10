@@ -990,3 +990,9 @@ doYouHaveVATRegNumber.heading = A oes gennych rif cofrestru TAW?
 doYouHaveVATRegNumber.Yes = Iawn
 doYouHaveVATRegNumber.No = Na
 doYouHaveVATRegNumber.error.required = Dewiswch ‘Iawn’ os oes gennych rif cofrestru TAW
+
+#######################################################
+##  EnterSAUTR
+#######################################################
+enterSAUTR.title = Nodwch eich Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Hunanasesiad
+enterSAUTR.heading = Nodwch eich Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Hunanasesiad
