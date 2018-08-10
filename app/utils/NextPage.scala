@@ -19,6 +19,7 @@ package utils
 import config.FrontendAppConfig
 import play.api.mvc.Request
 import utils.nextpage.OtherTaxesNextPage
+import utils.nextpage.corporation.DoYouHaveCorpTaxUTRNextPage
 import utils.nextpage.deenrolment._
 import utils.nextpage.employer._
 import utils.nextpage.employer.cis.IsYourBusinessInUKNextPage
@@ -125,3 +126,4 @@ object NextPage
     with DoYouNeedToStopMGDNextPage
     with vatuk.AlreadyRegisteredForVATMossNextPage
     with DoYouHaveVATRegNumberNextPage
+    with DoYouHaveCorpTaxUTRNextPage
