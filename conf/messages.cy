@@ -256,15 +256,6 @@ getEoriAndChiefRole.p1.li2= gwneud cais am rôl defnyddiwr CHIEF – e-bostiwch 
 getEoriAndChiefRole.p2= Pan gewch chi’r rhain, mewngofnodwch ac ychwanegwch y System Allforio Newydd at eich cyfrif.
 
 #######################################################
-##  WhichPensionSchemeToAdd
-#######################################################
-whichPensionSchemeToAdd.title = Pa gynllun pensiwn ydych eisiau ei ychwanegu?
-whichPensionSchemeToAdd.heading = Pa gynllun pensiwn ydych eisiau ei ychwanegu?
-whichPensionSchemeToAdd.administrators = Cynlluniau Pensiwn Ar-lein ar gyfer Gweinyddwyr
-whichPensionSchemeToAdd.practitioners = Cynlluniau Pensiwn Ar-lein ar gyfer Ymarferwyr
-whichPensionSchemeToAdd.error.required = Dewis cynllun
-
-#######################################################
 ##  RegisterGBD
 #######################################################
 registerGBD.title = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
@@ -696,14 +687,14 @@ registerInHomeCountry.callUs = ein ffonio.
 #######################################################
 ##  WhatEmployerTaxDoYouWantToAdd
 #######################################################
-whatEmployerTaxDoYouWantToAdd.title = Pa dreth y cyflogwr ydych eisiau ei hychwanegu?
-whatEmployerTaxDoYouWantToAdd.heading = Pa dreth y cyflogwr ydych eisiau ei hychwanegu?
+whatEmployerTaxDoYouWantToAdd.title = Pa gynllun neu dreth i gyflogwr sydd ei angen arnoch?
+whatEmployerTaxDoYouWantToAdd.heading = Pa gynllun neu dreth i gyflogwr sydd ei angen arnoch?
 whatEmployerTaxDoYouWantToAdd.epaye = TWE i gyflogwyr
 whatEmployerTaxDoYouWantToAdd.cis = Cynllun y Diwydiant Adeiladu (CIS)
-whatEmployerTaxDoYouWantToAdd.pension = Cynlluniau pensiwn
+whatEmployerTaxDoYouWantToAdd.pension = Cynlluniau Pensiwn Ar-lein ar gyfer Gweinyddwyr
 whatEmployerTaxDoYouWantToAdd.ers = Gwarantau ar Sail Cyflogaeth (ERS)
 whatEmployerTaxDoYouWantToAdd.intermediaries = Cyfryngwyr cyflogaeth (ar gyfer asiantaethau)
-whatEmployerTaxDoYouWantToAdd.error.required = Dewis y math o dreth
+whatEmployerTaxDoYouWantToAdd.error.required = Dewiswch ba gynllun neu dreth i gyflogwr sydd ei angen arnoch
 
 #######################################################
 ##  AreYouContractorOrSubcontractor

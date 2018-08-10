@@ -73,14 +73,14 @@ class WhatEmployerTaxDoYouWantToAddController @Inject()(
     predicate: Enrolments => Boolean,
     option: WhatEmployerTaxDoYouWantToAdd): Enrolments => Seq[RadioOption] =
     (enrolments: Enrolments) =>
-      if (predicate(enrolments)) WhatEmployerTaxDoYouWantToAdd.options.filterNot(_.value == option.toString)
-      else WhatEmployerTaxDoYouWantToAdd.options
+      if (predicate(enrolments)) {
+        WhatEmployerTaxDoYouWantToAdd.options.filterNot(_.value == option.toString)
+      } else {
+        WhatEmployerTaxDoYouWantToAdd.options
+    }
 
   private def checkPension: Enrolments => Boolean =
-    e => checkPensionAdministratorScheme(e) && checkPensionPractitionerScheme(e)
-
-  private def checkPensionAdministratorScheme: Enrolments => Boolean =
-    _.getEnrolment(utils.Enrolments.PSA.toString).isDefined
+    e => checkPensionPractitionerScheme(e)
 
   private def checkPensionPractitionerScheme: Enrolments => Boolean =
     _.getEnrolment(utils.Enrolments.PP.toString).isDefined
