@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2018 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,17 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import config.FrontendAppConfig
-@import models.sa.SAUTR
+package identifiers
 
-@(appConfig: FrontendAppConfig, form: Form[SAUTR])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
-
-@main_template(
-    title = messages("enterSAUTR.title"),
-    appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
-
-    @components.heading("enterSAUTR.heading")
+case object EnterSAUTRId extends Identifier {
+  override def toString: String = "enterSAUTR"
 }

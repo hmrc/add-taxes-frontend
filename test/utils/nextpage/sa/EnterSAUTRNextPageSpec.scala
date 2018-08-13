@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2018 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,17 +12,32 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import config.FrontendAppConfig
-@import models.sa.SAUTR
+package utils.nextpage.sa
 
-@(appConfig: FrontendAppConfig, form: Form[SAUTR])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+import models.sa.SAUTR
+import utils.NextPage
+import utils.nextpage.NextPageSpecBase
 
-@main_template(
-    title = messages("enterSAUTR.title"),
-    appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+class EnterSAUTRNextPageSpec extends NextPageSpecBase {
 
-    @components.heading("enterSAUTR.heading")
+  "EnterSAUTRNextPage" when {
+
+    behave like nextPage(
+      NextPage.enterSAUTR,
+      SAUTR("0123456789"),
+      "www.somehwere.com"
+    )
+
+  }
+
 }
+
+//     behave like nextPageWithAffinityGroup(
+//NextPage.selectSACategory,
+//(SelectSACategory.Sa, Some(Organisation)),
+//SelectSACategory.Sa.toString,
+//"http://localhost:8080/portal/business-registration/introduction?lang=eng",
+//"organisation"
+//)

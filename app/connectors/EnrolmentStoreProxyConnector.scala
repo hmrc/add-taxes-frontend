@@ -17,14 +17,17 @@
 package connectors
 import config.FrontendAppConfig
 import javax.inject.{Inject, Singleton}
+
+import com.google.inject.ImplementedBy
 import play.api.Logger
 import play.api.http.Status._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpGet}
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-@Singleton
-class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http: HttpGet, logger: Logger) {
+class EnrolmentStoreProxyConnectorImpl @Inject()(val appConfig: FrontendAppConfig, val http: HttpClient)
+    extends EnrolmentStoreProxyConnector {
 
   def checkExistingUTR(utr: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
     http.GET(appConfig.checkUtrUrl(utr)).map { response =>
@@ -40,4 +43,10 @@ class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http:
         Logger.error("Enrolment Store Proxy error", exception)
         false
     }
+}
+
+@ImplementedBy(classOf[EnrolmentStoreProxyConnectorImpl])
+trait EnrolmentStoreProxyConnector {
+
+  def checkExistingUTR(utr: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean]
 }
