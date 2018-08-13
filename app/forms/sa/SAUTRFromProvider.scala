@@ -29,6 +29,8 @@ class SAUTRFromProvider @Inject() extends FormErrorHelper with Mappings {
   def apply(): Form[SAUTR] = Form(
     mapping(
       "value" -> text("enterSAUTR.error.required")
+        .verifying(length(10, "enterSAUTR.error.length", x => x.replace(" ", "")))
+        .verifying(regexp("^([ \\d])+$", "enterSAUTR.error.characters"))
     )(SAUTR.apply)(SAUTR.unapply)
   )
 

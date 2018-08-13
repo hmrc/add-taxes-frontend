@@ -30,31 +30,38 @@ class SAUTRFromProviderSpec extends FormBehaviours with GeneratorDrivenPropertyC
   override val validData: Map[String, String] = Map("value" -> "0987654321")
   override val form: Form[_] = new SAUTRFromProvider()()
 
-  val validGen: Gen[SAUTR] = for {
-    digits <- listOfN(10, choose(0, 9))
-    spaces <- listOf(const(" "))
-    random = shuffle(digits ++ spaces)
-  } yield {
-    SAUTR(random.mkString)
-  }
+  private val utrLength = 10
+  private val min = 0
+  private val max = 9
 
-  val invalidLengthGen: Gen[SAUTR] = for {
-    digits <- listOf(choose(0, 9))
-    if digits.length != 10
-    spaces <- listOf(const(" "))
-    random = shuffle(digits ++ spaces)
-  } yield {
-    SAUTR(random.mkString)
-  }
+  val validGen: Gen[SAUTR] =
+    for {
+      digits <- listOfN(utrLength, choose(min, max))
+      spaces <- listOf(const(" "))
+      random = shuffle(digits ++ spaces)
+    } yield {
+      SAUTR(random.mkString)
+    }
 
-  val invalidCharGen: Gen[SAUTR] = for {
-    chars <- listOfN(10, asciiChar)
-    if !chars.contains(' ')
-    spaces <- listOf(const(" "))
-    random = shuffle(chars ++ spaces)
-  } yield {
-    SAUTR(random.mkString)
-  }
+  val invalidLengthGen: Gen[SAUTR] =
+    for {
+      digits <- listOf(choose(min, max))
+      if digits.length != utrLength && digits.nonEmpty
+      spaces <- listOf(const(" "))
+      random = shuffle(digits ++ spaces)
+    } yield {
+      SAUTR(random.mkString)
+    }
+
+  val invalidCharGen: Gen[SAUTR] =
+    for {
+      chars <- listOfN(utrLength, asciiChar)
+      if !chars.contains(' ')
+      spaces <- listOf(const(" "))
+      random = shuffle(chars ++ spaces)
+    } yield {
+      SAUTR(random.mkString)
+    }
 
   "SAUTRFormProver" must {
 
@@ -62,6 +69,39 @@ class SAUTRFromProviderSpec extends FormBehaviours with GeneratorDrivenPropertyC
       Field("value", Required -> "enterSAUTR.error.required")
     )
 
+    "fail for invalid lengths" in {
+      forAll(invalidLengthGen) { value =>
+        form
+          .bind(Map("value" -> value.value))
+          .fold(
+            formWithErrors => formWithErrors.error("value").map(_.message) shouldBe Some("enterSAUTR.error.length"),
+            _ => fail("This form should not succeed")
+          )
+      }
+    }
+
+    "fail for invalid characters" in {
+      forAll(invalidCharGen) { value =>
+        form
+          .bind(Map("value" -> value.value))
+          .fold(
+            formWithErrors =>
+              formWithErrors.errors("value").map(_.message) shouldBe List("enterSAUTR.error.characters"),
+            _ => fail("This form should not succeed")
+          )
+      }
+    }
+
+    "pass for valid entries of digits and spaces" in {
+      forAll(validGen) { value =>
+        form
+          .bind(Map("value" -> value.value))
+          .fold(
+            formWithErrors => fail(s"This form should be valid, Error = ${formWithErrors.errors.map(_.message)}"),
+            form => form == value
+          )
+      }
+    }
   }
 
 }

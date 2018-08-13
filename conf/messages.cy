@@ -996,3 +996,6 @@ doYouHaveVATRegNumber.error.required = Dewiswch ‘Iawn’ os oes gennych rif co
 #######################################################
 enterSAUTR.title = Nodwch eich Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Hunanasesiad
 enterSAUTR.heading = Nodwch eich Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Hunanasesiad
+enterSAUTR.error.required = Nodwch eich Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Hunanasesiad
+enterSAUTR.error.length = Nodwch Gyfeirnod Unigryw y Trethdalwr (UTR) Hunanasesiad sy’n 10 cymeriad o hyd
+enterSAUTR.error.characters = Nodwch eich Cyfeirnod Unigryw y Trethdalwr (UTR) Hunanasesiad sydd ond yn cynnwys y cymeriadau 0-9

@@ -1000,3 +1000,5 @@ doYouHaveVATRegNumber.error.required = Select yes if you have a VAT registration
 enterSAUTR.title = Enter your Self Assessment Unique Taxpayer Reference (UTR)
 enterSAUTR.heading = Enter your Self Assessment Unique Taxpayer Reference (UTR)
 enterSAUTR.error.required = Enter your Self Assessment Unique Taxpayer Reference (UTR)
+enterSAUTR.error.length = Enter a Self Assessment Unique Taxpayer Reference (UTR) that is 10 characters long
+enterSAUTR.error.characters = Enter your Self Assessment Unique Taxpayer Reference (UTR) that only includes characters 0-9
