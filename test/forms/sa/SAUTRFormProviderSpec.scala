@@ -25,10 +25,10 @@ import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import play.api.data.Form
 import scala.util.Random.shuffle
 
-class SAUTRFromProviderSpec extends FormBehaviours with GeneratorDrivenPropertyChecks {
+class SAUTRFormProviderSpec extends FormBehaviours with GeneratorDrivenPropertyChecks {
 
   override val validData: Map[String, String] = Map("value" -> "0987654321")
-  override val form: Form[_] = new SAUTRFromProvider()()
+  override val form: Form[_] = new SAUTRFormProvider()()
 
   private val utrLength = 10
   private val min = 0
@@ -98,7 +98,7 @@ class SAUTRFromProviderSpec extends FormBehaviours with GeneratorDrivenPropertyC
           .bind(Map("value" -> value.value))
           .fold(
             formWithErrors => fail(s"This form should be valid, Error = ${formWithErrors.errors.map(_.message)}"),
-            form => form == value
+            form => form shouldBe value
           )
       }
     }
