@@ -19,7 +19,6 @@ package utils.nextpage.employer
 import config.FrontendAppConfig
 import controllers.employer.ers.{routes => ersRoutes}
 import controllers.employer.intermediaries.{routes => intRoutes}
-import controllers.employer.pension.{routes => pensionRoutes}
 import controllers.employer.cis.{routes => cisRoutes}
 import identifiers.WhatEmployerTaxDoYouWantToAddId
 import models.employer.WhatEmployerTaxDoYouWantToAdd
@@ -43,7 +42,7 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
           case (WhatEmployerTaxDoYouWantToAdd.CIS, _) =>
             cisRoutes.IsYourBusinessInUKController.onPageLoad()
           case (WhatEmployerTaxDoYouWantToAdd.PS, _) =>
-            pensionRoutes.WhichPensionSchemeToAddController.onPageLoad()
+            Call("GET", appConfig.getPortalUrl("pensionPractitioners"))
           case (WhatEmployerTaxDoYouWantToAdd.ERS, HmrcEnrolmentType.EPAYE()) =>
             Call("GET", appConfig.getPortalUrl("enrolERS"))
           case (WhatEmployerTaxDoYouWantToAdd.ERS, _) =>

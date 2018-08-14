@@ -14,56 +14,49 @@
  * limitations under the License.
  */
 
-package views.employer.pension
+package views.corporation
 
 import play.api.data.Form
-import forms.employer.pension.WhichPensionSchemeToAddFormProvider
-import models.employer.pension.WhichPensionSchemeToAdd
+import forms.corporation.DoYouHaveCorpTaxUTRFormProvider
+import models.corporation.DoYouHaveCorpTaxUTR
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.employer.pension.whichPensionSchemeToAdd
+import views.html.corporation.doYouHaveCorpTaxUTR
 
-class WhichPensionSchemeToAddViewSpec extends ViewBehaviours {
+class DoYouHaveCorpTaxUTRViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "whichPensionSchemeToAdd"
+  val messageKeyPrefix = "doYouHaveCorpTaxUTR"
 
-  val form = new WhichPensionSchemeToAddFormProvider()()
+  val form = new DoYouHaveCorpTaxUTRFormProvider()()
 
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView =
-    () =>
-      whichPensionSchemeToAdd(frontendAppConfig, form, WhichPensionSchemeToAdd.options)(serviceInfoContent)(
-        fakeRequest,
-        messages)
+  def createView = () => doYouHaveCorpTaxUTR(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm =
-    (form: Form[_]) =>
-      whichPensionSchemeToAdd(frontendAppConfig, form, WhichPensionSchemeToAdd.options)(serviceInfoContent)(
-        fakeRequest,
-        messages)
+    (form: Form[_]) => doYouHaveCorpTaxUTR(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  "WhichPensionSchemeToAdd view" must {
+  "DoYouHaveCorpTaxUTR view" must {
     behave like normalPage(createView, messageKeyPrefix)
   }
 
-  "WhichPensionSchemeToAdd view" when {
+  "DoYouHaveCorpTaxUTR view" when {
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- WhichPensionSchemeToAdd.options) {
+        for (option <- DoYouHaveCorpTaxUTR.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
       }
     }
 
-    for (option <- WhichPensionSchemeToAdd.options) {
+    for (option <- DoYouHaveCorpTaxUTR.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for (unselectedOption <- WhichPensionSchemeToAdd.options.filterNot(o => o == option)) {
+          for (unselectedOption <- DoYouHaveCorpTaxUTR.options.filterNot(_ == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

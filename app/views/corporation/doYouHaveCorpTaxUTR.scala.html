@@ -16,29 +16,28 @@
 
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
-@import controllers.employer.pension.routes._
-@import models.employer.pension.WhichPensionSchemeToAdd
-@import utils.RadioOption
+@import controllers.corporation.routes._
+@import models.corporation.DoYouHaveCorpTaxUTR
 
 
-@(appConfig: FrontendAppConfig, form: Form[_], radioOptions: Set[RadioOption])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("whichPensionSchemeToAdd.title"),
+    title = messages("doYouHaveCorpTaxUTR.title"),
     appConfig = appConfig,
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = WhichPensionSchemeToAddController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    @helpers.form(action = DoYouHaveCorpTaxUTRController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("whichPensionSchemeToAdd.heading").body,
-            inputs = radioOptions.toSeq
+            legend = components.heading("doYouHaveCorpTaxUTR.heading").body,
+            inputs = DoYouHaveCorpTaxUTR.options.toSeq
         )
 
-        @components.submit_button(gaEvent = "AddEmployerPension")
+        @components.submit_button(gaEvent = "HaveCorpTaxUTR")
     }
 }

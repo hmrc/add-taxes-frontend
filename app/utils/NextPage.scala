@@ -19,12 +19,12 @@ package utils
 import config.FrontendAppConfig
 import play.api.mvc.Request
 import utils.nextpage.OtherTaxesNextPage
+import utils.nextpage.corporation.DoYouHaveCorpTaxUTRNextPage
 import utils.nextpage.deenrolment._
 import utils.nextpage.employer._
 import utils.nextpage.employer.cis.IsYourBusinessInUKNextPage
 import utils.nextpage.employer.cis.uk.AreYouContractorOrSubcontractorNextPage
 import utils.nextpage.employer.cis.uk.subcontractor._
-import utils.nextpage.employer.pension.WhichPensionSchemeToAddNextPage
 import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
 import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage
 import utils.nextpage.other.alcohol.awrs.SelectAlcoholSchemeNextPage
@@ -81,7 +81,6 @@ object NextPage
     with OnlineVATAccountNextPage
     with SelectSACategoryNextPage
     with DoYouHaveEORINumberNextPage
-    with WhichPensionSchemeToAddNextPage
     with AreYouRegisteredGTSNextPage
     with DoYouWantToAddPartnerNextPage
     with DoYouHaveASEEDNumberNextPage
@@ -127,5 +126,6 @@ object NextPage
     with DoYouNeedToStopMGDNextPage
     with vatuk.AlreadyRegisteredForVATMossNextPage
     with DoYouHaveVATRegNumberNextPage
+    with DoYouHaveCorpTaxUTRNextPage
     with EnterSAUTRNextPage
     with DoYouHaveSAUTRNextPage

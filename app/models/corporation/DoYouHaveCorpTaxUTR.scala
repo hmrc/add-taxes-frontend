@@ -14,19 +14,26 @@
  * limitations under the License.
  */
 
-package forms.employer.pension
+package models.corporation
 
-import javax.inject.Inject
+import utils.{Enumerable, RadioOption, WithName}
 
-import forms.FormErrorHelper
-import forms.mappings.Mappings
-import play.api.data.Form
-import models.employer.pension.WhichPensionSchemeToAdd
+sealed trait DoYouHaveCorpTaxUTR
 
-class WhichPensionSchemeToAddFormProvider @Inject() extends FormErrorHelper with Mappings {
+object DoYouHaveCorpTaxUTR {
 
-  def apply(): Form[WhichPensionSchemeToAdd] =
-    Form(
-      "value" -> enumerable[WhichPensionSchemeToAdd]("whichPensionSchemeToAdd.error.required")
-    )
+  case object Yes extends WithName("Yes") with DoYouHaveCorpTaxUTR
+  case object No extends WithName("No") with DoYouHaveCorpTaxUTR
+
+  val values: Set[DoYouHaveCorpTaxUTR] = Set(
+    Yes,
+    No
+  )
+
+  val options: Set[RadioOption] = values.map { value =>
+    RadioOption("doYouHaveCorpTaxUTR", value.toString)
+  }
+
+  implicit val enumerable: Enumerable[DoYouHaveCorpTaxUTR] =
+    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }

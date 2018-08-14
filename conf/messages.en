@@ -292,15 +292,6 @@ haveYouRegisteredTrust.hintText = Your trust is registered if you sent us a {0} 
 haveYouRegisteredTrust.form.g41=form G41
 
 #######################################################
-##  WhichPensionSchemeToAdd
-#######################################################
-whichPensionSchemeToAdd.title = Which pension scheme do you want to add?
-whichPensionSchemeToAdd.heading = Which pension scheme do you want to add?
-whichPensionSchemeToAdd.administrators = Pension Schemes Online for Administrators
-whichPensionSchemeToAdd.practitioners = Pension Schemes Online for Practitioners
-whichPensionSchemeToAdd.error.required = Select a scheme
-
-#######################################################
 ##  RegisterGBD
 #######################################################
 registerGBD.title = Register for the Gambling Tax System first
@@ -711,14 +702,14 @@ registerForPAYEIntermediaries.notnow = I do not want to do this now
 #######################################################
 ##  WhatEmployerTaxDoYouWantToAdd
 #######################################################
-whatEmployerTaxDoYouWantToAdd.title = Which employer tax do you want to add?
-whatEmployerTaxDoYouWantToAdd.heading = Which employer tax do you want to add?
+whatEmployerTaxDoYouWantToAdd.title = Which employer tax or scheme do you need?
+whatEmployerTaxDoYouWantToAdd.heading = Which employer tax or scheme do you need?
 whatEmployerTaxDoYouWantToAdd.epaye = PAYE for employers
 whatEmployerTaxDoYouWantToAdd.cis = Construction Industry Scheme (CIS)
-whatEmployerTaxDoYouWantToAdd.pension = Pension schemes
+whatEmployerTaxDoYouWantToAdd.pension = Pension Schemes Online for Practitioners
 whatEmployerTaxDoYouWantToAdd.ers = Employment related securities (ERS)
 whatEmployerTaxDoYouWantToAdd.intermediaries = Employment intermediaries (for agencies)
-whatEmployerTaxDoYouWantToAdd.error.required = Select a tax type
+whatEmployerTaxDoYouWantToAdd.error.required = Select which employer tax or scheme you need
 
 #######################################################
 ##  IsYourBusinessInUK
@@ -993,6 +984,15 @@ doYouHaveVATRegNumber.heading = Do you have a VAT registration number?
 doYouHaveVATRegNumber.Yes = Yes
 doYouHaveVATRegNumber.No = No
 doYouHaveVATRegNumber.error.required = Select yes if you have a VAT registration number
+
+#######################################################
+##  DoYouHaveCorpTaxUTR
+#######################################################
+doYouHaveCorpTaxUTR.title = Do you have a Corporation Tax Unique Taxpayer Reference (UTR)?
+doYouHaveCorpTaxUTR.heading = Do you have a Corporation Tax Unique Taxpayer Reference (UTR)?
+doYouHaveCorpTaxUTR.Yes = Yes
+doYouHaveCorpTaxUTR.No = No
+doYouHaveCorpTaxUTR.error.required = Select yes if you have a Corporation Tax Unique Taxpayer Reference (UTR)
 
 #######################################################
 ##  EnterSAUTR

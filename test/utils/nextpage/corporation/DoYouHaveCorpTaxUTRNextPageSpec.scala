@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-package utils.nextpage.employer.pension
+package utils.nextpage.corporation
 
-import models.employer.pension.WhichPensionSchemeToAdd
+import models.corporation.DoYouHaveCorpTaxUTR
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
-class WhichPensionSchemeToAddNextPageSpec extends NextPageSpecBase {
+class DoYouHaveCorpTaxUTRNextPageSpec extends NextPageSpecBase {
 
-  "WhichPensionSchemeToAdd" when {
+  "doYouHaveCorpTaxUTR" when {
     behave like nextPage(
-      NextPage.whichPensionSchemeToAdd,
-      WhichPensionSchemeToAdd.Administrators,
-      "http://localhost:8080/portal/service/pensions-administrators?action=enrol&step=hasid&lang=eng"
+      NextPage.doYouHaveCorpTaxUTR,
+      DoYouHaveCorpTaxUTR.Yes,
+      "http://localhost:9555/enrolment-management-frontend/IR-CT/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
 
     behave like nextPage(
-      NextPage.whichPensionSchemeToAdd,
-      WhichPensionSchemeToAdd.Practitioners,
-      "http://localhost:8080/portal/service/pensions-practitioners?action=enrol&step=hasid&lang=eng"
+      NextPage.doYouHaveCorpTaxUTR,
+      DoYouHaveCorpTaxUTR.No,
+      "http://localhost:8080/portal/business-registration/select-taxes?lang=eng"
     )
   }
 }

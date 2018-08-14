@@ -14,35 +14,31 @@
  * limitations under the License.
  */
 
-package controllers.employer.pension
+package controllers.corporation
 
 import play.api.data.Form
 import play.api.libs.json.JsString
 import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.{FakeNavigator, RadioOption}
+import utils.FakeNavigator
 import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import play.api.test.Helpers._
-import forms.employer.pension.WhichPensionSchemeToAddFormProvider
-import identifiers.WhichPensionSchemeToAddId
-import models.employer.pension.WhichPensionSchemeToAdd
-import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
-import play.api.mvc.{AnyContent, Call}
-import play.api.test.FakeRequest
+import forms.corporation.DoYouHaveCorpTaxUTRFormProvider
+import identifiers.DoYouHaveCorpTaxUTRId
+import models.corporation.DoYouHaveCorpTaxUTR
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
-import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
-import views.html.employer.pension.whichPensionSchemeToAdd
+import views.html.corporation.doYouHaveCorpTaxUTR
 
-class WhichPensionSchemeToAddControllerSpec extends ControllerSpecBase {
+class DoYouHaveCorpTaxUTRControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = controllers.routes.IndexController.onPageLoad()
 
-  val formProvider = new WhichPensionSchemeToAddFormProvider()
+  val formProvider = new DoYouHaveCorpTaxUTRFormProvider()
   val form = formProvider()
 
   def controller() =
-    new WhichPensionSchemeToAddController(
+    new DoYouHaveCorpTaxUTRController(
       frontendAppConfig,
       messagesApi,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
@@ -51,11 +47,9 @@ class WhichPensionSchemeToAddControllerSpec extends ControllerSpecBase {
       formProvider)
 
   def viewAsString(form: Form[_] = form) =
-    whichPensionSchemeToAdd(frontendAppConfig, form, WhichPensionSchemeToAdd.options)(HtmlFormat.empty)(
-      fakeRequest,
-      messages).toString
+    doYouHaveCorpTaxUTR(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  "WhichPensionSchemeToAdd Controller" must {
+  "DoYouHaveCorpTaxUTR Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad()(fakeRequest)
@@ -65,7 +59,7 @@ class WhichPensionSchemeToAddControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhichPensionSchemeToAdd.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveCorpTaxUTR.options.head.value))
 
       val result = controller().onSubmit()(postRequest)
 
@@ -89,7 +83,7 @@ class WhichPensionSchemeToAddControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    for (option <- WhichPensionSchemeToAdd.options) {
+    for (option <- DoYouHaveCorpTaxUTR.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
         val result = controller().onSubmit()(postRequest)
@@ -98,32 +92,5 @@ class WhichPensionSchemeToAddControllerSpec extends ControllerSpecBase {
         redirectLocation(result) mustBe Some(onwardRoute.url)
       }
     }
-  }
-
-  "radioOptions" must {
-
-    "not return PSA option if the user has HMRC-PSA-ORG" in {
-      val request = requestWithEnrolments("HMRC-PSA-ORG")
-      val result = controller().radioOptions(request)
-
-      result mustBe Set(RadioOption("whichPensionSchemeToAdd", "practitioners"))
-    }
-
-    "not return PP option if the user has HMRC-PP-ORG" in {
-      val request = requestWithEnrolments("HMRC-PP-ORG")
-      val result = controller().radioOptions(request)
-
-      result mustBe Set(RadioOption("whichPensionSchemeToAdd", "administrators"))
-    }
-
-    "return both PSA and PP option if the user has no enrolment" in {
-      val request = requestWithEnrolments("")
-      val result = controller().radioOptions(request)
-
-      result mustBe Set(
-        RadioOption("whichPensionSchemeToAdd", "administrators"),
-        RadioOption("whichPensionSchemeToAdd", "practitioners"))
-    }
-
   }
 }

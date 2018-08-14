@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-package forms.employer.pension
+package forms.corporation
 
 import forms.behaviours.FormBehaviours
 import models._
-import models.employer.pension._
+import models.corporation._
 
-class WhichPensionSchemeToAddFormProviderSpec extends FormBehaviours {
+class DoYouHaveCorpTaxUTRFormProviderSpec extends FormBehaviours {
 
   val validData: Map[String, String] = Map(
-    "value" -> WhichPensionSchemeToAdd.options.head.value
+    "value" -> DoYouHaveCorpTaxUTR.options.head.value
   )
 
-  val form = new WhichPensionSchemeToAddFormProvider()()
+  val form = new DoYouHaveCorpTaxUTRFormProvider()()
 
-  "WhichPensionSchemeToAdd form" must {
+  "DoYouHaveCorpTaxUTR form" must {
 
-    behave like questionForm[WhichPensionSchemeToAdd](WhichPensionSchemeToAdd.values.head)
+    behave like questionForm[DoYouHaveCorpTaxUTR](DoYouHaveCorpTaxUTR.values.head)
 
     behave like formWithOptionField(
-      Field("value", Required -> "whichPensionSchemeToAdd.error.required", Invalid -> "error.invalid"),
-      WhichPensionSchemeToAdd.options.toSeq.map(_.value): _*)
+      Field("value", Required -> "doYouHaveCorpTaxUTR.error.required", Invalid -> "error.invalid"),
+      DoYouHaveCorpTaxUTR.options.toSeq.map(_.value): _*)
   }
 }
