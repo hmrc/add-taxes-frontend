@@ -21,13 +21,14 @@ import javax.inject.Inject
 import config.FrontendAppConfig
 import connectors.EnrolmentStoreProxyConnector
 import controllers.actions._
-import controllers.sa.routes._
 import forms.sa.SAUTRFormProvider
+import identifiers.EnterSAUTRId
 import models.sa.SAUTR
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.{Action, AnyContent}
+import play.api.mvc.{Action, AnyContent, Call}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.Navigator
 import views.html.sa.enterSAUTR
 
 import scala.concurrent.Future
@@ -35,6 +36,7 @@ import scala.concurrent.Future
 class EnterSAUTRController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
+  navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfo: ServiceInfoAction,
   formProvider: SAUTRFormProvider,
@@ -48,16 +50,15 @@ class EnterSAUTRController @Inject()(
     Ok(enterSAUTR(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit = (authenticate andThen serviceInfo).async { implicit request =>
+  def onSubmit: Action[AnyContent] = (authenticate andThen serviceInfo).async { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[SAUTR]) =>
           Future(BadRequest(enterSAUTR(appConfig, formWithErrors)(request.serviceInfoContent))),
         saUTR =>
-          enrolmentStoreProxyConnector.checkExistingUTR(saUTR.value).map {
-            case false => Redirect(SelectSACategoryController.onPageLoad())
-            case true  => Redirect(appConfig.getBusinessAccountUrl("wrong-credentials"))
+          enrolmentStoreProxyConnector.checkExistingUTR(saUTR.value).map { enrolmentStoreResult =>
+            Redirect(navigator.nextPage(EnterSAUTRId, enrolmentStoreResult))
         }
       )
   }

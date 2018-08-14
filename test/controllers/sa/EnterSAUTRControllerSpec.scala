@@ -23,13 +23,18 @@ import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import views.html.sa.enterSAUTR
 import forms.sa.SAUTRFormProvider
+import models.sa.SAUTR
 import org.scalatest.mockito.MockitoSugar
 import org.mockito.Mockito.when
 import org.mockito.Matchers._
+import play.api.data.Form
+import utils.FakeNavigator
 
 import scala.concurrent.Future
 
 class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
+
+  def onwardRoute = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new SAUTRFormProvider()
 
@@ -41,12 +46,17 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
     new EnterSAUTRController(
       frontendAppConfig,
       messagesApi,
+      new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider,
-      mockEnrolmentStoreProxyConnector)
+      mockEnrolmentStoreProxyConnector
+    )
 
   def viewAsString() = enterSAUTR(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+
+  def viewAsString(form: Form[SAUTR] = form) =
+    enterSAUTR(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "EnterSAUTR Controller" must {
 
@@ -57,31 +67,34 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
       contentAsString(result) mustBe viewAsString()
     }
 
-    "return bad request when invalid data is provided" in {
-      val result = controller().onSubmit(fakeRequest)
+    "return bad request when invalid sa utr is provided" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid sa utr"))
+      val boundForm = form.bind(Map("value" -> "invalid sa utr"))
+
+      val result = controller().onSubmit()(postRequest)
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    "redirect to the wrong credentials page when valid data is submitted and is in the enrolment store" in {
+    "redirect when valid sa utr is submitted and is in the enrolment store" in {
       when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any())(any(), any())).thenReturn(Future.successful(true))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789"))
 
       val result = controller().onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("http://localhost:9020/business-account/wrong-credentials")
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
-    "redirect to the self-assessment page when valid data is submitted and is not in the enrolment store" in {
+    "redirect when valid sa utr is submitted and is NOT in the enrolment store" in {
       when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any())(any(), any())).thenReturn(Future.successful(false))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789"))
 
       val result = controller().onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment")
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
   }
 

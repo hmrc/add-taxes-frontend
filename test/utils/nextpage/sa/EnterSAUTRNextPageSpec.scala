@@ -16,7 +16,6 @@
 
 package utils.nextpage.sa
 
-import models.sa.SAUTR
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
@@ -26,18 +25,15 @@ class EnterSAUTRNextPageSpec extends NextPageSpecBase {
 
     behave like nextPage(
       NextPage.enterSAUTR,
-      SAUTR("0123456789"),
-      "www.somehwere.com"
+      true,
+      "http://localhost:9020/business-account/wrong-credentials"
     )
 
+    behave like nextPage(
+      NextPage.enterSAUTR,
+      false,
+      "/business-account/add-tax/self-assessment"
+    )
   }
 
 }
-
-//     behave like nextPageWithAffinityGroup(
-//NextPage.selectSACategory,
-//(SelectSACategory.Sa, Some(Organisation)),
-//SelectSACategory.Sa.toString,
-//"http://localhost:8080/portal/business-registration/introduction?lang=eng",
-//"organisation"
-//)

@@ -254,3 +254,4 @@ POST       /vat/moss-uk/vat-registered                  controllers.vat.moss.ukb
 
 
 GET        /self-assessment/enter-sa-utr                       controllers.sa.EnterSAUTRController.onPageLoad()
+POST       /self-assessment/enter-sa-utr                       controllers.sa.EnterSAUTRController.onSubmit()

@@ -15,6 +15,8 @@
  *@
 
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.play.views.html._
+@import controllers.sa.routes._
 @import models.sa.SAUTR
 
 @(appConfig: FrontendAppConfig, form: Form[SAUTR])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
@@ -22,7 +24,22 @@
 @main_template(
     title = messages("enterSAUTR.title"),
     appConfig = appConfig,
+    form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
     @components.heading("enterSAUTR.heading")
+
+    @helpers.form(action = EnterSAUTRController.onSubmit()) {
+
+        @components.error_summary(form.errors)
+
+        <p>@messages("enterSAUTR.p1")</p>
+
+        @components.input_text(
+            field = form("value"),
+            label = ""
+            )
+
+        @components.submit_button(gaEvent = "checkSaUtr")
+    }
 }

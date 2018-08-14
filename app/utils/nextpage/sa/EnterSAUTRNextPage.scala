@@ -17,17 +17,23 @@
 package utils.nextpage.sa
 
 import config.FrontendAppConfig
+import controllers.sa.routes.SelectSACategoryController
 import identifiers.EnterSAUTRId
 import play.api.mvc.{Call, Request}
 import utils.NextPage
-import models.sa.SAUTR
 
 trait EnterSAUTRNextPage {
 
-  implicit val enterSAUTR: NextPage[EnterSAUTRId.type, SAUTR, Call] = {
+  type EnrolmentStoreResult = Boolean
 
-    new NextPage[EnterSAUTRId.type, SAUTR, Call] {
-      override def get(b: SAUTR)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call = ???
+  implicit val enterSAUTR: NextPage[EnterSAUTRId.type, EnrolmentStoreResult, Call] = {
+
+    new NextPage[EnterSAUTRId.type, EnrolmentStoreResult, Call] {
+      override def get(b: EnrolmentStoreResult)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+        b match {
+          case false => SelectSACategoryController.onPageLoad()
+          case true  => Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials"))
+        }
     }
 
   }
