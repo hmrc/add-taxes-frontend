@@ -37,7 +37,8 @@
 
         @components.input_text(
             field = form("value"),
-            label = ""
+            label = messages("enterSAUTR.title"),
+            labelClass = Some("visuallyhidden")
             )
 
         @components.submit_button(gaEvent = "checkSaUtr")

@@ -40,11 +40,8 @@ class EnterSAUTRViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
   }
 
-  "SelectSACategory view" when {
+  "EnterSAUTR view" when {
     "rendered" must {
-
-      "contain text box" in {}
-
       "contain paragraph text" in {
         val doc = asDocument(createViewUsingForm(form))
 

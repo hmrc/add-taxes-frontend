@@ -23,9 +23,9 @@ import org.scalacheck.Gen
 import org.scalacheck.Gen._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import play.api.data.Form
-import scala.util.Random.shuffle
+import generators.ModelGenerators
 
-class SAUTRFormProviderSpec extends FormBehaviours with GeneratorDrivenPropertyChecks {
+class SAUTRFormProviderSpec extends FormBehaviours with GeneratorDrivenPropertyChecks with ModelGenerators {
 
   override val validData: Map[String, String] = Map("value" -> "0987654321")
   override val form: Form[_] = new SAUTRFormProvider()()
@@ -34,34 +34,12 @@ class SAUTRFormProviderSpec extends FormBehaviours with GeneratorDrivenPropertyC
   private val min = 0
   private val max = 9
 
-  val validGen: Gen[SAUTR] =
-    for {
-      digits <- listOfN(utrLength, choose(min, max))
-      spaces <- listOf(const(" "))
-      random = shuffle(digits ++ spaces)
-    } yield {
-      SAUTR(random.mkString)
-    }
+  val validGen: Gen[SAUTR] = saUtrGen(listOfN(utrLength, choose(min, max)))
 
   val invalidLengthGen: Gen[SAUTR] =
-    for {
-      digits <- listOf(choose(min, max))
-      if digits.length != utrLength && digits.nonEmpty
-      spaces <- listOf(const(" "))
-      random = shuffle(digits ++ spaces)
-    } yield {
-      SAUTR(random.mkString)
-    }
+    saUtrGen(listOf(choose(min, max)), (p: List[_]) => p.length != utrLength && p.nonEmpty)
 
-  val invalidCharGen: Gen[SAUTR] =
-    for {
-      chars <- listOfN(utrLength, asciiChar)
-      if !chars.contains(' ')
-      spaces <- listOf(const(" "))
-      random = shuffle(chars ++ spaces)
-    } yield {
-      SAUTR(random.mkString)
-    }
+  val invalidCharGen: Gen[SAUTR] = saUtrGen(listOfN(utrLength, asciiChar), (p: List[Any]) => !p.contains(' '))
 
   "SAUTRFormProver" must {
 

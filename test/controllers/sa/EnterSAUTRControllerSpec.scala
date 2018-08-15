@@ -86,16 +86,6 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
-
-    "redirect when valid sa utr is submitted and is NOT in the enrolment store" in {
-      when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any())(any(), any())).thenReturn(Future.successful(false))
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789"))
-
-      val result = controller().onSubmit()(postRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
-    }
   }
 
 }
