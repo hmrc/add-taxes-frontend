@@ -17,13 +17,13 @@
 package forms.sa
 
 import forms.behaviours.FormBehaviours
+import generators.ModelGenerators
 import models.sa.SAUTR
 import models.{Field, Required}
 import org.scalacheck.Gen
 import org.scalacheck.Gen._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import play.api.data.Form
-import generators.ModelGenerators
 
 class SAUTRFormProviderSpec extends FormBehaviours with GeneratorDrivenPropertyChecks with ModelGenerators {
 
