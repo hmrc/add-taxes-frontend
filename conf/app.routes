@@ -109,6 +109,12 @@ GET        /self-assessment/trust/not-registered        controllers.sa.trust.Reg
 GET        /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onPageLoad()
 POST       /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onSubmit()
 
+GET        /self-assessment/enter-sa-utr                controllers.sa.EnterSAUTRController.onPageLoad()
+POST       /self-assessment/enter-sa-utr                controllers.sa.EnterSAUTRController.onSubmit()
+
+GET        /self-assessment/have-sa-utr                 controllers.sa.DoYouHaveSAUTRController.onPageLoad()
+POST       /self-assessment/have-sa-utr                 controllers.sa.DoYouHaveSAUTRController.onSubmit()
+
 GET        /other/aeoi/register                         controllers.other.aeoi.RegisterAEOIController.onPageLoad()
 
 GET        /other/aeoi                                  controllers.other.aeoi.HaveYouRegisteredAEOIController.onPageLoad()

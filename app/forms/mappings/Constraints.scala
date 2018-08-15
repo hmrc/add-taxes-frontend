@@ -16,6 +16,7 @@
 
 package forms.mappings
 
+import play.api.data.validation
 import play.api.data.validation.{Constraint, Invalid, Valid}
 
 trait Constraints {
@@ -65,4 +66,11 @@ trait Constraints {
       case _ =>
         Invalid(errorKey, maximum)
     }
+
+  protected def length(length: Int, errorKey: String, sanitize: String => String = x => x): Constraint[String] =
+    Constraint {
+      case str if sanitize(str).length == length => Valid
+      case _                                     => Invalid(errorKey, length)
+    }
+
 }

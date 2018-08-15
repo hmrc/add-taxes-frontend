@@ -41,7 +41,7 @@ import utils.nextpage.other.importexports.{DoYouHaveEORINumberNextPage, DoYouWan
 import utils.nextpage.other.land.SelectATaxNextPage
 import utils.nextpage.other.land.stampduty.StampDutyNextPage
 import utils.nextpage.other.oil._
-import utils.nextpage.sa.SelectSACategoryNextPage
+import utils.nextpage.sa._
 import utils.nextpage.sa.partnership._
 import utils.nextpage.sa.trust.HaveYouRegisteredTrustNextPage
 import utils.nextpage.vat._
@@ -127,3 +127,5 @@ object NextPage
     with vatuk.AlreadyRegisteredForVATMossNextPage
     with DoYouHaveVATRegNumberNextPage
     with DoYouHaveCorpTaxUTRNextPage
+    with EnterSAUTRNextPage
+    with DoYouHaveSAUTRNextPage
