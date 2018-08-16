@@ -49,7 +49,7 @@ class AddVATFirstViewSpec extends ViewBehaviours with MockitoSugar with BeforeAn
       assertLinkById(
         doc,
         "not-now",
-        "I don’t want to do this right now",
+        "I do not want to do this right now",
         "http://localhost:9020/business-account",
         "VatMossUkAddVatToAccount:Click:NotNow"
       )
