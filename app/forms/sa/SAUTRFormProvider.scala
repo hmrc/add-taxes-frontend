@@ -23,16 +23,16 @@ import forms.mappings.Mappings
 import play.api.data.Form
 import play.api.data.Forms._
 import models.sa.SAUTR
+import models.sa.SAUTR._
 
 class SAUTRFormProvider @Inject() extends FormErrorHelper with Mappings {
-
-  private val utrLength = 10
 
   def apply(): Form[SAUTR] = Form(
     mapping(
       "value" -> text("enterSAUTR.error.required")
-        .verifying(length(utrLength, "enterSAUTR.error.length", _.replace(" ", "")))
-        .verifying(regexp("^([ \\d])+$", "enterSAUTR.error.characters"))
+        .transform[String](x => SAUTR(x).value, x => x)
+        .verifying(length(utrLength, "enterSAUTR.error.length"))
+        .verifying(regexp("^(\\d)+$", "enterSAUTR.error.characters"))
     )(SAUTR.apply)(SAUTR.unapply)
   )
 
