@@ -20,26 +20,33 @@ import forms.behaviours.FormBehaviours
 import generators.ModelGenerators
 import models.sa.SAUTR
 import models.{Field, Required}
-import org.scalacheck.Gen
+import org.scalacheck.{Gen, Shrink}
 import org.scalacheck.Gen._
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import play.api.data.Form
 
 class SAUTRFormProviderSpec extends FormBehaviours with GeneratorDrivenPropertyChecks with ModelGenerators {
 
+  implicit val noShrink: Shrink[String] = Shrink.shrinkAny
+
   override val validData: Map[String, String] = Map("value" -> "0987654321")
-  override val form: Form[_] = new SAUTRFormProvider()()
+  override val form: Form[SAUTR] = new SAUTRFormProvider()()
 
   private val utrLength = 10
+  private val utrLengthExtended = 13
   private val min = 0
   private val max = 9
 
-  val validGen: Gen[SAUTR] = saUtrGen(listOfN(utrLength, choose(min, max)))
+  val validGen: Gen[String] = saUtrGen(listOfN(utrLength, choose(min, max)))
 
-  val invalidLengthGen: Gen[SAUTR] =
-    saUtrGen(listOf(choose(min, max)), (p: List[_]) => p.length != utrLength && p.nonEmpty)
+  val validGenExtended: Gen[String] = saUtrGen(listOfN(utrLengthExtended, choose(min, max)))
 
-  val invalidCharGen: Gen[SAUTR] = saUtrGen(listOfN(utrLength, asciiChar), (p: List[Any]) => !p.contains(' '))
+  val invalidLengthGen: Gen[String] =
+    saUtrGen(
+      listOf(choose(min, max)),
+      (p: List[_]) => p.length != (utrLength) && p.length != utrLengthExtended && p.nonEmpty)
+
+  val invalidCharGen: Gen[String] = saUtrGen(listOfN(utrLength, asciiChar), (p: List[Any]) => !p.contains(' '))
 
   "SAUTRFormProver" must {
 
@@ -50,7 +57,7 @@ class SAUTRFormProviderSpec extends FormBehaviours with GeneratorDrivenPropertyC
     "fail for invalid lengths" in {
       forAll(invalidLengthGen) { value =>
         form
-          .bind(Map("value" -> value.value))
+          .bind(Map("value" -> value))
           .fold(
             formWithErrors => formWithErrors.error("value").map(_.message) shouldBe Some("enterSAUTR.error.length"),
             _ => fail("This form should not succeed")
@@ -61,7 +68,7 @@ class SAUTRFormProviderSpec extends FormBehaviours with GeneratorDrivenPropertyC
     "fail for invalid characters" in {
       forAll(invalidCharGen) { value =>
         form
-          .bind(Map("value" -> value.value))
+          .bind(Map("value" -> value))
           .fold(
             formWithErrors =>
               formWithErrors.errors("value").map(_.message) shouldBe List("enterSAUTR.error.characters"),
@@ -73,13 +80,24 @@ class SAUTRFormProviderSpec extends FormBehaviours with GeneratorDrivenPropertyC
     "pass for valid entries of digits and spaces" in {
       forAll(validGen) { value =>
         form
-          .bind(Map("value" -> value.value))
+          .bind(Map("value" -> value))
           .fold(
             formWithErrors => fail(s"This form should be valid, Error = ${formWithErrors.errors.map(_.message)}"),
-            form => form shouldBe value
+            sautr => sautr.value shouldBe SAUTR(value).value
           )
       }
     }
-  }
 
+    "pass for valid entries with extra 3 digits at the start and spaces" in {
+      forAll(validGenExtended) { value =>
+        form
+          .bind(Map("value" -> value))
+          .fold(
+            formWithErrors => fail(s"This form should be valid, Error = ${formWithErrors.errors.map(_.message)}"),
+            sautr => sautr.value shouldBe SAUTR(value).value
+          )
+      }
+    }
+
+  }
 }

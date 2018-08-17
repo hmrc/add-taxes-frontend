@@ -57,7 +57,7 @@ class EnterSAUTRController @Inject()(
         (formWithErrors: Form[SAUTR]) =>
           Future(BadRequest(enterSAUTR(appConfig, formWithErrors)(request.serviceInfoContent))),
         saUTR =>
-          enrolmentStoreProxyConnector.checkExistingUTR(saUTR.value.replace(" ", "")).map { enrolmentStoreResult =>
+          enrolmentStoreProxyConnector.checkExistingUTR(saUTR.value).map { enrolmentStoreResult =>
             Redirect(navigator.nextPage(EnterSAUTRId, enrolmentStoreResult))
         }
       )
