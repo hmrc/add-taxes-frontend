@@ -67,10 +67,10 @@ trait Constraints {
         Invalid(errorKey, maximum)
     }
 
-  protected def length(length: Int, errorKey: String, sanitize: String => String = x => x): Constraint[String] =
+  protected def length(length: Int, errorKey: String): Constraint[String] =
     Constraint {
-      case str if sanitize(str).length == length => Valid
-      case _                                     => Invalid(errorKey, length)
+      case str if str.length == length => Valid
+      case _                           => Invalid(errorKey, length)
     }
 
 }

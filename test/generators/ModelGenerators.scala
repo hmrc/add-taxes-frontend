@@ -31,7 +31,7 @@ trait ModelGenerators {
       spaces <- listOf(const(" "))
       random = shuffle(list ++ spaces)
     } yield {
-      SAUTR(random.mkString)
+      random.mkString
     }
 
 }

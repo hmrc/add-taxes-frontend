@@ -16,4 +16,19 @@
 
 package models.sa
 
-case class SAUTR(value: String)
+class SAUTR private (saUTR: String) {
+  val value: String = saUTR
+}
+
+object SAUTR {
+
+  val utrLength = 10
+
+  def apply(value: String): SAUTR =
+    value.replace(" ", "") match {
+      case s if s.length == 13 => new SAUTR(s.takeRight(utrLength))
+      case s                   => new SAUTR(s)
+    }
+
+  def unapply(saUTR: SAUTR): Option[String] = Some(saUTR.value)
+}
