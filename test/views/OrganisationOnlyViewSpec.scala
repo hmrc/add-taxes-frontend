@@ -70,7 +70,7 @@ class OrganisationOnlyViewSpec extends ViewBehaviours {
         assertLinkById(
           doc,
           "not-now",
-          "I do not want to do this right now",
+          "I do not want to do this now",
           "http://localhost:9020/business-account",
           "SetUpAccountbusinesstaxes:Click:NotNow")
       }
