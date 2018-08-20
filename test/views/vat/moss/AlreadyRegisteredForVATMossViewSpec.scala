@@ -50,7 +50,7 @@ class AlreadyRegisteredForVATMossViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
 
-        doc.text() must include("You’ll have received a VAT MOSS identification number if you’re already registered")
+        doc.text() must include("You will have a VAT MOSS identification number if you are already registered.")
 
         for (option <- AlreadyRegisteredForVATMoss.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
