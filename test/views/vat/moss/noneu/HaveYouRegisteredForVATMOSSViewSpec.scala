@@ -52,7 +52,7 @@ class HaveYouRegisteredForVATMOSSViewSpec extends ViewBehaviours {
       "contain sub text" in {
         val view = asDocument(createView()).text()
 
-        view must include("You’ll have received a VAT MOSS identification number if you’re already registered")
+        view must include("You will have a VAT MOSS identification number if you are already registered.")
       }
     }
 

@@ -45,8 +45,7 @@ class RegisteredForVATUkViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
 
-        doc.text() must include(
-          "You’ll have received a VAT registration number (VRN) from HMRC if you’re VAT registered in the UK")
+        doc.text() must include("You will have a VAT registration number if you are VAT registered in the UK.")
 
         for (option <- RegisteredForVATUk.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)

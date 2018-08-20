@@ -45,7 +45,7 @@ class OnlineVATAccountViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
 
-        doc.text() must include("You’ll have a separate User ID and password if you have another account for VAT")
+        doc.text() must include("You will have a different User ID and password if you have another account for VAT.")
 
         for (option <- OnlineVATAccount.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
