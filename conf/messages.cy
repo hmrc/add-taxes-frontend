@@ -471,7 +471,7 @@ registerForCharity.continue = Cofrestru fel elusen gyda CThEM
 #######################################################
 usePAYEEmployerAccount.title = Ychwanegu Cynllun y Diwydiant Adeiladu (CIS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
 usePAYEEmployerAccount.heading = Ychwanegu Cynllun y Diwydiant Adeiladu (CIS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
-usePAYEEmployerAccount.continue = Mewngofnodi i’r cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+usePAYEEmployerAccount.continue = Mewngofnodi i’ch cyfrif arall
 usePAYEEmployerAccount.addAccount = Rwyf eisiau ychwanegu CIS at y cyfrif hwn
 usePAYEEmployerAccount.p1 = Mewngofnodi i’ch cyfrif arall ac ychwanegu’r CIS.
 

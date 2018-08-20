@@ -487,7 +487,7 @@ registerForCharity.continue = Register with HMRC as a charity
 #######################################################
 usePAYEEmployerAccount.title = Add the Construction Industry Scheme (CIS) to the account you use for PAYE for employers
 usePAYEEmployerAccount.heading = Add the Construction Industry Scheme (CIS) to the account you use for PAYE for employers
-usePAYEEmployerAccount.continue = Sign in to the account you use for PAYE for employers
+usePAYEEmployerAccount.continue = Sign in to your other account
 usePAYEEmployerAccount.addAccount = I want to add CIS to this account
 usePAYEEmployerAccount.p1 = Sign in to your other account and add the CIS.
 
