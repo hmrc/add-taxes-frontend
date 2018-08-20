@@ -471,7 +471,7 @@ registerForCharity.continue = Cofrestru fel elusen gyda CThEM
 #######################################################
 usePAYEEmployerAccount.title = Ychwanegu Cynllun y Diwydiant Adeiladu (CIS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
 usePAYEEmployerAccount.heading = Ychwanegu Cynllun y Diwydiant Adeiladu (CIS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
-usePAYEEmployerAccount.continue = Mewngofnodi i’r cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+usePAYEEmployerAccount.continue = Mewngofnodi i’ch cyfrif arall
 usePAYEEmployerAccount.addAccount = Rwyf eisiau ychwanegu CIS at y cyfrif hwn
 usePAYEEmployerAccount.p1 = Mewngofnodi i’ch cyfrif arall ac ychwanegu’r CIS.
 
@@ -595,7 +595,7 @@ whichVATServicesToAdd.error.required = Dewis gwasanaeth TAW
 useEmployersPAYE.title = Ychwanegu gwarantau ar sail cyflogaeth (ERS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
 useEmployersPAYE.heading = Ychwanegu gwarantau ar sail cyflogaeth (ERS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
 useEmployersPAYE.subtext = Mewngofnodi i’ch cyfrif arall ac ychwanegu ERS.
-useEmployersPAYE.continue = Mewngofnodi i’r cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+useEmployersPAYE.continue = Mewngofnodi i’ch cyfrif arall
 useEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
 #######################################################
@@ -661,7 +661,7 @@ whatTypeOfSubcontractor.error.required = Dewiswch pa rai o’r rhain sy’n eich
 #######################################################
 usePAYEEmployerIntermediariesAccount.title = Ychwanegu cyfryngwyr cyflogaeth at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
 usePAYEEmployerIntermediariesAccount.heading = Ychwanegu cyfryngwyr cyflogaeth at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
-usePAYEEmployerIntermediariesAccount.continue = Mewngofnodi i’r cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
+usePAYEEmployerIntermediariesAccount.continue = Mewngofnodi i’ch cyfrif arall
 usePAYEEmployerIntermediariesAccount.addAccount = Rwyf eisiau ychwanegu cyfryngwyr at y cyfrif hwn
 usePAYEEmployerIntermediariesAccount.p1 = Bydd hynny’n ei wneud yn haws rheoli’r ddau gynllun.
 usePAYEEmployerIntermediariesAccount.p2 = Mewngofnodi i’ch cyfrif arall ac ychwanegu cyfryngwyr cyflogaeth.

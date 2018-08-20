@@ -38,14 +38,10 @@ class UsePAYEEmployerAccountViewSpec extends ViewBehaviours {
 
       view must include("Sign in to your other account and add the CIS.")
 
-      view must include("Sign in to the account you use for PAYE for employers")
-
-      view must include("I want to add CIS to this account")
-
       assertLinkById(
         doc,
         "continue",
-        "Sign in to the account you use for PAYE for employers",
+        "Sign in to your other account",
         "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fbusiness-account",
         "CisUkContractorEpayeOtherAccount:Click:SignIn"
       )
