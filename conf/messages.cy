@@ -58,7 +58,7 @@ selectAnOilService.heading = Pa wasanaeth olew sydd ei angen arnoch?
 selectAnOilService.title = Pa wasanaeth olew sydd ei angen arnoch?
 selectAnOilService.rebatedOilsEnquiryService = Gwasanaeth Ymholiadau Olew Ad-daliedig
 selectAnOilService.tiedOilsEnquiryService = Gwasanaeth Ymholiadau Olew ‘Tied’
-selectAnOilService.error.required = Dewiswch ba wasanaeth olew sydd ei angen arnoch
+selectAnOilService.error.required = Dewiswch pa wasanaeth olew sydd ei angen arnoch
 
 
 #######################################################
@@ -164,8 +164,8 @@ economicOperatorsRegistrationAndIdentification.error.required = Dewiswch ‘Iawn
 #######################################################
 ##  RegisterEORI
 #######################################################
-registerEORI.title = Mae angen rhif EORI arnoch i ychwanegu’r gwasanaeth hwn
-registerEORI.heading = Mae angen rhif EORI arnoch i ychwanegu’r gwasanaeth hwn
+registerEORI.title = Mae angen rhif Cofrestru ac Adnabod Gweithredwyr Economaidd (EORI) arnoch i ychwanegu’r gwasanaeth hwn
+registerEORI.heading = Mae angen rhif Cofrestru ac Adnabod Gweithredwyr Economaidd (EORI) arnoch i ychwanegu’r gwasanaeth hwn
 registerEORI.continue = Cael rhif EORI
 
 
@@ -478,8 +478,8 @@ usePAYEEmployerAccount.p1 = Mewngofnodi i’ch cyfrif arall ac ychwanegu’r CIS
 #######################################################
 ##  DoesBusinessManagePAYE
 #######################################################
-doesBusinessManagePAYE.title = A yw eich busnes yn rheoli TWE i gyflogwyr ar-lein?
-doesBusinessManagePAYE.heading = A yw eich busnes yn rheoli TWE i gyflogwyr ar-lein?
+doesBusinessManagePAYE.title = A yw’ch busnes yn rheoli TWE i gyflogwyr ar-lein?
+doesBusinessManagePAYE.heading = A yw’ch busnes yn rheoli TWE i gyflogwyr ar-lein?
 doesBusinessManagePAYE.p1 = Os ydych, cewch gyfrif ar-lein arall gyda CThEM, fel yr un hwn, gyda Dynodydd Defnyddiwr (ID) a chyfrinair gwahanol.
 doesBusinessManagePAYE.Yes = Iawn
 doesBusinessManagePAYE.No = Na
@@ -498,8 +498,8 @@ registerForPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 #######################################################
 ##  IsBusinessRegisteredForPAYE
 #######################################################
-isBusinessRegisteredForPAYE.title = A yw eich busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr?
-isBusinessRegisteredForPAYE.heading = A yw eich busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr?
+isBusinessRegisteredForPAYE.title = A yw’ch busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr?
+isBusinessRegisteredForPAYE.heading = A yw’ch busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr?
 isBusinessRegisteredForPAYE.Yes = Iawn
 isBusinessRegisteredForPAYE.No = Na
 isBusinessRegisteredForPAYE.error.required = Dewiswch ‘Iawn’ os yw’ch busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
@@ -628,8 +628,8 @@ registerInHomeCountry.callUs = ein ffonio.
 #######################################################
 ##  DoYouWantToBePaidNetOrGross
 #######################################################
-doYouWantToBePaidNetOrGross.title = A ydych eisiau cael eich talu’n net neu’n gros?
-doYouWantToBePaidNetOrGross.heading = A ydych eisiau cael eich talu’n net neu’n gros?
+doYouWantToBePaidNetOrGross.title = A ydych am gael eich talu’n net neu’n gros?
+doYouWantToBePaidNetOrGross.heading = A ydych am gael eich talu’n net neu’n gros?
 doYouWantToBePaidNetOrGross.subtext1 = Os cewch eich talu’n net, caiff 20% o’ch cyflog ei ddidynnu at ddibenion treth ac Yswiriant Gwladol.
 doYouWantToBePaidNetOrGross.subtext2 = Os ydych am gael eich talu’n gros, rhaid i chi {0} cyn mynd ymlaen
 doYouWantToBePaidNetOrGross.subtext2.anchorText = wirio eich bod yn gymwys i gael taliadau o’r fath
@@ -694,7 +694,7 @@ whatEmployerTaxDoYouWantToAdd.cis = Cynllun y Diwydiant Adeiladu (CIS)
 whatEmployerTaxDoYouWantToAdd.pension = Cynlluniau Pensiwn Ar-lein ar gyfer Gweinyddwyr
 whatEmployerTaxDoYouWantToAdd.ers = Gwarantau ar Sail Cyflogaeth (ERS)
 whatEmployerTaxDoYouWantToAdd.intermediaries = Cyfryngwyr cyflogaeth (ar gyfer asiantaethau)
-whatEmployerTaxDoYouWantToAdd.error.required = Dewiswch ba gynllun neu dreth i gyflogwr sydd ei angen arnoch
+whatEmployerTaxDoYouWantToAdd.error.required = Dewiswch pa gynllun neu dreth i gyflogwr sydd ei angen arnoch
 
 #######################################################
 ##  AreYouContractorOrSubcontractor
@@ -709,8 +709,8 @@ areYouContractorOrSubcontractor.p1=Os ydych y naill a’r llall, bydd angen i ch
 #######################################################
 ##  IsYourBusinessInUK
 #######################################################
-isYourBusinessInUK.title = A yw eich busnes wedi’i leoli yn y DU?
-isYourBusinessInUK.heading = A yw eich busnes wedi’i leoli yn y DU?
+isYourBusinessInUK.title = A yw’ch busnes wedi’i leoli yn y DU?
+isYourBusinessInUK.heading = A yw’ch busnes wedi’i leoli yn y DU?
 isYourBusinessInUK.Yes = Iawn
 isYourBusinessInUK.No = Na
 isYourBusinessInUK.error.required = Dewiswch ‘Iawn’ os yw’ch busnes wedi’i leoli yn y DU
