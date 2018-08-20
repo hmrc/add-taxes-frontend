@@ -379,20 +379,20 @@ registerForVAT.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 #######################################################
 onlineVATAccount.title = A oes gan eich busnes gyfrif CThEM ar-lein arall ar gyfer TAW?
 onlineVATAccount.heading = A oes gan eich busnes gyfrif CThEM ar-lein arall ar gyfer TAW?
-onlineVATAccount.p1 = Bydd gennych ID Defnyddiwr a chyfrinair ar wahân os oes gennych gyfrif arall ar gyfer TAW
-onlineVATAccount.Yes = Oes - mae cyfrif ar-lein arall ar gyfer TAW
-onlineVATAccount.No = Nac oes - does dim cyfrif ar-lein arall ar gyfer TAW
-onlineVATAccount.error.required = Dewis iawn neu na
+onlineVATAccount.p1 = Bydd gennych Ddynodydd Defnyddiwr (ID) a chyfrinair gwahanol os oes gennych gyfrif arall ar gyfer TAW.
+onlineVATAccount.Yes = Iawn
+onlineVATAccount.No = Na
+onlineVATAccount.error.required = Dewiswch ‘Iawn’ os oes gan eich busnes gyfrif CThEM ar-lein arall ar gyfer TAW
 
 #######################################################
 ##  RegisteredForVATUk
 #######################################################
 registeredForVATUk.title = A yw eich busnes wedi’i gofrestru ar gyfer TAW yn y DU?
 registeredForVATUk.heading = A yw eich busnes wedi’i gofrestru ar gyfer TAW yn y DU?
-registeredForVATUk.p1 = Byddwch wedi cael rhif cofrestru TAW (VRN) oddi wrth CThEM os ydych wedi cofrestru ar gyfer TAW yn y DU
-registeredForVATUk.Yes = Ydy - mae’r busnes wedi’i gofrestru ar gyfer TAW yn y DU
-registeredForVATUk.No = Nac ydy - nid yw’r busnes wedi’i gofrestru ar gyfer TAW yn y DU
-registeredForVATUk.error.required = Dewis iawn neu na
+registeredForVATUk.p1 = Bydd gennych rif cofrestru TAW os ydych wedi’ch cofrestru ar gyfer TAW yn y DU.
+registeredForVATUk.Yes = Iawn
+registeredForVATUk.No = Na
+registeredForVATUk.error.required = Dewiswch ‘Iawn’ os yw’r busnes wedi’i gofrestru ar gyfer TAW yn y DU
 
 
 #######################################################
@@ -532,20 +532,20 @@ whereIsYourBusinessBased.error.required = Dewis lleoliad
 #######################################################
 haveYouRegisteredForVATMOSS.title = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
 haveYouRegisteredForVATMOSS.heading = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
-haveYouRegisteredForVATMOSS.subtext = Byddwch wedi cael rhif adnabod GUC TAW os ydych eisoes wedi cofrestru
-haveYouRegisteredForVATMOSS.Yes = Ydw - rwyf eisoes wedi cofrestru ar gyfer GUC TAW
-haveYouRegisteredForVATMOSS.No = Nac ydw - nid wyf wedi cofrestru ar gyfer GUC TAW ar hyn o bryd
-haveYouRegisteredForVATMOSS.error.required = Dewis iawn neu na
+haveYouRegisteredForVATMOSS.subtext = Bydd gennych rif adnabod GUC TAW os ydych eisoes wedi’ch cofrestru.
+haveYouRegisteredForVATMOSS.Yes = Iawn
+haveYouRegisteredForVATMOSS.No = Na
+haveYouRegisteredForVATMOSS.error.required =  Dewiswch ‘Iawn’ os ydych eisoes wedi’ch cofrestru ar gyfer GUC TAW
 
 #######################################################
 ##  AlreadyRegisteredForVATMoss
 #######################################################
 alreadyRegisteredForVATMoss.title = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
 alreadyRegisteredForVATMoss.heading = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
-alreadyRegisteredForVATMoss.p1 = Byddwch wedi cael rhif adnabod GUC TAW os ydych eisoes wedi cofrestru
-alreadyRegisteredForVATMoss.Yes = Ydw - rwyf eisoes wedi cofrestru ar gyfer GUC TAW
-alreadyRegisteredForVATMoss.No = Nac ydw - nid wyf wedi cofrestru ar gyfer GUC TAW ar hyn o bryd
-alreadyRegisteredForVATMoss.error.required = Dewis iawn neu na
+alreadyRegisteredForVATMoss.p1 = Bydd gennych rif adnabod GUC TAW os ydych eisoes wedi’ch cofrestru.
+alreadyRegisteredForVATMoss.Yes = Iawn
+alreadyRegisteredForVATMoss.No = Na
+alreadyRegisteredForVATMoss.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi’ch cofrestru ar gyfer GUC TAW
 
 #######################################################
 ##  RegisterForVAT
@@ -562,9 +562,9 @@ registerForVAT.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 #######################################################
 registeredForVAT.title = A yw eich busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw?
 registeredForVAT.heading = A yw eich busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw?
-registeredForVAT.Yes = Ydy - mae’r busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw
-registeredForVAT.No = Nac ydy - nid yw’r busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw
-registeredForVAT.error.required = Dewis iawn neu na
+registeredForVAT.Yes = Iawn
+registeredForVAT.No = Na
+registeredForVAT.error.required = Dewiswch ‘Iawn’ os yw’r busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw
 
 #######################################################
 ##  RegisteredForVATECSales

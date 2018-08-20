@@ -396,20 +396,20 @@ registerForVAT.notnow = I do not want to do this now
 #######################################################
 onlineVATAccount.title = Does your business have another online HMRC account for VAT?
 onlineVATAccount.heading = Does your business have another online HMRC account for VAT?
-onlineVATAccount.p1 = You’ll have a separate User ID and password if you have another account for VAT
-onlineVATAccount.Yes = Yes - there’s another online account for VAT
-onlineVATAccount.No = No - there isn’t another online account for VAT
-onlineVATAccount.error.required = Select yes or no
+onlineVATAccount.p1 = You will have a different User ID and password if you have another account for VAT.
+onlineVATAccount.Yes = Yes
+onlineVATAccount.No = No
+onlineVATAccount.error.required = Select yes if your business has another online HMRC account for VAT
 
 #######################################################
 ##  RegisteredForVATUk
 #######################################################
 registeredForVATUk.title = Is your business registered for VAT in the UK?
 registeredForVATUk.heading = Is your business registered for VAT in the UK?
-registeredForVATUk.p1 = You’ll have received a VAT registration number (VRN) from HMRC if you’re VAT registered in the UK
-registeredForVATUk.Yes = Yes - the business is registered for VAT in the UK
-registeredForVATUk.No = No - the business isn’t VAT registered in the UK
-registeredForVATUk.error.required = Select yes or no
+registeredForVATUk.p1 = You will have a VAT registration number if you are VAT registered in the UK.
+registeredForVATUk.Yes = Yes
+registeredForVATUk.No = No
+registeredForVATUk.error.required = Select yes if the business is registered for VAT in the UK
 
 #######################################################
 ##  RegisterMGD
@@ -546,10 +546,10 @@ whereIsYourBusinessBased.error.required = Select a location
 #######################################################
 alreadyRegisteredForVATMoss.title = Have you already registered for VAT MOSS?
 alreadyRegisteredForVATMoss.heading = Have you already registered for VAT MOSS?
-alreadyRegisteredForVATMoss.p1 = You’ll have received a VAT MOSS identification number if you’re already registered
-alreadyRegisteredForVATMoss.Yes = Yes - I’ve already registered for VAT MOSS
-alreadyRegisteredForVATMoss.No = No - I’m not registered for VAT MOSS yet
-alreadyRegisteredForVATMoss.error.required = Select yes or no
+alreadyRegisteredForVATMoss.p1 = You will have a VAT MOSS identification number if you are already registered.
+alreadyRegisteredForVATMoss.Yes = Yes
+alreadyRegisteredForVATMoss.No = No
+alreadyRegisteredForVATMoss.error.required = Select yes if your business is registered for VAT MOSS
 
 #######################################################
 ##  RegisterForVAT
@@ -566,19 +566,19 @@ registerForVAT.notnow = I do not want to do this now
 #######################################################
 registeredForVAT.title = Is your business registered for VAT on the Isle of Man?
 registeredForVAT.heading = Is your business registered for VAT on the Isle of Man?
-registeredForVAT.Yes = Yes - the business is registered for VAT on the Isle of Man?
-registeredForVAT.No = No - the business isn’t VAT registered on the Isle of Man?
-registeredForVAT.error.required = Select yes or no
+registeredForVAT.Yes = Yes
+registeredForVAT.No = No
+registeredForVAT.error.required = Select yes if your business is registered for VAT on the Isle of Man
 
 #######################################################
 ##  HaveYouRegisteredForVATMOSS
 #######################################################
 haveYouRegisteredForVATMOSS.title = Have you already registered for VAT MOSS?
 haveYouRegisteredForVATMOSS.heading = Have you already registered for VAT MOSS?
-haveYouRegisteredForVATMOSS.subtext = You’ll have received a VAT MOSS identification number if you’re already registered
-haveYouRegisteredForVATMOSS.Yes = Yes - I’ve already registered for VAT MOSS
-haveYouRegisteredForVATMOSS.No = No - I’m not registered for VAT MOSS yet
-haveYouRegisteredForVATMOSS.error.required = Select yes or no
+haveYouRegisteredForVATMOSS.subtext = You will have a VAT MOSS identification number if you are already registered.
+haveYouRegisteredForVATMOSS.Yes = Yes
+haveYouRegisteredForVATMOSS.No = No
+haveYouRegisteredForVATMOSS.error.required = Select yes if you have already registered for VAT MOSS
 
 #######################################################
 ##  RegisteredForVATECSales
