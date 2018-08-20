@@ -38,7 +38,7 @@ class UseEmployersPAYEViewSpec extends ViewBehaviours {
       assertLinkById(
         doc,
         "continue",
-        "Sign in to the account you use for PAYE for employers",
+        "Sign in to your other account",
         "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fbusiness-account",
         "AddErsOtherAccount:Click:SignIn"
       )
