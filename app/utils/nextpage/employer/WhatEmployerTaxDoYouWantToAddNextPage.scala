@@ -20,6 +20,7 @@ import config.FrontendAppConfig
 import controllers.employer.ers.{routes => ersRoutes}
 import controllers.employer.intermediaries.{routes => intRoutes}
 import controllers.employer.cis.{routes => cisRoutes}
+import controllers.employer.pension.{routes => pensionRoutes}
 import identifiers.WhatEmployerTaxDoYouWantToAddId
 import models.employer.WhatEmployerTaxDoYouWantToAdd
 import play.api.mvc.{Call, Request}
@@ -42,7 +43,7 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
           case (WhatEmployerTaxDoYouWantToAdd.CIS, _) =>
             cisRoutes.IsYourBusinessInUKController.onPageLoad()
           case (WhatEmployerTaxDoYouWantToAdd.PS, _) =>
-            Call("GET", appConfig.getPortalUrl("pensionPractitioners"))
+            pensionRoutes.DoYouHavePractitionerIDController.onPageLoad()
           case (WhatEmployerTaxDoYouWantToAdd.ERS, HmrcEnrolmentType.EPAYE()) =>
             Call("GET", appConfig.getPortalUrl("enrolERS"))
           case (WhatEmployerTaxDoYouWantToAdd.ERS, _) =>
