@@ -1011,3 +1011,12 @@ doYouHaveSAUTR.heading = Do you have a Self Assessment Unique Taxpayer Reference
 doYouHaveSAUTR.Yes = Yes
 doYouHaveSAUTR.No = No
 doYouHaveSAUTR.error.required = Select yes if you have a Self Assessment Unique Taxpayer Reference (UTR)
+
+#######################################################
+##  DoYouHaveActivationToken
+#######################################################
+doYouHaveActivationToken.title = Do you have an activation token?
+doYouHaveActivationToken.heading = Do you have an activation token?
+doYouHaveActivationToken.Yes = Yes
+doYouHaveActivationToken.No = No
+doYouHaveActivationToken.error.required = Select yes if you have an activation token

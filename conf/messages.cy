@@ -1009,3 +1009,12 @@ doYouHaveSAUTR.heading = A oes gennych Gyfeirnod Unigryw y Trethdalwr (UTR) ar g
 doYouHaveSAUTR.Yes = Iawn
 doYouHaveSAUTR.No = Na
 doYouHaveSAUTR.error.required = Dewiswch ‘Iawn’ os oes gennych Gyfeirnod Unigryw y Trethdalwr ar gyfer Hunanasesiad
+
+#######################################################
+##  DoYouHaveActivationToken
+#######################################################
+doYouHaveActivationToken.title = A oes gennych docyn cychwyn?
+doYouHaveActivationToken.heading = A oes gennych docyn cychwyn?
+doYouHaveActivationToken.Yes = Iawn
+doYouHaveActivationToken.No = Na
+doYouHaveActivationToken.error.required = Dewiswch ‘Iawn’ os oes gennych docyn cychwyn

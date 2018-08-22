@@ -129,3 +129,4 @@ object NextPage
     with DoYouHaveCorpTaxUTRNextPage
     with EnterSAUTRNextPage
     with DoYouHaveSAUTRNextPage
+    with utils.nextpage.employer.pension.DoYouHaveActivationTokenNextPage
