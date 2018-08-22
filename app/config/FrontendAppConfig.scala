@@ -111,4 +111,7 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   lazy val checkUtrHost: String = runModeConfiguration.getString("enrolment-store-proxy.host").getOrElse("")
   def checkUtrUrl(utr: String): String =
     s"$checkUtrHost/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=principal"
+
+  lazy val pensionsHost: String = loadConfig("urls.external.pensions.host")
+  def getPensionsUrl(key: String): String = pensionsHost + loadConfig(s"urls.external.pensions.$key")
 }

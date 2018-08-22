@@ -130,3 +130,4 @@ object NextPage
     with EnterSAUTRNextPage
     with DoYouHaveSAUTRNextPage
     with utils.nextpage.employer.pension.DoYouHaveActivationTokenNextPage
+    with utils.nextpage.employer.pension.DoYouHavePractitionerIDNextPage

@@ -1018,3 +1018,20 @@ doYouHaveActivationToken.heading = A oes gennych docyn cychwyn?
 doYouHaveActivationToken.Yes = Iawn
 doYouHaveActivationToken.No = Na
 doYouHaveActivationToken.error.required = Dewiswch ‘Iawn’ os oes gennych docyn cychwyn
+
+#######################################################
+##  DoYouHavePractitionerID
+#######################################################
+doYouHavePractitionerID.title = A oes gennych Ddynodydd (ID) Ymarferydd Cynllun?
+doYouHavePractitionerID.heading = A oes gennych Ddynodydd (ID) Ymarferydd Cynllun?
+doYouHavePractitionerID.Yes = Iawn
+doYouHavePractitionerID.No = Na
+doYouHavePractitionerID.error.required = Dewiswch ‘Iawn’ os oes gennych Ddynodydd (ID) Ymarferydd Cynllun
+
+#######################################################
+##  ApplyForPractitionerID
+#######################################################
+applyForPractitionerID.title = Mae angen Dynodydd (ID) Ymarferydd Cynllun arnoch er mwyn ychwanegu’r cynllun pensiwn hwn at eich cyfrif
+applyForPractitionerID.heading = Mae angen Dynodydd (ID) Ymarferydd Cynllun arnoch er mwyn ychwanegu’r cynllun pensiwn hwn at eich cyfrif
+applyForPractitionerID.continue = Gwneud cais am Ddynodydd (ID) Ymarferydd Cynllun
+applyForPractitionerID.p1 = Pan fyddwch yn cael y Dynodydd (ID) hwn, mewngofnodwch i’ch cyfrif ac ychwanegwch Cynlluniau Pensiwn Ar-lein ar gyfer Ymarferwyr.

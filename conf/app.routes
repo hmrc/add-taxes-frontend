@@ -260,3 +260,8 @@ POST       /corporation-tax/have-utr                    controllers.corporation.
 
 GET        /employer/pension/activation-token                  controllers.employer.pension.DoYouHaveActivationTokenController.onPageLoad()
 POST       /employer/pension/activation-token                  controllers.employer.pension.DoYouHaveActivationTokenController.onSubmit()
+
+GET        /employer/pension/practitioner-ID                  controllers.employer.pension.DoYouHavePractitionerIDController.onPageLoad()
+POST       /employer/pension/practitioner-ID                  controllers.employer.pension.DoYouHavePractitionerIDController.onSubmit()
+
+GET        /employer/pension/practitioner/apply                       controllers.employer.pension.ApplyForPractitionerIDController.onPageLoad()
