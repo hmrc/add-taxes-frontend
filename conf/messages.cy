@@ -483,7 +483,7 @@ doesBusinessManagePAYE.heading = A yw’ch busnes yn rheoli TWE i gyflogwyr ar-l
 doesBusinessManagePAYE.p1 = Os ydych, cewch gyfrif ar-lein arall gyda CThEM, fel yr un hwn, gyda Dynodydd Defnyddiwr (ID) a chyfrinair gwahanol.
 doesBusinessManagePAYE.Yes = Iawn
 doesBusinessManagePAYE.No = Na
-doesBusinessManagePAYE.error.required = Dewiswch ‘Iawn’ os yw’ch busnes yn rheoli TWE i gyflogwyr ar-lein
+doesBusinessManagePAYE.error.required = Dewiswch ‘Iawn’ os yw’ch busnes yn rheoli TWE i gyflogwyr ar‑lein
 
 
 #######################################################
