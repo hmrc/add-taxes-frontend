@@ -649,12 +649,12 @@ wasTurnoverMoreAfterVAT.error.required = Dewiswch ‘Iawn’ os oedd eich trosia
 #######################################################
 ##  WhatTypeOfSubcontractor
 #######################################################
-whatTypeOfSubcontractor.title = 	Pa rai o’r rhain sy’n eich disgrifio orau?
-whatTypeOfSubcontractor.heading = 	Pa rai o’r rhain sy’n eich disgrifio orau?
+whatTypeOfSubcontractor.title = 	Pa un o’r rhain sy’n eich disgrifio orau?
+whatTypeOfSubcontractor.heading = 	Pa un o’r rhain sy’n eich disgrifio orau?
 whatTypeOfSubcontractor.soleTrader = Unig fasnachwr
 whatTypeOfSubcontractor.partnership = Partneriaeth
 whatTypeOfSubcontractor.limitedCompany = Cwmni cyfyngedig
-whatTypeOfSubcontractor.error.required = Dewiswch pa rai o’r rhain sy’n eich disgrifio orau
+whatTypeOfSubcontractor.error.required = Dewiswch pa un o’r rhain sy’n eich disgrifio orau
 
 #######################################################
 ##  UsePAYEEmployerIntermediariesAccount
