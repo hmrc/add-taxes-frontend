@@ -649,8 +649,8 @@ wasTurnoverMoreAfterVAT.error.required = Dewiswch ‘Iawn’ os oedd eich trosia
 #######################################################
 ##  WhatTypeOfSubcontractor
 #######################################################
-whatTypeOfSubcontractor.title = 	Pa un o’r rhain sy’n eich disgrifio orau?
-whatTypeOfSubcontractor.heading = 	Pa un o’r rhain sy’n eich disgrifio orau?
+whatTypeOfSubcontractor.title = Pa un o’r rhain sy’n eich disgrifio orau?
+whatTypeOfSubcontractor.heading = Pa un o’r rhain sy’n eich disgrifio orau?
 whatTypeOfSubcontractor.soleTrader = Unig fasnachwr
 whatTypeOfSubcontractor.partnership = Partneriaeth
 whatTypeOfSubcontractor.limitedCompany = Cwmni cyfyngedig
