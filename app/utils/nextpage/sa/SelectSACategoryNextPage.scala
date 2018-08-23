@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import identifiers.SelectSACategoryId
 import models.sa.SelectSACategory
 import play.api.mvc.{Call, Request}
-import utils.NextPage
+import utils.{Enrolments, NextPage}
 import controllers.sa.partnership.{routes => saPartnerRoutes}
 import controllers.sa.trust.{routes => trustRoutes}
 import uk.gov.hmrc.auth.core.AffinityGroup
@@ -37,7 +37,7 @@ trait SelectSACategoryNextPage {
         request: Request[_]): Call =
         (saCategory._1, saCategory._2) match {
 
-          case (SelectSACategory.Sa, _) => Call("GET", appConfig.getPortalUrl("businessRegistration"))
+          case (SelectSACategory.Sa, _) => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.SA))
 
           case (SelectSACategory.Partnership, Some(AffinityGroup.Organisation)) =>
             saPartnerRoutes.DoYouWantToAddPartnerController.onPageLoad()
