@@ -27,7 +27,8 @@ import play.api.mvc.Request
 @Singleton
 class FrontendAppConfig @Inject()(override val runModeConfiguration: Configuration, environment: Environment)
     extends ServicesConfig
-    with PortalUrlBuilder {
+    with PortalUrlBuilder
+    with FeatureToggles {
 
   override protected def mode = environment.mode
 
@@ -55,6 +56,10 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
 
   lazy val authUrl = baseUrl("auth")
   lazy val btaUrl = baseUrl("business-tax-account")
+
+  private lazy val stampDutyEnrollmentHost = loadConfig("stamp-duty-land-tax-enrolment-frontend.host")
+  def getStampDutyUrl(key: String) =
+    stampDutyEnrollmentHost + loadConfig(s"stamp-duty-land-tax-enrolment-frontend.$key")
 
   private lazy val businessAccountHost = runModeConfiguration.getString("urls.business-account.host").getOrElse("")
   def getBusinessAccountUrl(key: String): String = businessAccountHost + loadConfig(s"urls.business-account.$key")
@@ -111,4 +116,13 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   lazy val checkUtrHost: String = runModeConfiguration.getString("enrolment-store-proxy.host").getOrElse("")
   def checkUtrUrl(utr: String): String =
     s"$checkUtrHost/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=principal"
+}
+
+trait FeatureToggles {
+  val runModeConfiguration: Configuration
+
+  private def featureEnabled(key: String): Boolean =
+    runModeConfiguration.getBoolean(s"feature-toggles.$key").getOrElse(false)
+
+  lazy val stampDutyEnabled: Boolean = featureEnabled("stampduty")
 }
