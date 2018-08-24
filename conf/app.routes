@@ -265,3 +265,5 @@ POST       /vat/moss-uk/vat-registered                  controllers.vat.moss.ukb
 
 GET        /corporation-tax/have-utr                    controllers.corporation.DoYouHaveCorpTaxUTRController.onPageLoad()
 POST       /corporation-tax/have-utr                    controllers.corporation.DoYouHaveCorpTaxUTRController.onSubmit()
+
+GET        /employer/pension/need-activation-token                       controllers.employer.pension.RequestActivationTokenController.onPageLoad()

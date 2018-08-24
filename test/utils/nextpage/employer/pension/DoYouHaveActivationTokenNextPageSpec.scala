@@ -32,7 +32,7 @@ class DoYouHaveActivationTokenNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.doYouHaveActivationToken,
       DoYouHaveActivationToken.No,
-      "http://localhost:9555/enrolment-management-frontend/HMRC-PP-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+      "/business-account/add-tax/employer/pension/need-activation-token"
     )
   }
 }
