@@ -16,18 +16,15 @@
 
 package controllers.employer.pension
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions._
 import forms.employer.pension.DoYouHaveActivationTokenFormProvider
-import identifiers.DoYouHaveActivationTokenId
 import models.employer.pension.DoYouHaveActivationToken
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.employer.pension.doYouHaveActivationToken
 
 class DoYouHaveActivationTokenControllerSpec extends ControllerSpecBase {

@@ -246,6 +246,8 @@ POST       /employer/pension/practitioner-ID            controllers.employer.pen
 
 GET        /employer/pension/practitioner/apply         controllers.employer.pension.ApplyForPractitionerIDController.onPageLoad()
 
+GET        /employer/pension/need-activation-token      controllers.employer.pension.RequestActivationTokenController.onPageLoad()
+
 GET        /self-assessment/trust/new-account           controllers.sa.trust.SetUpNewAccountController.onPageLoad()
 GET        /self-assessment/partnership/new-account     controllers.sa.partnership.SetUpNewAccountController.onPageLoad()
 
@@ -266,4 +268,3 @@ POST       /vat/moss-uk/vat-registered                  controllers.vat.moss.ukb
 GET        /corporation-tax/have-utr                    controllers.corporation.DoYouHaveCorpTaxUTRController.onPageLoad()
 POST       /corporation-tax/have-utr                    controllers.corporation.DoYouHaveCorpTaxUTRController.onSubmit()
 
-GET        /employer/pension/need-activation-token                       controllers.employer.pension.RequestActivationTokenController.onPageLoad()
