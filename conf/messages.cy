@@ -483,7 +483,7 @@ doesBusinessManagePAYE.heading = A yw’ch busnes yn rheoli TWE i gyflogwyr ar-l
 doesBusinessManagePAYE.p1 = Os ydych, cewch gyfrif ar-lein arall gyda CThEM, fel yr un hwn, gyda Dynodydd Defnyddiwr (ID) a chyfrinair gwahanol.
 doesBusinessManagePAYE.Yes = Iawn
 doesBusinessManagePAYE.No = Na
-doesBusinessManagePAYE.error.required = Dewiswch ‘Iawn’ os yw’ch busnes yn rheoli TWE i gyflogwyr ar-lein
+doesBusinessManagePAYE.error.required = Dewiswch ‘Iawn’ os yw’ch busnes yn rheoli TWE i gyflogwyr ar‑lein
 
 
 #######################################################
@@ -649,12 +649,12 @@ wasTurnoverMoreAfterVAT.error.required = Dewiswch ‘Iawn’ os oedd eich trosia
 #######################################################
 ##  WhatTypeOfSubcontractor
 #######################################################
-whatTypeOfSubcontractor.title = 	Pa rai o’r rhain sy’n eich disgrifio orau?
-whatTypeOfSubcontractor.heading = 	Pa rai o’r rhain sy’n eich disgrifio orau?
+whatTypeOfSubcontractor.title = Pa un o’r rhain sy’n eich disgrifio orau?
+whatTypeOfSubcontractor.heading = Pa un o’r rhain sy’n eich disgrifio orau?
 whatTypeOfSubcontractor.soleTrader = Unig fasnachwr
 whatTypeOfSubcontractor.partnership = Partneriaeth
 whatTypeOfSubcontractor.limitedCompany = Cwmni cyfyngedig
-whatTypeOfSubcontractor.error.required = Dewiswch pa rai o’r rhain sy’n eich disgrifio orau
+whatTypeOfSubcontractor.error.required = Dewiswch pa un o’r rhain sy’n eich disgrifio orau
 
 #######################################################
 ##  UsePAYEEmployerIntermediariesAccount
