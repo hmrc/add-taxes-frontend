@@ -47,7 +47,7 @@ trait WhichVATServicesToAddNextPage {
         serviceToAdd match {
           case WhichVATServicesToAdd.VAT       => vatRoutes.DoYouHaveVATRegNumberController.onPageLoad()
           case WhichVATServicesToAdd.ECSales   => getECSalesCall(enrolments)
-          case WhichVATServicesToAdd.GIANT     => giantRoutes.WhatIsYourOrganisationController.onPageLoad()
+          case WhichVATServicesToAdd.GIANT     => getVATGIANTCall(affinity)
           case WhichVATServicesToAdd.EURefunds => getEURefundsCall(enrolments)
           case WhichVATServicesToAdd.RCSL      => getRCSLCall(enrolments)
           case WhichVATServicesToAdd.MOSS      => getVATMOSSCall(affinity, enrolments)
@@ -61,6 +61,12 @@ trait WhichVATServicesToAddNextPage {
     enrolments match {
       case HmrcEnrolmentType.VAT() => Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.ECSales))
       case _                       => ecRoutes.RegisteredForVATECSalesController.onPageLoad()
+    }
+
+  def getVATGIANTCall(affinity: Option[AffinityGroup]): Call =
+    affinity match {
+      case Some(AffinityGroup.Individual) => giantRoutes.SetupNewAccountController.onPageLoad()
+      case _                              => giantRoutes.WhatIsYourOrganisationController.onPageLoad()
     }
 
   def getEURefundsCall(enrolments: Enrolments)(implicit appConfig: FrontendAppConfig): Call =

@@ -1011,6 +1011,16 @@ doYouHaveSAUTR.No = Na
 doYouHaveSAUTR.error.required = Dewiswch ‘Iawn’ os oes gennych Gyfeirnod Unigryw y Trethdalwr ar gyfer Hunanasesiad
 
 #######################################################
+##  SetupNewAccount
+#######################################################
+setupNewAccount.title = Sefydlu cyfrif newydd
+setupNewAccount.heading = Sefydlu cyfrif newydd
+setupNewAccount.p1 = Mae hwn yn gyfrif ‘Unigolyn’
+setupNewAccount.p2 = Dim ond at gyfrif ‘Sefydliad’ y gallwch ychwanegu VAT GIANT.
+setupNewAccount.continue = Allgofnodwch a chreu cyfrif ‘Sefydliad’
+setupNewAccount.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
 ##  DoYouHaveActivationToken
 #######################################################
 doYouHaveActivationToken.title = A oes gennych docyn cychwyn?
@@ -1044,3 +1054,4 @@ requestActivationToken.heading = Gofyn am gael cyrchu Cynlluniau Pensiwn Ar-lein
 requestActivationToken.continue = Parhau
 requestActivationToken.p1 = Byddwn yn ei anfon drwy’r post cyn pen 7 diwrnod.
 requestActivationToken.p2 = Pan gewch y tocyn, gallwch fewngofnodi i’ch cyfrif a defnyddio’r gwasanaeth hwn.
+
