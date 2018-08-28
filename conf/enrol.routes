@@ -1,0 +1,3 @@
+# microservice specific routes
+
+GET        /                             controllers.enrolment.EnrolmentProxyController.onPageLoad()
