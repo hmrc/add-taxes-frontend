@@ -19,10 +19,10 @@ package controllers.enrolment
 import javax.inject.Inject
 
 import config.FrontendAppConfig
-
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.Enrolments
 
 class EnrolmentProxyController @Inject()(
   appConfig: FrontendAppConfig,
@@ -33,7 +33,7 @@ class EnrolmentProxyController @Inject()(
     with I18nSupport {
 
   def onPageLoad() = (authenticate andThen serviceInfo) { implicit request =>
-    Redirect(appConfig.sharedWorkspaceIndividualEnrolmentUrl)
+    Redirect(appConfig.emacEnrollmentsUrl(Enrolments.ECW))
   }
 
 }

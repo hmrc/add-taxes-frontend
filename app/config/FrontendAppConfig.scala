@@ -103,9 +103,6 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   def emacEnrollmentsUrl(enrolment: Enrolments): String =
     s"$enrolmentManagementFrontendHost/enrolment-management-frontend/$enrolment/request-access-tax-scheme?continue=%2Fbusiness-account"
 
-  lazy val sharedWorkspaceIndividualEnrolmentUrl: String =
-    s"$enrolmentManagementFrontendHost/enrolment-management-frontend/HMRC-ECW-IND/request-access-tax-scheme?continue=%2Fbusiness-account"
-
   def emacDeenrolmentsUrl(enrolment: Enrolments): String =
     s"$enrolmentManagementFrontendHost/enrolment-management-frontend/$enrolment/remove-access-tax-scheme?continue=%2Fbusiness-account"
 
