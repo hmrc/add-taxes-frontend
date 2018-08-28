@@ -1015,5 +1015,7 @@ doYouHaveSAUTR.error.required = Dewiswch ‘Iawn’ os oes gennych Gyfeirnod Uni
 #######################################################
 setupNewAccount.title = Sefydlu cyfrif newydd
 setupNewAccount.heading = Sefydlu cyfrif newydd
+setupNewAccount.p1 = Mae hwn yn gyfrif ‘Unigolyn’
+setupNewAccount.p2 = Dim ond at gyfrif ‘Sefydliad’ y gallwch ychwanegu VAT GIANT.
 setupNewAccount.continue = Allgofnodwch a chreu cyfrif ‘Sefydliad’
 setupNewAccount.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd

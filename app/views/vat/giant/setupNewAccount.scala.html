@@ -26,9 +26,12 @@
 
     @components.heading("setupNewAccount.heading")
 
+    <p>@messages("setupNewAccount.p1")</p>
+    <p>@messages("setupNewAccount.p2")</p>
+
     <p>
         <a id="continue"
-           href='#'
+           href='@appConfig.getGGRegistrationUrl("registerOrg")'
            class="button"
            data-journey-click="VatGiant:Click:SignOut">
 

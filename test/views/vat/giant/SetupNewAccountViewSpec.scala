@@ -33,11 +33,14 @@ class SetupNewAccountViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       val view = doc.text()
 
+      view must include("This is an Individual account.")
+      view must include("You can only add VAT GIANT to an ‘Organisation’ account.")
+
       assertLinkById(
         doc,
         "continue",
         "Sign out and create ‘Organisation’ account",
-        "???",
+        "http://localhost:8571/government-gateway-registration-frontend?accountType=organisation&continue=%2Fbusiness-account%2Fadd-tax",
         "VatGiant:Click:SignOut"
       )
 

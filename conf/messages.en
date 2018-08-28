@@ -1017,5 +1017,7 @@ doYouHaveSAUTR.error.required = Select yes if you have a Self Assessment Unique 
 #######################################################
 setupNewAccount.title = Set up a new account
 setupNewAccount.heading = Set up a new account
+setupNewAccount.p1 = This is an Individual account.
+setupNewAccount.p2 = You can only add VAT GIANT to an ‘Organisation’ account.
 setupNewAccount.continue = Sign out and create ‘Organisation’ account
 setupNewAccount.notnow = I do not want to do this now
