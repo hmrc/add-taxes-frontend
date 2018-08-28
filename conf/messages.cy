@@ -1009,3 +1009,11 @@ doYouHaveSAUTR.heading = A oes gennych Gyfeirnod Unigryw y Trethdalwr (UTR) ar g
 doYouHaveSAUTR.Yes = Iawn
 doYouHaveSAUTR.No = Na
 doYouHaveSAUTR.error.required = Dewiswch ‘Iawn’ os oes gennych Gyfeirnod Unigryw y Trethdalwr ar gyfer Hunanasesiad
+
+#######################################################
+##  SetupNewAccount
+#######################################################
+setupNewAccount.title = Sefydlu cyfrif newydd
+setupNewAccount.heading = Sefydlu cyfrif newydd
+setupNewAccount.continue = Allgofnodwch a chreu cyfrif ‘Sefydliad’
+setupNewAccount.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd

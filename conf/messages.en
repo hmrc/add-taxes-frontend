@@ -1011,3 +1011,11 @@ doYouHaveSAUTR.heading = Do you have a Self Assessment Unique Taxpayer Reference
 doYouHaveSAUTR.Yes = Yes
 doYouHaveSAUTR.No = No
 doYouHaveSAUTR.error.required = Select yes if you have a Self Assessment Unique Taxpayer Reference (UTR)
+
+#######################################################
+##  SetupNewAccount
+#######################################################
+setupNewAccount.title = Set up a new account
+setupNewAccount.heading = Set up a new account
+setupNewAccount.continue = Sign out and create ‘Organisation’ account
+setupNewAccount.notnow = I do not want to do this now
