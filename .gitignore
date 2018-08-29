@@ -34,3 +34,4 @@ bin
 /.classpath
 *.iws
 *.log
+migrations/applied_migrations
