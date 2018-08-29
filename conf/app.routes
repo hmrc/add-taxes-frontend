@@ -238,6 +238,16 @@ POST       /employer/cis                                controllers.employer.cis
 GET        /employer                                    controllers.employer.WhatEmployerTaxDoYouWantToAddController.onPageLoad()
 POST       /employer                                    controllers.employer.WhatEmployerTaxDoYouWantToAddController.onSubmit()
 
+GET        /employer/pension/activation-token           controllers.employer.pension.DoYouHaveActivationTokenController.onPageLoad()
+POST       /employer/pension/activation-token           controllers.employer.pension.DoYouHaveActivationTokenController.onSubmit()
+
+GET        /employer/pension/practitioner-ID            controllers.employer.pension.DoYouHavePractitionerIDController.onPageLoad()
+POST       /employer/pension/practitioner-ID            controllers.employer.pension.DoYouHavePractitionerIDController.onSubmit()
+
+GET        /employer/pension/practitioner/apply         controllers.employer.pension.ApplyForPractitionerIDController.onPageLoad()
+
+GET        /employer/pension/need-activation-token      controllers.employer.pension.RequestActivationTokenController.onPageLoad()
+
 GET        /self-assessment/trust/new-account           controllers.sa.trust.SetUpNewAccountController.onPageLoad()
 GET        /self-assessment/partnership/new-account     controllers.sa.partnership.SetUpNewAccountController.onPageLoad()
 
@@ -259,3 +269,6 @@ GET        /corporation-tax/have-utr                    controllers.corporation.
 POST       /corporation-tax/have-utr                    controllers.corporation.DoYouHaveCorpTaxUTRController.onSubmit()
 
 GET        /shared-workspace                            controllers.enrolment.SharedWorkspaceProxyController.onPageLoad()
+
+GET        /vat/giant/newaccount                       controllers.vat.giant.SetupNewAccountController.onPageLoad()
+

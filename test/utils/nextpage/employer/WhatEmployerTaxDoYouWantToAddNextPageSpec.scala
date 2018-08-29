@@ -53,23 +53,13 @@ class WhatEmployerTaxDoYouWantToAddNextPageSpec extends NextPageSpecBase {
     "no enrolments"
   )
 
-  val nextPagePensionWithEnrolment = (WhatEmployerTaxDoYouWantToAdd.PS, Enrolments(Set(epayeEnrolment)))
-
-  behave like nextPageWithEnrolments(
-    NextPage.whatEmployerTaxDoYouWantToAdd,
-    nextPagePensionWithEnrolment,
-    WhatEmployerTaxDoYouWantToAdd.PS.toString,
-    "http://localhost:8080/portal/service/pensions-practitioners?action=enrol&step=hasid&lang=eng",
-    "EPAYE enrolments"
-  )
-
   val nextPagePensionNoEnrolment = (WhatEmployerTaxDoYouWantToAdd.PS, Enrolments(Set()))
 
   behave like nextPageWithEnrolments(
     NextPage.whatEmployerTaxDoYouWantToAdd,
     nextPagePensionNoEnrolment,
     WhatEmployerTaxDoYouWantToAdd.PS.toString,
-    "http://localhost:8080/portal/service/pensions-practitioners?action=enrol&step=hasid&lang=eng",
+    "/business-account/add-tax/employer/pension/practitioner-ID",
     "no enrolments"
   )
 

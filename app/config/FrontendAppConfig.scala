@@ -68,6 +68,10 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   private lazy val govUKHost = runModeConfiguration.getString("urls.govuk.host").getOrElse("")
   def getGovUKUrl(key: String): String = govUKHost + loadConfig(s"urls.govuk.$key")
 
+  private lazy val ggRegistrationHost = loadConfig("government-gateway-registration-frontend.host")
+  def getGGRegistrationUrl(key: String) =
+    ggRegistrationHost + loadConfig(s"government-gateway-registration-frontend.$key")
+
   private lazy val govIMHost = runModeConfiguration.getString("urls.govim.host").getOrElse("")
   def getGovIMUrl(key: String): String = govIMHost + loadConfig(s"urls.govim.$key")
 
@@ -116,6 +120,9 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   lazy val checkUtrHost: String = runModeConfiguration.getString("enrolment-store-proxy.host").getOrElse("")
   def checkUtrUrl(utr: String): String =
     s"$checkUtrHost/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=principal"
+
+  private lazy val pensionsHost: String = loadConfig("urls.external.pensions.host")
+  def getPensionsUrl(key: String): String = pensionsHost + loadConfig(s"urls.external.pensions.$key")
 }
 
 trait FeatureToggles {
