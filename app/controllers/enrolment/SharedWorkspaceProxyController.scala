@@ -24,7 +24,7 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.Enrolments
 
-class EnrolmentProxyController @Inject()(
+class SharedWorkspaceProxyController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   authenticate: AuthAction,

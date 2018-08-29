@@ -258,4 +258,4 @@ POST       /vat/moss-uk/vat-registered                  controllers.vat.moss.ukb
 GET        /corporation-tax/have-utr                    controllers.corporation.DoYouHaveCorpTaxUTRController.onPageLoad()
 POST       /corporation-tax/have-utr                    controllers.corporation.DoYouHaveCorpTaxUTRController.onSubmit()
 
-GET        /shared-workspace                            controllers.enrolment.EnrolmentProxyController.onPageLoad()
+GET        /shared-workspace                            controllers.enrolment.SharedWorkspaceProxyController.onPageLoad()

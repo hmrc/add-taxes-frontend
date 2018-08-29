@@ -20,12 +20,12 @@ import controllers.ControllerSpecBase
 import play.api.test.Helpers._
 import controllers.actions.{FakeAuthAction, FakeServiceInfoAction}
 
-class EnrolmentProxyControllerSpec extends ControllerSpecBase {
+class SharedWorkspaceProxyControllerSpec extends ControllerSpecBase {
 
   "EnrolmentProxy Controller" must {
     "redirect to enrolment management for Individual Shared Workspace" in {
       val controller =
-        new EnrolmentProxyController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+        new SharedWorkspaceProxyController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
