@@ -983,15 +983,6 @@ doYouHaveVATRegNumber.No = Na
 doYouHaveVATRegNumber.error.required = Dewiswch ‘Iawn’ os oes gennych rif cofrestru TAW
 
 #######################################################
-##  DoYouHaveCorpTaxUTR
-#######################################################
-doYouHaveCorpTaxUTR.title = A oes gennych Gyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Treth Gorfforaeth?
-doYouHaveCorpTaxUTR.heading = A oes gennych Gyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Treth Gorfforaeth?
-doYouHaveCorpTaxUTR.Yes = Iawn
-doYouHaveCorpTaxUTR.No = Na
-doYouHaveCorpTaxUTR.error.required = Dewiswch ‘Iawn’ os oes gennych Gyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Treth Gorfforaeth
-
-#######################################################
 ##  EnterSAUTR
 #######################################################
 enterSAUTR.title = Beth yw’ch Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Hunanasesiad?
