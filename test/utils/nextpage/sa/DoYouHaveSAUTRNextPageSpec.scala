@@ -32,7 +32,7 @@ class DoYouHaveSAUTRNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.doYouHaveSAUTR,
       DoYouHaveSAUTR.No,
-      "/business-account/add-tax/self-assessment"
+      "/business-account/add-tax/self-assessment/no-utr"
     )
   }
 }
