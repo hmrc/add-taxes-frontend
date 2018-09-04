@@ -18,6 +18,10 @@
 
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
+@link(key: String, url: String) = {
+    <a href="@url">@messages(s"partnershipRegisterByPhone.$key")</a>
+}
+
 @main_template(
     title = messages("partnershipRegisterByPhone.title"),
     appConfig = appConfig,
@@ -25,7 +29,7 @@
 
     @components.heading("partnershipRegisterByPhone.heading")
 
-    <p>@messages("partnershipRegisterByPhone.p1")</p>
+    <p>@Html(messages("partnershipRegisterByPhone.p1", link("p1.linkText", appConfig.getGovUKUrl("contact"))))</p>
 
     <h2>@messages("partnershipRegisterByPhone.heading2")</h2>
 
@@ -46,7 +50,9 @@
 
     <p>@messages("partnershipRegisterByPhone.list3heading")</p>
     <ul class="list list-bullet">
-        <li>@messages("partnershipRegisterByPhone.list3item1")</li>
+        <li>
+            @Html(messages("partnershipRegisterByPhone.list3item1", link("list3item1.linkText", appConfig.getGovUKUrl("expensesOrBenefits"))))
+        </li>
         <li>@messages("partnershipRegisterByPhone.list3item2")</li>
         <li>@messages("partnershipRegisterByPhone.list3item3")</li>
     </ul>
@@ -54,5 +60,5 @@
     <h2>@messages("partnershipRegisterByPhone.heading3")</h2>
 
     <p>@messages("partnershipRegisterByPhone.p2")</p>
-    <p>@messages("partnershipRegisterByPhone.p3")</p>
+    <p>@Html(messages("partnershipRegisterByPhone.p3", link("p3.linkText", appConfig.getGovUKUrl("paye"))))</p>
 }

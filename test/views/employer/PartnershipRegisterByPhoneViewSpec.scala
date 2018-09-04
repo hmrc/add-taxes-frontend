@@ -29,7 +29,7 @@ class PartnershipRegisterByPhoneViewSpec extends ViewBehaviours {
   "PartnershipRegisterByPhone view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
-    def viewIncludes(s: String): Unit = createView().toString() must include(s)
+    def viewIncludes(s: String): Unit = asDocument(createView()).text() must include(s)
 
     "include paragraph 1" in {
       viewIncludes("You need to register as an employer by phoning HMRC.")
@@ -74,6 +74,23 @@ class PartnershipRegisterByPhoneViewSpec extends ViewBehaviours {
 
     "include paragraph 3" in {
       viewIncludes("Finally, you’ll need to enrol for PAYE Online before you can send payroll information to HMRC.")
+    }
+
+    "include link 1" in {
+      val doc = asDocument(createView())
+      assertLinkByContent(
+        doc,
+        "phoning HMRC",
+        "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/employer-enquiries-support-for-new-employers")
+    }
+    "include link 2" in {
+      val doc = asDocument(createView())
+      assertLinkByContent(doc, "expenses or benefits", "https://www.gov.uk/employer-reporting-expenses-benefits")
+    }
+
+    "include link 3" in {
+      val doc = asDocument(createView())
+      assertLinkByContent(doc, "enrol for PAYE Online", "https://www.gov.uk/paye-online")
     }
   }
 }
