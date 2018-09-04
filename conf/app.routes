@@ -120,8 +120,11 @@ GET        /other/aeoi/register                         controllers.other.aeoi.R
 GET        /other/aeoi                                  controllers.other.aeoi.HaveYouRegisteredAEOIController.onPageLoad()
 POST       /other/aeoi                                  controllers.other.aeoi.HaveYouRegisteredAEOIController.onSubmit()
 
-GET        /self-assessment                             controllers.sa.SelectSACategoryController.onPageLoad()
-POST       /self-assessment                             controllers.sa.SelectSACategoryController.onSubmit()
+GET        /self-assessment                             controllers.sa.SelectSACategoryController.onPageLoadHasUTR()
+POST       /self-assessment                             controllers.sa.SelectSACategoryController.onSubmitHasUTR()
+
+GET        /self-assessment/no-utr                      controllers.sa.SelectSACategoryController.onPageLoadNoUTR()
+POST       /self-assessment/no-utr                      controllers.sa.SelectSACategoryController.onSubmitNoUTR()
 
 GET        /vat                                         controllers.vat.WhichVATServicesToAddController.onPageLoad()
 POST       /vat                                         controllers.vat.WhichVATServicesToAddController.onSubmit()

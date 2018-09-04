@@ -30,7 +30,7 @@ trait DoYouHaveSAUTRNextPage {
       override def get(b: DoYouHaveSAUTR)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case DoYouHaveSAUTR.Yes => EnterSAUTRController.onPageLoad()
-          case DoYouHaveSAUTR.No  => SelectSACategoryController.onPageLoad()
+          case DoYouHaveSAUTR.No  => SelectSACategoryController.onPageLoadNoUTR()
         }
     }
   }

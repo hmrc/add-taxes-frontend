@@ -31,7 +31,7 @@ trait EnterSAUTRNextPage {
     new NextPage[EnterSAUTRId.type, EnrolmentStoreResult, Call] {
       override def get(b: EnrolmentStoreResult)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case false => SelectSACategoryController.onPageLoad()
+          case false => SelectSACategoryController.onPageLoadHasUTR()
           case true  => Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials"))
         }
     }
