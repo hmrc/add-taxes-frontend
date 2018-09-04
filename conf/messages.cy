@@ -1055,3 +1055,11 @@ requestActivationToken.continue = Parhau
 requestActivationToken.p1 = Byddwn yn ei anfon drwy’r post cyn pen 7 diwrnod.
 requestActivationToken.p2 = Pan gewch y tocyn, gallwch fewngofnodi i’ch cyfrif a defnyddio’r gwasanaeth hwn.
 
+
+#######################################################
+##  SetupNewAccount
+#######################################################
+setupNewAccount.title = Sefydlu cyfrif newydd
+setupNewAccount.heading = Sefydlu cyfrif newydd
+setupNewAccount.continue = Allgofnodwch a chreu cyfrif Sefydliad
+setupNewAccount.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd

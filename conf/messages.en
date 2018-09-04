@@ -1023,6 +1023,16 @@ setupNewAccount.continue = Sign out and create ‘Organisation’ account
 setupNewAccount.notnow = I do not want to do this now
 
 #######################################################
+##  SetupNewAccount-Vat
+#######################################################
+setupNewAccount.vat.title = Set up a new account
+setupNewAccount.vat.heading = Set up a new account
+setupNewAccount.vat.p1 = You need to register for VAT and get a VAT registration number (VRN) to manage VAT online.
+setupNewAccount.vat.p2 = You can only register for VAT from an ‘Organisation’ account.
+setupNewAccount.vat.continue = Sign out and create ‘Organisation’ account
+setupNewAccount.vat.notnow = I do not want to do this now
+
+#######################################################
 ##  DoYouHaveActivationToken
 #######################################################
 doYouHaveActivationToken.title = Do you have an activation token?
@@ -1056,3 +1066,4 @@ requestActivationToken.heading = Request access to Pension Schemes Online for Pr
 requestActivationToken.continue = Continue
 requestActivationToken.p1 = We will send it in the post within 7 days.
 requestActivationToken.p2 = When you get it, you can sign in to your account and use this service.
+
