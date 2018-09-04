@@ -55,7 +55,7 @@ class DoYouHaveVATRegNumberController @Inject()(
       .fold(
         (formWithErrors: Form[_]) =>
           BadRequest(doYouHaveVATRegNumber(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(DoYouHaveVATRegNumberId, value))
+        (value) => Redirect(navigator.nextPage(DoYouHaveVATRegNumberId, (value, request.request.affinityGroup)))
       )
   }
 }

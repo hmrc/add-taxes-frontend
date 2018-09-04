@@ -273,5 +273,6 @@ POST       /corporation-tax/have-utr                    controllers.corporation.
 
 GET        /shared-workspace                            controllers.enrolment.SharedWorkspaceProxyController.onPageLoad()
 
-GET        /vat/giant/newaccount                       controllers.vat.giant.SetupNewAccountController.onPageLoad()
+GET        /vat/giant/newaccount                        controllers.vat.giant.SetupNewAccountController.onPageLoad()
 
+GET        /vat/registered/no                           controllers.vat.vat.SetupNewAccountController.onPageLoad()
