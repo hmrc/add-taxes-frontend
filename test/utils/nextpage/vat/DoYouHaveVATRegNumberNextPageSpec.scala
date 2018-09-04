@@ -17,22 +17,32 @@
 package utils.nextpage.vat
 
 import models.vat.DoYouHaveVATRegNumber
+import uk.gov.hmrc.auth.core.{AffinityGroup, Enrolments}
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
 class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase {
 
+  val affinityGroupOrganisation = Some(AffinityGroup.Organisation)
+  val affinityGroupIndividual = Some(AffinityGroup.Individual)
+
   "doYouHaveVATRegNumber" when {
     behave like nextPage(
       NextPage.doYouHaveVATRegNumber,
-      DoYouHaveVATRegNumber.Yes,
+      (DoYouHaveVATRegNumber.Yes, None),
       "http://localhost:9555/enrolment-management-frontend/HMCE-VATDEC-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
 
     behave like nextPage(
       NextPage.doYouHaveVATRegNumber,
-      DoYouHaveVATRegNumber.No,
+      (DoYouHaveVATRegNumber.No, affinityGroupOrganisation),
       "http://localhost:8080/portal/business-registration/business-allowed?lang=eng"
+    )
+
+    behave like nextPage(
+      NextPage.doYouHaveVATRegNumber,
+      (DoYouHaveVATRegNumber.No, affinityGroupIndividual),
+      "/business-account/add-tax/vat/registered/no"
     )
   }
 }

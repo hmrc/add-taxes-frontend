@@ -19,18 +19,30 @@ package utils.nextpage.vat
 import config.FrontendAppConfig
 import identifiers.DoYouHaveVATRegNumberId
 import play.api.mvc.{Call, Request}
-import models.vat.DoYouHaveVATRegNumber
+import controllers.vat.vat.{routes => vatRoutes}
+import models.vat.{DoYouHaveVATRegNumber}
+import uk.gov.hmrc.auth.core.AffinityGroup
 import utils.{Enrolments, NextPage}
 
 trait DoYouHaveVATRegNumberNextPage {
 
-  implicit val doYouHaveVATRegNumber: NextPage[DoYouHaveVATRegNumberId.type, DoYouHaveVATRegNumber, Call] = {
-    new NextPage[DoYouHaveVATRegNumberId.type, DoYouHaveVATRegNumber, Call] {
-      override def get(b: DoYouHaveVATRegNumber)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+  type DoYouHaveVATRegNumberWithRequests = (DoYouHaveVATRegNumber, Option[AffinityGroup])
+
+  implicit val doYouHaveVATRegNumber
+    : NextPage[DoYouHaveVATRegNumberId.type, DoYouHaveVATRegNumberWithRequests, Call] = {
+    new NextPage[DoYouHaveVATRegNumberId.type, DoYouHaveVATRegNumberWithRequests, Call] {
+      override def get(
+        b: DoYouHaveVATRegNumberWithRequests)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call = {
+
+        val (serviceToAdd, affinity) = b
+
         b match {
-          case DoYouHaveVATRegNumber.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.VAT))
-          case DoYouHaveVATRegNumber.No  => Call("GET", appConfig.getPortalUrl("vatRegistration"))
+          case (DoYouHaveVATRegNumber.Yes, _) => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.VAT))
+          case (DoYouHaveVATRegNumber.No, Some(AffinityGroup.Individual)) =>
+            vatRoutes.SetupNewAccountController.onPageLoad()
+          case (DoYouHaveVATRegNumber.No, _) => Call("GET", appConfig.getPortalUrl("vatRegistration"))
         }
+      }
     }
   }
 }
