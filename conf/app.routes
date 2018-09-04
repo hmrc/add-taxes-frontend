@@ -278,3 +278,5 @@ GET        /vat/giant/newaccount                        controllers.vat.giant.Se
 GET        /vat/registered/no                           controllers.vat.vat.SetupNewAccountController.onPageLoad()
 
 GET        /employer/directors-register-by-phone                       controllers.employer.DirectorsRegisterByPhoneController.onPageLoad()
+
+GET        /employer/partners-register-by-phone                       controllers.employer.PartnershipRegisterByPhoneController.onPageLoad()
