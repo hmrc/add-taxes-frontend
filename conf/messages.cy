@@ -1079,6 +1079,6 @@ partnershipRegisterByPhone.list3item1.linkText = treuliau neu fuddiannau
 partnershipRegisterByPhone.list3item2 = sawl person rydych yn eu cyflogi - neu’n disgwyl eu cyflogi yn ystod y flwyddyn dreth hon
 partnershipRegisterByPhone.list3item3 = p’un a fyddwch yn defnyddio unrhyw isgontractwyr yn y diwydiant adeiladu
 partnershipRegisterByPhone.heading3 = Yr hyn sy’n digwydd nesaf
-partnershipRegisterByPhone.p2 = Unwaith eich bod wedi cofrestru, byddwch yn cael llythyr yn cynnwys eich cyfeirnodau TWE a Swyddfa Gyfrifon. Bydd angen i chi roi gwybod i CThEM am dreth TWE ac Yswiriant Gwladol, a'u talu. Fel arfer, bydd hwn yn cyrraedd cyn pen 10 diwrnod gwaith.
+partnershipRegisterByPhone.p2 = Unwaith eich bod wedi cofrestru, byddwch yn cael llythyr yn cynnwys eich cyfeirnodau TWE a Swyddfa Gyfrifon. Bydd angen i chi roi gwybod i CThEM am dreth TWE ac Yswiriant Gwladol, a’u talu. Fel arfer, bydd hwn yn cyrraedd cyn pen 10 diwrnod gwaith.
 partnershipRegisterByPhone.p3 = Yn olaf, bydd angen i chi {0} cyn i chi allu anfon gwybodaeth i CThEM.
 partnershipRegisterByPhone.p3.linkText = ymrestru ar gyfer TWE Ar-lein
