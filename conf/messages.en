@@ -1056,3 +1056,9 @@ requestActivationToken.heading = Request access to Pension Schemes Online for Pr
 requestActivationToken.continue = Continue
 requestActivationToken.p1 = We will send it in the post within 7 days.
 requestActivationToken.p2 = When you get it, you can sign in to your account and use this service.
+
+#######################################################
+##  PartnershipRegisterByPhone
+#######################################################
+partnershipRegisterByPhone.title = You should register by phone
+partnershipRegisterByPhone.heading = You should register by phone

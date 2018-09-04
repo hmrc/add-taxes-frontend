@@ -1055,3 +1055,9 @@ requestActivationToken.continue = Parhau
 requestActivationToken.p1 = Byddwn yn ei anfon drwy’r post cyn pen 7 diwrnod.
 requestActivationToken.p2 = Pan gewch y tocyn, gallwch fewngofnodi i’ch cyfrif a defnyddio’r gwasanaeth hwn.
 
+
+#######################################################
+##  PartnershipRegisterByPhone
+#######################################################
+partnershipRegisterByPhone.title = Dylech gofrestru dros y ffôn
+partnershipRegisterByPhone.heading = Dylech gofrestru dros y ffôn
