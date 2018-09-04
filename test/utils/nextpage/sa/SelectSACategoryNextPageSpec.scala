@@ -16,8 +16,7 @@
 
 package utils.nextpage.sa
 
-import models.sa.SelectSACategory
-import uk.gov.hmrc.auth.core.AffinityGroup
+import models.sa.{DoYouHaveSAUTR, SelectSACategory}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
@@ -28,7 +27,7 @@ class SelectSACategoryNextPageSpec extends NextPageSpecBase {
 
     behave like nextPageWithAffinityGroup(
       NextPage.selectSACategory,
-      (SelectSACategory.Sa, Some(Organisation)),
+      (SelectSACategory.Sa, DoYouHaveSAUTR.Yes, Some(Organisation)),
       SelectSACategory.Sa.toString,
       "http://localhost:9555/enrolment-management-frontend/IR-SA/request-access-tax-scheme?continue=%2Fbusiness-account",
       "organisation"
@@ -36,7 +35,15 @@ class SelectSACategoryNextPageSpec extends NextPageSpecBase {
 
     behave like nextPageWithAffinityGroup(
       NextPage.selectSACategory,
-      (SelectSACategory.Partnership, Some(Organisation)),
+      (SelectSACategory.Sa, DoYouHaveSAUTR.No, Some(Organisation)),
+      SelectSACategory.Sa.toString,
+      "http://localhost:8080/portal/business-registration/select-taxes?lang=eng",
+      "organisation"
+    )
+
+    behave like nextPageWithAffinityGroup(
+      NextPage.selectSACategory,
+      (SelectSACategory.Partnership, DoYouHaveSAUTR.Yes, Some(Organisation)),
       SelectSACategory.Partnership.toString,
       "/business-account/add-tax/self-assessment/partnership",
       "organisation"
@@ -44,7 +51,7 @@ class SelectSACategoryNextPageSpec extends NextPageSpecBase {
 
     behave like nextPageWithAffinityGroup(
       NextPage.selectSACategory,
-      (SelectSACategory.Partnership, Some(Individual)),
+      (SelectSACategory.Partnership, DoYouHaveSAUTR.Yes, Some(Individual)),
       SelectSACategory.Partnership.toString,
       "/business-account/add-tax/self-assessment/partnership/new-account",
       "individual"
@@ -52,7 +59,7 @@ class SelectSACategoryNextPageSpec extends NextPageSpecBase {
 
     behave like nextPageWithAffinityGroup(
       NextPage.selectSACategory,
-      (SelectSACategory.Trust, Some(Organisation)),
+      (SelectSACategory.Trust, DoYouHaveSAUTR.Yes, Some(Organisation)),
       SelectSACategory.Trust.toString,
       "/business-account/add-tax/self-assessment/trust",
       "oranisation"
@@ -60,7 +67,7 @@ class SelectSACategoryNextPageSpec extends NextPageSpecBase {
 
     behave like nextPageWithAffinityGroup(
       NextPage.selectSACategory,
-      (SelectSACategory.Trust, Some(Individual)),
+      (SelectSACategory.Trust, DoYouHaveSAUTR.Yes, Some(Individual)),
       SelectSACategory.Trust.toString,
       "/business-account/add-tax/self-assessment/trust/new-account",
       "individual"
