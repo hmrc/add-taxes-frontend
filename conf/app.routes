@@ -272,3 +272,5 @@ GET        /shared-workspace                            controllers.enrolment.Sh
 
 GET        /vat/giant/newaccount                       controllers.vat.giant.SetupNewAccountController.onPageLoad()
 
+
+GET        /employer/directors-register-by-phone                       controllers.employer.DirectorsRegisterByPhoneController.onPageLoad()

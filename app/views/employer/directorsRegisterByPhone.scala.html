@@ -1,0 +1,11 @@
+@import config.FrontendAppConfig
+
+@(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    title = messages("directorsRegisterByPhone.title"),
+    appConfig = appConfig,
+    serviceInfoContent = serviceInfoContent) {
+
+    @components.heading("directorsRegisterByPhone.heading")
+}
