@@ -1013,7 +1013,7 @@ doYouHaveSAUTR.No = No
 doYouHaveSAUTR.error.required = Select yes if you have a Self Assessment Unique Taxpayer Reference (UTR)
 
 #######################################################
-##  SetupNewAccount
+##  SetupNewAccount - VAT GIANT
 #######################################################
 setupNewAccount.title = Set up a new account
 setupNewAccount.heading = Set up a new account
@@ -1023,7 +1023,7 @@ setupNewAccount.continue = Sign out and create ‘Organisation’ account
 setupNewAccount.notnow = I do not want to do this now
 
 #######################################################
-##  SetupNewAccount-Vat
+##  SetupNewAccount-Vat - VAT
 #######################################################
 setupNewAccount.vat.title = Set up a new account
 setupNewAccount.vat.heading = Set up a new account

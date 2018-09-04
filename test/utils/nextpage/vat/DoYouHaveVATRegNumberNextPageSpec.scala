@@ -17,7 +17,7 @@
 package utils.nextpage.vat
 
 import models.vat.DoYouHaveVATRegNumber
-import uk.gov.hmrc.auth.core.{AffinityGroup, Enrolments}
+import uk.gov.hmrc.auth.core.AffinityGroup
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 

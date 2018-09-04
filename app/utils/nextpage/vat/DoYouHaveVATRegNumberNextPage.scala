@@ -17,10 +17,10 @@
 package utils.nextpage.vat
 
 import config.FrontendAppConfig
+import controllers.vat.vat.{routes => vatVatRoutes}
 import identifiers.DoYouHaveVATRegNumberId
+import models.vat.DoYouHaveVATRegNumber
 import play.api.mvc.{Call, Request}
-import controllers.vat.vat.{routes => vatRoutes}
-import models.vat.{DoYouHaveVATRegNumber}
 import uk.gov.hmrc.auth.core.AffinityGroup
 import utils.{Enrolments, NextPage}
 
@@ -39,7 +39,7 @@ trait DoYouHaveVATRegNumberNextPage {
         b match {
           case (DoYouHaveVATRegNumber.Yes, _) => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.VAT))
           case (DoYouHaveVATRegNumber.No, Some(AffinityGroup.Individual)) =>
-            vatRoutes.SetupNewAccountController.onPageLoad()
+            vatVatRoutes.SetupNewAccountController.onPageLoad()
           case (DoYouHaveVATRegNumber.No, _) => Call("GET", appConfig.getPortalUrl("vatRegistration"))
         }
       }
