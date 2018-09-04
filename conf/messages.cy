@@ -1011,7 +1011,7 @@ doYouHaveSAUTR.No = Na
 doYouHaveSAUTR.error.required = Dewiswch ‘Iawn’ os oes gennych Gyfeirnod Unigryw y Trethdalwr ar gyfer Hunanasesiad
 
 #######################################################
-##  SetupNewAccount
+##  SetupNewAccount - VAT GIANT
 #######################################################
 setupNewAccount.title = Sefydlu cyfrif newydd
 setupNewAccount.heading = Sefydlu cyfrif newydd
@@ -1019,6 +1019,16 @@ setupNewAccount.p1 = Mae hwn yn gyfrif ‘Unigolyn’
 setupNewAccount.p2 = Dim ond at gyfrif ‘Sefydliad’ y gallwch ychwanegu VAT GIANT.
 setupNewAccount.continue = Allgofnodwch a chreu cyfrif ‘Sefydliad’
 setupNewAccount.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  SetupNewAccount - VAT - VAT
+#######################################################
+setupNewAccount.vat.title = Sefydlu cyfrif newydd
+setupNewAccount.vat.heading = Sefydlu cyfrif newydd
+setupNewAccount.vat.p1 = Mae angen i chi gofrestru ar gyfer TAW a chael rhif cofrestru TAW (VRN) i reoli TAW ar-lein.
+setupNewAccount.vat.p2 = Dim ond o gyfrif "Sefydliad" y gallwch gofrestru ar gyfer TAW.
+setupNewAccount.vat.continue = Allgofnodwch a chreu cyfrif ‘Sefydliad’
+setupNewAccount.vat.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
 #######################################################
 ##  DoYouHaveActivationToken
