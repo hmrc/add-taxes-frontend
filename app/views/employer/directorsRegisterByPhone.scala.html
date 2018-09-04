@@ -18,6 +18,10 @@
 
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
+@link(key: String, url: String) = {
+    <a href="@url">@messages(s"directorsRegisterByPhone.$key")</a>
+}
+
 @main_template(
     title = messages("directorsRegisterByPhone.title"),
     appConfig = appConfig,
@@ -25,7 +29,7 @@
 
     @components.heading("directorsRegisterByPhone.heading")
 
-    <p>@messages("directorsRegisterByPhone.p1")</p>
+    <p>@Html(messages("directorsRegisterByPhone.p1", link("p1.linkText", appConfig.getGovUKUrl("contact"))))</p>
     <h2>@messages("directorsRegisterByPhone.heading2")</h2>
 
     <p>@messages("directorsRegisterByPhone.list1heading")</p>
@@ -46,13 +50,17 @@
 
     <p>@messages("directorsRegisterByPhone.list3heading")</p>
     <ul class="list list-bullet">
-        <li>@messages("directorsRegisterByPhone.list3item1")</li>
+        <li>
+            @Html(messages("directorsRegisterByPhone.list3item1", link("list3item1.linkText", appConfig.getGovUKUrl("expensesOrBenefits"))))
+        </li>
         <li>@messages("directorsRegisterByPhone.list3item2")</li>
-        <li>@messages("directorsRegisterByPhone.list3item3")</li>
+        <li>
+            @Html(messages("directorsRegisterByPhone.list3item3", link("list3item3.linkText", appConfig.getGovUKUrl("constructionIndustry"))))
+        </li>
         <li>@messages("directorsRegisterByPhone.list3item4")</li>
     </ul>
 
     <h2>@messages("directorsRegisterByPhone.heading3")</h2>
     <p>@messages("directorsRegisterByPhone.p2")</p>
-    <p>@messages("directorsRegisterByPhone.p3")</p>
+    <p>@Html(messages("directorsRegisterByPhone.p3", link("p3.linkText", appConfig.getGovUKUrl("paye"))))</p>
 }
