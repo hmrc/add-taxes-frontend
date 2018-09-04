@@ -19,11 +19,14 @@ package views.sa
 import play.api.data.Form
 import forms.sa.SelectSACategoryFormProvider
 import models.sa.SelectSACategory
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.sa.selectSACategory
 
 class SelectSACategoryViewSpec extends ViewBehaviours {
+
+  lazy val onSubmit: Call = controllers.routes.IndexController.onPageLoad()
 
   val messageKeyPrefix = "selectSACategory"
 
@@ -32,11 +35,16 @@ class SelectSACategoryViewSpec extends ViewBehaviours {
   val serviceInfoContent = HtmlFormat.empty
 
   def createView =
-    () => selectSACategory(frontendAppConfig, form, SelectSACategory.options)(serviceInfoContent)(fakeRequest, messages)
+    () =>
+      selectSACategory(frontendAppConfig, form, onSubmit, SelectSACategory.options)(serviceInfoContent)(
+        fakeRequest,
+        messages)
 
   def createViewUsingForm =
     (form: Form[_]) =>
-      selectSACategory(frontendAppConfig, form, SelectSACategory.options)(serviceInfoContent)(fakeRequest, messages)
+      selectSACategory(frontendAppConfig, form, onSubmit, SelectSACategory.options)(serviceInfoContent)(
+        fakeRequest,
+        messages)
 
   "SelectSACategory view" must {
     behave like normalPage(createView, messageKeyPrefix)

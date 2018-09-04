@@ -48,12 +48,17 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
     )
 
   def viewAsString(form: Form[_] = form, radioOptions: Set[RadioOption] = SelectSACategory.options) =
-    selectSACategory(frontendAppConfig, form, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
+    selectSACategory(
+      frontendAppConfig,
+      form,
+      routes.SelectSACategoryController.onSubmitHasUTR(),
+      radioOptions
+    )(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "SelectSACategory Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller()().onPageLoad()(fakeRequest)
+      val result = controller()().onPageLoadHasUTR()(fakeRequest)
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
@@ -62,7 +67,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", SelectSACategory.options.head.value))
 
-      val result = controller()().onSubmit()(postRequest)
+      val result = controller()().onSubmitHasUTR()(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -72,14 +77,14 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
-      val result = controller()().onSubmit()(postRequest)
+      val result = controller()().onSubmitHasUTR()(postRequest)
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
     "return OK" in {
-      val result = controller()().onPageLoad()(fakeRequest)
+      val result = controller()().onPageLoadHasUTR()(fakeRequest)
 
       status(result) mustBe OK
     }
@@ -87,7 +92,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
     for (option <- SelectSACategory.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
-        val result = controller()().onSubmit()(postRequest)
+        val result = controller()().onSubmitHasUTR()(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -98,7 +103,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
       val radioOptions: Set[RadioOption] = SelectSACategory.options
 
       "on page load and not enrolled for SA or Trust" in {
-        val result = controller()().onPageLoad()(fakeRequest)
+        val result = controller()().onPageLoadHasUTR()(fakeRequest)
         val view = viewAsString(radioOptions = radioOptions)
 
         contentAsString(result) mustBe view
@@ -109,7 +114,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
         val boundForm = form.bind(Map("value" -> "invalid value"))
         val view = viewAsString(boundForm, radioOptions)
 
-        val result = controller()().onSubmit()(postRequest)
+        val result = controller()().onSubmitHasUTR()(postRequest)
 
         contentAsString(result) mustBe view
       }
@@ -120,7 +125,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
         SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
 
       "on page load and enrolled for SA" in {
-        val result = controller()(HmrcEnrolmentType.SA).onPageLoad()(fakeRequest)
+        val result = controller()(HmrcEnrolmentType.SA).onPageLoadHasUTR()(fakeRequest)
         val view = viewAsString(radioOptions = radioOptions)
 
         contentAsString(result) mustBe view
@@ -131,7 +136,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
         val boundForm = form.bind(Map("value" -> "invalid value"))
         val view = viewAsString(boundForm, radioOptions)
 
-        val result = controller()(HmrcEnrolmentType.SA).onSubmit()(postRequest)
+        val result = controller()(HmrcEnrolmentType.SA).onSubmitHasUTR()(postRequest)
 
         contentAsString(result) mustBe view
       }
@@ -142,7 +147,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
         SelectSACategory.options.filterNot(_.value == SelectSACategory.Trust.toString)
 
       "on page load and enrolled for Trust" in {
-        val result = controller()(HmrcEnrolmentType.RegisterTrusts).onPageLoad()(fakeRequest)
+        val result = controller()(HmrcEnrolmentType.RegisterTrusts).onPageLoadHasUTR()(fakeRequest)
         val view = viewAsString(radioOptions = radioOptions)
 
         contentAsString(result) mustBe view
@@ -153,7 +158,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
         val boundForm = form.bind(Map("value" -> "invalid value"))
         val view = viewAsString(boundForm, radioOptions)
 
-        val result = controller()(HmrcEnrolmentType.RegisterTrusts).onSubmit()(postRequest)
+        val result = controller()(HmrcEnrolmentType.RegisterTrusts).onSubmitHasUTR()(postRequest)
 
         contentAsString(result) mustBe view
       }
@@ -161,7 +166,8 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
 
     "redirect to do you want to add a partner" when {
       "on page load and enrolled for SA and Trust" in {
-        val result = controller()(HmrcEnrolmentType.SA, HmrcEnrolmentType.RegisterTrusts).onPageLoad()(fakeRequest)
+        val result =
+          controller()(HmrcEnrolmentType.SA, HmrcEnrolmentType.RegisterTrusts).onPageLoadHasUTR()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/partnership")
@@ -169,7 +175,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
 
       "on submit and enrolled for SA and Trust" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-        val result = controller()(HmrcEnrolmentType.SA, HmrcEnrolmentType.RegisterTrusts).onSubmit()(postRequest)
+        val result = controller()(HmrcEnrolmentType.SA, HmrcEnrolmentType.RegisterTrusts).onSubmitHasUTR()(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/partnership")
