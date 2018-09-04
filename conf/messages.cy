@@ -1011,7 +1011,7 @@ doYouHaveSAUTR.No = Na
 doYouHaveSAUTR.error.required = Dewiswch ‘Iawn’ os oes gennych Gyfeirnod Unigryw y Trethdalwr ar gyfer Hunanasesiad
 
 #######################################################
-##  SetupNewAccount
+##  SetupNewAccount - VAT GIANT
 #######################################################
 setupNewAccount.title = Sefydlu cyfrif newydd
 setupNewAccount.heading = Sefydlu cyfrif newydd
@@ -1019,6 +1019,16 @@ setupNewAccount.p1 = Mae hwn yn gyfrif ‘Unigolyn’
 setupNewAccount.p2 = Dim ond at gyfrif ‘Sefydliad’ y gallwch ychwanegu VAT GIANT.
 setupNewAccount.continue = Allgofnodwch a chreu cyfrif ‘Sefydliad’
 setupNewAccount.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  SetupNewAccount - VAT - VAT
+#######################################################
+setupNewAccount.vat.title = Sefydlu cyfrif newydd
+setupNewAccount.vat.heading = Sefydlu cyfrif newydd
+setupNewAccount.vat.p1 = Mae angen i chi gofrestru ar gyfer TAW a chael rhif cofrestru TAW (VRN) i reoli TAW ar-lein.
+setupNewAccount.vat.p2 = Dim ond o gyfrif "Sefydliad" y gallwch gofrestru ar gyfer TAW.
+setupNewAccount.vat.continue = Allgofnodwch a chreu cyfrif ‘Sefydliad’
+setupNewAccount.vat.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
 #######################################################
 ##  DoYouHaveActivationToken
@@ -1055,6 +1065,36 @@ requestActivationToken.continue = Parhau
 requestActivationToken.p1 = Byddwn yn ei anfon drwy’r post cyn pen 7 diwrnod.
 requestActivationToken.p2 = Pan gewch y tocyn, gallwch fewngofnodi i’ch cyfrif a defnyddio’r gwasanaeth hwn.
 
+
+#######################################################
+##  DirectorsRegisterByPhone
+#######################################################
+directorsRegisterByPhone.title = Dylech gofrestru dros y ffôn
+directorsRegisterByPhone.heading = Dylech gofrestru dros y ffôn
+directorsRegisterByPhone.p1 = Mae angen i chi gofrestru fel cyflogwr drwy {0}
+directorsRegisterByPhone.p1.linkText = ffonio CThEM.
+directorsRegisterByPhone.heading2 = Yr hyn y bydd angen i chi ei roi
+directorsRegisterByPhone.list1heading = Pan fyddwch yn ffonio CThEM, bydd angen i chi roi gwybodaeth am eich cwmni, gan gynnwys y canlynol:
+directorsRegisterByPhone.list1item1 = ei enw, cyfeiriad cofrestredig a rhif ffôn
+directorsRegisterByPhone.list1item2 = ei enw masnachu, os yw’n wahanol
+directorsRegisterByPhone.list1item3 = y math o fusnes, er enghraifft plymio, buddsoddi, peirianneg drydanol
+directorsRegisterByPhone.list1item4 = ei Gyfeirnod Unigryw y Trethdalwr (UTR)
+directorsRegisterByPhone.list1item5 = ei rif cofrestru’r cwmni
+directorsRegisterByPhone.list1item6 = enwau a rhifau Yswiriant Gwladol bob un o’r cyfarwyddwyr - oni bai nad yw’r cwmni wedi’i leoli yn y DU, neu fod unrhyw un o’r cyfarwyddwyr wedi eu cynghori gan yr Adran Gwaith a Phensiynau (DWP) nad ydynt yn gymwys ar gyfer rhif
+directorsRegisterByPhone.list2heading = Bydd angen i chi roi’r canlynol yn ogystal:
+directorsRegisterByPhone.list2item1 = eich enw, cyfeiriad e-bost a rhif ffôn y gall CThEM cysylltu â chi arno
+directorsRegisterByPhone.list2item2 = cyfeiriad post ar gyfer ohebiaeth, os yw hwn yn wahanol i gyfeiriad y cwmni
+directorsRegisterByPhone.list3heading = Yn olaf, bydd angen i chi roi’r wybodaeth ganlynol am eich cyflogeion:
+directorsRegisterByPhone.list3item1 = dyddiad eu diwrnod cyflog cyntaf, neu bryd gwnaethoch dalu {0} os yw hynny’n gynt
+directorsRegisterByPhone.list3item1.linkText = treuliau neu fuddiannau
+directorsRegisterByPhone.list3item2 = sawl person rydych yn eu cyflogi - neu’n disgwyl eu cyflogi yn ystod y flwyddyn dreth hon
+directorsRegisterByPhone.list3item3 = p’un a fyddwch yn defnyddio unrhyw isgontractwyr yn y {0}
+directorsRegisterByPhone.list3item3.linkText = diwydiant adeiladu
+directorsRegisterByPhone.list3item4 = p’un a fyddwch yn gweithredu cynllun pensiwn galwedigaethol
+directorsRegisterByPhone.heading3 = Yr hyn sy’n digwydd nesaf
+directorsRegisterByPhone.p2 = Unwaith eich bod wedi cofrestru, byddwch yn cael llythyr yn cynnwys eich cyfeirnodau TWE a Swyddfa Gyfrifon. Bydd angen i chi roi gwybod i CThEM am dreth TWE ac Yswiriant Gwladol, a’u talu. Fel arfer, bydd hwn yn cyrraedd cyn pen 10 diwrnod gwaith.
+directorsRegisterByPhone.p3 = Yn olaf, bydd angen i chi {0} cyn i chi allu anfon gwybodaeth i CThEM.
+directorsRegisterByPhone.p3.linkText = ymrestru ar gyfer TWE Ar-lein
 
 #######################################################
 ##  PartnershipRegisterByPhone
