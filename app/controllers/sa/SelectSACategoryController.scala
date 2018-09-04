@@ -17,7 +17,6 @@
 package controllers.sa
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import play.api.data.Form
@@ -26,7 +25,7 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, HmrcEnrolmentType, Navigator, RadioOption}
 import forms.sa.SelectSACategoryFormProvider
 import identifiers.SelectSACategoryId
-import models.sa.SelectSACategory
+import models.sa.{DoYouHaveSAUTR, SelectSACategory}
 import play.api.mvc.Call
 import uk.gov.hmrc.auth.core.Enrolments
 import views.html.sa.selectSACategory
@@ -48,6 +47,38 @@ class SelectSACategoryController @Inject()(
 
   val form = formProvider()
 
+  def onPageLoadHasUTR = onPageLoad(routes.SelectSACategoryController.onSubmitHasUTR())
+  def onPageLoadNoUTR = onPageLoad(routes.SelectSACategoryController.onSubmitNoUTR())
+
+  private def onPageLoad(action: Call) = (authenticate andThen serviceInfoData) { implicit request =>
+    redirectWhenHasSAAndRT {
+      Ok(
+        selectSACategory(appConfig, form, action, getRadioOptions(request.request.enrolments))(
+          request.serviceInfoContent))
+    }
+  }
+
+  def onSubmitHasUTR = onSubmit(routes.SelectSACategoryController.onSubmitHasUTR(), DoYouHaveSAUTR.Yes)
+  def onSubmitNoUTR = onSubmit(routes.SelectSACategoryController.onSubmitNoUTR(), DoYouHaveSAUTR.No)
+
+  private def onSubmit(action: Call, answer: DoYouHaveSAUTR) = (authenticate andThen serviceInfoData) {
+    implicit request =>
+      redirectWhenHasSAAndRT {
+        form
+          .bindFromRequest()
+          .fold(
+            (formWithErrors: Form[_]) =>
+              BadRequest(
+                selectSACategory(appConfig, formWithErrors, action, getRadioOptions(request.request.enrolments))(
+                  request.serviceInfoContent)),
+            (value) =>
+              Redirect(
+                navigator
+                  .nextPage(SelectSACategoryId, (value, answer, request.request.affinityGroup)))
+          )
+      }
+  }
+
   def redirectWhenHasSAAndRT[A](noRedirect: => Result)(implicit request: ServiceInfoRequest[A]): Result =
     request.request.enrolments match {
       case HmrcEnrolmentType.SA() && HmrcEnrolmentType.RegisterTrusts() =>
@@ -55,26 +86,6 @@ class SelectSACategoryController @Inject()(
       case _ =>
         noRedirect
     }
-
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    redirectWhenHasSAAndRT {
-      Ok(selectSACategory(appConfig, form, getRadioOptions(request.request.enrolments))(request.serviceInfoContent))
-    }
-  }
-
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    redirectWhenHasSAAndRT {
-      form
-        .bindFromRequest()
-        .fold(
-          (formWithErrors: Form[_]) =>
-            BadRequest(
-              selectSACategory(appConfig, formWithErrors, getRadioOptions(request.request.enrolments))(
-                request.serviceInfoContent)),
-          (value) => Redirect(navigator.nextPage(SelectSACategoryId, (value, request.request.affinityGroup)))
-        )
-    }
-  }
 
   def getRadioOptions(enrolments: Enrolments): Set[RadioOption] =
     enrolments match {
