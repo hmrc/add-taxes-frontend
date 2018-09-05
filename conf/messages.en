@@ -985,15 +985,6 @@ doYouHaveVATRegNumber.No = No
 doYouHaveVATRegNumber.error.required = Select yes if you have a VAT registration number
 
 #######################################################
-##  DoYouHaveCorpTaxUTR
-#######################################################
-doYouHaveCorpTaxUTR.title = Do you have a Corporation Tax Unique Taxpayer Reference (UTR)?
-doYouHaveCorpTaxUTR.heading = Do you have a Corporation Tax Unique Taxpayer Reference (UTR)?
-doYouHaveCorpTaxUTR.Yes = Yes
-doYouHaveCorpTaxUTR.No = No
-doYouHaveCorpTaxUTR.error.required = Select yes if you have a Corporation Tax Unique Taxpayer Reference (UTR)
-
-#######################################################
 ##  EnterSAUTR
 #######################################################
 enterSAUTR.title = What is your Self Assessment Unique Taxpayer Reference (UTR)?

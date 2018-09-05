@@ -22,9 +22,8 @@ import config.FrontendAppConfig
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.Enrolments
 
-class SharedWorkspaceProxyController @Inject()(
+class EnrolmentProxyController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   authenticate: AuthAction,
@@ -32,8 +31,7 @@ class SharedWorkspaceProxyController @Inject()(
     extends FrontendController
     with I18nSupport {
 
-  def onPageLoad() = (authenticate andThen serviceInfo) { implicit request =>
-    Redirect(appConfig.emacEnrollmentsUrl(Enrolments.ECW))
+  def onPageLoad(service: utils.Enrolments) = (authenticate andThen serviceInfo) { implicit request =>
+    Redirect(appConfig.emacEnrollmentsUrl(service))
   }
-
 }
