@@ -265,7 +265,7 @@ GET        /other/ctf/ctf-11                            controllers.other.ctf.Yo
 GET        /vat/moss-uk/vat-registered                  controllers.vat.moss.ukbased.AlreadyRegisteredForVATMossController.onPageLoad()
 POST       /vat/moss-uk/vat-registered                  controllers.vat.moss.ukbased.AlreadyRegisteredForVATMossController.onSubmit()
 
-GET        /shared-workspace                            controllers.enrolment.SharedWorkspaceProxyController.onPageLoad()
+GET        /enrol/:service                              controllers.enrolment.EnrolmentProxyController.onPageLoad(service: utils.Enrolments)
 
-GET        /vat/giant/newaccount                       controllers.vat.giant.SetupNewAccountController.onPageLoad()
+GET        /vat/giant/newaccount                        controllers.vat.giant.SetupNewAccountController.onPageLoad()
 

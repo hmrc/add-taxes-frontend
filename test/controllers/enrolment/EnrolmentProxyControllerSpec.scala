@@ -19,18 +19,29 @@ package controllers.enrolment
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
 import controllers.actions.{FakeAuthAction, FakeServiceInfoAction}
+import utils.Enrolments
 
-class SharedWorkspaceProxyControllerSpec extends ControllerSpecBase {
+class EnrolmentProxyControllerSpec extends ControllerSpecBase {
 
   "EnrolmentProxy Controller" must {
+
+    val controller = new EnrolmentProxyController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+
     "redirect to enrolment management for Individual Shared Workspace" in {
-      val controller =
-        new SharedWorkspaceProxyController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
-      val result = controller.onPageLoad()(fakeRequest)
+      val result = controller.onPageLoad(Enrolments.ECW)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(
         s"http://localhost:9555/enrolment-management-frontend/HMRC-ECW-IND/request-access-tax-scheme?continue=%2Fbusiness-account")
+    }
+
+    "redirect to enrolment management for Corporate Tax" in {
+      val result = controller.onPageLoad(Enrolments.CT)(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(
+        s"http://localhost:9555/enrolment-management-frontend/IR-CT/request-access-tax-scheme?continue=%2Fbusiness-account"
+      )
     }
   }
 }
