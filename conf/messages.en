@@ -1004,7 +1004,7 @@ doYouHaveSAUTR.No = No
 doYouHaveSAUTR.error.required = Select yes if you have a Self Assessment Unique Taxpayer Reference (UTR)
 
 #######################################################
-##  SetupNewAccount
+##  SetupNewAccount - VAT GIANT
 #######################################################
 setupNewAccount.title = Set up a new account
 setupNewAccount.heading = Set up a new account
@@ -1012,6 +1012,16 @@ setupNewAccount.p1 = This is an Individual account.
 setupNewAccount.p2 = You can only add VAT GIANT to an ‘Organisation’ account.
 setupNewAccount.continue = Sign out and create ‘Organisation’ account
 setupNewAccount.notnow = I do not want to do this now
+
+#######################################################
+##  SetupNewAccount-Vat - VAT
+#######################################################
+setupNewAccount.vat.title = Set up a new account
+setupNewAccount.vat.heading = Set up a new account
+setupNewAccount.vat.p1 = You need to register for VAT and get a VAT registration number (VRN) to manage VAT online.
+setupNewAccount.vat.p2 = You can only register for VAT from an ‘Organisation’ account.
+setupNewAccount.vat.continue = Sign out and create ‘Organisation’ account
+setupNewAccount.vat.notnow = I do not want to do this now
 
 #######################################################
 ##  DoYouHaveActivationToken
@@ -1047,3 +1057,60 @@ requestActivationToken.heading = Request access to Pension Schemes Online for Pr
 requestActivationToken.continue = Continue
 requestActivationToken.p1 = We will send it in the post within 7 days.
 requestActivationToken.p2 = When you get it, you can sign in to your account and use this service.
+
+#######################################################
+##  DirectorsRegisterByPhone
+#######################################################
+directorsRegisterByPhone.title = You should register by phone
+directorsRegisterByPhone.heading = You should register by phone
+directorsRegisterByPhone.p1 = You need to register as an employer by {0}
+directorsRegisterByPhone.p1.linkText = phoning HMRC.
+directorsRegisterByPhone.heading2 = What you’ll need to provide
+directorsRegisterByPhone.list1heading = When you phone HMRC, you’ll need to provide information about your company, including:
+directorsRegisterByPhone.list1item1 = its name, registered address and phone number
+directorsRegisterByPhone.list1item2 = its trading name, if this is different
+directorsRegisterByPhone.list1item3 = the type of business, for example plumbing, investment, electrical engineering
+directorsRegisterByPhone.list1item4 = its unique taxpayer reference (UTR)
+directorsRegisterByPhone.list1item5 = its company registration number
+directorsRegisterByPhone.list1item6 = the names and National Insurance numbers of all company directors - unless your company’s not based in the UK, or any directors have been advised by the Department for Work and Pensions (DWP) that they do not qualify for a number
+directorsRegisterByPhone.list2heading = You’ll also need to provide:
+directorsRegisterByPhone.list2item1 = your name, email address and a telephone number HMRC can contact you on
+directorsRegisterByPhone.list2item2 = a postal address for correspondence, if this is different to the company’s address
+directorsRegisterByPhone.list3heading = Finally, you’ll need to provide the following information about your employees:
+directorsRegisterByPhone.list3item1 = the date of their first payday, or when you first provide {0} if this is earlier
+directorsRegisterByPhone.list3item1.linkText = expenses or benefits
+directorsRegisterByPhone.list3item2 = how many people you’re employing - or expect to employ in this tax year
+directorsRegisterByPhone.list3item3 = whether you’ll be using any subcontractors in the {0}
+directorsRegisterByPhone.list3item3.linkText = construction industry
+directorsRegisterByPhone.list3item4 = whether you’ll be operating an occupational pension scheme
+directorsRegisterByPhone.heading3 = What happens next
+directorsRegisterByPhone.p2 = Once you’ve registered, you’ll get a letter containing your PAYE and Accounts Office references. You’ll need these to report and pay PAYE tax and National Insurance to HMRC. This normally arrives within 10 working days.
+directorsRegisterByPhone.p3 = Finally, you’ll need to {0} before you can send payroll information to HMRC.
+directorsRegisterByPhone.p3.linkText = enrol for PAYE Online
+
+#######################################################
+##  PartnershipRegisterByPhone
+#######################################################
+partnershipRegisterByPhone.title = You should register by phone
+partnershipRegisterByPhone.heading = You should register by phone
+partnershipRegisterByPhone.p1 = You need to register as an employer by {0}
+partnershipRegisterByPhone.p1.linkText = phoning HMRC.
+partnershipRegisterByPhone.heading2 = What you’ll need to provide
+partnershipRegisterByPhone.list1heading = When you phone HMRC, you’ll need to provide information about your partnership, including:
+partnershipRegisterByPhone.list1item1 = its name, registered address and phone number
+partnershipRegisterByPhone.list1item2 = its trading name, if this is different
+partnershipRegisterByPhone.list1item3 = the type of business, for example plumbing, investment, electrical engineering
+partnershipRegisterByPhone.list1item4 = its unique taxpayer reference (UTR)
+partnershipRegisterByPhone.list1item5 = the names and National Insurance numbers of each partner
+partnershipRegisterByPhone.list2heading = You’ll also need to provide:
+partnershipRegisterByPhone.list2item1 = your name, email address and a telephone number HMRC can contact you on
+partnershipRegisterByPhone.list2item2 = a postal address for correspondence, if this is different to the partnership address
+partnershipRegisterByPhone.list3heading = Finally, you’ll need to provide the following information about your employees:
+partnershipRegisterByPhone.list3item1 = the date of their first payday, or when you first provide {0} if this is earlier
+partnershipRegisterByPhone.list3item1.linkText = expenses or benefits
+partnershipRegisterByPhone.list3item2 = how many people you’re employing - or expect to employ in this tax year
+partnershipRegisterByPhone.list3item3 = whether you’ll be using any subcontractors in the construction industry
+partnershipRegisterByPhone.heading3 = What happens next
+partnershipRegisterByPhone.p2 = Once you’ve registered, you’ll get a letter containing your PAYE and Accounts Office references. You’ll need these to report and pay PAYE tax and National Insurance to HMRC. This normally arrives within 10 working days.
+partnershipRegisterByPhone.p3 = Finally, you’ll need to {0} before you can send payroll information to HMRC.
+partnershipRegisterByPhone.p3.linkText = enrol for PAYE Online

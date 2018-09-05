@@ -18,7 +18,7 @@ package utils.nextpage.sa
 
 import config.FrontendAppConfig
 import identifiers.SelectSACategoryId
-import models.sa.SelectSACategory
+import models.sa.{DoYouHaveSAUTR, SelectSACategory}
 import play.api.mvc.{Call, Request}
 import utils.{Enrolments, NextPage}
 import controllers.sa.partnership.{routes => saPartnerRoutes}
@@ -27,7 +27,7 @@ import uk.gov.hmrc.auth.core.AffinityGroup
 
 trait SelectSACategoryNextPage {
 
-  type SelectSACategoryWithAffinityGroup = (SelectSACategory, Option[AffinityGroup])
+  type SelectSACategoryWithAffinityGroup = (SelectSACategory, DoYouHaveSAUTR, Option[AffinityGroup])
 
   implicit val selectSACategory: NextPage[SelectSACategoryId.type, SelectSACategoryWithAffinityGroup, Call] = {
 
@@ -35,19 +35,21 @@ trait SelectSACategoryNextPage {
       override def get(saCategory: SelectSACategoryWithAffinityGroup)(
         implicit appConfig: FrontendAppConfig,
         request: Request[_]): Call =
-        (saCategory._1, saCategory._2) match {
+        (saCategory._1, saCategory._2, saCategory._3) match {
 
-          case (SelectSACategory.Sa, _) => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.SA))
+          case (SelectSACategory.Sa, DoYouHaveSAUTR.Yes, _) => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.SA))
 
-          case (SelectSACategory.Partnership, Some(AffinityGroup.Organisation)) =>
+          case (SelectSACategory.Sa, _, _) => Call("GET", appConfig.getPortalUrl("selectTaxes"))
+
+          case (SelectSACategory.Partnership, _, Some(AffinityGroup.Organisation)) =>
             saPartnerRoutes.DoYouWantToAddPartnerController.onPageLoad()
 
-          case (SelectSACategory.Partnership, _) => saPartnerRoutes.SetUpNewAccountController.onPageLoad()
+          case (SelectSACategory.Partnership, _, _) => saPartnerRoutes.SetUpNewAccountController.onPageLoad()
 
-          case (SelectSACategory.Trust, Some(AffinityGroup.Organisation)) =>
+          case (SelectSACategory.Trust, _, Some(AffinityGroup.Organisation)) =>
             trustRoutes.HaveYouRegisteredTrustController.onPageLoad()
 
-          case (SelectSACategory.Trust, _) => trustRoutes.SetUpNewAccountController.onPageLoad()
+          case (SelectSACategory.Trust, _, _) => trustRoutes.SetUpNewAccountController.onPageLoad()
         }
     }
   }

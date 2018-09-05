@@ -21,7 +21,7 @@
 @import utils.RadioOption
 
 
-@(appConfig: FrontendAppConfig, form: Form[_], radioOptions: Set[RadioOption])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_], action: Call, radioOptions: Set[RadioOption])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("selectSACategory.title"),
@@ -29,7 +29,7 @@
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = SelectSACategoryController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    @helpers.form(action = action, 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 

@@ -120,8 +120,11 @@ GET        /other/aeoi/register                         controllers.other.aeoi.R
 GET        /other/aeoi                                  controllers.other.aeoi.HaveYouRegisteredAEOIController.onPageLoad()
 POST       /other/aeoi                                  controllers.other.aeoi.HaveYouRegisteredAEOIController.onSubmit()
 
-GET        /self-assessment                             controllers.sa.SelectSACategoryController.onPageLoad()
-POST       /self-assessment                             controllers.sa.SelectSACategoryController.onSubmit()
+GET        /self-assessment                             controllers.sa.SelectSACategoryController.onPageLoadHasUTR()
+POST       /self-assessment                             controllers.sa.SelectSACategoryController.onSubmitHasUTR()
+
+GET        /self-assessment/no-utr                      controllers.sa.SelectSACategoryController.onPageLoadNoUTR()
+POST       /self-assessment/no-utr                      controllers.sa.SelectSACategoryController.onSubmitNoUTR()
 
 GET        /vat                                         controllers.vat.WhichVATServicesToAddController.onPageLoad()
 POST       /vat                                         controllers.vat.WhichVATServicesToAddController.onSubmit()
@@ -269,3 +272,8 @@ GET        /enrol/:service                              controllers.enrolment.En
 
 GET        /vat/giant/newaccount                        controllers.vat.giant.SetupNewAccountController.onPageLoad()
 
+GET        /vat/registered/no                           controllers.vat.vat.SetupNewAccountController.onPageLoad()
+
+GET        /employer/directors-register-by-phone        controllers.employer.DirectorsRegisterByPhoneController.onPageLoad()
+
+GET        /employer/partners-register-by-phone         controllers.employer.PartnershipRegisterByPhoneController.onPageLoad()
