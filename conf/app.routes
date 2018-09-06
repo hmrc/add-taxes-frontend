@@ -283,3 +283,6 @@ POST       /employer/directors                          controllers.employer.pay
 
 GET        /employer/partners                  controllers.employer.paye.DoesYourPartnershipHave2To10PartnersController.onPageLoad()
 POST       /employer/partners                  controllers.employer.paye.DoesYourPartnershipHave2To10PartnersController.onSubmit()
+
+GET        /employer/directors-or-partners                  controllers.employer.paye.DoesBusinessHaveDirectorsOrPartnersController.onPageLoad()
+POST       /employer/directors-or-partners                  controllers.employer.paye.DoesBusinessHaveDirectorsOrPartnersController.onSubmit()

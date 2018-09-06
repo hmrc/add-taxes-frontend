@@ -1131,3 +1131,12 @@ doesYourPartnershipHave2To10Partners.heading = A oes gan eich partneriaeth 2 i 1
 doesYourPartnershipHave2To10Partners.Yes = Iawn
 doesYourPartnershipHave2To10Partners.No = Na
 doesYourPartnershipHave2To10Partners.error.required = Dewiswch 'Iawn' os oes gan eich partneriaeth 2 i 10 partner
+
+#######################################################
+##  DoesBusinessHaveDirectorsOrPartners
+#######################################################
+doesBusinessHaveDirectorsOrPartners.title = A oes gan eich busnes gyfarwyddwyr neu bartneriaid?
+doesBusinessHaveDirectorsOrPartners.heading = A oes gan eich busnes gyfarwyddwyr neu bartneriaid?
+doesBusinessHaveDirectorsOrPartners.Yes = Cyfarwyddwyr
+doesBusinessHaveDirectorsOrPartners.No = Partneriaid
+doesBusinessHaveDirectorsOrPartners.error.required = Dewiswch a oes gan eich busnes gyfarwyddwyr neu bartneriaid
