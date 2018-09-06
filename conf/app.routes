@@ -281,11 +281,11 @@ GET        /employer/partners-register-by-phone         controllers.employer.Par
 GET        /employer/directors                          controllers.employer.paye.DoesBusinessHave1To9DirectorsController.onPageLoad()
 POST       /employer/directors                          controllers.employer.paye.DoesBusinessHave1To9DirectorsController.onSubmit()
 
-GET        /employer/partners                  controllers.employer.paye.DoesYourPartnershipHave2To10PartnersController.onPageLoad()
-POST       /employer/partners                  controllers.employer.paye.DoesYourPartnershipHave2To10PartnersController.onSubmit()
+GET        /employer/partners                           controllers.employer.paye.DoesYourPartnershipHave2To10PartnersController.onPageLoad()
+POST       /employer/partners                           controllers.employer.paye.DoesYourPartnershipHave2To10PartnersController.onSubmit()
 
-GET        /employer/directors-or-partners                  controllers.employer.paye.DoesBusinessHaveDirectorsOrPartnersController.onPageLoad()
-POST       /employer/directors-or-partners                  controllers.employer.paye.DoesBusinessHaveDirectorsOrPartnersController.onSubmit()
+GET        /employer/directors-or-partners              controllers.employer.paye.DoesBusinessHaveDirectorsOrPartnersController.onPageLoad()
+POST       /employer/directors-or-partners              controllers.employer.paye.DoesBusinessHaveDirectorsOrPartnersController.onSubmit()
 
-GET        /employer/have-paye-ref                  controllers.employer.paye.DoYouHavePAYEReferenceController.onPageLoad()
-POST       /employer/have-paye-ref                  controllers.employer.paye.DoYouHavePAYEReferenceController.onSubmit()
+GET        /employer/have-paye-ref                      controllers.employer.paye.DoYouHavePAYEReferenceController.onPageLoad()
+POST       /employer/have-paye-ref                      controllers.employer.paye.DoYouHavePAYEReferenceController.onSubmit()
