@@ -130,3 +130,4 @@ object NextPage
     with DoYouHaveSAUTRNextPage
     with DoYouHaveActivationTokenNextPage
     with DoYouHavePractitionerIDNextPage
+    with utils.nextpage.employer.paye.DoesBusinessHave1To9DirectorsNextPage

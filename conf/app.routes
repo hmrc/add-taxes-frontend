@@ -277,3 +277,6 @@ GET        /vat/registered/no                           controllers.vat.vat.Setu
 GET        /employer/directors-register-by-phone        controllers.employer.DirectorsRegisterByPhoneController.onPageLoad()
 
 GET        /employer/partners-register-by-phone         controllers.employer.PartnershipRegisterByPhoneController.onPageLoad()
+
+GET        /employer/directors                          controllers.employer.paye.DoesBusinessHave1To9DirectorsController.onPageLoad()
+POST       /employer/directors                          controllers.employer.paye.DoesBusinessHave1To9DirectorsController.onSubmit()

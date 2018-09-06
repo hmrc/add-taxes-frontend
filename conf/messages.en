@@ -1114,3 +1114,12 @@ partnershipRegisterByPhone.heading3 = What happens next
 partnershipRegisterByPhone.p2 = Once you’ve registered, you’ll get a letter containing your PAYE and Accounts Office references. You’ll need these to report and pay PAYE tax and National Insurance to HMRC. This normally arrives within 10 working days.
 partnershipRegisterByPhone.p3 = Finally, you’ll need to {0} before you can send payroll information to HMRC.
 partnershipRegisterByPhone.p3.linkText = enrol for PAYE Online
+
+#######################################################
+##  DoesBusinessHave1To9Directors
+#######################################################
+doesBusinessHave1To9Directors.title = Does your business have 1 to 9 directors?
+doesBusinessHave1To9Directors.heading = Does your business have 1 to 9 directors?
+doesBusinessHave1To9Directors.Yes = Yes
+doesBusinessHave1To9Directors.No = No
+doesBusinessHave1To9Directors.error.required = Select yes if your business has 1 to 9 directors
