@@ -1123,3 +1123,12 @@ doesBusinessHave1To9Directors.heading = Does your business have 1 to 9 directors
 doesBusinessHave1To9Directors.Yes = Yes
 doesBusinessHave1To9Directors.No = No
 doesBusinessHave1To9Directors.error.required = Select yes if your business has 1 to 9 directors
+
+#######################################################
+##  DoesYourPartnershipHave2To10Partners
+#######################################################
+doesYourPartnershipHave2To10Partners.title = Does your partnership have 2 to 10 partners?
+doesYourPartnershipHave2To10Partners.heading = Does your partnership have 2 to 10 partners?
+doesYourPartnershipHave2To10Partners.Yes = Yes
+doesYourPartnershipHave2To10Partners.No = No
+doesYourPartnershipHave2To10Partners.error.required = Select yes if your partnership has 2 to 10 partners

@@ -280,3 +280,6 @@ GET        /employer/partners-register-by-phone         controllers.employer.Par
 
 GET        /employer/directors                          controllers.employer.paye.DoesBusinessHave1To9DirectorsController.onPageLoad()
 POST       /employer/directors                          controllers.employer.paye.DoesBusinessHave1To9DirectorsController.onSubmit()
+
+GET        /employer/partners                  controllers.employer.paye.DoesYourPartnershipHave2To10PartnersController.onPageLoad()
+POST       /employer/partners                  controllers.employer.paye.DoesYourPartnershipHave2To10PartnersController.onSubmit()

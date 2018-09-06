@@ -1122,3 +1122,12 @@ doesBusinessHave1To9Directors.heading = A oes gan eich busnes 1 i 9 cyfarwyddwr?
 doesBusinessHave1To9Directors.Yes = Iawn
 doesBusinessHave1To9Directors.No = Na
 doesBusinessHave1To9Directors.error.required = Dewiswch ‘Iawn’ os oes gan eich busnes 1 i 9 cyfarwyddwr
+
+#######################################################
+##  DoesYourPartnershipHave2To10Partners
+#######################################################
+doesYourPartnershipHave2To10Partners.title = A oes gan eich partneriaeth 2 i 10 partner?
+doesYourPartnershipHave2To10Partners.heading = A oes gan eich partneriaeth 2 i 10 partner?
+doesYourPartnershipHave2To10Partners.Yes = Iawn
+doesYourPartnershipHave2To10Partners.No = Na
+doesYourPartnershipHave2To10Partners.error.required = Dewiswch 'Iawn' os oes gan eich partneriaeth 2 i 10 partner
