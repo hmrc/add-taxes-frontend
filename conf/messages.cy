@@ -1140,3 +1140,12 @@ doesBusinessHaveDirectorsOrPartners.heading = A oes gan eich busnes gyfarwyddwyr
 doesBusinessHaveDirectorsOrPartners.Yes = Cyfarwyddwyr
 doesBusinessHaveDirectorsOrPartners.No = Partneriaid
 doesBusinessHaveDirectorsOrPartners.error.required = Dewiswch a oes gan eich busnes gyfarwyddwyr neu bartneriaid
+
+#######################################################
+##  DoYouHavePAYEReference
+#######################################################
+doYouHavePAYEReference.title = A oes gennych gyfeirnod TWE y Cyflogwr?
+doYouHavePAYEReference.heading = A oes gennych gyfeirnod TWE y Cyflogwr?
+doYouHavePAYEReference.Yes = Iawn
+doYouHavePAYEReference.No = Na
+doYouHavePAYEReference.error.required = Dewiswch ‘Iawn’ os oes gennych gyfeirnod TWE y Cyflogwr

@@ -29,7 +29,7 @@ class WhatEmployerTaxDoYouWantToAddNextPageSpec extends NextPageSpecBase {
     NextPage.whatEmployerTaxDoYouWantToAdd,
     nextPageEPAYENoEnrolment,
     WhatEmployerTaxDoYouWantToAdd.EPAYE.toString,
-    "http://localhost:8080/portal/business-registration/introduction?lang=eng",
+    "/business-account/add-tax/employer/have-paye-ref",
     "no enrolments"
   )
 

@@ -133,3 +133,4 @@ object NextPage
     with utils.nextpage.employer.paye.DoesBusinessHave1To9DirectorsNextPage
     with utils.nextpage.employer.paye.DoesYourPartnershipHave2To10PartnersNextPage
     with utils.nextpage.employer.paye.DoesBusinessHaveDirectorsOrPartnersNextPage
+    with utils.nextpage.employer.paye.DoYouHavePAYEReferenceNextPage

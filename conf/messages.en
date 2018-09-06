@@ -1141,3 +1141,12 @@ doesBusinessHaveDirectorsOrPartners.heading = Does your business have directors 
 doesBusinessHaveDirectorsOrPartners.Yes = Directors
 doesBusinessHaveDirectorsOrPartners.No = Partners
 doesBusinessHaveDirectorsOrPartners.error.required = Select if your business has directors or partners
+
+#######################################################
+##  DoYouHavePAYEReference
+#######################################################
+doYouHavePAYEReference.title = Do you have an employer PAYE reference?
+doYouHavePAYEReference.heading = Do you have an employer PAYE reference?
+doYouHavePAYEReference.Yes = Yes
+doYouHavePAYEReference.No = No
+doYouHavePAYEReference.error.required = Select yes if you have an Employer PAYE reference
