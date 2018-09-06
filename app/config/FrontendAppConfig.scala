@@ -132,4 +132,5 @@ trait FeatureToggles {
     runModeConfiguration.getBoolean(s"feature-toggles.$key").getOrElse(false)
 
   lazy val stampDutyEnabled: Boolean = featureEnabled("stampduty")
+  lazy val employerPayeJourneyEnabled: Boolean = featureEnabled("employer.paye")
 }
