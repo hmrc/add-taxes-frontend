@@ -1113,3 +1113,39 @@ partnershipRegisterByPhone.heading3 = Yr hyn sy’n digwydd nesaf
 partnershipRegisterByPhone.p2 = Unwaith eich bod wedi cofrestru, byddwch yn cael llythyr yn cynnwys eich cyfeirnodau TWE a Swyddfa Gyfrifon. Bydd angen i chi roi gwybod i CThEM am dreth TWE ac Yswiriant Gwladol, a’u talu. Fel arfer, bydd hwn yn cyrraedd cyn pen 10 diwrnod gwaith.
 partnershipRegisterByPhone.p3 = Yn olaf, bydd angen i chi {0} cyn i chi allu anfon gwybodaeth i CThEM.
 partnershipRegisterByPhone.p3.linkText = ymrestru ar gyfer TWE Ar-lein
+
+#######################################################
+##  DoesBusinessHave1To9Directors
+#######################################################
+doesBusinessHave1To9Directors.title = A oes gan eich busnes 1 i 9 cyfarwyddwr?
+doesBusinessHave1To9Directors.heading = A oes gan eich busnes 1 i 9 cyfarwyddwr?
+doesBusinessHave1To9Directors.Yes = Iawn
+doesBusinessHave1To9Directors.No = Na
+doesBusinessHave1To9Directors.error.required = Dewiswch ‘Iawn’ os oes gan eich busnes 1 i 9 cyfarwyddwr
+
+#######################################################
+##  DoesYourPartnershipHave2To10Partners
+#######################################################
+doesYourPartnershipHave2To10Partners.title = A oes gan eich partneriaeth 2 i 10 partner?
+doesYourPartnershipHave2To10Partners.heading = A oes gan eich partneriaeth 2 i 10 partner?
+doesYourPartnershipHave2To10Partners.Yes = Iawn
+doesYourPartnershipHave2To10Partners.No = Na
+doesYourPartnershipHave2To10Partners.error.required = Dewiswch 'Iawn' os oes gan eich partneriaeth 2 i 10 partner
+
+#######################################################
+##  DoesBusinessHaveDirectorsOrPartners
+#######################################################
+doesBusinessHaveDirectorsOrPartners.title = A oes gan eich busnes gyfarwyddwyr neu bartneriaid?
+doesBusinessHaveDirectorsOrPartners.heading = A oes gan eich busnes gyfarwyddwyr neu bartneriaid?
+doesBusinessHaveDirectorsOrPartners.Yes = Cyfarwyddwyr
+doesBusinessHaveDirectorsOrPartners.No = Partneriaid
+doesBusinessHaveDirectorsOrPartners.error.required = Dewiswch a oes gan eich busnes gyfarwyddwyr neu bartneriaid
+
+#######################################################
+##  DoYouHavePAYEReference
+#######################################################
+doYouHavePAYEReference.title = A oes gennych gyfeirnod TWE y Cyflogwr?
+doYouHavePAYEReference.heading = A oes gennych gyfeirnod TWE y Cyflogwr?
+doYouHavePAYEReference.Yes = Iawn
+doYouHavePAYEReference.No = Na
+doYouHavePAYEReference.error.required = Dewiswch ‘Iawn’ os oes gennych gyfeirnod TWE y Cyflogwr

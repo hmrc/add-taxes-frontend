@@ -26,6 +26,7 @@ import models.employer.WhatEmployerTaxDoYouWantToAdd
 import play.api.mvc.{Call, Request}
 import uk.gov.hmrc.auth.core.Enrolments
 import utils.{HmrcEnrolmentType, NextPage}
+import controllers.employer.paye.{routes => payeRoutes}
 
 trait WhatEmployerTaxDoYouWantToAddNextPage {
 
@@ -39,7 +40,11 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
         request: Request[_]): Call =
         details match {
           case (WhatEmployerTaxDoYouWantToAdd.EPAYE, _) =>
-            Call("GET", appConfig.getPortalUrl("businessRegistration"))
+            if (appConfig.employerPayeJourneyEnabled) {
+              payeRoutes.DoYouHavePAYEReferenceController.onPageLoad()
+            } else {
+              Call("GET", appConfig.getPortalUrl("businessRegistration"))
+            }
           case (WhatEmployerTaxDoYouWantToAdd.CIS, _) =>
             cisRoutes.IsYourBusinessInUKController.onPageLoad()
           case (WhatEmployerTaxDoYouWantToAdd.PS, _) =>
