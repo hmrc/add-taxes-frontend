@@ -1175,4 +1175,4 @@ registerForVATOnline.listitem6 = are disposing of assets on which 8th or 13th Di
 registerForVATOnline.subheading = Do you want to register for VAT online?
 registerForVATOnline.Yes = Yes
 registerForVATOnline.No = No
-registerForVATOnline.error.required = Select yes or no
+registerForVATOnline.error.required = Select yes if you want to register for VAT online

@@ -1174,4 +1174,4 @@ registerForVATOnline.listitem6 = rydych yn cael gwared o asedion y gwnaed hawlia
 registerForVATOnline.subheading = A ydych am gofrestru ar gyfer TAW ar-lein?
 registerForVATOnline.Yes = Iawn
 registerForVATOnline.No = Na
-registerForVATOnline.error.required = Dewis Iawn neu Na
+registerForVATOnline.error.required = Dewiswch ‘Iawn’ os ydych eisiau cofrestru ar gyfer TAW ar-lein
