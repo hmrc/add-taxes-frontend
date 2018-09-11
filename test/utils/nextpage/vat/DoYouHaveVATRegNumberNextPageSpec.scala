@@ -36,7 +36,7 @@ class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.doYouHaveVATRegNumber,
       (DoYouHaveVATRegNumber.No, affinityGroupOrganisation),
-      "http://localhost:8080/portal/business-registration/business-allowed?lang=eng"
+      "/business-account/add-tax/vat/register-online"
     )
 
     behave like nextPage(
