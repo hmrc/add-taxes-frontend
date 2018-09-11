@@ -1150,3 +1150,12 @@ doYouHavePAYEReference.heading = Do you have an employer PAYE reference?
 doYouHavePAYEReference.Yes = Yes
 doYouHavePAYEReference.No = No
 doYouHavePAYEReference.error.required = Select yes if you have an Employer PAYE reference
+
+#######################################################
+##  RegisterForVatByPost
+#######################################################
+registerForVatByPost.title = You must register for VAT by post
+registerForVatByPost.heading = You must register for VAT by post
+registerForVatByPost.p1 = When you get your VAT number, you can sign in and add the VAT online service.
+registerForVatByPost.continue = Register for VAT by post
+registerForVatByPost.notnow = I do not want to do this now

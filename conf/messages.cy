@@ -1130,7 +1130,7 @@ doesYourPartnershipHave2To10Partners.title = A oes gan eich partneriaeth 2 i 10 
 doesYourPartnershipHave2To10Partners.heading = A oes gan eich partneriaeth 2 i 10 partner?
 doesYourPartnershipHave2To10Partners.Yes = Iawn
 doesYourPartnershipHave2To10Partners.No = Na
-doesYourPartnershipHave2To10Partners.error.required = Dewiswch 'Iawn' os oes gan eich partneriaeth 2 i 10 partner
+doesYourPartnershipHave2To10Partners.error.required = Dewiswch ‘Iawn’ os oes gan eich partneriaeth 2 i 10 partner
 
 #######################################################
 ##  DoesBusinessHaveDirectorsOrPartners
@@ -1149,3 +1149,12 @@ doYouHavePAYEReference.heading = A oes gennych gyfeirnod TWE y Cyflogwr?
 doYouHavePAYEReference.Yes = Iawn
 doYouHavePAYEReference.No = Na
 doYouHavePAYEReference.error.required = Dewiswch ‘Iawn’ os oes gennych gyfeirnod TWE y Cyflogwr
+
+#######################################################
+##  RegisterForVatByPost
+#######################################################
+registerForVatByPost.title = Mae’n rhaid i chi gofrestru ar gyfer TAW drwy’r post
+registerForVatByPost.heading = Mae’n rhaid i chi gofrestru ar gyfer TAW drwy’r post
+registerForVatByPost.p1 = Pan gewch eich rhif TAW, gallwch fewngofnodi ac ychwanegu’r gwasanaeth TAW ar-lein.
+registerForVatByPost.continue = Cofrestru ar gyfer TAW drwy’r post
+registerForVatByPost.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
