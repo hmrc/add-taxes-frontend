@@ -293,3 +293,6 @@ GET        /employer/have-paye-ref                      controllers.employer.pay
 POST       /employer/have-paye-ref                      controllers.employer.paye.DoYouHavePAYEReferenceController.onSubmit()
 
 
+
+GET        /vat/register-online                  controllers.vat.RegisterForVATOnlineController.onPageLoad()
+POST       /vat/register-online                  controllers.vat.RegisterForVATOnlineController.onSubmit()

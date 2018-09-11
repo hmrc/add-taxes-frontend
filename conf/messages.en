@@ -1159,3 +1159,20 @@ registerForVatByPost.heading = You must register for VAT by post
 registerForVatByPost.p1 = When you get your VAT number, you can sign in and add the VAT online service.
 registerForVatByPost.continue = Register for VAT by post
 registerForVatByPost.notnow = I do not want to do this now
+
+#######################################################
+##  RegisterForVATOnline
+#######################################################
+registerForVATOnline.title = Check if you can register for VAT online
+registerForVATOnline.heading = Check if you can register for VAT online
+registerForVATOnline.listheading = You cannot register online if you:
+registerForVATOnline.listitem1 = need to apply for a ‘registration exception’
+registerForVATOnline.listitem2 = are joining the Agricultural Flat Rate Scheme
+registerForVATOnline.listitem3 = are registering the divisions or business units of a body corporate under separate VAT numbers
+registerForVATOnline.listitem4 = have an EU business ‘distance selling’ to the UK
+registerForVATOnline.listitem5 = have imported (‘acquired’) goods worth more than £85,000 from another EU company
+registerForVATOnline.listitem6 = are disposing of assets on which 8th or 13th Directive refunds have been claimed
+registerForVATOnline.subheading = Do you want to register for VAT online?
+registerForVATOnline.Yes = Yes
+registerForVATOnline.No = No
+registerForVATOnline.error.required = Select yes or no
