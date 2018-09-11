@@ -134,6 +134,9 @@ POST       /vat/have-vrn                                controllers.vat.DoYouHav
 
 GET        /vat/register-form                           controllers.vat.RegisterForVatByPostController.onPageLoad()
 
+GET        /vat/register-online                         controllers.vat.RegisterForVATOnlineController.onPageLoad()
+POST       /vat/register-online                         controllers.vat.RegisterForVATOnlineController.onSubmit()
+
 GET        /vat/ec                                      controllers.vat.ec.RegisteredForVATECSalesController.onPageLoad()
 POST       /vat/ec                                      controllers.vat.ec.RegisteredForVATECSalesController.onSubmit()
 
@@ -293,6 +296,3 @@ GET        /employer/have-paye-ref                      controllers.employer.pay
 POST       /employer/have-paye-ref                      controllers.employer.paye.DoYouHavePAYEReferenceController.onSubmit()
 
 
-
-GET        /vat/register-online                  controllers.vat.RegisterForVATOnlineController.onPageLoad()
-POST       /vat/register-online                  controllers.vat.RegisterForVATOnlineController.onSubmit()
