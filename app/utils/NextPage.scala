@@ -24,6 +24,7 @@ import utils.nextpage.employer._
 import utils.nextpage.employer.cis.IsYourBusinessInUKNextPage
 import utils.nextpage.employer.cis.uk.AreYouContractorOrSubcontractorNextPage
 import utils.nextpage.employer.cis.uk.subcontractor._
+import utils.nextpage.employer.paye._
 import utils.nextpage.employer.pension._
 import utils.nextpage.other.aeoi.HaveYouRegisteredAEOINextPage
 import utils.nextpage.other.alcohol.atwd.AreYouRegisteredWarehousekeeperNextPage
@@ -130,7 +131,8 @@ object NextPage
     with DoYouHaveSAUTRNextPage
     with DoYouHaveActivationTokenNextPage
     with DoYouHavePractitionerIDNextPage
-    with utils.nextpage.employer.paye.DoesBusinessHave1To9DirectorsNextPage
-    with utils.nextpage.employer.paye.DoesYourPartnershipHave2To10PartnersNextPage
-    with utils.nextpage.employer.paye.DoesBusinessHaveDirectorsOrPartnersNextPage
-    with utils.nextpage.employer.paye.DoYouHavePAYEReferenceNextPage
+    with DoesBusinessHave1To9DirectorsNextPage
+    with DoesYourPartnershipHave2To10PartnersNextPage
+    with DoesBusinessHaveDirectorsOrPartnersNextPage
+    with DoYouHavePAYEReferenceNextPage
+    with RegisterForVATOnlineNextPage

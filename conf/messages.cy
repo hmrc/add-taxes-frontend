@@ -1130,7 +1130,7 @@ doesYourPartnershipHave2To10Partners.title = A oes gan eich partneriaeth 2 i 10 
 doesYourPartnershipHave2To10Partners.heading = A oes gan eich partneriaeth 2 i 10 partner?
 doesYourPartnershipHave2To10Partners.Yes = Iawn
 doesYourPartnershipHave2To10Partners.No = Na
-doesYourPartnershipHave2To10Partners.error.required = Dewiswch 'Iawn' os oes gan eich partneriaeth 2 i 10 partner
+doesYourPartnershipHave2To10Partners.error.required = Dewiswch ‘Iawn’ os oes gan eich partneriaeth 2 i 10 partner
 
 #######################################################
 ##  DoesBusinessHaveDirectorsOrPartners
@@ -1149,3 +1149,29 @@ doYouHavePAYEReference.heading = A oes gennych gyfeirnod TWE y Cyflogwr?
 doYouHavePAYEReference.Yes = Iawn
 doYouHavePAYEReference.No = Na
 doYouHavePAYEReference.error.required = Dewiswch ‘Iawn’ os oes gennych gyfeirnod TWE y Cyflogwr
+
+#######################################################
+##  RegisterForVatByPost
+#######################################################
+registerForVatByPost.title = Mae’n rhaid i chi gofrestru ar gyfer TAW drwy’r post
+registerForVatByPost.heading = Mae’n rhaid i chi gofrestru ar gyfer TAW drwy’r post
+registerForVatByPost.p1 = Pan gewch eich rhif TAW, gallwch fewngofnodi ac ychwanegu’r gwasanaeth TAW ar-lein.
+registerForVatByPost.continue = Cofrestru ar gyfer TAW drwy’r post
+registerForVatByPost.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+
+#######################################################
+##  RegisterForVATOnline
+#######################################################
+registerForVATOnline.title = Edrychwch i weld a allwch gofrestru ar gyfer TAW ar-lein
+registerForVATOnline.heading = Edrychwch i weld a allwch gofrestru ar gyfer TAW ar-lein
+registerForVATOnline.listheading = Ni allwch gofrestru ar-lein os yw un o’r canlynol yn berthnasol:
+registerForVATOnline.listitem1 = mae angen i chi wneud cais ar gyfer ‘eithriad rhag cofrestru’
+registerForVATOnline.listitem2 = rydych yn ymuno â’r Cynllun Cyfradd Unffurf Amaethyddol
+registerForVATOnline.listitem3 = rydych yn cofrestru adrannau neu unedau busnes corff corfforaethol o dan rifau TAW gwahanol
+registerForVATOnline.listitem4 = mae gennych fusnes yn yr UE sy’n ‘gwerthu o bell’ i’r DU
+registerForVATOnline.listitem5 = rydych wedi mewnforio (‘caffael’) nwyddau sy’n werth mwy na £85,000 o gwmni arall yn yr UE
+registerForVATOnline.listitem6 = rydych yn cael gwared o asedion y gwnaed hawliad am ad-daliadau o dan yr 8fed neu’r 13eg Cyfarwyddeb arnynt
+registerForVATOnline.subheading = A ydych am gofrestru ar gyfer TAW ar-lein?
+registerForVATOnline.Yes = Iawn
+registerForVATOnline.No = Na
+registerForVATOnline.error.required = Dewiswch ‘Iawn’ os ydych eisiau cofrestru ar gyfer TAW ar-lein

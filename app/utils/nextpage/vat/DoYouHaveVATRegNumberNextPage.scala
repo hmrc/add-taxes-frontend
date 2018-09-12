@@ -18,6 +18,7 @@ package utils.nextpage.vat
 
 import config.FrontendAppConfig
 import controllers.vat.vat.{routes => vatVatRoutes}
+import controllers.vat.{routes => vatRoutes}
 import identifiers.DoYouHaveVATRegNumberId
 import models.vat.DoYouHaveVATRegNumber
 import play.api.mvc.{Call, Request}
@@ -40,7 +41,7 @@ trait DoYouHaveVATRegNumberNextPage {
           case (DoYouHaveVATRegNumber.Yes, _) => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.VAT))
           case (DoYouHaveVATRegNumber.No, Some(AffinityGroup.Individual)) =>
             vatVatRoutes.SetupNewAccountController.onPageLoad()
-          case (DoYouHaveVATRegNumber.No, _) => Call("GET", appConfig.getPortalUrl("vatRegistration"))
+          case (DoYouHaveVATRegNumber.No, _) => vatRoutes.RegisterForVATOnlineController.onPageLoad()
         }
       }
     }
