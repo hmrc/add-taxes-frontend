@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import identifiers.DoYouHavePAYEReferenceId
 import play.api.mvc.{Call, Request}
 import models.employer.paye.DoYouHavePAYEReference
-import utils.NextPage
+import utils.{Enrolments, NextPage}
 import controllers.employer.paye.{routes => employerRoutes}
 
 trait DoYouHavePAYEReferenceNextPage {
@@ -29,8 +29,13 @@ trait DoYouHavePAYEReferenceNextPage {
     new NextPage[DoYouHavePAYEReferenceId.type, DoYouHavePAYEReference, Call] {
       override def get(b: DoYouHavePAYEReference)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case DoYouHavePAYEReference.Yes => Call("GET", appConfig.getPortalUrl("businessRegistration"))
-          case DoYouHavePAYEReference.No  => employerRoutes.DoesBusinessHaveDirectorsOrPartnersController.onPageLoad()
+          case DoYouHavePAYEReference.Yes =>
+            if (appConfig.employerPayeJourneyEnabled) {
+              Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.EPAYE))
+            } else {
+              Call("GET", appConfig.getPortalUrl("businessRegistration"))
+            }
+          case DoYouHavePAYEReference.No => employerRoutes.DoesBusinessHaveDirectorsOrPartnersController.onPageLoad()
         }
     }
   }

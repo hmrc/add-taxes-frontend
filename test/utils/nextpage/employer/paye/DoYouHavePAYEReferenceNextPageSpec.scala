@@ -23,10 +23,11 @@ import utils.nextpage.NextPageSpecBase
 class DoYouHavePAYEReferenceNextPageSpec extends NextPageSpecBase {
 
   "doYouHavePAYEReference" when {
+
     behave like nextPage(
       NextPage.doYouHavePAYEReference,
       DoYouHavePAYEReference.Yes,
-      "http://localhost:8080/portal/business-registration/introduction?lang=eng"
+      "http://localhost:9555/enrolment-management-frontend/IR-PAYE/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
 
     behave like nextPage(
