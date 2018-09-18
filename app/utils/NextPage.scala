@@ -136,4 +136,4 @@ object NextPage
     with DoesBusinessHaveDirectorsOrPartnersNextPage
     with DoYouHavePAYEReferenceNextPage
     with RegisterForVATOnlineNextPage
-    with utils.nextpage.sa.AreYouSelfEmployedNextPage
+    with AreYouSelfEmployedNextPage
