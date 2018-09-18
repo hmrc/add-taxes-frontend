@@ -296,3 +296,6 @@ GET        /employer/have-paye-ref                      controllers.employer.pay
 POST       /employer/have-paye-ref                      controllers.employer.paye.DoYouHavePAYEReferenceController.onSubmit()
 
 
+
+GET        /self-assessment/self-employed                  controllers.sa.AreYouSelfEmployedController.onPageLoad()
+POST       /self-assessment/self-employed                  controllers.sa.AreYouSelfEmployedController.onSubmit()

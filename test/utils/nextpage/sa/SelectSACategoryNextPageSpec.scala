@@ -43,6 +43,14 @@ class SelectSACategoryNextPageSpec extends NextPageSpecBase {
 
     behave like nextPageWithAffinityGroup(
       NextPage.selectSACategory,
+      (SelectSACategory.Sa, DoYouHaveSAUTR.No, Some(Individual)),
+      SelectSACategory.Sa.toString,
+      "/business-account/add-tax/self-assessment/self-employed",
+      "individual"
+    )
+
+    behave like nextPageWithAffinityGroup(
+      NextPage.selectSACategory,
       (SelectSACategory.Partnership, DoYouHaveSAUTR.Yes, Some(Organisation)),
       SelectSACategory.Partnership.toString,
       "/business-account/add-tax/self-assessment/partnership",

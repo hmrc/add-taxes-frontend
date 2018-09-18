@@ -1175,3 +1175,12 @@ registerForVATOnline.subheading = A ydych am gofrestru ar gyfer TAW ar-lein?
 registerForVATOnline.Yes = Iawn
 registerForVATOnline.No = Na
 registerForVATOnline.error.required = Dewiswch ‘Iawn’ os ydych eisiau cofrestru ar gyfer TAW ar-lein
+
+#######################################################
+##  AreYouSelfEmployed
+#######################################################
+areYouSelfEmployed.title = A ydych yn hunangyflogedig?
+areYouSelfEmployed.heading = A ydych yn hunangyflogedig?
+areYouSelfEmployed.Yes = Iawn
+areYouSelfEmployed.No = Na
+areYouSelfEmployed.error.required = Dewiswch ‘Iawn’ os ydych yn hunangyflogedig
