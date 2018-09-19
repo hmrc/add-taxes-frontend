@@ -1046,6 +1046,7 @@ applyForPractitionerID.title = Mae angen Dynodydd (ID) Ymarferydd Cynllun arnoch
 applyForPractitionerID.heading = Mae angen Dynodydd (ID) Ymarferydd Cynllun arnoch er mwyn ychwanegu’r cynllun pensiwn hwn at eich cyfrif
 applyForPractitionerID.continue = Gwneud cais am Ddynodydd (ID) Ymarferydd Cynllun
 applyForPractitionerID.p1 = Pan fyddwch yn cael y Dynodydd (ID) hwn, mewngofnodwch i’ch cyfrif ac ychwanegwch Cynlluniau Pensiwn Ar-lein ar gyfer Ymarferwyr.
+applyForPractitionerID.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
 #######################################################
 ##  RequestActivationToken
