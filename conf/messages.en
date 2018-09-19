@@ -1176,3 +1176,12 @@ registerForVATOnline.subheading = Do you want to register for VAT online?
 registerForVATOnline.Yes = Yes
 registerForVATOnline.No = No
 registerForVATOnline.error.required = Select yes if you want to register for VAT online
+
+#######################################################
+##  AreYouSelfEmployed
+#######################################################
+areYouSelfEmployed.title = Are you self-employed?
+areYouSelfEmployed.heading = Are you self-employed?
+areYouSelfEmployed.Yes = Yes
+areYouSelfEmployed.No = No
+areYouSelfEmployed.error.required = Select yes if you are self-employed

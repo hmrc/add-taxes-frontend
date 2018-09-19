@@ -126,6 +126,9 @@ POST       /self-assessment                             controllers.sa.SelectSAC
 GET        /self-assessment/no-utr                      controllers.sa.SelectSACategoryController.onPageLoadNoUTR()
 POST       /self-assessment/no-utr                      controllers.sa.SelectSACategoryController.onSubmitNoUTR()
 
+GET        /self-assessment/self-employed               controllers.sa.AreYouSelfEmployedController.onPageLoad()
+POST       /self-assessment/self-employed               controllers.sa.AreYouSelfEmployedController.onSubmit()
+
 GET        /vat                                         controllers.vat.WhichVATServicesToAddController.onPageLoad()
 POST       /vat                                         controllers.vat.WhichVATServicesToAddController.onSubmit()
 
@@ -294,5 +297,3 @@ POST       /employer/directors-or-partners              controllers.employer.pay
 
 GET        /employer/have-paye-ref                      controllers.employer.paye.DoYouHavePAYEReferenceController.onPageLoad()
 POST       /employer/have-paye-ref                      controllers.employer.paye.DoYouHavePAYEReferenceController.onSubmit()
-
-

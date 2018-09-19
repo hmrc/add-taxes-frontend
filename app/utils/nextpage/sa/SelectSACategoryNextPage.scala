@@ -21,6 +21,7 @@ import identifiers.SelectSACategoryId
 import models.sa.{DoYouHaveSAUTR, SelectSACategory}
 import play.api.mvc.{Call, Request}
 import utils.{Enrolments, NextPage}
+import controllers.sa.{routes => saRoutes}
 import controllers.sa.partnership.{routes => saPartnerRoutes}
 import controllers.sa.trust.{routes => trustRoutes}
 import uk.gov.hmrc.auth.core.AffinityGroup
@@ -38,6 +39,9 @@ trait SelectSACategoryNextPage {
         (saCategory._1, saCategory._2, saCategory._3) match {
 
           case (SelectSACategory.Sa, DoYouHaveSAUTR.Yes, _) => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.SA))
+
+          case (SelectSACategory.Sa, _, Some(AffinityGroup.Individual)) =>
+            saRoutes.AreYouSelfEmployedController.onPageLoad()
 
           case (SelectSACategory.Sa, _, _) => Call("GET", appConfig.getPortalUrl("selectTaxes"))
 

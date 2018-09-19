@@ -136,3 +136,4 @@ object NextPage
     with DoesBusinessHaveDirectorsOrPartnersNextPage
     with DoYouHavePAYEReferenceNextPage
     with RegisterForVATOnlineNextPage
+    with AreYouSelfEmployedNextPage
