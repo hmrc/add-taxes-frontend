@@ -27,11 +27,21 @@
 
     <p>@messages("applyForPractitionerID.p1")</p>
 
-    <a id="continue"
-       href='@appConfig.getPensionsUrl("apply")'
-       class="button"
-       data-journey-click="ApplyPractitionerID:Click:Continue">
+    <p>
+        <a id="continue"
+           href='@appConfig.getPensionsUrl("apply")'
+           class="button"
+           data-journey-click="ApplyPractitionerID:Click:Continue">
 
-        @messages("applyForPractitionerID.continue")
-    </a>
+            @messages("applyForPractitionerID.continue")
+        </a>
+    </p>
+
+    <p>
+        <a id="not-now"
+            href='@appConfig.getBusinessAccountUrl("home")'
+            data-journey-click="ApplyPractitionerID:Click:NotNow">
+            @messages("applyForPractitionerID.notnow")
+        </a>
+    </p>
 }

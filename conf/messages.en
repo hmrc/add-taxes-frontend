@@ -1048,6 +1048,7 @@ applyForPractitionerID.title = You need a Scheme Practitioner ID to add this pen
 applyForPractitionerID.heading = You need a Scheme Practitioner ID to add this pension scheme to your account
 applyForPractitionerID.continue = Apply for a Scheme Practitioner ID
 applyForPractitionerID.p1 = When you get this ID, sign in to your account and add Pension Schemes Online for Practitioners.
+applyForPractitionerID.notnow = I do not want to do this now
 
 #######################################################
 ##  RequestActivationToken
