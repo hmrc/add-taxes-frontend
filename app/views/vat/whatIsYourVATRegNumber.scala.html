@@ -17,30 +17,22 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
 @import controllers.vat.routes._
-@import models.vat.DoYouHaveVATRegNumber
-
 
 @(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
-@legendContent = {
-  @components.heading("doYouHaveVATRegNumber.heading")
-  <p>@messages("doYouHaveVATRegNumber.explanation")</p>
-}
-
 @main_template(
-    title = messages("doYouHaveVATRegNumber.title"),
+    title = messages("whatIsYourVATRegNumber.title"),
     appConfig = appConfig,
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = DoYouHaveVATRegNumberController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+        @helpers.form(action = WhatIsYourVATRegNumberController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-        @components.error_summary(form.errors)
+        @components.heading("whatIsYourVATRegNumber.heading")
 
-        @components.input_radio(
-            field = form("value"),
-            legend = legendContent.body,
-            inputs = DoYouHaveVATRegNumber.options.toSeq
+        @components.input_text(
+          field = form("value"),
+          label = ""
         )
 
         @components.submit_button(gaEvent = "HaveVATRegNumber")

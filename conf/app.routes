@@ -135,6 +135,9 @@ POST       /vat                                         controllers.vat.WhichVAT
 GET        /vat/have-vrn                                controllers.vat.DoYouHaveVATRegNumberController.onPageLoad()
 POST       /vat/have-vrn                                controllers.vat.DoYouHaveVATRegNumberController.onSubmit()
 
+GET        /vat/what-is-your-vrn                        controllers.vat.WhatIsYourVATRegNumberController.onPageLoad()
+POST       /vat/what-is-your-vrn                        controllers.vat.WhatIsYourVATRegNumberController.onSubmit()
+
 GET        /vat/register-form                           controllers.vat.RegisterForVatByPostController.onPageLoad()
 
 GET        /vat/register-online                         controllers.vat.RegisterForVATOnlineController.onPageLoad()
