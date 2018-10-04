@@ -978,11 +978,20 @@ doYouNeedToStopMGD.error.required = Select yes if you need to stop using the Mac
 #######################################################
 ##  DoYouHaveVATRegNumber
 #######################################################
-doYouHaveVATRegNumber.title = Do you have a VAT registration number?
-doYouHaveVATRegNumber.heading = Do you have a VAT registration number?
+doYouHaveVATRegNumber.title = Do you have a VAT number?
+doYouHaveVATRegNumber.heading = Do you have a VAT number?
+doYouHaveVATRegNumber.explanation = This is the 9-digit number on your VAT registration certificate.
 doYouHaveVATRegNumber.Yes = Yes
 doYouHaveVATRegNumber.No = No
 doYouHaveVATRegNumber.error.required = Select yes if you have a VAT registration number
+
+#######################################################
+## WhatIsYourVATRegNumber
+#######################################################
+whatIsYourVATRegNumber.title = What is your VAT number?
+whatIsYourVATRegNumber.heading = What is your VAT number?
+whatIsYourVATRegNumber.explanation = This is the 9-digit number on your VAT registration certificate.
+whatIsYourVATRegNumber.error.required = Enter a VAT number in the correct format
 
 #######################################################
 ##  EnterSAUTR
