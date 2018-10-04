@@ -123,6 +123,8 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
 
   private lazy val pensionsHost: String = loadConfig("urls.external.pensions.host")
   def getPensionsUrl(key: String): String = pensionsHost + loadConfig(s"urls.external.pensions.$key")
+
+  lazy val googleTagManagerId = loadConfig(s"google-tag-manager.id")
 }
 
 trait FeatureToggles {
