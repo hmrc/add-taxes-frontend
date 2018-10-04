@@ -106,6 +106,11 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
 
   def revenueScotUrl = loadConfig(s"urls.external.lbtScotland")
 
+  def vatSignUpHost = loadConfig("vat-sign-up-frontend.host")
+
+  def vatSignUpClaimSubscriptionUrl(vrn: String): String =
+    s"$vatSignUpHost/vat-through-software/sign-up/claim-subscription/$vrn"
+
   def emacEnrollmentsUrl(enrolment: Enrolments): String =
     s"$enrolmentManagementFrontendHost/enrolment-management-frontend/$enrolment/request-access-tax-scheme?continue=%2Fbusiness-account"
 

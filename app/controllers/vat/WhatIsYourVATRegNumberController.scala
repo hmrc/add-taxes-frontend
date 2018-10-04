@@ -19,41 +19,58 @@ package controllers.vat
 import javax.inject.Inject
 
 import config.FrontendAppConfig
-import controllers.actions._
+import controllers.actions.{AuthAction, ServiceInfoAction}
+import forms.vat.WhatIsYourVATRegNumberFormProvider
+import identifiers.WhatIsYourVATRegNumberId
+import play.api.Logger
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Call
+import services.VatSubscriptionService
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
+import views.html.vat.whatIsYourVATRegNumber
 
-import forms.vat.DoYouHaveVATRegNumberFormProvider
-import identifiers.DoYouHaveVATRegNumberId
-import views.html.vat.doYouHaveVATRegNumber
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
-class DoYouHaveVATRegNumberController @Inject()(
+class WhatIsYourVATRegNumberController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
-  formProvider: DoYouHaveVATRegNumberFormProvider)
+  vatSubscriptionService: VatSubscriptionService,
+  formProvider: WhatIsYourVATRegNumberFormProvider)
     extends FrontendController
     with I18nSupport
     with Enumerable.Implicits {
 
   val form = formProvider()
 
+  private def getMandationStatus(vrn: String)(implicit hc: HeaderCarrier): Future[Boolean] =
+    vatSubscriptionService.getMandationStatus(vrn).map {
+      _.getOrElse {
+        Logger.error("There was an error retrieving mandation status")
+        throw new Exception("There was an error retrieving mandation status")
+      }
+    }
+
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouHaveVATRegNumber(appConfig, form)(request.serviceInfoContent))
+    Ok(whatIsYourVATRegNumber(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          BadRequest(doYouHaveVATRegNumber(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(DoYouHaveVATRegNumberId, (value, request.request.affinityGroup)))
+          Future.successful(BadRequest(whatIsYourVATRegNumber(appConfig, formWithErrors)(request.serviceInfoContent))),
+        (value) =>
+          getMandationStatus(value).map { mandationStatus =>
+            Redirect(navigator.nextPage(WhatIsYourVATRegNumberId, (mandationStatus, value)))
+        }
       )
   }
 }

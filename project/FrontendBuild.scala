@@ -30,6 +30,7 @@ private object AppDependencies {
   private val bootstrapVersion = "1.6.0"
   private val playPartialsVersion = "6.1.0"
   private val scalacheckVersion = "1.14.0"
+  private val referenceCheckerVersion = "2.2.0"
 
   val compile = Seq(
     ws,
@@ -42,7 +43,8 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "play-conditional-form-mapping" % playConditionalFormMappingVersion,
     "uk.gov.hmrc" %% "bootstrap-play-25" % bootstrapVersion,
     "uk.gov.hmrc" %% "play-language" % playLanguageVersion,
-    "uk.gov.hmrc" %% "play-partials" % playPartialsVersion
+    "uk.gov.hmrc" %% "play-partials" % playPartialsVersion,
+    "uk.gov.hmrc" %% "reference-checker" % referenceCheckerVersion
   )
 
   trait TestDependencies {
