@@ -55,6 +55,8 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   lazy val chiefOperationsEmail = loadConfig("chief.operations.email")
 
   lazy val authUrl = baseUrl("auth")
+
+  lazy val vatSubscriptionUrl = baseUrl("vat-subscription")
   lazy val btaUrl = baseUrl("business-tax-account")
 
   private lazy val stampDutyEnrollmentHost = loadConfig("stamp-duty-land-tax-enrolment-frontend.host")
