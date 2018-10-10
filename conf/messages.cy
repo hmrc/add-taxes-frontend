@@ -976,11 +976,21 @@ doYouNeedToStopMGD.error.required = Dewiswch ‘Iawn’ os oes angen i chi roi�
 #######################################################
 ##  DoYouHaveVATRegNumber
 #######################################################
-doYouHaveVATRegNumber.title = A oes gennych rif cofrestru TAW?
-doYouHaveVATRegNumber.heading = A oes gennych rif cofrestru TAW?
+doYouHaveVATRegNumber.title = A oes gennych rif TAW?
+doYouHaveVATRegNumber.heading = A oes gennych rif TAW?
+doYouHaveVATRegNumber.explanation = Dyma’r rhif 9 digid ar eich tystysgrif gofrestru TAW.
 doYouHaveVATRegNumber.Yes = Iawn
 doYouHaveVATRegNumber.No = Na
 doYouHaveVATRegNumber.error.required = Dewiswch ‘Iawn’ os oes gennych rif cofrestru TAW
+
+#######################################################
+## WhatIsYourVATRegNumber
+#######################################################
+whatIsYourVATRegNumber.title = Beth yw’ch rhif TAW?
+whatIsYourVATRegNumber.heading = Beth yw’ch rhif TAW?
+whatIsYourVATRegNumber.error.required = Nodwch rif TAW yn y fformat cywir
+whatIsYourVATRegNumber.error.tooLong = Rydych wedi nodi gormod o rifau
+whatIsYourVATRegNumber.error.tooShort = Nid ydych wedi nodi digon o rifau
 
 #######################################################
 ##  EnterSAUTR
