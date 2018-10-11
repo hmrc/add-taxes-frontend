@@ -132,8 +132,11 @@ POST       /self-assessment/self-employed               controllers.sa.AreYouSel
 GET        /vat                                         controllers.vat.WhichVATServicesToAddController.onPageLoad()
 POST       /vat                                         controllers.vat.WhichVATServicesToAddController.onSubmit()
 
-GET        /vat/have-vrn                                controllers.vat.DoYouHaveVATRegNumberController.onPageLoad()
-POST       /vat/have-vrn                                controllers.vat.DoYouHaveVATRegNumberController.onSubmit()
+GET        /vat/do-you-have-a-vat-number                controllers.vat.DoYouHaveVATRegNumberController.onPageLoad()
+POST       /vat/do-you-have-a-vat-number                controllers.vat.DoYouHaveVATRegNumberController.onSubmit()
+
+GET        /vat/what-is-your-vat-number                 controllers.vat.WhatIsYourVATRegNumberController.onPageLoad()
+POST       /vat/what-is-your-vat-number                 controllers.vat.WhatIsYourVATRegNumberController.onSubmit()
 
 GET        /vat/register-form                           controllers.vat.RegisterForVatByPostController.onPageLoad()
 

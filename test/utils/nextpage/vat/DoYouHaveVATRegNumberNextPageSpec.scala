@@ -30,7 +30,7 @@ class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.doYouHaveVATRegNumber,
       (DoYouHaveVATRegNumber.Yes, None),
-      "http://localhost:9555/enrolment-management-frontend/HMCE-VATDEC-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+      "/business-account/add-tax/vat/what-is-your-vat-number"
     )
 
     behave like nextPage(

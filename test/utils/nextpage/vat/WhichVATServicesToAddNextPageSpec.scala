@@ -32,7 +32,7 @@ class WhichVATServicesToAddNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.whichVATServicesToAdd,
       (WhichVATServicesToAdd.VAT, affinityGroupOrganisation, noEnrolments),
-      "/business-account/add-tax/vat/have-vrn"
+      "/business-account/add-tax/vat/do-you-have-a-vat-number"
     )
 
     behave like nextPage(

@@ -127,6 +127,7 @@ object NextPage
     with DoYouNeedToStopMGDNextPage
     with vatuk.AlreadyRegisteredForVATMossNextPage
     with DoYouHaveVATRegNumberNextPage
+    with WhatIsYourVATRegNumberNextPage
     with EnterSAUTRNextPage
     with DoYouHaveSAUTRNextPage
     with DoYouHaveActivationTokenNextPage

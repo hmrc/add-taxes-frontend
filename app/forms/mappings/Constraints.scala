@@ -16,7 +16,6 @@
 
 package forms.mappings
 
-import play.api.data.validation
 import play.api.data.validation.{Constraint, Invalid, Valid}
 
 trait Constraints {
@@ -53,24 +52,32 @@ trait Constraints {
 
   protected def regexp(regex: String, errorKey: String): Constraint[String] =
     Constraint {
-      case str if str.matches(regex) =>
-        Valid
-      case _ =>
-        Invalid(errorKey, regex)
+      case str if str.matches(regex) => Valid
+      case _                         => Invalid(errorKey, regex)
     }
 
   protected def maxLength(maximum: Int, errorKey: String): Constraint[String] =
     Constraint {
-      case str if str.length <= maximum =>
-        Valid
-      case _ =>
-        Invalid(errorKey, maximum)
+      case str if str.length <= maximum => Valid
+      case _                            => Invalid(errorKey, maximum)
+    }
+
+  protected def minLength(minimum: Int, errorKey: String): Constraint[String] =
+    Constraint {
+      case str if str.length >= minimum => Valid
+      case _                            => Invalid(errorKey, minimum)
     }
 
   protected def length(length: Int, errorKey: String): Constraint[String] =
     Constraint {
       case str if str.length == length => Valid
       case _                           => Invalid(errorKey, length)
+    }
+
+  protected def validateFunction(func: String => Boolean, errorKey: String): Constraint[String] =
+    Constraint {
+      case str if func(str) => Valid
+      case _                => Invalid(errorKey)
     }
 
 }
