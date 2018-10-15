@@ -9,12 +9,13 @@ import com.typesafe.sbt.uglify.Import._
 import com.typesafe.sbt.digest.Import._
 import play.sbt.routes.RoutesKeys
 import com.lucidchart.sbt.scalafmt.ScalafmtCorePlugin.autoImport._
+import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
 trait MicroService {
 
   import uk.gov.hmrc._
-  import DefaultBuildSettings._
-  import uk.gov.hmrc.{SbtBuildInfo, ShellPrompt, SbtAutoBuildPlugin}
+  import DefaultBuildSettings.{scalaSettings, defaultSettings, addTestReportOption}
+  import uk.gov.hmrc.SbtAutoBuildPlugin
   import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin
   import uk.gov.hmrc.versioning.SbtGitVersioning
   import play.sbt.routes.RoutesKeys.routesGenerator
@@ -85,6 +86,7 @@ trait MicroService {
         "./migrate.sh" !
       }
     )
+    .settings(majorVersion := 0)
 
 }
 
