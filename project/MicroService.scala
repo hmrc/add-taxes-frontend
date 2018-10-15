@@ -32,7 +32,7 @@ trait MicroService {
   val migrate : TaskKey[Unit] = taskKey[Unit]("Execute migrate script")
 
   lazy val microservice = Project(appName, file("."))
-    .enablePlugins(Seq(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin) ++ plugins : _*)
+    .enablePlugins(Seq(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin, SbtArtifactory) ++ plugins : _*)
     .settings(playSettings : _*)
     .settings(RoutesKeys.routesImport ++= Seq("models._", "config.Binders._"))
     .settings(
