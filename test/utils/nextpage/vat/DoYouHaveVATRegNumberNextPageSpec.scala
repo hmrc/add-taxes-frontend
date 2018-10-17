@@ -16,22 +16,61 @@
 
 package utils.nextpage.vat
 
+import config.FrontendAppConfig
 import models.vat.DoYouHaveVATRegNumber
+import org.mockito.Mockito._
+import org.scalatest.mockito.MockitoSugar
+import play.api.mvc.Call
 import uk.gov.hmrc.auth.core.AffinityGroup
-import utils.NextPage
+import utils.{Enrolments, NextPage}
 import utils.nextpage.NextPageSpecBase
 
-class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase {
+class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase with MockitoSugar {
+
+  val mockConfig: FrontendAppConfig = mock[FrontendAppConfig]
+  override implicit def frontendAppConfig: FrontendAppConfig = mockConfig
 
   val affinityGroupOrganisation = Some(AffinityGroup.Organisation)
   val affinityGroupIndividual = Some(AffinityGroup.Individual)
 
-  "doYouHaveVATRegNumber" when {
-    behave like nextPage(
-      NextPage.doYouHaveVATRegNumber,
-      (DoYouHaveVATRegNumber.Yes, None),
-      "/business-account/add-tax/vat/what-is-your-vat-number"
+  private trait FeatureEnabled {
+    when(frontendAppConfig.mtdVatSignUpJourneyEnabled).thenReturn(true)
+  }
+
+  private trait FeatureDisabled {
+    when(frontendAppConfig.mtdVatSignUpJourneyEnabled).thenReturn(false)
+    when(frontendAppConfig.emacEnrollmentsUrl(Enrolments.VAT)).thenReturn(
+      "http://localhost:9555/enrolment-management-frontend/HMCE-VATDEC-ORG/" +
+        "request-access-tax-scheme?continue=%2Fbusiness-account"
     )
+  }
+
+  "doYouHaveVATRegNumber" when {
+
+    "the mtd-vat-signup feature is turned on" should {
+
+      val nextPage = NextPage.doYouHaveVATRegNumber
+      val userSelection = (DoYouHaveVATRegNumber.Yes, None)
+      val redirectLocation = "/business-account/add-tax/vat/what-is-your-vat-number"
+
+      s"redirect to $redirectLocation" in new FeatureEnabled {
+        val result: Call = nextPage.get(userSelection)
+        result.url mustBe redirectLocation
+      }
+    }
+
+    "the mtd-vat-signup feature is turned off" should {
+
+      val nextPage = NextPage.doYouHaveVATRegNumber
+      val userSelection = (DoYouHaveVATRegNumber.Yes, None)
+      val redirectLocation = "http://localhost:9555/enrolment-management-frontend/HMCE-VATDEC-ORG/" +
+        "request-access-tax-scheme?continue=%2Fbusiness-account"
+
+      s"redirect to $redirectLocation" in new FeatureDisabled {
+        val result: Call = nextPage.get(userSelection)
+        result.url mustBe redirectLocation
+      }
+    }
 
     behave like nextPage(
       NextPage.doYouHaveVATRegNumber,
