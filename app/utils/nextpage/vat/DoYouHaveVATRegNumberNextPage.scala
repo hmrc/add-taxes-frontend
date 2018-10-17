@@ -35,7 +35,12 @@ trait DoYouHaveVATRegNumberNextPage {
       override def get(
         b: DoYouHaveVATRegNumberWithRequests)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case (DoYouHaveVATRegNumber.Yes, _) => vatRoutes.WhatIsYourVATRegNumberController.onPageLoad()
+          case (DoYouHaveVATRegNumber.Yes, _) =>
+            if (appConfig.mtdVatSignUpJourneyEnabled) {
+              vatRoutes.WhatIsYourVATRegNumberController.onPageLoad()
+            } else {
+              Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.VAT))
+            }
           case (DoYouHaveVATRegNumber.No, Some(AffinityGroup.Individual)) =>
             vatVatRoutes.SetupNewAccountController.onPageLoad()
           case (DoYouHaveVATRegNumber.No, _) => vatRoutes.RegisterForVATOnlineController.onPageLoad()
