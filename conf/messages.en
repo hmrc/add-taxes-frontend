@@ -130,7 +130,7 @@ otherTaxes.oilAndFuel = Oil and fuel
 otherTaxes.fulfilmentHouseDueDiligenceSchemeIntegration = Fulfilment House Due Diligence Scheme
 otherTaxes.error.required = Select a tax or scheme type
 otherTaxes.legend = Select a tax or scheme type
-otherTaxes.pods = Register as a pension scheme administrator
+otherTaxes.pods = Manage and register pension schemes
 
 
 #######################################################

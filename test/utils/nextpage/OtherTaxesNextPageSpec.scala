@@ -71,7 +71,7 @@ class OtherTaxesNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.otherTaxes,
       OtherTaxes.PODS,
-      "http://localhost:8201/register-as-pension-scheme-administrator"
+      "http://localhost:8204/manage-pension-schemes/overview"
     )
   }
 }

@@ -59,7 +59,7 @@ class OtherTaxesViewSpec extends ViewBehaviours {
           "Imports and exports",
           "Oil and fuel",
           "Fulfilment House Due Diligence Scheme",
-          "Register as a pension scheme administrator"
+          "Manage and register pension schemes"
         )
 
         val listOfElements =
