@@ -58,7 +58,8 @@ class OtherTaxesViewSpec extends ViewBehaviours {
           "Housing and land",
           "Imports and exports",
           "Oil and fuel",
-          "Fulfilment House Due Diligence Scheme"
+          "Fulfilment House Due Diligence Scheme",
+          "Register as a pension scheme administrator"
         )
 
         val listOfElements =

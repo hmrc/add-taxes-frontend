@@ -57,7 +57,7 @@ class OtherTaxesController @Inject()(
       checkFulfilmentHouse,
       checkChildTrustFund)
     val defaultRadioOptions: Seq[RadioOption] =
-      Seq(HousingAndLand, ImportsExports).map(_.toRadioOption)
+      Seq(HousingAndLand, ImportsExports, PODS).map(_.toRadioOption)
     val unsortedRadioOptions: Seq[RadioOption] = checks.flatMap(_.apply(r.request.enrolments)) ++ defaultRadioOptions
     unsortedRadioOptions.sortBy(_.value)
   }
