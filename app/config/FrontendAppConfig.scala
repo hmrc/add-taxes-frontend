@@ -45,6 +45,9 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
   lazy val fulfilmentHouseHost = runModeConfiguration.getString("urls.fulfilment-house.host").getOrElse("")
   lazy val fulfilmentHouse = fulfilmentHouseHost + loadConfig("urls.fulfilment-house.schemeIntegration")
 
+  lazy val podsHost = runModeConfiguration.getString("urls.manage-pensions-frontend.host").getOrElse("")
+  lazy val pods = podsHost + loadConfig("urls.manage-pensions-frontend.schemesOverview")
+
   lazy val analyticsToken = loadConfig(s"google-analytics.token")
   lazy val analyticsHost = loadConfig(s"google-analytics.host")
   lazy val ssoUrl = portalHost + loadConfig(s"urls.external.portal.sso")

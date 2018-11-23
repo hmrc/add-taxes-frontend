@@ -45,6 +45,7 @@ trait OtherTaxesNextPage {
           case OtherTaxes.ImportsExports                               => importexportsRoutes.DoYouWantToAddImportExportController.onPageLoad()
           case OtherTaxes.OilAndFuel                                   => oilRoutes.SelectAnOilServiceController.onPageLoad()
           case OtherTaxes.FulfilmentHouseDueDiligenceSchemeIntegration => Call("GET", appConfig.fulfilmentHouse)
+          case OtherTaxes.PODS                                         => Call("GET", appConfig.pods)
         }
     }
   }

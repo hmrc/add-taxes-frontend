@@ -130,6 +130,7 @@ otherTaxes.oilAndFuel = Olew a thanwydd
 otherTaxes.fulfilmentHouseDueDiligenceSchemeIntegration = Cynllun Diwydrwydd Dyladwy ar gyfer Busnesau Cyflawni
 otherTaxes.error.required = Dewis treth neu fath o gynllun
 otherTaxes.legend = Dewis treth neu fath o gynllun
+otherTaxes.pods = Rheoli a chofrestru cynlluniau pensiwn
 
 
 #######################################################

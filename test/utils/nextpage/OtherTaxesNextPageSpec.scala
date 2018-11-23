@@ -68,5 +68,10 @@ class OtherTaxesNextPageSpec extends NextPageSpecBase {
       OtherTaxes.FulfilmentHouseDueDiligenceSchemeIntegration,
       "http://localhost:1118/fhdds"
     )
+    behave like nextPage(
+      NextPage.otherTaxes,
+      OtherTaxes.PODS,
+      "http://localhost:8204/manage-pension-schemes/overview"
+    )
   }
 }
