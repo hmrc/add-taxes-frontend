@@ -55,6 +55,14 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
       radioOptions
     )(HtmlFormat.empty)(fakeRequest, messages).toString
 
+  def viewAsStringNoUTR(form: Form[_] = form, radioOptions: Set[RadioOption] = SelectSACategory.options) =
+    selectSACategory(
+      frontendAppConfig,
+      form,
+      routes.SelectSACategoryController.onSubmitNoUTR(),
+      radioOptions
+    )(HtmlFormat.empty)(fakeRequest, messages).toString
+
   "SelectSACategory Controller" must {
 
     "return OK and the correct view for a GET" in {
@@ -62,6 +70,13 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
+    }
+
+    "return OK and the correct view for a GET when called on the no UTR path" in {
+      val result = controller()().onPageLoadNoUTR()(fakeRequest)
+
+      status(result) mustBe OK
+      contentAsString(result) mustBe viewAsStringNoUTR()
     }
 
     "redirect to the next page when valid data is submitted" in {

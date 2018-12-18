@@ -1196,3 +1196,13 @@ areYouSelfEmployed.heading = A ydych yn hunangyflogedig?
 areYouSelfEmployed.Yes = Iawn
 areYouSelfEmployed.No = Na
 areYouSelfEmployed.error.required = Dewiswch ‘Iawn’ os ydych yn hunangyflogedig
+
+########################################################
+## YourSaIsNotInThisAccount
+########################################################
+yourSaIsNotInThisAccount.title = NEEDS TRANSLATION - Your Self Assessment is not in this account
+yourSaIsNotInThisAccount.heading = NEEDS TRANSLATION - Your Self Assessment is not in this account
+yourSaIsNotInThisAccount.you_may_have_already_ = NEEDS TRANSLATION - You may have already added it to a different account.
+yourSaIsNotInThisAccount.look_ = NEEDS TRANSLATION - Look for your Self Assessment in another account
+yourSaIsNotInThisAccount.add_ = NEEDS TRANSLATION - Add your Self Assessment to this account
+yourSaIsNotInThisAccount.error.required = NEEDS TRANSLATION - Select one of the options

@@ -138,3 +138,4 @@ object NextPage
     with DoYouHavePAYEReferenceNextPage
     with RegisterForVATOnlineNextPage
     with AreYouSelfEmployedNextPage
+    with YourSaIsNotInThisAccountNextPage
