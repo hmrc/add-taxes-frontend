@@ -38,7 +38,7 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("yourSaIsNotInThisAccount.heading").body,
+            legend = messages("yourSaIsNotInThisAccount.heading"),
             legendClass = Some("visuallyhidden"),
             inputs = YourSaIsNotInThisAccount.options.toSeq
         )

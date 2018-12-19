@@ -29,9 +29,10 @@ trait YourSaIsNotInThisAccountNextPage {
     new NextPage[YourSaIsNotInThisAccountId.type, YourSaIsNotInThisAccount, Call] {
       override def get(b: YourSaIsNotInThisAccount)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case YourSaIsNotInThisAccount.LookInOtherAccount => SelectSACategoryController.onPageLoadHasUTR()
-          case YourSaIsNotInThisAccount.AddToThisAccount =>
+          case YourSaIsNotInThisAccount.LookInOtherAccount =>
             Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials"))
+          case YourSaIsNotInThisAccount.AddToThisAccount => SelectSACategoryController.onPageLoadHasUTR()
+
         }
     }
   }

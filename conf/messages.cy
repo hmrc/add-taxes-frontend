@@ -1200,9 +1200,9 @@ areYouSelfEmployed.error.required = Dewiswch ‘Iawn’ os ydych yn hunangyfloge
 ########################################################
 ## YourSaIsNotInThisAccount
 ########################################################
-yourSaIsNotInThisAccount.title = NEEDS TRANSLATION - Your Self Assessment is not in this account
-yourSaIsNotInThisAccount.heading = NEEDS TRANSLATION - Your Self Assessment is not in this account
-yourSaIsNotInThisAccount.you_may_have_already_ = NEEDS TRANSLATION - You may have already added it to a different account.
-yourSaIsNotInThisAccount.look_ = NEEDS TRANSLATION - Look for your Self Assessment in another account
-yourSaIsNotInThisAccount.add_ = NEEDS TRANSLATION - Add your Self Assessment to this account
-yourSaIsNotInThisAccount.error.required = NEEDS TRANSLATION - Select one of the options
+yourSaIsNotInThisAccount.title = Nid yw’ch Hunanasesiad yn y cyfrif hwn
+yourSaIsNotInThisAccount.heading = Nid yw’ch Hunanasesiad yn y cyfrif hwn
+yourSaIsNotInThisAccount.you_may_have_already_ = Efallai eich bod eisoes wedi’i ychwanegu at gyfrif gwahanol.
+yourSaIsNotInThisAccount.look_ = Cadwch lygad allan am eich Hunanasesiad mewn cyfrif arall
+yourSaIsNotInThisAccount.add_ = Ychwanegu’ch Hunanasesiad at y cyfrif hwn
+yourSaIsNotInThisAccount.error.required = Dewiswch un o’r opsiynau

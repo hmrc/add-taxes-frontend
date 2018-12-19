@@ -16,18 +16,15 @@
 
 package controllers.sa
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.{FakeServiceInfoAction, _}
 import forms.sa.SelectSACategoryFormProvider
-import identifiers.SelectSACategoryId
 import models.sa.SelectSACategory
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
 import views.html.sa.selectSACategory
 
 class SelectSACategoryControllerSpec extends ControllerSpecBase {
