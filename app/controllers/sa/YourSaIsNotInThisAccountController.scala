@@ -46,7 +46,11 @@ class YourSaIsNotInThisAccountController @Inject()(
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(yourSaIsNotInThisAccount(appConfig, form)(request.serviceInfoContent))
+    if (request.session.get("usedBtaBefore").contains("true")) {
+      Ok(yourSaIsNotInThisAccount(appConfig, form)(request.serviceInfoContent))
+    } else {
+      SeeOther(appConfig.getBusinessAccountUrl("home"))
+    }
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
