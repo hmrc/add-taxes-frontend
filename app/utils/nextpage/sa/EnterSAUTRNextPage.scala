@@ -18,7 +18,9 @@ package utils.nextpage.sa
 
 import config.FrontendAppConfig
 import controllers.sa.routes.SelectSACategoryController
+import controllers.sa.routes.YourSaIsNotInThisAccountController
 import identifiers.EnterSAUTRId
+
 import play.api.mvc.{Call, Request}
 import utils.NextPage
 
@@ -31,6 +33,8 @@ trait EnterSAUTRNextPage {
     new NextPage[EnterSAUTRId.type, EnrolmentStoreResult, Call] {
       override def get(b: EnrolmentStoreResult)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
+          case false if request.session.get("usedBtaBefore").contains("true") =>
+            YourSaIsNotInThisAccountController.onPageLoad()
           case false => SelectSACategoryController.onPageLoadHasUTR()
           case true  => Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials"))
         }
