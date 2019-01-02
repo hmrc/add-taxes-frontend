@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ class YourSaIsNotInThisAccountControllerSpec extends ControllerSpecBase {
 
   "Not in this account controller" must {
     "return OK and the correct view for a GET" in {
-      val result = controller()().onPageLoad()(fakeRequest.withSession(("usedBtaBefore", "true")))
+      val result = controller()().onPageLoad()(fakeRequest.withSession(("tryingToAccessSa", "true")))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()

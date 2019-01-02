@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ class YourSaIsNotInThisAccountController @Inject()(
   val form = formProvider()
 
   def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    if (request.session.get("usedBtaBefore").contains("true")) {
+    if (request.session.get("tryingToAccessSa").contains("true")) {
       Ok(yourSaIsNotInThisAccount(appConfig, form)(request.serviceInfoContent))
     } else {
       SeeOther(appConfig.getBusinessAccountUrl("home"))
