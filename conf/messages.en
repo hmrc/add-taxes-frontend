@@ -1197,3 +1197,13 @@ areYouSelfEmployed.heading = Are you self-employed?
 areYouSelfEmployed.Yes = Yes
 areYouSelfEmployed.No = No
 areYouSelfEmployed.error.required = Select yes if you are self-employed
+
+########################################################
+## YourSaIsNotInThisAccount
+########################################################
+yourSaIsNotInThisAccount.title = Your Self Assessment is not in this account
+yourSaIsNotInThisAccount.heading = Your Self Assessment is not in this account
+yourSaIsNotInThisAccount.you_may_have_already_ = You may have already added it to a different account.
+yourSaIsNotInThisAccount.look_ = Look for your Self Assessment in another account
+yourSaIsNotInThisAccount.add_ = Add your Self Assessment to this account
+yourSaIsNotInThisAccount.error.required = Select one of the options

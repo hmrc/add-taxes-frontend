@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package utils.nextpage.sa
 
+import play.api.test.FakeRequest
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
@@ -34,6 +35,14 @@ class EnterSAUTRNextPageSpec extends NextPageSpecBase {
       false,
       "/business-account/add-tax/self-assessment"
     )
+
+    "called with a session variable tryingToAccessSa = true and the utr is not associated with another account" should {
+      "redirect to the 'Your SA is not in this account' page" in {
+        val result =
+          NextPage.enterSAUTR.get(false)(frontendAppConfig, FakeRequest().withSession(("tryingToAccessSa", "true")))
+        result.url mustBe "/business-account/add-tax/self-assessment/not-in-this-account"
+      }
+    }
   }
 
 }

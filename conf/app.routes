@@ -129,6 +129,9 @@ POST       /self-assessment/no-utr                      controllers.sa.SelectSAC
 GET        /self-assessment/self-employed               controllers.sa.AreYouSelfEmployedController.onPageLoad()
 POST       /self-assessment/self-employed               controllers.sa.AreYouSelfEmployedController.onSubmit()
 
+GET        /self-assessment/not-in-this-account         controllers.sa.YourSaIsNotInThisAccountController.onPageLoad()
+POST       /self-assessment/not-in-this-account         controllers.sa.YourSaIsNotInThisAccountController.onSubmit()
+
 GET        /vat                                         controllers.vat.WhichVATServicesToAddController.onPageLoad()
 POST       /vat                                         controllers.vat.WhichVATServicesToAddController.onSubmit()
 

@@ -1196,3 +1196,13 @@ areYouSelfEmployed.heading = A ydych yn hunangyflogedig?
 areYouSelfEmployed.Yes = Iawn
 areYouSelfEmployed.No = Na
 areYouSelfEmployed.error.required = Dewiswch ‘Iawn’ os ydych yn hunangyflogedig
+
+########################################################
+## YourSaIsNotInThisAccount
+########################################################
+yourSaIsNotInThisAccount.title = Nid yw’ch Hunanasesiad yn y cyfrif hwn
+yourSaIsNotInThisAccount.heading = Nid yw’ch Hunanasesiad yn y cyfrif hwn
+yourSaIsNotInThisAccount.you_may_have_already_ = Efallai eich bod eisoes wedi’i ychwanegu at gyfrif gwahanol.
+yourSaIsNotInThisAccount.look_ = Cadwch lygad allan am eich Hunanasesiad mewn cyfrif arall
+yourSaIsNotInThisAccount.add_ = Ychwanegu’ch Hunanasesiad at y cyfrif hwn
+yourSaIsNotInThisAccount.error.required = Dewiswch un o’r opsiynau

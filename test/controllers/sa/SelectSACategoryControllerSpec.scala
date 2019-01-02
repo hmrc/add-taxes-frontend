@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,18 +16,15 @@
 
 package controllers.sa
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.{FakeServiceInfoAction, _}
 import forms.sa.SelectSACategoryFormProvider
-import identifiers.SelectSACategoryId
 import models.sa.SelectSACategory
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
 import views.html.sa.selectSACategory
 
 class SelectSACategoryControllerSpec extends ControllerSpecBase {
@@ -55,6 +52,14 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
       radioOptions
     )(HtmlFormat.empty)(fakeRequest, messages).toString
 
+  def viewAsStringNoUTR(form: Form[_] = form, radioOptions: Set[RadioOption] = SelectSACategory.options) =
+    selectSACategory(
+      frontendAppConfig,
+      form,
+      routes.SelectSACategoryController.onSubmitNoUTR(),
+      radioOptions
+    )(HtmlFormat.empty)(fakeRequest, messages).toString
+
   "SelectSACategory Controller" must {
 
     "return OK and the correct view for a GET" in {
@@ -62,6 +67,13 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
+    }
+
+    "return OK and the correct view for a GET when called on the no UTR path" in {
+      val result = controller()().onPageLoadNoUTR()(fakeRequest)
+
+      status(result) mustBe OK
+      contentAsString(result) mustBe viewAsStringNoUTR()
     }
 
     "redirect to the next page when valid data is submitted" in {
