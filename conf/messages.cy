@@ -1200,9 +1200,9 @@ areYouSelfEmployed.error.required = Dewiswch ‘Iawn’ os ydych yn hunangyfloge
 ########################################################
 ## YourSaIsNotInThisAccount
 ########################################################
-yourSaIsNotInThisAccount.title = Nid yw’ch Hunanasesiad yn y cyfrif hwn
-yourSaIsNotInThisAccount.heading = Nid yw’ch Hunanasesiad yn y cyfrif hwn
-yourSaIsNotInThisAccount.you_may_have_already_ = Efallai eich bod eisoes wedi’i ychwanegu at gyfrif gwahanol.
-yourSaIsNotInThisAccount.look_ = Chwilio am eich Hunanasesiad mewn cyfrif arall
+yourSaIsNotInThisAccount.title = Nid yw eich Hunanasesiad wedi’i ychwanegu at gyfrif
+yourSaIsNotInThisAccount.heading = Nid yw eich Hunanasesiad wedi’i ychwanegu at gyfrif
+yourSaIsNotInThisAccount.you_may_have_already_ = Efallai eich bod wedi defnyddio cyfrif treth busnes gwahanol yn y gorffennol i reoli’ch trethi, tollau neu gynlluniau ar-lein.
+yourSaIsNotInThisAccount.look_ = Mewngofnodwch i’ch cyfrif arall i ychwanegu Hunanasesiad
 yourSaIsNotInThisAccount.add_ = Ychwanegu’ch Hunanasesiad at y cyfrif hwn
 yourSaIsNotInThisAccount.error.required = Dewiswch un o’r opsiynau
