@@ -65,13 +65,13 @@ class PortalUrlBuilderSpec extends SpecBase with MockitoSugar {
         }
       }
     }
-    "governmentGatewayLostCredentialsUrl" should {
+
+    "lostCredentials" should {
       "return correct url" in {
 
         ForgottenOptions.values.map { forgottenOption =>
-          frontendAppConfig.governmentGatewayLostCredentialsUrl(forgottenOption) mustBe
-            s"http://localhost:9898/government-gateway-lost-credentials-frontend/" +
-              s"choose-your-account?continue=%2Fbusiness-account&origin=business-tax-account&forgottenOption=${forgottenOption.toString}"
+          frontendAppConfig.lostCredentials(forgottenOption) mustBe
+            s"http://localhost:9810/account-recovery/choose-account-type/${forgottenOption.toString}"
         }
       }
     }

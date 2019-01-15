@@ -29,11 +29,13 @@ trait FindingYourAccountNextPage {
       override def get(b: FindingYourAccount)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case FindingYourAccount.DontKnowPassword =>
-            Call("GET", appConfig.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenPassword))
+            Call("GET", appConfig.lostCredentials(ForgottenOptions.ForgottenPassword))
+
           case FindingYourAccount.DontKnowId =>
-            Call("GET", appConfig.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenId))
+            Call("GET", appConfig.lostCredentials(ForgottenOptions.ForgottenId))
+
           case FindingYourAccount.DontKnowIdOrPassword =>
-            Call("GET", appConfig.governmentGatewayLostCredentialsUrl(ForgottenOptions.ForgottenIdAndPassword))
+            Call("GET", appConfig.lostCredentials(ForgottenOptions.ForgottenIdAndPassword))
         }
     }
   }
