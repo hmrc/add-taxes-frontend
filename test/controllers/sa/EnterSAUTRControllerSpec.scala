@@ -29,6 +29,7 @@ import org.mockito.Mockito.when
 import org.mockito.Matchers._
 import play.api.data.Form
 import utils.FakeNavigator
+import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.concurrent.Future
 
