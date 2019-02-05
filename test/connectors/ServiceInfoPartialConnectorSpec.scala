@@ -28,6 +28,7 @@ import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.partials.HtmlPartial.{Failure, Success}
 import uk.gov.hmrc.play.partials.{HeaderCarrierForPartials, HtmlPartial}
+import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.concurrent.Future
 

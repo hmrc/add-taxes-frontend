@@ -23,14 +23,14 @@ import config.AddTaxesHeaderCarrierForPartialsConverter
 import connectors.ServiceInfoPartialConnector
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import play.api.mvc._
-import uk.gov.hmrc.play.http.logging.MdcLoggingExecutionContext.fromLoggingDetails
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class ServiceInfoActionImpl @Inject()(
   serviceInfoPartialConnector: ServiceInfoPartialConnector,
   addTaxesHeaderCarrierForPartialsConverter: AddTaxesHeaderCarrierForPartialsConverter
-) extends ServiceInfoAction {
+)(implicit ec: ExecutionContext)
+    extends ServiceInfoAction {
 
   import addTaxesHeaderCarrierForPartialsConverter._
 

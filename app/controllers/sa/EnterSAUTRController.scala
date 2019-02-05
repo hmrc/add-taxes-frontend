@@ -31,7 +31,7 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.Navigator
 import views.html.sa.enterSAUTR
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class EnterSAUTRController @Inject()(
   appConfig: FrontendAppConfig,
@@ -40,7 +40,7 @@ class EnterSAUTRController @Inject()(
   authenticate: AuthAction,
   serviceInfo: ServiceInfoAction,
   formProvider: SAUTRFormProvider,
-  enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector)
+  enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector)(implicit val ec: ExecutionContext)
     extends FrontendController
     with I18nSupport {
 

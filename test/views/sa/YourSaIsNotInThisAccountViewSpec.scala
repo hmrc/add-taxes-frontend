@@ -47,7 +47,8 @@ class YourSaIsNotInThisAccountViewSpec extends ViewBehaviours {
       val view = doc.text()
 
       view must include("Your Self Assessment has not been added to an account")
-      view must include("You may have used a different business tax account in the past to manage your taxes, duties or schemes online.")
+      view must include(
+        "You may have used a different business tax account in the past to manage your taxes, duties or schemes online.")
       view must include("Sign in to your other account to add Self Assessment")
       view must include("Add your Self Assessment to this account")
     }
