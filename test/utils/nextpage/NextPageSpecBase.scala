@@ -18,7 +18,7 @@ package utils.nextpage
 
 import base.SpecBase
 import play.api.mvc.Call
-import uk.gov.hmrc.auth.core.Enrolment
+import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier}
 import utils.{HmrcEnrolmentType, NextPage}
 
 trait NextPageSpecBase extends SpecBase {
@@ -29,7 +29,16 @@ trait NextPageSpecBase extends SpecBase {
 
   val ctEnrolment = Enrolment(key = HmrcEnrolmentType.CORP_TAX.toString, identifiers = Seq(), state = "Activated")
 
-  val epayeEnrolment = Enrolment(key = HmrcEnrolmentType.EPAYE.toString, identifiers = Seq(), state = "Activated")
+  val epayeEnrolmentWithoutIdentifiers =
+    Enrolment(key = HmrcEnrolmentType.EPAYE.toString, identifiers = Seq(), state = "Activated")
+
+  val epayeEnrolment = Enrolment(
+    key = HmrcEnrolmentType.EPAYE.toString,
+    identifiers =
+      Seq(EnrolmentIdentifier("TaxOfficeNumber", "840"), EnrolmentIdentifier("TaxOfficeReference", "MODE26A")),
+    state = "Activated",
+    None
+  )
 
   val vatEnrolment = Enrolment(key = HmrcEnrolmentType.VAT.toString, identifiers = Seq(), state = "Activated")
 
