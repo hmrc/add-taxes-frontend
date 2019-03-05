@@ -27,6 +27,7 @@ import play.api.mvc.{Call, Request}
 import uk.gov.hmrc.auth.core.Enrolments
 import utils.{HmrcEnrolmentType, NextPage}
 import controllers.employer.paye.{routes => payeRoutes}
+import controllers.routes
 
 trait WhatEmployerTaxDoYouWantToAddNextPage {
 
@@ -50,7 +51,7 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
           case (WhatEmployerTaxDoYouWantToAdd.PS, _) =>
             pensionRoutes.DoYouHavePractitionerIDController.onPageLoad()
           case (WhatEmployerTaxDoYouWantToAdd.ERS, HmrcEnrolmentType.EPAYE()) =>
-            Call("GET", appConfig.getPortalUrl("enrolERS"))
+            getEnrolERSCall(details)
           case (WhatEmployerTaxDoYouWantToAdd.ERS, _) =>
             ersRoutes.IsBusinessRegisteredForPAYEController.onPageLoad()
           case (WhatEmployerTaxDoYouWantToAdd.EIA, HmrcEnrolmentType.EPAYE()) =>
@@ -58,6 +59,22 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
           case (WhatEmployerTaxDoYouWantToAdd.EIA, _) =>
             intRoutes.IsBusinessRegisteredForPAYEController.onPageLoad()
         }
+    }
+  }
+
+  def getEnrolERSCall(
+    details: WhatEmployerTaxDoYouWantToAddWithEnrolment)(implicit appConfig: FrontendAppConfig, request: Request[_]) = {
+    val taxOfficeReference: Option[String] =
+      details._2.enrolments.head.getIdentifier("TaxOfficeReference").map(_.value)
+    val taxOfficeNumber: Option[String] =
+      details._2.enrolments.head.getIdentifier("TaxOfficeNumber").map(_.value)
+
+    (taxOfficeReference, taxOfficeNumber) match {
+      case (Some(ref), Some(num)) => {
+        val fullRef: String = num + "/" + ref
+        Call("GET", appConfig.getPortalUrl("enrolERS", fullRef))
+      }
+      case _ => routes.UnauthorisedController.onPageLoad
     }
   }
 }

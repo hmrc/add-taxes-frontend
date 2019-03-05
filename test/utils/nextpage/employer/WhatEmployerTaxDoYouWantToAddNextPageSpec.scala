@@ -63,13 +63,31 @@ class WhatEmployerTaxDoYouWantToAddNextPageSpec extends NextPageSpecBase {
     "no enrolments"
   )
 
+  val nextPageERSWithEnrolmentNoIdentifiers =
+    (WhatEmployerTaxDoYouWantToAdd.ERS, Enrolments(Set(epayeEnrolmentWithoutIdentifiers)))
+
+  behave like nextPageWithEnrolments(
+    NextPage.whatEmployerTaxDoYouWantToAdd,
+    nextPageERSWithEnrolmentNoIdentifiers,
+    WhatEmployerTaxDoYouWantToAdd.ERS.toString,
+    "/business-account/add-tax/unauthorised",
+    "EPAYE enrolments"
+  )
+
   val nextPageERSWithEnrolment = (WhatEmployerTaxDoYouWantToAdd.ERS, Enrolments(Set(epayeEnrolment)))
+
+  val taxOfficeReference: String =
+    nextPageERSWithEnrolment._2.enrolments.head.getIdentifier("TaxOfficeReference").map(_.value).get
+  val taxOfficeNumber: String =
+    nextPageERSWithEnrolment._2.enrolments.head.getIdentifier("TaxOfficeNumber").map(_.value).get
+
+  val fullRef = taxOfficeNumber + "/" + taxOfficeReference
 
   behave like nextPageWithEnrolments(
     NextPage.whatEmployerTaxDoYouWantToAdd,
     nextPageERSWithEnrolment,
     WhatEmployerTaxDoYouWantToAdd.ERS.toString,
-    "http://localhost:8080/portal/ers/org///add-scheme?lang=eng",
+    "http://localhost:8080/portal/ers/org/" + fullRef + "/add-scheme?lang=eng",
     "EPAYE enrolments"
   )
 
