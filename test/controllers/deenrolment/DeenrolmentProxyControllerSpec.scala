@@ -33,7 +33,7 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
         Enrolments.AddCis, Enrolments.PSA, Enrolments.RebatedOils, Enrolments.EPAYE,
         Enrolments.SA, Enrolments.CT, Enrolments.VAT, Enrolments.GeneralBetting,
         Enrolments.Charities, Enrolments.VATMOSS, Enrolments.RemoteGaming, Enrolments.PoolBetting,
-        Enrolments.VATMOSSNonUnion, Enrolments.ATWD, Enrolments.MachineGamingDuty
+        Enrolments.VATMOSSNonUnion, Enrolments.ATWD, Enrolments.MachineGamingDuty, Enrolments.MTDVAT
     )
 
     for (enrolment <- enrolments) {
@@ -59,7 +59,8 @@ class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
       (Enrolments.VATMOSSNonUnion, "vat/how-to-stop-vat-moss-nu"),
       (Enrolments.Charities, "charities/how-to-stop-charities"),
       (Enrolments.RemoteGaming, "gambling/how-to-stop-rgd"),
-      (Enrolments.PoolBetting, "gambling/how-to-stop-pbd")
+      (Enrolments.PoolBetting, "gambling/how-to-stop-pbd"),
+      (Enrolments.MTDVAT, "vat/how-to-stop-mtd-vat")
     )
 
     for ((enrolment, url) <- nonEmacRedirectEnrolments) {

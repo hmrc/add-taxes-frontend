@@ -41,7 +41,7 @@ site.hidden-edit = Change {0}
 site.no = No
 site.yes = Yes
 site.save_and_continue = Save and continue
-site.continue = Parhau
+site.continue = Yn eich blaen
 site.service_name = Cyfrif treth busnes
 site.service_title = {0} - Cyfrif treth busnes - GOV.UK
 site.textarea.char_limit = (Limit is {0} characters)
@@ -893,6 +893,15 @@ doYouNeedToCancelVAT.heading = A oes angen i chi ddileu cofrestriad TAW a rhoi�
 doYouNeedToCancelVAT.Yes = Iawn
 doYouNeedToCancelVAT.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth TAW ar-lein
 doYouNeedToCancelVAT.error.required = Dewiswch ‘Iawn’ os oes angen i chi ddileu cofrestriad TAW a rhoi’r gorau i gyflwyno Ffurflenni TAW
+
+#######################################################
+##  DoYouNeedToCancelMTDVAT
+#######################################################
+doYouNeedToCancelMTDVAT.title = A oes angen i chi ganslo cofrestriad Troi Treth yn Ddigidol ar gyfer TAW a rhoi’r gorau i gyflwyno Ffurflenni TAW?
+doYouNeedToCancelMTDVAT.heading = A oes angen i chi ganslo cofrestriad Troi Treth yn Ddigidol ar gyfer TAW a rhoi’r gorau i gyflwyno Ffurflenni TAW?
+doYouNeedToCancelMTDVAT.Yes = Iawn
+doYouNeedToCancelMTDVAT.No = Na, mae angen i fi roi’r gorau i ddefnyddio’r gwasanaeth Troi Treth yn Ddigidol ar gyfer TAW ar-lein
+doYouNeedToCancelMTDVAT.error.required = Dewiswch ‘Iawn’ os oes angen i chi ganslo cofrestriad Troi Treth yn Ddigidol ar gyfer TAW a rhoi’r gorau i gyflwyno Ffurflenni TAW
 
 #######################################################
 ##  YouNeedToBeApprovedCTF
