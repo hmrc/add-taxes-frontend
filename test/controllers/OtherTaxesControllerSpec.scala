@@ -141,12 +141,11 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
       result mustBe removeRadioOptionFromList()
     }
 
-    "not display alcohol if the user has HMCE-ATWD-ORG, HMRC-AWRS-ORG " in {
+    "display alcohol if the user has HMCE-ATWD-ORG, HMRC-AWRS-ORG " in {
       val request = requestWithEnrolments("HMCE-ATWD-ORG", "HMRC-AWRS-ORG")
       val result = controller().getOptions(request)
 
-      result mustBe removeRadioOptionFromList(
-        Some(RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing")))
+      result mustBe removeRadioOptionFromList()
     }
 
     "not display AEOI if the user has HMRC-FATCA-ORG" in {
