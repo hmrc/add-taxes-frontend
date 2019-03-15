@@ -63,13 +63,7 @@ class OtherTaxesController @Inject()(
   }
 
   private def checkAlcohol: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
-    (enrolments: uk.gov.hmrc.auth.core.Enrolments) =>
-      if (checkAlcoholWholesalerRegistrationScheme(enrolments) && checkAlcoholAndTobaccoWarehousingDeclarations(
-            enrolments)) {
-        None
-      } else {
-        Some(AlcoholAndTobacco.toRadioOption)
-    }
+    (_: uk.gov.hmrc.auth.core.Enrolments) => (Some(AlcoholAndTobacco.toRadioOption))
 
   private def checkAlcoholWholesalerRegistrationScheme: (uk.gov.hmrc.auth.core.Enrolments) => Boolean =
     _.getEnrolment(Enrolments.AWRS.toString).isDefined
