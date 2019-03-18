@@ -897,6 +897,15 @@ doYouNeedToCancelVAT.No = No, I need to stop using the VAT online service
 doYouNeedToCancelVAT.error.required = Select yes if you need to cancel VAT registration and stop submitting returns
 
 #######################################################
+##  DoYouNeedToCancelMTDVAT
+#######################################################
+doYouNeedToCancelMTDVAT.title = Do you need to cancel MTD VAT registration and stop submitting returns?
+doYouNeedToCancelMTDVAT.heading = Do you need to cancel MTD VAT registration and stop submitting returns?
+doYouNeedToCancelMTDVAT.Yes = Yes
+doYouNeedToCancelMTDVAT.No = No, I need to stop using the MTD VAT online service
+doYouNeedToCancelMTDVAT.error.required = Select yes if you need to cancel MTD VAT registration and stop submitting returns
+
+#######################################################
 ##  YouNeedToBeApprovedCTF
 #######################################################
 youNeedToBeApprovedCTF.title = You need to be an approved Child Trust Fund provider to access this service

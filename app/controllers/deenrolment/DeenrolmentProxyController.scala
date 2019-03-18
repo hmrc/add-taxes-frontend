@@ -45,6 +45,7 @@ class DeenrolmentProxyController @Inject()(
       AddCis            -> DoYouWantToLeaveCISController.onPageLoad(),
       PSA               -> DoYouNeedToStopPSAController.onPageLoad(),
       CT                -> StopCorporationTaxController.onPageLoad(),
+      MTDVAT            -> DoYouNeedToCancelMTDVATController.onPageLoad(),
       VAT               -> DoYouNeedToCancelVATController.onPageLoad(),
       GeneralBetting    -> DoYouNeedToStopGBDController.onPageLoad(),
       Charities         -> DoYouNeedToCloseCharityController.onPageLoad(),

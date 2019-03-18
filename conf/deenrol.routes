@@ -29,6 +29,9 @@ POST       /ct/how-to-stop-ct                    controllers.deenrolment.StopCor
 GET        /vat/how-to-stop-vat                  controllers.deenrolment.DoYouNeedToCancelVATController.onPageLoad()
 POST       /vat/how-to-stop-vat                  controllers.deenrolment.DoYouNeedToCancelVATController.onSubmit()
 
+GET        /vat/how-to-stop-mtd-vat              controllers.deenrolment.DoYouNeedToCancelMTDVATController.onPageLoad()
+POST       /vat/how-to-stop-mtd-vat              controllers.deenrolment.DoYouNeedToCancelMTDVATController.onSubmit()
+
 GET        /self-assessment/how-to-stop-filing   controllers.deenrolment.StopFilingSelfAssessmentController.onPageLoad()
 POST       /self-assessment/how-to-stop-filing   controllers.deenrolment.StopFilingSelfAssessmentController.onSubmit()
 

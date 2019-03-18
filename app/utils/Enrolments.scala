@@ -68,6 +68,8 @@ object Enrolments {
 
   case object VAT extends WithName("HMCE-VATDEC-ORG") with Enrolments
 
+  case object MTDVAT extends WithName("HMRC-MTD-VAT") with Enrolments
+
   case object VATGIANT extends WithName("HMRC-VAT-GIANT") with Enrolments
 
   case object VATMOSS extends WithName("HMRC-MOSS-U-ORG") with Enrolments
@@ -122,6 +124,7 @@ object Enrolments {
     SAPartnership,
     RegisterTrusts,
     VAT,
+    MTDVAT,
     AddCis,
     VATMOSSNonUnion,
     ECSales,
@@ -161,6 +164,8 @@ object HmrcEnrolmentType {
   case object EPAYE extends WithName("IR-PAYE") with HmrcEnrolmentType
 
   case object VAT extends WithName("HMCE-VATDEC-ORG") with HmrcEnrolmentType
+
+  case object MTDVAT extends WithName("HMRC-MTD-VAT") with HmrcEnrolmentType
 
   case object RegisterTrusts extends WithName("IR-SA-TRUST-ORG") with HmrcEnrolmentType
 

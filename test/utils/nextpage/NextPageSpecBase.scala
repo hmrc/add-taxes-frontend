@@ -29,6 +29,8 @@ trait NextPageSpecBase extends SpecBase {
 
   val ctEnrolment = Enrolment(key = HmrcEnrolmentType.CORP_TAX.toString, identifiers = Seq(), state = "Activated")
 
+  val mtdVatEnrolment = Enrolment(key = HmrcEnrolmentType.MTDVAT.toString, identifiers = Seq(), state = "Activated")
+
   val epayeEnrolmentWithoutIdentifiers =
     Enrolment(key = HmrcEnrolmentType.EPAYE.toString, identifiers = Seq(), state = "Activated")
 
