@@ -1208,7 +1208,7 @@ areYouSelfEmployed.No = No
 areYouSelfEmployed.error.required = Select yes if you are self-employed
 
 ########################################################
-## YourSaIsNotInThisAccount
+##  YourSaIsNotInThisAccount
 ########################################################
 yourSaIsNotInThisAccount.title = Your Self Assessment has not been added to an account
 yourSaIsNotInThisAccount.heading = Your Self Assessment has not been added to an account
@@ -1216,3 +1216,13 @@ yourSaIsNotInThisAccount.you_may_have_already_ = You may have used a different b
 yourSaIsNotInThisAccount.look_ = Sign in to your other account to add Self Assessment
 yourSaIsNotInThisAccount.add_ = Add your Self Assessment to this account
 yourSaIsNotInThisAccount.error.required = Select one of the options
+
+########################################################
+##  IndividualAddCorporationTax
+########################################################
+individualAddCorporationTax.title = Set up a new account
+individualAddCorporationTax.heading = Set up a new account
+individualAddCorporationTax.p1 = This is an Individual account.
+individualAddCorporationTax.p2 = You can only add Corporation Tax to an ‘Organisation’ account.
+individualAddCorporationTax.notNow = I don’t want to do this right now
+individualAddCorporationTax.signOut = Sign out and create ‘Organisation’ account
