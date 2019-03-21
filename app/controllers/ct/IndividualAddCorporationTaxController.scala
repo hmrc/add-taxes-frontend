@@ -16,4 +16,23 @@
 
 package controllers.ct
 
-class IndividualAddCorporationTaxController {}
+import config.FrontendAppConfig
+import controllers.actions.{AuthAction, ServiceInfoAction}
+import javax.inject.Inject
+import play.api.i18n.{I18nSupport, MessagesApi}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import views.html.ct.individual_add_corporation_tax
+
+class IndividualAddCorporationTaxController @Inject()(
+                                                      appConfig: FrontendAppConfig,
+                                                      override val messagesApi: MessagesApi,
+                                                      authenticate: AuthAction,
+                                                      serviceInfoData: ServiceInfoAction)
+                                                      extends FrontendController
+                                                      with I18nSupport {
+
+  def onPageLoad = (authenticate andThen serviceInfoData) { implicit request =>
+    Ok(individual_add_corporation_tax(appConfig)(request.serviceInfoContent))
+  }
+
+}

@@ -23,18 +23,16 @@
   appConfig = appConfig,
   serviceInfoContent = serviceInfoContent) {
     <h1 class="heading-large">@messages("individualAddCorporationTax.heading")</h1>
-
     <p>@messages("individualAddCorporationTax.p1")</p>
     <p>@messages("individualAddCorporationTax.p2")</p>
-
     <p>
-        <a id="not-now" data-journey-click="IndividualAddCorporationTax:click:NotNow" href="@appConfig.getBusinessAccountUrl("home")">
-            @messages("individualAddCorporationTax.notNow")
-        </a>
-
-        <a id="create-account" data-journey-click="SetUpAccountbusinesstaxes:Click:Register" href="@appConfig.getBusinessAccountUrl("signoutToOrganisationCreation")">
-            @messages("individualAddCorporationTax.signOut")
-        </a>
+      <a id="create-account" class="button" data-journey-click="link - click:Individual add corporation tax:Sign out and create Organisation account" href="@appConfig.getBusinessAccountUrl("signoutToOrganisationCreation")">
+        @messages("individualAddCorporationTax.signOut")
+      </a>
     </p>
-
+    <p>
+      <a id="not-now" data-journey-click="link - click:Individual add corporation tax:I don’t want to do this right now" href="@appConfig.getBusinessAccountUrl("home")">
+        @messages("individualAddCorporationTax.notNow")
+      </a>
+    </p>
 }
