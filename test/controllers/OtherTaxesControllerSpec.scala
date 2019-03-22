@@ -120,12 +120,6 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    "return OK" in {
-      val result = controller().onPageLoad()(fakeRequest)
-
-      status(result) mustBe OK
-    }
-
     "redirect to next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", OtherTaxes.options.head.value))
       val result = controller().onSubmit()(postRequest)

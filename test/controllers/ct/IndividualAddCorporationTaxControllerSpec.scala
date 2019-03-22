@@ -16,9 +16,9 @@
 
 package controllers.ct
 
-import controllers.{ControllerSpecBase}
-import controllers.actions.{AuthAction, DataRetrievalAction, FakeAuthAction, FakeServiceInfoAction}
-import models.requests.AuthenticatedRequest
+import controllers.ControllerSpecBase
+import controllers.actions.{FakeServiceInfoAction, _}
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.{Request, Result}
 import play.api.test.FakeRequest
@@ -26,13 +26,10 @@ import play.api.test.Helpers._
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.auth.core.Enrolments
 import play.api.inject.bind
+import play.twirl.api.HtmlFormat
+import views.html.ct.individual_add_corporation_tax
 
 import scala.concurrent.Future
-
-class FakeAuthActionAuthenticated extends AuthAction {
-  override def invokeBlock[A](request: Request[A], block: (AuthenticatedRequest[A]) => Future[Result]): Future[Result] =
-    block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Organisation)))
-}
 
 class IndividualAddCorporationTaxControllerSpec extends ControllerSpecBase {
 
@@ -43,9 +40,13 @@ class IndividualAddCorporationTaxControllerSpec extends ControllerSpecBase {
 
   val application = new GuiceApplicationBuilder()
     .overrides(
-      bind[AuthAction].to[FakeAuthActionAuthenticated]
+      bind[AuthAction].to[FakeAuthActionAuthenticated],
+      bind[ServiceInfoAction].to[FakeServiceInfoActionEmpty]
     )
     .build()
+
+  def viewAsString() =
+    individual_add_corporation_tax(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "IndividualAddCorporationTaxControllerSpec" should {
     "return OK when called through route" in {
@@ -55,9 +56,22 @@ class IndividualAddCorporationTaxControllerSpec extends ControllerSpecBase {
     }
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
-      status(result) mustBe OK
+      val request = controller().onPageLoad()(fakeRequest)
+      contentAsString(request) mustBe viewAsString()
+      status(request) mustBe OK
     }
   }
 
+}
+
+class FakeAuthActionAuthenticated extends AuthAction {
+  override def invokeBlock[A](request: Request[A], block: AuthenticatedRequest[A] => Future[Result]): Future[Result] =
+    block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Organisation)))
+}
+
+class FakeServiceInfoActionEmpty extends ServiceInfoAction {
+  override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
+    implicit val r: Request[A] = request
+    Future.successful(ServiceInfoRequest(request, HtmlFormat.empty))
+  }
 }
