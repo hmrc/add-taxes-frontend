@@ -303,3 +303,5 @@ POST       /employer/directors-or-partners              controllers.employer.pay
 
 GET        /employer/have-paye-ref                      controllers.employer.paye.DoYouHavePAYEReferenceController.onPageLoad()
 POST       /employer/have-paye-ref                      controllers.employer.paye.DoYouHavePAYEReferenceController.onSubmit()
+
+GET        /corporation-tax                             controllers.ct.IndividualAddCorporationTaxController.onPageLoad()

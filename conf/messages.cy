@@ -1215,3 +1215,13 @@ yourSaIsNotInThisAccount.you_may_have_already_ = Efallai eich bod wedi defnyddio
 yourSaIsNotInThisAccount.look_ = Mewngofnodwch i’ch cyfrif arall i ychwanegu Hunanasesiad
 yourSaIsNotInThisAccount.add_ = Ychwanegu’ch Hunanasesiad at y cyfrif hwn
 yourSaIsNotInThisAccount.error.required = Dewiswch un o’r opsiynau
+
+########################################################
+##  IndividualAddCorporationTax
+########################################################
+individualAddCorporationTax.title = Sefydlu cyfrif newydd
+individualAddCorporationTax.heading = Sefydlu cyfrif newydd
+individualAddCorporationTax.p1 = Mae hwn yn gyfrif ''Unigolyn
+individualAddCorporationTax.p2 = Dim ond Treth Gorfforaeth y gallwch ei ychwanegu i gyfrif "Sefydliad
+individualAddCorporationTax.notNow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+individualAddCorporationTax.signOut = Allgofnodwch a chreu cyfrif "Sefydliad
