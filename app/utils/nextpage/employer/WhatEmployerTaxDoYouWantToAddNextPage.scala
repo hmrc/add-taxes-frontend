@@ -64,10 +64,28 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
 
   def getEnrolERSCall(
     details: WhatEmployerTaxDoYouWantToAddWithEnrolment)(implicit appConfig: FrontendAppConfig, request: Request[_]) = {
-    val taxOfficeReference: Option[String] =
-      details._2.enrolments.head.getIdentifier("TaxOfficeReference").map(_.value)
-    val taxOfficeNumber: Option[String] =
-      details._2.enrolments.head.getIdentifier("TaxOfficeNumber").map(_.value)
+
+    def taxOfficeNumber: Option[String] =
+      details._2
+        .getEnrolment(utils.Enrolments.EPAYE.toString)
+        .map(
+          e =>
+            e.identifiers
+              .find(_.key == "TaxOfficeNumber")
+              .getOrElse(
+                throw new IllegalArgumentException("Cannot find 'TaxOfficeNumber' Enrolment identifier for EPAYE"))
+              .value)
+
+    def taxOfficeReference: Option[String] =
+      details._2
+        .getEnrolment(utils.Enrolments.EPAYE.toString)
+        .map(
+          e =>
+            e.identifiers
+              .find(_.key == "TaxOfficeReference")
+              .getOrElse(
+                throw new IllegalArgumentException("Cannot find 'TaxOfficeReference' Enrolment identifier for EPAYE"))
+              .value)
 
     (taxOfficeReference, taxOfficeNumber) match {
       case (Some(ref), Some(num)) => {
