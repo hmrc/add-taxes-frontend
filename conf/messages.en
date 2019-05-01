@@ -184,6 +184,7 @@ registerEORI.title = You need an Economic Operator Registration and Identificati
 registerEORI.heading = You need an Economic Operator Registration and Identification (EORI) number to add this service
 registerEORI.continue = Get an EORI number
 
+
 #######################################################
 ##  RegisterEORI - ICS
 #######################################################
@@ -230,6 +231,7 @@ registerEORIEBTI.p1 = When you get this, sign in and add the electronic Binding 
 ##  RegisterEORI - NCTS
 #######################################################
 registerEORINCTS.p1 = When you get this, sign in and add the New Computerised Transit System to your account.
+
 
 #######################################################
 ##  DoYouWantToAddImportExport
@@ -411,6 +413,7 @@ registeredForVATUk.Yes = Yes
 registeredForVATUk.No = No
 registeredForVATUk.error.required = Select yes if the business is registered for VAT in the UK
 
+
 #######################################################
 ##  RegisterMGD
 #######################################################
@@ -542,6 +545,16 @@ whereIsYourBusinessBased.Iom = Isle of Man
 whereIsYourBusinessBased.error.required = Select a location
 
 #######################################################
+##  HaveYouRegisteredForVATMOSS
+#######################################################
+haveYouRegisteredForVATMOSS.title = Have you already registered for VAT MOSS?
+haveYouRegisteredForVATMOSS.heading = Have you already registered for VAT MOSS?
+haveYouRegisteredForVATMOSS.subtext = You will have a VAT MOSS identification number if you are already registered.
+haveYouRegisteredForVATMOSS.Yes = Yes
+haveYouRegisteredForVATMOSS.No = No
+haveYouRegisteredForVATMOSS.error.required = Select yes if you have already registered for VAT MOSS
+
+#######################################################
 ##  AlreadyRegisteredForVATMoss
 #######################################################
 alreadyRegisteredForVATMoss.title = Have you already registered for VAT MOSS?
@@ -569,16 +582,6 @@ registeredForVAT.heading = Is your business registered for VAT on the Isle of Ma
 registeredForVAT.Yes = Yes
 registeredForVAT.No = No
 registeredForVAT.error.required = Select yes if your business is registered for VAT on the Isle of Man
-
-#######################################################
-##  HaveYouRegisteredForVATMOSS
-#######################################################
-haveYouRegisteredForVATMOSS.title = Have you already registered for VAT MOSS?
-haveYouRegisteredForVATMOSS.heading = Have you already registered for VAT MOSS?
-haveYouRegisteredForVATMOSS.subtext = You will have a VAT MOSS identification number if you are already registered.
-haveYouRegisteredForVATMOSS.Yes = Yes
-haveYouRegisteredForVATMOSS.No = No
-haveYouRegisteredForVATMOSS.error.required = Select yes if you have already registered for VAT MOSS
 
 #######################################################
 ##  RegisteredForVATECSales
@@ -722,7 +725,7 @@ isYourBusinessInUK.error.required = Select yes if your business is based in the 
 
 
 #######################################################
-##  SetUpNewAccount
+##  SetUpNewAccount Trust
 #######################################################
 setUpNewAccount.title = Set up a new account
 setUpNewAccount.heading = Set up a new account
@@ -736,7 +739,7 @@ setUpNewAccount.continue = Sign out and create ‘Organisation’ account
 setUpNewAccount.notnow = I do not want to do this now
 
 #######################################################
-##  SetUpNewAccount
+##  SetUpNewAccount Partnership
 #######################################################
 setUpNewAccountPartnership.title = Set up a new account
 setUpNewAccountPartnership.heading = Set up a new account
@@ -1078,6 +1081,7 @@ requestActivationToken.heading = Request access to Pension Schemes Online for Pr
 requestActivationToken.continue = Continue
 requestActivationToken.p1 = We will send it in the post within 7 days.
 requestActivationToken.p2 = When you get it, you can sign in to your account and use this service.
+
 
 #######################################################
 ##  DirectorsRegisterByPhone

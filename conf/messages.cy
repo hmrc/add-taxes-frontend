@@ -134,6 +134,21 @@ otherTaxes.pods = Rheoli a chofrestru cynlluniau pensiwn
 
 
 #######################################################
+##  OrganisationOnly
+#######################################################
+organisationOnly.title = #NOT TRANSLATED# Set up a new account
+organisationOnly.heading = #NOT TRANSLATED# Set up a new account
+organisationOnly.p1 = #NOT TRANSLATED# You can’t add business taxes to this account.
+organisationOnly.bulletTitle = #NOT TRANSLATED# You need to:
+organisationOnly.bullet1 = #NOT TRANSLATED# Create an Organisation account on the Government Gateway website.
+organisationOnly.bullet2 = #NOT TRANSLATED# Sign in to HMRC with the new sign in details.
+organisationOnly.bullet3 = #NOT TRANSLATED# Add business taxes in that account.
+organisationOnly.panelIndent = #NOT TRANSLATED# Don’t try to add business taxes on the Government Gateway website.
+organisationOnly.signOut = #NOT TRANSLATED# Sign out and create ‘Organisation’ account
+organisationOnly.notNow = #NOT TRANSLATED# I do not want to do this now
+
+
+#######################################################
 ##  RegisterExciseMovementControlSystem
 #######################################################
 registerExciseMovementControlSystem.title = Mae angen rhif System ar gyfer Cyfnewid Data Ecséis (SEED) arnoch i ychwanegu’r gwasanaeth hwn
@@ -211,10 +226,12 @@ doYouHaveCHIEFRole.error.required = Dewiswch ‘Iawn’ os oes gennych rôl defn
 #######################################################
 registerEORIEBTI.p1 = Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y Gwybodaeth Electronig am Dariff sy’n Rhwymo (eBTI) at eich cyfrif
 
+
 #######################################################
 ##  RegisterEORI - NCTS
 #######################################################
 registerEORINCTS.p1 = Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y System Gludo Gyfrifiadurol Newydd at eich cyfrif.
+
 
 #######################################################
 ##  DoYouWantToAddImportExport
@@ -257,6 +274,26 @@ getEoriAndChiefRole.p1.li2= gwneud cais am rôl defnyddiwr CHIEF – e-bostiwch 
 getEoriAndChiefRole.p2= Pan gewch chi’r rhain, mewngofnodwch ac ychwanegwch y System Allforio Newydd at eich cyfrif.
 
 #######################################################
+##  RegisterTrust
+#######################################################
+registerTrust.title = Cofrestru’ch ymddiriedolaeth cyn i chi ychwanegu’r gwasanaeth hwn at eich cyfrif
+registerTrust.heading = Cofrestru’ch ymddiriedolaeth cyn i chi ychwanegu’r gwasanaeth hwn at eich cyfrif
+registerTrust.continue = Cofrestru eich ymddiriedolaeth
+registerTrust.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+registerTrust.p1= Pan gewch Gyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth, mewngofnodwch i’ch cyfrif ac ychwanegwch Hunanasesiad Ar-lein ar gyfer Ymddiriedolaethau.
+
+#######################################################
+##  HaveYouRegisteredTrust
+#######################################################
+haveYouRegisteredTrust.title = A ydych wedi cofrestru eich ymddiriedolaeth?
+haveYouRegisteredTrust.heading = A ydych wedi cofrestru eich ymddiriedolaeth?
+haveYouRegisteredTrust.Yes = Iawn
+haveYouRegisteredTrust.No = Na
+haveYouRegisteredTrust.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru’ch ymddiriedolaeth
+haveYouRegisteredTrust.hintText = Mae’ch ymddiriedolaeth wedi’i chofrestru os gwnaethoch anfon {0} atom, a’ch bod wedi cael Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth drwy’r post.
+haveYouRegisteredTrust.form.g41=ffurflen G41
+
+#######################################################
 ##  RegisterGBD
 #######################################################
 registerGBD.title = Cofrestrwch ar gyfer y System Treth Hapchwarae yn gyntaf
@@ -288,26 +325,6 @@ registerRGD.title = Cofrestrwch ar gyfer Toll Hapchwarae o Bell cyn ei hychwaneg
 registerRGD.heading = Cofrestrwch ar gyfer Toll Hapchwarae o Bell cyn ei hychwanegu i’ch cyfrif
 registerRGD.p1 = Pan gewch eich rhif cofrestru, mewngofnodwch i’ch cyfrif ac ychwanegwch Toll Hapchwarae o Bell.
 registerRGD.continue = Cofrestru ar gyfer Toll Hapchwarae o Bell
-
-#######################################################
-##  RegisterTrust
-#######################################################
-registerTrust.title = Cofrestru’ch ymddiriedolaeth cyn i chi ychwanegu’r gwasanaeth hwn at eich cyfrif
-registerTrust.heading = Cofrestru’ch ymddiriedolaeth cyn i chi ychwanegu’r gwasanaeth hwn at eich cyfrif
-registerTrust.continue = Cofrestru eich ymddiriedolaeth
-registerTrust.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
-registerTrust.p1= Pan gewch Gyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth, mewngofnodwch i’ch cyfrif ac ychwanegwch Hunanasesiad Ar-lein ar gyfer Ymddiriedolaethau.
-
-#######################################################
-##  HaveYouRegisteredTrust
-#######################################################
-haveYouRegisteredTrust.title = A ydych wedi cofrestru eich ymddiriedolaeth?
-haveYouRegisteredTrust.heading = A ydych wedi cofrestru eich ymddiriedolaeth?
-haveYouRegisteredTrust.Yes = Iawn
-haveYouRegisteredTrust.No = Na
-haveYouRegisteredTrust.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru’ch ymddiriedolaeth
-haveYouRegisteredTrust.hintText = Mae’ch ymddiriedolaeth wedi’i chofrestru os gwnaethoch anfon {0} atom, a’ch bod wedi cael Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer yr ymddiriedolaeth drwy’r post.
-haveYouRegisteredTrust.form.g41=ffurflen G41
 
 #######################################################
 ##  HaveYouRegisteredPartnership
@@ -346,6 +363,7 @@ haveYouRegisteredAEOI.No = Na
 haveYouRegisteredAEOI.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru ar gyfer Cyfnewid Gwybodaeth yn Awtomatig
 haveYouRegisteredAEOI.p1 = Bydd gennych ID Cyfnewid Gwybodaeth yn Awtomatig.
 
+#######################################################
 ##  AddVATMOSS
 #######################################################
 addVATMOSS.title = Ychwanegu GUC TAW i’ch cyfrif TAW
@@ -486,7 +504,6 @@ doesBusinessManagePAYE.Yes = Iawn
 doesBusinessManagePAYE.No = Na
 doesBusinessManagePAYE.error.required = Dewiswch ‘Iawn’ os yw’ch busnes yn rheoli TWE i gyflogwyr ar‑lein
 
-
 #######################################################
 ##  RegisterForPAYE
 #######################################################
@@ -504,7 +521,6 @@ isBusinessRegisteredForPAYE.heading = A yw’ch busnes wedi’i gofrestru ar gyf
 isBusinessRegisteredForPAYE.Yes = Iawn
 isBusinessRegisteredForPAYE.No = Na
 isBusinessRegisteredForPAYE.error.required = Dewiswch ‘Iawn’ os yw’ch busnes wedi’i gofrestru ar gyfer TWE i gyflogwyr
-
 
 #######################################################
 ##  SelectGamblingOrGamingDuty
@@ -591,6 +607,15 @@ whichVATServicesToAdd.nova = Hysbysiad o Gerbydau’n Cyrraedd (NOVA)
 whichVATServicesToAdd.error.required = Dewis gwasanaeth TAW
 
 #######################################################
+##  RegisterInHomeCountry
+#######################################################
+registerInHomeCountry.title = Cofrestru yn eich gwlad wreiddiol
+registerInHomeCountry.heading = Cofrestru yn eich gwlad wreiddiol
+registerInHomeCountry.p1=Dylech gofrestru ar gyfer GUC TAW gyda’r awdurdod treth yng ngwlad wreiddiol eich busnes.
+registerInHomeCountry.p2=Os ydych eisiau cofrestru ar gyfer GUC TAW yn y DU, mae angen i chi
+registerInHomeCountry.callUs = ein ffonio.
+
+#######################################################
 ##  UseEmployersPAYE
 #######################################################
 useEmployersPAYE.title = Ychwanegu gwarantau ar sail cyflogaeth (ERS) at y cyfrif rydych yn ei ddefnyddio ar gyfer TWE i gyflogwyr
@@ -618,13 +643,14 @@ registerEmployersPAYE.continue = Cofrestru ar gyfer TWE i gyflogwyr
 registerEmployersPAYE.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
 #######################################################
-##  RegisterInHomeCountry
+##  AreYouContractorOrSubcontractor
 #######################################################
-registerInHomeCountry.title = Cofrestru yn eich gwlad wreiddiol
-registerInHomeCountry.heading = Cofrestru yn eich gwlad wreiddiol
-registerInHomeCountry.p1=Dylech gofrestru ar gyfer GUC TAW gyda’r awdurdod treth yng ngwlad wreiddiol eich busnes.
-registerInHomeCountry.p2=Os ydych eisiau cofrestru ar gyfer GUC TAW yn y DU, mae angen i chi
-registerInHomeCountry.callUs = ein ffonio.
+areYouContractorOrSubcontractor.title = Ydych chi’n gontractwr neu’n isgontractwr?
+areYouContractorOrSubcontractor.heading = Ydych chi’n gontractwr neu’n isgontractwr?
+areYouContractorOrSubcontractor.Contractor = Contractwr, rwy’n cyflogi ac yn talu isgontractwyr
+areYouContractorOrSubcontractor.Subcontractor = Isgontractwr, rwy’n gweithio i fusnesau adeiladu eraill
+areYouContractorOrSubcontractor.error.required = Dewiswch p’un a ydych yn gontractwr neu’n isgontractwr
+areYouContractorOrSubcontractor.p1=Os ydych y naill a’r llall, bydd angen i chi gofrestru ddwywaith ar gyfer Cynllun y Diwydiant Adeiladu (CIS). Dewiswch opsiwn, yna dychwelwch a dewiswch y llall.
 
 #######################################################
 ##  DoYouWantToBePaidNetOrGross
@@ -677,15 +703,6 @@ registerForPAYEIntermediaries.continue = Cofrestru ar gyfer TWE i gyflogwyr
 registerForPAYEIntermediaries.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 
 #######################################################
-##  RegisterInHomeCountry
-#######################################################
-registerInHomeCountry.title = Cofrestru yn eich gwlad wreiddiol
-registerInHomeCountry.heading = Cofrestru yn eich gwlad wreiddiol
-registerInHomeCountry.p1=Dylech gofrestru ar gyfer GUC TAW gyda’r awdurdod treth yng ngwlad wreiddiol eich busnes.
-registerInHomeCountry.p2=Os ydych eisiau cofrestru ar gyfer GUC TAW yn y DU, mae angen i chi
-registerInHomeCountry.callUs = ein ffonio.
-
-#######################################################
 ##  WhatEmployerTaxDoYouWantToAdd
 #######################################################
 whatEmployerTaxDoYouWantToAdd.title = Pa gynllun neu dreth i gyflogwr sydd ei angen arnoch?
@@ -696,16 +713,6 @@ whatEmployerTaxDoYouWantToAdd.pension = Cynlluniau Pensiwn Ar-lein ar gyfer Gwei
 whatEmployerTaxDoYouWantToAdd.ers = Gwarantau ar Sail Cyflogaeth (ERS)
 whatEmployerTaxDoYouWantToAdd.intermediaries = Cyfryngwyr cyflogaeth (ar gyfer asiantaethau)
 whatEmployerTaxDoYouWantToAdd.error.required = Dewiswch pa gynllun neu dreth i gyflogwr sydd ei angen arnoch
-
-#######################################################
-##  AreYouContractorOrSubcontractor
-#######################################################
-areYouContractorOrSubcontractor.title = Ydych chi’n gontractwr neu’n isgontractwr?
-areYouContractorOrSubcontractor.heading = Ydych chi’n gontractwr neu’n isgontractwr?
-areYouContractorOrSubcontractor.Contractor = Contractwr, rwy’n cyflogi ac yn talu isgontractwyr
-areYouContractorOrSubcontractor.Subcontractor = Isgontractwr, rwy’n gweithio i fusnesau adeiladu eraill
-areYouContractorOrSubcontractor.error.required = Dewiswch p’un a ydych yn gontractwr neu’n isgontractwr
-areYouContractorOrSubcontractor.p1=Os ydych y naill a’r llall, bydd angen i chi gofrestru ddwywaith ar gyfer Cynllun y Diwydiant Adeiladu (CIS). Dewiswch opsiwn, yna dychwelwch a dewiswch y llall.
 
 #######################################################
 ##  IsYourBusinessInUK
@@ -724,10 +731,8 @@ setUpNewAccount.title = Sefydlu cyfrif newydd
 setUpNewAccount.heading = Sefydlu cyfrif newydd
 setUpNewAccount.p1=Ni allwch ychwanegu ymddiriedolaeth Hunanasesiad i’r cyfrif hwn.
 setUpNewAccount.p2=Mae angen i chi wneud y canlynol:
-setUpNewAccount.li1=Creu cyfrif ’Sefydliad’ ar wefan Porth y Llywodraeth.
 setUpNewAccount.li2=Mewngofnodi i CThEM gyda’r manylion mewngofnodi newydd.
 setUpNewAccount.li1=Creu cyfrif ‘Sefydliad’ ar wefan Porth y Llywodraeth.
-setUpNewAccount.li2=Mewngofnodi i CThEM gyda’r manylion mewngofnodi newydd.
 setUpNewAccount.li3=Ychwanegu ymddiriedolaeth Hunanasesiad yn y cyfrif hwnnw.
 setUpNewAccount.p3=Peidiwch â cheisio ychwanegu ymddiriedolaeth Hunanasesiad ar wefan Porth y Llywodraeth.
 setUpNewAccount.continue = Allgofnodwch a chreu cyfrif Sefydliad
