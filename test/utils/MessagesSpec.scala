@@ -32,7 +32,7 @@ class MessagesSpec extends SpecBase {
       listMissingMessageKeys("The following message keys are missing from the Welsh Set:", defaultKeySet -- welshKeySet)
     else
       listMissingMessageKeys(
-        "The following message keys are missing from the Default Set:",
+        "The following message keys are missing from the English Set:",
         welshKeySet -- defaultKeySet)
 
   private def listMissingMessageKeys(header: String, missingKeys: Set[String]) =
@@ -114,13 +114,15 @@ class MessagesSpec extends SpecBase {
       val welshWithArgsMsgKeys = welshMessages collect { case (key, value) if countArgs(value) > 0      => key }
       val missingFromEnglish = englishWithArgsMsgKeys.toList diff welshWithArgsMsgKeys.toList
       val missingFromWelsh = welshWithArgsMsgKeys.toList diff englishWithArgsMsgKeys.toList
-      missingFromEnglish foreach { key =>
-        println(s"Key which has arguments in English but not in Welsh: $key")
+
+      val clueTextForWelsh =
+        missingFromWelsh.foldLeft("")((soFar, key) => s"$soFar$key has arguments in English but not in Welsh\n")
+      val clueText = missingFromEnglish.foldLeft(clueTextForWelsh)((soFar, key) =>
+        s"$soFar$key has arguments in Welsh but not in English\n")
+
+      withClue(clueText) {
+        englishWithArgsMsgKeys.size mustBe welshWithArgsMsgKeys.size
       }
-      missingFromWelsh foreach { key =>
-        println(s"Key which has arguments in Welsh but not in English: $key")
-      }
-      englishWithArgsMsgKeys.size mustBe welshWithArgsMsgKeys.size
 
     }
 
@@ -135,12 +137,13 @@ class MessagesSpec extends SpecBase {
         case (key, engArgSeq) if engArgSeq != welshWithArgsMsgKeysAndArgList(key) =>
           (key, engArgSeq, welshWithArgsMsgKeysAndArgList(key))
       }
-      mismatchedArgSequences foreach {
-        case (key, engArgSeq, welshArgSeq) =>
-          println(
-            s"key which has different arguments or order of arguments between English and Welsh: $key -- English arg seq=$engArgSeq and Welsh arg seq=$welshArgSeq")
+
+      val mismatchedKeys = mismatchedArgSequences map (sequence => sequence._1)
+      val clueText = mismatchedKeys.foldLeft("")((soFar, key) =>
+        s"$soFar$key does not have the same number of arguments in English and Welsh\n")
+      withClue(clueText) {
+        mismatchedArgSequences.size mustBe 0
       }
-      mismatchedArgSequences.size mustBe 0
     }
   }
 
