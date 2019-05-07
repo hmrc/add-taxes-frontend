@@ -136,16 +136,16 @@ otherTaxes.pods = Rheoli a chofrestru cynlluniau pensiwn
 #######################################################
 ##  OrganisationOnly
 #######################################################
-organisationOnly.title = #NOT TRANSLATED# Set up a new account
-organisationOnly.heading = #NOT TRANSLATED# Set up a new account
-organisationOnly.p1 = #NOT TRANSLATED# You can’t add business taxes to this account.
-organisationOnly.bulletTitle = #NOT TRANSLATED# You need to:
-organisationOnly.bullet1 = #NOT TRANSLATED# Create an Organisation account on the Government Gateway website.
-organisationOnly.bullet2 = #NOT TRANSLATED# Sign in to HMRC with the new sign in details.
-organisationOnly.bullet3 = #NOT TRANSLATED# Add business taxes in that account.
-organisationOnly.panelIndent = #NOT TRANSLATED# Don’t try to add business taxes on the Government Gateway website.
-organisationOnly.signOut = #NOT TRANSLATED# Sign out and create ‘Organisation’ account
-organisationOnly.notNow = #NOT TRANSLATED# I do not want to do this now
+organisationOnly.title = Set up a new account
+organisationOnly.heading = Set up a new account
+organisationOnly.p1 = You can’t add business taxes to this account.
+organisationOnly.bulletTitle = You need to:
+organisationOnly.bullet1 = Create an Organisation account on the Government Gateway website.
+organisationOnly.bullet2 = Sign in to HMRC with the new sign in details.
+organisationOnly.bullet3 = Add business taxes in that account.
+organisationOnly.panelIndent = Don’t try to add business taxes on the Government Gateway website.
+organisationOnly.signOut = Sign out and create ‘Organisation’ account
+organisationOnly.notNow = I do not want to do this now
 
 
 #######################################################
