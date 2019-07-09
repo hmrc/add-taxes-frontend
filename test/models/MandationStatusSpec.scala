@@ -16,10 +16,10 @@
 
 package models
 
+import org.scalatest.{Matchers, WordSpec}
 import play.api.libs.json.Json
-import uk.gov.hmrc.play.test.UnitSpec
 
-class MandationStatusSpec extends UnitSpec {
+class MandationStatusSpec extends WordSpec with Matchers {
 
   val testJson = """{"mandationStatus":"MTDfB Mandated"}"""
   val mandationStatus = "MTDfB Mandated"
@@ -42,4 +42,5 @@ class MandationStatusSpec extends UnitSpec {
       }
     }
   }
+
 }

@@ -21,12 +21,13 @@ import org.mockito.Mockito._
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.test.UnitSpec
 import connectors.VatSubscriptionConnector
+import org.scalatest.{Matchers, WordSpec}
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class VatSubscriptionServiceSpec extends UnitSpec with MockitoSugar with ScalaFutures {
+class VatSubscriptionServiceSpec extends WordSpec with Matchers with MockitoSugar with ScalaFutures {
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
 
