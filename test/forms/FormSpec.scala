@@ -16,10 +16,10 @@
 
 package forms
 
+import org.scalatest.{Matchers, WordSpec}
 import play.api.data.{Form, FormError}
-import uk.gov.hmrc.play.test.UnitSpec
 
-trait FormSpec extends UnitSpec {
+trait FormSpec extends WordSpec with Matchers {
 
   def checkForError(form: Form[_], data: Map[String, String], expectedErrors: Seq[FormError]) =
     form
