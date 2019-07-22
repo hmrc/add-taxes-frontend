@@ -305,3 +305,5 @@ GET        /employer/have-paye-ref                      controllers.employer.pay
 POST       /employer/have-paye-ref                      controllers.employer.paye.DoYouHavePAYEReferenceController.onSubmit()
 
 GET        /corporation-tax                             controllers.ct.IndividualAddCorporationTaxController.onPageLoad()
+
+GET        /vat/registration-process                       controllers.vat.VatRegistrationProcessController.onPageLoad()
