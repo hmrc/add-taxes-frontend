@@ -1242,3 +1242,11 @@ vatRegistrationProcess.listitem1 = Check if you can register for VAT using the o
 vatRegistrationProcess.listitem2 = Complete VAT registration
 vatRegistrationProcess.listitem3 = Get your VAT registration number by post or email reminder
 vatRegistrationProcess.listitem4 = Sign into your business tax account to get online access to VAT
+
+#######################################################
+##  VatEligibilityCheck
+#######################################################
+vatEligibilityCheck.title = Check if you can register for VAT online
+vatEligibilityCheck.heading = Check if you can register for VAT online
+vatEligibilityCheck.continue = Continue
+vatEligibilityCheck.p1 =  You will be asked up to 6 questions to check if you are eligible to register for VAT online.

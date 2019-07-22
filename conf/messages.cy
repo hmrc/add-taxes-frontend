@@ -1242,3 +1242,11 @@ vatRegistrationProcess.listitem1 = Check if you can register for VAT using the o
 vatRegistrationProcess.listitem2 = Complete VAT registration
 vatRegistrationProcess.listitem3 = Get your VAT registration number by post or email reminder
 vatRegistrationProcess.listitem4 = Sign into your business tax account to get online access to VAT
+
+#######################################################
+##  VatEligibilityCheck
+#######################################################
+vatEligibilityCheck.title = Gwiriwch os gallwch gofrestru ar gyfer TAW ar-lein
+vatEligibilityCheck.heading = Gwiriwch os gallwch gofrestru ar gyfer TAW ar-lein
+vatEligibilityCheck.continue = Yn eich blaen
+vatEligibilityCheck.p1 = Gofynnir hyd at 6 chwestiwn i chi er mwyn gwirio a ydych yn gymwys i gofrestru ar gyfer TAW ar-lein.
