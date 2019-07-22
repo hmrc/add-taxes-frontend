@@ -1326,3 +1326,13 @@ cannotRegisterVAT.title = You are not eligible to register for VAT online
 cannotRegisterVAT.heading = You are not eligible to register for VAT online
 cannotRegisterVAT.continue = Register for VAT by post
 cannotRegisterVAT.p1 = You must register for VAT by post.
+
+#######################################################
+##  AgriculturalFlatRateScheme
+#######################################################
+agriculturalFlatRateScheme.title = Are you joining the agricultural flat rate scheme?
+agriculturalFlatRateScheme.heading = Are you joining the agricultural flat rate scheme?
+agriculturalFlatRateScheme.Yes = Yes
+agriculturalFlatRateScheme.No = No
+agriculturalFlatRateScheme.error.required = Select yes if you are joining the agricultural flat rate scheme
+agriculturalFlatRateScheme.hintText = The agricultural flat rate scheme is an alternative to VAT registration for farmers.
