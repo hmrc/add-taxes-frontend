@@ -1262,3 +1262,13 @@ vatRegistrationException.error.required = Select yes if you need to apply for a 
 vatRegistrationException.p1 = You can apply if your VAT taxable turnover has temporarily gone over the threshold and you do not think it will go over the deregistration threshold of £83,000 in the next 12 months.
 
 
+
+#######################################################
+##  AgriculturalFlatRateScheme
+#######################################################
+agriculturalFlatRateScheme.title = Are you joining the agricultural flat rate scheme?
+agriculturalFlatRateScheme.heading = Are you joining the agricultural flat rate scheme?
+agriculturalFlatRateScheme.Yes = Yes
+agriculturalFlatRateScheme.No = No
+agriculturalFlatRateScheme.error.required = Select yes if you are joining the agricultural flat rate scheme
+agriculturalFlatRateScheme.hintText = The agricultural flat rate scheme is an alternative to VAT registration for farmers.

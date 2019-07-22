@@ -1260,3 +1260,13 @@ vatRegistrationException.No = Na
 vatRegistrationException.error.required = Dewiswch ‘Iawn’ os oes angen i chi wneud cais am eithriad rhag cofrestru ar gyfer TAW
 vatRegistrationException.p1 = Gallwch wneud cais os yw’ch trosiant trethadwy TAW wedi mynd dros y trothwy dros dro ac rydych o’r farn na fydd yn mynd dros y trothwy dadgofrestru o £83,000 yn ystod y 12 mis nesaf.
 
+
+#######################################################
+##  AgriculturalFlatRateScheme
+#######################################################
+agriculturalFlatRateScheme.title = A ydych yn ymuno â’r cynllun cyfradd unffurf amaethyddol?
+agriculturalFlatRateScheme.heading = A ydych yn ymuno â’r cynllun cyfradd unffurf amaethyddol?
+agriculturalFlatRateScheme.Yes = Yawn
+agriculturalFlatRateScheme.No = Na
+agriculturalFlatRateScheme.error.required = Dewiswch ‘Iawn’ os ydych yn ymuno â’r cynllun cyfradd unffurf amaethyddol
+agriculturalFlatRateScheme.hintText = Mae’r cynllun cyfradd unffurf yn opsiwn arall i ffermwyr yn hytrach na chofrestru ar gyfer TAW.
