@@ -140,3 +140,4 @@ object NextPage
     with RegisterForVATOnlineNextPage
     with AreYouSelfEmployedNextPage
     with YourSaIsNotInThisAccountNextPage
+    with utils.nextpage.vat.VatRegistrationExceptionNextPage
