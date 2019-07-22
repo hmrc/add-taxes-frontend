@@ -1249,3 +1249,13 @@ vatEligibilityCheck.title = Gwiriwch os gallwch gofrestru ar gyfer TAW ar-lein
 vatEligibilityCheck.heading = Gwiriwch os gallwch gofrestru ar gyfer TAW ar-lein
 vatEligibilityCheck.continue = Yn eich blaen
 vatEligibilityCheck.p1 = Gofynnir hyd at 6 chwestiwn i chi er mwyn gwirio a ydych yn gymwys i gofrestru ar gyfer TAW ar-lein.
+#######################################################
+##  VatRegistrationException
+#######################################################
+vatRegistrationException.title = A oes angen i chi wneud cais am eithriad rhag cofrestru ar gyfer TAW?
+vatRegistrationException.heading = A oes angen i chi wneud cais am eithriad rhag cofrestru ar gyfer TAW?
+vatRegistrationException.Yes = Yawn
+vatRegistrationException.No = Na
+vatRegistrationException.error.required = Dewiswch ‘Iawn’ os oes angen i chi wneud cais am eithriad rhag cofrestru ar gyfer TAW
+vatRegistrationException.p1 = Gallwch wneud cais os yw’ch trosiant trethadwy TAW wedi mynd dros y trothwy dros dro ac rydych o’r farn na fydd yn mynd dros y trothwy dadgofrestru o £83,000 yn ystod y 12 mis nesaf.
+

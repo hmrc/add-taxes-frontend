@@ -1249,3 +1249,15 @@ vatEligibilityCheck.title = Check if you can register for VAT online
 vatEligibilityCheck.heading = Check if you can register for VAT online
 vatEligibilityCheck.continue = Continue
 vatEligibilityCheck.p1 =  You will be asked up to 6 questions to check if you are eligible to register for VAT online.
+
+#######################################################
+##  VatRegistrationException
+#######################################################
+vatRegistrationException.title = Do you need to apply for a VAT registration exception?
+vatRegistrationException.heading = Do you need to apply for a VAT registration exception?
+vatRegistrationException.Yes = Yes
+vatRegistrationException.No = No
+vatRegistrationException.error.required = Select yes if you need to apply for a VAT registration exception
+vatRegistrationException.p1 = You can apply if your VAT taxable turnover has temporarily gone over the threshold and you do not think it will go over the deregistration threshold of £83,000 in the next 12 months.
+
+
