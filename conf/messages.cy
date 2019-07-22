@@ -1269,3 +1269,12 @@ agriculturalFlatRateScheme.Yes = Yawn
 agriculturalFlatRateScheme.No = Na
 agriculturalFlatRateScheme.error.required = Dewiswch ‘Iawn’ os ydych yn ymuno â’r cynllun cyfradd unffurf amaethyddol
 agriculturalFlatRateScheme.hintText = Mae’r cynllun cyfradd unffurf yn opsiwn arall i ffermwyr yn hytrach na chofrestru ar gyfer TAW.
+
+#######################################################
+##  CompanyDivision
+#######################################################
+companyDivision.title = A yw’ch cwmni’n rhan o is-adran?
+companyDivision.heading = A yw’ch cwmni’n rhan o is-adran?
+companyDivision.Yes = Yawn
+companyDivision.No = Na
+companyDivision.error.required = Dewiswch ‘Iawn’ os yw’ch cwmni’n rhan o is-adran
