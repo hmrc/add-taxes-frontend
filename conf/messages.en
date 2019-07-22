@@ -1230,3 +1230,14 @@ individualAddCorporationTax.p1 = This is an Individual account.
 individualAddCorporationTax.p2 = You can only add Corporation Tax to an ‘Organisation’ account.
 individualAddCorporationTax.notNow = I don’t want to do this right now
 individualAddCorporationTax.signOut = Sign out and create ‘Organisation’ account
+
+#######################################################
+##  VATRegistrationProcess
+#######################################################
+vatRegistrationProcess.title = Vat Registration Process
+vatRegistrationProcess.heading = VAT Registration Process
+vatRegistrationProcess.continue = Start VAT registration process
+vatRegistrationProcess.listitem1 = Check if you can register for VAT using the online service
+vatRegistrationProcess.listitem2 = Complete VAT registration
+vatRegistrationProcess.listitem3 = Get your VAT registration number by post or email reminder
+vatRegistrationProcess.listitem4 = Sign into your business tax account to get online access to VAT
