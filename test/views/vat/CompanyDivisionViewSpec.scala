@@ -16,9 +16,9 @@
 
 package views.vat
 
-import play.api.data.Form
 import forms.vat.CompanyDivisionFormProvider
 import models.vat.CompanyDivision
+import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.vat.companyDivision
@@ -49,6 +49,7 @@ class CompanyDivisionViewSpec extends ViewBehaviours {
   }
 
   "CompanyDivision form" when {
+
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
