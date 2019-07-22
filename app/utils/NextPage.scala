@@ -142,3 +142,4 @@ object NextPage
     with YourSaIsNotInThisAccountNextPage
     with utils.nextpage.vat.VatRegistrationExceptionNextPage
     with utils.nextpage.vat.AgriculturalFlatRateSchemeNextPage
+    with utils.nextpage.vat.CompanyDivisionNextPage

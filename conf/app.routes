@@ -315,3 +315,6 @@ POST       /vat/vat-exception                           controllers.vat.VatRegis
 
 GET        /vat/is-agricultural-flat-rate               controllers.vat.AgriculturalFlatRateSchemeController.onPageLoad()
 POST       /vat/is-agricultural-flat-rate               controllers.vat.AgriculturalFlatRateSchemeController.onSubmit()
+
+GET        /vat/is-part-of-division                     controllers.vat.CompanyDivisionController.onPageLoad()
+POST       /vat/is-part-of-division                     controllers.vat.CompanyDivisionController.onSubmit()
