@@ -309,3 +309,6 @@ GET        /corporation-tax                             controllers.ct.Individua
 GET        /vat/registration-process                    controllers.vat.VatRegistrationProcessController.onPageLoad()
 
 GET        /vat/eligibility                             controllers.vat.VatEligibilityCheckController.onPageLoad()
+
+GET        /vat/vat-exception                           controllers.vat.VatRegistrationExceptionController.onPageLoad()
+POST       /vat/vat-exception                           controllers.vat.VatRegistrationExceptionController.onSubmit()
