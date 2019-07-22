@@ -1231,3 +1231,14 @@ individualAddCorporationTax.p1 = Mae hwn yn gyfrif ''Unigolyn
 individualAddCorporationTax.p2 = Dim ond Treth Gorfforaeth y gallwch ei ychwanegu i gyfrif "Sefydliad
 individualAddCorporationTax.notNow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 individualAddCorporationTax.signOut = Allgofnodwch a chreu cyfrif "Sefydliad
+
+#######################################################
+##  VATRegistrationProcess
+#######################################################
+vatRegistrationProcess.title = Dechrau’r broses gofrestru ar gyfer TAW
+vatRegistrationProcess.heading = Dechrau’r broses gofrestru ar gyfer TAW
+vatRegistrationProcess.continue = Dechrau’r broses gofrestru ar gyfer TAW
+vatRegistrationProcess.listitem1 = Check if you can register for VAT using the online service
+vatRegistrationProcess.listitem2 = Complete VAT registration
+vatRegistrationProcess.listitem3 = Get your VAT registration number by post or email reminder
+vatRegistrationProcess.listitem4 = Sign into your business tax account to get online access to VAT
