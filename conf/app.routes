@@ -331,4 +331,3 @@ POST       /vat/is-claiming-refund                      controllers.vat.ClaimRef
 GET        /vat/can-register-online                     controllers.vat.CanRegisterForVATController.onPageLoad()
 
 GET        /vat/cannot-register-online                  controllers.vat.CannotRegisterVATController.onPageLoad()
-
