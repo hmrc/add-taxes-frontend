@@ -1238,10 +1238,17 @@ individualAddCorporationTax.signOut = Allgofnodwch a chreu cyfrif "Sefydliad
 vatRegistrationProcess.title = Dechrau’r broses gofrestru ar gyfer TAW
 vatRegistrationProcess.heading = Dechrau’r broses gofrestru ar gyfer TAW
 vatRegistrationProcess.continue = Dechrau’r broses gofrestru ar gyfer TAW
+<<<<<<< HEAD
 vatRegistrationProcess.listitem1 = Gwirio os gallwch gofrestru ar gyfer TAW gan ddefnyddio’r gwasanaeth ar-lein
 vatRegistrationProcess.listitem2 = Cwblhau cofrestru ar gyfer TAW
 vatRegistrationProcess.listitem3 = Cael eich rhif cofrestru TAW drwy’r post neu drwy e-bost atgoffa
 vatRegistrationProcess.listitem4 = Mewngofnodi i’ch Cyfrif Treth Busnes er mwyn cael mynediad ar-lein at TAW
+=======
+vatRegistrationProcess.listitem1 = Check if you can register for VAT using the online service
+vatRegistrationProcess.listitem2 = Complete VAT registration
+vatRegistrationProcess.listitem3 = Get your VAT registration number by post or email reminder
+vatRegistrationProcess.listitem4 = Sign into your business tax account to get online access to VAT
+>>>>>>> BTA-1546 add VatEligibilityCheck page
 
 #######################################################
 ##  VatEligibilityCheck

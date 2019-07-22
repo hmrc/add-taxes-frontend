@@ -22,6 +22,8 @@ import views.html.vat.vatEligibilityCheck
 
 class VatEligibilityCheckViewSpec extends ViewBehaviours {
 
+  def viewIncludes(s: String): Unit = asDocument(createView()).text() must include(s)
+
   val messageKeyPrefix = "vatEligibilityCheck"
 
   def createView = () => vatEligibilityCheck(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
