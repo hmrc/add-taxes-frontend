@@ -306,4 +306,6 @@ POST       /employer/have-paye-ref                      controllers.employer.pay
 
 GET        /corporation-tax                             controllers.ct.IndividualAddCorporationTaxController.onPageLoad()
 
-GET        /vat/registration-process                       controllers.vat.VatRegistrationProcessController.onPageLoad()
+GET        /vat/registration-process                    controllers.vat.VatRegistrationProcessController.onPageLoad()
+
+GET        /vat/eligibility                             controllers.vat.VatEligibilityCheckController.onPageLoad()
