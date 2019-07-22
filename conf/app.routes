@@ -312,3 +312,6 @@ GET        /vat/eligibility                             controllers.vat.VatEligi
 
 GET        /vat/vat-exception                           controllers.vat.VatRegistrationExceptionController.onPageLoad()
 POST       /vat/vat-exception                           controllers.vat.VatRegistrationExceptionController.onSubmit()
+
+GET        /vat/is-agricultural-flat-rate               controllers.vat.AgriculturalFlatRateSchemeController.onPageLoad()
+POST       /vat/is-agricultural-flat-rate               controllers.vat.AgriculturalFlatRateSchemeController.onSubmit()

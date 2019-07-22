@@ -141,3 +141,4 @@ object NextPage
     with AreYouSelfEmployedNextPage
     with YourSaIsNotInThisAccountNextPage
     with utils.nextpage.vat.VatRegistrationExceptionNextPage
+    with utils.nextpage.vat.AgriculturalFlatRateSchemeNextPage
