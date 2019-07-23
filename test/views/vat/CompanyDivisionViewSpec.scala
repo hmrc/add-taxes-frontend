@@ -21,7 +21,7 @@ import forms.vat.CompanyDivisionFormProvider
 import models.vat.CompanyDivision
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.vat.{companyDivision, vatEligibilityCheck}
+import views.html.vat.companyDivision
 
 class CompanyDivisionViewSpec extends ViewBehaviours {
 
@@ -43,11 +43,12 @@ class CompanyDivisionViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     "include correct content" in {
-      viewIncludes("You will be asked up to 6 questions to check if you are eligible to register for VAT online.")
+      viewIncludes(
+        "A corporate body is trading in divisions if it has 2 or more self-accounting branches, sites or departments in the UK.")
     }
   }
 
-  "CompanyDivision view" when {
+  "CompanyDivision form" when {
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
