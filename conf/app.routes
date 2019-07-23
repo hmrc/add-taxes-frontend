@@ -319,15 +319,15 @@ POST       /vat/is-agricultural-flat-rate               controllers.vat.Agricult
 GET        /vat/is-part-of-division                     controllers.vat.CompanyDivisionController.onPageLoad()
 POST       /vat/is-part-of-division                     controllers.vat.CompanyDivisionController.onSubmit()
 
-GET        /vat/is-distance-selling                  controllers.vat.DistanceSellingController.onPageLoad()
-POST       /vat/is-distance-selling                  controllers.vat.DistanceSellingController.onSubmit()
+GET        /vat/is-distance-selling                     controllers.vat.DistanceSellingController.onPageLoad()
+POST       /vat/is-distance-selling                     controllers.vat.DistanceSellingController.onSubmit()
 
-GET        /vat/has-imported-goods                  controllers.vat.ImportedGoodsController.onPageLoad()
-POST       /vat/has-imported-goods                  controllers.vat.ImportedGoodsController.onSubmit()
+GET        /vat/has-imported-goods                      controllers.vat.ImportedGoodsController.onPageLoad()
+POST       /vat/has-imported-goods                      controllers.vat.ImportedGoodsController.onSubmit()
 
-GET        /vat/is-claiming-refund                  controllers.vat.ClaimRefundController.onPageLoad()
-POST       /vat/is-claiming-refund                  controllers.vat.ClaimRefundController.onSubmit()
+GET        /vat/is-claiming-refund                      controllers.vat.ClaimRefundController.onPageLoad()
+POST       /vat/is-claiming-refund                      controllers.vat.ClaimRefundController.onSubmit()
 
-GET        /vat/can-register-online                       controllers.vat.CanRegisterForVATController.onPageLoad()
+GET        /vat/can-register-online                     controllers.vat.CanRegisterForVATController.onPageLoad()
 
-GET        /vat/cannot-register-online                       controllers.vat.CannotRegisterVATController.onPageLoad()
+GET        /vat/cannot-register-online                  controllers.vat.CannotRegisterVATController.onPageLoad()
