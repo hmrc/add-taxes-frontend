@@ -318,3 +318,6 @@ POST       /vat/is-agricultural-flat-rate               controllers.vat.Agricult
 
 GET        /vat/is-part-of-division                     controllers.vat.CompanyDivisionController.onPageLoad()
 POST       /vat/is-part-of-division                     controllers.vat.CompanyDivisionController.onSubmit()
+
+GET        /vat/is-distance-selling                  controllers.vat.DistanceSellingController.onPageLoad()
+POST       /vat/is-distance-selling                  controllers.vat.DistanceSellingController.onSubmit()
