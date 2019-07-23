@@ -36,7 +36,10 @@
             field = form("value"),
             legend = components.heading("claimRefund.heading").body,
             inputs = ClaimRefund.options.toSeq,
-            hint = Some(messages("claimRefund.hintText"))
+            hint = Some(messages("claimRefund.hintText")),
+            noMarginClass = Some("no-bottom-margin"),
+            inlineRadioButton = Some("inline"),
+            hintTextSpacing = Some("padding-bottom-small")
         )
 
         @components.submit_button(gaEvent = "ClaimRefund")

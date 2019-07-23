@@ -36,7 +36,10 @@
             field = form("value"),
             legend = components.heading("vatRegistrationException.heading").body,
             inputs = VatRegistrationException.options.toSeq,
-            hint   = Some(messages("vatRegistrationException.p1"))
+            hint   = Some(messages("vatRegistrationException.p1")),
+            noMarginClass = Some("no-bottom-margin"),
+            inlineRadioButton = Some("inline"),
+            hintTextSpacing = Some("padding-bottom-small")
         )
 
         @components.submit_button(gaEvent = "VatRegistrationException")
