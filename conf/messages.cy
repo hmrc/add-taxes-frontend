@@ -1298,3 +1298,13 @@ importedGoods.Yes = Yawn
 importedGoods.No = Na
 importedGoods.error.required = Dewiswch ‘Iawn’ os ydych wedi mewnforio (‘caffael’) nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE
 importedGoods.hintText = Os ydych wedi mewnforio nwyddau sydd werth mwy nag £85,000 o aelod-wladwriaethau eraill yn yr UE, rhaid i chi gofrestru ar gyfer TAW gan ddefnyddio ffurflen VAT1B.
+
+#######################################################
+##  ClaimRefund
+#######################################################
+claimRefund.title = A ydych wedi neu’n bwriadu hawlio ad-daliadau o dan yr 8fed neu’r 13eg cyfarwyddeb?
+claimRefund.heading = A ydych wedi neu’n bwriadu hawlio ad-daliadau o dan yr 8fed neu’r 13eg cyfarwyddeb?
+claimRefund.Yes = Yawn
+claimRefund.No = Na
+claimRefund.error.required = Dewiswch ‘Iawn’ os ydych wedi neu’n bwriadu hawlio ad-daliadau o dan yr 8fed neu’r 13eg Cyfarwyddeb
+claimRefund.hintText = Mae ad-daliadau o dan yr 8fed cyfarwyddeb yn caniatáu i fusnesau yn yr UE hawlio ad-daliadau TAW a godwyd mewn aelod-wladwriaeth arall yn yr UE. Mae ad-daliadau o dan y 13eg cyfarwyddeb yn caniatáu i fusnesau sydd wedi’u cofrestru y tu allan i’r UE adennill TAW a dalwyd yn yr UE.

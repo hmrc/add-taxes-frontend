@@ -1302,3 +1302,12 @@ importedGoods.Yes = Yes
 importedGoods.No = No
 importedGoods.error.required = Select yes if you have imported ('aquired') goods worth more than £85,000 from another EU company
 importedGoods.hintText = You need to register for VAT using form VAT1B if you have imported goods worth more than £85,000 from other EU member states.
+#######################################################
+##  ClaimRefund
+#######################################################
+claimRefund.title = Have you or are you planning to claim refunds under the 8th or 13th directive?
+claimRefund.heading = Have you or are you planning to claim refunds under the 8th or 13th directive?
+claimRefund.Yes = Yes
+claimRefund.No = No
+claimRefund.error.required = Select yes if you have or are planning to claim refunds under the 8th or 13th directive
+claimRefund.hintText = 8th directive refunds allow EU businesses to claim VAT refunds incurred in another EU member state. 13th directive refunds let businesses registered outside the EU reclaim VAT paid in the EU.
