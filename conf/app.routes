@@ -324,3 +324,6 @@ POST       /vat/is-distance-selling                  controllers.vat.DistanceSel
 
 GET        /vat/has-imported-goods                  controllers.vat.ImportedGoodsController.onPageLoad()
 POST       /vat/has-imported-goods                  controllers.vat.ImportedGoodsController.onSubmit()
+
+GET        /vat/is-claiming-refund                  controllers.vat.ClaimRefundController.onPageLoad()
+POST       /vat/is-claiming-refund                  controllers.vat.ClaimRefundController.onSubmit()
