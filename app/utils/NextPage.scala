@@ -144,3 +144,4 @@ object NextPage
     with utils.nextpage.vat.AgriculturalFlatRateSchemeNextPage
     with utils.nextpage.vat.CompanyDivisionNextPage
     with utils.nextpage.vat.DistanceSellingNextPage
+    with utils.nextpage.vat.ImportedGoodsNextPage

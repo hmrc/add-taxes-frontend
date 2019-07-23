@@ -1289,3 +1289,12 @@ distanceSelling.Yes = Yawn
 distanceSelling.No = Na
 distanceSelling.error.required = Dewiswch ‘Iawn’ os ydych yn fusnes yn yr UE sy’n gwerthu o bell i’r DU
 distanceSelling.hintText = Mae gwerthu o bell yn digwydd pan fo busnes yn gwerthu neu’n dosbarthu nwyddau i gwsmer wedi’i leoli mewn gwlad wahanol yn yr UE sydd heb ei gofrestru ar gyfer TAW.
+#######################################################
+##  ImportedGoods
+#######################################################
+importedGoods.title = A ydych wedi mewnforio (‘caffael’) nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE?
+importedGoods.heading = A ydych wedi mewnforio (‘caffael’) nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE?
+importedGoods.Yes = Yawn
+importedGoods.No = Na
+importedGoods.error.required = Dewiswch ‘Iawn’ os ydych wedi mewnforio (‘caffael’) nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE
+importedGoods.hintText = Os ydych wedi mewnforio nwyddau sydd werth mwy nag £85,000 o aelod-wladwriaethau eraill yn yr UE, rhaid i chi gofrestru ar gyfer TAW gan ddefnyddio ffurflen VAT1B.
