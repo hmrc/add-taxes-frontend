@@ -36,7 +36,10 @@
             field = form("value"),
             legend = components.heading("companyDivision.heading").body,
             inputs = CompanyDivision.options.toSeq,
-            hint = Some(messages("companyDivision.hintText"))
+            hint = Some(messages("companyDivision.hintText")),
+            noMarginClass = Some("no-bottom-margin"),
+            inlineRadioButton = Some("inline"),
+            hintTextSpacing = Some("padding-bottom-small")
         )
 
         @components.submit_button(gaEvent = "ComapanyDivision")

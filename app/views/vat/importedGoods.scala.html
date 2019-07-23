@@ -36,7 +36,10 @@
             field = form("value"),
             legend = components.heading("importedGoods.heading").body,
             inputs = ImportedGoods.options.toSeq,
-            hint = Some(messages("importedGoods.hintText"))
+            hint = Some(messages("importedGoods.hintText")),
+            noMarginClass = Some("no-bottom-margin"),
+            inlineRadioButton = Some("inline"),
+            hintTextSpacing = Some("padding-bottom-small")
         )
 
         @components.submit_button(gaEvent = "ImportedGoods")

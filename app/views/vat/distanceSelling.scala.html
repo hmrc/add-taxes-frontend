@@ -36,7 +36,10 @@
             field = form("value"),
             legend = components.heading("distanceSelling.heading").body,
             inputs = DistanceSelling.options.toSeq,
-            hint = Some(messages("distanceSelling.hintText"))
+            hint = Some(messages("distanceSelling.hintText")),
+            noMarginClass = Some("no-bottom-margin"),
+            inlineRadioButton = Some("inline"),
+            hintTextSpacing = Some("padding-bottom-small")
         )
 
         @components.submit_button(gaEvent = "DistanceSelling")
