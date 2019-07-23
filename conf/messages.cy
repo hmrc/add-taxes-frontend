@@ -1289,6 +1289,7 @@ distanceSelling.Yes = Yawn
 distanceSelling.No = Na
 distanceSelling.error.required = Dewiswch ‘Iawn’ os ydych yn fusnes yn yr UE sy’n gwerthu o bell i’r DU
 distanceSelling.hintText = Mae gwerthu o bell yn digwydd pan fo busnes yn gwerthu neu’n dosbarthu nwyddau i gwsmer wedi’i leoli mewn gwlad wahanol yn yr UE sydd heb ei gofrestru ar gyfer TAW.
+
 #######################################################
 ##  ImportedGoods
 #######################################################
@@ -1308,3 +1309,11 @@ claimRefund.Yes = Yawn
 claimRefund.No = Na
 claimRefund.error.required = Dewiswch ‘Iawn’ os ydych wedi neu’n bwriadu hawlio ad-daliadau o dan yr 8fed neu’r 13eg Cyfarwyddeb
 claimRefund.hintText = Mae ad-daliadau o dan yr 8fed cyfarwyddeb yn caniatáu i fusnesau yn yr UE hawlio ad-daliadau TAW a godwyd mewn aelod-wladwriaeth arall yn yr UE. Mae ad-daliadau o dan y 13eg cyfarwyddeb yn caniatáu i fusnesau sydd wedi’u cofrestru y tu allan i’r UE adennill TAW a dalwyd yn yr UE.
+
+#######################################################
+##  CanRegisterForVAT
+#######################################################
+canRegisterForVAT.title = Gallwch gofrestru ar gyfer TAW ar-lein
+canRegisterForVAT.heading = Gallwch gofrestru ar gyfer TAW ar-lein
+canRegisterForVAT.continue = Yn eich blaen i gofrestru ar gyfer TAW
+canRegisterForVAT.p1 = Ar sail eich atebion, gallwch gofrestru ar gyfer TAW gan ddefnyddio’r gwasanaeth ar-lein.
