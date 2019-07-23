@@ -17,20 +17,20 @@
 package utils.nextpage.vat
 
 import config.FrontendAppConfig
-import identifiers.CompanyDivisionId
+import identifiers.DistanceSellingId
 import play.api.mvc.{Call, Request}
-import models.vat.CompanyDivision
+import models.vat.DistanceSelling
 import utils.NextPage
 import controllers.vat.{routes => vatRoutes}
 
-trait CompanyDivisionNextPage {
+trait DistanceSellingNextPage {
 
-  implicit val companyDivision: NextPage[CompanyDivisionId.type, CompanyDivision, Call] = {
-    new NextPage[CompanyDivisionId.type, CompanyDivision, Call] {
-      override def get(b: CompanyDivision)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+  implicit val distanceSelling: NextPage[DistanceSellingId.type, DistanceSelling, Call] = {
+    new NextPage[DistanceSellingId.type, DistanceSelling, Call] {
+      override def get(b: DistanceSelling)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case CompanyDivision.Yes => vatRoutes.CompanyDivisionController.onPageLoad()
-          case CompanyDivision.No  => vatRoutes.CompanyDivisionController.onPageLoad()
+          case DistanceSelling.Yes => vatRoutes.DistanceSellingController.onPageLoad()
+          case DistanceSelling.No  => vatRoutes.DistanceSellingController.onPageLoad()
         }
     }
   }

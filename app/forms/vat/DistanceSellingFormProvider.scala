@@ -14,25 +14,19 @@
  * limitations under the License.
  */
 
-package utils.nextpage.vat
+package forms.vat
 
-import models.vat.CompanyDivision
-import utils.NextPage
-import utils.nextpage.NextPageSpecBase
+import javax.inject.Inject
 
-class CompanyDivisionNextPageSpec extends NextPageSpecBase {
+import forms.FormErrorHelper
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.vat.DistanceSelling
 
-  "companyDivision" when {
-    behave like nextPage(
-      NextPage.companyDivision,
-      CompanyDivision.Yes,
-      "/business-account/add-tax/vat/is-part-of-division"
+class DistanceSellingFormProvider @Inject() extends FormErrorHelper with Mappings {
+
+  def apply(): Form[DistanceSelling] =
+    Form(
+      "value" -> enumerable[DistanceSelling]("distanceSelling.error.required")
     )
-
-    behave like nextPage(
-      NextPage.companyDivision,
-      CompanyDivision.No,
-      "/business-account/add-tax/vat/is-part-of-division"
-    )
-  }
 }

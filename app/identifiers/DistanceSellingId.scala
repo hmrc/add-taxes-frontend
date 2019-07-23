@@ -14,25 +14,8 @@
  * limitations under the License.
  */
 
-package utils.nextpage.vat
+package identifiers
 
-import models.vat.CompanyDivision
-import utils.NextPage
-import utils.nextpage.NextPageSpecBase
-
-class CompanyDivisionNextPageSpec extends NextPageSpecBase {
-
-  "companyDivision" when {
-    behave like nextPage(
-      NextPage.companyDivision,
-      CompanyDivision.Yes,
-      "/business-account/add-tax/vat/is-part-of-division"
-    )
-
-    behave like nextPage(
-      NextPage.companyDivision,
-      CompanyDivision.No,
-      "/business-account/add-tax/vat/is-part-of-division"
-    )
-  }
+case object DistanceSellingId extends Identifier {
+  override def toString: String = "distanceSelling"
 }
