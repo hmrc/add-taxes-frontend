@@ -1278,3 +1278,4 @@ companyDivision.heading = A yw’ch cwmni’n rhan o is-adran?
 companyDivision.Yes = Yawn
 companyDivision.No = Na
 companyDivision.error.required = Dewiswch ‘Iawn’ os yw’ch cwmni’n rhan o is-adran
+companyDivision.hintText = Mae corff corfforaethol yn masnachu mewn is-adrannau os oes ganddo 2 neu fwy o ganghennau hunan-gyfrifo, safleoedd neu adrannau yn y DU.
