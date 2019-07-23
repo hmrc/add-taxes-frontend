@@ -329,3 +329,5 @@ GET        /vat/is-claiming-refund                  controllers.vat.ClaimRefundC
 POST       /vat/is-claiming-refund                  controllers.vat.ClaimRefundController.onSubmit()
 
 GET        /vat/can-register-online                       controllers.vat.CanRegisterForVATController.onPageLoad()
+
+GET        /vat/cannot-register-online                       controllers.vat.CannotRegisterVATController.onPageLoad()
