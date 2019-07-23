@@ -1317,3 +1317,11 @@ canRegisterForVAT.title = Gallwch gofrestru ar gyfer TAW ar-lein
 canRegisterForVAT.heading = Gallwch gofrestru ar gyfer TAW ar-lein
 canRegisterForVAT.continue = Yn eich blaen i gofrestru ar gyfer TAW
 canRegisterForVAT.p1 = Ar sail eich atebion, gallwch gofrestru ar gyfer TAW gan ddefnyddio’r gwasanaeth ar-lein.
+
+#######################################################
+##  CannotRegisterVAT
+#######################################################
+cannotRegisterVAT.title = You are not eligible to register for VAT online
+cannotRegisterVAT.heading = You are not eligible to register for VAT online
+cannotRegisterVAT.continue = Register for VAT by post
+cannotRegisterVAT.p1 = Mae’n rhaid i chi gofrestru ar gyfer TAW drwy’r post.
