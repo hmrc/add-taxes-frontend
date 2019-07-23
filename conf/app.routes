@@ -321,3 +321,6 @@ POST       /vat/is-part-of-division                     controllers.vat.CompanyD
 
 GET        /vat/is-distance-selling                  controllers.vat.DistanceSellingController.onPageLoad()
 POST       /vat/is-distance-selling                  controllers.vat.DistanceSellingController.onSubmit()
+
+GET        /vat/has-imported-goods                  controllers.vat.ImportedGoodsController.onPageLoad()
+POST       /vat/has-imported-goods                  controllers.vat.ImportedGoodsController.onSubmit()

@@ -1292,3 +1292,13 @@ distanceSelling.Yes = Yes
 distanceSelling.No = No
 distanceSelling.error.required = Select yes if you are an EU business distance selling to the UK
 distanceSelling.hintText = Distance selling occurs when a business sells or delivers goods to a customer based in a different EU country who is not VAT registered.
+
+#######################################################
+##  ImportedGoods
+#######################################################
+importedGoods.title = worth more than £85,000 from another EU company?
+importedGoods.heading = Have you imported ('acquired') goods worth more than £85,000 from another EU company?
+importedGoods.Yes = Yes
+importedGoods.No = No
+importedGoods.error.required = Select yes if you have imported ('aquired') goods worth more than £85,000 from another EU company
+importedGoods.hintText = You need to register for VAT using form VAT1B if you have imported goods worth more than £85,000 from other EU member states.
