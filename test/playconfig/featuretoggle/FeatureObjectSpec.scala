@@ -37,8 +37,7 @@ class FeatureObjectSpec extends WordSpec with MustMatchers with GuiceOneAppPerSu
       def sealedDescendants[Root: TypeTag]: Set[Symbol] = {
         val symbol = typeOf[Root].typeSymbol
         val internal = symbol.asInstanceOf[scala.reflect.internal.Symbols#Symbol]
-        if (internal.isSealed) { internal.sealedDescendants.map(_.asInstanceOf[Symbol]) - symbol }
-        else { Set.empty }
+        if (internal.isSealed) { internal.sealedDescendants.map(_.asInstanceOf[Symbol]) - symbol } else { Set.empty }
       }
 
       val descendants = sealedDescendants[Feature]
