@@ -1312,3 +1312,11 @@ claimRefund.Yes = Yes
 claimRefund.No = No
 claimRefund.error.required = Select yes if you have or are planning to claim refunds under the 8th or 13th directive
 claimRefund.hintText = 8th directive refunds allow EU businesses to claim VAT refunds incurred in another EU member state. 13th directive refunds let businesses registered outside the EU reclaim VAT paid in the EU.
+
+#######################################################
+##  CanRegisterForVAT
+#######################################################
+canRegisterForVAT.title = You can register for VAT online
+canRegisterForVAT.heading = You can register for VAT online
+canRegisterForVAT.continue = Continue to VAT registration
+canRegisterForVAT.p1 = Based on your answers, you can register for VAT using the online service.
