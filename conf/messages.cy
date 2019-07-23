@@ -1280,3 +1280,13 @@ companyDivision.Yes = Yawn
 companyDivision.No = Na
 companyDivision.error.required = Dewiswch ‘Iawn’ os yw’ch cwmni’n rhan o is-adran
 companyDivision.hintText = Mae corff corfforaethol yn masnachu mewn is-adrannau os oes ganddo 2 neu fwy o ganghennau hunan-gyfrifo, safleoedd neu adrannau yn y DU.
+
+#######################################################
+##  DistanceSelling
+#######################################################
+distanceSelling.title = A ydych yn fusnes yn yr UE sy’n gwerthu o bell i’r DU?
+distanceSelling.heading = A ydych yn fusnes yn yr UE sy’n gwerthu o bell i’r DU?
+distanceSelling.Yes = Yawn
+distanceSelling.No = Na
+distanceSelling.error.required = Dewiswch ‘Iawn’ os ydych yn fusnes yn yr UE sy’n gwerthu o bell i’r DU
+distanceSelling.hintText = Mae gwerthu o bell yn digwydd pan fo busnes yn gwerthu neu’n dosbarthu nwyddau i gwsmer wedi’i leoli mewn gwlad wahanol yn yr UE sydd heb ei gofrestru ar gyfer TAW.

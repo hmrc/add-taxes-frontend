@@ -143,3 +143,4 @@ object NextPage
     with utils.nextpage.vat.VatRegistrationExceptionNextPage
     with utils.nextpage.vat.AgriculturalFlatRateSchemeNextPage
     with utils.nextpage.vat.CompanyDivisionNextPage
+    with utils.nextpage.vat.DistanceSellingNextPage

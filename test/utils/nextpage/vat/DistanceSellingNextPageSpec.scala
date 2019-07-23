@@ -16,23 +16,23 @@
 
 package utils.nextpage.vat
 
-import models.vat.CompanyDivision
+import models.vat.DistanceSelling
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
-class CompanyDivisionNextPageSpec extends NextPageSpecBase {
+class DistanceSellingNextPageSpec extends NextPageSpecBase {
 
-  "companyDivision" when {
+  "distanceSelling" when {
     behave like nextPage(
-      NextPage.companyDivision,
-      CompanyDivision.Yes,
-      "/business-account/add-tax/vat/is-part-of-division"
+      NextPage.distanceSelling,
+      DistanceSelling.Yes,
+      "/business-account/add-tax/vat/is-distance-selling"
     )
 
     behave like nextPage(
-      NextPage.companyDivision,
-      CompanyDivision.No,
-      "/business-account/add-tax/vat/is-part-of-division"
+      NextPage.distanceSelling,
+      DistanceSelling.No,
+      "/business-account/add-tax/vat/is-distance-selling"
     )
   }
 }

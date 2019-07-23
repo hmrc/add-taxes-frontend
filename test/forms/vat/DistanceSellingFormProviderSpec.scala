@@ -14,25 +14,26 @@
  * limitations under the License.
  */
 
-package utils.nextpage.vat
+package forms.vat
 
-import models.vat.CompanyDivision
-import utils.NextPage
-import utils.nextpage.NextPageSpecBase
+import forms.behaviours.FormBehaviours
+import models._
+import models.vat._
 
-class CompanyDivisionNextPageSpec extends NextPageSpecBase {
+class DistanceSellingFormProviderSpec extends FormBehaviours {
 
-  "companyDivision" when {
-    behave like nextPage(
-      NextPage.companyDivision,
-      CompanyDivision.Yes,
-      "/business-account/add-tax/vat/is-part-of-division"
-    )
+  val validData: Map[String, String] = Map(
+    "value" -> DistanceSelling.options.head.value
+  )
 
-    behave like nextPage(
-      NextPage.companyDivision,
-      CompanyDivision.No,
-      "/business-account/add-tax/vat/is-part-of-division"
-    )
+  val form = new DistanceSellingFormProvider()()
+
+  "DistanceSelling form" must {
+
+    behave like questionForm[DistanceSelling](DistanceSelling.values.head)
+
+    behave like formWithOptionField(
+      Field("value", Required -> "distanceSelling.error.required", Invalid -> "error.invalid"),
+      DistanceSelling.options.toSeq.map(_.value): _*)
   }
 }

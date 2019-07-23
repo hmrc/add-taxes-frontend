@@ -14,25 +14,26 @@
  * limitations under the License.
  */
 
-package utils.nextpage.vat
+package models.vat
 
-import models.vat.CompanyDivision
-import utils.NextPage
-import utils.nextpage.NextPageSpecBase
+import utils.{Enumerable, RadioOption, WithName}
 
-class CompanyDivisionNextPageSpec extends NextPageSpecBase {
+sealed trait DistanceSelling
 
-  "companyDivision" when {
-    behave like nextPage(
-      NextPage.companyDivision,
-      CompanyDivision.Yes,
-      "/business-account/add-tax/vat/is-part-of-division"
-    )
+object DistanceSelling {
 
-    behave like nextPage(
-      NextPage.companyDivision,
-      CompanyDivision.No,
-      "/business-account/add-tax/vat/is-part-of-division"
-    )
+  case object Yes extends WithName("Yes") with DistanceSelling
+  case object No extends WithName("No") with DistanceSelling
+
+  val values: Set[DistanceSelling] = Set(
+    Yes,
+    No
+  )
+
+  val options: Set[RadioOption] = values.map { value =>
+    RadioOption("distanceSelling", value.toString)
   }
+
+  implicit val enumerable: Enumerable[DistanceSelling] =
+    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }

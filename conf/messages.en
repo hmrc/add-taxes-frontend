@@ -1283,3 +1283,13 @@ companyDivision.No = No
 companyDivision.error.required = Select yes if your company is part of a division
 companyDivision.hintText = A corporate body is trading in divisions if it has 2 or more self-accounting branches, sites or departments in the UK.
 
+
+#######################################################
+##  DistanceSelling
+#######################################################
+distanceSelling.title = Are you an EU business distance selling to the UK?
+distanceSelling.heading = Are you an EU business distance selling to the UK?
+distanceSelling.Yes = Yes
+distanceSelling.No = No
+distanceSelling.error.required = Select yes if you are an EU business distance selling to the UK
+distanceSelling.hintText = Distance selling occurs when a business sells or delivers goods to a customer based in a different EU country who is not VAT registered.
