@@ -327,3 +327,5 @@ POST       /vat/has-imported-goods                  controllers.vat.ImportedGood
 
 GET        /vat/is-claiming-refund                  controllers.vat.ClaimRefundController.onPageLoad()
 POST       /vat/is-claiming-refund                  controllers.vat.ClaimRefundController.onSubmit()
+
+GET        /vat/can-register-online                       controllers.vat.CanRegisterForVATController.onPageLoad()
