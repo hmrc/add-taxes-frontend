@@ -36,13 +36,13 @@ class DistanceSellingViewSpec extends ViewBehaviours {
   def createViewUsingForm =
     (form: Form[_]) => distanceSelling(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def viewIncludes(s: String): Unit = asDocument(createView()).text() must include(s)
-
   "DistanceSelling view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     "include radio button hint text" in {
-      viewIncludes(
+      val doc = asDocument(createViewUsingForm(form))
+      assertContainsText(
+        doc,
         "Distance selling occurs when a business sells or delivers goods to a customer based in a different EU country who is not VAT registered.")
     }
   }

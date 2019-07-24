@@ -22,8 +22,6 @@ import views.html.vat.vatRegistrationProcess
 
 class VatRegistrationProcessViewSpec extends ViewBehaviours {
 
-  def viewIncludes(s: String): Unit = asDocument(createView()).text() must include(s)
-
   val messageKeyPrefix = "vatRegistrationProcess"
 
   def createView(): HtmlFormat.Appendable =
@@ -33,16 +31,20 @@ class VatRegistrationProcessViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     "include list item 1" in {
-      viewIncludes("Check if you can register for VAT using the online service")
+      val doc = asDocument(createView())
+      assertContainsText(doc, "Check if you can register for VAT using the online service")
     }
     "include list item 2" in {
-      viewIncludes("Complete VAT registration")
+      val doc = asDocument(createView())
+      assertContainsText(doc, "Complete VAT registration")
     }
     "include list item 3" in {
-      viewIncludes("Get your VAT registration number by post or email reminder")
+      val doc = asDocument(createView())
+      assertContainsText(doc, "Get your VAT registration number by post or email reminder")
     }
     "include list item 4" in {
-      viewIncludes("Sign into your business tax account to get online access to VAT")
+      val doc = asDocument(createView())
+      assertContainsText(doc, "Sign into your business tax account to get online access to VAT")
     }
 
     "Render the correct content" in {
