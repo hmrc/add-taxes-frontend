@@ -30,7 +30,8 @@ import scala.concurrent.Future
 class FeatureDependantActionSpec extends WordSpec with MustMatchers with FeatureToggleSupport with GuiceOneAppPerSuite {
 
   val testFeature: Feature = NewVatJourney
-  val testFeatureDependantAction: FeatureDependantAction = new FeatureDependantAction(app.injector.instanceOf[FeatureConfig])
+  val testFeatureDependantAction: FeatureDependantAction = new FeatureDependantAction(
+    app.injector.instanceOf[FeatureConfig])
   val testAction: ActionFilter[Request] = testFeatureDependantAction.permitFor(testFeature)
 
   val testRequest: Request[AnyContent] = FakeRequest()

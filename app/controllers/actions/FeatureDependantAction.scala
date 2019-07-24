@@ -28,8 +28,8 @@ class FeatureDependantAction @Inject()(config: FeatureConfig) {
 
   def permitFor[R[_]](feature: Feature): ActionFilter[R] = new ActionFilter[R] {
     override protected def filter[A](request: R[A]): Future[Option[Result]] = config.isEnabled(feature) match {
-      case false  => Future.failed(new NotFoundException("The page is not enabled"))
-      case true => Future.successful(None)
+      case false => Future.failed(new NotFoundException("The page is not enabled"))
+      case true  => Future.successful(None)
     }
   }
 
