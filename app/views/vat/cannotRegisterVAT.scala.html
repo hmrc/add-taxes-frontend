@@ -21,15 +21,16 @@
 @main_template(
     title = messages("cannotRegisterVAT.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = serviceInfoContent,
+    articleClass= Some("article-body-width")) {
 
     @components.heading("cannotRegisterVAT.heading")
-    <p>@messages("cannotRegisterVAT.p1")</p>
+    <p class="margin-top-small-medium">@messages("cannotRegisterVAT.p1")</p>
     <p>@messages("registerForVatByPost.p1")</p>
 
     <a id="continue"
        href='#'
-       class="button"
+       class="button margin-top-small"
        data-journey-click="CannotRegisterVAT:Click:Continue">
 
         @messages("cannotRegisterVAT.continue")
