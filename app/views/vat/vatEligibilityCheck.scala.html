@@ -21,11 +21,12 @@
 @main_template(
     title = messages("vatEligibilityCheck.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = serviceInfoContent,
+    articleClass= Some("article-body-width")) {
 
     @components.heading("vatEligibilityCheck.heading")
 
-    <p>
+    <p class="margin-top-bottom">
       @messages("vatEligibilityCheck.p1")
     </p>
 
