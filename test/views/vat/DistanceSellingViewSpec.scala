@@ -40,7 +40,6 @@ class DistanceSellingViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     "include radio button hint text" in {
-
       val doc = asDocument(createViewUsingForm(form))
       assertContainsText(
         doc,
