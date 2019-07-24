@@ -36,8 +36,6 @@ class RegisterForVATOnlineViewSpec extends ViewBehaviours {
   def createViewUsingForm =
     (form: Form[_]) => registerForVATOnline(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def viewIncludes(s: String): Unit = asDocument(createView()).text() must include(s)
-
   "RegisterForVATOnline view" must {
     behave like normalPage(createView, messageKeyPrefix)
   }
@@ -52,16 +50,21 @@ class RegisterForVATOnlineViewSpec extends ViewBehaviours {
       }
 
       "include header" in {
-        viewIncludes("Do you want to register for VAT online?")
+        val doc = asDocument(createViewUsingForm(form))
+        assertContainsText(doc, "Do you want to register for VAT online?")
       }
 
       "include list items" in {
-        viewIncludes("need to apply for a ‘registration exception’")
-        viewIncludes("are joining the Agricultural Flat Rate Scheme")
-        viewIncludes("are registering the divisions or business units of a body corporate under separate VAT numbers")
-        viewIncludes("have an EU business ‘distance selling’ to the UK")
-        viewIncludes("have imported (‘acquired’) goods worth more than £85,000 from another EU company")
-        viewIncludes("are disposing of assets on which 8th or 13th Directive refunds have been claimed")
+        val doc = asDocument(createViewUsingForm(form))
+        assertContainsText(doc, "Do you want to register for VAT online?")
+        assertContainsText(doc, "need to apply for a ‘registration exception’")
+        assertContainsText(doc, "are joining the Agricultural Flat Rate Scheme")
+        assertContainsText(
+          doc,
+          "are registering the divisions or business units of a body corporate under separate VAT numbers")
+        assertContainsText(doc, "have an EU business ‘distance selling’ to the UK")
+        assertContainsText(doc, "have imported (‘acquired’) goods worth more than £85,000 from another EU company")
+        assertContainsText(doc, "are disposing of assets on which 8th or 13th Directive refunds have been claimed")
       }
     }
 

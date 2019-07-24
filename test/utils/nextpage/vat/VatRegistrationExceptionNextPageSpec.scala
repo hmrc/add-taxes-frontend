@@ -26,13 +26,13 @@ class VatRegistrationExceptionNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.vatRegistrationException,
       VatRegistrationException.Yes,
-      "/business-account/add-tax/vat/vat-exception"
+      "/business-account/add-tax/vat/has-vat-exception"
     )
 
     behave like nextPage(
       NextPage.vatRegistrationException,
       VatRegistrationException.No,
-      "/business-account/add-tax/vat/vat-exception"
+      "/business-account/add-tax/vat/has-vat-exception"
     )
   }
 }

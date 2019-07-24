@@ -36,15 +36,8 @@ class AgriculturalFlatRateSchemeViewSpec extends ViewBehaviours {
   def createViewUsingForm =
     (form: Form[_]) => agriculturalFlatRateScheme(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def viewIncludes(s: String): Unit = asDocument(createView()).text() must include(s)
-
   "AgriculturalFlatRateScheme view" must {
     behave like normalPage(createView, messageKeyPrefix)
-
-    "include radio button hint text" in {
-      viewIncludes("The agricultural flat rate scheme is an alternative to VAT registration for farmers.")
-    }
-
   }
 
   "AgriculturalFlatRateScheme view" when {
@@ -54,6 +47,10 @@ class AgriculturalFlatRateSchemeViewSpec extends ViewBehaviours {
         for (option <- AgriculturalFlatRateScheme.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
+      }
+      "have radio button hint text" in {
+        val doc = asDocument(createViewUsingForm(form))
+        assertContainsText(doc, "The agricultural flat rate scheme is an alternative to VAT registration for farmers.")
       }
     }
 

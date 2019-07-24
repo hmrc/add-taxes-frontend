@@ -310,8 +310,8 @@ GET        /vat/registration-process                    controllers.vat.VatRegis
 
 GET        /vat/eligibility                             controllers.vat.VatEligibilityCheckController.onPageLoad()
 
-GET        /vat/vat-exception                           controllers.vat.VatRegistrationExceptionController.onPageLoad()
-POST       /vat/vat-exception                           controllers.vat.VatRegistrationExceptionController.onSubmit()
+GET        /vat/has-vat-exception                       controllers.vat.VatRegistrationExceptionController.onPageLoad()
+POST       /vat/has-vat-exception                       controllers.vat.VatRegistrationExceptionController.onSubmit()
 
 GET        /vat/is-agricultural-flat-rate               controllers.vat.AgriculturalFlatRateSchemeController.onPageLoad()
 POST       /vat/is-agricultural-flat-rate               controllers.vat.AgriculturalFlatRateSchemeController.onSubmit()
