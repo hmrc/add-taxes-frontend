@@ -36,14 +36,15 @@ class ClaimRefundViewSpec extends ViewBehaviours {
   def createViewUsingForm =
     (form: Form[_]) => claimRefund(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def viewIncludes(s: String): Unit = asDocument(createView()).text() must include(s)
-
   "ClaimRefund view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     "include radio button hint text" in {
-      viewIncludes(
-        "8th directive refunds allow EU businesses to claim VAT refunds incurred in another EU member state. 13th directive refunds let businesses registered outside the EU reclaim VAT paid in the EU.")
+      val doc = asDocument(createViewUsingForm(form))
+      assertContainsText(
+        doc,
+        "8th directive refunds allow EU businesses to claim VAT refunds incurred in another EU member state. 13th directive refunds let businesses registered outside the EU reclaim VAT paid in the EU."
+      )
     }
   }
 

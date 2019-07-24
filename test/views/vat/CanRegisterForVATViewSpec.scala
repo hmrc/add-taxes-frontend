@@ -26,13 +26,12 @@ class CanRegisterForVATViewSpec extends ViewBehaviours {
 
   def createView = () => canRegisterForVAT(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
-  def viewIncludes(s: String): Unit = asDocument(createView()).text() must include(s)
-
   "CanRegisterForVAT view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     "include paragraph 'Based on your answers, you can register for VAT using the online service.'" in {
-      viewIncludes("Based on your answers, you can register for VAT using the online service.")
+      val doc = asDocument(createView())
+      assertContainsText(doc, "Based on your answers, you can register for VAT using the online service.")
     }
 
     "Render the correct content" in {

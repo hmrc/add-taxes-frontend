@@ -37,13 +37,13 @@ class CompanyDivisionViewSpec extends ViewBehaviours {
   def createViewUsingForm =
     (form: Form[_]) => companyDivision(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def viewIncludes(s: String): Unit = asDocument(createView()).text() must include(s)
-
   "CompanyDivision view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     "include correct content" in {
-      viewIncludes(
+      val doc = asDocument(createViewUsingForm(form))
+      assertContainsText(
+        doc,
         "A corporate body is trading in divisions if it has 2 or more self-accounting branches, sites or departments in the UK.")
     }
   }

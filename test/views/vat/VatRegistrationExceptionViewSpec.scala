@@ -36,14 +36,15 @@ class VatRegistrationExceptionViewSpec extends ViewBehaviours {
   def createViewUsingForm =
     (form: Form[_]) => vatRegistrationException(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def viewIncludes(s: String): Unit = asDocument(createView()).text() must include(s)
-
   "VatRegistrationException view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     "include radio button hint text" in {
-      viewIncludes(
-        " You can apply if your VAT taxable turnover has temporarily gone over the threshold and you do not think it will go over the deregistration threshold of £83,000 in the next 12 months. ")
+      val doc = asDocument(createViewUsingForm(form))
+      assertContainsText(
+        doc,
+        "You can apply if your VAT taxable turnover has temporarily gone over the threshold and you do not think it will go over the deregistration threshold of £83,000 in the next 12 months."
+      )
     }
   }
 

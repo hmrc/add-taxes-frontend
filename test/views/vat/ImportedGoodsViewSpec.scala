@@ -36,13 +36,13 @@ class ImportedGoodsViewSpec extends ViewBehaviours {
   def createViewUsingForm =
     (form: Form[_]) => importedGoods(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def viewIncludes(s: String): Unit = asDocument(createView()).text() must include(s)
-
   "ImportedGoods view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     "include correct content" in {
-      viewIncludes(
+      val doc = asDocument(createViewUsingForm(form))
+      assertContainsText(
+        doc,
         "You need to register for VAT using form VAT1B if you have imported goods worth more than £85,000 from other EU member states.")
     }
   }
