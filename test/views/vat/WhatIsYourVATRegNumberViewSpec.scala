@@ -36,8 +36,14 @@ class WhatIsYourVATRegNumberViewSpec extends ViewBehaviours {
   def createViewUsingForm: Form[String] => HtmlFormat.Appendable =
     (form: Form[String]) => whatIsYourVATRegNumber(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
+  def viewIncludes(s: String): Unit = asDocument(createView()).text() must include(s)
+
   "WhatIsYourVATRegNumber view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "include hint text - This is the 9-digit number on your VAT registration certificate. For example, 123456789." in {
+      viewIncludes("This is the 9-digit number on your VAT registration certificate. For example, 123456789.")
+    }
   }
 
   "WhatIsYourVATRegNumber view" when {

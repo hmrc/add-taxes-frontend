@@ -1006,6 +1006,7 @@ whatIsYourVATRegNumber.heading = Beth yw’ch rhif TAW?
 whatIsYourVATRegNumber.error.required = Nodwch rif TAW yn y fformat cywir
 whatIsYourVATRegNumber.error.tooLong = Rydych wedi nodi gormod o rifau
 whatIsYourVATRegNumber.error.tooShort = Nid ydych wedi nodi digon o rifau
+whatIsYourVATRegNumber.hintText = Dyma’r rhif 9 digid ar eich tystysgrif cofrestru ar gyfer TAW. Er enghraifft, '123456789'.
 
 #######################################################
 ##  EnterSAUTR
