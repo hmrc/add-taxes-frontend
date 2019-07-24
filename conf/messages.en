@@ -1260,8 +1260,6 @@ vatRegistrationException.No = No
 vatRegistrationException.error.required = Select yes if you need to apply for a VAT registration exception
 vatRegistrationException.p1 = You can apply if your VAT taxable turnover has temporarily gone over the threshold and you do not think it will go over the deregistration threshold of £83,000 in the next 12 months.
 
-
-
 #######################################################
 ##  AgriculturalFlatRateScheme
 #######################################################
@@ -1282,7 +1280,6 @@ companyDivision.No = No
 companyDivision.error.required = Select yes if your company is part of a division
 companyDivision.hintText = A corporate body is trading in divisions if it has 2 or more self-accounting branches, sites or departments in the UK.
 
-
 #######################################################
 ##  DistanceSelling
 #######################################################
@@ -1302,6 +1299,7 @@ importedGoods.Yes = Yes
 importedGoods.No = No
 importedGoods.error.required = Select yes if you have imported ('aquired') goods worth more than £85,000 from another EU company
 importedGoods.hintText = You need to register for VAT using form VAT1B if you have imported goods worth more than £85,000 from other EU member states.
+
 #######################################################
 ##  ClaimRefund
 #######################################################
