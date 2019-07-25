@@ -26,11 +26,14 @@ import play.api.test.Helpers._
 import forms.vat.DistanceSellingFormProvider
 import identifiers.DistanceSellingId
 import models.vat.DistanceSelling
+import org.scalatest.{BeforeAndAfter, BeforeAndAfterEach}
 import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
+import playconfig.featuretoggle.{FeatureToggleSupport, NewVatJourney}
+import uk.gov.hmrc.http.NotFoundException
 import views.html.vat.distanceSelling
 
-class DistanceSellingControllerSpec extends ControllerSpecBase {
+class DistanceSellingControllerSpec extends ControllerSpecBase with FeatureToggleSupport with BeforeAndAfterEach {
 
   def onwardRoute = controllers.routes.IndexController.onPageLoad()
 
@@ -44,10 +47,17 @@ class DistanceSellingControllerSpec extends ControllerSpecBase {
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      featureDependantAction = app.injector.instanceOf[FeatureDependantAction]
+    )
 
   def viewAsString(form: Form[_] = form) =
     distanceSelling(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    enable(NewVatJourney)
+  }
 
   "DistanceSelling Controller" must {
 
@@ -81,6 +91,14 @@ class DistanceSellingControllerSpec extends ControllerSpecBase {
       val result = controller().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
+    }
+
+    "return an exception when new vat journey toggle is false" in {
+      disable(NewVatJourney)
+      intercept[NotFoundException] {
+        val result = controller().onPageLoad()(fakeRequest)
+        await(result)
+      }
     }
 
     for (option <- DistanceSelling.options) {
