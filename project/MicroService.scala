@@ -39,7 +39,7 @@ trait MicroService {
       "testonly.FeatureQueryBinder._"
     ))
     .settings(
-      ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*filters.*;.*handlers.*;.*components.*;.*models.*;.*repositories.*;" +
+      ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*filters.*;.*handlers.*;.*components.*;.*models.*;.*identifiers.*;.*repositories.*;" +
         ".*BuildInfo.*;.*javascript.*;.*FrontendAuditConnector.*;.*Routes.*;.*GuiceInjector;.*DataCacheConnector;" +
         ".*ControllerConfiguration;.*LanguageSwitchController",
       ScoverageKeys.coverageMinimum := 93.98,
