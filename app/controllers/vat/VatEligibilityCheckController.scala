@@ -17,11 +17,11 @@
 package controllers.vat
 
 import javax.inject.Inject
-
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
+import playconfig.featuretoggle.NewVatJourney
 import views.html.vat.vatEligibilityCheck
 
 import scala.concurrent.Future
@@ -30,11 +30,13 @@ class VatEligibilityCheckController @Inject()(
   appConfig: FrontendAppConfig,
   override val messagesApi: MessagesApi,
   authenticate: AuthAction,
-  serviceInfo: ServiceInfoAction)
+  serviceInfo: ServiceInfoAction,
+  featureDepandantAction: FeatureDependantAction)
     extends FrontendController
     with I18nSupport {
 
-  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(vatEligibilityCheck(appConfig)(request.serviceInfoContent))
+  def onPageLoad = (authenticate andThen serviceInfo andThen featureDepandantAction.permitFor(NewVatJourney)) {
+    implicit request =>
+      Ok(vatEligibilityCheck(appConfig)(request.serviceInfoContent))
   }
 }

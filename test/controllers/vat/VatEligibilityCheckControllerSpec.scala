@@ -18,16 +18,29 @@ package controllers.vat
 
 import controllers._
 import controllers.actions._
+import org.scalatest.BeforeAndAfterEach
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import playconfig.featuretoggle.{FeatureToggleSupport, NewVatJourney}
+import uk.gov.hmrc.http.NotFoundException
 import views.html.vat.vatEligibilityCheck
 
-class VatEligibilityCheckControllerSpec extends ControllerSpecBase {
+class VatEligibilityCheckControllerSpec extends ControllerSpecBase with BeforeAndAfterEach with FeatureToggleSupport {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new VatEligibilityCheckController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+    new VatEligibilityCheckController(
+      frontendAppConfig,
+      messagesApi,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      featureDepandantAction = app.injector.instanceOf[FeatureDependantAction])
 
   def viewAsString() = vatEligibilityCheck(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    enable(NewVatJourney)
+  }
 
   "VatEligibilityCheck Controller" must {
 
@@ -36,6 +49,14 @@ class VatEligibilityCheckControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
+    }
+
+    "return exception when newVatJourney is disabled" in {
+      disable(NewVatJourney)
+      intercept[NotFoundException] {
+        val result = controller().onPageLoad()(fakeRequest)
+        await(result)
+      }
     }
   }
 }
