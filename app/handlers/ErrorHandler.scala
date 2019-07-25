@@ -16,13 +16,17 @@
 
 package handlers
 
-import javax.inject.{Inject, Singleton}
-
 import config.FrontendAppConfig
+import javax.inject.{Inject, Singleton}
+import play.api.http.HeaderNames.CACHE_CONTROL
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Request
+import play.api.mvc.Results.NotFound
+import play.api.mvc.{Request, RequestHeader, Result}
 import play.twirl.api.Html
+import uk.gov.hmrc.http.NotFoundException
 import uk.gov.hmrc.play.bootstrap.http.FrontendErrorHandler
+
+import scala.language.implicitConversions
 
 @Singleton
 class ErrorHandler @Inject()(
@@ -31,7 +35,14 @@ class ErrorHandler @Inject()(
 ) extends FrontendErrorHandler
     with I18nSupport {
 
+  implicit def rhToRequest(rh: RequestHeader): Request[_] = Request(rh, "")
+
   override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(
     implicit rh: Request[_]): Html =
     views.html.error_template(pageTitle, heading, message, appConfig)
+
+  override def resolveError(rh: RequestHeader, ex: Throwable): Result = ex match {
+    case _: NotFoundException => NotFound(notFoundTemplate(rh)).withHeaders(CACHE_CONTROL -> "no-cache")
+    case _                    => super.resolveError(rh, ex)
+  }
 }
