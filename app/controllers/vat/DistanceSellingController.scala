@@ -17,7 +17,6 @@
 package controllers.vat
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import play.api.data.Form
@@ -25,9 +24,9 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Call
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-
 import forms.vat.DistanceSellingFormProvider
 import identifiers.DistanceSellingId
+import playconfig.featuretoggle.NewVatJourney
 import views.html.vat.distanceSelling
 
 import scala.concurrent.Future
@@ -38,15 +37,17 @@ class DistanceSellingController @Inject()(
   navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
-  formProvider: DistanceSellingFormProvider)
+  formProvider: DistanceSellingFormProvider,
+  featureDependantAction: FeatureDependantAction)
     extends FrontendController
     with I18nSupport
     with Enumerable.Implicits {
 
   val form = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(distanceSelling(appConfig, form)(request.serviceInfoContent))
+  def onPageLoad() = (authenticate andThen serviceInfoData andThen featureDependantAction.permitFor(NewVatJourney)) {
+    implicit request =>
+      Ok(distanceSelling(appConfig, form)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
