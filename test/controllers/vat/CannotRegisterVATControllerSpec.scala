@@ -18,16 +18,29 @@ package controllers.vat
 
 import controllers._
 import controllers.actions._
+import org.scalatest.BeforeAndAfterEach
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import playconfig.featuretoggle.{FeatureToggleSupport, NewVatJourney}
+import uk.gov.hmrc.http.NotFoundException
 import views.html.vat.cannotRegisterVAT
 
-class CannotRegisterVATControllerSpec extends ControllerSpecBase {
+class CannotRegisterVATControllerSpec extends ControllerSpecBase with FeatureToggleSupport with BeforeAndAfterEach {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new CannotRegisterVATController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+    new CannotRegisterVATController(
+      frontendAppConfig,
+      messagesApi,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      featureDepandantAction = app.injector.instanceOf[FeatureDependantAction])
 
   def viewAsString() = cannotRegisterVAT(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    enable(NewVatJourney)
+  }
 
   "CannotRegisterVAT Controller" must {
 
@@ -37,5 +50,14 @@ class CannotRegisterVATControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
+
+    "return exception when newVatJourney is disabled" in {
+      disable(NewVatJourney)
+      intercept[NotFoundException] {
+        val result = controller().onPageLoad()(fakeRequest)
+        await(result)
+      }
+    }
+
   }
 }
