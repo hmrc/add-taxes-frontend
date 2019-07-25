@@ -26,11 +26,14 @@ import play.api.test.Helpers._
 import forms.vat.ImportedGoodsFormProvider
 import identifiers.ImportedGoodsId
 import models.vat.ImportedGoods
+import org.scalatest.BeforeAndAfterEach
 import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
+import playconfig.featuretoggle.{FeatureToggleSupport, NewVatJourney}
+import uk.gov.hmrc.http.NotFoundException
 import views.html.vat.importedGoods
 
-class ImportedGoodsControllerSpec extends ControllerSpecBase {
+class ImportedGoodsControllerSpec extends ControllerSpecBase with BeforeAndAfterEach with FeatureToggleSupport {
 
   def onwardRoute = controllers.routes.IndexController.onPageLoad()
 
@@ -44,10 +47,17 @@ class ImportedGoodsControllerSpec extends ControllerSpecBase {
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      featureDepandantAction = app.injector.instanceOf[FeatureDependantAction]
+    )
 
   def viewAsString(form: Form[_] = form) =
     importedGoods(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    enable(NewVatJourney)
+  }
 
   "ImportedGoods Controller" must {
 
@@ -81,6 +91,14 @@ class ImportedGoodsControllerSpec extends ControllerSpecBase {
       val result = controller().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
+    }
+
+    "return exception when newVatJourney is disabled" in {
+      disable(NewVatJourney)
+      intercept[NotFoundException] {
+        val result = controller().onPageLoad()(fakeRequest)
+        await(result)
+      }
     }
 
     for (option <- ImportedGoods.options) {

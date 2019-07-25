@@ -17,7 +17,6 @@
 package controllers.vat
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import play.api.data.Form
@@ -25,9 +24,9 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Call
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-
 import forms.vat.ImportedGoodsFormProvider
 import identifiers.ImportedGoodsId
+import playconfig.featuretoggle.NewVatJourney
 import views.html.vat.importedGoods
 
 import scala.concurrent.Future
@@ -38,15 +37,17 @@ class ImportedGoodsController @Inject()(
   navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
-  formProvider: ImportedGoodsFormProvider)
+  formProvider: ImportedGoodsFormProvider,
+  featureDepandantAction: FeatureDependantAction)
     extends FrontendController
     with I18nSupport
     with Enumerable.Implicits {
 
   val form = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(importedGoods(appConfig, form)(request.serviceInfoContent))
+  def onPageLoad() = (authenticate andThen serviceInfoData andThen featureDepandantAction.permitFor(NewVatJourney)) {
+    implicit request =>
+      Ok(importedGoods(appConfig, form)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
