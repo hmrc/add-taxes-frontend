@@ -50,4 +50,32 @@ class DoYouHaveAnEORINumberNextPageSpec extends NextPageSpecBase {
     )
   }
 
+  "ebtiEori" when {
+    behave like nextPage(
+      NextPage.ebtiEori,
+      DoYouHaveEORINumber.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMCE-EBTI-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.ebtiEori,
+      DoYouHaveEORINumber.No,
+      "/business-account/add-tax/other/import-export/ebti/register"
+    )
+  }
+
+  "nctsEori" when {
+    behave like nextPage(
+      NextPage.nctsEori,
+      DoYouHaveEORINumber.Yes,
+      "http://localhost:9555/enrolment-management-frontend/HMCE-NCTS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
+    )
+
+    behave like nextPage(
+      NextPage.nctsEori,
+      DoYouHaveEORINumber.No,
+      "/business-account/add-tax/other/import-export/ncts/register"
+    )
+  }
+
 }

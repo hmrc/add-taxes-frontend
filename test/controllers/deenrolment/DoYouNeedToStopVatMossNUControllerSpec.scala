@@ -97,5 +97,11 @@ class DoYouNeedToStopVatMossNUControllerSpec extends ControllerSpecBase {
         redirectLocation(result) mustBe Some(onwardRoute.url)
       }
     }
+
+    s"return InternalServerError when the navigator fails" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "Yes"))
+      val result = controller(desiredRoute = Left("")).onSubmit()(postRequest)
+      status(result) mustBe INTERNAL_SERVER_ERROR
+    }
   }
 }

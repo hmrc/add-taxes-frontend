@@ -17,13 +17,18 @@
 package utils
 
 import base.SpecBase
-import config.FrontendAppConfig
-import org.mockito.Matchers.any
-import org.mockito.Mockito.when
 import org.scalatest.mockito.MockitoSugar
+import play.api.Application
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.Cookie
 
 class PortalUrlBuilderSpec extends SpecBase with MockitoSugar {
+
+  override implicit lazy val app: Application = GuiceApplicationBuilder()
+    .configure(
+      "urls.external.portal.trailing-question-character" -> "/test?",
+      "urls.external.portal.ampersand"                   -> "/?test=1")
+    .build()
 
   "build portal url" when {
     val fakeRequestWithWelsh = fakeRequest.withCookies(Cookie("PLAY_LANG", "cy"))
@@ -37,6 +42,16 @@ class PortalUrlBuilderSpec extends SpecBase with MockitoSugar {
     "the user is in welsh" should {
       "append ?lang=cym to given url" in {
         frontendAppConfig.getPortalUrl("novaEnrolment")(fakeRequestWithWelsh) mustBe "http://localhost:8080/portal/nova/normal?lang=cym"
+      }
+    }
+
+    "formats the url correctly" should {
+      "remove trailing ?" in {
+        frontendAppConfig.getPortalUrl("trailing-question-character")(fakeRequestWithWelsh) mustBe "http://localhost:8080/portal/test?lang=cym"
+      }
+
+      "handle additional name/value pairs" in {
+        frontendAppConfig.getPortalUrl("ampersand")(fakeRequestWithWelsh) mustBe "http://localhost:8080/portal/?test=1&lang=cym"
       }
     }
   }

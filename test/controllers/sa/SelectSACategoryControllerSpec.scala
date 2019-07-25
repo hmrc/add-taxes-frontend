@@ -191,7 +191,14 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/partnership")
+      }
 
+      "on submit for SA and Trust on the no UTR path" in {
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+        val result = controller()(HmrcEnrolmentType.SA, HmrcEnrolmentType.RegisterTrusts).onSubmitNoUTR()(postRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/partnership")
       }
     }
   }
