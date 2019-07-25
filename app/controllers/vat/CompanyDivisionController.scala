@@ -17,7 +17,6 @@
 package controllers.vat
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import play.api.data.Form
@@ -25,9 +24,9 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Call
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-
 import forms.vat.CompanyDivisionFormProvider
 import identifiers.CompanyDivisionId
+import playconfig.featuretoggle.NewVatJourney
 import views.html.vat.companyDivision
 
 import scala.concurrent.Future
@@ -38,15 +37,17 @@ class CompanyDivisionController @Inject()(
   navigator: Navigator[Call],
   authenticate: AuthAction,
   serviceInfoData: ServiceInfoAction,
-  formProvider: CompanyDivisionFormProvider)
+  formProvider: CompanyDivisionFormProvider,
+  featureDepandantAction: FeatureDependantAction)
     extends FrontendController
     with I18nSupport
     with Enumerable.Implicits {
 
   val form = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(companyDivision(appConfig, form)(request.serviceInfoContent))
+  def onPageLoad() = (authenticate andThen serviceInfoData andThen featureDepandantAction.permitFor(NewVatJourney)) {
+    implicit request =>
+      Ok(companyDivision(appConfig, form)(request.serviceInfoContent))
   }
 
   def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
