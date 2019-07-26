@@ -69,8 +69,6 @@ class FrontendAppConfig @Inject()(override val runModeConfiguration: Configurati
 
   private lazy val businessAccountHost = runModeConfiguration.getString("urls.business-account.host").getOrElse("")
 
-  def getInternalUrl(key: String): String = loadConfig(s"urls.internal.$key")
-
   def getBusinessAccountUrl(key: String): String = businessAccountHost + loadConfig(s"urls.business-account.$key")
 
   def getIFormUrl(key: String): String = loadConfig(s"urls.iForms-url.$key")

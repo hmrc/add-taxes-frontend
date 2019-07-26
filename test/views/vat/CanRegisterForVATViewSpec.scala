@@ -38,7 +38,13 @@ class CanRegisterForVATViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       val view = doc.text()
 
-      assertLinkById(doc, "continue", "Continue to VAT registration", "#", "CanRegisterForVAT:Click:Continue")
+      assertLinkById(
+        doc,
+        "continue",
+        "Continue to VAT registration",
+        "http://localhost:8080/portal/business-registration/select-taxes?lang=eng",
+        "CanRegisterForVAT:Click:Continue"
+      )
     }
   }
 }

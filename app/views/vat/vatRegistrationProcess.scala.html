@@ -15,7 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
-
+@import controllers.vat.routes._
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
@@ -33,7 +33,7 @@
   </ol>
 
   <a id="continue"
-     href='@appConfig.getInternalUrl("vat-eligibility")'
+     href='@VatEligibilityCheckController.onPageLoad()'
      class="button margin-top-small"
      data-journey-click="VatRegistrationProcess:Click:Continue">
 

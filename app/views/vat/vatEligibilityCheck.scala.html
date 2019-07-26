@@ -15,7 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
-
+@import controllers.vat.routes._
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
@@ -31,7 +31,7 @@
     </p>
 
     <a id="continue"
-       href='@appConfig.getInternalUrl("vat-exception")'
+       href='@VatRegistrationExceptionController.onPageLoad()'
        class="button"
        data-journey-click="VatEligibilityCheck:Click:Continue">
 
