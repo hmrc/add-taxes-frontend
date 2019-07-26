@@ -14,8 +14,8 @@
  * limitations under the License.
  *@
 
-@(gaEvent: String)(implicit messages: Messages)
+@(gaEvent: String, marginClass: Option[String] = None)(implicit messages: Messages)
 
 <div class="section">
-    <button id="continue-button" class="button" data-journey-click="@gaEvent:Click:" data-journey-target>@messages("site.continue")</button>
+    <button id="continue-button" class="button @{marginClass}" data-journey-click="@gaEvent:Click:" data-journey-target>@messages("site.continue")</button>
 </div>

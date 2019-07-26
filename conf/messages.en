@@ -1006,6 +1006,7 @@ whatIsYourVATRegNumber.heading = What is your VAT number?
 whatIsYourVATRegNumber.error.required = Enter a VAT number in the correct format
 whatIsYourVATRegNumber.error.tooLong = You have entered too many numbers
 whatIsYourVATRegNumber.error.tooShort = You have not entered enough numbers
+whatIsYourVATRegNumber.hintText = This is the 9-digit number on your VAT registration certificate. For example, 123456789.
 
 #######################################################
 ##  EnterSAUTR

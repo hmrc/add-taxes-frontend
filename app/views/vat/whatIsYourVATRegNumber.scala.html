@@ -32,9 +32,11 @@
 
         @components.input_text(
           field = form("value"),
-          label = ""
+          label = "",
+          hint  = Some(messages("whatIsYourVATRegNumber.hintText")),
+          formHintMargin= Some("margin-bottom-small")
         )
 
-        @components.submit_button(gaEvent = "HaveVATRegNumber")
+        @components.submit_button(gaEvent = "HaveVATRegNumber", marginClass = Some("margin-top-small"))
     }
 }
