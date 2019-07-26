@@ -41,9 +41,16 @@ trait DoYouHaveVATRegNumberNextPage {
             } else {
               Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.VAT))
             }
-          case (DoYouHaveVATRegNumber.No, Some(AffinityGroup.Individual)) =>
+          case (DoYouHaveVATRegNumber.No, Some(AffinityGroup.Individual)) => {
             vatVatRoutes.SetupNewAccountController.onPageLoad()
-          case (DoYouHaveVATRegNumber.No, _) => vatRoutes.RegisterForVATOnlineController.onPageLoad()
+          }
+          case (DoYouHaveVATRegNumber.No, _) => {
+            if (appConfig.newVatJourneyEnabled) {
+              vatRoutes.VatRegistrationProcessController.onPageLoad()
+            } else {
+              vatRoutes.RegisterForVATOnlineController.onPageLoad()
+            }
+          }
         }
     }
   }

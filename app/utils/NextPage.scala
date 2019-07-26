@@ -18,6 +18,7 @@ package utils
 
 import config.FrontendAppConfig
 import play.api.mvc.Request
+import playconfig.featuretoggle.FeatureConfig
 import utils.nextpage.OtherTaxesNextPage
 import utils.nextpage.deenrolment._
 import utils.nextpage.employer._

@@ -22,8 +22,8 @@ import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
 import play.api.mvc.Call
 import uk.gov.hmrc.auth.core.AffinityGroup
-import utils.{Enrolments, NextPage}
 import utils.nextpage.NextPageSpecBase
+import utils.{Enrolments, NextPage}
 
 class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase with MockitoSugar {
 
@@ -35,6 +35,7 @@ class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase with MockitoSug
 
   private trait FeatureEnabled {
     when(frontendAppConfig.mtdVatSignUpJourneyEnabled).thenReturn(true)
+    when(frontendAppConfig.newVatJourneyEnabled).thenReturn(true)
   }
 
   private trait FeatureDisabled {
@@ -44,6 +45,18 @@ class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase with MockitoSug
         "request-access-tax-scheme?continue=%2Fbusiness-account"
     )
   }
+
+  behave like nextPage(
+    NextPage.doYouHaveVATRegNumber,
+    (DoYouHaveVATRegNumber.No, affinityGroupOrganisation),
+    "/business-account/add-tax/vat/register-online"
+  )
+
+  behave like nextPage(
+    NextPage.doYouHaveVATRegNumber,
+    (DoYouHaveVATRegNumber.No, affinityGroupIndividual),
+    "/business-account/add-tax/vat/registered/no"
+  )
 
   "doYouHaveVATRegNumber" when {
 
@@ -56,6 +69,18 @@ class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase with MockitoSug
       s"redirect to $redirectLocation" in new FeatureEnabled {
         val result: Call = nextPage.get(userSelection)
         result.url mustBe redirectLocation
+      }
+    }
+
+    "the newVatJourney feature is turned on" should {
+
+      "redirect the user to start the new vat journey" in new FeatureEnabled {
+
+        val nextPage = NextPage.doYouHaveVATRegNumber
+
+        val result: Call = nextPage.get((DoYouHaveVATRegNumber.No, None))
+
+        result.url mustBe "/business-account/add-tax/vat/registration-process"
       }
     }
 
@@ -72,16 +97,5 @@ class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase with MockitoSug
       }
     }
 
-    behave like nextPage(
-      NextPage.doYouHaveVATRegNumber,
-      (DoYouHaveVATRegNumber.No, affinityGroupOrganisation),
-      "/business-account/add-tax/vat/register-online"
-    )
-
-    behave like nextPage(
-      NextPage.doYouHaveVATRegNumber,
-      (DoYouHaveVATRegNumber.No, affinityGroupIndividual),
-      "/business-account/add-tax/vat/registered/no"
-    )
   }
 }

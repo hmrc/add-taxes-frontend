@@ -17,10 +17,8 @@
 package utils
 
 import javax.inject.{Inject, Singleton}
-
 import config.FrontendAppConfig
 import play.api.mvc.Request
-import play.api.mvc.Call
 
 @Singleton
 class Navigator[C] @Inject()(frontendAppConfig: FrontendAppConfig) {
