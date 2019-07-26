@@ -29,8 +29,8 @@ trait VatRegistrationExceptionNextPage {
     new NextPage[VatRegistrationExceptionId.type, VatRegistrationException, Call] {
       override def get(b: VatRegistrationException)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case VatRegistrationException.Yes => vatRoutes.VatRegistrationExceptionController.onPageLoad()
-          case VatRegistrationException.No  => vatRoutes.VatRegistrationExceptionController.onPageLoad()
+          case VatRegistrationException.Yes => vatRoutes.CannotRegisterVATController.onPageLoad()
+          case VatRegistrationException.No  => vatRoutes.AgriculturalFlatRateSchemeController.onPageLoad()
         }
     }
   }

@@ -26,13 +26,13 @@ class CompanyDivisionNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.companyDivision,
       CompanyDivision.Yes,
-      "/business-account/add-tax/vat/is-part-of-division"
+      "/business-account/add-tax/vat/cannot-register-online"
     )
 
     behave like nextPage(
       NextPage.companyDivision,
       CompanyDivision.No,
-      "/business-account/add-tax/vat/is-part-of-division"
+      "/business-account/add-tax/vat/is-distance-selling"
     )
   }
 }

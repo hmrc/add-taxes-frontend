@@ -37,7 +37,7 @@ class AgriculturalFlatRateSchemeViewSpec extends ViewBehaviours {
     (form: Form[_]) => agriculturalFlatRateScheme(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "AgriculturalFlatRateScheme view" must {
-    behave like normalPage(createView, messageKeyPrefix
+    behave like normalPage(createView, messageKeyPrefix)
   }
 
   "AgriculturalFlatRateScheme view" when {

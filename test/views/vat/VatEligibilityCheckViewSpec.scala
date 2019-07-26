@@ -40,7 +40,12 @@ class VatEligibilityCheckViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       val view = doc.text()
 
-      assertLinkById(doc, "continue", "Continue", "#", "VatEligibilityCheck:Click:Continue")
+      assertLinkById(
+        doc,
+        "continue",
+        "Continue",
+        "/business-account/add-tax/vat/has-vat-exception",
+        "VatEligibilityCheck:Click:Continue")
     }
   }
 }

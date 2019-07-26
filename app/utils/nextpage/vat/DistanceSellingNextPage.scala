@@ -29,8 +29,8 @@ trait DistanceSellingNextPage {
     new NextPage[DistanceSellingId.type, DistanceSelling, Call] {
       override def get(b: DistanceSelling)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case DistanceSelling.Yes => vatRoutes.DistanceSellingController.onPageLoad()
-          case DistanceSelling.No  => vatRoutes.DistanceSellingController.onPageLoad()
+          case DistanceSelling.Yes => vatRoutes.CannotRegisterVATController.onPageLoad()
+          case DistanceSelling.No  => vatRoutes.ImportedGoodsController.onPageLoad()
         }
     }
   }

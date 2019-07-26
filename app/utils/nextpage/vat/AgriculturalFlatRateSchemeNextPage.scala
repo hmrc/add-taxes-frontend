@@ -31,8 +31,8 @@ trait AgriculturalFlatRateSchemeNextPage {
       override def get(
         b: AgriculturalFlatRateScheme)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case AgriculturalFlatRateScheme.Yes => vatRoutes.AgriculturalFlatRateSchemeController.onPageLoad()
-          case AgriculturalFlatRateScheme.No  => vatRoutes.AgriculturalFlatRateSchemeController.onPageLoad()
+          case AgriculturalFlatRateScheme.Yes => vatRoutes.CannotRegisterVATController.onPageLoad()
+          case AgriculturalFlatRateScheme.No  => vatRoutes.CompanyDivisionController.onPageLoad()
         }
     }
   }

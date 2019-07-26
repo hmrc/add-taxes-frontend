@@ -29,8 +29,8 @@ trait ImportedGoodsNextPage {
     new NextPage[ImportedGoodsId.type, ImportedGoods, Call] {
       override def get(b: ImportedGoods)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case ImportedGoods.Yes => vatRoutes.ImportedGoodsController.onPageLoad()
-          case ImportedGoods.No  => vatRoutes.ImportedGoodsController.onPageLoad()
+          case ImportedGoods.Yes => vatRoutes.CannotRegisterVATController.onPageLoad()
+          case ImportedGoods.No  => vatRoutes.ClaimRefundController.onPageLoad()
         }
     }
   }

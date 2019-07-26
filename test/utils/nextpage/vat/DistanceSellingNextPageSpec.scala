@@ -26,13 +26,13 @@ class DistanceSellingNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.distanceSelling,
       DistanceSelling.Yes,
-      "/business-account/add-tax/vat/is-distance-selling"
+      "/business-account/add-tax/vat/cannot-register-online"
     )
 
     behave like nextPage(
       NextPage.distanceSelling,
       DistanceSelling.No,
-      "/business-account/add-tax/vat/is-distance-selling"
+      "/business-account/add-tax/vat/has-imported-goods"
     )
   }
 }

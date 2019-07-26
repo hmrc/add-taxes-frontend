@@ -29,8 +29,8 @@ trait CompanyDivisionNextPage {
     new NextPage[CompanyDivisionId.type, CompanyDivision, Call] {
       override def get(b: CompanyDivision)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case CompanyDivision.Yes => vatRoutes.CompanyDivisionController.onPageLoad()
-          case CompanyDivision.No  => vatRoutes.CompanyDivisionController.onPageLoad()
+          case CompanyDivision.Yes => vatRoutes.CannotRegisterVATController.onPageLoad()
+          case CompanyDivision.No  => vatRoutes.DistanceSellingController.onPageLoad()
         }
     }
   }

@@ -29,8 +29,8 @@ trait ClaimRefundNextPage {
     new NextPage[ClaimRefundId.type, ClaimRefund, Call] {
       override def get(b: ClaimRefund)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
-          case ClaimRefund.Yes => vatRoutes.ClaimRefundController.onPageLoad()
-          case ClaimRefund.No  => vatRoutes.ClaimRefundController.onPageLoad()
+          case ClaimRefund.Yes => vatRoutes.CannotRegisterVATController.onPageLoad()
+          case ClaimRefund.No  => vatRoutes.CanRegisterForVATController.onPageLoad()
         }
     }
   }

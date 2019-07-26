@@ -22,17 +22,17 @@ import utils.nextpage.NextPageSpecBase
 
 class AgriculturalFlatRateSchemeNextPageSpec extends NextPageSpecBase {
 
-  "agriculturalFlatRateScheme" ignore {
+  "agriculturalFlatRateScheme" when {
     behave like nextPage(
       NextPage.agriculturalFlatRateScheme,
       AgriculturalFlatRateScheme.Yes,
-      "#"
+      "/business-account/add-tax/vat/cannot-register-online"
     )
 
     behave like nextPage(
       NextPage.agriculturalFlatRateScheme,
       AgriculturalFlatRateScheme.No,
-      "#"
+      "/business-account/add-tax/vat/is-part-of-division"
     )
   }
 }

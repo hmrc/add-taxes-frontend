@@ -26,13 +26,13 @@ class ClaimRefundNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.claimRefund,
       ClaimRefund.Yes,
-      "/business-account/add-tax/vat/is-claiming-refund"
+      "/business-account/add-tax/vat/cannot-register-online"
     )
 
     behave like nextPage(
       NextPage.claimRefund,
       ClaimRefund.No,
-      "/business-account/add-tax/vat/is-claiming-refund"
+      "/business-account/add-tax/vat/can-register-online"
     )
   }
 }

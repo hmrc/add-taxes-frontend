@@ -49,7 +49,13 @@ class VatRegistrationProcessViewSpec extends ViewBehaviours {
 
     "Render the correct content" in {
       val doc = asDocument(createView())
-      assertLinkById(doc, "continue", "Start VAT registration process", "#", "VatRegistrationProcess:Click:Continue")
+      assertLinkById(
+        doc,
+        "continue",
+        "Start VAT registration process",
+        "/business-account/add-tax/vat/eligibility",
+        "VatRegistrationProcess:Click:Continue"
+      )
     }
   }
 }

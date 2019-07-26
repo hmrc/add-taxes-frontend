@@ -26,13 +26,13 @@ class ImportedGoodsNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.importedGoods,
       ImportedGoods.Yes,
-      "/business-account/add-tax/vat/has-imported-goods"
+      "/business-account/add-tax/vat/cannot-register-online"
     )
 
     behave like nextPage(
       NextPage.importedGoods,
       ImportedGoods.No,
-      "/business-account/add-tax/vat/has-imported-goods"
+      "/business-account/add-tax/vat/is-claiming-refund"
     )
   }
 }
