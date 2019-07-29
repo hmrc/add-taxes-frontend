@@ -50,6 +50,9 @@ site.signout = Allgofnodi
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
 
+radio.No = Na
+radio.Yes = Yawn
+
 
 #######################################################
 ##  Select An Oil Service
@@ -1256,8 +1259,6 @@ vatEligibilityCheck.p1 = Gofynnir hyd at 6 chwestiwn i chi er mwyn gwirio a ydyc
 #######################################################
 vatRegistrationException.title = A oes angen i chi wneud cais am eithriad rhag cofrestru ar gyfer TAW?
 vatRegistrationException.heading = A oes angen i chi wneud cais am eithriad rhag cofrestru ar gyfer TAW?
-vatRegistrationException.Yes = Yawn
-vatRegistrationException.No = Na
 vatRegistrationException.error.required = Dewiswch ‘Iawn’ os oes angen i chi wneud cais am eithriad rhag cofrestru ar gyfer TAW
 vatRegistrationException.p1 = Gallwch wneud cais os yw’ch trosiant trethadwy TAW wedi mynd dros y trothwy dros dro ac rydych o’r farn na fydd yn mynd dros y trothwy dadgofrestru o £83,000 yn ystod y 12 mis nesaf.
 
@@ -1266,8 +1267,6 @@ vatRegistrationException.p1 = Gallwch wneud cais os yw’ch trosiant trethadwy T
 #######################################################
 agriculturalFlatRateScheme.title = A ydych yn ymuno â’r cynllun cyfradd unffurf amaethyddol?
 agriculturalFlatRateScheme.heading = A ydych yn ymuno â’r cynllun cyfradd unffurf amaethyddol?
-agriculturalFlatRateScheme.Yes = Yawn
-agriculturalFlatRateScheme.No = Na
 agriculturalFlatRateScheme.error.required = Dewiswch ‘Iawn’ os ydych yn ymuno â’r cynllun cyfradd unffurf amaethyddol
 agriculturalFlatRateScheme.hintText = Mae’r cynllun cyfradd unffurf yn opsiwn arall i ffermwyr yn hytrach na chofrestru ar gyfer TAW.
 
@@ -1276,8 +1275,6 @@ agriculturalFlatRateScheme.hintText = Mae’r cynllun cyfradd unffurf yn opsiwn 
 #######################################################
 companyDivision.title = A yw’ch cwmni’n rhan o is-adran?
 companyDivision.heading = A yw’ch cwmni’n rhan o is-adran?
-companyDivision.Yes = Yawn
-companyDivision.No = Na
 companyDivision.error.required = Dewiswch ‘Iawn’ os yw’ch cwmni’n rhan o is-adran
 companyDivision.hintText = Mae corff corfforaethol yn masnachu mewn is-adrannau os oes ganddo 2 neu fwy o ganghennau hunan-gyfrifo, safleoedd neu adrannau yn y DU.
 
@@ -1286,8 +1283,6 @@ companyDivision.hintText = Mae corff corfforaethol yn masnachu mewn is-adrannau 
 #######################################################
 distanceSelling.title = A ydych yn fusnes yn yr UE sy’n gwerthu o bell i’r DU?
 distanceSelling.heading = A ydych yn fusnes yn yr UE sy’n gwerthu o bell i’r DU?
-distanceSelling.Yes = Yawn
-distanceSelling.No = Na
 distanceSelling.error.required = Dewiswch ‘Iawn’ os ydych yn fusnes yn yr UE sy’n gwerthu o bell i’r DU
 distanceSelling.hintText = Mae gwerthu o bell yn digwydd pan fo busnes yn gwerthu neu’n dosbarthu nwyddau i gwsmer wedi’i leoli mewn gwlad wahanol yn yr UE sydd heb ei gofrestru ar gyfer TAW.
 
@@ -1296,8 +1291,6 @@ distanceSelling.hintText = Mae gwerthu o bell yn digwydd pan fo busnes yn gwerth
 #######################################################
 importedGoods.title = A ydych wedi mewnforio (‘caffael’) nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE?
 importedGoods.heading = A ydych wedi mewnforio (‘caffael’) nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE?
-importedGoods.Yes = Yawn
-importedGoods.No = Na
 importedGoods.error.required = Dewiswch ‘Iawn’ os ydych wedi mewnforio (‘caffael’) nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE
 importedGoods.hintText = Os ydych wedi mewnforio nwyddau sydd werth mwy nag £85,000 o aelod-wladwriaethau eraill yn yr UE, rhaid i chi gofrestru ar gyfer TAW gan ddefnyddio ffurflen VAT1B.
 
@@ -1306,8 +1299,6 @@ importedGoods.hintText = Os ydych wedi mewnforio nwyddau sydd werth mwy nag £85
 #######################################################
 claimRefund.title = A ydych wedi neu’n bwriadu hawlio ad-daliadau o dan yr 8fed neu’r 13eg cyfarwyddeb?
 claimRefund.heading = A ydych wedi neu’n bwriadu hawlio ad-daliadau o dan yr 8fed neu’r 13eg cyfarwyddeb?
-claimRefund.Yes = Yawn
-claimRefund.No = Na
 claimRefund.error.required = Dewiswch ‘Iawn’ os ydych wedi neu’n bwriadu hawlio ad-daliadau o dan yr 8fed neu’r 13eg Cyfarwyddeb
 claimRefund.hintText = Mae ad-daliadau o dan yr 8fed cyfarwyddeb yn caniatáu i fusnesau yn yr UE hawlio ad-daliadau TAW a godwyd mewn aelod-wladwriaeth arall yn yr UE. Mae ad-daliadau o dan y 13eg cyfarwyddeb yn caniatáu i fusnesau sydd wedi’u cofrestru y tu allan i’r UE adennill TAW a dalwyd yn yr UE.
 

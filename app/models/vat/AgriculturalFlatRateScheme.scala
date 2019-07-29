@@ -31,7 +31,7 @@ object AgriculturalFlatRateScheme {
   )
 
   val options: Set[RadioOption] = values.map { value =>
-    RadioOption("agriculturalFlatRateScheme", value.toString)
+    RadioOption("radio", value.toString)
   }
 
   implicit val enumerable: Enumerable[AgriculturalFlatRateScheme] =

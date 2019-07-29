@@ -31,7 +31,7 @@ object DistanceSelling {
   )
 
   val options: Set[RadioOption] = values.map { value =>
-    RadioOption("distanceSelling", value.toString)
+    RadioOption("radio", value.toString)
   }
 
   implicit val enumerable: Enumerable[DistanceSelling] =

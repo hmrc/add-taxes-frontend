@@ -31,7 +31,7 @@ object ClaimRefund {
   )
 
   val options: Set[RadioOption] = values.map { value =>
-    RadioOption("claimRefund", value.toString)
+    RadioOption("radio", value.toString)
   }
 
   implicit val enumerable: Enumerable[ClaimRefund] =

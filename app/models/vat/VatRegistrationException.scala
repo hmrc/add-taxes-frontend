@@ -31,7 +31,7 @@ object VatRegistrationException {
   )
 
   val options: Set[RadioOption] = values.map { value =>
-    RadioOption("vatRegistrationException", value.toString)
+    RadioOption("radio", value.toString)
   }
 
   implicit val enumerable: Enumerable[VatRegistrationException] =

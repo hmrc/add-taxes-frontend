@@ -37,9 +37,12 @@ class CannotRegisterVATViewSpec extends ViewBehaviours {
 
     "Render the correct content" in {
       val doc = asDocument(createView())
-      val view = doc.text()
-
-      assertLinkById(doc, "continue", "Register for VAT by post", "#", "CannotRegisterVAT:Click:Continue")
+      assertLinkById(
+        doc,
+        "continue",
+        "Register for VAT by post",
+        "https://www.gov.uk/vat-registration/how-to-register",
+        "CannotRegisterVAT:Click:Continue")
     }
   }
 }
