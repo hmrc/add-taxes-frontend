@@ -22,6 +22,7 @@ import play.api.mvc.{Call, Request}
 import models.employer.cis.IsYourBusinessInUK
 import utils.{Enrolments, NextPage}
 import controllers.employer.cis.ukbased.routes._
+import playconfig.featuretoggle.FeatureConfig
 
 trait IsYourBusinessInUKNextPage {
 
@@ -29,7 +30,10 @@ trait IsYourBusinessInUKNextPage {
 
     new NextPage[IsYourBusinessInUKId.type, IsYourBusinessInUK, Call] {
 
-      override def get(b: IsYourBusinessInUK)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: IsYourBusinessInUK)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
 
           case IsYourBusinessInUK.Yes => AreYouContractorOrSubcontractorController.onPageLoad()

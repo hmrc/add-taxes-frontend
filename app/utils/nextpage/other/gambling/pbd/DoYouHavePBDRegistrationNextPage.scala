@@ -21,13 +21,17 @@ import identifiers.DoYouHavePBDRegistrationId
 import play.api.mvc.{Call, Request}
 import controllers.other.gambling.pbd.{routes => pbdRoutes}
 import models.other.gambling.pbd.DoYouHavePBDRegistration
+import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait DoYouHavePBDRegistrationNextPage {
 
   implicit val doYouHavePBDRegistration: NextPage[DoYouHavePBDRegistrationId.type, DoYouHavePBDRegistration, Call] = {
     new NextPage[DoYouHavePBDRegistrationId.type, DoYouHavePBDRegistration, Call] {
-      override def get(b: DoYouHavePBDRegistration)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DoYouHavePBDRegistration)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case DoYouHavePBDRegistration.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.PoolBetting))
           case DoYouHavePBDRegistration.No  => pbdRoutes.RegisterGTSFirstController.onPageLoad()

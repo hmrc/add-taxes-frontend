@@ -20,8 +20,8 @@ import config.FrontendAppConfig
 import controllers.sa.routes.SelectSACategoryController
 import controllers.sa.routes.YourSaIsNotInThisAccountController
 import identifiers.EnterSAUTRId
-
 import play.api.mvc.{Call, Request}
+import playconfig.featuretoggle.FeatureConfig
 import utils.NextPage
 
 trait EnterSAUTRNextPage {
@@ -31,7 +31,10 @@ trait EnterSAUTRNextPage {
   implicit val enterSAUTR: NextPage[EnterSAUTRId.type, EnrolmentStoreResult, Call] = {
 
     new NextPage[EnterSAUTRId.type, EnrolmentStoreResult, Call] {
-      override def get(b: EnrolmentStoreResult)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: EnrolmentStoreResult)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case false if request.session.get("tryingToAccessSa").contains("true") =>
             YourSaIsNotInThisAccountController.onPageLoad()

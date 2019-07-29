@@ -24,6 +24,7 @@ import utils.{Enrolments, NextPage}
 import controllers.sa.{routes => saRoutes}
 import controllers.sa.partnership.{routes => saPartnerRoutes}
 import controllers.sa.trust.{routes => trustRoutes}
+import playconfig.featuretoggle.FeatureConfig
 import uk.gov.hmrc.auth.core.AffinityGroup
 
 trait SelectSACategoryNextPage {
@@ -35,6 +36,7 @@ trait SelectSACategoryNextPage {
     new NextPage[SelectSACategoryId.type, SelectSACategoryWithAffinityGroup, Call] {
       override def get(saCategory: SelectSACategoryWithAffinityGroup)(
         implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         (saCategory._1, saCategory._2, saCategory._3) match {
 

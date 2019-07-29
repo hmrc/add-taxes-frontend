@@ -21,13 +21,17 @@ import controllers.employer.pension.routes.RequestActivationTokenController
 import identifiers.DoYouHaveActivationTokenId
 import models.employer.pension.DoYouHaveActivationToken
 import play.api.mvc.{Call, Request}
+import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait DoYouHaveActivationTokenNextPage {
 
   implicit val doYouHaveActivationToken: NextPage[DoYouHaveActivationTokenId.type, DoYouHaveActivationToken, Call] = {
     new NextPage[DoYouHaveActivationTokenId.type, DoYouHaveActivationToken, Call] {
-      override def get(b: DoYouHaveActivationToken)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DoYouHaveActivationToken)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case DoYouHaveActivationToken.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.PP))
           case DoYouHaveActivationToken.No  => RequestActivationTokenController.onPageLoad()

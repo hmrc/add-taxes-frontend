@@ -22,12 +22,16 @@ import play.api.mvc.{Call, Request}
 import models.vat.DistanceSelling
 import utils.NextPage
 import controllers.vat.{routes => vatRoutes}
+import playconfig.featuretoggle.FeatureConfig
 
 trait DistanceSellingNextPage {
 
   implicit val distanceSelling: NextPage[DistanceSellingId.type, DistanceSelling, Call] = {
     new NextPage[DistanceSellingId.type, DistanceSelling, Call] {
-      override def get(b: DistanceSelling)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DistanceSelling)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case DistanceSelling.Yes => vatRoutes.CannotRegisterVATController.onPageLoad()
           case DistanceSelling.No  => vatRoutes.ImportedGoodsController.onPageLoad()

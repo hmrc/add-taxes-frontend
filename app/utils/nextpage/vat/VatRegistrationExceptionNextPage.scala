@@ -22,12 +22,16 @@ import play.api.mvc.{Call, Request}
 import models.vat.VatRegistrationException
 import utils.NextPage
 import controllers.vat.{routes => vatRoutes}
+import playconfig.featuretoggle.FeatureConfig
 
 trait VatRegistrationExceptionNextPage {
 
   implicit val vatRegistrationException: NextPage[VatRegistrationExceptionId.type, VatRegistrationException, Call] = {
     new NextPage[VatRegistrationExceptionId.type, VatRegistrationException, Call] {
-      override def get(b: VatRegistrationException)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: VatRegistrationException)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case VatRegistrationException.Yes => vatRoutes.CannotRegisterVATController.onPageLoad()
           case VatRegistrationException.No  => vatRoutes.AgriculturalFlatRateSchemeController.onPageLoad()

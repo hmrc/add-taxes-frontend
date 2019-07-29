@@ -20,13 +20,17 @@ import config.FrontendAppConfig
 import identifiers.DoYouWantToLeaveCISId
 import play.api.mvc.{Call, Request}
 import models.deenrolment.DoYouWantToLeaveCIS
+import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait DoYouWantToLeaveCISNextPage {
 
   implicit val doYouWantToLeaveCIS: NextPage[DoYouWantToLeaveCISId.type, DoYouWantToLeaveCIS, Call] = {
     new NextPage[DoYouWantToLeaveCISId.type, DoYouWantToLeaveCIS, Call] {
-      override def get(b: DoYouWantToLeaveCIS)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DoYouWantToLeaveCIS)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case DoYouWantToLeaveCIS.Yes => Call("GET", appConfig.getBusinessAccountUrl("cis-remove"))
           case DoYouWantToLeaveCIS.No  => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.AddCis))

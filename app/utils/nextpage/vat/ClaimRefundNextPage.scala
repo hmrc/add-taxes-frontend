@@ -22,12 +22,16 @@ import play.api.mvc.{Call, Request}
 import models.vat.ClaimRefund
 import utils.NextPage
 import controllers.vat.{routes => vatRoutes}
+import playconfig.featuretoggle.FeatureConfig
 
 trait ClaimRefundNextPage {
 
   implicit val claimRefund: NextPage[ClaimRefundId.type, ClaimRefund, Call] = {
     new NextPage[ClaimRefundId.type, ClaimRefund, Call] {
-      override def get(b: ClaimRefund)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: ClaimRefund)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case ClaimRefund.Yes => vatRoutes.CannotRegisterVATController.onPageLoad()
           case ClaimRefund.No  => vatRoutes.CanRegisterForVATController.onPageLoad()

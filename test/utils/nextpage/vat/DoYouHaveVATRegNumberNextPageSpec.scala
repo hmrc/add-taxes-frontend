@@ -19,13 +19,19 @@ package utils.nextpage.vat
 import config.FrontendAppConfig
 import models.vat.DoYouHaveVATRegNumber
 import org.mockito.Mockito._
+import org.scalatest.BeforeAndAfterEach
 import org.scalatest.mockito.MockitoSugar
 import play.api.mvc.Call
+import playconfig.featuretoggle.{FeatureToggleSupport, NewVatJourney}
 import uk.gov.hmrc.auth.core.AffinityGroup
 import utils.nextpage.NextPageSpecBase
 import utils.{Enrolments, NextPage}
 
-class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase with MockitoSugar {
+class DoYouHaveVATRegNumberNextPageSpec
+    extends NextPageSpecBase
+    with MockitoSugar
+    with FeatureToggleSupport
+    with BeforeAndAfterEach {
 
   val mockConfig: FrontendAppConfig = mock[FrontendAppConfig]
   override implicit def frontendAppConfig: FrontendAppConfig = mockConfig
@@ -35,7 +41,6 @@ class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase with MockitoSug
 
   private trait FeatureEnabled {
     when(frontendAppConfig.mtdVatSignUpJourneyEnabled).thenReturn(true)
-    when(frontendAppConfig.newVatJourneyEnabled).thenReturn(true)
   }
 
   private trait FeatureDisabled {
@@ -44,6 +49,11 @@ class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase with MockitoSug
       "http://localhost:9555/enrolment-management-frontend/HMCE-VATDEC-ORG/" +
         "request-access-tax-scheme?continue=%2Fbusiness-account"
     )
+  }
+
+  override def beforeEach(): Unit = {
+    disable(NewVatJourney)
+    super.beforeEach()
   }
 
   behave like nextPage(
@@ -74,7 +84,9 @@ class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase with MockitoSug
 
     "the newVatJourney feature is turned on" should {
 
-      "redirect the user to start the new vat journey" in new FeatureEnabled {
+      "redirect the user to start the new vat journey" in {
+
+        enable(NewVatJourney)
 
         val nextPage = NextPage.doYouHaveVATRegNumber
 

@@ -22,12 +22,16 @@ import play.api.mvc.{Call, Request}
 import utils.{Enrolments, NextPage}
 import controllers.other.gambling.mgd.{routes => mgdRoutes}
 import models.other.gambling.mgd.DoYouHaveMGDRegistration
+import playconfig.featuretoggle.FeatureConfig
 
 trait DoYouHaveMGDRegistrationNextPage {
 
   implicit val doYouHaveMGDRegistration: NextPage[DoYouHaveMGDRegistrationId.type, DoYouHaveMGDRegistration, Call] = {
     new NextPage[DoYouHaveMGDRegistrationId.type, DoYouHaveMGDRegistration, Call] {
-      override def get(b: DoYouHaveMGDRegistration)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DoYouHaveMGDRegistration)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case DoYouHaveMGDRegistration.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.MachineGamingDuty))
           case DoYouHaveMGDRegistration.No  => mgdRoutes.RegisterMGDController.onPageLoad()

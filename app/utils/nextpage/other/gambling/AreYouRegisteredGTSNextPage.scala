@@ -22,13 +22,17 @@ import controllers.other.gambling.rgd.{routes => rgdRoutes}
 import identifiers.AreYouRegisteredGTSId
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import play.api.mvc.{Call, Request}
+import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait AreYouRegisteredGTSNextPage {
 
   implicit val gbdGTS: NextPage[AreYouRegisteredGTSId.GBD.type, AreYouRegisteredGTS, Call] = {
     new NextPage[AreYouRegisteredGTSId.GBD.type, AreYouRegisteredGTS, Call] {
-      override def get(b: AreYouRegisteredGTS)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: AreYouRegisteredGTS)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case AreYouRegisteredGTS.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.GeneralBetting))
           case AreYouRegisteredGTS.No  => gbdRoutes.RegisterGBDController.onPageLoad()

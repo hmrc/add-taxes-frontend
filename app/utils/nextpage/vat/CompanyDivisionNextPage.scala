@@ -22,12 +22,16 @@ import play.api.mvc.{Call, Request}
 import models.vat.CompanyDivision
 import utils.NextPage
 import controllers.vat.{routes => vatRoutes}
+import playconfig.featuretoggle.FeatureConfig
 
 trait CompanyDivisionNextPage {
 
   implicit val companyDivision: NextPage[CompanyDivisionId.type, CompanyDivision, Call] = {
     new NextPage[CompanyDivisionId.type, CompanyDivision, Call] {
-      override def get(b: CompanyDivision)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: CompanyDivision)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case CompanyDivision.Yes => vatRoutes.CannotRegisterVATController.onPageLoad()
           case CompanyDivision.No  => vatRoutes.DistanceSellingController.onPageLoad()

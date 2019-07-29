@@ -22,6 +22,7 @@ import models.employer.cis.uk.AreYouContractorOrSubcontractor
 import controllers.employer.cis.ukbased.contractor.routes._
 import controllers.employer.cis.ukbased.subcontractor.routes._
 import play.api.mvc.{Call, Request}
+import playconfig.featuretoggle.FeatureConfig
 import uk.gov.hmrc.auth.core.Enrolments
 import utils.{HmrcEnrolmentType, NextPage}
 
@@ -36,6 +37,7 @@ trait AreYouContractorOrSubcontractorNextPage {
 
       override def get(contractorOrSubcontractor: AreYouContractorOrSubcontractorWithRequest)(
         implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         contractorOrSubcontractor match {
 

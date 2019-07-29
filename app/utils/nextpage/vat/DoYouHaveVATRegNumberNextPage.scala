@@ -22,6 +22,7 @@ import controllers.vat.{routes => vatRoutes}
 import identifiers.DoYouHaveVATRegNumberId
 import models.vat.DoYouHaveVATRegNumber
 import play.api.mvc.{Call, Request}
+import playconfig.featuretoggle.{FeatureConfig, NewVatJourney}
 import uk.gov.hmrc.auth.core.AffinityGroup
 import utils.{Enrolments, NextPage}
 
@@ -32,8 +33,10 @@ trait DoYouHaveVATRegNumberNextPage {
   implicit val doYouHaveVATRegNumber
     : NextPage[DoYouHaveVATRegNumberId.type, DoYouHaveVATRegNumberWithRequests, Call] = {
     new NextPage[DoYouHaveVATRegNumberId.type, DoYouHaveVATRegNumberWithRequests, Call] {
-      override def get(
-        b: DoYouHaveVATRegNumberWithRequests)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DoYouHaveVATRegNumberWithRequests)(
+        implicit appConfig: FrontendAppConfig,
+        config: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case (DoYouHaveVATRegNumber.Yes, _) =>
             if (appConfig.mtdVatSignUpJourneyEnabled) {
@@ -45,7 +48,7 @@ trait DoYouHaveVATRegNumberNextPage {
             vatVatRoutes.SetupNewAccountController.onPageLoad()
           }
           case (DoYouHaveVATRegNumber.No, _) => {
-            if (appConfig.newVatJourneyEnabled) {
+            if (config.isEnabled(NewVatJourney)) {
               vatRoutes.VatRegistrationProcessController.onPageLoad()
             } else {
               vatRoutes.RegisterForVATOnlineController.onPageLoad()

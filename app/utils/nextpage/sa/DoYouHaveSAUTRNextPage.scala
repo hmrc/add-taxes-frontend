@@ -21,13 +21,17 @@ import identifiers.DoYouHaveSAUTRId
 import controllers.sa.routes._
 import play.api.mvc.{Call, Request}
 import models.sa.DoYouHaveSAUTR
+import playconfig.featuretoggle.FeatureConfig
 import utils.NextPage
 
 trait DoYouHaveSAUTRNextPage {
 
   implicit val doYouHaveSAUTR: NextPage[DoYouHaveSAUTRId.type, DoYouHaveSAUTR, Call] = {
     new NextPage[DoYouHaveSAUTRId.type, DoYouHaveSAUTR, Call] {
-      override def get(b: DoYouHaveSAUTR)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DoYouHaveSAUTR)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case DoYouHaveSAUTR.Yes => EnterSAUTRController.onPageLoad()
           case DoYouHaveSAUTR.No  => SelectSACategoryController.onPageLoadNoUTR()

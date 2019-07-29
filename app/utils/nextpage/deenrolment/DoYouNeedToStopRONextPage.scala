@@ -20,13 +20,17 @@ import config.FrontendAppConfig
 import identifiers.DoYouNeedToStopROId
 import play.api.mvc.{Call, Request}
 import models.deenrolment.DoYouNeedToStopRO
+import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait DoYouNeedToStopRONextPage {
 
   implicit val doYouNeedToStopRO: NextPage[DoYouNeedToStopROId.type, DoYouNeedToStopRO, Call] = {
     new NextPage[DoYouNeedToStopROId.type, DoYouNeedToStopRO, Call] {
-      override def get(b: DoYouNeedToStopRO)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DoYouNeedToStopRO)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case DoYouNeedToStopRO.Yes => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.RebatedOils))
           case DoYouNeedToStopRO.No  => Call("GET", appConfig.getGovUKUrl("rebatedOilsRemove"))

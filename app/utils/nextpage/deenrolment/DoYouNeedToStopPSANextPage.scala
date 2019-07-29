@@ -20,13 +20,17 @@ import config.FrontendAppConfig
 import identifiers.DoYouNeedToStopPSAId
 import play.api.mvc.{Call, Request}
 import models.deenrolment.DoYouNeedToStopPSA
+import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait DoYouNeedToStopPSANextPage {
 
   implicit val doYouNeedToStopPSA: NextPage[DoYouNeedToStopPSAId.type, DoYouNeedToStopPSA, Call] = {
     new NextPage[DoYouNeedToStopPSAId.type, DoYouNeedToStopPSA, Call] {
-      override def get(b: DoYouNeedToStopPSA)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DoYouNeedToStopPSA)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case DoYouNeedToStopPSA.Yes => Call("GET", appConfig.getGovUKUrl("stopPsa"))
           case DoYouNeedToStopPSA.No  => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.PSA))

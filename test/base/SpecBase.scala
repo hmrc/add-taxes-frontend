@@ -22,12 +22,15 @@ import org.scalatestplus.play.guice._
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.inject.Injector
 import play.api.test.FakeRequest
+import playconfig.featuretoggle.FeatureConfig
 
 trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
 
   def injector: Injector = app.injector
 
   implicit def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
+
+  implicit def featureConfig: FeatureConfig = injector.instanceOf[FeatureConfig]
 
   implicit def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
 

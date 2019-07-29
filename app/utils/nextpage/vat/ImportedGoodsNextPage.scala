@@ -22,12 +22,16 @@ import play.api.mvc.{Call, Request}
 import models.vat.ImportedGoods
 import utils.NextPage
 import controllers.vat.{routes => vatRoutes}
+import playconfig.featuretoggle.FeatureConfig
 
 trait ImportedGoodsNextPage {
 
   implicit val importedGoods: NextPage[ImportedGoodsId.type, ImportedGoods, Call] = {
     new NextPage[ImportedGoodsId.type, ImportedGoods, Call] {
-      override def get(b: ImportedGoods)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: ImportedGoods)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case ImportedGoods.Yes => vatRoutes.CannotRegisterVATController.onPageLoad()
           case ImportedGoods.No  => vatRoutes.ClaimRefundController.onPageLoad()

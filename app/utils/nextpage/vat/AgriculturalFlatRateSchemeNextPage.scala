@@ -22,14 +22,17 @@ import play.api.mvc.{Call, Request}
 import models.vat.AgriculturalFlatRateScheme
 import utils.NextPage
 import controllers.vat.{routes => vatRoutes}
+import playconfig.featuretoggle.FeatureConfig
 
 trait AgriculturalFlatRateSchemeNextPage {
 
   implicit val agriculturalFlatRateScheme
     : NextPage[AgriculturalFlatRateSchemeId.type, AgriculturalFlatRateScheme, Call] = {
     new NextPage[AgriculturalFlatRateSchemeId.type, AgriculturalFlatRateScheme, Call] {
-      override def get(
-        b: AgriculturalFlatRateScheme)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: AgriculturalFlatRateScheme)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case AgriculturalFlatRateScheme.Yes => vatRoutes.CannotRegisterVATController.onPageLoad()
           case AgriculturalFlatRateScheme.No  => vatRoutes.CompanyDivisionController.onPageLoad()

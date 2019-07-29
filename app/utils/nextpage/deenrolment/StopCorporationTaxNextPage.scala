@@ -20,6 +20,7 @@ import config.FrontendAppConfig
 import identifiers.StopCorporationTaxId
 import models.deenrolment.StopCorporationTax
 import play.api.mvc.{Call, Request}
+import playconfig.featuretoggle.FeatureConfig
 import utils.Enrolments.CT
 import utils.NextPage
 
@@ -27,7 +28,10 @@ trait StopCorporationTaxNextPage {
 
   implicit val stopCorporationTax: NextPage[StopCorporationTaxId.type, StopCorporationTax, Call] = {
     new NextPage[StopCorporationTaxId.type, StopCorporationTax, Call] {
-      override def get(b: StopCorporationTax)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: StopCorporationTax)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case StopCorporationTax.Stop    => Call("GET", appConfig.emacDeenrolmentsUrl(CT))
           case StopCorporationTax.Dormant => Call("GET", appConfig.getGovUKUrl("dormant-ct"))

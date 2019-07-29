@@ -22,12 +22,14 @@ import play.api.mvc.{Call, Request}
 import models.other.land.stampduty.StampDuty
 import utils.NextPage
 import controllers.other.land.stampduty.{routes => stampDutyRoutes}
+import playconfig.featuretoggle.FeatureConfig
 
 trait StampDutyNextPage {
 
   implicit val stampDuty: NextPage[StampDutyId.type, StampDuty, Call] = {
     new NextPage[StampDutyId.type, StampDuty, Call] {
-      override def get(b: StampDuty)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(
+        b: StampDuty)(implicit appConfig: FrontendAppConfig, featureConfig: FeatureConfig, request: Request[_]): Call =
         b match {
           case StampDuty.Yes if appConfig.stampDutyEnabled =>
             Call("GET", appConfig.getStampDutyUrl("enrol"))

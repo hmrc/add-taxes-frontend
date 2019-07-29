@@ -25,6 +25,7 @@ import controllers.other.gambling.gbd.{routes => gbdRoutes}
 import controllers.other.gambling.pbd.{routes => pbdRoutes}
 import controllers.other.gambling.rgd.{routes => rgdRoutes}
 import models.other.gambling.SelectGamblingOrGamingDuty
+import playconfig.featuretoggle.FeatureConfig
 
 trait SelectGamblingOrGamingDutyNextPage {
 
@@ -33,6 +34,7 @@ trait SelectGamblingOrGamingDutyNextPage {
     new NextPage[SelectGamblingOrGamingDutyId.type, SelectGamblingOrGamingDuty, Call] {
       override def get(b: models.other.gambling.SelectGamblingOrGamingDuty)(
         implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case SelectGamblingOrGamingDuty.MGD =>

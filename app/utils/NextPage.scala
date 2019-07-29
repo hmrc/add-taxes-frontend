@@ -62,7 +62,7 @@ import scala.annotation.implicitNotFound
 @implicitNotFound(
   "Could not find NextPage implicit value for ${A} and ${B}. Check you have created one, the types match and extended NextPage with it")
 trait NextPage[A, B, C] {
-  def get(b: B)(implicit appConfig: FrontendAppConfig, request: Request[_]): C
+  def get(b: B)(implicit appConfig: FrontendAppConfig, config: FeatureConfig, request: Request[_]): C
 }
 
 object NextPage

@@ -21,13 +21,17 @@ import controllers.other.importexports.nes.{routes => nesRoutes}
 import identifiers.DoYouHaveCHIEFRoleId
 import models.other.importexports.nes.DoYouHaveCHIEFRole
 import play.api.mvc.{Call, Request}
+import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait DoYouHaveCHIEFRoleNextPage {
 
   implicit val doYouHaveCHIEFHasEORIRole: NextPage[DoYouHaveCHIEFRoleId.HasEORI.type, DoYouHaveCHIEFRole, Call] = {
     new NextPage[DoYouHaveCHIEFRoleId.HasEORI.type, DoYouHaveCHIEFRole, Call] {
-      override def get(b: DoYouHaveCHIEFRole)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DoYouHaveCHIEFRole)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case DoYouHaveCHIEFRole.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.NewExportSystem))
           case DoYouHaveCHIEFRole.No  => nesRoutes.GetCHIEFRoleController.onPageLoad()
@@ -37,7 +41,10 @@ trait DoYouHaveCHIEFRoleNextPage {
 
   implicit val doYouHaveCHIEFNoEORIRole: NextPage[DoYouHaveCHIEFRoleId.NoEORI.type, DoYouHaveCHIEFRole, Call] = {
     new NextPage[DoYouHaveCHIEFRoleId.NoEORI.type, DoYouHaveCHIEFRole, Call] {
-      override def get(b: DoYouHaveCHIEFRole)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DoYouHaveCHIEFRole)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case DoYouHaveCHIEFRole.Yes => nesRoutes.RegisterEORIController.onPageLoad()
           case DoYouHaveCHIEFRole.No  => nesRoutes.GetEoriAndChiefRoleController.onPageLoad()

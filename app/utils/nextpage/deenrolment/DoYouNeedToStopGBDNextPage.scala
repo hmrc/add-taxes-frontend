@@ -20,13 +20,17 @@ import config.FrontendAppConfig
 import identifiers.DoYouNeedToStopGBDId
 import play.api.mvc.{Call, Request}
 import models.deenrolment.DoYouNeedToStopGBD
+import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait DoYouNeedToStopGBDNextPage {
 
   implicit val doYouNeedToStopGBD: NextPage[DoYouNeedToStopGBDId.type, DoYouNeedToStopGBD, Call] = {
     new NextPage[DoYouNeedToStopGBDId.type, DoYouNeedToStopGBD, Call] {
-      override def get(b: DoYouNeedToStopGBD)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DoYouNeedToStopGBD)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case DoYouNeedToStopGBD.Yes => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.GeneralBetting))
           case DoYouNeedToStopGBD.No  => Call("GET", appConfig.getGovUKUrl("deenrolGambling"))
