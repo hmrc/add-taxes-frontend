@@ -18,10 +18,13 @@
 
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
+@dataPageId = { data-page-id="can-register-online" }
+
 @main_template(
     title = messages("canRegisterForVAT.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = serviceInfoContent,
+    mainDataAttributes = Some(dataPageId)) {
 
     @components.heading("canRegisterForVAT.heading")
 

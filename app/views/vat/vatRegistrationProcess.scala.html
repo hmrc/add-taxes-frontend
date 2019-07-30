@@ -18,10 +18,13 @@
 @import controllers.vat.routes._
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
+@dataPageId = { data-page-id="registration-process" }
+
 @main_template(
   title = messages("vatRegistrationProcess.title"),
   appConfig = appConfig,
-  serviceInfoContent = serviceInfoContent) {
+  serviceInfoContent = serviceInfoContent,
+  mainDataAttributes = Some(dataPageId)) {
 
   @components.heading("vatRegistrationProcess.heading")
 

@@ -18,11 +18,14 @@
 @import controllers.vat.routes._
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
+@dataPageId = { data-page-id="eligibility" }
+
 @main_template(
     title = messages("vatEligibilityCheck.title"),
     appConfig = appConfig,
     serviceInfoContent = serviceInfoContent,
-    articleClass= Some("article-body-width")) {
+    articleClass= Some("article-body-width"),
+    mainDataAttributes = Some(dataPageId)) {
 
     @components.heading("vatEligibilityCheck.heading")
 

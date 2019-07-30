@@ -22,11 +22,14 @@
 
 @(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
+@dataPageId = { data-page-id="is-agricultural-flat-rate" }
+
 @main_template(
     title = messages("agriculturalFlatRateScheme.title"),
     appConfig = appConfig,
     form = Some(form),
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = serviceInfoContent,
+    mainDataAttributes = Some(dataPageId)) {
 
     @helpers.form(action = AgriculturalFlatRateSchemeController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 

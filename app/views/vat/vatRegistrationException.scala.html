@@ -22,11 +22,14 @@
 
 @(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
+@dataPageId = { data-page-id="has-vat-exception" }
+
 @main_template(
     title = messages("vatRegistrationException.title"),
     appConfig = appConfig,
     form = Some(form),
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = serviceInfoContent,
+    mainDataAttributes = Some(dataPageId)) {
 
     @helpers.form(action = VatRegistrationExceptionController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
