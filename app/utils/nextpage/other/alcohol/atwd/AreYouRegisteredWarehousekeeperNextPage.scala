@@ -22,14 +22,17 @@ import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
 import play.api.mvc.{Call, Request}
 import utils.{Enrolments, NextPage}
 import controllers.other.alcohol.atwd.{routes => atwdRoutes}
+import playconfig.featuretoggle.FeatureConfig
 
 trait AreYouRegisteredWarehousekeeperNextPage {
 
   implicit val areYouRegisteredWarehousekeeper
     : NextPage[AreYouRegisteredWarehousekeeperId.type, AreYouRegisteredWarehousekeeper, Call] = {
     new NextPage[AreYouRegisteredWarehousekeeperId.type, AreYouRegisteredWarehousekeeper, Call] {
-      override def get(
-        b: AreYouRegisteredWarehousekeeper)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: AreYouRegisteredWarehousekeeper)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case AreYouRegisteredWarehousekeeper.Yes =>
             Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.ATWD))

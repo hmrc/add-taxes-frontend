@@ -50,6 +50,8 @@ site.signout = Sign out
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
 
+radio.No = No
+radio.Yes = Yes
 
 #######################################################
 ##  Select An Oil Service
@@ -1231,3 +1233,87 @@ individualAddCorporationTax.p1 = This is an Individual account.
 individualAddCorporationTax.p2 = You can only add Corporation Tax to an ‘Organisation’ account.
 individualAddCorporationTax.notNow = I don’t want to do this right now
 individualAddCorporationTax.signOut = Sign out and create ‘Organisation’ account
+
+#######################################################
+##  VATRegistrationProcess
+#######################################################
+vatRegistrationProcess.title = Vat Registration Process
+vatRegistrationProcess.heading = VAT Registration Process
+vatRegistrationProcess.continue = Start VAT registration process
+vatRegistrationProcess.listitem1 = Check if you can register for VAT using the online service
+vatRegistrationProcess.listitem2 = Complete VAT registration
+vatRegistrationProcess.listitem3 = Get your VAT registration number by post or email reminder
+vatRegistrationProcess.listitem4 = Sign into your business tax account to get online access to VAT
+
+#######################################################
+##  VatEligibilityCheck
+#######################################################
+vatEligibilityCheck.title = Check if you can register for VAT online
+vatEligibilityCheck.heading = Check if you can register for VAT online
+vatEligibilityCheck.continue = Continue
+vatEligibilityCheck.p1 =  You will be asked up to 6 questions to check if you are eligible to register for VAT online.
+
+#######################################################
+##  VatRegistrationException
+#######################################################
+vatRegistrationException.title = Do you need to apply for a VAT registration exception?
+vatRegistrationException.heading = Do you need to apply for a VAT registration exception?
+vatRegistrationException.error.required = Select yes if you need to apply for a VAT registration ‘exception’
+vatRegistrationException.p1 = You can apply if your VAT taxable turnover has temporarily gone over the threshold and you do not think it will go over the deregistration threshold of £83,000 in the next 12 months.
+
+#######################################################
+##  AgriculturalFlatRateScheme
+#######################################################
+agriculturalFlatRateScheme.title = Are you joining the agricultural flat rate scheme?
+agriculturalFlatRateScheme.heading = Are you joining the agricultural flat rate scheme?
+agriculturalFlatRateScheme.error.required = Select yes if you are joining the agricultural flat rate scheme
+agriculturalFlatRateScheme.hintText = The agricultural flat rate scheme is an alternative to VAT registration for farmers.
+
+#######################################################
+##  CompanyDivision
+#######################################################
+companyDivision.title = Is your company part of a division?
+companyDivision.heading = Is your company part of a division?
+companyDivision.error.required = Select yes if your company is part of a division
+companyDivision.hintText = A corporate body is trading in divisions if it has 2 or more self-accounting branches, sites or departments in the UK.
+
+#######################################################
+##  DistanceSelling
+#######################################################
+distanceSelling.title = Are you an EU business distance selling to the UK?
+distanceSelling.heading = Are you an EU business distance selling to the UK?
+distanceSelling.error.required = Select yes if you are an EU business ‘distance selling’ to the UK
+distanceSelling.hintText = Distance selling occurs when a business sells or delivers goods to a customer based in a different EU country who is not VAT registered.
+
+#######################################################
+##  ImportedGoods
+#######################################################
+importedGoods.title = Have you imported (‘acquired’) goods worth more than £85,000 from another EU company?
+importedGoods.heading = Have you imported (‘acquired’) goods worth more than £85,000 from another EU company?
+importedGoods.error.required = Select yes if you have imported (‘acquired’) goods worth more than £85,000 from another EU company
+importedGoods.hintText = You need to register for VAT using form VAT1B if you have imported goods worth more than £85,000 from other EU member states.
+
+#######################################################
+##  ClaimRefund
+#######################################################
+claimRefund.title = Have you or are you planning to claim refunds under the 8th or 13th directive?
+claimRefund.heading = Have you or are you planning to claim refunds under the 8th or 13th directive?
+claimRefund.error.required = Select yes if you have or are planning to claim refunds under the 8th or 13th directive
+claimRefund.hintText = 8th directive refunds allow EU businesses to claim VAT refunds incurred in another EU member state. 13th directive refunds let businesses registered outside the EU reclaim VAT paid in the EU.
+
+#######################################################
+##  CanRegisterForVAT
+#######################################################
+canRegisterForVAT.title = You can register for VAT online
+canRegisterForVAT.heading = You can register for VAT online
+canRegisterForVAT.continue = Continue to VAT registration
+canRegisterForVAT.p1 = Based on your answers, you can register for VAT using the online service.
+
+#######################################################
+##  CannotRegisterVAT
+#######################################################
+cannotRegisterVAT.title = You are not eligible to register for VAT online
+cannotRegisterVAT.heading = You are not eligible to register for VAT online
+cannotRegisterVAT.continue = Register for VAT by post
+cannotRegisterVAT.p1 = You must register for VAT by post.
+

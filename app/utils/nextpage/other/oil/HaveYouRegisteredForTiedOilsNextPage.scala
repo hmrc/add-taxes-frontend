@@ -21,6 +21,7 @@ import controllers.other.oil.routes
 import identifiers.HaveYouRegisteredForTiedOilsId
 import models.other.oil.HaveYouRegisteredForTiedOils
 import play.api.mvc.{Call, Request}
+import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait HaveYouRegisteredForTiedOilsNextPage {
@@ -28,8 +29,10 @@ trait HaveYouRegisteredForTiedOilsNextPage {
   implicit val haveYouRegisteredForTiedOils
     : NextPage[HaveYouRegisteredForTiedOilsId.type, HaveYouRegisteredForTiedOils, Call] = {
     new NextPage[HaveYouRegisteredForTiedOilsId.type, HaveYouRegisteredForTiedOils, Call] {
-      override def get(
-        b: HaveYouRegisteredForTiedOils)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: HaveYouRegisteredForTiedOils)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case HaveYouRegisteredForTiedOils.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.TiedOils))
           case HaveYouRegisteredForTiedOils.No  => routes.RegisterTiedOilsController.onPageLoad()

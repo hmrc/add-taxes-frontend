@@ -20,13 +20,17 @@ import config.FrontendAppConfig
 import identifiers.DoYouNeedToCancelMTDVATId
 import play.api.mvc.{Call, Request}
 import models.deenrolment.DoYouNeedToCancelMTDVAT
+import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait DoYouNeedToCancelMTDVATNextPage {
 
   implicit val doYouNeedToCancelMTDVAT: NextPage[DoYouNeedToCancelMTDVATId.type, DoYouNeedToCancelMTDVAT, Call] = {
     new NextPage[DoYouNeedToCancelMTDVATId.type, DoYouNeedToCancelMTDVAT, Call] {
-      override def get(b: DoYouNeedToCancelMTDVAT)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DoYouNeedToCancelMTDVAT)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case DoYouNeedToCancelMTDVAT.Yes => Call("GET", appConfig.changeBusinessDetailsUrl)
           case DoYouNeedToCancelMTDVAT.No  => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.MTDVAT))

@@ -21,6 +21,7 @@ import controllers.employer.cis.ukbased.subcontractor.routes
 import identifiers.WhatTypeOfSubcontractorId
 import models.employer.cis.uk.subcontractor.WhatTypeOfSubcontractor
 import play.api.mvc.{Call, Request}
+import playconfig.featuretoggle.FeatureConfig
 import uk.gov.hmrc.auth.core.Enrolments
 import utils.{HmrcEnrolmentType, NextPage}
 
@@ -31,8 +32,10 @@ trait WhatTypeOfSubcontractorNextPage {
   implicit val whatTypeOfSubcontractor
     : NextPage[WhatTypeOfSubcontractorId.type, WhatTypeOfSubcontractorWithEnrolments, Call] = {
     new NextPage[WhatTypeOfSubcontractorId.type, WhatTypeOfSubcontractorWithEnrolments, Call] {
-      override def get(
-        b: WhatTypeOfSubcontractorWithEnrolments)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call = {
+      override def get(b: WhatTypeOfSubcontractorWithEnrolments)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call = {
 
         val (whatTypeOfSubcontractor, enrolments) = b
 

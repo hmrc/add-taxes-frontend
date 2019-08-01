@@ -50,6 +50,9 @@ site.signout = Allgofnodi
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
 
+radio.No = Na
+radio.Yes = Yawn
+
 
 #######################################################
 ##  Select An Oil Service
@@ -1231,3 +1234,86 @@ individualAddCorporationTax.p1 = Mae hwn yn gyfrif ''Unigolyn
 individualAddCorporationTax.p2 = Dim ond Treth Gorfforaeth y gallwch ei ychwanegu i gyfrif "Sefydliad
 individualAddCorporationTax.notNow = Nid wyf eisiau gwneud hyn ar hyn o bryd
 individualAddCorporationTax.signOut = Allgofnodwch a chreu cyfrif "Sefydliad
+
+#######################################################
+##  VATRegistrationProcess
+#######################################################
+vatRegistrationProcess.title = Dechrau’r broses gofrestru ar gyfer TAW
+vatRegistrationProcess.heading = Dechrau’r broses gofrestru ar gyfer TAW
+vatRegistrationProcess.continue = Dechrau’r broses gofrestru ar gyfer TAW
+vatRegistrationProcess.listitem1 = Gwirio os gallwch gofrestru ar gyfer TAW gan ddefnyddio’r gwasanaeth ar-lein
+vatRegistrationProcess.listitem2 = Cwblhau cofrestru ar gyfer TAW
+vatRegistrationProcess.listitem3 = Cael eich rhif cofrestru TAW drwy’r post neu drwy e-bost atgoffa
+vatRegistrationProcess.listitem4 = Mewngofnodi i’ch Cyfrif Treth Busnes er mwyn cael mynediad ar-lein at TAW
+
+#######################################################
+##  VatEligibilityCheck
+#######################################################
+vatEligibilityCheck.title = Gwiriwch os gallwch gofrestru ar gyfer TAW ar-lein
+vatEligibilityCheck.heading = Gwiriwch os gallwch gofrestru ar gyfer TAW ar-lein
+vatEligibilityCheck.continue = Yn eich blaen
+vatEligibilityCheck.p1 = Gofynnir hyd at 6 chwestiwn i chi er mwyn gwirio a ydych yn gymwys i gofrestru ar gyfer TAW ar-lein.
+
+#######################################################
+##  VatRegistrationException
+#######################################################
+vatRegistrationException.title = A oes angen i chi wneud cais am eithriad rhag cofrestru ar gyfer TAW?
+vatRegistrationException.heading = A oes angen i chi wneud cais am eithriad rhag cofrestru ar gyfer TAW?
+vatRegistrationException.error.required = Dewiswch ‘Iawn’ os oes angen i chi wneud cais am eithriad rhag cofrestru ar gyfer TAW
+vatRegistrationException.p1 = Gallwch wneud cais os yw’ch trosiant trethadwy TAW wedi mynd dros y trothwy dros dro ac rydych o’r farn na fydd yn mynd dros y trothwy dadgofrestru o £83,000 yn ystod y 12 mis nesaf.
+
+#######################################################
+##  AgriculturalFlatRateScheme
+#######################################################
+agriculturalFlatRateScheme.title = A ydych yn ymuno â’r cynllun cyfradd unffurf amaethyddol?
+agriculturalFlatRateScheme.heading = A ydych yn ymuno â’r cynllun cyfradd unffurf amaethyddol?
+agriculturalFlatRateScheme.error.required = Dewiswch ‘Iawn’ os ydych yn ymuno â’r cynllun cyfradd unffurf amaethyddol
+agriculturalFlatRateScheme.hintText = Mae’r cynllun cyfradd unffurf yn opsiwn arall i ffermwyr yn hytrach na chofrestru ar gyfer TAW.
+
+#######################################################
+##  CompanyDivision
+#######################################################
+companyDivision.title = A yw’ch cwmni’n rhan o is-adran?
+companyDivision.heading = A yw’ch cwmni’n rhan o is-adran?
+companyDivision.error.required = Dewiswch ‘Iawn’ os yw’ch cwmni’n rhan o is-adran
+companyDivision.hintText = Mae corff corfforaethol yn masnachu mewn is-adrannau os oes ganddo 2 neu fwy o ganghennau hunan-gyfrifo, safleoedd neu adrannau yn y DU.
+
+#######################################################
+##  DistanceSelling
+#######################################################
+distanceSelling.title = A ydych yn fusnes yn yr UE sy’n gwerthu o bell i’r DU?
+distanceSelling.heading = A ydych yn fusnes yn yr UE sy’n gwerthu o bell i’r DU?
+distanceSelling.error.required = Dewiswch ‘Iawn’ os ydych yn fusnes yn yr UE sy’n gwerthu o bell i’r DU
+distanceSelling.hintText = Mae gwerthu o bell yn digwydd pan fo busnes yn gwerthu neu’n dosbarthu nwyddau i gwsmer wedi’i leoli mewn gwlad wahanol yn yr UE sydd heb ei gofrestru ar gyfer TAW.
+
+#######################################################
+##  ImportedGoods
+#######################################################
+importedGoods.title = A ydych wedi mewnforio (‘caffael’) nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE?
+importedGoods.heading = A ydych wedi mewnforio (‘caffael’) nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE?
+importedGoods.error.required = Dewiswch ‘Iawn’ os ydych wedi mewnforio (‘caffael’) nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE
+importedGoods.hintText = Os ydych wedi mewnforio nwyddau sydd werth mwy nag £85,000 o aelod-wladwriaethau eraill yn yr UE, rhaid i chi gofrestru ar gyfer TAW gan ddefnyddio ffurflen VAT1B.
+
+#######################################################
+##  ClaimRefund
+#######################################################
+claimRefund.title = A ydych wedi neu’n bwriadu hawlio ad-daliadau o dan yr 8fed neu’r 13eg cyfarwyddeb?
+claimRefund.heading = A ydych wedi neu’n bwriadu hawlio ad-daliadau o dan yr 8fed neu’r 13eg cyfarwyddeb?
+claimRefund.error.required = Dewiswch ‘Iawn’ os ydych wedi neu’n bwriadu hawlio ad-daliadau o dan yr 8fed neu’r 13eg Cyfarwyddeb
+claimRefund.hintText = Mae ad-daliadau o dan yr 8fed cyfarwyddeb yn caniatáu i fusnesau yn yr UE hawlio ad-daliadau TAW a godwyd mewn aelod-wladwriaeth arall yn yr UE. Mae ad-daliadau o dan y 13eg cyfarwyddeb yn caniatáu i fusnesau sydd wedi’u cofrestru y tu allan i’r UE adennill TAW a dalwyd yn yr UE.
+
+#######################################################
+##  CanRegisterForVAT
+#######################################################
+canRegisterForVAT.title = Gallwch gofrestru ar gyfer TAW ar-lein
+canRegisterForVAT.heading = Gallwch gofrestru ar gyfer TAW ar-lein
+canRegisterForVAT.continue = Yn eich blaen i gofrestru ar gyfer TAW
+canRegisterForVAT.p1 = Ar sail eich atebion, gallwch gofrestru ar gyfer TAW gan ddefnyddio’r gwasanaeth ar-lein.
+
+#######################################################
+##  CannotRegisterVAT
+#######################################################
+cannotRegisterVAT.title = Nid ydych yn gymwys i gofrestru ar gyfer TAW ar-lein
+cannotRegisterVAT.heading = Nid ydych yn gymwys i gofrestru ar gyfer TAW ar-lein.
+cannotRegisterVAT.continue = Cofrestru ar gyfer TAW drwy’r post
+cannotRegisterVAT.p1 = Mae’n rhaid i chi gofrestru ar gyfer TAW drwy’r post.

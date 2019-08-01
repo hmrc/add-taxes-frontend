@@ -27,6 +27,7 @@ import controllers.other.importexports.emcs.{routes => emcsRoutes}
 import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
+import playconfig.featuretoggle.FeatureConfig
 
 trait DoYouWantToAddImportExportNextPage {
 
@@ -35,6 +36,7 @@ trait DoYouWantToAddImportExportNextPage {
     new NextPage[DoYouWantToAddImportExportId.type, models.other.importexports.DoYouWantToAddImportExport, Call] {
       override def get(b: models.other.importexports.DoYouWantToAddImportExport)(
         implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoYouWantToAddImportExport.EMCS => emcsRoutes.DoYouHaveASEEDNumberController.onPageLoad()

@@ -20,13 +20,17 @@ import config.FrontendAppConfig
 import identifiers.RegisteredForVATEURefundsId
 import models.vat.RegisteredForVAT
 import play.api.mvc.{Call, Request}
+import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait RegisteredForVATEURefundsNextPage {
 
   implicit val registeredForVATEURefunds: NextPage[RegisteredForVATEURefundsId.type, RegisteredForVAT, Call] = {
     new NextPage[RegisteredForVATEURefundsId.type, RegisteredForVAT, Call] {
-      override def get(b: RegisteredForVAT)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: RegisteredForVAT)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case RegisteredForVAT.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.EURefunds))
           case RegisteredForVAT.No  => Call("GET", appConfig.getPortalUrl("businessRegistration"))

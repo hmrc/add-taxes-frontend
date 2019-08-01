@@ -20,13 +20,17 @@ import config.FrontendAppConfig
 import identifiers.StopFilingSelfAssessmentId
 import models.deenrolment.StopFilingSelfAssessment
 import play.api.mvc.{Call, Request}
+import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait StopFilingSelfAssessmentNextPage {
 
   implicit val stopFilingSelfAssessment: NextPage[StopFilingSelfAssessmentId.type, StopFilingSelfAssessment, Call] = {
     new NextPage[StopFilingSelfAssessmentId.type, StopFilingSelfAssessment, Call] {
-      override def get(b: StopFilingSelfAssessment)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: StopFilingSelfAssessment)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case StopFilingSelfAssessment.Yes => Call("GET", appConfig.getBusinessAccountUrl("stop-sa"))
           case StopFilingSelfAssessment.No  => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.SA))

@@ -23,6 +23,7 @@ import controllers.employer.intermediaries.{routes => eiRoutes}
 import identifiers.IsBusinessRegisteredForPAYEId
 import models.employer.IsBusinessRegisteredForPAYE
 import play.api.mvc.{Call, Request}
+import playconfig.featuretoggle.FeatureConfig
 import utils.NextPage
 
 trait IsBusinessRegisteredForPAYENextPage {
@@ -30,8 +31,10 @@ trait IsBusinessRegisteredForPAYENextPage {
   implicit val isBusinessRegisteredForPAYE
     : NextPage[IsBusinessRegisteredForPAYEId.CIS.type, IsBusinessRegisteredForPAYE, Call] = {
     new NextPage[IsBusinessRegisteredForPAYEId.CIS.type, IsBusinessRegisteredForPAYE, Call] {
-      override def get(
-        b: IsBusinessRegisteredForPAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: IsBusinessRegisteredForPAYE)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case IsBusinessRegisteredForPAYE.Yes =>
             payeAccountRoutes.DoesBusinessManagePAYEController.onPageLoad()
@@ -44,8 +47,10 @@ trait IsBusinessRegisteredForPAYENextPage {
   implicit val eiIsBusinessRegisteredForPAYE
     : NextPage[IsBusinessRegisteredForPAYEId.EI.type, IsBusinessRegisteredForPAYE, Call] = {
     new NextPage[IsBusinessRegisteredForPAYEId.EI.type, IsBusinessRegisteredForPAYE, Call] {
-      override def get(
-        b: IsBusinessRegisteredForPAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: IsBusinessRegisteredForPAYE)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case IsBusinessRegisteredForPAYE.Yes =>
             eiRoutes.DoesBusinessManagePAYEController.onPageLoad()
@@ -58,8 +63,10 @@ trait IsBusinessRegisteredForPAYENextPage {
   implicit val ersIsBusinessRegisteredForPAYE
     : NextPage[IsBusinessRegisteredForPAYEId.ERS.type, IsBusinessRegisteredForPAYE, Call] = {
     new NextPage[IsBusinessRegisteredForPAYEId.ERS.type, IsBusinessRegisteredForPAYE, Call] {
-      override def get(
-        b: IsBusinessRegisteredForPAYE)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: IsBusinessRegisteredForPAYE)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case IsBusinessRegisteredForPAYE.Yes =>
             routes.DoesBusinessManagePAYEController.onPageLoad()

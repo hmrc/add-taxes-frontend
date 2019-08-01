@@ -24,13 +24,17 @@ import controllers.other.importexports.nes.{routes => nesRoutes}
 import identifiers.DoYouHaveEORINumberId
 import models.other.importexports.DoYouHaveEORINumber
 import play.api.mvc.{Call, Request}
+import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait DoYouHaveEORINumberNextPage {
 
   implicit val icsEori: NextPage[DoYouHaveEORINumberId.ICS.type, DoYouHaveEORINumber, Call] = {
     new NextPage[DoYouHaveEORINumberId.ICS.type, DoYouHaveEORINumber, Call] {
-      override def get(b: DoYouHaveEORINumber)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DoYouHaveEORINumber)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case DoYouHaveEORINumber.Yes =>
             Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.EconomicOperatorsRegistration))
@@ -41,7 +45,10 @@ trait DoYouHaveEORINumberNextPage {
 
   implicit val ebtiEori: NextPage[DoYouHaveEORINumberId.EBTI.type, DoYouHaveEORINumber, Call] = {
     new NextPage[DoYouHaveEORINumberId.EBTI.type, DoYouHaveEORINumber, Call] {
-      override def get(b: DoYouHaveEORINumber)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DoYouHaveEORINumber)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case DoYouHaveEORINumber.Yes =>
             Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.ElectronicBindingTariffInformation))
@@ -52,7 +59,10 @@ trait DoYouHaveEORINumberNextPage {
 
   implicit val nctsEori: NextPage[DoYouHaveEORINumberId.NCTS.type, DoYouHaveEORINumber, Call] = {
     new NextPage[DoYouHaveEORINumberId.NCTS.type, DoYouHaveEORINumber, Call] {
-      override def get(b: DoYouHaveEORINumber)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DoYouHaveEORINumber)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case DoYouHaveEORINumber.Yes =>
             Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.NewComputerisedTransitSystem))
@@ -63,7 +73,10 @@ trait DoYouHaveEORINumberNextPage {
 
   implicit val nesEori: NextPage[DoYouHaveEORINumberId.NES.type, DoYouHaveEORINumber, Call] = {
     new NextPage[DoYouHaveEORINumberId.NES.type, DoYouHaveEORINumber, Call] {
-      override def get(b: DoYouHaveEORINumber)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DoYouHaveEORINumber)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case DoYouHaveEORINumber.Yes => nesRoutes.DoYouHaveCHIEFRoleHasEORIController.onPageLoad()
           case DoYouHaveEORINumber.No  => nesRoutes.DoYouHaveCHIEFRoleNoEORIController.onPageLoad()

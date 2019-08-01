@@ -19,13 +19,19 @@ package utils.nextpage.vat
 import config.FrontendAppConfig
 import models.vat.DoYouHaveVATRegNumber
 import org.mockito.Mockito._
+import org.scalatest.BeforeAndAfterEach
 import org.scalatest.mockito.MockitoSugar
 import play.api.mvc.Call
+import playconfig.featuretoggle.{FeatureToggleSupport, NewVatJourney}
 import uk.gov.hmrc.auth.core.AffinityGroup
-import utils.{Enrolments, NextPage}
 import utils.nextpage.NextPageSpecBase
+import utils.{Enrolments, NextPage}
 
-class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase with MockitoSugar {
+class DoYouHaveVATRegNumberNextPageSpec
+    extends NextPageSpecBase
+    with MockitoSugar
+    with FeatureToggleSupport
+    with BeforeAndAfterEach {
 
   val mockConfig: FrontendAppConfig = mock[FrontendAppConfig]
   override implicit def frontendAppConfig: FrontendAppConfig = mockConfig
@@ -45,6 +51,23 @@ class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase with MockitoSug
     )
   }
 
+  override def beforeEach(): Unit = {
+    disable(NewVatJourney)
+    super.beforeEach()
+  }
+
+  behave like nextPage(
+    NextPage.doYouHaveVATRegNumber,
+    (DoYouHaveVATRegNumber.No, affinityGroupOrganisation),
+    "/business-account/add-tax/vat/register-online"
+  )
+
+  behave like nextPage(
+    NextPage.doYouHaveVATRegNumber,
+    (DoYouHaveVATRegNumber.No, affinityGroupIndividual),
+    "/business-account/add-tax/vat/registered/no"
+  )
+
   "doYouHaveVATRegNumber" when {
 
     "the mtd-vat-signup feature is turned on" should {
@@ -56,6 +79,20 @@ class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase with MockitoSug
       s"redirect to $redirectLocation" in new FeatureEnabled {
         val result: Call = nextPage.get(userSelection)
         result.url mustBe redirectLocation
+      }
+    }
+
+    "the newVatJourney feature is turned on" should {
+
+      "redirect the user to start the new vat journey" in {
+
+        enable(NewVatJourney)
+
+        val nextPage = NextPage.doYouHaveVATRegNumber
+
+        val result: Call = nextPage.get((DoYouHaveVATRegNumber.No, None))
+
+        result.url mustBe "/business-account/add-tax/vat/registration-process"
       }
     }
 
@@ -72,16 +109,5 @@ class DoYouHaveVATRegNumberNextPageSpec extends NextPageSpecBase with MockitoSug
       }
     }
 
-    behave like nextPage(
-      NextPage.doYouHaveVATRegNumber,
-      (DoYouHaveVATRegNumber.No, affinityGroupOrganisation),
-      "/business-account/add-tax/vat/register-online"
-    )
-
-    behave like nextPage(
-      NextPage.doYouHaveVATRegNumber,
-      (DoYouHaveVATRegNumber.No, affinityGroupIndividual),
-      "/business-account/add-tax/vat/registered/no"
-    )
   }
 }

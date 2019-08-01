@@ -24,7 +24,9 @@
   bodyClasses: Option[String] = None,
   mainClass: Option[String] = None,
   scriptElem: Option[Html] = None,
-  serviceInfoContent: Html = HtmlFormat.empty)(mainContent: Html)(implicit request : Request[_], messages: Messages)
+  serviceInfoContent: Html = HtmlFormat.empty,
+  articleClass: Option[String] = None,
+  mainDataAttributes: Option[Html] = None)(mainContent: Html)(implicit request : Request[_], messages: Messages)
 
 @import uk.gov.hmrc.play.views.html.layouts
 
@@ -62,5 +64,7 @@
                contentHeader = contentHeader,
                mainContent = mainContent,
                serviceInfoContent = serviceInfoContent,
-               scriptElem = Some(scriptElem)
+               scriptElem = Some(scriptElem),
+               articleClass = articleClass,
+               mainDataAttributes = mainDataAttributes
 )

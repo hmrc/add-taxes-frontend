@@ -22,14 +22,17 @@ import play.api.mvc.{Call, Request}
 import models.employer.paye.DoesBusinessHave1To9Directors
 import utils.NextPage
 import controllers.employer.{routes => employerPayeRoutes}
+import playconfig.featuretoggle.FeatureConfig
 
 trait DoesBusinessHave1To9DirectorsNextPage {
 
   implicit val doesBusinessHave1To9Directors
     : NextPage[DoesBusinessHave1To9DirectorsId.type, DoesBusinessHave1To9Directors, Call] = {
     new NextPage[DoesBusinessHave1To9DirectorsId.type, DoesBusinessHave1To9Directors, Call] {
-      override def get(
-        b: DoesBusinessHave1To9Directors)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DoesBusinessHave1To9Directors)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case DoesBusinessHave1To9Directors.Yes => Call("GET", appConfig.getPortalUrl("selectTaxes"))
           case DoesBusinessHave1To9Directors.No  => employerPayeRoutes.DirectorsRegisterByPhoneController.onPageLoad()

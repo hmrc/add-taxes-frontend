@@ -21,13 +21,17 @@ import controllers.other.importexports.emcs.{routes => emcsRoutes}
 import identifiers.DoYouHaveASEEDNumberId
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import play.api.mvc.{Call, Request}
+import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait DoYouHaveASEEDNumberNextPage {
 
   implicit val doYouHaveASEEDNumber: NextPage[DoYouHaveASEEDNumberId.type, DoYouHaveASEEDNumber, Call] = {
     new NextPage[DoYouHaveASEEDNumberId.type, DoYouHaveASEEDNumber, Call] {
-      override def get(b: DoYouHaveASEEDNumber)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: DoYouHaveASEEDNumber)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case DoYouHaveASEEDNumber.Yes =>
             Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.ExciseMovementControlSystem))

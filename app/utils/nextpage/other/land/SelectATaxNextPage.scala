@@ -21,13 +21,15 @@ import identifiers.SelectATaxId
 import models.other.land.SelectATax
 import play.api.mvc.{Call, Request}
 import controllers.other.land.stampduty.routes._
+import playconfig.featuretoggle.FeatureConfig
 import utils.NextPage
 
 trait SelectATaxNextPage {
 
   implicit val selectATax: NextPage[SelectATaxId.type, SelectATax, Call] = {
     new NextPage[SelectATaxId.type, SelectATax, Call] {
-      override def get(b: SelectATax)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(
+        b: SelectATax)(implicit appConfig: FrontendAppConfig, featureConfig: FeatureConfig, request: Request[_]): Call =
         b match {
           case SelectATax.ATED => Call("GET", appConfig.atedUrl)
           case SelectATax.LBT  => Call("GET", appConfig.revenueScotUrl)

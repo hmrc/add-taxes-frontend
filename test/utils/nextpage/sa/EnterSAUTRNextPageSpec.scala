@@ -39,7 +39,10 @@ class EnterSAUTRNextPageSpec extends NextPageSpecBase {
     "called with a session variable tryingToAccessSa = true and the utr is not associated with another account" should {
       "redirect to the 'Your SA is not in this account' page" in {
         val result =
-          NextPage.enterSAUTR.get(false)(frontendAppConfig, FakeRequest().withSession(("tryingToAccessSa", "true")))
+          NextPage.enterSAUTR.get(false)(
+            frontendAppConfig,
+            featureConfig,
+            FakeRequest().withSession(("tryingToAccessSa", "true")))
         result.url mustBe "/business-account/add-tax/self-assessment/not-in-this-account"
       }
     }

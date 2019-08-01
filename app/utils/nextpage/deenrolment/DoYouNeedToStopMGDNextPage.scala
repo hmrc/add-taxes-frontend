@@ -20,6 +20,7 @@ import config.FrontendAppConfig
 import identifiers.DoYouNeedToStopMGDId
 import play.api.mvc.{Call, Request}
 import models.deenrolment.DoYouNeedToStopMGD
+import playconfig.featuretoggle.FeatureConfig
 import uk.gov.hmrc.auth.core.Enrolment
 import utils.{Enrolments, NextPage}
 
@@ -32,6 +33,7 @@ trait DoYouNeedToStopMGDNextPage {
     new NextPage[DoYouNeedToStopMGDId.type, DoYouNeedToStopMGDWithEnrolment, Either[String, Call]] {
       override def get(b: DoYouNeedToStopMGDWithEnrolment)(
         implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
         request: Request[_]): Either[String, Call] =
         b match {
 

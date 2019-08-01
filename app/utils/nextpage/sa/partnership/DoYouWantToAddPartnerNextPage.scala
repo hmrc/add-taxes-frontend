@@ -22,6 +22,7 @@ import models.sa.partnership.DoYouWantToAddPartner
 import play.api.mvc.{Call, Request}
 import utils.NextPage
 import controllers.sa.partnership.{routes => saPartnerRoutes}
+import playconfig.featuretoggle.FeatureConfig
 import utils.HmrcEnrolmentType
 import uk.gov.hmrc.auth.core.Enrolments
 
@@ -35,6 +36,7 @@ trait DoYouWantToAddPartnerNextPage {
 
       override def get(enrolmentDetails: DoYouWantToAddPartnerWithRequest)(
         implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         enrolmentDetails match {
 

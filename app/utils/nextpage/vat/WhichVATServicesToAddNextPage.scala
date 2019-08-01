@@ -28,6 +28,7 @@ import controllers.vat.rcsl.{routes => rcslRoutes}
 import identifiers.WhichVATServicesToAddId
 import models.vat.WhichVATServicesToAdd
 import play.api.mvc.{Call, Request}
+import playconfig.featuretoggle.FeatureConfig
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.auth.core.Enrolments
 import utils.{HmrcEnrolmentType, NextPage}
@@ -39,8 +40,10 @@ trait WhichVATServicesToAddNextPage {
   implicit val whichVATServicesToAdd
     : NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithRequests, Call] = {
     new NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithRequests, Call] {
-      override def get(
-        b: WhichVATServicesToAddWithRequests)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call = {
+      override def get(b: WhichVATServicesToAddWithRequests)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call = {
 
         val (serviceToAdd, affinity, enrolments) = b
 

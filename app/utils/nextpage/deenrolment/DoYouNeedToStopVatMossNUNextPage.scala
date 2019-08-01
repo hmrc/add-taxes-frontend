@@ -20,6 +20,7 @@ import config.FrontendAppConfig
 import identifiers.DoYouNeedToStopVatMossNUId
 import play.api.mvc.{Call, Request}
 import models.deenrolment.DoYouNeedToStopVatMossNU
+import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 import uk.gov.hmrc.auth.core.Enrolment
 
@@ -30,6 +31,7 @@ trait DoYouNeedToStopVatMossNUNextPage {
     new NextPage[DoYouNeedToStopVatMossNUId.type, (DoYouNeedToStopVatMossNU, Option[Enrolment]), Either[String, Call]] {
       override def get(b: (DoYouNeedToStopVatMossNU, Option[Enrolment]))(
         implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
         request: Request[_]): Either[String, Call] =
         b match {
           case (DoYouNeedToStopVatMossNU.Yes, Some(enrolment)) =>

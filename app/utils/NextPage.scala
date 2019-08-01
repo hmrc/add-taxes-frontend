@@ -18,6 +18,7 @@ package utils
 
 import config.FrontendAppConfig
 import play.api.mvc.Request
+import playconfig.featuretoggle.FeatureConfig
 import utils.nextpage.OtherTaxesNextPage
 import utils.nextpage.deenrolment._
 import utils.nextpage.employer._
@@ -61,7 +62,7 @@ import scala.annotation.implicitNotFound
 @implicitNotFound(
   "Could not find NextPage implicit value for ${A} and ${B}. Check you have created one, the types match and extended NextPage with it")
 trait NextPage[A, B, C] {
-  def get(b: B)(implicit appConfig: FrontendAppConfig, request: Request[_]): C
+  def get(b: B)(implicit appConfig: FrontendAppConfig, config: FeatureConfig, request: Request[_]): C
 }
 
 object NextPage
@@ -140,3 +141,9 @@ object NextPage
     with RegisterForVATOnlineNextPage
     with AreYouSelfEmployedNextPage
     with YourSaIsNotInThisAccountNextPage
+    with utils.nextpage.vat.VatRegistrationExceptionNextPage
+    with utils.nextpage.vat.AgriculturalFlatRateSchemeNextPage
+    with utils.nextpage.vat.CompanyDivisionNextPage
+    with utils.nextpage.vat.DistanceSellingNextPage
+    with utils.nextpage.vat.ImportedGoodsNextPage
+    with utils.nextpage.vat.ClaimRefundNextPage

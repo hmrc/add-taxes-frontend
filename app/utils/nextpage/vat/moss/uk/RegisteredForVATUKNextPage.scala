@@ -22,12 +22,16 @@ import models.vat.moss.uk.RegisteredForVATUk
 import play.api.mvc.{Call, Request}
 import utils.NextPage
 import controllers.vat.moss.ukbased.{routes => vatMossUkRoutes}
+import playconfig.featuretoggle.FeatureConfig
 
 trait RegisteredForVATUKNextPage {
 
   implicit val registeredForVATUk: NextPage[RegisteredForVATUkId.type, RegisteredForVATUk, Call] = {
     new NextPage[RegisteredForVATUkId.type, RegisteredForVATUk, Call] {
-      override def get(b: RegisteredForVATUk)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: RegisteredForVATUk)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case RegisteredForVATUk.Yes => vatMossUkRoutes.OnlineVATAccountController.onPageLoad()
           case RegisteredForVATUk.No  => vatMossUkRoutes.RegisterForVATController.onPageLoad()

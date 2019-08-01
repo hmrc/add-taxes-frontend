@@ -22,12 +22,16 @@ import models.other.aeoi.HaveYouRegisteredAEOI
 import utils.{Enrolments, NextPage}
 import identifiers.HaveYouRegisteredAEOIId
 import play.api.mvc.{Call, Request}
+import playconfig.featuretoggle.FeatureConfig
 
 trait HaveYouRegisteredAEOINextPage {
 
   implicit val haveYouRegisteredAEOI: NextPage[HaveYouRegisteredAEOIId.type, HaveYouRegisteredAEOI, Call] = {
     new NextPage[HaveYouRegisteredAEOIId.type, HaveYouRegisteredAEOI, Call] {
-      override def get(b: HaveYouRegisteredAEOI)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: HaveYouRegisteredAEOI)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case HaveYouRegisteredAEOI.Yes =>
             Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.AEOI))

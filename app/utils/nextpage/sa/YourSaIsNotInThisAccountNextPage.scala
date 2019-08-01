@@ -21,13 +21,17 @@ import controllers.sa.routes.SelectSACategoryController
 import identifiers.YourSaIsNotInThisAccountId
 import models.sa.YourSaIsNotInThisAccount
 import play.api.mvc.{Call, Request}
+import playconfig.featuretoggle.FeatureConfig
 import utils.NextPage
 
 trait YourSaIsNotInThisAccountNextPage {
 
   implicit val yourSaIsNotInThisAccount: NextPage[YourSaIsNotInThisAccountId.type, YourSaIsNotInThisAccount, Call] = {
     new NextPage[YourSaIsNotInThisAccountId.type, YourSaIsNotInThisAccount, Call] {
-      override def get(b: YourSaIsNotInThisAccount)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: YourSaIsNotInThisAccount)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case YourSaIsNotInThisAccount.LookInOtherAccount =>
             Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials"))

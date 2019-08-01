@@ -21,13 +21,17 @@ import identifiers.WhatIsYourOrganisationId
 import play.api.mvc.{Call, Request}
 import models.vat.giant.WhatIsYourOrganisation
 import controllers.vat.giant.{routes => giantRoutes}
+import playconfig.featuretoggle.FeatureConfig
 import utils.NextPage
 
 trait WhatIsYourOrganisationNextPage {
 
   implicit val whatIsYourOrganisation: NextPage[WhatIsYourOrganisationId.type, WhatIsYourOrganisation, Call] = {
     new NextPage[WhatIsYourOrganisationId.type, WhatIsYourOrganisation, Call] {
-      override def get(b: WhatIsYourOrganisation)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
+      override def get(b: WhatIsYourOrganisation)(
+        implicit appConfig: FrontendAppConfig,
+        featureConfig: FeatureConfig,
+        request: Request[_]): Call =
         b match {
           case WhatIsYourOrganisation.Yes => Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.VATGIANT))
           case WhatIsYourOrganisation.No  => giantRoutes.YouDoNotNeedVATController.onPageLoad()
