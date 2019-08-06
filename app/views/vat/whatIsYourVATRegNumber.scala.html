@@ -32,7 +32,8 @@
 
         @components.input_text(
           field = form("value"),
-          label = "",
+          label = messages("whatIsYourVATRegNumber.heading"),
+          labelClass = Some("visuallyhidden"),
           hint  = Some(messages("whatIsYourVATRegNumber.hintText")),
           formHintMargin= Some("margin-bottom-small")
         )
