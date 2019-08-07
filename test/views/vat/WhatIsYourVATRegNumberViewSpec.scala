@@ -55,7 +55,7 @@ class WhatIsYourVATRegNumberViewSpec extends ViewBehaviours {
     }
 
     "rendered" must {
-      "include label for textField for screen reader - What is your VAT registration number?" in {
+      "include label for textField for screen reader - What is your VAT registration number? This is the 9-digit number on your VAT registration certificate. For example, 123456789." in {
         val doc = asDocument(createViewUsingForm(form))
         assertContainsLabel(
           doc,
