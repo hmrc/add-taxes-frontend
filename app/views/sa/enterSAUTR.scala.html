@@ -27,18 +27,13 @@
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @components.heading("enterSAUTR.heading")
-
     @helpers.form(action = EnterSAUTRController.onSubmit()) {
-
-        @components.error_summary(form.errors)
-
-        <p>@messages("enterSAUTR.p1")</p>
 
         @components.input_text(
             field = form("value"),
-            label = messages("enterSAUTR.title"),
-            labelClass = Some("visuallyhidden")
+            label = messages("enterSAUTR.heading"),
+            hint  = Some(messages("enterSAUTR.p1")),
+            formHintMargin= Some("margin-bottom-small")
             )
 
         @components.submit_button(gaEvent = "checkSaUtr")
