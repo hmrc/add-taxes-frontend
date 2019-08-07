@@ -1289,8 +1289,8 @@ distanceSelling.hintText = Mae gwerthu o bell yn digwydd pan fo busnes yn gwerth
 #######################################################
 ##  ImportedGoods
 #######################################################
-importedGoods.title = A ydych wedi mewnforio (‘caffael’) nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE?
-importedGoods.heading = A ydych wedi mewnforio (‘caffael’) nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE?
+importedGoods.title = A ydych wedi caffael nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE?
+importedGoods.heading = A ydych wedi caffael nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE?
 importedGoods.error.required = Dewiswch ‘Iawn’ os ydych wedi mewnforio (‘caffael’) nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE
 importedGoods.hintText = Os ydych wedi mewnforio nwyddau sydd werth mwy nag £85,000 o aelod-wladwriaethau eraill yn yr UE, rhaid i chi gofrestru ar gyfer TAW gan ddefnyddio ffurflen VAT1B.
 
