@@ -1282,7 +1282,7 @@ companyDivision.hintText = A corporate body is trading in divisions if it has 2 
 #######################################################
 distanceSelling.title = Are you an EU business distance selling to the UK?
 distanceSelling.heading = Are you an EU business distance selling to the UK?
-distanceSelling.error.required = Select yes if you are an EU business ‘distance selling’ to the UK
+distanceSelling.error.required = Select yes if you are an EU business distance selling to the UK
 distanceSelling.hintText = Distance selling occurs when a business sells or delivers goods to a customer based in a different EU country who is not VAT registered.
 
 #######################################################
@@ -1290,7 +1290,7 @@ distanceSelling.hintText = Distance selling occurs when a business sells or deli
 #######################################################
 importedGoods.title = Have you acquired goods worth more than £85,000 from another EU company?
 importedGoods.heading = Have you acquired goods worth more than £85,000 from another EU company?
-importedGoods.error.required = Select yes if you have imported (‘acquired’) goods worth more than £85,000 from another EU company
+importedGoods.error.required = Select yes if you have acquired goods worth more than £85,000 from another EU company
 importedGoods.hintText = You need to register for VAT using form VAT1B if you have imported goods worth more than £85,000 from other EU member states.
 
 #######################################################
