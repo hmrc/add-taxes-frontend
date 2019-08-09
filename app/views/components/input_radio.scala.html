@@ -23,14 +23,13 @@
     hint: Option[String] = None,
     inputs: Seq[RadioOption],
     noMarginClass: Option[String] = None,
-    inlineRadioButton: Option[String] = None,
     hintTextSpacing: Option[String] = None
 )(implicit messages: Messages)
 
 <div class="form-group @{noMarginClass}">
-    <fieldset class="@{inlineRadioButton}" id="@{field.id}">
+    <fieldset class="@if(inputs.size < 3){inline}" id="@{field.id}">
         <legend>
-            <span class="bold-small @if(legendClass.nonEmpty){@{legendClass.get}}">@Html(legend)</span>
+            <span class="bold-small @if(legendClass.nonEmpty){@{legendClass.get} span-inline-block}">@Html(legend)</span>
 
             <div class="@if(field.hasErrors){form-field--error}">
                 @if(hint.nonEmpty){
@@ -43,7 +42,6 @@
         </legend>
 
         <div class="form-group @if(field.hasErrors){form-field--error}">
-
 
             @for(input <- inputs) {
                 <div class="multiple-choice">
