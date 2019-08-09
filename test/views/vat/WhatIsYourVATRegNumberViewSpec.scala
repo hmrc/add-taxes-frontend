@@ -50,7 +50,14 @@ class WhatIsYourVATRegNumberViewSpec extends ViewBehaviours {
     "rendered" must {
       "contain a text box for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        assertRenderedByCssSelector(doc, ".form-field")
+        assertRenderedByCssSelector(doc, ".form-control")
+      }
+    }
+
+    "rendered" must {
+      "include label for textField - What is your VAT registration number?" in {
+        val doc = asDocument(createViewUsingForm(form))
+        assertContainsLabel(doc, "value", "What is your VAT number?")
       }
     }
 
