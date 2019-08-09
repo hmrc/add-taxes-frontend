@@ -28,11 +28,9 @@
 
         @helpers.form(action = WhatIsYourVATRegNumberController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-        @components.heading("whatIsYourVATRegNumber.heading")
-
         @components.input_text(
           field = form("value"),
-          label = "",
+          label = messages("whatIsYourVATRegNumber.heading"),
           hint  = Some(messages("whatIsYourVATRegNumber.hintText")),
           formHintMargin= Some("margin-bottom-small")
         )
