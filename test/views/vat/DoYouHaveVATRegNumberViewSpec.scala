@@ -48,6 +48,11 @@ class DoYouHaveVATRegNumberViewSpec extends ViewBehaviours {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
       }
+
+      "include radio button hint text" in {
+        val doc = asDocument(createViewUsingForm(form))
+        assertContainsText(doc, "This is the 9-digit number on your VAT registration certificate.")
+      }
     }
 
     for (option <- DoYouHaveVATRegNumber.options) {

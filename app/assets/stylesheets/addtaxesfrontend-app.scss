@@ -26,7 +26,6 @@
     margin-top :1em
 }
 
-
 .margin-top-small-medium{
    margin-top :1.5em;
 }
@@ -56,7 +55,13 @@
 }
 
 .span-inline-block{
-   display : inline-block;
+    display : inline-block;
+}
+
+.span-margin-top-small {
+    display: inline-block;
+    margin-top :1em
+ }
 
 .no-top-margin {
     margin-top : 0;

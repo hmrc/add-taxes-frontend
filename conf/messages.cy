@@ -1289,9 +1289,9 @@ distanceSelling.hintText = Mae gwerthu o bell yn digwydd pan fo busnes yn gwerth
 #######################################################
 ##  ImportedGoods
 #######################################################
-importedGoods.title = A ydych wedi mewnforio (‘caffael’) nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE?
-importedGoods.heading = A ydych wedi mewnforio (‘caffael’) nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE?
-importedGoods.error.required = Dewiswch ‘Iawn’ os ydych wedi mewnforio (‘caffael’) nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE
+importedGoods.title = A ydych wedi caffael nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE?
+importedGoods.heading = A ydych wedi caffael nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE?
+importedGoods.error.required = Dewiswch ‘Iawn’ os ydych wedi caffael nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE
 importedGoods.hintText = Os ydych wedi mewnforio nwyddau sydd werth mwy nag £85,000 o aelod-wladwriaethau eraill yn yr UE, rhaid i chi gofrestru ar gyfer TAW gan ddefnyddio ffurflen VAT1B.
 
 #######################################################
@@ -1300,7 +1300,8 @@ importedGoods.hintText = Os ydych wedi mewnforio nwyddau sydd werth mwy nag £85
 claimRefund.title = A ydych wedi neu’n bwriadu hawlio ad-daliadau o dan yr 8fed neu’r 13eg cyfarwyddeb?
 claimRefund.heading = A ydych wedi neu’n bwriadu hawlio ad-daliadau o dan yr 8fed neu’r 13eg cyfarwyddeb?
 claimRefund.error.required = Dewiswch ‘Iawn’ os ydych wedi neu’n bwriadu hawlio ad-daliadau o dan yr 8fed neu’r 13eg Cyfarwyddeb
-claimRefund.hintText = Mae ad-daliadau o dan yr 8fed cyfarwyddeb yn caniatáu i fusnesau yn yr UE hawlio ad-daliadau TAW a godwyd mewn aelod-wladwriaeth arall yn yr UE. Mae ad-daliadau o dan y 13eg cyfarwyddeb yn caniatáu i fusnesau sydd wedi’u cofrestru y tu allan i’r UE adennill TAW a dalwyd yn yr UE.
+claimRefund.hintText1 = Mae ad-daliadau o dan yr 8fed cyfarwyddeb yn caniatáu i fusnesau yn yr UE hawlio ad-daliadau TAW a godwyd mewn aelod-wladwriaeth arall yn yr UE.
+claimRefund.hintText2 = Mae ad-daliadau o dan y 13eg cyfarwyddeb yn caniatáu i fusnesau sydd wedi’u cofrestru y tu allan i’r UE adennill TAW a dalwyd yn yr UE.
 
 #######################################################
 ##  CanRegisterForVAT
