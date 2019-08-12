@@ -29,6 +29,8 @@
 
     @helpers.form(action = EnterSAUTRController.onSubmit()) {
 
+        @components.error_summary(form.errors)
+
         @components.input_text(
             field = form("value"),
             label = messages("enterSAUTR.heading"),
