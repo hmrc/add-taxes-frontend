@@ -23,6 +23,8 @@
 
 @dataPageId = { data-page-id="is-claiming-refund" }
 
+@hintText = {<span>@messages("claimRefund.hintText1")</span></br><span class="span-margin-top-small">@messages("claimRefund.hintText2")</span>}
+
 @main_template(
     title = messages("claimRefund.title"),
     appConfig = appConfig,
@@ -38,9 +40,8 @@
             field = form("value"),
             legend = components.heading("claimRefund.heading").body,
             inputs = ClaimRefund.options.toSeq,
-            hint = Some(messages("claimRefund.hintText")),
+            hint = Some(hintText.body),
             noMarginClass = Some("no-bottom-margin"),
-            inlineRadioButton = Some("inline"),
             hintTextSpacing = Some("padding-bottom-small")
         )
 

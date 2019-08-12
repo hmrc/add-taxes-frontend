@@ -43,8 +43,13 @@ class ClaimRefundViewSpec extends ViewBehaviours {
       val doc = asDocument(createViewUsingForm(form))
       assertContainsText(
         doc,
-        "8th directive refunds allow EU businesses to claim VAT refunds incurred in another EU member state. 13th directive refunds let businesses registered outside the EU reclaim VAT paid in the EU."
+        "8th directive refunds allow EU businesses to claim VAT refunds incurred in another EU member state."
       )
+      assertContainsText(
+        doc,
+        "13th directive refunds let businesses registered outside the EU reclaim VAT paid in the EU."
+      )
+
     }
   }
 

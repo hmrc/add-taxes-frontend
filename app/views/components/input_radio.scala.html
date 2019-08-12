@@ -23,18 +23,17 @@
     hint: Option[String] = None,
     inputs: Seq[RadioOption],
     noMarginClass: Option[String] = None,
-    inlineRadioButton: Option[String] = None,
     hintTextSpacing: Option[String] = None
 )(implicit messages: Messages)
 
-<div class="form-group @{noMarginClass} @if(field.hasErrors){form-group-error} margin-top-medium">
-    <fieldset class="@{inlineRadioButton}" id="@{field.id}">
+<div class="form-group @{noMarginClass} @if(field.hasErrors){form-group-error} margin-top-medium"">
+    <fieldset class="@if(inputs.size < 3){inline}" id="@{field.id}">
         <legend>
-            <span class="bold-small @if(legendClass.nonEmpty){@{legendClass.get}}">@Html(legend)</span>
+            <span class="bold-small @if(legendClass.nonEmpty){@{legendClass.get} span-inline-block}">@Html(legend)</span>
 
             <div>
                 @if(hint.nonEmpty){
-                <span class="form-hint @{hintTextSpacing}">@{hint.get}</span>
+                <span class="form-hint @{hintTextSpacing}">@Html(hint.get)</span>
                 }
                 @field.errors.map { error =>
                  <span class="error-message margin-bottom-small" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
