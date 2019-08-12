@@ -26,7 +26,7 @@
     hintTextSpacing: Option[String] = None
 )(implicit messages: Messages)
 
-<div class="form-group @{noMarginClass} @if(field.hasErrors){form-group-error} margin-top-medium"">
+<div class="form-group @{noMarginClass} @if(field.hasErrors){form-group-error} margin-top-medium">
     <fieldset class="@if(inputs.size < 3){inline}" id="@{field.id}">
         <legend>
             <span class="bold-small @if(legendClass.nonEmpty){@{legendClass.get} span-inline-block}">@Html(legend)</span>
