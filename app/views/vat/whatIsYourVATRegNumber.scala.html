@@ -28,6 +28,8 @@
 
         @helpers.form(action = WhatIsYourVATRegNumberController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
+        @components.error_summary(form.errors)
+
         @components.input_text(
           field = form("value"),
           label = messages("whatIsYourVATRegNumber.heading"),

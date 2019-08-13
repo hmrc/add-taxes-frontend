@@ -61,5 +61,11 @@ class EnterSAUTRViewSpec extends ViewBehaviours {
 
       assertEqualsMessage(doc, "title", "error.browser.title", title)
     }
+
+    "show error summary when there is error " in {
+      val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> ""))))
+
+      assertRenderedById(doc, "error-summary-heading")
+    }
   }
 }
