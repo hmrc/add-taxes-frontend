@@ -33,10 +33,10 @@
 
             <div>
                 @if(hint.nonEmpty){
-                <span class="form-hint @{hintTextSpacing}">@Html(hint.get)</span>
+                  <span class="form-hint @{hintTextSpacing}">@Html(hint.get)</span>
                 }
                 @field.errors.map { error =>
-                 <span class="error-message margin-bottom-small" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
+                  <span class="error-message margin-bottom-small" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
                 }
             </div>
         </legend>
