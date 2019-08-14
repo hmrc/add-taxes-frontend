@@ -52,7 +52,7 @@ class InputRadioSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite
   val testField: Field = testForm("value")
 
   "inputRadio" must {
-    "not include error markups when form doenot have errors" in {
+    "not include error markups when form doesnot have errors" in {
       val doc: Document = Jsoup.parse(inputRadio(testField).toString)
 
       val forms = doc.select("div.form-group")
@@ -60,6 +60,7 @@ class InputRadioSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite
 
       forms.get(0).className().split(" ").filter(_.nonEmpty) mustBe Array("form-group", "margin-top-medium")
     }
+
     "include error markups when there is an form error" in {
       val erroredField = testField.copy(errors = Seq(FormError("testErrorKey", "testErrorMessage")))
 

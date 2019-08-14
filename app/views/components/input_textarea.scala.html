@@ -23,7 +23,7 @@
         charLimit: Option[Int] = None
 )(implicit messages: Messages)
 
-<div class="form-group @if(field.hasErrors){form-group--error}">
+<div class="form-group @if(field.hasErrors){form-group-error}">
     <label class="form-label" for="@{field.id}">
         <span class="bold">@label</span>
         @hint.map { hint =>
