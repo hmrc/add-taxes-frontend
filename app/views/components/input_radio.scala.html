@@ -19,29 +19,29 @@
 @(
     field: Field,
     legend: String,
+    inputs: Seq[RadioOption],
     legendClass: Option[String] = None,
     hint: Option[String] = None,
-    inputs: Seq[RadioOption],
     noMarginClass: Option[String] = None,
     hintTextSpacing: Option[String] = None
 )(implicit messages: Messages)
 
-<div class="form-group @{noMarginClass}">
+<div class="form-group @{noMarginClass} @if(field.hasErrors){form-group-error} margin-top-medium">
     <fieldset class="@if(inputs.size < 3){inline}" id="@{field.id}">
         <legend>
             <span class="bold-small @if(legendClass.nonEmpty){@{legendClass.get} span-inline-block}">@Html(legend)</span>
 
-            <div class="@if(field.hasErrors){form-field--error}">
+            <div>
                 @if(hint.nonEmpty){
-                <span class="form-hint @{hintTextSpacing}">@Html(hint.get)</span>
+                  <span class="form-hint @{hintTextSpacing}">@Html(hint.get)</span>
                 }
                 @field.errors.map { error =>
-                <span class="error-notification" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
+                  <span class="error-message margin-bottom-small" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
                 }
             </div>
         </legend>
 
-        <div class="form-group @if(field.hasErrors){form-field--error}">
+        <div class="form-control-wrapper">
 
             @for(input <- inputs) {
                 <div class="multiple-choice">
@@ -57,3 +57,4 @@
         </div>
     </fieldset>
 </div>
+
