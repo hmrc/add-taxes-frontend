@@ -66,5 +66,4 @@ class InputTextAreaSpec extends WordSpec with MustMatchers with GuiceOneAppPerSu
       doc.getElementById("error-message-value-input").hasClass("error-message")
     }
   }
-
 }

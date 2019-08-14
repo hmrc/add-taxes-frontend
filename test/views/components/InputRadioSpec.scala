@@ -77,5 +77,4 @@ class InputRadioSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite
       doc.getElementById("error-message-value-input").hasClass("error-message")
     }
   }
-
 }
