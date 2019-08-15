@@ -39,7 +39,7 @@ class RegisterForVatByPostViewSpec extends ViewBehaviours {
         doc,
         "continue",
         "Register for VAT by post",
-        "https://www.gov.uk/vat-registration/how-to-register",
+        "https://www.gov.uk/vat-registration/how-to-register#when-you-cannot-register-online",
         "VatByPost:Click:Register"
       )
 
