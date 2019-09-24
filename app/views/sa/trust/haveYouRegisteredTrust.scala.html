@@ -32,10 +32,6 @@
 
         @components.error_summary(form.errors)
 
-
-
-        <p>@Html(messages("haveYouRegisteredTrust.hintText", s"""<a id="form-g41" href='${appConfig.getGovUKUrl("trust")}'>${messages("haveYouRegisteredTrust.form.g41")}</a>"""))</p>
-
         @components.input_radio(
             field = form("value"),
             legend = components.heading("haveYouRegisteredTrust.heading").body,
