@@ -33,12 +33,9 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("areYouRegisteredGTS.heading")
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("areYouRegisteredGTS.heading"),
-            legendClass = Some("visuallyhidden"),
+            legend = components.heading("areYouRegisteredGTS.heading").body,
             inputs = AreYouRegisteredGTS.options.toSeq
         )
 

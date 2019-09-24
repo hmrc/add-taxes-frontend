@@ -32,15 +32,16 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("haveYouRegisteredTrust.heading")
+
 
         <p>@Html(messages("haveYouRegisteredTrust.hintText", s"""<a id="form-g41" href='${appConfig.getGovUKUrl("trust")}'>${messages("haveYouRegisteredTrust.form.g41")}</a>"""))</p>
 
         @components.input_radio(
             field = form("value"),
-            legend = messages("haveYouRegisteredTrust.heading"),
-            legendClass = Some("visuallyhidden"),
-            inputs = HaveYouRegisteredTrust.options.toSeq
+            legend = components.heading("haveYouRegisteredTrust.heading").body,
+            inputs = HaveYouRegisteredTrust.options.toSeq,
+            hint = Some(messages("haveYouRegisteredTrust.hintText", s"""<a id="form-g41" href='${appConfig.getGovUKUrl("trust")}'>${messages("haveYouRegisteredTrust.form.g41")}</a>""")),
+            hintTextSpacing = Some("padding-bottom-small")
         )
 
         @components.submit_button(gaEvent = "AddSaTrust")

@@ -32,15 +32,12 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("haveYouRegisteredPartnership.heading")
-
-        <p>@messages("haveYouRegisteredPartnership.hintText")</p>
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("haveYouRegisteredPartnership.heading"),
-            legendClass = Some("visuallyhidden"),
-            inputs = HaveYouRegisteredPartnership.options.toSeq
+            legend = components.heading("haveYouRegisteredPartnership.heading").body,
+            inputs = HaveYouRegisteredPartnership.options.toSeq,
+            hint = Some(messages("haveYouRegisteredPartnership.hintText")),
+            hintTextSpacing = Some("padding-bottom-small")
         )
 
         @components.submit_button(gaEvent = "AddSaPartnershipOther")

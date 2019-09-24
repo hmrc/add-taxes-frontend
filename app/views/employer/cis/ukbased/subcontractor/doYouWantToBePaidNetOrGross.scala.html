@@ -25,6 +25,12 @@
 @anchor = {<a id='CISNetOrGross' href='@appConfig.getGovUKUrl("cisGrossPaymentStatus")'
               data-journey-click='CISNetOrGross:Click:CheckQualified'>@messages("doYouWantToBePaidNetOrGross.subtext2.anchorText")</a>}
 
+@hintText = {<p>@messages("doYouWantToBePaidNetOrGross.subtext1")</p>
+              <p>
+                @Html(messages("doYouWantToBePaidNetOrGross.subtext2", anchor))
+              </p>
+            }
+
 @main_template(
     title = messages("doYouWantToBePaidNetOrGross.title"),
     appConfig = appConfig,
@@ -35,19 +41,12 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("doYouWantToBePaidNetOrGross.heading")
-
-        <p>@messages("doYouWantToBePaidNetOrGross.subtext1")</p>
-
-        <p>
-            @Html(messages("doYouWantToBePaidNetOrGross.subtext2", anchor))
-        </p>
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("doYouWantToBePaidNetOrGross.heading"),
-            legendClass = Some("visuallyhidden"),
-            inputs = DoYouWantToBePaidNetOrGross.options.toSeq
+            legend =  components.heading("doYouWantToBePaidNetOrGross.heading").body,
+            inputs = DoYouWantToBePaidNetOrGross.options.toSeq,
+            hint = Some(hintText.body),
+            hintTextSpacing = Some("padding-bottom-small")
         )
 
         @components.submit_button(gaEvent = "CisSubcontractorSoleTraderHighTurnover")

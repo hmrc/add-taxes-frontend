@@ -34,17 +34,12 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("doesBusinessManagePAYE.heading")
-
-        <p>
-            @messages("doesBusinessManagePAYE.p1")
-        </p>
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("doesBusinessManagePAYE.heading"),
-            legendClass = Some("visuallyhidden"),
-            inputs = DoesBusinessManagePAYE.options.toSeq
+            legend = components.heading("doesBusinessManagePAYE.heading").body,
+            inputs = DoesBusinessManagePAYE.options.toSeq,
+            hint = Some(messages("doesBusinessManagePAYE.p1")),
+            hintTextSpacing = Some("padding-bottom-small")
         )
 
         @components.submit_button(gaEvent = viewAction.gaEvent)

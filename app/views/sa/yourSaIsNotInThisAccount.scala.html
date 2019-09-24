@@ -32,15 +32,12 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("yourSaIsNotInThisAccount.heading")
-
-        <p>@messages("yourSaIsNotInThisAccount.you_may_have_already_")</p>
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("yourSaIsNotInThisAccount.heading"),
-            legendClass = Some("visuallyhidden"),
-            inputs = YourSaIsNotInThisAccount.options.toSeq
+            legend = components.heading("yourSaIsNotInThisAccount.heading").body,
+            inputs = YourSaIsNotInThisAccount.options.toSeq,
+            hint = Some(messages("yourSaIsNotInThisAccount.you_may_have_already_")),
+            hintTextSpacing = Some("padding-bottom-small")
         )
 
         @components.submit_button(gaEvent = "YourSaIsNotInThisAccount")

@@ -32,15 +32,12 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("haveYouRegisteredForTiedOils.heading")
-
-        <p id="hint-message">@messages("haveYouRegisteredForTiedOils.message1")</p>
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("haveYouRegisteredForTiedOils.heading"),
-            legendClass = Some("visually-hidden"),
-            inputs = HaveYouRegisteredForTiedOils.options.toSeq
+            legend = components.heading("haveYouRegisteredForTiedOils.heading").body,
+            inputs = HaveYouRegisteredForTiedOils.options.toSeq,
+            hint = Some(messages("haveYouRegisteredForTiedOils.message1")),
+            hintTextSpacing = Some("padding-bottom-small")
         )
 
         @components.submit_button(gaEvent = "AddOilTax")
