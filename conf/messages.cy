@@ -1222,7 +1222,7 @@ yourSaIsNotInThisAccount.title = Nid yw eich Hunanasesiad wedi’i ychwanegu at 
 yourSaIsNotInThisAccount.heading = Nid yw eich Hunanasesiad wedi’i ychwanegu at gyfrif
 yourSaIsNotInThisAccount.you_may_have_already_ = Efallai eich bod wedi defnyddio cyfrif treth busnes gwahanol yn y gorffennol i reoli’ch trethi, tollau neu gynlluniau ar-lein.
 yourSaIsNotInThisAccount.look_ = Mewngofnodwch i’ch cyfrif arall i ychwanegu Hunanasesiad
-yourSaIsNotInThisAccount.add_ = Ychwanegu’ch Hunanasesiad at y cyfrif hwn
+yourSaIsNotInThisAccount.add_ = Ychwanegwch eich Hunanasesiad at y cyfrif hwn
 yourSaIsNotInThisAccount.error.required = Dewiswch un o’r opsiynau
 
 ########################################################
