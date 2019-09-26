@@ -32,16 +32,12 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("haveYouRegisteredForVATMOSS.heading")
-        <p>
-            @messages("haveYouRegisteredForVATMOSS.subtext")
-        </p>
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("haveYouRegisteredForVATMOSS.heading"),
-            legendClass = Some("visuallyhidden"),
-            inputs = HaveYouRegisteredForVATMOSS.options.toSeq
+            legend = components.heading("haveYouRegisteredForVATMOSS.heading").body,
+            inputs = HaveYouRegisteredForVATMOSS.options.toSeq,
+            hint = Some(messages("haveYouRegisteredForVATMOSS.subtext")),
+            hintTextSpacing = Some("padding-bottom-small")
         )
 
         @components.submit_button(gaEvent = "VatMossNonEu")

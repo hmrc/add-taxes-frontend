@@ -32,17 +32,12 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("registeredForVATUk.heading")
-
-        <p>
-            @messages("registeredForVATUk.p1")
-        </p>
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("registeredForVATUk.heading"),
-            legendClass = Some("visuallyhidden"),
-            inputs = RegisteredForVATUk.options.toSeq
+            legend = components.heading("registeredForVATUk.heading").body,
+            inputs = RegisteredForVATUk.options.toSeq,
+            hint = Some(messages("registeredForVATUk.p1")),
+            hintTextSpacing = Some("padding-bottom-small")
         )
 
         @components.submit_button(gaEvent = "VatMossNoVatUk")

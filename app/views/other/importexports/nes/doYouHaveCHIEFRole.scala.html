@@ -33,17 +33,12 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("doYouHaveCHIEFRole.heading")
-
-        <p>
-            @messages("doYouHaveCHIEFRole.p1")
-        </p>
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("doYouHaveCHIEFRole.heading"),
-            legendClass = Some("visuallyhidden"),
-            inputs = DoYouHaveCHIEFRole.options.toSeq
+            legend = components.heading("doYouHaveCHIEFRole.heading").body,
+            inputs = DoYouHaveCHIEFRole.options.toSeq,
+            hint = Some(messages("doYouHaveCHIEFRole.p1")),
+            hintTextSpacing = Some("padding-bottom-small")
         )
 
         @components.submit_button(gaEvent = viewState.gaEvent)

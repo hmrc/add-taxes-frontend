@@ -32,17 +32,12 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("stampDuty.heading")
-
-        <p>
-            @messages("stampDuty.p1")
-        </p>
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("stampDuty.heading"),
-            legendClass = Some("visuallyhidden"),
-            inputs = StampDuty.options.toSeq
+            legend = components.heading("stampDuty.heading").body,
+            inputs = StampDuty.options.toSeq,
+            hint = Some(messages("stampDuty.p1")),
+            hintTextSpacing = Some("padding-bottom-small")
         )
 
         @components.submit_button(gaEvent = "AddStampDutyTax")
