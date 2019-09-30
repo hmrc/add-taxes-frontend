@@ -25,9 +25,5 @@ import uk.gov.hmrc.http.HeaderCarrier
 case class VatSubscriptionService @Inject()(connector: VatSubscriptionConnector) {
 
   def getMandationStatus(vrn: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[Boolean]] =
-    connector.getMandationStatus(vrn).map {
-      case Right(Some(status)) => Some(status.isMandated)
-      case Right(None)         => Some(false)
-      case _                   => None
-    }
+    connector.getMandationStatus(vrn).map(_.right.toOption)
 }
