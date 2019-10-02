@@ -16,7 +16,6 @@
 
 package services
 
-import models.MandationStatus
 import org.mockito.Mockito._
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
@@ -35,61 +34,32 @@ class VatSubscriptionServiceSpec extends WordSpec with Matchers with MockitoSuga
   val service: VatSubscriptionService = VatSubscriptionService(mockVatSubscriptionConnector)
   val testVrn: String = "vrn"
 
-  "The VatSubscriptionService mandationStatus method" when {
+  "The VatSubscriptionService mandationStatus method" should {
 
-    "the connector returns a mandation status" should {
+    "return Some(true) when connector response is Right(true)" in {
 
-      "return Some(true) when status is MTDfB Mandated" in {
+      when(mockVatSubscriptionConnector.getMandationStatus(testVrn)).thenReturn(Future.successful(Right(true)))
 
-        when(mockVatSubscriptionConnector.getMandationStatus(testVrn))
-          .thenReturn(Future.successful(Right(Some(MandationStatus("MTDfB Mandated")))))
-
-        whenReady(service.getMandationStatus(testVrn)) {
-          _ shouldBe Some(true)
-        }
-      }
-
-      "return Some(true) when status is MTDfB Voluntary" in {
-
-        when(mockVatSubscriptionConnector.getMandationStatus(testVrn))
-          .thenReturn(Future.successful(Right(Some(MandationStatus("MTDfB Voluntary")))))
-
-        whenReady(service.getMandationStatus(testVrn)) {
-          _ shouldBe Some(true)
-        }
-      }
-
-      "return Some(true) when status is Non MTDfB" in {
-
-        when(mockVatSubscriptionConnector.getMandationStatus(testVrn))
-          .thenReturn(Future.successful(Right(Some(MandationStatus("Non MTDfB")))))
-
-        whenReady(service.getMandationStatus(testVrn)) {
-          _ shouldBe Some(false)
-        }
-      }
-
-      "return Some(true) when status is Non Digital" in {
-
-        when(mockVatSubscriptionConnector.getMandationStatus(testVrn))
-          .thenReturn(Future.successful(Right(Some(MandationStatus("Non Digital")))))
-
-        whenReady(service.getMandationStatus(testVrn)) {
-          _ shouldBe Some(false)
-        }
+      whenReady(service.getMandationStatus(testVrn)) {
+        _ shouldBe Some(true)
       }
     }
 
-    "the connector returns a Left('Failed')" should {
+    "return Some(false) when connector response is Right(false)" in {
 
-      "return None" in {
+      when(mockVatSubscriptionConnector.getMandationStatus(testVrn)).thenReturn(Future.successful(Right(false)))
 
-        when(mockVatSubscriptionConnector.getMandationStatus(testVrn))
-          .thenReturn(Future.successful(Left("Failed")))
+      whenReady(service.getMandationStatus(testVrn)) {
+        _ shouldBe Some(false)
+      }
+    }
 
-        whenReady(service.getMandationStatus(testVrn)) {
-          _ shouldBe None
-        }
+    "return None when the connector returns a Left('Failed')" in {
+
+      when(mockVatSubscriptionConnector.getMandationStatus(testVrn)).thenReturn(Future.successful(Left("Failed")))
+
+      whenReady(service.getMandationStatus(testVrn)) {
+        _ shouldBe None
       }
     }
   }

@@ -17,7 +17,6 @@
 package controllers.vat
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import forms.vat.WhatIsYourVATRegNumberFormProvider
@@ -25,7 +24,7 @@ import identifiers.WhatIsYourVATRegNumberId
 import play.api.Logger
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Call
+import play.api.mvc.{Action, AnyContent, Call}
 import services.VatSubscriptionService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
@@ -47,7 +46,7 @@ class WhatIsYourVATRegNumberController @Inject()(
     with I18nSupport
     with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[String] = formProvider()
 
   private def getMandationStatus(vrn: String)(implicit hc: HeaderCarrier): Future[Boolean] =
     vatSubscriptionService.getMandationStatus(vrn).map {
@@ -57,17 +56,17 @@ class WhatIsYourVATRegNumberController @Inject()(
       }
     }
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(whatIsYourVATRegNumber(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form
       .bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(whatIsYourVATRegNumber(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) =>
+        value =>
           getMandationStatus(value).map { mandationStatus =>
             Redirect(navigator.nextPage(WhatIsYourVATRegNumberId, (mandationStatus, value)))
         }
