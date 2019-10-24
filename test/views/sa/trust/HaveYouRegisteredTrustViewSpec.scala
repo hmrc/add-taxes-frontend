@@ -46,7 +46,7 @@ class HaveYouRegisteredTrustViewSpec extends ViewBehaviours {
       view must include("Have you registered your trust?")
 
       view must include(
-        "Your trust is registered if you sent us a form G41 and received a Unique Taxpayer Reference (UTR) for the trust in the post.")
+        "We will have sent you a Unique Taxpayer Reference (UTR) for your trust if you have already registered it.")
 
     }
   }

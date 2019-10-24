@@ -292,8 +292,7 @@ haveYouRegisteredTrust.heading = Have you registered your trust?
 haveYouRegisteredTrust.Yes = Yes
 haveYouRegisteredTrust.No = No
 haveYouRegisteredTrust.error.required = Select yes if you have already registered your trust
-haveYouRegisteredTrust.hintText = Your trust is registered if you sent us a {0} and received a Unique Taxpayer Reference (UTR) for the trust in the post.
-haveYouRegisteredTrust.form.g41=form G41
+haveYouRegisteredTrust.hintText = We will have sent you a Unique Taxpayer Reference (UTR) for your trust if you have already registered it.
 
 #######################################################
 ##  RegisterGBD
