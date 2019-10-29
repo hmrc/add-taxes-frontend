@@ -293,7 +293,7 @@ haveYouRegisteredTrust.heading = A ydych wedi cofrestru eich ymddiriedolaeth?
 haveYouRegisteredTrust.Yes = Iawn
 haveYouRegisteredTrust.No = Na
 haveYouRegisteredTrust.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru’ch ymddiriedolaeth
-haveYouRegisteredTrust.hintText = We will have sent you a Unique Taxpayer Reference (UTR) for your trust if you have already registered it. - NEED WELSH
+haveYouRegisteredTrust.hintText = Byddwn wedi anfon Cyfeirnod Trethdalwr Unigryw (UTR) atoch ar gyfer eich ymddiriedolaeth os ydych eisoes wedi’i gofrestru.
 
 #######################################################
 ##  RegisterGBD
