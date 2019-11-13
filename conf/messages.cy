@@ -1027,7 +1027,7 @@ doYouHaveSAUTR.title = A oes gennych Gyfeirnod Unigryw y Trethdalwr (UTR) ar gyf
 doYouHaveSAUTR.heading = A oes gennych Gyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Hunanasesiad?
 doYouHaveSAUTR.Yes = Iawn
 doYouHaveSAUTR.No = Na
-doYouHaveSAUTR.error.required = Dewiswch ‘Iawn’ os oes gennych Gyfeirnod Unigryw y Trethdalwr ar gyfer Hunanasesiad
+doYouHaveSAUTR.error.required = Dewiswch ‘Iawn’ os oes gennych Gyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Hunanasesiad
 
 #######################################################
 ##  SetupNewAccount - VAT GIANT
