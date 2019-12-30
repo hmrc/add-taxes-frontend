@@ -53,7 +53,7 @@ class DoesBusinessManagePAYEViewSpec extends ViewBehaviours {
 
     "contain heading ID" in {
       val doc = asDocument(createView())
-      doc.getElementsByTag("h1").attr("id") mustBe "does-business-manager-paye"
+      doc.getElementsByTag("h1").attr("id") mustBe "does-business-manage-paye"
     }
 
     "Render the correct content" in {
