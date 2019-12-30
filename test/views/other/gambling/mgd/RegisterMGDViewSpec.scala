@@ -29,6 +29,11 @@ class RegisterMGDViewSpec extends ViewBehaviours {
   "RegisterMGD view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "register-mgd"
+    }
+
     "Render the correct content" in {
       val doc = asDocument(createView())
       val view = doc.text()

@@ -39,6 +39,11 @@ class DistanceSellingViewSpec extends ViewBehaviours {
   "DistanceSelling view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "distance-selling"
+    }
+
     "include radio button hint text" in {
       val doc = asDocument(createViewUsingForm(form))
       assertContainsText(

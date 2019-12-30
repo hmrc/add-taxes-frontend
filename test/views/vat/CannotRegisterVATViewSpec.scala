@@ -29,6 +29,11 @@ class CannotRegisterVATViewSpec extends ViewBehaviours {
   "CannotRegisterVAT view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "cannot-register-vat"
+    }
+
     "include header" in {
       val doc = asDocument(createView())
       assertContainsText(doc, "You must register for VAT by post.")

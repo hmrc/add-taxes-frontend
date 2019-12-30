@@ -38,6 +38,11 @@ class DoYouNeedToStopEPAYEViewSpec extends ViewBehaviours {
 
   "DoYouNeedToStopEPAYE view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "do-you-need-to-stop-epaye"
+    }
   }
 
   "DoYouNeedToStopEPAYE view" when {

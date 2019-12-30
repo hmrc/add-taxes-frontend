@@ -40,6 +40,11 @@ class DoesYourPartnershipHave2To10PartnersViewSpec extends ViewBehaviours {
 
   "DoesYourPartnershipHave2To10Partners view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "does-partnership-have-2to10-partners"
+    }
   }
 
   "DoesYourPartnershipHave2To10Partners view" when {

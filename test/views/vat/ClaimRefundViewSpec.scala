@@ -39,6 +39,11 @@ class ClaimRefundViewSpec extends ViewBehaviours {
   "ClaimRefund view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "claim-refund"
+    }
+
     "include radio button hint text" in {
       val doc = asDocument(createViewUsingForm(form))
       assertContainsText(

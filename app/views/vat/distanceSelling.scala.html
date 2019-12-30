@@ -36,7 +36,7 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("distanceSelling.heading").body,
+            legend = components.heading("distance-selling", "distanceSelling.heading").body,
             inputs = DistanceSelling.options.toSeq,
             hint = Some(messages("distanceSelling.hintText")),
             noMarginClass = Some("no-bottom-margin"),

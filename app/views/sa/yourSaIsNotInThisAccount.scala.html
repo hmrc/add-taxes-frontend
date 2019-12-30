@@ -34,7 +34,7 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("yourSaIsNotInThisAccount.heading").body,
+            legend = components.heading("your-sa-is-not-in-this-account", "yourSaIsNotInThisAccount.heading").body,
             inputs = YourSaIsNotInThisAccount.options.toSeq,
             hint = Some(messages("yourSaIsNotInThisAccount.you_may_have_already_")),
             hintTextSpacing = Some("padding-bottom-small")

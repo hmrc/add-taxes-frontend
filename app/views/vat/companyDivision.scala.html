@@ -36,7 +36,7 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("companyDivision.heading").body,
+            legend = components.heading("company-division", "companyDivision.heading").body,
             inputs = CompanyDivision.options.toSeq,
             hint = Some(messages("companyDivision.hintText")),
             noMarginClass = Some("no-bottom-margin"),

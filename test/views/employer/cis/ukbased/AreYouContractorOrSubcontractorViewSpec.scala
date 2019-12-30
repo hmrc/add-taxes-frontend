@@ -40,6 +40,11 @@ class AreYouContractorOrSubcontractorViewSpec extends ViewBehaviours {
 
   "AreYouContractorOrSubcontractor view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "contractor-or-subcontractor"
+    }
   }
 
   "AreYouContractorOrSubcontractor view" when {

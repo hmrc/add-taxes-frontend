@@ -30,6 +30,11 @@ class VatRegistrationProcessViewSpec extends ViewBehaviours {
   "VATRegistrationProcess view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "vat-registration-process"
+    }
+
     "include list item 1" in {
       val doc = asDocument(createView())
       assertContainsText(doc, "Check if you can register for VAT using the online service")

@@ -36,6 +36,11 @@ class HaveYouRegisteredForTiedOilsViewSpec extends ViewBehaviours {
 
   "HaveYouRegisteredForTiedOils view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "have-you-registered-for-tied-oils"
+    }
   }
 
   "HaveYouRegisteredForTiedOils view" when {

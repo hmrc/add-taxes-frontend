@@ -38,6 +38,11 @@ class HaveYouRegisteredForVATMOSSViewSpec extends ViewBehaviours {
 
   "HaveYouRegisteredForVATMOSS view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "have-you-registered-for-vat-moss"
+    }
   }
 
   "HaveYouRegisteredForVATMOSS view" when {

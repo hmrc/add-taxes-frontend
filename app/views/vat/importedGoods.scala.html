@@ -36,7 +36,7 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("importedGoods.heading").body,
+            legend = components.heading("imported-goods", "importedGoods.heading").body,
             inputs = ImportedGoods.options.toSeq,
             hint = Some(messages("importedGoods.hintText")),
             noMarginClass = Some("no-bottom-margin"),

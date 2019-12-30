@@ -38,6 +38,11 @@ class WhatTypeOfSubcontractorViewSpec extends ViewBehaviours {
 
   "WhatTypeOfSubcontractor view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "what-type-of-subcontractor"
+    }
   }
 
   "WhatTypeOfSubcontractor view" when {

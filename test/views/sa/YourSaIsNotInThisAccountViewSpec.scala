@@ -42,6 +42,11 @@ class YourSaIsNotInThisAccountViewSpec extends ViewBehaviours {
   "YourSaIsNotInThisAccountView" must {
     behave like normalPage(createView, messageKeyPrefix)
 
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "your-sa-is-not-in-this-account"
+    }
+
     "Render the correct content" in {
       val doc = asDocument(createView())
       val view = doc.text()

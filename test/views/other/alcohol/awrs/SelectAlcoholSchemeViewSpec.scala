@@ -38,6 +38,11 @@ class SelectAlcoholSchemeViewSpec extends ViewBehaviours {
 
   "SelectAlcoholScheme view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "select-alcohol-scheme"
+    }
   }
 
   "SelectAlcoholScheme view" when {
