@@ -29,6 +29,11 @@ class PartnershipRegisterByPhoneViewSpec extends ViewBehaviours {
   "PartnershipRegisterByPhone view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "partnership-registration-by-phone"
+    }
+
     def viewIncludes(s: String): Unit = asDocument(createView()).text() must include(s)
 
     "include paragraph 1" in {

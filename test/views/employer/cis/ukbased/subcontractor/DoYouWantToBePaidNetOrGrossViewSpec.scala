@@ -39,6 +39,11 @@ class DoYouWantToBePaidNetOrGrossViewSpec extends ViewBehaviours {
   "DoYouWantToBePaidNetOrGross view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "paid-net-or-gross"
+    }
+
     "contain the subtext1" in {
       val doc = asDocument(createView())
 

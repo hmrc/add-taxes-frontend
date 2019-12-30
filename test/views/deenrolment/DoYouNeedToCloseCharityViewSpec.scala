@@ -39,6 +39,11 @@ class DoYouNeedToCloseCharityViewSpec extends ViewBehaviours {
 
   "DoYouNeedToCloseCharity view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "do-you-need-to-close-charity"
+    }
   }
 
   "DoYouNeedToCloseCharity view" when {

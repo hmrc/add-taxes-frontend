@@ -29,6 +29,11 @@ class CanRegisterForVATViewSpec extends ViewBehaviours {
   "CanRegisterForVAT view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "can-register-for-vat"
+    }
+
     "include paragraph 'Based on your answers, you can register for VAT using the online service.'" in {
       val doc = asDocument(createView())
       assertContainsText(doc, "Based on your answers, you can register for VAT using the online service.")

@@ -28,6 +28,11 @@ class RegisterExciseMovementControlSystemViewSpec extends ViewBehaviours {
 
   "RegisterExciseMovementControlSystem view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "register-excise-movement-control-system"
+    }
   }
 
   "RegisterExciseMovementControlSystem view" should {

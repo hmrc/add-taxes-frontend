@@ -29,6 +29,11 @@ class UsePAYEEmployerAccountViewSpec extends ViewBehaviours {
   "UsePAYEEmployerAccount view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "use-paye-employer-account-cis-uk"
+    }
+
     "Render the correct content" in {
 
       val doc = asDocument(createView())

@@ -45,6 +45,11 @@ class WhichVATServicesToAddViewSpec extends ViewBehaviours {
 
   "WhichVATServicesToAdd view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "which-vat-services-to-add"
+    }
   }
 
   "WhichVATServicesToAdd view" when {

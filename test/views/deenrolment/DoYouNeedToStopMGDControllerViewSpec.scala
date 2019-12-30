@@ -39,6 +39,11 @@ class DoYouNeedToStopMGDControllerViewSpec extends ViewBehaviours {
 
   "DoYouNeedToStopMGDController view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "do-you-need-to-stop-mgd"
+    }
   }
 
   "DoYouNeedToStopMGDController view" when {

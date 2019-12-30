@@ -30,6 +30,11 @@ class IndividualAddCorporationTaxViewSpec extends ViewBehaviours {
 
   "IndividualAddCorporationTaxViewSpec" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "individual-add-ct"
+    }
   }
 
   "IndividualAddCorporationTaxViewSpec" when {

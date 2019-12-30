@@ -50,6 +50,11 @@ class IsBusinessRegisteredForPAYEViewSpec extends ViewBehaviours {
 
   "IsBusinessRegisteredForPAYE view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "is-business-registration-for-paye"
+    }
   }
 
   "IsBusinessRegisteredForPAYE view" when {

@@ -29,6 +29,11 @@ class SetUpANewAccountViewSpec extends ViewBehaviours {
   "SetUpANewAccount view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "set-up-new-account-vat-moss"
+    }
+
     "contain subtext 1" in {
       val view = createView()
       val doc = asDocument(view).text()

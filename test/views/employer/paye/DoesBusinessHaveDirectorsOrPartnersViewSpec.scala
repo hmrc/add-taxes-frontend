@@ -40,6 +40,11 @@ class DoesBusinessHaveDirectorsOrPartnersViewSpec extends ViewBehaviours {
 
   "DoesBusinessHaveDirectorsOrPartners view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "does-business-have-directors-or-partners"
+    }
   }
 
   "DoesBusinessHaveDirectorsOrPartners view" when {

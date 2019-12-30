@@ -43,6 +43,11 @@ class AlreadyRegisteredForVATMossViewSpec extends ViewBehaviours {
 
   "AlreadyRegisteredForVATMoss view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "already-registered-for-vat-moss"
+    }
   }
 
   "AlreadyRegisteredForVATMoss view" when {

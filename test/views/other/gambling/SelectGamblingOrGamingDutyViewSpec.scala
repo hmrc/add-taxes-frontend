@@ -38,6 +38,11 @@ class SelectGamblingOrGamingDutyViewSpec extends ViewBehaviours {
 
   "SelectGamblingOrGamingDuty view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "select-gambling-or-gaming-duty"
+    }
   }
 
   "SelectGamblingOrGamingDuty view" when {

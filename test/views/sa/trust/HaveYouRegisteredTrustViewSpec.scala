@@ -39,6 +39,11 @@ class HaveYouRegisteredTrustViewSpec extends ViewBehaviours {
   "HaveYouRegisteredTrust view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "have-you-registered-trust"
+    }
+
     "Render the correct content" in {
       val doc = asDocument(createView())
       val view = doc.text()

@@ -38,6 +38,11 @@ class DoYouWantToAddPartnerViewSpec extends ViewBehaviours {
 
   "DoYouWantToAddPartner view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "do-you-want-to-add-partner"
+    }
   }
 
   "DoYouWantToAddPartner view" when {

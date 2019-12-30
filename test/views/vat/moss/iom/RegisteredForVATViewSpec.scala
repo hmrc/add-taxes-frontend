@@ -38,6 +38,11 @@ class RegisteredForVATViewSpec extends ViewBehaviours {
 
   "RegisteredForVAT view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "registered-for-vat-moss-iom"
+    }
   }
 
   "RegisteredForVAT view" when {

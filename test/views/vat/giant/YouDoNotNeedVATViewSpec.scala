@@ -29,6 +29,11 @@ class YouDoNotNeedVATViewSpec extends ViewBehaviours {
   "YouDoNotNeedVAT view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "do-not-need-vat-giant"
+    }
+
     "Render the correct content" in {
       val doc = asDocument(createView())
       val view = doc.text()

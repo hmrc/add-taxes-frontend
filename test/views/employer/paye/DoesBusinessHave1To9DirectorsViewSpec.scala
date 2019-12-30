@@ -39,6 +39,11 @@ class DoesBusinessHave1To9DirectorsViewSpec extends ViewBehaviours {
 
   "DoesBusinessHave1To9Directors view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "does-business-have-1to9-directors"
+    }
   }
 
   "DoesBusinessHave1To9Directors view" when {

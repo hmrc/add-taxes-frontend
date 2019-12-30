@@ -38,6 +38,11 @@ class AreYouSelfEmployedViewSpec extends ViewBehaviours {
 
   "AreYouSelfEmployed view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "are-you-self-employed"
+    }
   }
 
   "AreYouSelfEmployed view" when {

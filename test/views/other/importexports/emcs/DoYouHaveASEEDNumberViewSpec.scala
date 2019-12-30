@@ -38,6 +38,11 @@ class DoYouHaveASEEDNumberViewSpec extends ViewBehaviours {
 
   "DoYouHaveASEEDNumber view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "do-you-have-a-seed-number"
+    }
   }
 
   "DoYouHaveASEEDNumber view" when {
