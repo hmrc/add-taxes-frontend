@@ -19,6 +19,7 @@ package views
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.organisation_only
+
 import scala.collection.JavaConverters._
 
 class OrganisationOnlyViewSpec extends ViewBehaviours {
@@ -69,7 +70,8 @@ class OrganisationOnlyViewSpec extends ViewBehaviours {
           "create-account",
           "Sign out and create ‘Organisation’ account",
           "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fcoafe%2Fgovernment-gateway%2Fregister%3FaccountType%3Dorganisation%2526continue%3D%2Fbusiness-account%2Fadd-tax%2526origin%3Dunknown",
-          "SetUpAccountbusinesstaxes:Click:Register"
+          "SetUpAccountbusinesstaxes:Click:Register",
+          expectedRole = Some("button")
         )
 
         assertLinkById(

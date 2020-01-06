@@ -47,7 +47,8 @@ class UsePAYEEmployerAccountViewSpec extends ViewBehaviours {
         "continue",
         "Sign in to your other account",
         "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fbusiness-account",
-        "AddIntermediariesOtherAccount:Click:SignIn"
+        "AddIntermediariesOtherAccount:Click:SignIn",
+        expectedRole = Some("button")
       )
 
       assertLinkById(

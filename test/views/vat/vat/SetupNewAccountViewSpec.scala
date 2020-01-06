@@ -46,7 +46,8 @@ class SetupNewAccountViewSpec extends ViewBehaviours {
         "continue",
         "Sign out and create ‘Organisation’ account",
         "http://localhost:8571/government-gateway-registration-frontend?accountType=organisation&continue=%2Fbusiness-account%2Fadd-tax",
-        "VatVat:Click:VatVat"
+        "VatVat:Click:VatVat",
+        expectedRole = Some("button")
       )
 
       assertLinkById(

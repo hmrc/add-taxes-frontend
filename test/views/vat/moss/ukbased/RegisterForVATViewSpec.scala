@@ -43,7 +43,8 @@ class RegisterForVATViewSpec extends ViewBehaviours {
         "continue",
         "Register for VAT",
         "http://localhost:8080/portal/business-registration/introduction?lang=eng",
-        "VatMossUkNotVatRegistered:Click:Register"
+        "VatMossUkNotVatRegistered:Click:Register",
+        expectedRole = Some("button")
       )
 
       assertLinkById(

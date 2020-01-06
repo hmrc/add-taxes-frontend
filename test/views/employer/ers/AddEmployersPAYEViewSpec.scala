@@ -45,7 +45,8 @@ class AddEmployersPAYEViewSpec extends ViewBehaviours {
         "continue",
         "Add PAYE for employers",
         "http://localhost:9555/enrolment-management-frontend/IR-PAYE/request-access-tax-scheme?continue=%2Fbusiness-account",
-        "AddErsNotEnrolledEpaye:Click:Register"
+        "AddErsNotEnrolledEpaye:Click:Register",
+        expectedRole = Some("button")
       )
 
       assertLinkById(
