@@ -59,7 +59,8 @@ class VatRegistrationProcessViewSpec extends ViewBehaviours {
         "continue",
         "Start VAT registration process",
         "/business-account/add-tax/vat/eligibility",
-        "VatRegistrationProcess:Click:Continue"
+        "VatRegistrationProcess:Click:Continue",
+        expectedRole = Some("button")
       )
     }
   }

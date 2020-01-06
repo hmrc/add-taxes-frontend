@@ -47,7 +47,8 @@ class RegisterExciseMovementControlSystemViewSpec extends ViewBehaviours {
         "register-for-emcs",
         "Get a SEED number",
         "https://www.gov.uk/guidance/excise-movement-and-control-system-how-to-register-and-use#register-and-enrol",
-        "RegisterEMCS:Click:Continue"
+        "RegisterEMCS:Click:Continue",
+        expectedRole = Some("button")
       )
     }
   }

@@ -43,7 +43,9 @@ class RegisterAEOIViewSpec extends ViewBehaviours {
         "continue",
         "Register for AEOI",
         "http://localhost:8080/portal/fatca-registration?lang=eng",
-        "RegisterAeoi:Click:Continue")
+        "RegisterAeoi:Click:Continue",
+        expectedRole = Some("button")
+      )
 
       assertContainsText(doc, "When you get your AEOI ID, sign in and add this service.")
     }
