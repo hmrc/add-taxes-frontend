@@ -46,7 +46,8 @@ class ApplyForPractitionerIDViewSpec extends ViewBehaviours {
         "continue",
         "Apply for a Scheme Practitioner ID",
         "https://pensionschemes.hmrc.gov.uk/pso/reg/registeruserinitialquestions.aspx",
-        "ApplyPractitionerID:Click:Continue"
+        "ApplyPractitionerID:Click:Continue",
+        expectedRole = Some("button")
       )
 
       assertLinkById(
