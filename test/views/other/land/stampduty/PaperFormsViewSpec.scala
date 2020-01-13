@@ -47,7 +47,8 @@ class PaperFormsViewSpec extends ViewBehaviours {
         "continue",
         "Fill in paper forms",
         "https://www.gov.uk/guidance/sdlt-completing-the-paper-return",
-        "RegisterSdltPaperForms:Click:Continue"
+        "RegisterSdltPaperForms:Click:Continue",
+        expectedRole = Some("button")
       )
     }
   }

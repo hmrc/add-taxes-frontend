@@ -47,7 +47,8 @@ class RegisterForVATViewSpec extends ViewBehaviours {
         "continue",
         "Register for VAT",
         "https://www.gov.im/categories/tax-vat-and-your-money/customs-and-excise/registering-for-vat/",
-        "VatMossUkNotVatRegistered:Click:Register"
+        "VatMossUkNotVatRegistered:Click:Register",
+        expectedRole = Some("button")
       )
 
       assertLinkById(

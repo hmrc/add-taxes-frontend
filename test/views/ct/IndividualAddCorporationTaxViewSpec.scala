@@ -63,7 +63,8 @@ class IndividualAddCorporationTaxViewSpec extends ViewBehaviours {
           expectedText = "Sign out and create ‘Organisation’ account",
           expectedUrl =
             "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fcoafe%2Fgovernment-gateway%2Fregister%3FaccountType%3Dorganisation%2526continue%3D%2Fbusiness-account%2Fadd-tax%2526origin%3Dunknown",
-          expectedGAEvent = "link - click:Individual add corporation tax:Sign out and create Organisation account"
+          expectedGAEvent = "link - click:Individual add corporation tax:Sign out and create Organisation account",
+          expectedRole = Some("button")
         )
 
       }

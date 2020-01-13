@@ -27,7 +27,11 @@
 
     <p>@messages("registerDefermentApprovalNumber.p1")</p>
 
-        <a id="register-for-ddes" href='@appConfig.getGovUKUrl("ddes")' class="button" data-journey-click="RegisterDDES:Click:Continue">
-        @messages("registerDefermentApprovalNumber.continue")
+    <a id="register-for-ddes"
+       href='@appConfig.getGovUKUrl("ddes")'
+       class="button"
+       role="button"
+       data-journey-click="RegisterDDES:Click:Continue">
+      @messages("registerDefermentApprovalNumber.continue")
     </a>
 }

@@ -43,7 +43,8 @@ class AddVATMOSSViewSpec extends ViewBehaviours {
         "continue",
         "Sign in to your VAT account",
         "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fbusiness-account",
-        "VatMossUkAddToOtherAccount:Click:SignIn"
+        "VatMossUkAddToOtherAccount:Click:SignIn",
+        expectedRole = Some("button")
       )
 
       assertLinkById(

@@ -45,7 +45,9 @@ class RegisterGBDViewSpec extends ViewBehaviours {
         "continue",
         "Register for the General Betting Duty",
         "https://foo.hmrc.gov.uk/gts-registration",
-        "GamblingGBD:Click:Register")
+        "GamblingGBD:Click:Register",
+        expectedRole = Some("button")
+      )
     }
   }
 }

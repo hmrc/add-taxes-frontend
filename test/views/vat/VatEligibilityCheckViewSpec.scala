@@ -45,7 +45,8 @@ class VatEligibilityCheckViewSpec extends ViewBehaviours {
         "continue",
         "Continue",
         "/business-account/add-tax/vat/has-vat-exception",
-        "VatEligibilityCheck:Click:Continue")
+        "VatEligibilityCheck:Click:Continue",
+        expectedRole = Some("button"))
     }
   }
 }

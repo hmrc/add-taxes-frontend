@@ -47,7 +47,8 @@ class RegisterTrustViewSpec extends ViewBehaviours {
         "continue",
         "Register your trust",
         "https://www.gov.uk/government/publications/trusts-and-estates-trust-details-41g-trust",
-        "SaTrustNotRegistered:Click:Register"
+        "SaTrustNotRegistered:Click:Register",
+        expectedRole = Some("button")
       )
 
       assertLinkById(

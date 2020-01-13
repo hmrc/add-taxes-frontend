@@ -45,7 +45,9 @@ class RegisterRGDViewSpec extends ViewBehaviours {
         "continue",
         "Register for the Remote Gaming Duty",
         "https://foo.hmrc.gov.uk/gts-registration",
-        "GamblingRGD:Click:Register")
+        "GamblingRGD:Click:Register",
+        expectedRole = Some("button")
+      )
     }
   }
 }

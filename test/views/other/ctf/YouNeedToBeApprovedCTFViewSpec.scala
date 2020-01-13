@@ -46,7 +46,8 @@ class YouNeedToBeApprovedCTFViewSpec extends ViewBehaviours {
         "continue",
         "Apply to become an approved provider",
         "https://www.gov.uk/government/publications/child-trust-fund-apply-to-become-an-approved-provider-ctf11app",
-        "CtfApply:Click:Continue"
+        "CtfApply:Click:Continue",
+        expectedRole = Some("button")
       )
     }
   }

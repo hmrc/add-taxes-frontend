@@ -45,7 +45,9 @@ class RegisterEORIViewSpec extends ViewBehaviours {
         "register-for-ics",
         "Get an EORI number",
         "https://www.gov.uk/eori#how-to-get-an-eori-number",
-        "RegisterICS:Click:Continue")
+        "RegisterICS:Click:Continue",
+        expectedRole = Some("button")
+      )
     }
   }
 }

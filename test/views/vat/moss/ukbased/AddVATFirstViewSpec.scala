@@ -48,7 +48,8 @@ class AddVATFirstViewSpec extends ViewBehaviours with MockitoSugar with BeforeAn
         "continue",
         "Add VAT to this account",
         "http://localhost:9555/enrolment-management-frontend/HMCE-VATDEC-ORG/request-access-tax-scheme?continue=%2Fbusiness-account",
-        "VatMossUkAddVatToAccount:Click:AddVat"
+        "VatMossUkAddVatToAccount:Click:AddVat",
+        expectedRole = Some("button")
       )
 
       assertLinkById(

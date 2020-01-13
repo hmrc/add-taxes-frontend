@@ -49,7 +49,8 @@ class RegisterDefermentApprovalNumberViewSpec extends ViewBehaviours {
         "register-for-ddes",
         "Apply for deferment approval",
         "https://www.gov.uk/government/publications/notice-101-deferring-duty-vat-and-other-charges/notice-101-deferring-duty-vat-and-other-charges#deferment-approval",
-        "RegisterDDES:Click:Continue"
+        "RegisterDDES:Click:Continue",
+        expectedRole = Some("button")
       )
     }
   }

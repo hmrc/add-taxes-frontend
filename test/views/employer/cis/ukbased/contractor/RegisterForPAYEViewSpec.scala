@@ -52,7 +52,8 @@ class RegisterForPAYEViewSpec extends ViewBehaviours {
         "continue",
         "Register for PAYE for employers",
         "http://localhost:8080/portal/business-registration/introduction?lang=eng",
-        "CisUkContractorRegisterEpaye:Click:Register"
+        "CisUkContractorRegisterEpaye:Click:Register",
+        expectedRole = Some("button")
       )
 
       assertLinkById(

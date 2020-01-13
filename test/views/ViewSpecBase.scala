@@ -99,7 +99,8 @@ trait ViewSpecBase extends SpecBase {
     expectedUrl: String,
     expectedGAEvent: String,
     expectedIsExternal: Boolean = false,
-    expectedOpensInNewTab: Boolean = false) {
+    expectedOpensInNewTab: Boolean = false,
+    expectedRole: Option[String] = None) {
     val link = doc.getElementById(linkId)
     assert(link.text() == expectedText, s"\n\n Link $linkId does not have text $expectedText")
     assert(link.attr("href") == expectedUrl, s"\n\n Link $linkId does not expectedUrl $expectedUrl")
@@ -111,7 +112,16 @@ trait ViewSpecBase extends SpecBase {
       s"\n\n Link $linkId does not have expectedGAEvent $expectedGAEvent")
     assert(
       link.attr("target").contains("_blank") == expectedOpensInNewTab,
-      s"\n\n Link $linkId does not meet expectedOpensInNewTab $expectedGAEvent")
+      s"\n\n Link $linkId does not meet expectedOpensInNewTab $expectedOpensInNewTab")
+
+    expectedRole match {
+      case Some(role) =>
+        assert(
+          link.attr("role") == role,
+          s"\n\n Link $linkId does not meet expected role $role"
+        )
+      case _ => assert(link.attr("role") == "", s"\n\n Link $linkId has role ${link.attr("role")} when none expected")
+    }
   }
 
   def assertLinkByContent(doc: Document, expectedText: String, expectedUrl: String) {
