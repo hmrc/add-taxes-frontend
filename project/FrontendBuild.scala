@@ -1,7 +1,4 @@
 import sbt._
-import uk.gov.hmrc.SbtAutoBuildPlugin
-import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin
-import uk.gov.hmrc.versioning.SbtGitVersioning
 
 object FrontendBuild extends Build with MicroService {
 
@@ -11,23 +8,23 @@ object FrontendBuild extends Build with MicroService {
 }
 
 private object AppDependencies {
-  import play.sbt.PlayImport._
   import play.core.PlayVersion
+  import play.sbt.PlayImport._
 
-  private val playHealthVersion = "3.10.0-play-25"
-  private val logbackJsonLoggerVersion = "4.2.0"
+  private val playHealthVersion = "3.14.0-play-25"
+  private val logbackJsonLoggerVersion = "4.6.0"
   private val govukTemplateVersion = "5.27.0-play-25"
-  private val playUiVersion = "7.31.0-play-25"
+  private val playUiVersion = "8.7.0-play-25"
   private val scalaTestVersion = "3.0.4"
   private val scalaTestPlusPlayVersion = "2.0.1"
   private val pegdownVersion = "1.6.0"
   private val mockitoAllVersion = "1.10.19"
   private val httpCachingClientVersion = "8.0.0"
-  private val playReactivemongoVersion = "6.2.0"
+  private val playReactivemongoVersion = "6.8.0"
   private val playConditionalFormMappingVersion = "0.2.0"
   private val playLanguageVersion = "3.4.0"
   private val bootstrapVersion = "4.8.0"
-  private val playPartialsVersion = "6.3.0"
+  private val playPartialsVersion = "6.9.0-play-25"
   private val scalacheckVersion = "1.14.0"
   private val referenceCheckerVersion = "2.4.0"
 
