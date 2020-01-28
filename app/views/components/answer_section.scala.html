@@ -23,7 +23,7 @@
     <h2>@messages(answerSection.headingKey.get)</h2>
 }
 
-<ul role="list" class="tabular-data tabular-data--list">
+<ul class="tabular-data tabular-data--list">
     @for(row <- answerSection.rows){
         @components.answer_row(row)
     }
