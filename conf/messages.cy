@@ -46,6 +46,7 @@ site.service_name = Cyfrif treth busnes
 site.service_title = {0} - Cyfrif treth busnes - GOV.UK
 site.textarea.char_limit = (Limit is {0} characters)
 site.signout = Allgofnodi
+site.language_switcher = switcher iaith
 
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account

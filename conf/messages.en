@@ -46,6 +46,7 @@ site.service_name = Business tax account
 site.service_title = {0} - Business tax account - GOV.UK
 site.textarea.char_limit = (Limit is {0} characters)
 site.signout = Sign out
+site.language_switcher = language-switcher
 
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
