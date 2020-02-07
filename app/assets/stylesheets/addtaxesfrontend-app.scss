@@ -69,3 +69,8 @@
 .no-top-margin {
     margin-top : 0;
 }
+
+/* IE11 display hack */
+.no-details details summary .arrow-closed {
+    display: none !important;
+}
