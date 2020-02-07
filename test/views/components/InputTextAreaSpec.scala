@@ -64,6 +64,8 @@ class InputTextAreaSpec extends WordSpec with MustMatchers with GuiceOneAppPerSu
       forms.get(0).className().split(" ").filter(_.nonEmpty) mustBe Array("form-group", "form-group-error")
 
       doc.getElementById("error-message-value-input").hasClass("error-message")
+      doc.getElementById("visually-hidden-error-prefix").text() mustBe "Error:"
+      doc.getElementById("visually-hidden-error-prefix").hasClass("visually-hidden")
     }
   }
 }
