@@ -24,6 +24,7 @@ error.required = Please enter a value
 error.summary.title = There is a problem
 error.summary.text = Check the following
 error.browser.title = Error: {0}
+error.message.prefix = Error:
 
 index.title = add-taxes-frontend
 index.heading = add-taxes-frontend
