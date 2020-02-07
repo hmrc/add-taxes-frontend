@@ -24,6 +24,7 @@ error.required = Please enter a value
 error.summary.title = Mae problem wedi codi
 error.summary.text = Check the following
 error.browser.title = Gwall: {0}
+error.message.prefix = Gwall:
 
 index.title = add-taxes-frontend
 index.heading = add-taxes-frontend

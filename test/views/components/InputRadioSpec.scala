@@ -61,6 +61,15 @@ class InputRadioSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite
       forms.get(0).className().split(" ").filter(_.nonEmpty) mustBe Array("form-group", "margin-top-medium")
     }
 
+    "include hint text as aria-describedby for fieldset" in {
+      val doc: Document = Jsoup.parse(inputRadio(testField).toString)
+
+      val forms = doc.select("fieldset")
+      forms.size mustBe 1
+
+      forms.get(0).attr("aria-describedby") mustBe "form-hint-text"
+    }
+
     "include error markups when there is an form error" in {
       val erroredField = testField.copy(errors = Seq(FormError("testErrorKey", "testErrorMessage")))
 
@@ -75,6 +84,8 @@ class InputRadioSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite
         "margin-top-medium")
 
       doc.getElementById("error-message-value-input").hasClass("error-message")
+      doc.getElementById("visually-hidden-error-prefix").text() mustBe "Error:"
+      doc.getElementById("visually-hidden-error-prefix").hasClass("visually-hidden")
     }
   }
 }
