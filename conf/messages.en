@@ -575,7 +575,7 @@ registerForVAT.heading = Register for VAT
 registerForVAT.p1 = You must be VAT registered before you can register for VAT MOSS.
 registerForVAT.p2 = Come back to this account and add VAT MOSS once you’ve received a VAT registration number (VRN).
 registerForVAT.continue = Register for VAT
-registerForVAT.notnow = I do not want to do this now
+registerForVAT.notnow = I do not want to register for VAT now
 
 #######################################################
 ##  RegisteredForVAT

@@ -50,7 +50,7 @@ class RegisterForVATViewSpec extends ViewBehaviours {
       assertLinkById(
         doc,
         "not-now",
-        "I do not want to do this now",
+        "I do not want to register for VAT now",
         "http://localhost:9020/business-account",
         "VatMossUkNotVatRegistered:Click:NotNow"
       )

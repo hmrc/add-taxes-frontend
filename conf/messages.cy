@@ -576,7 +576,7 @@ registerForVAT.heading = Cofrestru ar gyfer TAW
 registerForVAT.p1 = Mae’n rhaid eich bod wedi cofrestru ar gyfer TAW cyn y gallwch gofrestru ar gyfer GUC TAW.
 registerForVAT.p2 = Dychwelwch i’r cyfrif hwn ac ychwanegwch GUC TAW unwaith eich bod wedi cael rhif cofrestru TAW (VRN).
 registerForVAT.continue = Cofrestru ar gyfer TAW
-registerForVAT.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
+registerForVAT.notnow = Nid wyf am gofrestru ar gyfer TAW nawr
 
 #######################################################
 ##  RegisteredForVAT
