@@ -617,7 +617,7 @@ registerInHomeCountry.title = Cofrestru yn eich gwlad wreiddiol
 registerInHomeCountry.heading = Cofrestru yn eich gwlad wreiddiol
 registerInHomeCountry.p1=Dylech gofrestru ar gyfer GUC TAW gyda’r awdurdod treth yng ngwlad wreiddiol eich busnes.
 registerInHomeCountry.p2=Os ydych eisiau cofrestru ar gyfer GUC TAW yn y DU, mae angen i chi
-registerInHomeCountry.callUs = Cysylltwch â llinell gymorth TAW i gofrestru ar gyfer TAW MOSS yn y DU
+registerInHomeCountry.contact_helpline = Cysylltwch â’r Llinell Gymorth TAW i gofrestru ar gyfer GUC TAW yn y DU
 
 #######################################################
 ##  UseEmployersPAYE
