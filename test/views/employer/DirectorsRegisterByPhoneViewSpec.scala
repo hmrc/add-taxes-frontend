@@ -37,7 +37,7 @@ class DirectorsRegisterByPhoneViewSpec extends ViewBehaviours {
     def viewIncludes(s: String): Unit = asDocument(createView()).text() must include(s)
 
     "include paragraph 1" in {
-      viewIncludes("You need to register as an employer by phoning HMRC.")
+      viewIncludes(" You need to contact PAYE helpline to register as an employer.")
     }
 
     "include header 1" in {
@@ -66,7 +66,7 @@ class DirectorsRegisterByPhoneViewSpec extends ViewBehaviours {
       viewIncludes("Finally, you’ll need to provide the following information about your employees:")
       viewIncludes("the date of their first payday, or when you first provide expenses or benefits if this is earlier")
       viewIncludes("how many people you’re employing - or expect to employ in this tax year")
-      viewIncludes("whether you’ll be using any subcontractors in the construction industry")
+      viewIncludes("whether you’ll be using any subcontractors under the construction industry scheme(CIS)")
       viewIncludes("whether you’ll be operating an occupational pension scheme")
     }
 
@@ -88,7 +88,7 @@ class DirectorsRegisterByPhoneViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       assertLinkByContent(
         doc,
-        "phoning HMRC",
+        "contact PAYE helpline",
         "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/employer-enquiries-support-for-new-employers")
     }
 
@@ -99,7 +99,12 @@ class DirectorsRegisterByPhoneViewSpec extends ViewBehaviours {
 
     "include link 3" in {
       val doc = asDocument(createView())
-      assertLinkByContent(doc, "construction industry", "https://www.gov.uk/what-is-the-construction-industry-scheme")
+      assertLinkById(
+        doc,
+        "construction_industry_link",
+        "construction industry scheme(CIS)",
+        "https://www.gov.uk/what-is-the-construction-industry-scheme",
+        "")
     }
 
     "include link 4" in {

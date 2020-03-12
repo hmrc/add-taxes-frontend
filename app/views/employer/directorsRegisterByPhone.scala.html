@@ -18,8 +18,8 @@
 
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
-@link(key: String, url: String) = {
-    <a href="@url">@messages(s"directorsRegisterByPhone.$key")</a>
+@link(key: String, url: String, id:String = "") = {
+    <a href="@url" id="@id">@messages(s"directorsRegisterByPhone.$key")</a>
 }
 
 @main_template(
@@ -55,7 +55,7 @@
         </li>
         <li>@messages("directorsRegisterByPhone.list3item2")</li>
         <li>
-            @Html(messages("directorsRegisterByPhone.list3item3", link("list3item3.linkText", appConfig.getGovUKUrl("constructionIndustry"))))
+            @Html(messages("directorsRegisterByPhone.list3item3", link("list3item3.linkText", appConfig.getGovUKUrl("constructionIndustry"), "construction_industry_link")))
         </li>
         <li>@messages("directorsRegisterByPhone.list3item4")</li>
     </ul>
