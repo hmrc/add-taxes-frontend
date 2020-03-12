@@ -39,10 +39,11 @@ class RegisterInHomeCountryViewSpec extends ViewBehaviours {
 
       assertLinkById(
         doc,
-        "call-us",
-        "call us.",
+        "vat_helpline",
+        "Contact VAT helpline to register for VAT MOSS in the UK",
         "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/vat-enquiries",
-        "VatMossEu:Click:CallUs")
+        "VatMossEu:Click:Contact VAT helpline"
+      )
       assertContainsText(
         doc,
         "You should register for VAT MOSS with the tax authority in the home country of your business.")
