@@ -42,7 +42,7 @@ class RegisterInHomeCountryViewSpec extends ViewBehaviours {
         "vat_helpline",
         "Contact VAT helpline to register for VAT MOSS in the UK",
         "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/vat-enquiries",
-        "VatMossEu:Click:Contact VAT helpline"
+        "VatMossEu:Click:CallUs"
       )
       assertContainsText(
         doc,
