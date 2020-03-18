@@ -37,7 +37,7 @@ class PartnershipRegisterByPhoneViewSpec extends ViewBehaviours {
     def viewIncludes(s: String): Unit = asDocument(createView()).text() must include(s)
 
     "include paragraph 1" in {
-      viewIncludes("You need to register as an employer by phoning HMRC.")
+      viewIncludes("You need to contact HMRC helpline to register as an employer.")
     }
 
     "include heading 2" in {
@@ -63,7 +63,7 @@ class PartnershipRegisterByPhoneViewSpec extends ViewBehaviours {
       viewIncludes("Finally, you’ll need to provide the following information about your employees:")
       viewIncludes("the date of their first payday, or when you first provide expenses or benefits if this is earlier")
       viewIncludes("how many people you’re employing - or expect to employ in this tax year")
-      viewIncludes("whether you’ll be using any subcontractors in the construction industry")
+      viewIncludes("whether you’ll be using any subcontractors under the construction industry scheme(CIS)")
     }
 
     "include heading 3" in {
@@ -85,7 +85,7 @@ class PartnershipRegisterByPhoneViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       assertLinkByContent(
         doc,
-        "phoning HMRC",
+        "contact HMRC helpline",
         "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/employer-enquiries-support-for-new-employers")
     }
     "include link 2" in {
