@@ -19,11 +19,12 @@
         label: String,
         inputClass: Option[String] = None,
         hint: Option[String] = None,
-        formHintMargin: Option[String] = None
+        formHintMargin: Option[String] = None,
+        headingId : String
 )(implicit messages: Messages)
 
 <div class="form-group @if(field.hasErrors){ form-group-error}">
-  <h1 class="no-top-margin">
+  <h1 class="no-top-margin" id="@headingId">
     <label class="form-label" for="@{field.id}">
         <span class="bold heading-large no-bottom-margin">@label</span>
     </label>

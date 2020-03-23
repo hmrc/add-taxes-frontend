@@ -44,6 +44,11 @@ class WhatIsYourVATRegNumberViewSpec extends ViewBehaviours {
     "include hint text - This is the 9-digit number on your VAT registration certificate. For example, 123456789." in {
       viewIncludes("This is the 9-digit number on your VAT registration certificate. For example, 123456789.")
     }
+
+    "contain heading id" in {
+      val doc = asDocument(createViewUsingForm(form))
+      doc.getElementsByTag("h1").attr("id") mustBe "enter-vat-registration-heading"
+    }
   }
 
   "WhatIsYourVATRegNumber view" when {

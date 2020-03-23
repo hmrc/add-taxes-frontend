@@ -34,7 +34,8 @@
           field = form("value"),
           label = messages("whatIsYourVATRegNumber.heading"),
           hint  = Some(messages("whatIsYourVATRegNumber.hintText")),
-          formHintMargin= Some("margin-bottom-small")
+          formHintMargin= Some("margin-bottom-small"),
+          headingId = "enter-vat-registration-heading"
         )
 
         @components.submit_button(gaEvent = "HaveVATRegNumber", marginClass = Some("margin-top-small"))

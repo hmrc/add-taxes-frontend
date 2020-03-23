@@ -51,6 +51,11 @@ class EnterSAUTRViewSpec extends ViewBehaviours {
             " It is 10 numbers. For example, 1234567890"
         )
       }
+
+      "contain heading id" in {
+        val doc = asDocument(createViewUsingForm(form))
+        doc.getElementsByTag("h1").attr("id") mustBe "enter-sa-utr-heading"
+      }
     }
   }
 
