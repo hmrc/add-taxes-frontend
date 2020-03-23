@@ -35,7 +35,8 @@
             field = form("value"),
             label = messages("enterSAUTR.heading"),
             hint  = Some(messages("enterSAUTR.p1")),
-            formHintMargin= Some("margin-bottom-small")
+            formHintMargin= Some("margin-bottom-small"),
+            headingId = "enter-sa-utr-heading"
             )
 
         @components.submit_button(gaEvent = "checkSaUtr")
