@@ -15,20 +15,20 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html._
+@import uk.gov.hmrc.play.views.html.helpers._
 @import controllers.sa.trust.routes._
 @import models.sa.trust.HaveYouRegisteredTrust
 
+@this(
+    uiForm: FormWithCSRF,
+    main_template: main_template
+)
 
 @(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = messages("haveYouRegisteredTrust.title"),
-    appConfig = appConfig,
-    form = Some(form),
-    serviceInfoContent = serviceInfoContent) {
+@main_template(title = messages("haveYouRegisteredTrust.title"), appConfig = appConfig, form = Some(form), serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = HaveYouRegisteredTrustController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    @uiForm(action = HaveYouRegisteredTrustController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 

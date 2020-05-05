@@ -25,10 +25,20 @@ import views.html.other.aeio.register.registerAEOI
 
 class RegisterAEOIControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new RegisterAEOIController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: registerAEOI = injector.instanceOf[registerAEOI]
 
-  def viewAsString() = registerAEOI(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): RegisterAEOIController = {
+    new RegisterAEOIController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new registerAEOI(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterAEOI Controller" must {
 

@@ -19,7 +19,7 @@ package views.other.land
 import play.api.data.Form
 import forms.other.land.SelectATaxFormProvider
 import models.other.land.SelectATax
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.other.land.selectATax
 
@@ -29,14 +29,13 @@ class SelectATaxViewSpec extends ViewBehaviours {
 
   val form = new SelectATaxFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView =
-    () => selectATax(frontendAppConfig, form, SelectATax.options)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new selectATax(formWithCSRF, mainTemplate)(frontendAppConfig, form, SelectATax.options)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) =>
-      selectATax(frontendAppConfig, form, SelectATax.options)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+    new selectATax(formWithCSRF, mainTemplate)(frontendAppConfig, form, SelectATax.options)(serviceInfoContent)(fakeRequest, messages)
 
   "SelectATax view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -52,7 +51,7 @@ class SelectATaxViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- SelectATax.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
@@ -61,10 +60,10 @@ class SelectATaxViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- SelectATax.options.filterNot(_ == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

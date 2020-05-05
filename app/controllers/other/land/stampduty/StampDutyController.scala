@@ -16,44 +16,39 @@
 
 package controllers.other.land.stampduty
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
 import forms.other.land.stampduty.StampDutyFormProvider
 import identifiers.StampDutyId
-import play.api.mvc.Call
+import javax.inject.Inject
+import models.other.land.stampduty.StampDuty
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.other.land.stampduty.stampDuty
 
-import scala.concurrent.Future
+class StampDutyController @Inject()(appConfig: FrontendAppConfig,
+                                    mcc: MessagesControllerComponents,
+                                    navigator: Navigator[Call],
+                                    authenticate: AuthAction,
+                                    serviceInfoData: ServiceInfoAction,
+                                    formProvider: StampDutyFormProvider,
+                                    stampDuty: stampDuty)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-class StampDutyController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: StampDutyFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+  val form: Form[StampDuty] = formProvider()
 
-  val form = formProvider()
-
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(stampDuty(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) => BadRequest(stampDuty(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(StampDutyId, value))
+        formWithErrors => BadRequest(stampDuty(appConfig, formWithErrors)(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(StampDutyId, value))
       )
   }
 }

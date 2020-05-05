@@ -18,20 +18,20 @@ package controllers.actions
 
 import org.scalatest.{MustMatchers, WordSpec}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import play.api.mvc.Results._
 import play.api.mvc.{ActionFilter, AnyContent, Request, Result}
 import play.api.test.FakeRequest
-import playconfig.featuretoggle._
 import play.api.test.Helpers._
-import play.api.mvc.Results._
+import playconfig.featuretoggle._
 import uk.gov.hmrc.http.NotFoundException
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class FeatureDependantActionSpec extends WordSpec with MustMatchers with FeatureToggleSupport with GuiceOneAppPerSuite {
 
   val testFeature: Feature = NewVatJourney
-  val testFeatureDependantAction: FeatureDependantAction = new FeatureDependantAction(
-    app.injector.instanceOf[FeatureConfig])
+  val testFeatureDependantAction: FeatureDependantAction = new FeatureDependantAction(app.injector.instanceOf[FeatureConfig], global)
   val testAction: ActionFilter[Request] = testFeatureDependantAction.permitFor(testFeature)
 
   val testRequest: Request[AnyContent] = FakeRequest()

@@ -16,25 +16,22 @@
 
 package controllers.other.gambling.gbd
 
-import javax.inject.Inject
-
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import controllers.actions._
 import config.FrontendAppConfig
+import controllers.actions._
+import javax.inject.Inject
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.other.gambling.gbd.registerGBD
 
-import scala.concurrent.Future
+class RegisterGBDController @Inject()(appConfig: FrontendAppConfig,
+                                      mcc: MessagesControllerComponents,
+                                      authenticate: AuthAction,
+                                      serviceInfo: ServiceInfoAction,
+                                      registerGBD: registerGBD)
+  extends FrontendController(mcc) with I18nSupport {
 
-class RegisterGBDController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  authenticate: AuthAction,
-  serviceInfo: ServiceInfoAction)
-    extends FrontendController
-    with I18nSupport {
-
-  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
+  def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
     Ok(registerGBD(appConfig)(request.serviceInfoContent))
   }
 }

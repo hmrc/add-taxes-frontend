@@ -24,10 +24,13 @@ import views.html.vat.moss.iom.registerForVAT
 
 class RegisterForVATControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new RegisterForVATController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: registerForVAT = injector.instanceOf[registerForVAT]
 
-  def viewAsString() = registerForVAT(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): RegisterForVATController = {
+    new RegisterForVATController(frontendAppConfig, mcc, FakeAuthAction, FakeServiceInfoAction, view)
+  }
+
+  def viewAsString(): String = new registerForVAT(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterForVAT Controller" must {
     "return OK and the correct view for a GET" in {

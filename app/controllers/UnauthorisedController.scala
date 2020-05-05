@@ -16,17 +16,17 @@
 
 package controllers
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.{Action, AnyContent}
+import javax.inject.Inject
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.unauthorised
 
-class UnauthorisedController @Inject()(val appConfig: FrontendAppConfig, val messagesApi: MessagesApi)
-    extends FrontendController
-    with I18nSupport {
+class UnauthorisedController @Inject()(appConfig: FrontendAppConfig,
+                                       mcc: MessagesControllerComponents,
+                                       unauthorised: unauthorised)
+  extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = Action { implicit request =>
     Ok(unauthorised(appConfig))

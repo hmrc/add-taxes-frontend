@@ -24,10 +24,20 @@ import views.html.other.ctf.youNeedToBeApprovedCTF
 
 class YouNeedToBeApprovedCTFControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new YouNeedToBeApprovedCTFController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: youNeedToBeApprovedCTF = injector.instanceOf[youNeedToBeApprovedCTF]
 
-  def viewAsString() = youNeedToBeApprovedCTF(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): YouNeedToBeApprovedCTFController = {
+    new YouNeedToBeApprovedCTFController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new youNeedToBeApprovedCTF(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "YouNeedToBeApprovedCTF Controller" must {
 

@@ -16,22 +16,20 @@
 
 package controllers.enrolment
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions.{AuthAction, ServiceInfoAction}
-import play.api.i18n.{I18nSupport, MessagesApi}
+import javax.inject.Inject
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
-class EnrolmentProxyController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  authenticate: AuthAction,
-  serviceInfo: ServiceInfoAction)
-    extends FrontendController
-    with I18nSupport {
+class EnrolmentProxyController @Inject()(appConfig: FrontendAppConfig,
+                                         mcc: MessagesControllerComponents,
+                                         authenticate: AuthAction,
+                                         serviceInfo: ServiceInfoAction)
+  extends FrontendController(mcc) with I18nSupport {
 
-  def onPageLoad(service: utils.Enrolments) = (authenticate andThen serviceInfo) { implicit request =>
-    Redirect(appConfig.emacEnrollmentsUrl(service))
+  def onPageLoad(service: utils.Enrolments): Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
+      Redirect(appConfig.emacEnrollmentsUrl(service))
   }
 }

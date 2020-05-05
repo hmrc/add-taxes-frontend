@@ -24,11 +24,20 @@ import views.html.other.importexports.dan.registerDefermentApprovalNumber
 
 class RegisterDefermentApprovalNumberControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new RegisterDefermentApprovalNumberController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: registerDefermentApprovalNumber = injector.instanceOf[registerDefermentApprovalNumber]
 
-  def viewAsString() =
-    registerDefermentApprovalNumber(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): RegisterDefermentApprovalNumberController = {
+    new RegisterDefermentApprovalNumberController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new registerDefermentApprovalNumber(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterDefermentApprovalNumber Controller" must {
 

@@ -24,7 +24,8 @@ class RegisterExciseMovementControlSystemViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "registerExciseMovementControlSystem"
 
-  def createView = () => registerExciseMovementControlSystem(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new registerExciseMovementControlSystem(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "RegisterExciseMovementControlSystem view" must {
     behave like normalPage(createView, messageKeyPrefix)

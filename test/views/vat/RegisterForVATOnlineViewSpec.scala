@@ -16,10 +16,10 @@
 
 package views.vat
 
-import play.api.data.Form
 import forms.vat.RegisterForVATOnlineFormProvider
 import models.vat.RegisterForVATOnline
-import play.twirl.api.HtmlFormat
+import play.api.data.Form
+import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.vat.registerForVATOnline
 
@@ -29,12 +29,13 @@ class RegisterForVATOnlineViewSpec extends ViewBehaviours {
 
   val form = new RegisterForVATOnlineFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView = () => registerForVATOnline(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new registerForVATOnline(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) => registerForVATOnline(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+    new registerForVATOnline(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "RegisterForVATOnline view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -45,7 +46,7 @@ class RegisterForVATOnlineViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- RegisterForVATOnline.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
 
@@ -72,10 +73,10 @@ class RegisterForVATOnlineViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- RegisterForVATOnline.options.filterNot(_ == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

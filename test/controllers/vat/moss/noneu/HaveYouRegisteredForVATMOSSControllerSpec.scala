@@ -29,22 +29,27 @@ import views.html.vat.moss.noneu.haveYouRegisteredForVATMOSS
 
 class HaveYouRegisteredForVATMOSSControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new HaveYouRegisteredForVATMOSSFormProvider()
-  val form = formProvider()
+  val form: Form[HaveYouRegisteredForVATMOSS] = formProvider()
 
-  def controller() =
+  val view: haveYouRegisteredForVATMOSS = injector.instanceOf[haveYouRegisteredForVATMOSS]
+
+  def controller(): HaveYouRegisteredForVATMOSSController = {
     new HaveYouRegisteredForVATMOSSController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    haveYouRegisteredForVATMOSS(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new haveYouRegisteredForVATMOSS(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "HaveYouRegisteredForVATMOSS Controller" must {
 
@@ -82,7 +87,7 @@ class HaveYouRegisteredForVATMOSSControllerSpec extends ControllerSpecBase {
 
     for (option <- HaveYouRegisteredForVATMOSS.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

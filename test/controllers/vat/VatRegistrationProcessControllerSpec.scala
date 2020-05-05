@@ -25,22 +25,25 @@ import playconfig.featuretoggle.{FeatureToggleSupport, NewVatJourney}
 import uk.gov.hmrc.http.NotFoundException
 import views.html.vat.vatRegistrationProcess
 
-class VatRegistrationProcessControllerSpec
-    extends ControllerSpecBase
-    with FeatureToggleSupport
-    with BeforeAndAfterEach {
+class VatRegistrationProcessControllerSpec extends ControllerSpecBase with FeatureToggleSupport with BeforeAndAfterEach {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  val view: vatRegistrationProcess = injector.instanceOf[vatRegistrationProcess]
+
+  def controller(): VatRegistrationProcessController = {
     new VatRegistrationProcessController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       FakeAuthAction,
       FakeServiceInfoAction,
-      featureDepandantAction = app.injector.instanceOf[FeatureDependantAction])
+      featureDepandantAction = app.injector.instanceOf[FeatureDependantAction],
+      view
+    )
+  }
 
-  def viewAsString() = vatRegistrationProcess(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(): String =
+    new vatRegistrationProcess(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  override def beforeEach() = {
+  override def beforeEach(): Unit = {
     super.beforeEach()
     enable(NewVatJourney)
   }

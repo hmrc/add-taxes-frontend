@@ -16,44 +16,39 @@
 
 package controllers.vat
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Call
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
-
 import forms.vat.DoYouHaveVATRegNumberFormProvider
 import identifiers.DoYouHaveVATRegNumberId
+import javax.inject.Inject
+import models.vat.DoYouHaveVATRegNumber
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.vat.doYouHaveVATRegNumber
 
-class DoYouHaveVATRegNumberController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: DoYouHaveVATRegNumberFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class DoYouHaveVATRegNumberController @Inject()(appConfig: FrontendAppConfig,
+                                                mcc: MessagesControllerComponents,
+                                                navigator: Navigator[Call],
+                                                authenticate: AuthAction,
+                                                serviceInfoData: ServiceInfoAction,
+                                                formProvider: DoYouHaveVATRegNumberFormProvider,
+                                                doYouHaveVATRegNumber: doYouHaveVATRegNumber)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[DoYouHaveVATRegNumber] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(doYouHaveVATRegNumber(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          BadRequest(doYouHaveVATRegNumber(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(DoYouHaveVATRegNumberId, (value, request.request.affinityGroup)))
+        formWithErrors => BadRequest(doYouHaveVATRegNumber(appConfig, formWithErrors)(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(DoYouHaveVATRegNumberId, (value, request.request.affinityGroup)))
       )
   }
 }

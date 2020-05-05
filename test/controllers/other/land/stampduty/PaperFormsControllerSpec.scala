@@ -24,10 +24,13 @@ import views.html.other.land.stampduty.paperForms
 
 class PaperFormsControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new PaperFormsController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: paperForms = injector.instanceOf[paperForms]
 
-  def viewAsString() = paperForms(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): PaperFormsController = {
+    new PaperFormsController(frontendAppConfig, mcc, FakeAuthAction, FakeServiceInfoAction, view)
+  }
+
+  def viewAsString(): String = new paperForms(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "PaperForms Controller" must {
 

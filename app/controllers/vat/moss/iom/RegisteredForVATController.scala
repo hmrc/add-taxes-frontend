@@ -16,45 +16,42 @@
 
 package controllers.vat.moss.iom
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
 import forms.vat.moss.iom.RegisteredForVATFormProvider
 import identifiers.RegisteredForVATId
-import play.api.mvc.Call
+import javax.inject.Inject
+import models.vat.moss.iom.RegisteredForVAT
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.vat.moss.iom.registeredForVAT
 
 import scala.concurrent.Future
 
-class RegisteredForVATController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: RegisteredForVATFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class RegisteredForVATController @Inject()(appConfig: FrontendAppConfig,
+                                           mcc: MessagesControllerComponents,
+                                           navigator: Navigator[Call],
+                                           authenticate: AuthAction,
+                                           serviceInfoData: ServiceInfoAction,
+                                           formProvider: RegisteredForVATFormProvider,
+                                           registeredForVAT: registeredForVAT)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[RegisteredForVAT] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(registeredForVAT(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
+        formWithErrors =>
           Future.successful(BadRequest(registeredForVAT(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(RegisteredForVATId, value)))
+        value => Future.successful(Redirect(navigator.nextPage(RegisteredForVATId, value)))
       )
   }
 }

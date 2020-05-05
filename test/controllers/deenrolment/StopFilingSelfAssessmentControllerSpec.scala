@@ -21,6 +21,7 @@ import controllers.actions._
 import forms.deenrolment.StopFilingSelfAssessmentFormProvider
 import models.deenrolment.StopFilingSelfAssessment
 import play.api.data.Form
+import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
@@ -28,22 +29,27 @@ import views.html.deenrolment.stopFilingSelfAssessment
 
 class StopFilingSelfAssessmentControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new StopFilingSelfAssessmentFormProvider()
-  val form = formProvider()
+  val form: Form[StopFilingSelfAssessment] = formProvider()
 
-  def controller() =
+  val view: stopFilingSelfAssessment = injector.instanceOf[stopFilingSelfAssessment]
+
+  def controller(): StopFilingSelfAssessmentController = {
     new StopFilingSelfAssessmentController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    stopFilingSelfAssessment(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new stopFilingSelfAssessment(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "StopFilingSelfAssessment Controller" must {
 
@@ -81,7 +87,7 @@ class StopFilingSelfAssessmentControllerSpec extends ControllerSpecBase {
 
     for (option <- StopFilingSelfAssessment.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

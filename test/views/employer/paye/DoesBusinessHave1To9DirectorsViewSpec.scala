@@ -16,10 +16,10 @@
 
 package views.employer.paye
 
-import play.api.data.Form
 import forms.employer.paye.DoesBusinessHave1To9DirectorsFormProvider
 import models.employer.paye.DoesBusinessHave1To9Directors
-import play.twirl.api.HtmlFormat
+import play.api.data.Form
+import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.employer.paye.doesBusinessHave1To9Directors
 
@@ -29,13 +29,13 @@ class DoesBusinessHave1To9DirectorsViewSpec extends ViewBehaviours {
 
   val form = new DoesBusinessHave1To9DirectorsFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView =
-    () => doesBusinessHave1To9Directors(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new doesBusinessHave1To9Directors(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) => doesBusinessHave1To9Directors(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+    new doesBusinessHave1To9Directors(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "DoesBusinessHave1To9Directors view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -51,7 +51,7 @@ class DoesBusinessHave1To9DirectorsViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- DoesBusinessHave1To9Directors.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
@@ -60,10 +60,10 @@ class DoesBusinessHave1To9DirectorsViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- DoesBusinessHave1To9Directors.options.filterNot(_ == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

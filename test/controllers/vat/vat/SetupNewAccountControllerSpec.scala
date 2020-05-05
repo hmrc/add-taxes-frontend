@@ -24,10 +24,20 @@ import views.html.vat.vat.setupNewAccount
 
 class SetupNewAccountControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new SetupNewAccountController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: setupNewAccount = injector.instanceOf[setupNewAccount]
 
-  def viewAsString() = setupNewAccount(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): SetupNewAccountController = {
+    new SetupNewAccountController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new setupNewAccount(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "SetupNewAccount Controller" must {
     "return OK and the correct view for a GET" in {

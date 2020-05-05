@@ -16,61 +16,56 @@
 
 package controllers.deenrolment
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enrolments, Enumerable, LoggingHelper, Navigator}
-import play.api.mvc.Call
 import forms.deenrolment.DoYouNeedToStopMGDFormProvider
 import handlers.ErrorHandler
 import identifiers.DoYouNeedToStopMGDId
+import javax.inject.Inject
+import models.deenrolment.DoYouNeedToStopMGD
 import models.requests.ServiceInfoRequest
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.auth.core.Enrolment
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enrolments, Enumerable, LoggingHelper, Navigator}
 import views.html.deenrolment.doYouNeedToStopMGD
 
-class DoYouNeedToStopMGDController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Either[String, Call]],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: DoYouNeedToStopMGDFormProvider,
-  errorHandler: ErrorHandler,
-  log: LoggingHelper)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class DoYouNeedToStopMGDController @Inject()(appConfig: FrontendAppConfig,
+                                             mcc: MessagesControllerComponents,
+                                             navigator: Navigator[Either[String, Call]],
+                                             authenticate: AuthAction,
+                                             serviceInfoData: ServiceInfoAction,
+                                             formProvider: DoYouNeedToStopMGDFormProvider,
+                                             errorHandler: ErrorHandler,
+                                             log: LoggingHelper,
+                                             doYouNeedToStopMGD: doYouNeedToStopMGD)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[DoYouNeedToStopMGD] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(doYouNeedToStopMGD(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          BadRequest(doYouNeedToStopMGD(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => {
-
+        formWithErrors => BadRequest(doYouNeedToStopMGD(appConfig, formWithErrors)(request.serviceInfoContent)),
+        value => {
           val nextPage = navigator.nextPage(DoYouNeedToStopMGDId, (value, mgdEnrolment))
 
           nextPage match {
             case Right(c) => Redirect(c)
-            case Left(s) => {
+            case Left(s) =>
               log.warn(s"cannot navigate to the next page: $s")
               InternalServerError(errorHandler.internalServerErrorTemplate)
-            }
           }
         }
       )
   }
 
-  def mgdEnrolment(implicit r: ServiceInfoRequest[_]) =
+  private def mgdEnrolment(implicit r: ServiceInfoRequest[_]): Option[Enrolment] =
     r.request.enrolments.getEnrolment(Enrolments.MachineGamingDuty.toString)
 }

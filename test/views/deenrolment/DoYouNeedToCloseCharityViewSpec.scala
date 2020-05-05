@@ -16,11 +16,10 @@
 
 package views.deenrolment
 
-import play.api.data.Form
 import forms.deenrolment.DoYouNeedToCloseCharityFormProvider
 import models.deenrolment.DoYouNeedToCloseCharity
-import play.api.i18n.Messages
-import play.twirl.api.HtmlFormat
+import play.api.data.Form
+import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.deenrolment.doYouNeedToCloseCharity
 
@@ -30,12 +29,13 @@ class DoYouNeedToCloseCharityViewSpec extends ViewBehaviours {
 
   val form = new DoYouNeedToCloseCharityFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView = () => doYouNeedToCloseCharity(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new doYouNeedToCloseCharity(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) => doYouNeedToCloseCharity(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+    new doYouNeedToCloseCharity(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "DoYouNeedToCloseCharity view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -51,7 +51,7 @@ class DoYouNeedToCloseCharityViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- DoYouNeedToCloseCharity.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
@@ -60,10 +60,10 @@ class DoYouNeedToCloseCharityViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- DoYouNeedToCloseCharity.options.filterNot(_ == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

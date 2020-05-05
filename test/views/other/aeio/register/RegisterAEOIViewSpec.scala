@@ -24,7 +24,8 @@ class RegisterAEOIViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "registerAEOI"
 
-  def createView = () => registerAEOI(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new registerAEOI(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "RegisterAEOI view" must {
     behave like normalPage(createView, messageKeyPrefix)

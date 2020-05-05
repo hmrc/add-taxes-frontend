@@ -16,45 +16,39 @@
 
 package controllers.employer.cis.ukbased
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
 import forms.employer.cis.uk.AreYouContractorOrSubcontractorFormProvider
 import identifiers.AreYouContractorOrSubcontractorId
-import play.api.mvc.Call
+import javax.inject.Inject
+import models.employer.cis.uk.AreYouContractorOrSubcontractor
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.employer.cis.ukbased.areYouContractorOrSubcontractor
 
-import scala.concurrent.Future
+class AreYouContractorOrSubcontractorController @Inject()(appConfig: FrontendAppConfig,
+                                                          mcc: MessagesControllerComponents,
+                                                          navigator: Navigator[Call],
+                                                          authenticate: AuthAction,
+                                                          serviceInfoData: ServiceInfoAction,
+                                                          formProvider: AreYouContractorOrSubcontractorFormProvider,
+                                                          areYouContractorOrSubcontractor: areYouContractorOrSubcontractor)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-class AreYouContractorOrSubcontractorController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: AreYouContractorOrSubcontractorFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+  val form: Form[AreYouContractorOrSubcontractor] = formProvider()
 
-  val form = formProvider()
-
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(areYouContractorOrSubcontractor(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          BadRequest(areYouContractorOrSubcontractor(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(AreYouContractorOrSubcontractorId, (value, request.request.enrolments)))
+        formWithErrors => BadRequest(areYouContractorOrSubcontractor(appConfig, formWithErrors)(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(AreYouContractorOrSubcontractorId, (value, request.request.enrolments)))
       )
   }
 }

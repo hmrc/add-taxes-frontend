@@ -24,10 +24,12 @@ import views.html.other.gambling.rgd.registerRGD
 
 class RegisterRGDControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new RegisterRGDController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: registerRGD = injector.instanceOf[registerRGD]
 
-  def viewAsString() = registerRGD(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller() =
+    new RegisterRGDController(frontendAppConfig, mcc, FakeAuthAction, FakeServiceInfoAction, view)
+
+  def viewAsString(): Any = new registerRGD(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterRGD Controller" must {
 

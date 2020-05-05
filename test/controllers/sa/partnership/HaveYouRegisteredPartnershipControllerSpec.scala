@@ -16,35 +16,40 @@
 
 package controllers.sa.partnership
 
-import play.api.data.Form
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.FakeServiceInfoAction
 import forms.sa.partnership.HaveYouRegisteredPartnershipFormProvider
 import models.sa.partnership.HaveYouRegisteredPartnership
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.sa.partnership.haveYouRegisteredPartnership
 
 class HaveYouRegisteredPartnershipControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new HaveYouRegisteredPartnershipFormProvider()
-  val form = formProvider()
+  val form: Form[HaveYouRegisteredPartnership] = formProvider()
 
-  def controller() =
+  val view: haveYouRegisteredPartnership = injector.instanceOf[haveYouRegisteredPartnership]
+
+  def controller(): HaveYouRegisteredPartnershipController = {
     new HaveYouRegisteredPartnershipController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    haveYouRegisteredPartnership(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new haveYouRegisteredPartnership(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "HaveYouRegisteredPartnership Controller" must {
 
@@ -82,7 +87,7 @@ class HaveYouRegisteredPartnershipControllerSpec extends ControllerSpecBase {
 
     for (option <- HaveYouRegisteredPartnership.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

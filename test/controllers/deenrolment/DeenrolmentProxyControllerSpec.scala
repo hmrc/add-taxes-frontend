@@ -23,8 +23,14 @@ import utils.Enrolments
 
 class DeenrolmentProxyControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new DeenrolmentProxyController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  def controller(): DeenrolmentProxyController = {
+    new DeenrolmentProxyController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction
+    )
+  }
 
   "DeenrolmentProxy Controller" must {
 

@@ -19,6 +19,7 @@ package controllers.vat.moss.ukbased
 import controllers._
 import controllers.actions._
 import forms.vat.moss.AlreadyRegisteredForVATMossFormProvider
+import models.vat.moss.AlreadyRegisteredForVATMoss
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
@@ -29,24 +30,28 @@ import views.html.vat.moss.alreadyRegisteredForVATMoss
 
 class AlreadyRegisteredForVATMossControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new AlreadyRegisteredForVATMossFormProvider()
-  val form = formProvider()
-  lazy val viewAction =
-    ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossUkVatRegistered")
+  val form: Form[AlreadyRegisteredForVATMoss] = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  val view: alreadyRegisteredForVATMoss = injector.instanceOf[alreadyRegisteredForVATMoss]
+  lazy val viewAction: ViewAction = ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossUkVatRegistered")
+
+  def controller(): AlreadyRegisteredForVATMossController = {
     new AlreadyRegisteredForVATMossController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       FakeAuthAction,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    alreadyRegisteredForVATMoss(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new alreadyRegisteredForVATMoss(formWithCSRF, mainTemplate)(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "AlreadyRegisteredForVATMoss Controller" must {
 

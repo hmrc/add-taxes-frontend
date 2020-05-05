@@ -17,26 +17,39 @@
 package controllers
 
 import base.SpecBase
-import controllers.actions.FakeDataRetrievalAction
+import config.AddTaxesHeaderCarrierForPartialsConverter
+import connectors.ServiceInfoPartialConnector
+import controllers.actions.{FakeAuthAction, FakeDataRetrievalAction, FakeServiceInfoAction}
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import play.api.mvc.AnyContent
+import play.api.mvc.{AnyContent, PlayBodyParsers}
 import play.api.test.FakeRequest
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
 import uk.gov.hmrc.http.cache.client.CacheMap
 
+import scala.concurrent.ExecutionContext.Implicits.global
+
 trait ControllerSpecBase extends SpecBase {
 
   val cacheMapId = "id"
 
-  def emptyCacheMap = CacheMap(cacheMapId, Map())
+  val parser: PlayBodyParsers = injector.instanceOf[PlayBodyParsers]
+  val FakeAuthAction = new FakeAuthAction(parser)
+  val FakeServiceInfoAction: FakeServiceInfoAction = {
+    new FakeServiceInfoAction(
+      injector.instanceOf[ServiceInfoPartialConnector],
+      injector.instanceOf[AddTaxesHeaderCarrierForPartialsConverter]
+    )
+  }
 
-  def getEmptyCacheMap = new FakeDataRetrievalAction(Some(emptyCacheMap))
+  def emptyCacheMap: CacheMap = CacheMap(cacheMapId, Map())
 
-  def dontGetAnyData = new FakeDataRetrievalAction(None)
+  def getEmptyCacheMap = new FakeDataRetrievalAction(Some(emptyCacheMap), global)
+
+  def dontGetAnyData = new FakeDataRetrievalAction(None, global)
 
   def asDocument(s: String): Document = Jsoup.parse(s)
 

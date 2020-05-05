@@ -24,10 +24,20 @@ import views.html.employer.pension.requestActivationToken
 
 class RequestActivationTokenControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new RequestActivationTokenController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: requestActivationToken = injector.instanceOf[requestActivationToken]
 
-  def viewAsString() = requestActivationToken(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): RequestActivationTokenController = {
+    new RequestActivationTokenController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new requestActivationToken(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RequestActivationToken Controller" must {
 

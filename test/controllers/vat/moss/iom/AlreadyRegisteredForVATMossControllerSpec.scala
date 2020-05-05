@@ -17,7 +17,7 @@
 package controllers.vat.moss.iom
 
 import controllers._
-import controllers.actions.{FakeServiceInfoAction, _}
+import controllers.actions.FakeServiceInfoAction
 import forms.vat.moss.AlreadyRegisteredForVATMossFormProvider
 import models.vat.moss.AlreadyRegisteredForVATMoss
 import play.api.data.Form
@@ -30,23 +30,28 @@ import views.html.vat.moss.alreadyRegisteredForVATMoss
 
 class AlreadyRegisteredForVATMossControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new AlreadyRegisteredForVATMossFormProvider()
-  val form = formProvider()
-  val viewAction = ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossNoVatIomVatRegistered")
+  val form: Form[AlreadyRegisteredForVATMoss] = formProvider()
 
-  def controller() =
+  val view: alreadyRegisteredForVATMoss = injector.instanceOf[alreadyRegisteredForVATMoss]
+  val viewAction: ViewAction = ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossNoVatIomVatRegistered")
+
+  def controller(): AlreadyRegisteredForVATMossController = {
     new AlreadyRegisteredForVATMossController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    alreadyRegisteredForVATMoss(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new alreadyRegisteredForVATMoss(formWithCSRF, mainTemplate)(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "AlreadyRegisteredForVATMoss Controller" must {
 
@@ -84,7 +89,7 @@ class AlreadyRegisteredForVATMossControllerSpec extends ControllerSpecBase {
 
     for (option <- AlreadyRegisteredForVATMoss.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

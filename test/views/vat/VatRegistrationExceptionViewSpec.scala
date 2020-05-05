@@ -16,10 +16,10 @@
 
 package views.vat
 
-import play.api.data.Form
 import forms.vat.VatRegistrationExceptionFormProvider
 import models.vat.VatRegistrationException
-import play.twirl.api.HtmlFormat
+import play.api.data.Form
+import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.vat.vatRegistrationException
 
@@ -29,12 +29,13 @@ class VatRegistrationExceptionViewSpec extends ViewBehaviours {
 
   val form = new VatRegistrationExceptionFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView = () => vatRegistrationException(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new vatRegistrationException(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) => vatRegistrationException(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+    new vatRegistrationException(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "VatRegistrationException view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -43,7 +44,8 @@ class VatRegistrationExceptionViewSpec extends ViewBehaviours {
       val doc = asDocument(createViewUsingForm(form))
       assertContainsText(
         doc,
-        "You can apply if your VAT taxable turnover has temporarily gone over the threshold and you do not think it will go over the deregistration threshold of £83,000 in the next 12 months."
+        "You can apply if your VAT taxable turnover has temporarily gone over the threshold and you do not think it " +
+          "will go over the deregistration threshold of £83,000 in the next 12 months."
       )
     }
   }
@@ -53,7 +55,7 @@ class VatRegistrationExceptionViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- VatRegistrationException.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
@@ -62,10 +64,10 @@ class VatRegistrationExceptionViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- VatRegistrationException.options.filterNot(_ == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

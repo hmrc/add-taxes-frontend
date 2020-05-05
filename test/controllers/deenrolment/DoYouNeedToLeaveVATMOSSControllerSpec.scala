@@ -16,45 +16,46 @@
 
 package controllers.deenrolment
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.{FakeLoggingHelper, FakeNavigator}
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
 import forms.deenrolment.DoYouNeedToLeaveVATMOSSFormProvider
-import handlers.FakeErrorHandler
-import identifiers.DoYouNeedToLeaveVATMOSSId
+import handlers.ErrorHandler
 import models.deenrolment.DoYouNeedToLeaveVATMOSS
+import play.api.data.Form
+import play.api.i18n.MessagesApi
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.{FakeLoggingHelper, FakeNavigator}
 import views.html.deenrolment.doYouNeedToLeaveVATMOSS
 
 class DoYouNeedToLeaveVATMOSSControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
-  val serverErrorTemplate = "An error has occurred"
+  implicit val messageAPI: MessagesApi = mcc.messagesApi
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DoYouNeedToLeaveVATMOSSFormProvider()
-  val form = formProvider()
+  val form: Form[DoYouNeedToLeaveVATMOSS] = formProvider()
 
-  def controller(
-    dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap,
-    desiredRoute: Either[String, Call] = Right(onwardRoute)) =
+  val view: doYouNeedToLeaveVATMOSS = injector.instanceOf[doYouNeedToLeaveVATMOSS]
+
+  val errorHandler: ErrorHandler = injector.instanceOf[ErrorHandler]
+
+  def controller(desiredRoute: Either[String, Call] = Right(onwardRoute)): DoYouNeedToLeaveVATMOSSController = {
     new DoYouNeedToLeaveVATMOSSController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Either[String, Call]](desiredRoute = desiredRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider,
-      new FakeErrorHandler(serverErrorTemplate = serverErrorTemplate),
-      new FakeLoggingHelper
+      errorHandler,
+      new FakeLoggingHelper,
+      view
     )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    doYouNeedToLeaveVATMOSS(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doYouNeedToLeaveVATMOSS(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouNeedToLeaveVATMOSS Controller" must {
 
@@ -85,15 +86,15 @@ class DoYouNeedToLeaveVATMOSSControllerSpec extends ControllerSpecBase {
     }
 
     "return OK if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+      val result = controller().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
     }
 
     for (option <- DoYouNeedToLeaveVATMOSS.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
-        val result = controller(dontGetAnyData).onSubmit()(postRequest)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
+        val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -105,7 +106,7 @@ class DoYouNeedToLeaveVATMOSSControllerSpec extends ControllerSpecBase {
       val result = controller(desiredRoute = Left("")).onSubmit()(postRequest)
 
       status(result) mustBe INTERNAL_SERVER_ERROR
-      contentAsString(result) mustBe serverErrorTemplate
+      contentAsString(result) must include("Sorry, we’re experiencing technical difficulties")
     }
   }
 }

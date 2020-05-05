@@ -16,43 +16,45 @@
 
 package controllers.deenrolment
 
-import play.api.data.Form
-import utils.{FakeLoggingHelper, FakeNavigator}
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
 import forms.deenrolment.DoYouNeedToStopMGDFormProvider
-import handlers.FakeErrorHandler
-import identifiers.DoYouNeedToStopMGDId
+import handlers.ErrorHandler
 import models.deenrolment.DoYouNeedToStopMGD
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.{FakeLoggingHelper, FakeNavigator}
 import views.html.deenrolment.doYouNeedToStopMGD
 
 class DoYouNeedToStopMGDControllerControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
   val serverErrorTemplate = "An error has occurred"
 
   val formProvider = new DoYouNeedToStopMGDFormProvider()
-  val form = formProvider()
+  val form: Form[DoYouNeedToStopMGD] = formProvider()
 
-  def controller(
-    dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap,
-    desiredRoute: Either[String, Call] = Right(onwardRoute)) =
+  val errorHandler: ErrorHandler = injector.instanceOf[ErrorHandler]
+
+  val view: doYouNeedToStopMGD = injector.instanceOf[doYouNeedToStopMGD]
+
+  def controller(desiredRoute: Either[String, Call] = Right(onwardRoute)): DoYouNeedToStopMGDController = {
     new DoYouNeedToStopMGDController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Either[String, Call]](desiredRoute = desiredRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider,
-      new FakeErrorHandler(serverErrorTemplate = serverErrorTemplate),
-      new FakeLoggingHelper
+      errorHandler,
+      new FakeLoggingHelper,
+      view
     )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    doYouNeedToStopMGD(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doYouNeedToStopMGD(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouNeedToStopMGDController Controller" must {
 
@@ -83,15 +85,15 @@ class DoYouNeedToStopMGDControllerControllerSpec extends ControllerSpecBase {
     }
 
     "return OK if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+      val result = controller().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
     }
 
     for (option <- DoYouNeedToStopMGD.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
-        val result = controller(dontGetAnyData).onSubmit()(postRequest)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
+        val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -103,7 +105,7 @@ class DoYouNeedToStopMGDControllerControllerSpec extends ControllerSpecBase {
       val result = controller(desiredRoute = Left("")).onSubmit()(postRequest)
 
       status(result) mustBe INTERNAL_SERVER_ERROR
-      contentAsString(result) mustBe serverErrorTemplate
+      contentAsString(result) must include("Sorry, we’re experiencing technical difficulties")
     }
   }
 }

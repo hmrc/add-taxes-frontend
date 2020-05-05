@@ -20,7 +20,7 @@ import controllers.other.importexports.nes.routes._
 import play.api.data.Form
 import forms.other.importexports.nes.DoYouHaveCHIEFRoleFormProvider
 import models.other.importexports.nes.DoYouHaveCHIEFRole
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
 import viewmodels.ViewAction
 import views.behaviours.ViewBehaviours
 import views.html.other.importexports.nes.doYouHaveCHIEFRole
@@ -31,25 +31,17 @@ class DoYouHaveCHIEFRoleViewSpec extends ViewBehaviours {
 
   val form = new DoYouHaveCHIEFRoleFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView =
-    () =>
-      doYouHaveCHIEFRole(
-        frontendAppConfig,
-        form,
-        ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit(), "AddNESHasEori"))(serviceInfoContent)(
-        fakeRequest,
-        messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new doYouHaveCHIEFRole(
+      formWithCSRF, mainTemplate
+    )(frontendAppConfig, form, ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit(), "AddNESHasEori"))(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) =>
-      doYouHaveCHIEFRole(
-        frontendAppConfig,
-        form,
-        ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit(), "AddNESHasEori"))(serviceInfoContent)(
-        fakeRequest,
-        messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+    new doYouHaveCHIEFRole(
+      formWithCSRF, mainTemplate
+    )(frontendAppConfig, form, ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit(), "AddNESHasEori"))(serviceInfoContent)(fakeRequest, messages)
 
   "DoYouHaveCHIEFRole view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -65,7 +57,7 @@ class DoYouHaveCHIEFRoleViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- DoYouHaveCHIEFRole.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
 
@@ -83,10 +75,10 @@ class DoYouHaveCHIEFRoleViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- DoYouHaveCHIEFRole.options.filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

@@ -16,33 +16,31 @@
 
 package controllers.sa
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import connectors.EnrolmentStoreProxyConnector
 import controllers.actions._
 import forms.sa.SAUTRFormProvider
 import identifiers.EnterSAUTRId
+import javax.inject.Inject
 import models.sa.SAUTR
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.{Action, AnyContent, Call}
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.Navigator
 import views.html.sa.enterSAUTR
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class EnterSAUTRController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfo: ServiceInfoAction,
-  formProvider: SAUTRFormProvider,
-  enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector)(implicit val ec: ExecutionContext)
-    extends FrontendController
-    with I18nSupport {
+class EnterSAUTRController @Inject()(appConfig: FrontendAppConfig,
+                                     mcc: MessagesControllerComponents,
+                                     navigator: Navigator[Call],
+                                     authenticate: AuthAction,
+                                     serviceInfo: ServiceInfoAction,
+                                     formProvider: SAUTRFormProvider,
+                                     enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
+                                     enterSAUTR: enterSAUTR)(implicit val ec: ExecutionContext)
+  extends FrontendController(mcc) with I18nSupport {
 
   val form: Form[SAUTR] = formProvider()
 
@@ -51,15 +49,13 @@ class EnterSAUTRController @Inject()(
   }
 
   def onSubmit: Action[AnyContent] = (authenticate andThen serviceInfo).async { implicit request =>
-    form
-      .bindFromRequest()
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[SAUTR]) =>
-          Future(BadRequest(enterSAUTR(appConfig, formWithErrors)(request.serviceInfoContent))),
+        formWithErrors => Future(BadRequest(enterSAUTR(appConfig, formWithErrors)(request.serviceInfoContent))),
         saUTR =>
           enrolmentStoreProxyConnector.checkExistingUTR(saUTR.value).map { enrolmentStoreResult =>
             Redirect(navigator.nextPage(EnterSAUTRId, enrolmentStoreResult))
-        }
+          }
       )
   }
 }

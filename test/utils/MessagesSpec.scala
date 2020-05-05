@@ -24,8 +24,8 @@ class MessagesSpec extends SpecBase {
 
   private lazy val displayLine = "\n" + ("@" * 42) + "\n"
 
-  private lazy val englishMesssages = messagesApi.messages("en")
-  private lazy val welshMessages = messagesApi.messages("cy") -- messagesApi.messages("default").keys
+  private lazy val englishMesssages = mcc.messagesApi.messages("en")
+  private lazy val welshMessages = mcc.messagesApi.messages("cy") -- mcc.messagesApi.messages("default").keys
 
   private def describeMismatch(defaultKeySet: Set[String], welshKeySet: Set[String]): String =
     if (defaultKeySet.size > welshKeySet.size)
@@ -58,12 +58,12 @@ class MessagesSpec extends SpecBase {
 
   "The application" should {
     "have the correct message configs" in {
-      messagesApi.messages.size mustBe 4
-      messagesApi.messages.keys must contain theSameElementsAs Vector("en", "cy", "default", "default.play")
+      mcc.messagesApi.messages.size mustBe 4
+      mcc.messagesApi.messages.keys must contain theSameElementsAs Vector("en", "cy", "default", "default.play")
     }
 
-    "have 46 default play messages" in {
-      messagesApi.messages("default.play").size mustBe 46
+    "have 44 default play messages" in {
+      mcc.messagesApi.messages("default.play").size mustBe 44
     }
 
     "have the same number of message keys in English and Welsh" in {

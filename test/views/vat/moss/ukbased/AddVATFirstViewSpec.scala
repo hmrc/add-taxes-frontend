@@ -16,11 +16,9 @@
 
 package views.vat.moss.ukbased
 
-import org.scalatest.mockito.MockitoSugar
-import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
+import org.scalatestplus.mockito.MockitoSugar
 import play.twirl.api.HtmlFormat
-import utils.Enrolments
 import views.behaviours.ViewBehaviours
 import views.html.vat.moss.ukbased.addVATFirst
 
@@ -28,7 +26,8 @@ class AddVATFirstViewSpec extends ViewBehaviours with MockitoSugar with BeforeAn
 
   val messageKeyPrefix = "addVATFirst"
 
-  def createView = () => addVATFirst(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new addVATFirst(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "AddVATFirst view" must {
     behave like normalPage(createView, messageKeyPrefix)

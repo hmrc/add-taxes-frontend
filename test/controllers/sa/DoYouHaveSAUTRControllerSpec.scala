@@ -16,38 +16,40 @@
 
 package controllers.sa
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.FakeServiceInfoAction
 import forms.sa.DoYouHaveSAUTRFormProvider
-import identifiers.DoYouHaveSAUTRId
 import models.sa.DoYouHaveSAUTR
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.sa.doYouHaveSAUTR
 
 class DoYouHaveSAUTRControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DoYouHaveSAUTRFormProvider()
-  val form = formProvider()
+  val form: Form[DoYouHaveSAUTR] = formProvider()
 
-  def controller() =
+  val view: doYouHaveSAUTR = injector.instanceOf[doYouHaveSAUTR]
+
+  def controller(): DoYouHaveSAUTRController = {
     new DoYouHaveSAUTRController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    doYouHaveSAUTR(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doYouHaveSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouHaveSAUTR Controller" must {
 
@@ -85,7 +87,7 @@ class DoYouHaveSAUTRControllerSpec extends ControllerSpecBase {
 
     for (option <- DoYouHaveSAUTR.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

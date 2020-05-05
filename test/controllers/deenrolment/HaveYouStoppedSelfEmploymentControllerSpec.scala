@@ -31,22 +31,26 @@ import views.html.deenrolment.haveYouStoppedSelfEmployment
 
 class HaveYouStoppedSelfEmploymentControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new HaveYouStoppedSelfEmploymentFormProvider()
-  val form = formProvider()
+  val form: Form[HaveYouStoppedSelfEmployment] = formProvider()
+
+  val view: haveYouStoppedSelfEmployment = injector.instanceOf[haveYouStoppedSelfEmployment]
 
   def controller()(enrolmentTypes: HmrcEnrolmentType*) =
     new HaveYouStoppedSelfEmploymentController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction(enrolmentTypes: _*),
-      formProvider)
+      formProvider,
+      view
+    )
 
-  def viewAsString(form: Form[_] = form) =
-    haveYouStoppedSelfEmployment(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new haveYouStoppedSelfEmployment(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "HaveYouStoppedSelfEmployment Controller" must {
 

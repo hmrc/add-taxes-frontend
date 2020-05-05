@@ -16,46 +16,42 @@
 
 package controllers.vat
 
-import javax.inject.Inject
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Call
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
 import forms.vat.ClaimRefundFormProvider
 import identifiers.ClaimRefundId
+import javax.inject.Inject
+import models.vat.ClaimRefund
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import playconfig.featuretoggle.NewVatJourney
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.vat.claimRefund
 
-import scala.concurrent.Future
+class ClaimRefundController @Inject()(appConfig: FrontendAppConfig,
+                                      mcc: MessagesControllerComponents,
+                                      navigator: Navigator[Call],
+                                      authenticate: AuthAction,
+                                      serviceInfoData: ServiceInfoAction,
+                                      formProvider: ClaimRefundFormProvider,
+                                      featureDepandantAction: FeatureDependantAction,
+                                      claimRefund: claimRefund)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-class ClaimRefundController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: ClaimRefundFormProvider,
-  featureDepandantAction: FeatureDependantAction)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+  val form: Form[ClaimRefund] = formProvider()
 
-  val form = formProvider()
-
-  def onPageLoad() = (authenticate andThen serviceInfoData andThen featureDepandantAction.permitFor(NewVatJourney)) {
-    implicit request =>
+  def onPageLoad(): Action[AnyContent] =
+    (authenticate andThen serviceInfoData andThen featureDepandantAction.permitFor(NewVatJourney)) { implicit request =>
       Ok(claimRefund(appConfig, form)(request.serviceInfoContent))
-  }
+    }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) => BadRequest(claimRefund(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(ClaimRefundId, value))
+        formWithErrors => BadRequest(claimRefund(appConfig, formWithErrors)(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(ClaimRefundId, value))
       )
   }
 }

@@ -16,53 +16,48 @@
 
 package controllers.other.land
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, HmrcEnrolmentType, Navigator}
 import forms.other.land.SelectATaxFormProvider
 import identifiers.SelectATaxId
+import javax.inject.Inject
 import models.other.land.SelectATax
 import models.requests.ServiceInfoRequest
-import play.api.mvc.{AnyContent, Call}
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, HmrcEnrolmentType, Navigator, RadioOption}
 import views.html.other.land.selectATax
 
-class SelectATaxController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: SelectATaxFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class SelectATaxController @Inject()(appConfig: FrontendAppConfig,
+                                     mcc: MessagesControllerComponents,
+                                     navigator: Navigator[Call],
+                                     authenticate: AuthAction,
+                                     serviceInfoData: ServiceInfoAction,
+                                     formProvider: SelectATaxFormProvider,
+                                     selectATax: selectATax)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[SelectATax] = formProvider()
 
-  val optionsWithoutSDLT = SelectATax.options.filterNot(_.value == SelectATax.SDLT.toString)
+  val optionsWithoutSDLT: Set[RadioOption] = SelectATax.options.filterNot(_.value == SelectATax.SDLT.toString)
 
-  def radioOptions(implicit request: ServiceInfoRequest[AnyContent]) =
+  private def radioOptions(implicit request: ServiceInfoRequest[AnyContent]): Set[RadioOption] =
     request.request.enrolments match {
       case HmrcEnrolmentType.SDLT() => optionsWithoutSDLT
       case _                        => SelectATax.options
     }
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(selectATax(appConfig, form, radioOptions)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          BadRequest(selectATax(appConfig, formWithErrors, radioOptions)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(SelectATaxId, value))
+        formWithErrors => BadRequest(selectATax(appConfig, formWithErrors, radioOptions)(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(SelectATaxId, value))
       )
   }
 }

@@ -16,131 +16,130 @@
 
 package controllers
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import forms.OtherTaxesFormProvider
 import identifiers.OtherTaxesId
+import javax.inject.Inject
+import models.OtherTaxes
 import models.OtherTaxes._
 import models.requests.ServiceInfoRequest
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.{AnyContent, Call}
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
+import uk.gov.hmrc.auth.core.{Enrolments => CoreEnrolments}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enrolments, Enumerable, Navigator, RadioOption}
 import views.html.{organisation_only, otherTaxes}
 
 import scala.concurrent.Future
 
-class OtherTaxesController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: OtherTaxesFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class OtherTaxesController @Inject()(appConfig: FrontendAppConfig,
+                                     mcc: MessagesControllerComponents,
+                                     navigator: Navigator[Call],
+                                     authenticate: AuthAction,
+                                     serviceInfoData: ServiceInfoAction,
+                                     formProvider: OtherTaxesFormProvider,
+                                     otherTaxes: otherTaxes,
+                                     organisation_only: organisation_only)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[OtherTaxes] = formProvider()
 
-  def getOptions(implicit r: ServiceInfoRequest[AnyContent]): Seq[RadioOption] = {
-    val checks = Seq(
+  private[controllers] def getOptions(implicit r: ServiceInfoRequest[AnyContent]): Seq[RadioOption] = {
+    val checks: Seq[CoreEnrolments => Option[RadioOption]] = Seq(
       checkAlcohol,
       checkAutomaticExchangeOfInformation,
       checkCharities,
       checkGamblingAndGaming,
       checkOilAndFuel,
       checkFulfilmentHouse,
-      checkChildTrustFund)
-    val defaultRadioOptions: Seq[RadioOption] =
-      Seq(HousingAndLand, ImportsExports, PODS).map(_.toRadioOption)
+      checkChildTrustFund
+    )
+    val defaultRadioOptions: Seq[RadioOption] = Seq(HousingAndLand, ImportsExports, PODS).map(_.toRadioOption)
     val unsortedRadioOptions: Seq[RadioOption] = checks.flatMap(_.apply(r.request.enrolments)) ++ defaultRadioOptions
+
     unsortedRadioOptions.sortBy(_.value)
   }
 
-  private def checkAlcohol: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
-    (_: uk.gov.hmrc.auth.core.Enrolments) => (Some(AlcoholAndTobacco.toRadioOption))
+  private val checkAlcohol: CoreEnrolments => Option[RadioOption] =
+    (_: CoreEnrolments) => Some(AlcoholAndTobacco.toRadioOption)
 
-  private def checkAlcoholWholesalerRegistrationScheme: (uk.gov.hmrc.auth.core.Enrolments) => Boolean =
-    _.getEnrolment(Enrolments.AWRS.toString).isDefined
+  //TODO Should these be used?
+//  private val checkAlcoholWholesalerRegistrationScheme: CoreEnrolments => Boolean =
+//    _.getEnrolment(Enrolments.AWRS.toString).isDefined
+//
+//  private val checkAlcoholAndTobaccoWarehousingDeclarations: CoreEnrolments => Boolean =
+//    _.getEnrolment(Enrolments.ATWD.toString).isDefined
 
-  private def checkAlcoholAndTobaccoWarehousingDeclarations: (uk.gov.hmrc.auth.core.Enrolments) => Boolean =
-    _.getEnrolment(Enrolments.ATWD.toString).isDefined
-
-  private def checkAutomaticExchangeOfInformation: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
+  private val checkAutomaticExchangeOfInformation: CoreEnrolments => Option[RadioOption] =
     _.getEnrolment(Enrolments.AEOI.toString)
       .fold[Option[RadioOption]](Some(AutomaticExchangeOfInformation.toRadioOption))(_ => None)
 
-  private def checkCharities: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
+  private val checkCharities: CoreEnrolments => Option[RadioOption] =
     _.getEnrolment(Enrolments.Charities.toString)
       .fold[Option[RadioOption]](Some(Charities.toRadioOption))(_ => None)
 
-  private def checkGamblingAndGaming: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] = {
-    (enrolments: uk.gov.hmrc.auth.core.Enrolments) =>
-      val checks = List(
-        checkMachineGamingDuty,
-        checkGeneralBetting,
-        checkRemoteGaming,
-        checkPoolBetting
-      )
+  private val checkGamblingAndGaming: CoreEnrolments => Option[RadioOption] = { (enrolments: CoreEnrolments) =>
+    val checks = List(
+      checkMachineGamingDuty,
+      checkGeneralBetting,
+      checkRemoteGaming,
+      checkPoolBetting
+    )
 
-      if (checks.map(_.apply(enrolments)).forall(_ == true)) None
-      else Some(GamblingAndGaming.toRadioOption)
+    if (checks.forall(_.apply(enrolments))) None else Some(GamblingAndGaming.toRadioOption)
   }
 
-  private def checkMachineGamingDuty: (uk.gov.hmrc.auth.core.Enrolments) => Boolean =
+  private val checkMachineGamingDuty: CoreEnrolments => Boolean =
     _.getEnrolment(Enrolments.MachineGamingDuty.toString).isDefined
 
-  private def checkGeneralBetting: (uk.gov.hmrc.auth.core.Enrolments) => Boolean =
+  private val checkGeneralBetting: CoreEnrolments => Boolean =
     _.getEnrolment(Enrolments.GeneralBetting.toString).isDefined
 
-  private def checkRemoteGaming: (uk.gov.hmrc.auth.core.Enrolments) => Boolean =
+  private val checkRemoteGaming: CoreEnrolments => Boolean =
     _.getEnrolment(Enrolments.RemoteGaming.toString).isDefined
 
-  private def checkPoolBetting: (uk.gov.hmrc.auth.core.Enrolments) => Boolean =
+  private val checkPoolBetting: CoreEnrolments => Boolean =
     _.getEnrolment(Enrolments.PoolBetting.toString).isDefined
 
-  private def checkOilAndFuel: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
-    (enrolments: uk.gov.hmrc.auth.core.Enrolments) =>
+  private val checkOilAndFuel: CoreEnrolments => Option[RadioOption] =
+    (enrolments: CoreEnrolments) =>
       if (checkRebatedOils(enrolments) && checkTiedOils(enrolments)) {
         None
       } else {
         Some(OilAndFuel.toRadioOption)
     }
 
-  private def checkRebatedOils: (uk.gov.hmrc.auth.core.Enrolments) => Boolean =
+  private val checkRebatedOils: CoreEnrolments => Boolean =
     _.getEnrolment(Enrolments.RebatedOils.toString).isDefined
 
-  private def checkTiedOils: (uk.gov.hmrc.auth.core.Enrolments) => Boolean =
+  private val checkTiedOils: CoreEnrolments => Boolean =
     _.getEnrolment(Enrolments.TiedOils.toString).isDefined
 
-  private def checkFulfilmentHouse: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
+  private val checkFulfilmentHouse: CoreEnrolments => Option[RadioOption] =
     _.getEnrolment(Enrolments.OtherBusinessTaxDutyScheme.toString)
       .flatMap(_.getIdentifier(Enrolments.OtherBusinessTaxDutyScheme.FulfilmentHouseDueDiligenceSchemeIdentifier))
       .fold(Option(FulfilmentHouseDueDiligenceSchemeIntegration.toRadioOption))(_ => None)
 
-  private def checkChildTrustFund: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
+  private val checkChildTrustFund: CoreEnrolments => Option[RadioOption] =
     _.getEnrolment(Enrolments.CTF.toString)
       .fold[Option[RadioOption]](Some(ChildTrustFund.toRadioOption))(_ => None)
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     request.request.affinityGroup match {
       case Some(Organisation) => Ok(otherTaxes(appConfig, form, getOptions)(request.serviceInfoContent))
       case _                  => Ok(organisation_only(appConfig)(request.serviceInfoContent))
     }
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
+        formWithErrors =>
           Future.successful(BadRequest(otherTaxes(appConfig, formWithErrors, getOptions)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(OtherTaxesId, value)))
+        value => Future.successful(Redirect(navigator.nextPage(OtherTaxesId, value)))
       )
   }
 }

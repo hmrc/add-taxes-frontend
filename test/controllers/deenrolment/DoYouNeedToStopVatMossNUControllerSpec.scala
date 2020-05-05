@@ -16,12 +16,13 @@
 
 package controllers.deenrolment
 
+import config.FrontendAppConfig
 import controllers._
-import controllers.actions._
 import forms.deenrolment.DoYouNeedToStopVatMossNUFormProvider
-import handlers.FakeErrorHandler
+import handlers.ErrorHandler
 import models.deenrolment.DoYouNeedToStopVatMossNU
 import play.api.data.Form
+import play.api.i18n.MessagesApi
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
@@ -30,29 +31,34 @@ import views.html.deenrolment.doYouNeedToStopVatMossNU
 
 class DoYouNeedToStopVatMossNUControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
   val serverErrorTemplate = "An error has occurred"
 
-  val formProvider = new DoYouNeedToStopVatMossNUFormProvider()
-  val form = formProvider()
+  implicit val messagesAPI: MessagesApi = mcc.messagesApi
+  implicit val config: FrontendAppConfig = frontendAppConfig
 
-  def controller(
-    dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap,
-    desiredRoute: Either[String, Call] = Right(onwardRoute)
-  ) =
+  val view: doYouNeedToStopVatMossNU = injector.instanceOf[doYouNeedToStopVatMossNU]
+
+  val errorHandler: ErrorHandler = injector.instanceOf[ErrorHandler]
+
+  val formProvider = new DoYouNeedToStopVatMossNUFormProvider()
+  val form: Form[DoYouNeedToStopVatMossNU] = formProvider()
+
+  def controller(desiredRoute: Either[String, Call] = Right(onwardRoute)) =
     new DoYouNeedToStopVatMossNUController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Either[String, Call]](desiredRoute = desiredRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider,
-      new FakeErrorHandler(serverErrorTemplate = serverErrorTemplate),
-      new FakeLoggingHelper
+      errorHandler,
+      new FakeLoggingHelper,
+      view
     )
 
-  def viewAsString(form: Form[_] = form) =
-    doYouNeedToStopVatMossNU(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doYouNeedToStopVatMossNU(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouNeedToStopVatMossNU Controller" must {
 
@@ -90,7 +96,7 @@ class DoYouNeedToStopVatMossNUControllerSpec extends ControllerSpecBase {
 
     for (option <- DoYouNeedToStopVatMossNU.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

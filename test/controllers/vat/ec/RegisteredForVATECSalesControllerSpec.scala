@@ -30,23 +30,28 @@ import views.html.vat.registeredForVAT
 
 class RegisteredForVATECSalesControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new RegisteredForVATFormProvider()
-  val form = formProvider()
-  lazy val viewAction = ViewAction(routes.RegisteredForVATECSalesController.onSubmit(), "VatECNoVat")
+  val form: Form[RegisteredForVAT] = formProvider()
 
-  def controller() =
+  val view: registeredForVAT = injector.instanceOf[registeredForVAT]
+  lazy val viewAction: ViewAction = ViewAction(routes.RegisteredForVATECSalesController.onSubmit(), "VatECNoVat")
+
+  def controller(): RegisteredForVATECSalesController = {
     new RegisteredForVATECSalesController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    registeredForVAT(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new registeredForVAT(formWithCSRF, mainTemplate)(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisteredForVATECSales Controller" must {
 
@@ -84,7 +89,7 @@ class RegisteredForVATECSalesControllerSpec extends ControllerSpecBase {
 
     for (option <- RegisteredForVAT.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

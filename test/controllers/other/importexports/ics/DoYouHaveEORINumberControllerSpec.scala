@@ -16,39 +16,45 @@
 
 package controllers.other.importexports.ics
 
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers.ControllerSpecBase
+import controllers.actions.FakeServiceInfoAction
+import controllers.other.importexports.ics.routes._
+import controllers.routes._
+import forms.other.importexports.DoYouHaveEORINumberFormProvider
 import models.other.importexports.DoYouHaveEORINumber
 import play.api.data.Form
+import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
-import views.html.other.importexports.doYouHaveEORINumber
-import controllers.routes._
-import forms.other.importexports.DoYouHaveEORINumberFormProvider
 import viewmodels.ViewAction
-import controllers.other.importexports.ics.routes._
-import play.api.mvc.Call
+import views.html.other.importexports.doYouHaveEORINumber
 
 class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = IndexController.onPageLoad()
+  def onwardRoute: Call = IndexController.onPageLoad()
 
   val formProvider = new DoYouHaveEORINumberFormProvider()
-  val form = formProvider()
+  val form: Form[DoYouHaveEORINumber] = formProvider()
 
-  def controller() =
+  val view: doYouHaveEORINumber = injector.instanceOf[doYouHaveEORINumber]
+
+  def controller(): DoYouHaveEORINumberController = {
     new DoYouHaveEORINumberController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    doYouHaveEORINumber(frontendAppConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddICSTax"))(
-      HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doYouHaveEORINumber(
+      formWithCSRF, mainTemplate
+    )(frontendAppConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddICSTax"))(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "EconomicOperatorsRegistrationAndIdentification Controller" must {
 
@@ -85,7 +91,7 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (DoYouHaveEORINumber.options.head.value)))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveEORINumber.options.head.value))
       val result = controller().onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER

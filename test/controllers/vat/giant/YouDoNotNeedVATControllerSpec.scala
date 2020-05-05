@@ -24,10 +24,20 @@ import views.html.vat.giant.youDoNotNeedVAT
 
 class YouDoNotNeedVATControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new YouDoNotNeedVATController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: youDoNotNeedVAT = injector.instanceOf[youDoNotNeedVAT]
 
-  def viewAsString() = youDoNotNeedVAT(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): YouDoNotNeedVATController = {
+    new YouDoNotNeedVATController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new youDoNotNeedVAT(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "YouDoNotNeedVAT Controller" must {
 

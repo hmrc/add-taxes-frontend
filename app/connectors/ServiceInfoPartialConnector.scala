@@ -16,9 +16,8 @@
 
 package connectors
 
-import javax.inject.{Inject, Singleton}
-
 import config.FrontendAppConfig
+import javax.inject.{Inject, Singleton}
 import play.api.Logger
 import play.twirl.api.Html
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
@@ -26,20 +25,19 @@ import uk.gov.hmrc.play.partials.HtmlPartial._
 import uk.gov.hmrc.play.partials.{HeaderCarrierForPartials, HtmlPartial}
 
 import scala.concurrent.{ExecutionContext, Future}
+
 @Singleton
 class ServiceInfoPartialConnector @Inject()(val http: HttpClient, val config: FrontendAppConfig) {
 
   lazy val btaUrl: String = config.btaUrl + "/business-account/partial/service-info"
 
-  def getServiceInfoPartial()(
-    implicit hcwc: HeaderCarrierForPartials,
-    executionContext: ExecutionContext): Future[Html] =
-    http.GET[HtmlPartial](s"$btaUrl")(hc = hcwc.toHeaderCarrier, rds = readsPartial, ec = executionContext) recover connectionExceptionsAsHtmlPartialFailure map {
-      p =>
-        p.successfulContentOrEmpty
-    } recover {
-      case _ =>
-        Logger.warn(s"[ServiceInfoPartialConnector][getServiceInfoPartial] - Unexpected future failed error")
-        Html("")
-    }
+  def getServiceInfoPartial()(implicit hcwc: HeaderCarrierForPartials, executionContext: ExecutionContext): Future[Html] =
+    http.GET[HtmlPartial](s"$btaUrl")(hc = hcwc.toHeaderCarrier, rds = readsPartial, ec = executionContext)
+      .recover(connectionExceptionsAsHtmlPartialFailure)
+      .map(_.successfulContentOrEmpty)
+      .recover {
+        case _ =>
+          Logger.warn(s"[ServiceInfoPartialConnector][getServiceInfoPartial] - Unexpected future failed error")
+          Html("")
+      }
 }

@@ -20,12 +20,12 @@ import forms.behaviours.FormBehaviours
 import generators.ModelGenerators
 import models.sa.SAUTR
 import models.{Field, Required}
-import org.scalacheck.{Gen, Shrink}
 import org.scalacheck.Gen._
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalacheck.{Gen, Shrink}
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import play.api.data.Form
 
-class SAUTRFormProviderSpec extends FormBehaviours with GeneratorDrivenPropertyChecks with ModelGenerators {
+class SAUTRFormProviderSpec extends FormBehaviours with ScalaCheckDrivenPropertyChecks with ModelGenerators {
 
   implicit val noShrink: Shrink[String] = Shrink.shrinkAny
 
@@ -44,7 +44,7 @@ class SAUTRFormProviderSpec extends FormBehaviours with GeneratorDrivenPropertyC
   val invalidLengthGen: Gen[String] =
     saUtrGen(
       listOf(choose(min, max)),
-      (p: List[_]) => p.length != (utrLength) && p.length != utrLengthExtended && p.nonEmpty)
+      (p: List[_]) => p.length != utrLength && p.length != utrLengthExtended && p.nonEmpty)
 
   val invalidCharGen: Gen[String] = saUtrGen(listOfN(utrLength, asciiChar), (p: List[Any]) => !p.contains(' '))
 

@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import models.vat.DoYouHaveVATRegNumber
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.Call
 import playconfig.featuretoggle.{FeatureToggleSupport, NewVatJourney}
 import uk.gov.hmrc.auth.core.AffinityGroup

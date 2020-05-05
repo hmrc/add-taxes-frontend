@@ -16,20 +16,24 @@
 
 package controllers
 
+import play.api.i18n.Lang
 import play.api.test.Helpers._
 import views.html.index
 
 class IndexControllerSpec extends ControllerSpecBase {
 
+  implicit val lang: Lang = Lang("en")
+  val view: index = injector.instanceOf[index]
+
   "Index Controller" must {
     "return 200 for a GET" in {
-      val result = new IndexController(frontendAppConfig, messagesApi).onPageLoad()(fakeRequest)
+      val result = new IndexController(frontendAppConfig, mcc, view).onPageLoad()(fakeRequest)
       status(result) mustBe OK
     }
 
     "return the correct view for a GET" in {
-      val result = new IndexController(frontendAppConfig, messagesApi).onPageLoad()(fakeRequest)
-      contentAsString(result) mustBe index(frontendAppConfig)(fakeRequest, messages).toString
+      val result = new IndexController(frontendAppConfig, mcc, view).onPageLoad()(fakeRequest)
+      contentAsString(result) mustBe new index(formWithCSRF, mainTemplate)(frontendAppConfig)(fakeRequest, messages).toString
     }
   }
 }

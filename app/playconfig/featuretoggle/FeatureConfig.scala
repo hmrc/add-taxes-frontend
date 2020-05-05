@@ -17,21 +17,17 @@
 package playconfig.featuretoggle
 
 import javax.inject.Inject
-import play.api.Environment
-import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.util.Try
 
-class FeatureConfig @Inject()(override val runModeConfiguration: play.api.Configuration, environment: Environment)
-    extends ServicesConfig {
-
-  override protected def mode: play.api.Mode.Mode = environment.mode
+class FeatureConfig @Inject()(config: ServicesConfig) {
 
   def isEnabled(feature: Feature): Boolean =
     sys.props
       .get(feature.toString)
       .flatMap(prop => Try(prop.toBoolean).toOption)
-      .orElse(runModeConfiguration.getBoolean(feature.toString))
+      .orElse(Some(config.getBoolean(feature.toString)))
       .getOrElse(false)
 
 }

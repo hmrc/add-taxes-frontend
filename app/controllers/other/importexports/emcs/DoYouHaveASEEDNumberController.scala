@@ -16,45 +16,42 @@
 
 package controllers.other.importexports.emcs
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import forms.other.importexports.emcs.DoYouHaveASEEDNumberFormProvider
 import identifiers.DoYouHaveASEEDNumberId
+import javax.inject.Inject
+import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Call
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import views.html.other.importexports.emcs.doYouHaveASEEDNumber
 
 import scala.concurrent.Future
 
-class DoYouHaveASEEDNumberController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: DoYouHaveASEEDNumberFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class DoYouHaveASEEDNumberController @Inject()(appConfig: FrontendAppConfig,
+                                               mcc: MessagesControllerComponents,
+                                               navigator: Navigator[Call],
+                                               authenticate: AuthAction,
+                                               serviceInfoData: ServiceInfoAction,
+                                               formProvider: DoYouHaveASEEDNumberFormProvider,
+                                               doYouHaveASEEDNumber: doYouHaveASEEDNumber)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[DoYouHaveASEEDNumber] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(doYouHaveASEEDNumber(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
+        formWithErrors =>
           Future.successful(BadRequest(doYouHaveASEEDNumber(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(DoYouHaveASEEDNumberId, value)))
+        value => Future.successful(Redirect(navigator.nextPage(DoYouHaveASEEDNumberId, value)))
       )
   }
 }

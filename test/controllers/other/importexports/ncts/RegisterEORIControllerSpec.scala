@@ -16,28 +16,28 @@
 
 package controllers.other.importexports.ncts
 
-import controllers._
+import controllers.ControllerSpecBase
 import controllers.actions._
-import controllers.routes._
-import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import utils.FakeNavigator
 import views.html.other.importexports.ncts.registerEORI
 
 class RegisterEORIControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = IndexController.onPageLoad()
+  val view: registerEORI = injector.instanceOf[registerEORI]
 
-  def controller() =
+  def controller(): RegisterEORIController = {
     new RegisterEORIController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       FakeAuthAction,
       FakeServiceInfoAction,
-      new FakeNavigator[Call](desiredRoute = onwardRoute))
+      view
+    )
+  }
 
-  def viewAsString() = registerEORI(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(): String =
+    new registerEORI(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterEORI Controller" must {
 

@@ -17,15 +17,15 @@
 package controllers.enrolment
 
 import controllers.ControllerSpecBase
+import controllers.actions.FakeServiceInfoAction
 import play.api.test.Helpers._
-import controllers.actions.{FakeAuthAction, FakeServiceInfoAction}
 import utils.Enrolments
 
 class EnrolmentProxyControllerSpec extends ControllerSpecBase {
 
   "EnrolmentProxy Controller" must {
 
-    val controller = new EnrolmentProxyController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+    val controller = new EnrolmentProxyController(frontendAppConfig, mcc, FakeAuthAction, FakeServiceInfoAction)
 
     "redirect to enrolment management for Individual Shared Workspace" in {
       val result = controller.onPageLoad(Enrolments.ECW)(fakeRequest)

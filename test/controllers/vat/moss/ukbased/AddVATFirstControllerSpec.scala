@@ -18,20 +18,27 @@ package controllers.vat.moss.ukbased
 
 import controllers._
 import controllers.actions._
+import org.scalatest.BeforeAndAfterEach
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import utils.Enrolments
 import views.html.vat.moss.ukbased.addVATFirst
-import org.scalatest.mockito.MockitoSugar
-import org.mockito.Mockito._
-import org.scalatest.BeforeAndAfterEach
 
 class AddVATFirstControllerSpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach {
 
-  def controller() =
-    new AddVATFirstController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: addVATFirst = injector.instanceOf[addVATFirst]
 
-  def viewAsString() = addVATFirst(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): AddVATFirstController = {
+    new AddVATFirstController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String = new addVATFirst(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "AddVATFirst Controller" must {
     "return OK and the correct view for a GET" in {

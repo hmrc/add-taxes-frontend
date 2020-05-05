@@ -24,7 +24,8 @@ class RegisterForPAYEViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "registerForPAYEIntermediaries"
 
-  def createView = () => registerForPAYE(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new registerForPAYE(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "RegisterForPAYE view" must {
     behave like normalPage(createView, messageKeyPrefix)

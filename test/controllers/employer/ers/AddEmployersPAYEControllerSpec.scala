@@ -24,10 +24,20 @@ import views.html.employer.ers.addEmployersPAYE
 
 class AddEmployersPAYEControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new AddEmployersPAYEController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: addEmployersPAYE = injector.instanceOf[addEmployersPAYE]
 
-  def viewAsString() = addEmployersPAYE(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): AddEmployersPAYEController = {
+    new AddEmployersPAYEController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new addEmployersPAYE(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "AddEmployersPAYE Controller" must {
     "return OK and the correct view for a GET" in {

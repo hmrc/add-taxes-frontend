@@ -7,7 +7,7 @@ import com.typesafe.sbt.web.Import._
 import net.ground5hark.sbt.concat.Import._
 import com.typesafe.sbt.uglify.Import._
 import com.typesafe.sbt.digest.Import._
-import com.lucidchart.sbt.scalafmt.ScalafmtCorePlugin.autoImport._
+import play.twirl.sbt.Import.TwirlKeys
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
 trait MicroService {
@@ -23,7 +23,7 @@ trait MicroService {
 
   val appName: String
 
-  lazy val appDependencies : Seq[ModuleID] = ???
+  lazy val appDependencies : Seq[ModuleID] = Seq()
   lazy val plugins : Seq[Plugins] = Seq.empty
   lazy val playSettings : Seq[Setting[_]] = Seq.empty
 
@@ -65,8 +65,7 @@ trait MicroService {
       unmanagedSourceDirectories in IntegrationTest <<= (baseDirectory in IntegrationTest)(base => Seq(base / "it")),
       addTestReportOption(IntegrationTest, "int-test-reports"),
       testGrouping in IntegrationTest := oneForkedJvmPerTest((definedTests in IntegrationTest).value),
-      parallelExecution in IntegrationTest := false,
-      scalafmtOnCompile in ThisBuild := true
+      parallelExecution in IntegrationTest := false
     )
       .settings(resolvers ++= Seq(
         Resolver.bintrayRepo("hmrc", "releases"),
@@ -74,12 +73,17 @@ trait MicroService {
         Resolver.bintrayRepo("emueller", "maven")
       ))
     .settings(
+      TwirlKeys.templateImports ++= Seq(
+        "uk.gov.hmrc.play.views.html.helpers._"
+      )
+    )
+    .settings(
       // concatenate js
       Concat.groups := Seq(
         "javascripts/addtaxesfrontend-app.js" -> group(Seq("javascripts/show-hide-content.js", "javascripts/addtaxesfrontend.js"))
       ),
       // prevent removal of unused code which generates warning errors due to use of third-party libs
-      UglifyKeys.compressOptions := Seq("unused=false", "dead_code=false"),
+      uglifyCompressOptions := Seq("unused=false", "dead_code=false"),
       pipelineStages := Seq(digest),
       // below line required to force asset pipeline to operate in dev rather than only prod
       pipelineStages in Assets := Seq(concat,uglify),
@@ -96,8 +100,8 @@ trait MicroService {
 
 private object TestPhases {
 
-  def oneForkedJvmPerTest(tests: Seq[TestDefinition]) =
+  def oneForkedJvmPerTest(tests: Seq[TestDefinition]): Seq[Group] =
     tests map {
-      test => new Group(test.name, Seq(test), SubProcess(ForkOptions(runJVMOptions = Seq("-Dtest.name=" + test.name))))
+      test => Group(test.name, Seq(test), SubProcess(ForkOptions(runJVMOptions = Seq("-Dtest.name=" + test.name))))
     }
 }

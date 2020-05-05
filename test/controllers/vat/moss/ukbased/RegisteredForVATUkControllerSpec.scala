@@ -16,38 +16,40 @@
 
 package controllers.vat.moss.ukbased
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.FakeServiceInfoAction
 import forms.vat.moss.uk.RegisteredForVATUkFormProvider
-import identifiers.RegisteredForVATUkId
 import models.vat.moss.uk.RegisteredForVATUk
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.vat.moss.ukbased.registeredForVATUk
 
 class RegisteredForVATUkControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new RegisteredForVATUkFormProvider()
-  val form = formProvider()
+  val form: Form[RegisteredForVATUk] = formProvider()
 
-  def controller() =
+  val view: registeredForVATUk = injector.instanceOf[registeredForVATUk]
+
+  def controller(): RegisteredForVATUkController = {
     new RegisteredForVATUkController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    registeredForVATUk(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new registeredForVATUk(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisteredForVATUk Controller" must {
 
@@ -85,7 +87,7 @@ class RegisteredForVATUkControllerSpec extends ControllerSpecBase {
 
     for (option <- RegisteredForVATUk.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

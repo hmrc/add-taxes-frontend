@@ -19,7 +19,7 @@ package views.vat
 import play.api.data.Form
 import forms.vat.WhichVATServicesToAddFormProvider
 import models.vat.WhichVATServicesToAdd
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.vat.whichVATServicesToAdd
 
@@ -29,19 +29,13 @@ class WhichVATServicesToAddViewSpec extends ViewBehaviours {
 
   val form = new WhichVATServicesToAddFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView =
-    () =>
-      whichVATServicesToAdd(frontendAppConfig, form, WhichVATServicesToAdd.options)(serviceInfoContent)(
-        fakeRequest,
-        messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+      new whichVATServicesToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, WhichVATServicesToAdd.options)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) =>
-      whichVATServicesToAdd(frontendAppConfig, form, WhichVATServicesToAdd.options)(serviceInfoContent)(
-        fakeRequest,
-        messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+      new whichVATServicesToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, WhichVATServicesToAdd.options)(serviceInfoContent)(fakeRequest, messages)
 
   "WhichVATServicesToAdd view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -57,7 +51,7 @@ class WhichVATServicesToAddViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- WhichVATServicesToAdd.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
@@ -66,10 +60,10 @@ class WhichVATServicesToAddViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- WhichVATServicesToAdd.options.filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

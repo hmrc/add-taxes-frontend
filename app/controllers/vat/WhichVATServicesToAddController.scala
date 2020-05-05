@@ -21,50 +21,43 @@ import controllers.actions._
 import forms.vat.WhichVATServicesToAddFormProvider
 import identifiers.WhichVATServicesToAddId
 import javax.inject.Inject
-
 import models.requests.ServiceInfoRequest
 import models.vat.WhichVATServicesToAdd
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.{AnyContent, Call}
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enrolments, Enumerable, HmrcEnrolmentType, Navigator}
+import utils.{Enumerable, HmrcEnrolmentType, Navigator, RadioOption}
 import views.html.vat.whichVATServicesToAdd
 
-class WhichVATServicesToAddController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: WhichVATServicesToAddFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class WhichVATServicesToAddController @Inject()(appConfig: FrontendAppConfig,
+                                                mcc: MessagesControllerComponents,
+                                                navigator: Navigator[Call],
+                                                authenticate: AuthAction,
+                                                serviceInfoData: ServiceInfoAction,
+                                                formProvider: WhichVATServicesToAddFormProvider,
+                                                whichVATServicesToAdd: whichVATServicesToAdd)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
-  val optionsWithoutVAT = WhichVATServicesToAdd.options.filterNot(_.value == WhichVATServicesToAdd.VAT.toString)
+  val form: Form[WhichVATServicesToAdd] = formProvider()
+  val optionsWithoutVAT: Seq[RadioOption] =
+    WhichVATServicesToAdd.options.filterNot(_.value == WhichVATServicesToAdd.VAT.toString)
 
-  def radioOptions(implicit request: ServiceInfoRequest[AnyContent]) =
+  private def radioOptions(implicit request: ServiceInfoRequest[AnyContent]): Seq[RadioOption] =
     request.request.enrolments match {
       case HmrcEnrolmentType.VAT() => optionsWithoutVAT
       case _                       => WhichVATServicesToAdd.options
     }
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(whichVATServicesToAdd(appConfig, form, radioOptions)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          BadRequest(whichVATServicesToAdd(appConfig, formWithErrors, radioOptions)(request.serviceInfoContent)),
-        (value) =>
-          Redirect(
-            navigator
-              .nextPage(WhichVATServicesToAddId, (value, request.request.affinityGroup, request.request.enrolments)))
+        formWithErrors => BadRequest(whichVATServicesToAdd(appConfig, formWithErrors, radioOptions)(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(WhichVATServicesToAddId, (value, request.request.affinityGroup, request.request.enrolments)))
       )
   }
 }

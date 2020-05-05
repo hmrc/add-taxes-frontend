@@ -16,37 +16,40 @@
 
 package controllers.deenrolment
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.FakeServiceInfoAction
 import forms.deenrolment.DoYouNeedToStopPBDFormProvider
-import identifiers.DoYouNeedToStopPBDId
 import models.deenrolment.DoYouNeedToStopPBD
+import play.api.data.Form
+import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.deenrolment.doYouNeedToStopPBD
 
 class DoYouNeedToStopPBDControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DoYouNeedToStopPBDFormProvider()
-  val form = formProvider()
+  val form: Form[DoYouNeedToStopPBD] = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  val view: doYouNeedToStopPBD = injector.instanceOf[doYouNeedToStopPBD]
+
+  def controller(): DoYouNeedToStopPBDController = {
     new DoYouNeedToStopPBDController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    doYouNeedToStopPBD(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doYouNeedToStopPBD(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouNeedToStopPBD Controller" must {
 
@@ -77,15 +80,15 @@ class DoYouNeedToStopPBDControllerSpec extends ControllerSpecBase {
     }
 
     "return OK if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+      val result = controller().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
     }
 
     for (option <- DoYouNeedToStopPBD.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
-        val result = controller(dontGetAnyData).onSubmit()(postRequest)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
+        val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)

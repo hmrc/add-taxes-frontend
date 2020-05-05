@@ -24,10 +24,20 @@ import views.html.employer.pension.applyForPractitionerID
 
 class ApplyForPractitionerIDControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new ApplyForPractitionerIDController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: applyForPractitionerID = injector.instanceOf[applyForPractitionerID]
 
-  def viewAsString() = applyForPractitionerID(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): ApplyForPractitionerIDController = {
+    new ApplyForPractitionerIDController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new applyForPractitionerID(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "ApplyForPractitionerID Controller" must {
 

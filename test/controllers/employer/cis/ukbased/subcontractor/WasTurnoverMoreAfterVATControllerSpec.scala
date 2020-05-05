@@ -29,22 +29,27 @@ import views.html.employer.cis.ukbased.subcontractor.wasTurnoverMoreAfterVAT
 
 class WasTurnoverMoreAfterVATControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new WasTurnoverMoreAfterVATFormProvider()
-  val form = formProvider()
+  val form: Form[WasTurnoverMoreAfterVAT] = formProvider()
 
-  def controller() =
+  val view: wasTurnoverMoreAfterVAT = injector.instanceOf[wasTurnoverMoreAfterVAT]
+
+  def controller(): WasTurnoverMoreAfterVATController = {
     new WasTurnoverMoreAfterVATController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    wasTurnoverMoreAfterVAT(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new wasTurnoverMoreAfterVAT(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "WasTurnoverMoreAfterVAT Controller" must {
 
@@ -82,7 +87,7 @@ class WasTurnoverMoreAfterVATControllerSpec extends ControllerSpecBase {
 
     for (option <- WasTurnoverMoreAfterVAT.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

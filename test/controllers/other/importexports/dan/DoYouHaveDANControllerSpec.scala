@@ -16,38 +16,40 @@
 
 package controllers.other.importexports.dan
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.{FakeServiceInfoAction, _}
 import forms.other.importexports.dan.DoYouHaveDANFormProvider
-import identifiers.DoYouHaveDANId
 import models.other.importexports.dan.DoYouHaveDAN
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.other.importexports.dan.doYouHaveDAN
 
 class DoYouHaveDANControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DoYouHaveDANFormProvider()
-  val form = formProvider()
+  val form: Form[DoYouHaveDAN] = formProvider()
 
-  def controller() =
+  val view: doYouHaveDAN = injector.instanceOf[doYouHaveDAN]
+
+  def controller(): DoYouHaveDANController = {
     new DoYouHaveDANController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    doYouHaveDAN(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doYouHaveDAN(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouHaveDAN Controller" must {
 
@@ -85,7 +87,7 @@ class DoYouHaveDANControllerSpec extends ControllerSpecBase {
 
     for (option <- DoYouHaveDAN.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

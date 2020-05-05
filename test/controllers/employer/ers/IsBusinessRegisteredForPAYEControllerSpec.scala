@@ -19,6 +19,7 @@ package controllers.employer.ers
 import controllers._
 import controllers.actions._
 import forms.employer.IsBusinessRegisteredForPAYEFormProvider
+import models.employer.IsBusinessRegisteredForPAYE
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
@@ -29,24 +30,28 @@ import views.html.employer.isBusinessRegisteredForPAYE
 
 class IsBusinessRegisteredForPAYEControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new IsBusinessRegisteredForPAYEFormProvider()
-  val form = formProvider()
+  val form: Form[IsBusinessRegisteredForPAYE] = formProvider()
 
-  val viewAction = ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddErsEpayeRegistered")
+  val view: isBusinessRegisteredForPAYE = injector.instanceOf[isBusinessRegisteredForPAYE]
+  val viewAction: ViewAction = ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddErsEpayeRegistered")
 
-  def controller() =
+  def controller(): IsBusinessRegisteredForPAYEController = {
     new IsBusinessRegisteredForPAYEController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       FakeAuthAction,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    isBusinessRegisteredForPAYE(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString()
+  def viewAsString(form: Form[_] = form): String =
+    new isBusinessRegisteredForPAYE(formWithCSRF, mainTemplate)(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString()
 
   "IsBusinessRegisteredForPAYE Controller" must {
 

@@ -16,40 +16,40 @@
 
 package controllers.employer
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.FakeServiceInfoAction
 import forms.employer.WhatEmployerTaxDoYouWantToAddFormProvider
-import identifiers.WhatEmployerTaxDoYouWantToAddId
 import models.employer.WhatEmployerTaxDoYouWantToAdd
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.auth.core.Enrolments
+import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
 import views.html.employer.whatEmployerTaxDoYouWantToAdd
 
 class WhatEmployerTaxDoYouWantToAddControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new WhatEmployerTaxDoYouWantToAddFormProvider()
-  val form = formProvider()
+  val form: Form[WhatEmployerTaxDoYouWantToAdd] = formProvider()
 
-  def controller()(enrolmentTypes: HmrcEnrolmentType*) =
+  val view: whatEmployerTaxDoYouWantToAdd = injector.instanceOf[whatEmployerTaxDoYouWantToAdd]
+
+  def controller()(enrolmentTypes: HmrcEnrolmentType*): WhatEmployerTaxDoYouWantToAddController = {
     new WhatEmployerTaxDoYouWantToAddController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction(enrolmentTypes: _*),
-      formProvider
+      formProvider,
+      view
     )
+  }
 
-  def viewAsString(form: Form[_] = form, radioOptions: Seq[RadioOption] = WhatEmployerTaxDoYouWantToAdd.options) =
-    whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form, radioOptions: Seq[RadioOption] = WhatEmployerTaxDoYouWantToAdd.options): String =
+    new whatEmployerTaxDoYouWantToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "WhatEmployerTaxDoYouWantToAdd Controller" must {
 
@@ -87,7 +87,7 @@ class WhatEmployerTaxDoYouWantToAddControllerSpec extends ControllerSpecBase {
 
     for (option <- WhatEmployerTaxDoYouWantToAdd.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller()().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

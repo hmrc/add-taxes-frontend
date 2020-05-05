@@ -16,43 +16,44 @@
 
 package controllers.vat
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.{FakeServiceInfoAction, _}
 import forms.vat.CompanyDivisionFormProvider
-import identifiers.CompanyDivisionId
 import models.vat.CompanyDivision
 import org.scalatest.BeforeAndAfterEach
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import playconfig.featuretoggle.{FeatureToggleSupport, NewVatJourney}
 import uk.gov.hmrc.http.NotFoundException
+import utils.FakeNavigator
 import views.html.vat.companyDivision
 
 class CompanyDivisionControllerSpec extends ControllerSpecBase with BeforeAndAfterEach with FeatureToggleSupport {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new CompanyDivisionFormProvider()
-  val form = formProvider()
+  val form: Form[CompanyDivision] = formProvider()
 
-  def controller() =
+  val view: companyDivision = injector.instanceOf[companyDivision]
+
+  def controller(): CompanyDivisionController = {
     new CompanyDivisionController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider,
-      featureDepandantAction = app.injector.instanceOf[FeatureDependantAction]
+      featureDepandantAction = app.injector.instanceOf[FeatureDependantAction],
+      view
     )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    companyDivision(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new companyDivision(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -103,7 +104,7 @@ class CompanyDivisionControllerSpec extends ControllerSpecBase with BeforeAndAft
 
     for (option <- CompanyDivision.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

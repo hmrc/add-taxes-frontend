@@ -16,35 +16,39 @@
 
 package controllers.vat.moss.iom
 
-import play.api.data.Form
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.FakeServiceInfoAction
 import forms.vat.moss.iom.RegisteredForVATFormProvider
 import models.vat.moss.iom.RegisteredForVAT
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.vat.moss.iom.registeredForVAT
 
 class RegisteredForVATControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new RegisteredForVATFormProvider()
-  val form = formProvider()
+  val form: Form[RegisteredForVAT] = formProvider()
+
+  val view: registeredForVAT = injector.instanceOf[registeredForVAT]
 
   def controller() =
     new RegisteredForVATController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
 
-  def viewAsString(form: Form[_] = form) =
-    registeredForVAT(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new registeredForVAT(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisteredForVAT Controller" must {
 
@@ -82,7 +86,7 @@ class RegisteredForVATControllerSpec extends ControllerSpecBase {
 
     for (option <- RegisteredForVAT.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

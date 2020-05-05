@@ -22,42 +22,40 @@ import forms.vat.moss.AlreadyRegisteredForVATMossFormProvider
 import identifiers.AlreadyRegisteredForVATMossId.UkBased
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
+import models.vat.moss.AlreadyRegisteredForVATMoss
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Call
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import play.twirl.api.Html
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.Navigator
 import viewmodels.ViewAction
 import views.html.vat.moss.alreadyRegisteredForVATMoss
 
-class AlreadyRegisteredForVATMossController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  authenticate: AuthAction,
-  navigator: Navigator[Call],
-  serviceInfo: ServiceInfoAction,
-  formProvider: AlreadyRegisteredForVATMossFormProvider)
-    extends FrontendController
-    with I18nSupport {
+class AlreadyRegisteredForVATMossController @Inject()(appConfig: FrontendAppConfig,
+                                                      mcc: MessagesControllerComponents,
+                                                      authenticate: AuthAction,
+                                                      navigator: Navigator[Call],
+                                                      serviceInfo: ServiceInfoAction,
+                                                      formProvider: AlreadyRegisteredForVATMossFormProvider,
+                                                      alreadyRegisteredForVATMoss: alreadyRegisteredForVATMoss)
+  extends FrontendController(mcc) with I18nSupport {
 
-  val form = formProvider()
-  lazy val viewAction =
-    ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossUkVatRegistered")
+  val form: Form[AlreadyRegisteredForVATMoss] = formProvider()
+  lazy val viewAction: ViewAction = ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossUkVatRegistered")
 
-  def view(form: Form[_] = form)(implicit request: ServiceInfoRequest[_]): Html =
+  private def view(form: Form[_] = form)(implicit request: ServiceInfoRequest[_]): Html =
     alreadyRegisteredForVATMoss(appConfig, form, viewAction)(request.serviceInfoContent)
 
-  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
+  def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
     Ok(view())
   }
 
-  def onSubmit = (authenticate andThen serviceInfo) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) => BadRequest(view(formWithErrors)),
-        (value) => Redirect(navigator.nextPage(UkBased, value))
+        formWithErrors => BadRequest(view(formWithErrors)),
+        value => Redirect(navigator.nextPage(UkBased, value))
       )
   }
 }

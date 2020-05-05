@@ -24,10 +24,20 @@ import views.html.other.charity.registerForCharity
 
 class RegisterForCharityControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new RegisterForCharityController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: registerForCharity = injector.instanceOf[registerForCharity]
 
-  def viewAsString() = registerForCharity(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): RegisterForCharityController = {
+    new RegisterForCharityController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new registerForCharity(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterForCharity Controller" must {
 

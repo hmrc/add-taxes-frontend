@@ -16,10 +16,10 @@
 
 package views.other.alcohol.awrs
 
-import play.api.data.Form
 import forms.other.alcohol.awrs.SelectAlcoholSchemeFormProvider
 import models.other.alcohol.awrs.SelectAlcoholScheme
-import play.twirl.api.HtmlFormat
+import play.api.data.Form
+import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.other.alcohol.awrs.selectAlcoholScheme
 
@@ -29,12 +29,13 @@ class SelectAlcoholSchemeViewSpec extends ViewBehaviours {
 
   val form = new SelectAlcoholSchemeFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView = () => selectAlcoholScheme(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new selectAlcoholScheme(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) => selectAlcoholScheme(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+    new selectAlcoholScheme(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "SelectAlcoholScheme view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -53,7 +54,7 @@ class SelectAlcoholSchemeViewSpec extends ViewBehaviours {
         doc.text() must include("Alcohol Wholesaler Registration Scheme (AWRS)")
 
         for (option <- SelectAlcoholScheme.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
@@ -62,10 +63,10 @@ class SelectAlcoholSchemeViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- SelectAlcoholScheme.options.filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

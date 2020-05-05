@@ -24,10 +24,18 @@ import views.html.other.importexports.nes.getEoriAndChiefRole
 
 class GetEoriAndChiefRoleControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new GetEoriAndChiefRoleController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: getEoriAndChiefRole = injector.instanceOf[getEoriAndChiefRole]
 
-  def viewAsString() = getEoriAndChiefRole(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): GetEoriAndChiefRoleController = {
+    new GetEoriAndChiefRoleController(frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view)
+  }
+
+  def viewAsString(): String =
+    new getEoriAndChiefRole(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "GetEoriAndChiefRole Controller" must {
 

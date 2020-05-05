@@ -24,10 +24,21 @@ import views.html.employer.intermediaries.usePAYEEmployerAccount
 
 class UsePAYEEmployerAccountControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new UsePAYEEmployerAccountController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: usePAYEEmployerAccount = injector.instanceOf[usePAYEEmployerAccount]
 
-  def viewAsString() = usePAYEEmployerAccount(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): UsePAYEEmployerAccountController = {
+    new UsePAYEEmployerAccountController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String = {
+    new usePAYEEmployerAccount(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  }
 
   "UsePAYEEmployerAccount Controller" must {
     "return OK and the correct view for a GET" in {

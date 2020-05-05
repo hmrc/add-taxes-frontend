@@ -24,10 +24,20 @@ import views.html.other.gambling.pbd.registerGTSFirst
 
 class RegisterGTSFirstControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new RegisterGTSFirstController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: registerGTSFirst = injector.instanceOf[registerGTSFirst]
 
-  def viewAsString() = registerGTSFirst(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): RegisterGTSFirstController = {
+    new RegisterGTSFirstController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new registerGTSFirst(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterGTSFirst Controller" must {
 

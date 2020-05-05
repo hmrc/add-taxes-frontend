@@ -16,23 +16,22 @@
 
 package controllers.other.gambling.pbd
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.i18n.{I18nSupport, MessagesApi}
+import javax.inject.Inject
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.other.gambling.pbd.registerGTSFirst
 
-class RegisterGTSFirstController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  authenticate: AuthAction,
-  serviceInfo: ServiceInfoAction)
-    extends FrontendController
-    with I18nSupport {
+class RegisterGTSFirstController @Inject()(appConfig: FrontendAppConfig,
+                                           mcc: MessagesControllerComponents,
+                                           authenticate: AuthAction,
+                                           serviceInfo: ServiceInfoAction,
+                                           registerGTSFirst: registerGTSFirst)
+  extends FrontendController(mcc) with I18nSupport {
 
-  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
+  def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
     Ok(registerGTSFirst(appConfig)(request.serviceInfoContent))
   }
 }

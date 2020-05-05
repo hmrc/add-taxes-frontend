@@ -24,10 +24,20 @@ import views.html.other.gambling.mgd.registerMGD
 
 class RegisterMGDControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new RegisterMGDController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: registerMGD = injector.instanceOf[registerMGD]
 
-  def viewAsString() = registerMGD(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): RegisterMGDController = {
+    new RegisterMGDController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new registerMGD(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterMGD Controller" must {
 

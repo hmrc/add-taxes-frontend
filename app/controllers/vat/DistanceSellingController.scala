@@ -16,46 +16,43 @@
 
 package controllers.vat
 
-import javax.inject.Inject
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Call
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
 import forms.vat.DistanceSellingFormProvider
 import identifiers.DistanceSellingId
+import javax.inject.Inject
+import models.vat.DistanceSelling
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import playconfig.featuretoggle.NewVatJourney
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.vat.distanceSelling
 
-import scala.concurrent.Future
+class DistanceSellingController @Inject()(appConfig: FrontendAppConfig,
+                                          mcc: MessagesControllerComponents,
+                                          navigator: Navigator[Call],
+                                          authenticate: AuthAction,
+                                          serviceInfoData: ServiceInfoAction,
+                                          formProvider: DistanceSellingFormProvider,
+                                          featureDependantAction: FeatureDependantAction,
+                                          distanceSelling: distanceSelling)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-class DistanceSellingController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: DistanceSellingFormProvider,
-  featureDependantAction: FeatureDependantAction)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+  val form: Form[DistanceSelling] = formProvider()
 
-  val form = formProvider()
-
-  def onPageLoad() = (authenticate andThen serviceInfoData andThen featureDependantAction.permitFor(NewVatJourney)) {
-    implicit request =>
+  def onPageLoad(): Action[AnyContent] = {
+    (authenticate andThen serviceInfoData andThen featureDependantAction.permitFor(NewVatJourney)) { implicit request =>
       Ok(distanceSelling(appConfig, form)(request.serviceInfoContent))
+    }
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) => BadRequest(distanceSelling(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(DistanceSellingId, value))
+        formWithErrors => BadRequest(distanceSelling(appConfig, formWithErrors)(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(DistanceSellingId, value))
       )
   }
 }

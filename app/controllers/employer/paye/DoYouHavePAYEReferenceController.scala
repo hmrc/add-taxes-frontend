@@ -16,46 +16,39 @@
 
 package controllers.employer.paye
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Call
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
-
 import forms.employer.paye.DoYouHavePAYEReferenceFormProvider
 import identifiers.DoYouHavePAYEReferenceId
+import javax.inject.Inject
+import models.employer.paye.DoYouHavePAYEReference
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.employer.paye.doYouHavePAYEReference
 
-import scala.concurrent.Future
+class DoYouHavePAYEReferenceController @Inject()(appConfig: FrontendAppConfig,
+                                                 mcc: MessagesControllerComponents,
+                                                 navigator: Navigator[Call],
+                                                 authenticate: AuthAction,
+                                                 serviceInfoData: ServiceInfoAction,
+                                                 formProvider: DoYouHavePAYEReferenceFormProvider,
+                                                 doYouHavePAYEReference: doYouHavePAYEReference)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-class DoYouHavePAYEReferenceController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: DoYouHavePAYEReferenceFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+  val form: Form[DoYouHavePAYEReference] = formProvider()
 
-  val form = formProvider()
-
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(doYouHavePAYEReference(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          BadRequest(doYouHavePAYEReference(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(DoYouHavePAYEReferenceId, value))
+        formWithErrors => BadRequest(doYouHavePAYEReference(appConfig, formWithErrors)(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(DoYouHavePAYEReferenceId, value))
       )
   }
 }

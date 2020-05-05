@@ -16,46 +16,42 @@
 
 package controllers.vat.moss
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
 import forms.vat.moss.WhereIsYourBusinessBasedFormProvider
 import identifiers.WhereIsYourBusinessBasedId
-import play.api.mvc.Call
+import javax.inject.Inject
+import models.vat.moss.WhereIsYourBusinessBased
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.vat.moss.whereIsYourBusinessBased
 
 import scala.concurrent.Future
 
-class WhereIsYourBusinessBasedController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: WhereIsYourBusinessBasedFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class WhereIsYourBusinessBasedController @Inject()(appConfig: FrontendAppConfig,
+                                                   mcc: MessagesControllerComponents,
+                                                   navigator: Navigator[Call],
+                                                   authenticate: AuthAction,
+                                                   serviceInfoData: ServiceInfoAction,
+                                                   formProvider: WhereIsYourBusinessBasedFormProvider,
+                                                   whereIsYourBusinessBased: whereIsYourBusinessBased)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[WhereIsYourBusinessBased] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(whereIsYourBusinessBased(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(whereIsYourBusinessBased(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(WhereIsYourBusinessBasedId, value)))
+        formWithErrors =>
+          Future.successful(BadRequest(whereIsYourBusinessBased(appConfig, formWithErrors)(request.serviceInfoContent))),
+        value => Future.successful(Redirect(navigator.nextPage(WhereIsYourBusinessBasedId, value)))
       )
   }
 }

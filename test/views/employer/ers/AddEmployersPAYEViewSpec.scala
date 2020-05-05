@@ -24,7 +24,8 @@ class AddEmployersPAYEViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "addEmployersPAYE"
 
-  def createView = () => addEmployersPAYE(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new addEmployersPAYE(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "AddEmployersPAYE view" must {
     behave like normalPage(createView, messageKeyPrefix)

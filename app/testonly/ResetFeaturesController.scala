@@ -18,11 +18,12 @@ package testonly
 
 import javax.inject.Inject
 import play.api.libs.json.Json
-import play.api.mvc.{Action, AnyContent}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import playconfig.featuretoggle.{Feature, FeatureConfig, FeatureToggleSupport}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
-class ResetFeaturesController @Inject()(config: FeatureConfig) extends FrontendController with FeatureToggleSupport {
+class ResetFeaturesController @Inject()(config: FeatureConfig, mcc: MessagesControllerComponents)
+  extends FrontendController(mcc) with FeatureToggleSupport {
 
   def reset(): Action[AnyContent] = Action {
     val features = Feature.allTogglableFeatures

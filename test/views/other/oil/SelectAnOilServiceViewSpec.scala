@@ -19,7 +19,7 @@ package views.other.oil
 import forms.other.oils.SelectAnOilServiceFormProvider
 import models.other.oil.SelectAnOilService
 import play.api.data.Form
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.other.oil.selectAnOilService
 
@@ -29,19 +29,13 @@ class SelectAnOilServiceViewSpec extends ViewBehaviours {
 
   val form = new SelectAnOilServiceFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView =
-    () =>
-      selectAnOilService(frontendAppConfig, form, SelectAnOilService.options.toSeq)(serviceInfoContent)(
-        fakeRequest,
-        messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new selectAnOilService(formWithCSRF, mainTemplate)(frontendAppConfig, form, SelectAnOilService.options.toSeq)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) =>
-      selectAnOilService(frontendAppConfig, form, SelectAnOilService.options.toSeq)(serviceInfoContent)(
-        fakeRequest,
-        messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+    new selectAnOilService(formWithCSRF, mainTemplate)(frontendAppConfig, form, SelectAnOilService.options.toSeq)(serviceInfoContent)(fakeRequest, messages)
 
   "SelectAnOilService view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -57,7 +51,7 @@ class SelectAnOilServiceViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- SelectAnOilService.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
@@ -66,10 +60,10 @@ class SelectAnOilServiceViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- SelectAnOilService.options.filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

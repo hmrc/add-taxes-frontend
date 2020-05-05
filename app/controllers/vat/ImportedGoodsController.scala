@@ -20,42 +20,41 @@ import javax.inject.Inject
 import config.FrontendAppConfig
 import controllers.actions._
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Call
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import forms.vat.ImportedGoodsFormProvider
 import identifiers.ImportedGoodsId
+import models.vat.ImportedGoods
 import playconfig.featuretoggle.NewVatJourney
 import views.html.vat.importedGoods
 
 import scala.concurrent.Future
 
-class ImportedGoodsController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: ImportedGoodsFormProvider,
-  featureDepandantAction: FeatureDependantAction)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class ImportedGoodsController @Inject()(appConfig: FrontendAppConfig,
+                                        mcc: MessagesControllerComponents,
+                                        navigator: Navigator[Call],
+                                        authenticate: AuthAction,
+                                        serviceInfoData: ServiceInfoAction,
+                                        formProvider: ImportedGoodsFormProvider,
+                                        featureDepandantAction: FeatureDependantAction,
+                                        importedGoods: importedGoods)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[ImportedGoods] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData andThen featureDepandantAction.permitFor(NewVatJourney)) {
-    implicit request =>
+  def onPageLoad(): Action[AnyContent] = {
+    (authenticate andThen serviceInfoData andThen featureDepandantAction.permitFor(NewVatJourney)) { implicit request =>
       Ok(importedGoods(appConfig, form)(request.serviceInfoContent))
+    }
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) => BadRequest(importedGoods(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(ImportedGoodsId, value))
+        formWithErrors => BadRequest(importedGoods(appConfig, formWithErrors)(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(ImportedGoodsId, value))
       )
   }
 }

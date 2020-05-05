@@ -29,22 +29,27 @@ import views.html.deenrolment.doYouNeedToCancelMTDVAT
 
 class DoYouNeedToCancelMTDVATControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DoYouNeedToCancelMTDVATFormProvider()
-  val form = formProvider()
+  val form: Form[DoYouNeedToCancelMTDVAT] = formProvider()
 
-  def controller() =
+  val view: doYouNeedToCancelMTDVAT = injector.instanceOf[doYouNeedToCancelMTDVAT]
+
+  def controller(): DoYouNeedToCancelMTDVATController = {
     new DoYouNeedToCancelMTDVATController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    doYouNeedToCancelMTDVAT(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doYouNeedToCancelMTDVAT(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouNeedToCancelMTDVAT Controller" must {
 
@@ -82,7 +87,7 @@ class DoYouNeedToCancelMTDVATControllerSpec extends ControllerSpecBase {
 
     for (option <- DoYouNeedToCancelMTDVAT.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

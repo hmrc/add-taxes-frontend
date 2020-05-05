@@ -29,14 +29,14 @@ class VatSubscriptionConnector @Inject()(val http: HttpClient, val appConfig: Fr
 
   lazy val vatSubscriptionUrl: String = appConfig.vatSubscriptionUrl
 
-  private def handleResponse(uri: String)(implicit rds: HttpReads[Boolean]): HttpReads[Either[String, Boolean]] =
+  private def handleResponse()(implicit rds: HttpReads[Boolean]): HttpReads[Either[String, Boolean]] =
     new HttpReads[Either[String, Boolean]] {
       override def read(method: String, url: String, response: HttpResponse): Either[String, Boolean] =
         response.status match {
           case OK =>
             Logger.debug(
-              "[VatSubscriptionConnector][handleResponse.read] - Successfully retrieved OK 200 response with body:"
-                + response.body)
+              "[VatSubscriptionConnector][handleResponse.read] - Successfully retrieved OK 200 response with body:" + response.body
+            )
             Right(true)
           case NOT_FOUND =>
             Logger.debug("[VatSubscriptionConnector][handleResponse.read] - Received 404 when getting mandation status")
@@ -44,14 +44,14 @@ class VatSubscriptionConnector @Inject()(val http: HttpClient, val appConfig: Fr
           case _ =>
             Logger.warn(
               s"[VatSubscriptionConnector][handleResponse.read] - Failed to retrieve mandation status. Received status: ${response.status}." +
-                s"Response body: ${response.body}")
+                s"Response body: ${response.body}"
+            )
             Left("Failed")
         }
     }
 
-  def getMandationStatus(
-    vrn: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[String, Boolean]] = {
+  def getMandationStatus(vrn: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[String, Boolean]] = {
     val url = vatSubscriptionUrl + s"/vat-subscription/$vrn/mandation-status"
-    http.GET[Either[String, Boolean]](url)(handleResponse(url), hc, ec)
+    http.GET[Either[String, Boolean]](url)(handleResponse(), hc, ec)
   }
 }

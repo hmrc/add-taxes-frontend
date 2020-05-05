@@ -24,7 +24,8 @@ class PartnershipRegisterByPhoneViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "partnershipRegisterByPhone"
 
-  def createView = () => partnershipRegisterByPhone(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new partnershipRegisterByPhone(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "PartnershipRegisterByPhone view" must {
     behave like normalPage(createView, messageKeyPrefix)

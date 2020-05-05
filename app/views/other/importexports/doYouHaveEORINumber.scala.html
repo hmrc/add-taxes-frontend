@@ -15,10 +15,15 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html._
+@import uk.gov.hmrc.play.views.html.helpers._
 @import controllers.other.importexports.ics.routes._
 @import models.other.importexports.DoYouHaveEORINumber
 @import viewmodels.ViewAction
+
+@this(
+    uiForm: FormWithCSRF,
+    main_template: main_template
+)
 
 @(appConfig: FrontendAppConfig, form: Form[_], viewAction: ViewAction)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
@@ -29,7 +34,7 @@
     serviceInfoContent = serviceInfoContent,
     form = Some(form)) {
 
-    @helpers.form(action = viewAction.call, 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    @uiForm(action = viewAction.call, 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 

@@ -17,7 +17,7 @@
 package controllers.wrongcredentials
 
 import controllers.ControllerSpecBase
-import controllers.actions.{FakeServiceInfoAction, _}
+import controllers.actions.FakeServiceInfoAction
 import forms.wrongcredentials.FindingYourAccountFormProvider
 import models.wrongcredentials.FindingYourAccount
 import play.api.data.Form
@@ -29,22 +29,27 @@ import views.html.wrongcredentials.findingYourAccount
 
 class FindingYourAccountControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new FindingYourAccountFormProvider()
-  val form = formProvider()
+  val form: Form[FindingYourAccount] = formProvider()
 
-  def controller() =
+  val view: findingYourAccount = injector.instanceOf[findingYourAccount]
+
+  def controller(): FindingYourAccountController = {
     new FindingYourAccountController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    findingYourAccount(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new findingYourAccount(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "FindingYourAccount Controller" must {
 
@@ -81,7 +86,7 @@ class FindingYourAccountControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (FindingYourAccount.options.head.value)))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", FindingYourAccount.options.head.value))
       val result = controller().onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER

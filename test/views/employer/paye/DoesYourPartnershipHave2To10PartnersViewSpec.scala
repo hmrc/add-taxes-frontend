@@ -16,10 +16,10 @@
 
 package views.employer.paye
 
-import play.api.data.Form
 import forms.employer.paye.DoesYourPartnershipHave2To10PartnersFormProvider
 import models.employer.paye.DoesYourPartnershipHave2To10Partners
-import play.twirl.api.HtmlFormat
+import play.api.data.Form
+import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.employer.paye.doesYourPartnershipHave2To10Partners
 
@@ -29,14 +29,13 @@ class DoesYourPartnershipHave2To10PartnersViewSpec extends ViewBehaviours {
 
   val form = new DoesYourPartnershipHave2To10PartnersFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView =
-    () => doesYourPartnershipHave2To10Partners(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+      new doesYourPartnershipHave2To10Partners(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) =>
-      doesYourPartnershipHave2To10Partners(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+      new doesYourPartnershipHave2To10Partners(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "DoesYourPartnershipHave2To10Partners view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -52,7 +51,7 @@ class DoesYourPartnershipHave2To10PartnersViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- DoesYourPartnershipHave2To10Partners.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
@@ -61,10 +60,10 @@ class DoesYourPartnershipHave2To10PartnersViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- DoesYourPartnershipHave2To10Partners.options.filterNot(_ == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

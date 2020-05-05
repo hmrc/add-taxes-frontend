@@ -16,15 +16,15 @@
 
 package controllers.vat
 
-import javax.inject.Inject
 import config.FrontendAppConfig
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import forms.vat.WhatIsYourVATRegNumberFormProvider
 import identifiers.WhatIsYourVATRegNumberId
+import javax.inject.Inject
 import play.api.Logger
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.{Action, AnyContent, Call}
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import services.VatSubscriptionService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
@@ -34,17 +34,15 @@ import views.html.vat.whatIsYourVATRegNumber
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class WhatIsYourVATRegNumberController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  vatSubscriptionService: VatSubscriptionService,
-  formProvider: WhatIsYourVATRegNumberFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class WhatIsYourVATRegNumberController @Inject()(appConfig: FrontendAppConfig,
+                                                 mcc: MessagesControllerComponents,
+                                                 navigator: Navigator[Call],
+                                                 authenticate: AuthAction,
+                                                 serviceInfoData: ServiceInfoAction,
+                                                 vatSubscriptionService: VatSubscriptionService,
+                                                 formProvider: WhatIsYourVATRegNumberFormProvider,
+                                                 whatIsYourVATRegNumber: whatIsYourVATRegNumber)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
   val form: Form[String] = formProvider()
 
@@ -61,15 +59,14 @@ class WhatIsYourVATRegNumberController @Inject()(
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
-    form
-      .bindFromRequest()
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
+        formWithErrors =>
           Future.successful(BadRequest(whatIsYourVATRegNumber(appConfig, formWithErrors)(request.serviceInfoContent))),
         value =>
           getMandationStatus(value).map { mandationStatus =>
             Redirect(navigator.nextPage(WhatIsYourVATRegNumberId, (mandationStatus, value)))
-        }
+          }
       )
   }
 }

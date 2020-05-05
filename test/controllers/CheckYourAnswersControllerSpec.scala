@@ -16,28 +16,32 @@
 
 package controllers
 
-import controllers.actions.{DataRequiredActionImpl, DataRetrievalAction, FakeAuthAction}
+import controllers.actions.{DataRequiredAction, DataRetrievalAction}
 import play.api.test.Helpers._
 import viewmodels.AnswerSection
 import views.html.check_your_answers
 
 class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  val view: check_your_answers = injector.instanceOf[check_your_answers]
+
+  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap): CheckYourAnswersController = {
     new CheckYourAnswersController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       FakeAuthAction,
       dataRetrievalAction,
-      new DataRequiredActionImpl)
+      injector.instanceOf[DataRequiredAction],
+      view
+    )
+  }
 
   "Check Your Answers Controller" must {
     "return 200 and the correct view for a GET" in {
+      val expected = new check_your_answers(formWithCSRF, mainTemplate)(frontendAppConfig, Seq(AnswerSection(None, Seq())))(fakeRequest, messages).toString
       val result = controller().onPageLoad()(fakeRequest)
       status(result) mustBe OK
-      contentAsString(result) mustBe check_your_answers(frontendAppConfig, Seq(AnswerSection(None, Seq())))(
-        fakeRequest,
-        messages).toString
+      contentAsString(result) mustBe expected
     }
 
     "redirect to Session Expired for a GET if not existing data is found" in {

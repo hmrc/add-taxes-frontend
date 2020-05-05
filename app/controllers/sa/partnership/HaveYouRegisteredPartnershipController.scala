@@ -16,48 +16,43 @@
 
 package controllers.sa.partnership
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
 import forms.sa.partnership.HaveYouRegisteredPartnershipFormProvider
 import identifiers.HaveYouRegisteredPartnershipId
-import play.api.mvc.Call
+import javax.inject.Inject
+import models.sa.partnership.HaveYouRegisteredPartnership
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.sa.partnership.haveYouRegisteredPartnership
 
 import scala.concurrent.Future
 
-class HaveYouRegisteredPartnershipController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: HaveYouRegisteredPartnershipFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class HaveYouRegisteredPartnershipController @Inject()(appConfig: FrontendAppConfig,
+                                                       mcc: MessagesControllerComponents,
+                                                       navigator: Navigator[Call],
+                                                       authenticate: AuthAction,
+                                                       serviceInfoData: ServiceInfoAction,
+                                                       formProvider: HaveYouRegisteredPartnershipFormProvider,
+                                                       haveYouRegisteredPartnership: haveYouRegisteredPartnership)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[HaveYouRegisteredPartnership] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(haveYouRegisteredPartnership(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(haveYouRegisteredPartnership(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) =>
-          Future.successful(
-            Redirect(navigator.nextPage(HaveYouRegisteredPartnershipId, (value, request.request.enrolments))))
+        formWithErrors =>
+          Future.successful(BadRequest(haveYouRegisteredPartnership(appConfig, formWithErrors)(request.serviceInfoContent))),
+        value =>
+          Future.successful(Redirect(navigator.nextPage(HaveYouRegisteredPartnershipId, (value, request.request.enrolments))))
       )
   }
 }

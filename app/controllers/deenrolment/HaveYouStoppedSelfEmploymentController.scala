@@ -23,48 +23,45 @@ import identifiers.HaveYouStoppedSelfEmploymentId
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Result
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents, Result}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, HmrcEnrolmentType, Navigator}
 import forms.deenrolment.HaveYouStoppedSelfEmploymentFormProvider
 import identifiers.HaveYouStoppedSelfEmploymentId
-import play.api.mvc.Call
+import models.deenrolment.HaveYouStoppedSelfEmployment
 import views.html.deenrolment.haveYouStoppedSelfEmployment
 
-class HaveYouStoppedSelfEmploymentController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: HaveYouStoppedSelfEmploymentFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class HaveYouStoppedSelfEmploymentController @Inject()(appConfig: FrontendAppConfig,
+                                                       mcc: MessagesControllerComponents,
+                                                       navigator: Navigator[Call],
+                                                       authenticate: AuthAction,
+                                                       serviceInfoData: ServiceInfoAction,
+                                                       formProvider: HaveYouStoppedSelfEmploymentFormProvider,
+                                                       haveYouStoppedSelfEmployment: haveYouStoppedSelfEmployment)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[HaveYouStoppedSelfEmployment] = formProvider()
 
-  def redirectWhenHasCT[A](noRedirect: => Result)(implicit request: ServiceInfoRequest[A]): Result =
+  private def redirectWhenHasCT[A](noRedirect: => Result)(implicit request: ServiceInfoRequest[A]): Result =
     request.request.enrolments match {
       case HmrcEnrolmentType.CORP_TAX() => Redirect(routes.StopFilingSelfAssessmentController.onPageLoad())
       case _                            => noRedirect
     }
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     redirectWhenHasCT {
       Ok(haveYouStoppedSelfEmployment(appConfig, form)(request.serviceInfoContent))
     }
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     redirectWhenHasCT {
-      form
-        .bindFromRequest()
+      form.bindFromRequest()
         .fold(
-          (formWithErrors: Form[_]) =>
+          formWithErrors =>
             BadRequest(haveYouStoppedSelfEmployment(appConfig, formWithErrors)(request.serviceInfoContent)),
-          (value) => Redirect(navigator.nextPage(HaveYouStoppedSelfEmploymentId, value))
+          value => Redirect(navigator.nextPage(HaveYouStoppedSelfEmploymentId, value))
         )
     }
   }

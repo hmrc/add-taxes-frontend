@@ -24,10 +24,19 @@ import views.html.other.alcohol.atwd.registerWarehousekeeper
 
 class RegisterWarehousekeeperControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new RegisterWarehousekeeperController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: registerWarehousekeeper = injector.instanceOf[registerWarehousekeeper]
 
-  def viewAsString() = registerWarehousekeeper(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): RegisterWarehousekeeperController = {
+    new RegisterWarehousekeeperController(frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new registerWarehousekeeper(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterWarehousekeeper Controller" must {
 

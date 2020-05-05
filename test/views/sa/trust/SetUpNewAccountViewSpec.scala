@@ -24,7 +24,8 @@ class SetUpNewAccountViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "setUpNewAccount"
 
-  def createView = () => setUpNewAccount(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new setUpNewAccount(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "SetUpNewAccount view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -56,7 +57,8 @@ class SetUpNewAccountViewSpec extends ViewBehaviours {
         doc,
         "continue",
         "Sign out and create ‘Organisation’ account",
-        "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fcoafe%2Fgovernment-gateway%2Fregister%3FaccountType%3Dorganisation%2526continue%3D%2Fbusiness-account%2Fadd-tax%2526origin%3Dunknown",
+        "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fcoafe%2Fgovernment-gateway%2F" +
+          "register%3FaccountType%3Dorganisation%2526continue%3D%2Fbusiness-account%2Fadd-tax%2526origin%3Dunknown",
         "SetUpAccountaSelfAssessmentTrust:Click:Register",
         expectedRole = Some("button")
       )

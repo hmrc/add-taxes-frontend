@@ -16,35 +16,40 @@
 
 package controllers.other.alcohol.awrs
 
-import play.api.data.Form
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.FakeServiceInfoAction
 import forms.other.alcohol.awrs.SelectAlcoholSchemeFormProvider
 import models.other.alcohol.awrs.SelectAlcoholScheme
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.other.alcohol.awrs.selectAlcoholScheme
 
 class SelectAlcoholSchemeControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new SelectAlcoholSchemeFormProvider()
-  val form = formProvider()
+  val form: Form[SelectAlcoholScheme] = formProvider()
 
-  def controller() =
+  val view: selectAlcoholScheme = injector.instanceOf[selectAlcoholScheme]
+
+  def controller(): SelectAlcoholSchemeController = {
     new SelectAlcoholSchemeController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    selectAlcoholScheme(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new selectAlcoholScheme(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "SelectAlcoholScheme Controller" must {
 
@@ -82,7 +87,7 @@ class SelectAlcoholSchemeControllerSpec extends ControllerSpecBase {
 
     for (option <- SelectAlcoholScheme.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

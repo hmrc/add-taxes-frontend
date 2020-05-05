@@ -24,10 +24,20 @@ import views.html.sa.partnership.setUpNewAccount
 
 class SetUpNewAccountControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new SetUpNewAccountController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: setUpNewAccount = injector.instanceOf[setUpNewAccount]
 
-  def viewAsString() = setUpNewAccount(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): SetUpNewAccountController = {
+    new SetUpNewAccountController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new setUpNewAccount(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "SetUpNewAccount Controller" must {
     "return OK and the correct view for a GET" in {

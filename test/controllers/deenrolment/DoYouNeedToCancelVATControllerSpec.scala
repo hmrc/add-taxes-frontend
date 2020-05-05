@@ -16,38 +16,39 @@
 
 package controllers.deenrolment
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.{FakeServiceInfoAction, _}
 import forms.deenrolment.DoYouNeedToCancelVATFormProvider
-import identifiers.DoYouNeedToCancelVATId
 import models.deenrolment.DoYouNeedToCancelVAT
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.deenrolment.doYouNeedToCancelVAT
 
 class DoYouNeedToCancelVATControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DoYouNeedToCancelVATFormProvider()
-  val form = formProvider()
+  val form: Form[DoYouNeedToCancelVAT] = formProvider()
+
+  val view: doYouNeedToCancelVAT = injector.instanceOf[doYouNeedToCancelVAT]
 
   def controller() =
     new DoYouNeedToCancelVATController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
 
-  def viewAsString(form: Form[_] = form) =
-    doYouNeedToCancelVAT(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doYouNeedToCancelVAT(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouNeedToCancelVAT Controller" must {
 
@@ -85,7 +86,7 @@ class DoYouNeedToCancelVATControllerSpec extends ControllerSpecBase {
 
     for (option <- DoYouNeedToCancelVAT.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

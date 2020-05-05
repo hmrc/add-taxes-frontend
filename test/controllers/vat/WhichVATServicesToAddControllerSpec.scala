@@ -16,36 +16,40 @@
 
 package controllers.vat
 
-import play.api.data.Form
-import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.FakeServiceInfoAction
 import forms.vat.WhichVATServicesToAddFormProvider
 import models.vat.WhichVATServicesToAdd
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
 import views.html.vat.whichVATServicesToAdd
 
 class WhichVATServicesToAddControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new WhichVATServicesToAddFormProvider()
-  val form = formProvider()
+  val form: Form[WhichVATServicesToAdd] = formProvider()
 
-  def controller()(enrolments: HmrcEnrolmentType*) =
+  val view: whichVATServicesToAdd = injector.instanceOf[whichVATServicesToAdd]
+
+  def controller()(enrolments: HmrcEnrolmentType*): WhichVATServicesToAddController = {
     new WhichVATServicesToAddController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction(enrolments: _*),
-      formProvider
+      formProvider,
+      view
     )
+  }
 
-  def viewAsString(form: Form[_] = form, radioOptions: Seq[RadioOption] = WhichVATServicesToAdd.options) =
-    whichVATServicesToAdd(frontendAppConfig, form, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form, radioOptions: Seq[RadioOption] = WhichVATServicesToAdd.options): String =
+    new whichVATServicesToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "WhichVATServicesToAdd Controller" must {
     "return OK and the correct view for a GET" in {
@@ -82,7 +86,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase {
 
     for (option <- WhichVATServicesToAdd.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller()().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

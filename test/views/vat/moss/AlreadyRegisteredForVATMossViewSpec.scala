@@ -30,16 +30,15 @@ class AlreadyRegisteredForVATMossViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "alreadyRegisteredForVATMoss"
 
   val form = new AlreadyRegisteredForVATMossFormProvider()()
-  val viewAction = ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossNoVatIomVatRegistered")
+  val viewAction: ViewAction = ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossNoVatIomVatRegistered")
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView: () => Html =
-    () => alreadyRegisteredForVATMoss(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => Html = () =>
+    new alreadyRegisteredForVATMoss(formWithCSRF, mainTemplate)(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm: Form[_] => Html =
-    (form: Form[_]) =>
-      alreadyRegisteredForVATMoss(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[_] => Html = (form: Form[_]) =>
+    new alreadyRegisteredForVATMoss(formWithCSRF, mainTemplate)(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
 
   "AlreadyRegisteredForVATMoss view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -58,7 +57,7 @@ class AlreadyRegisteredForVATMossViewSpec extends ViewBehaviours {
         doc.text() must include("You will have a VAT MOSS identification number if you are already registered.")
 
         for (option <- AlreadyRegisteredForVATMoss.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
@@ -67,10 +66,10 @@ class AlreadyRegisteredForVATMossViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- AlreadyRegisteredForVATMoss.options.filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

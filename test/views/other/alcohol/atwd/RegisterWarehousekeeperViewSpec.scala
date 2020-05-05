@@ -24,7 +24,8 @@ class RegisterWarehousekeeperViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "registerWarehousekeeper"
 
-  def createView = () => registerWarehousekeeper(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new registerWarehousekeeper(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "RegisterWarehousekeeper view" must {
     behave like normalPage(createView, messageKeyPrefix)

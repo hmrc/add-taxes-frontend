@@ -21,16 +21,20 @@ import play.api.mvc.{ActionFilter, Result}
 import playconfig.featuretoggle.{Feature, FeatureConfig}
 import uk.gov.hmrc.http.NotFoundException
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 import scala.language.higherKinds
 
-class FeatureDependantAction @Inject()(config: FeatureConfig) {
+class FeatureDependantAction @Inject()(config: FeatureConfig, ec: ExecutionContext) {
 
   def permitFor[R[_]](feature: Feature): ActionFilter[R] = new ActionFilter[R] {
-    override protected def filter[A](request: R[A]): Future[Option[Result]] = config.isEnabled(feature) match {
-      case false => Future.failed(new NotFoundException("The page is not enabled"))
-      case true  => Future.successful(None)
-    }
+    val executionContext: ExecutionContext = ec
+
+    override protected def filter[A](request: R[A]): Future[Option[Result]] =
+      if (config.isEnabled(feature)) {
+        Future.successful(None)
+      } else {
+        Future.failed(new NotFoundException("The page is not enabled"))
+      }
   }
 
 }

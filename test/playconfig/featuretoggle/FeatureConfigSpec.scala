@@ -20,13 +20,9 @@ import org.scalatest.{BeforeAndAfterEach, MustMatchers, WordSpec}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
-class FeatureConfigSpec
-    extends WordSpec
-    with MustMatchers
-    with GuiceOneAppPerSuite
-    with FeatureToggleSupport
-    with BeforeAndAfterEach {
+class FeatureConfigSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite with FeatureToggleSupport with BeforeAndAfterEach {
 
   val testToggleValue = true
 
@@ -34,6 +30,7 @@ class FeatureConfigSpec
     .configure(s"feature-toggles.${NewVatJourney.key}" -> testToggleValue.toString)
     .build()
 
+  val appConf: ServicesConfig = app.injector.instanceOf[ServicesConfig]
   val config: FeatureConfig = app.injector.instanceOf[FeatureConfig]
 
   override def beforeEach(): Unit = {
@@ -44,13 +41,13 @@ class FeatureConfigSpec
   "FeatureConfig.isEnabled" when {
     "there is a runtime override" should {
       "return true if the override for the feature is true" in {
-        config.runModeConfiguration.getBoolean(NewVatJourney.toString) mustBe Some(testToggleValue)
+        appConf.getBoolean(NewVatJourney.toString) mustBe testToggleValue
 
         enable(NewVatJourney)
         config.isEnabled(NewVatJourney) mustBe true
       }
       "return false if the override for the feature is false" in {
-        config.runModeConfiguration.getBoolean(NewVatJourney.toString) mustBe Some(testToggleValue)
+        appConf.getBoolean(NewVatJourney.toString) mustBe testToggleValue
 
         disable(NewVatJourney)
         config.isEnabled(NewVatJourney) mustBe false
@@ -58,7 +55,7 @@ class FeatureConfigSpec
     }
     "there is not a runtime override" should {
       "return true if the config for the feature is true" in {
-        config.runModeConfiguration.getBoolean(NewVatJourney.toString) mustBe Some(testToggleValue)
+        appConf.getBoolean(NewVatJourney.toString) mustBe testToggleValue
 
         config.isEnabled(NewVatJourney) mustBe testToggleValue
       }

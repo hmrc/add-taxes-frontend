@@ -16,7 +16,7 @@
 
 package controllers
 
-import controllers.actions.{FakeServiceInfoAction, _}
+import controllers.actions._
 import forms.OtherTaxesFormProvider
 import models.OtherTaxes
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
@@ -30,28 +30,36 @@ import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier, Enrolments}
 import utils.{FakeNavigator, RadioOption}
 import views.html.{organisation_only, otherTaxes}
 
+import scala.concurrent.ExecutionContext.Implicits.global
+
 class OtherTaxesControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute: Call = routes.IndexController.onPageLoad()
 
   val formProvider = new OtherTaxesFormProvider()
-  val form = formProvider()
+  val form: Form[OtherTaxes] = formProvider()
 
-  def controller(
-    dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap,
-    fakeAuthAction: AuthAction = FakeAuthAction) =
+  val view: otherTaxes = injector.instanceOf[otherTaxes]
+  val orgOnly: organisation_only = injector.instanceOf[organisation_only]
+
+  def controller(fakeAuthAction: AuthAction = FakeAuthAction): OtherTaxesController = {
     new OtherTaxesController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       fakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view,
+      orgOnly
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    otherTaxes(frontendAppConfig, form, removeRadioOptionFromList())(HtmlFormat.empty)(fakeRequest, messages).toString
-  def viewAsStringOrganisationOnly(request: ServiceInfoRequest[AnyContent]) =
-    organisation_only(frontendAppConfig)(HtmlFormat.empty)(request, messages).toString()
+  def viewAsString(form: Form[_] = form): String =
+    new otherTaxes(formWithCSRF, mainTemplate)(frontendAppConfig, form, removeRadioOptionFromList())(HtmlFormat.empty)(fakeRequest, messages).toString
+
+  def viewAsStringOrganisationOnly(request: ServiceInfoRequest[AnyContent]): String =
+    new organisation_only(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(request, messages).toString()
 
   def removeRadioOptionFromList(radioOptionToRemove: Option[RadioOption] = None): Seq[RadioOption] = {
     val listOfAllRadioOptions: Seq[RadioOption] = Seq(
@@ -83,7 +91,8 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
       val request = ServiceInfoRequest[AnyContent](
         AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual)),
         HtmlFormat.empty)
-      val result = controller(fakeAuthAction = FakeAuthActionIndividual).onPageLoad()(request)
+
+      val result = controller(new FakeAuthActionIndividual(parser)).onPageLoad()(request)
 
       status(result) mustBe OK
       val view = contentAsString(result)
@@ -94,7 +103,8 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
       val request = ServiceInfoRequest[AnyContent](
         AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Agent)),
         HtmlFormat.empty)
-      val result = controller(fakeAuthAction = FakeAuthActionAgent).onPageLoad()(request)
+
+      val result = controller(fakeAuthAction = new FakeAuthActionAgent(parser)).onPageLoad()(request)
 
       status(result) mustBe OK
       val view = contentAsString(result)

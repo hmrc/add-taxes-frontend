@@ -15,9 +15,14 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html._
+@import uk.gov.hmrc.play.views.html.helpers._
 @import controllers.vat.routes._
 @import models.vat.CompanyDivision
+
+@this(
+    uiForm: FormWithCSRF,
+    main_template: main_template
+)
 
 @(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
@@ -30,7 +35,7 @@
     serviceInfoContent = serviceInfoContent,
     mainDataAttributes = Some(dataPageId)) {
 
-    @helpers.form(action = CompanyDivisionController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    @uiForm(action = CompanyDivisionController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 

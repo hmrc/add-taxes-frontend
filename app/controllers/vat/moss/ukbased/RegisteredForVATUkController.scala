@@ -16,45 +16,42 @@
 
 package controllers.vat.moss.ukbased
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
 import forms.vat.moss.uk.RegisteredForVATUkFormProvider
 import identifiers.RegisteredForVATUkId
-import play.api.mvc.Call
+import javax.inject.Inject
+import models.vat.moss.uk.RegisteredForVATUk
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.vat.moss.ukbased.registeredForVATUk
 
 import scala.concurrent.Future
 
-class RegisteredForVATUkController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: RegisteredForVATUkFormProvider
-) extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class RegisteredForVATUkController @Inject()(appConfig: FrontendAppConfig,
+                                             mcc: MessagesControllerComponents,
+                                             navigator: Navigator[Call],
+                                             authenticate: AuthAction,
+                                             serviceInfoData: ServiceInfoAction,
+                                             formProvider: RegisteredForVATUkFormProvider,
+                                             registeredForVATUk: registeredForVATUk)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[RegisteredForVATUk] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(registeredForVATUk(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
+        formWithErrors =>
           Future.successful(BadRequest(registeredForVATUk(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(RegisteredForVATUkId, value)))
+        value => Future.successful(Redirect(navigator.nextPage(RegisteredForVATUkId, value)))
       )
   }
 }

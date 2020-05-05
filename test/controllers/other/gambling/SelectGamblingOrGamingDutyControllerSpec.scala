@@ -16,38 +16,39 @@
 
 package controllers.other.gambling
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.{FakeServiceInfoAction, _}
 import forms.other.gambling.SelectGamblingOrGamingDutyFormProvider
-import identifiers.SelectGamblingOrGamingDutyId
 import models.other.gambling.SelectGamblingOrGamingDuty
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.other.gambling.selectGamblingOrGamingDuty
 
 class SelectGamblingOrGamingDutyControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new SelectGamblingOrGamingDutyFormProvider()
-  val form = formProvider()
+  val form: Form[SelectGamblingOrGamingDuty] = formProvider()
+
+  val view: selectGamblingOrGamingDuty = injector.instanceOf[selectGamblingOrGamingDuty]
 
   def controller() =
     new SelectGamblingOrGamingDutyController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
 
-  def viewAsString(form: Form[_] = form) =
-    selectGamblingOrGamingDuty(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new selectGamblingOrGamingDuty(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "SelectGamblingOrGamingDuty Controller" must {
 
@@ -85,7 +86,7 @@ class SelectGamblingOrGamingDutyControllerSpec extends ControllerSpecBase {
 
     for (option <- SelectGamblingOrGamingDuty.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

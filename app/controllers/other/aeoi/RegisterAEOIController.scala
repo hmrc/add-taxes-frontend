@@ -17,22 +17,21 @@
 package controllers.other.aeoi
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.other.aeio.register.registerAEOI
 
-class RegisterAEOIController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  authenticate: AuthAction,
-  serviceInfo: ServiceInfoAction)
-    extends FrontendController
-    with I18nSupport {
+class RegisterAEOIController @Inject()(appConfig: FrontendAppConfig,
+                                       mcc: MessagesControllerComponents,
+                                       authenticate: AuthAction,
+                                       serviceInfo: ServiceInfoAction,
+                                       registerAEOI: registerAEOI)
+  extends FrontendController(mcc) with I18nSupport {
 
-  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
+  def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
     Ok(registerAEOI(appConfig)(request.serviceInfoContent))
   }
 }

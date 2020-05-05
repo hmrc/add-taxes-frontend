@@ -19,152 +19,138 @@ package config
 import com.google.inject.{Inject, Singleton}
 import controllers.routes
 import play.api.i18n.Lang
-import play.api.{Configuration, Environment}
-import uk.gov.hmrc.play.config.ServicesConfig
+import play.api.Configuration
 import utils.{Enrolments, ForgottenOptions, PortalUrlBuilder}
-import play.api.mvc.Request
+import play.api.mvc.{Call, Request}
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.play.language.LanguageUtils
 
 @Singleton
-class FrontendAppConfig @Inject()(override val runModeConfiguration: Configuration, environment: Environment)
-    extends ServicesConfig
-    with PortalUrlBuilder
-    with FeatureToggles {
+class FrontendAppConfig @Inject()(val config: ServicesConfig,
+                                  val conf: Configuration,
+                                  val languageUtils: LanguageUtils) extends PortalUrlBuilder with FeatureToggles {
 
-  override protected def mode = environment.mode
-
-  private def loadConfig(key: String) =
-    runModeConfiguration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
-
-  private lazy val contactHost = runModeConfiguration.getString("contact-frontend.host").getOrElse("")
+  private lazy val contactHost = config.getString("contact-frontend.host")
   private val contactFormServiceIdentifier = "addtaxesfrontend"
 
-  lazy val enrolmentManagementFrontendHost =
-    runModeConfiguration.getString("enrolment-management-frontend.host").getOrElse("")
-  lazy val lostCredentialsFrontendHost =
-    runModeConfiguration.getString("lost-credentials-frontend.host").getOrElse("")
-  lazy val fulfilmentHouseHost = runModeConfiguration.getString("urls.fulfilment-house.host").getOrElse("")
-  lazy val fulfilmentHouse = fulfilmentHouseHost + loadConfig("urls.fulfilment-house.schemeIntegration")
+  lazy val enrolmentManagementFrontendHost: String = config.getString("enrolment-management-frontend.host")
+  lazy val lostCredentialsFrontendHost: String = config.getString("lost-credentials-frontend.host")
+  lazy val fulfilmentHouseHost: String = config.getString("urls.fulfilment-house.host")
+  lazy val fulfilmentHouse: String = fulfilmentHouseHost + config.getString("urls.fulfilment-house.schemeIntegration")
 
-  lazy val podsHost = runModeConfiguration.getString("urls.manage-pensions-frontend.host").getOrElse("")
-  lazy val pods = podsHost + loadConfig("urls.manage-pensions-frontend.schemesOverview")
+  lazy val podsHost: String = config.getString("urls.manage-pensions-frontend.host")
+  lazy val pods: String = podsHost + config.getString("urls.manage-pensions-frontend.schemesOverview")
 
-  lazy val analyticsToken = loadConfig(s"google-analytics.token")
-  lazy val analyticsHost = loadConfig(s"google-analytics.host")
-  lazy val ssoUrl = portalHost + loadConfig(s"urls.external.portal.sso")
+  lazy val analyticsToken: String = config.getString(s"google-analytics.token")
+  lazy val analyticsHost: String = config.getString(s"google-analytics.host")
+  lazy val ssoUrl: String = portalHost + config.getString(s"urls.external.portal.sso")
   lazy val reportAProblemPartialUrl = s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
   lazy val reportAProblemNonJSUrl = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
   lazy val betaFeedbackUrl = s"$contactHost/contact/beta-feedback"
   lazy val betaFeedbackUnauthenticatedUrl = s"$contactHost/contact/beta-feedback-unauthenticated"
-  lazy val chiefOperationsEmail = loadConfig("chief.operations.email")
+  lazy val chiefOperationsEmail: String = config.getString("chief.operations.email")
 
-  lazy val authUrl = baseUrl("auth")
+  lazy val authUrl: String = config.baseUrl("auth")
 
-  lazy val vatSubscriptionUrl = baseUrl("vat-subscription")
-  lazy val btaUrl = baseUrl("business-tax-account")
+  lazy val vatSubscriptionUrl: String = config.baseUrl("vat-subscription")
+  lazy val btaUrl: String = config.baseUrl("business-tax-account")
 
-  private lazy val stampDutyEnrollmentHost = loadConfig("stamp-duty-land-tax-enrolment-frontend.host")
+  private lazy val stampDutyEnrollmentHost = config.getString("stamp-duty-land-tax-enrolment-frontend.host")
 
-  def getStampDutyUrl(key: String) =
-    stampDutyEnrollmentHost + loadConfig(s"stamp-duty-land-tax-enrolment-frontend.$key")
+  def getStampDutyUrl(key: String): String = stampDutyEnrollmentHost + config.getString(s"stamp-duty-land-tax-enrolment-frontend.$key")
 
-  private lazy val businessAccountHost = runModeConfiguration.getString("urls.business-account.host").getOrElse("")
+  private lazy val businessAccountHost = config.getString("urls.business-account.host")
 
-  def getBusinessAccountUrl(key: String): String = businessAccountHost + loadConfig(s"urls.business-account.$key")
+  def getBusinessAccountUrl(key: String): String = businessAccountHost + config.getString(s"urls.business-account.$key")
 
-  def getIFormUrl(key: String): String = loadConfig(s"urls.iForms-url.$key")
+  def getIFormUrl(key: String): String = config.getString(s"urls.iForms-url.$key")
 
-  private lazy val govUKHost = runModeConfiguration.getString("urls.govuk.host").getOrElse("")
+  private lazy val govUKHost = config.getString("urls.govuk.host")
 
-  def getGovUKUrl(key: String): String = govUKHost + loadConfig(s"urls.govuk.$key")
+  def getGovUKUrl(key: String): String = govUKHost + config.getString(s"urls.govuk.$key")
 
-  private lazy val ggRegistrationHost = loadConfig("government-gateway-registration-frontend.host")
+  private lazy val ggRegistrationHost = config.getString("government-gateway-registration-frontend.host")
 
-  def getGGRegistrationUrl(key: String) =
-    ggRegistrationHost + loadConfig(s"government-gateway-registration-frontend.$key")
+  def getGGRegistrationUrl(key: String): String = ggRegistrationHost + config.getString(s"government-gateway-registration-frontend.$key")
 
-  private lazy val govIMHost = runModeConfiguration.getString("urls.govim.host").getOrElse("")
+  private lazy val govIMHost = config.getString("urls.govim.host")
 
-  def getGovIMUrl(key: String): String = govIMHost + loadConfig(s"urls.govim.$key")
+  def getGovIMUrl(key: String): String = govIMHost + config.getString(s"urls.govim.$key")
 
-  lazy val loginUrl = loadConfig("urls.login")
-  lazy val loginContinueUrl = loadConfig("urls.loginContinue")
+  lazy val loginUrl: String = config.getString("urls.login")
+  lazy val loginContinueUrl: String = config.getString("urls.loginContinue")
 
-  lazy val languageTranslationEnabled =
-    runModeConfiguration.getBoolean("microservice.services.features.welsh-translation").getOrElse(true)
+  lazy val languageTranslationEnabled: Boolean = config.getBoolean("microservice.services.features.welsh-translation")
 
   def languageMap: Map[String, Lang] = Map("english" -> Lang("en"), "cymraeg" -> Lang("cy"))
 
-  def routeToSwitchLanguage = (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
+  val routeToSwitchLanguage: String => Call = (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
 
-  private lazy val portalHost = loadConfig(s"urls.external.portal.host")
+  private lazy val portalHost = config.getString(s"urls.external.portal.host")
 
-  def getPortalUrl(key: String, args: String*)(implicit request: Request[_]): String =
-    appendLanguage(portalHost + loadConfig(s"urls.external.portal.$key")).format(args: _*)
+  def getPortalUrl(key: String, args: String*)(implicit request: Request[_]): String = {
+    appendLanguage(portalHost + config.getString(s"urls.external.portal.$key")).format(args: _*)
+  }
 
-  lazy val hmceHost = loadConfig(s"urls.external.hmce.host")
+  lazy val hmceHost: String = config.getString(s"urls.external.hmce.host")
 
-  def getHmceURL(key: String): String = hmceHost + loadConfig(s"urls.external.hmce.$key")
+  def getHmceURL(key: String): String = hmceHost + config.getString(s"urls.external.hmce.$key")
 
-  lazy val customsHost = loadConfig("urls.external.customs.host")
+  lazy val customsHost: String = config.getString("urls.external.customs.host")
 
-  def getCustomsUrl(key: String): String = customsHost + loadConfig(s"urls.external.customs.$key")
+  def getCustomsUrl(key: String): String = customsHost + config.getString(s"urls.external.customs.$key")
 
-  lazy val publishedAssets = loadConfig(s"urls.external.assets.host")
+  lazy val publishedAssets: String = config.getString(s"urls.external.assets.host")
 
-  def getPublishedAssetsUrl(key: String): String = publishedAssets + loadConfig(s"urls.external.assets.$key")
+  def getPublishedAssetsUrl(key: String): String = publishedAssets + config.getString(s"urls.external.assets.$key")
 
-  def eiUrl = loadConfig(s"urls.external.ei")
+  lazy val eiUrl: String = config.getString("urls.external.ei")
 
-  def atedUrl = loadConfig(s"urls.external.ated")
+  lazy val atedUrl: String = config.getString("urls.external.ated")
 
-  def revenueScotUrl = loadConfig(s"urls.external.lbtScotland")
+  lazy val revenueScotUrl: String = config.getString("urls.external.lbtScotland")
 
-  def vatSignUpHost = loadConfig("vat-sign-up-frontend.host")
+  lazy val vatSignUpHost: String = config.getString("vat-sign-up-frontend.host")
 
-  def vatSignUpClaimSubscriptionUrl(vrn: String): String =
-    s"$vatSignUpHost/vat-through-software/sign-up/claim-subscription/$vrn"
+  def vatSignUpClaimSubscriptionUrl(vrn: String): String = s"$vatSignUpHost/vat-through-software/sign-up/claim-subscription/$vrn"
 
-  def emacEnrollmentsUrl(enrolment: Enrolments): String =
+  def emacEnrollmentsUrl(enrolment: Enrolments): String = {
     s"$enrolmentManagementFrontendHost/enrolment-management-frontend/$enrolment/request-access-tax-scheme?continue=%2Fbusiness-account"
+  }
 
-  def emacDeenrolmentsUrl(enrolment: Enrolments): String =
+  def emacDeenrolmentsUrl(enrolment: Enrolments): String = {
     s"$enrolmentManagementFrontendHost/enrolment-management-frontend/$enrolment/remove-access-tax-scheme?continue=%2Fbusiness-account"
+  }
 
-  lazy val atwdDeenrolmentUrl =
-    s"$enrolmentManagementFrontendHost/enrolment-management-frontend/HMCE-ATWD-ORG/remove-warehouse?continue=/account"
+  lazy val atwdDeenrolmentUrl = s"$enrolmentManagementFrontendHost/enrolment-management-frontend/HMCE-ATWD-ORG/remove-warehouse?continue=/account"
 
-  def lostCredentials(forgottenOption: ForgottenOptions): String =
-    s"$lostCredentialsFrontendHost/account-recovery/choose-account-type/$forgottenOption"
+  def lostCredentials(forgottenOption: ForgottenOptions): String = s"$lostCredentialsFrontendHost/account-recovery/choose-account-type/$forgottenOption"
 
-  lazy val checkUtrHost: String = runModeConfiguration.getString("enrolment-store-proxy.host").getOrElse("")
+  lazy val checkUtrHost: String = config.getString("enrolment-store-proxy.host")
 
-  def checkUtrUrl(utr: String): String =
-    s"$checkUtrHost/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=principal"
+  def checkUtrUrl(utr: String): String = s"$checkUtrHost/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=principal"
 
-  private lazy val pensionsHost: String = loadConfig("urls.external.pensions.host")
+  private lazy val pensionsHost: String = config.getString("urls.external.pensions.host")
 
-  def getPensionsUrl(key: String): String = pensionsHost + loadConfig(s"urls.external.pensions.$key")
+  def getPensionsUrl(key: String): String = pensionsHost + config.getString(s"urls.external.pensions.$key")
 
-  lazy val googleTagManagerId = loadConfig(s"google-tag-manager.id")
+  lazy val googleTagManagerId: String = config.getString(s"google-tag-manager.id")
 
-  lazy val changeBusinessDetailsHost =
-    runModeConfiguration.getString("urls.manage-vat-subscription-frontend.host").getOrElse("")
-  def changeBusinessDetailsUri =
-    runModeConfiguration.getString("urls.manage-vat-subscription-frontend.changeBusinessDetails").getOrElse("")
-  def changeBusinessDetailsUrl = changeBusinessDetailsHost + changeBusinessDetailsUri
+  lazy val changeBusinessDetailsHost: String = config.getString("urls.manage-vat-subscription-frontend.host")
+  lazy val changeBusinessDetailsUri: String = config.getString("urls.manage-vat-subscription-frontend.changeBusinessDetails")
+  lazy val changeBusinessDetailsUrl: String = changeBusinessDetailsHost + changeBusinessDetailsUri
 }
 
 trait FeatureToggles {
-  val runModeConfiguration: Configuration
+  val config: ServicesConfig
 
-  private def featureEnabled(key: String): Boolean =
-    runModeConfiguration.getBoolean(s"feature-toggles.$key").getOrElse(false)
+  private def featureEnabled(key: String): Boolean = config.getBoolean(s"feature-toggles.$key")
 
   lazy val stampDutyEnabled: Boolean = featureEnabled("stampduty")
   lazy val employerPayeJourneyEnabled: Boolean = featureEnabled("employer.paye")
   lazy val mtdVatSignUpJourneyEnabled: Boolean = featureEnabled("mtd-vat-signup")
   lazy val newVatJourneyEnabled: Boolean = featureEnabled("newVatJourney")
 
-  def sessionTimeoutInSeconds: Long = 900
-  def sessionCountdownInSeconds: Int = 60
+  final val sessionTimeoutInSeconds: Long = 900
+  final val sessionCountdownInSeconds: Int = 60
 }

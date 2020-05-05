@@ -19,7 +19,7 @@ package views.vat.moss.ukbased
 import play.api.data.Form
 import forms.vat.moss.uk.RegisteredForVATUkFormProvider
 import models.vat.moss.uk.RegisteredForVATUk
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.vat.moss.ukbased.registeredForVATUk
 
@@ -29,12 +29,13 @@ class RegisteredForVATUkViewSpec extends ViewBehaviours {
 
   val form = new RegisteredForVATUkFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView = () => registeredForVATUk(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new registeredForVATUk(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) => registeredForVATUk(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+    new registeredForVATUk(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "RegisteredForVATUk view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -53,7 +54,7 @@ class RegisteredForVATUkViewSpec extends ViewBehaviours {
         doc.text() must include("You will have a VAT registration number if you are VAT registered in the UK.")
 
         for (option <- RegisteredForVATUk.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
@@ -62,10 +63,10 @@ class RegisteredForVATUkViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- RegisteredForVATUk.options.filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

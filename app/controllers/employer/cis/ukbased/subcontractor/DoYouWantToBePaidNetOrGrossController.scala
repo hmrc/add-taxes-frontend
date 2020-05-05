@@ -17,42 +17,38 @@
 package controllers.employer.cis.ukbased.subcontractor
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import forms.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGrossFormProvider
 import identifiers.DoYouWantToBePaidNetOrGrossId
-import play.api.mvc.Call
+import models.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGross
 import views.html.employer.cis.ukbased.subcontractor.doYouWantToBePaidNetOrGross
 
-class DoYouWantToBePaidNetOrGrossController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: DoYouWantToBePaidNetOrGrossFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class DoYouWantToBePaidNetOrGrossController @Inject()(appConfig: FrontendAppConfig,
+                                                      mcc: MessagesControllerComponents,
+                                                      navigator: Navigator[Call],
+                                                      authenticate: AuthAction,
+                                                      serviceInfoData: ServiceInfoAction,
+                                                      formProvider: DoYouWantToBePaidNetOrGrossFormProvider,
+                                                      doYouWantToBePaidNetOrGross: doYouWantToBePaidNetOrGross)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[DoYouWantToBePaidNetOrGross] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(doYouWantToBePaidNetOrGross(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          BadRequest(doYouWantToBePaidNetOrGross(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(DoYouWantToBePaidNetOrGrossId, value))
+        formWithErrors => BadRequest(doYouWantToBePaidNetOrGross(appConfig, formWithErrors)(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(DoYouWantToBePaidNetOrGrossId, value))
       )
   }
 }

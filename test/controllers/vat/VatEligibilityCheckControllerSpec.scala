@@ -27,15 +27,21 @@ import views.html.vat.vatEligibilityCheck
 
 class VatEligibilityCheckControllerSpec extends ControllerSpecBase with BeforeAndAfterEach with FeatureToggleSupport {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  val view: vatEligibilityCheck = injector.instanceOf[vatEligibilityCheck]
+
+  def controller(): VatEligibilityCheckController = {
     new VatEligibilityCheckController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       FakeAuthAction,
       FakeServiceInfoAction,
-      featureDepandantAction = app.injector.instanceOf[FeatureDependantAction])
+      featureDepandantAction = app.injector.instanceOf[FeatureDependantAction],
+      view
+    )
+  }
 
-  def viewAsString() = vatEligibilityCheck(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(): String =
+    new vatEligibilityCheck(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   override def beforeEach(): Unit = {
     super.beforeEach()

@@ -16,38 +16,40 @@
 
 package controllers.vat.moss
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.FakeServiceInfoAction
 import forms.vat.moss.WhereIsYourBusinessBasedFormProvider
-import identifiers.WhereIsYourBusinessBasedId
 import models.vat.moss.WhereIsYourBusinessBased
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.vat.moss.whereIsYourBusinessBased
 
 class WhereIsYourBusinessBasedControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new WhereIsYourBusinessBasedFormProvider()
-  val form = formProvider()
+  val form: Form[WhereIsYourBusinessBased] = formProvider()
 
-  def controller() =
+  val view: whereIsYourBusinessBased = injector.instanceOf[whereIsYourBusinessBased]
+
+  def controller(): WhereIsYourBusinessBasedController = {
     new WhereIsYourBusinessBasedController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    whereIsYourBusinessBased(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new whereIsYourBusinessBased(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "WhereIsYourBusinessBased Controller" must {
 
@@ -85,7 +87,7 @@ class WhereIsYourBusinessBasedControllerSpec extends ControllerSpecBase {
 
     for (option <- WhereIsYourBusinessBased.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

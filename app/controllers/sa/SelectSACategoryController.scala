@@ -16,85 +16,75 @@
 
 package controllers.sa
 
-import javax.inject.Inject
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, HmrcEnrolmentType, Navigator, RadioOption}
+import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
 import forms.sa.SelectSACategoryFormProvider
 import identifiers.SelectSACategoryId
-import models.sa.{DoYouHaveSAUTR, SelectSACategory}
-import play.api.mvc.Call
-import uk.gov.hmrc.auth.core.Enrolments
-import views.html.sa.selectSACategory
-import utils.&&
-import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
+import javax.inject.Inject
 import models.requests.ServiceInfoRequest
-import play.api.mvc.Result
+import models.sa.{DoYouHaveSAUTR, SelectSACategory}
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc._
+import uk.gov.hmrc.auth.core.Enrolments
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils._
+import views.html.sa.selectSACategory
 
-class SelectSACategoryController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: SelectSACategoryFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
+                                           mcc: MessagesControllerComponents,
+                                           navigator: Navigator[Call],
+                                           authenticate: AuthAction,
+                                           serviceInfoData: ServiceInfoAction,
+                                           formProvider: SelectSACategoryFormProvider,
+                                           selectSACategory: selectSACategory)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[SelectSACategory] = formProvider()
 
-  def onPageLoadHasUTR = onPageLoad(routes.SelectSACategoryController.onSubmitHasUTR())
-  def onPageLoadNoUTR = onPageLoad(routes.SelectSACategoryController.onSubmitNoUTR())
-
-  private def onPageLoad(action: Call) = (authenticate andThen serviceInfoData) { implicit request =>
-    redirectWhenHasSAAndRT {
-      Ok(
-        selectSACategory(appConfig, form, action, getRadioOptions(request.request.enrolments))(
-          request.serviceInfoContent))
-    }
-  }
-
-  def onSubmitHasUTR = onSubmit(routes.SelectSACategoryController.onSubmitHasUTR(), DoYouHaveSAUTR.Yes)
-  def onSubmitNoUTR = onSubmit(routes.SelectSACategoryController.onSubmitNoUTR(), DoYouHaveSAUTR.No)
-
-  private def onSubmit(action: Call, answer: DoYouHaveSAUTR) = (authenticate andThen serviceInfoData) {
+  private def onPageLoad(action: Call): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
       redirectWhenHasSAAndRT {
-        form
-          .bindFromRequest()
-          .fold(
-            (formWithErrors: Form[_]) =>
-              BadRequest(
-                selectSACategory(appConfig, formWithErrors, action, getRadioOptions(request.request.enrolments))(
-                  request.serviceInfoContent)),
-            (value) =>
-              Redirect(
-                navigator
-                  .nextPage(SelectSACategoryId, (value, answer, request.request.affinityGroup)))
-          )
+        Ok(selectSACategory(appConfig, form, action, getRadioOptions(request.request.enrolments))(request.serviceInfoContent))
       }
   }
 
-  def redirectWhenHasSAAndRT[A](noRedirect: => Result)(implicit request: ServiceInfoRequest[A]): Result =
+  def onPageLoadHasUTR: Action[AnyContent] = onPageLoad(routes.SelectSACategoryController.onSubmitHasUTR())
+  def onPageLoadNoUTR: Action[AnyContent] = onPageLoad(routes.SelectSACategoryController.onSubmitNoUTR())
+
+  private def onSubmit(action: Call, answer: DoYouHaveSAUTR): Action[AnyContent] = {
+    (authenticate andThen serviceInfoData) { implicit request =>
+      redirectWhenHasSAAndRT {
+        form.bindFromRequest()
+          .fold(
+            formWithErrors =>
+              BadRequest(selectSACategory(appConfig, formWithErrors, action, getRadioOptions(request.request.enrolments))(request.serviceInfoContent)),
+            value => Redirect(navigator.nextPage(SelectSACategoryId, (value, answer, request.request.affinityGroup)))
+          )
+      }
+    }
+  }
+
+  def onSubmitHasUTR: Action[AnyContent] = onSubmit(routes.SelectSACategoryController.onSubmitHasUTR(), DoYouHaveSAUTR.Yes)
+  def onSubmitNoUTR: Action[AnyContent] = onSubmit(routes.SelectSACategoryController.onSubmitNoUTR(), DoYouHaveSAUTR.No)
+
+
+  private def redirectWhenHasSAAndRT[A](noRedirect: => Result)(implicit request: ServiceInfoRequest[A]): Result = {
     request.request.enrolments match {
       case HmrcEnrolmentType.SA() && HmrcEnrolmentType.RegisterTrusts() =>
         Redirect(DoYouWantToAddPartnerController.onPageLoad())
       case _ =>
         noRedirect
     }
+  }
 
-  def getRadioOptions(enrolments: Enrolments): Set[RadioOption] =
+  private def getRadioOptions(enrolments: Enrolments): Set[RadioOption] = {
     enrolments match {
-      case HmrcEnrolmentType.SA() =>
-        SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
-
+      case HmrcEnrolmentType.SA() => SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
       case HmrcEnrolmentType.RegisterTrusts() =>
         SelectSACategory.options.filterNot(_.value == SelectSACategory.Trust.toString)
-
       case _ => SelectSACategory.options
     }
+  }
 }
