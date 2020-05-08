@@ -18,7 +18,7 @@ package repositories
 
 import javax.inject.{Inject, Singleton}
 
-import org.joda.time.{DateTime, DateTimeZone}
+import java.time.{LocalDateTime, ZoneOffset}
 import play.api.libs.json.{JsValue, Json}
 import play.api.{Configuration, Logger}
 import play.modules.reactivemongo.MongoDbConnection
@@ -33,7 +33,10 @@ import uk.gov.hmrc.mongo.json.ReactiveMongoFormats
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-case class DatedCacheMap(id: String, data: Map[String, JsValue], lastUpdated: DateTime = DateTime.now(DateTimeZone.UTC))
+case class DatedCacheMap(
+  id: String,
+  data: Map[String, JsValue],
+  lastUpdated: LocalDateTime = LocalDateTime.now(ZoneOffset.UTC))
 
 object DatedCacheMap {
   implicit val dateFormat = ReactiveMongoFormats.dateTimeFormats

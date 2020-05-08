@@ -38,3 +38,4 @@ migrations/applied_migrations
 .bloop/
 .metals/
 project/metals.sbt
+.vscode/
