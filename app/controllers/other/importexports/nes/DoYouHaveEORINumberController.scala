@@ -17,46 +17,42 @@
 package controllers.other.importexports.nes
 
 import javax.inject.Inject
-
-import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
 import forms.other.importexports.DoYouHaveEORINumberFormProvider
 import identifiers.DoYouHaveEORINumberId
+import models.other.importexports.DoYouHaveEORINumber
 import play.api.data.Form
-import play.api.mvc.Call
 import utils.Navigator
 import viewmodels.ViewAction
 import views.html.other.importexports.doYouHaveEORINumber
 
 import scala.concurrent.Future
 
-class DoYouHaveEORINumberController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfo: ServiceInfoAction,
-  formProvider: DoYouHaveEORINumberFormProvider)
-    extends FrontendController
-    with I18nSupport {
+class DoYouHaveEORINumberController @Inject()(appConfig: FrontendAppConfig,
+                                              mcc: MessagesControllerComponents,
+                                              navigator: Navigator[Call],
+                                              authenticate: AuthAction,
+                                              serviceInfo: ServiceInfoAction,
+                                              formProvider: DoYouHaveEORINumberFormProvider,
+                                              doYouHaveEORINumber: doYouHaveEORINumber)
+  extends FrontendController(mcc) with I18nSupport {
 
-  val form = formProvider()
-  lazy val action = ViewAction(routes.DoYouHaveEORINumberController.onSubmit(), "AddNESTax")
+  val form: Form[DoYouHaveEORINumber] = formProvider()
+  lazy val action: ViewAction = ViewAction(routes.DoYouHaveEORINumberController.onSubmit(), "AddNESTax")
 
-  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
+  def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
     Ok(doYouHaveEORINumber(appConfig, form, action)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfo).async { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfo).async { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, action)(request.serviceInfoContent))
-        ),
+        formWithErrors =>
+          Future.successful(BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, action)(request.serviceInfoContent))),
         value => Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.NES, value)))
       )
   }

@@ -19,7 +19,7 @@ package views.vat.moss.noneu
 import play.api.data.Form
 import forms.vat.moss.noneu.HaveYouRegisteredForVATMOSSFormProvider
 import models.vat.moss.noneu.HaveYouRegisteredForVATMOSS
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.vat.moss.noneu.haveYouRegisteredForVATMOSS
 
@@ -29,12 +29,13 @@ class HaveYouRegisteredForVATMOSSViewSpec extends ViewBehaviours {
 
   val form = new HaveYouRegisteredForVATMOSSFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView = () => haveYouRegisteredForVATMOSS(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new haveYouRegisteredForVATMOSS(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) => haveYouRegisteredForVATMOSS(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+    new haveYouRegisteredForVATMOSS(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "HaveYouRegisteredForVATMOSS view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -50,7 +51,7 @@ class HaveYouRegisteredForVATMOSSViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- HaveYouRegisteredForVATMOSS.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
 
@@ -65,10 +66,10 @@ class HaveYouRegisteredForVATMOSSViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- HaveYouRegisteredForVATMOSS.options.filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

@@ -16,17 +16,23 @@
 
 package utils
 
+import controllers.LanguageSwitchController.welsh
 import play.api.mvc.Request
 import uk.gov.hmrc.play.language.LanguageUtils
 
 trait PortalUrlBuilder {
 
-  def appendLanguage(url: String)(implicit request: Request[_]) = {
-    val lang = if (LanguageUtils.getCurrentLang == LanguageUtils.Welsh) "lang=cym" else "lang=eng"
-    val token =
-      if (url.endsWith("?")) ""
-      else if (url.contains("?")) "&"
-      else "?"
+  val languageUtils: LanguageUtils
+
+  def appendLanguage(url: String)(implicit request: Request[_]): String = {
+    val lang = if (languageUtils.getCurrentLang == welsh) "lang=cym" else "lang=eng"
+    val token = if (url.endsWith("?")) {
+      ""
+    } else if (url.contains("?")) {
+      "&"
+    } else {
+      "?"
+    }
     s"$url$token$lang"
   }
 

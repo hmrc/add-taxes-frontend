@@ -16,45 +16,42 @@
 
 package controllers.employer.cis.ukbased.contractor
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
 import forms.employer.IsBusinessRegisteredForPAYEFormProvider
 import identifiers.IsBusinessRegisteredForPAYEId
-import play.api.mvc.Call
+import javax.inject.Inject
+import models.employer.IsBusinessRegisteredForPAYE
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import viewmodels.ViewAction
 import views.html.employer.isBusinessRegisteredForPAYE
 
-class IsBusinessRegisteredForPAYEController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: IsBusinessRegisteredForPAYEFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class IsBusinessRegisteredForPAYEController @Inject()(appConfig: FrontendAppConfig,
+                                                      mcc: MessagesControllerComponents,
+                                                      navigator: Navigator[Call],
+                                                      authenticate: AuthAction,
+                                                      serviceInfoData: ServiceInfoAction,
+                                                      formProvider: IsBusinessRegisteredForPAYEFormProvider,
+                                                      isBusinessRegisteredForPAYE: isBusinessRegisteredForPAYE)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  lazy val viewAction = ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddCisUkContractor")
-  val form = formProvider()
+  lazy val viewAction: ViewAction = ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddCisUkContractor")
+  val form: Form[IsBusinessRegisteredForPAYE] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(isBusinessRegisteredForPAYE(appConfig, form, viewAction)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
+        formWithErrors =>
           BadRequest(isBusinessRegisteredForPAYE(appConfig, formWithErrors, viewAction)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(IsBusinessRegisteredForPAYEId.CIS, value))
+        value => Redirect(navigator.nextPage(IsBusinessRegisteredForPAYEId.CIS, value))
       )
   }
 }

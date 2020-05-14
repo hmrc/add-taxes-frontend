@@ -17,36 +17,46 @@
 package controllers.ct
 
 import controllers.ControllerSpecBase
-import controllers.actions.{FakeServiceInfoAction, _}
-import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
+import controllers.actions._
+import javax.inject.Inject
+import models.requests.AuthenticatedRequest
+import play.api.Application
+import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.mvc.{Request, Result}
+import play.api.mvc._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.auth.core.Enrolments
-import play.api.inject.bind
-import play.twirl.api.HtmlFormat
 import views.html.ct.individual_add_corporation_tax
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class IndividualAddCorporationTaxControllerSpec extends ControllerSpecBase {
 
-  def controller(
-    dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap,
-    fakeAuthAction: AuthAction = FakeAuthAction) =
-    new IndividualAddCorporationTaxController(frontendAppConfig, messagesApi, fakeAuthAction, FakeServiceInfoAction)
+  val view: individual_add_corporation_tax = injector.instanceOf[individual_add_corporation_tax]
 
-  val application = new GuiceApplicationBuilder()
-    .overrides(
-      bind[AuthAction].to[FakeAuthActionAuthenticated],
-      bind[ServiceInfoAction].to[FakeServiceInfoActionEmpty]
+  def controller(fakeAuthAction: AuthAction = FakeAuthAction): IndividualAddCorporationTaxController = {
+    new IndividualAddCorporationTaxController(
+      frontendAppConfig,
+      mcc,
+      fakeAuthAction,
+      FakeServiceInfoAction,
+      view
     )
-    .build()
+  }
 
-  def viewAsString() =
-    individual_add_corporation_tax(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  val application: Application = {
+    new GuiceApplicationBuilder()
+      .overrides(
+        bind[AuthAction].to[FakeAuthActionAuthenticated]
+      )
+      .build()
+  }
+
+  def viewAsString(): String =
+    new individual_add_corporation_tax(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "IndividualAddCorporationTaxControllerSpec" should {
     "return OK when called through route" in {
@@ -64,14 +74,20 @@ class IndividualAddCorporationTaxControllerSpec extends ControllerSpecBase {
 
 }
 
-class FakeAuthActionAuthenticated extends AuthAction {
+class FakeAuthActionAuthenticated @Inject()(bodyParsers: PlayBodyParsers)(implicit val executionContext: ExecutionContext) extends AuthAction {
+  override val parser: BodyParser[AnyContent] = bodyParsers.default
+
   override def invokeBlock[A](request: Request[A], block: AuthenticatedRequest[A] => Future[Result]): Future[Result] =
     block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Organisation)))
 }
 
-class FakeServiceInfoActionEmpty extends ServiceInfoAction {
-  override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
-    implicit val r: Request[A] = request
-    Future.successful(ServiceInfoRequest(request, HtmlFormat.empty))
-  }
-}
+//class FakeServiceInfoActionEmpty(bodyParsers: PlayBodyParsers)(implicit val executionContext: ExecutionContext) extends AuthAction {
+//  override val parser: BodyParser[AnyContent] = bodyParsers.default
+//
+//  override def invokeBlock[A](request: Request[A], block: AuthenticatedRequest[A] => Future[Result]): Future[Result] =
+//    Future.successful(ServiceInfoRequest(request, HtmlFormat.empty))
+////  override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
+////    implicit val r: Request[A] = request
+////    Future.successful(ServiceInfoRequest(request, HtmlFormat.empty))
+//  }
+//}

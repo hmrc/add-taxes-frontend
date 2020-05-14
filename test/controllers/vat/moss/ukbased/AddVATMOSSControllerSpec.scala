@@ -24,10 +24,20 @@ import views.html.vat.moss.ukbased.addVATMOSS
 
 class AddVATMOSSControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new AddVATMOSSController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: addVATMOSS = injector.instanceOf[addVATMOSS]
 
-  def viewAsString() = addVATMOSS(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): AddVATMOSSController = {
+    new AddVATMOSSController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new addVATMOSS(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "AddVATMOSS Controller" must {
 

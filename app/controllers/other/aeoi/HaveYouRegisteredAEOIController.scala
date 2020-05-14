@@ -16,45 +16,42 @@
 
 package controllers.other.aeoi
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
 import forms.other.aeoi.HaveYouRegisteredAEOIFormProvider
 import identifiers.HaveYouRegisteredAEOIId
-import play.api.mvc.Call
+import javax.inject.Inject
+import models.other.aeoi.HaveYouRegisteredAEOI
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.other.aeoi.haveYouRegisteredAEOI
 
 import scala.concurrent.Future
 
-class HaveYouRegisteredAEOIController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: HaveYouRegisteredAEOIFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class HaveYouRegisteredAEOIController @Inject()(appConfig: FrontendAppConfig,
+                                                mcc: MessagesControllerComponents,
+                                                navigator: Navigator[Call],
+                                                authenticate: AuthAction,
+                                                serviceInfoData: ServiceInfoAction,
+                                                formProvider: HaveYouRegisteredAEOIFormProvider,
+                                                haveYouRegisteredAEOI: haveYouRegisteredAEOI)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[HaveYouRegisteredAEOI] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(haveYouRegisteredAEOI(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
+        formWithErrors =>
           Future.successful(BadRequest(haveYouRegisteredAEOI(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(HaveYouRegisteredAEOIId, value)))
+        value => Future.successful(Redirect(navigator.nextPage(HaveYouRegisteredAEOIId, value)))
       )
   }
 }

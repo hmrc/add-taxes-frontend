@@ -16,43 +16,39 @@
 
 package controllers.deenrolment
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import forms.deenrolment.DoYouNeedToCloseCharityFormProvider
 import identifiers.DoYouNeedToCloseCharityId
+import javax.inject.Inject
+import models.deenrolment.DoYouNeedToCloseCharity
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Call
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import views.html.deenrolment.doYouNeedToCloseCharity
 
-class DoYouNeedToCloseCharityController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: DoYouNeedToCloseCharityFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class DoYouNeedToCloseCharityController @Inject()(appConfig: FrontendAppConfig,
+                                                  mcc: MessagesControllerComponents,
+                                                  navigator: Navigator[Call],
+                                                  authenticate: AuthAction,
+                                                  serviceInfoData: ServiceInfoAction,
+                                                  formProvider: DoYouNeedToCloseCharityFormProvider,
+                                                  doYouNeedToCloseCharity: doYouNeedToCloseCharity)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[DoYouNeedToCloseCharity] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(doYouNeedToCloseCharity(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          BadRequest(doYouNeedToCloseCharity(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(DoYouNeedToCloseCharityId, value))
+        formWithErrors => BadRequest(doYouNeedToCloseCharity(appConfig, formWithErrors)(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(DoYouNeedToCloseCharityId, value))
       )
   }
 }

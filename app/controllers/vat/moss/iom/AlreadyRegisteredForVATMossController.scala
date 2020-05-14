@@ -16,48 +16,44 @@
 
 package controllers.vat.moss.iom
 
-import javax.inject.Inject
 import config.FrontendAppConfig
 import controllers.actions._
 import forms.vat.moss.AlreadyRegisteredForVATMossFormProvider
+import identifiers.AlreadyRegisteredForVATMossId.IsleOfMan
+import javax.inject.Inject
+import models.vat.moss.AlreadyRegisteredForVATMoss
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-import identifiers.AlreadyRegisteredForVATMossId.IsleOfMan
-import play.api.mvc.Call
 import viewmodels.ViewAction
 import views.html.vat.moss.alreadyRegisteredForVATMoss
 
 import scala.concurrent.Future
 
-class AlreadyRegisteredForVATMossController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: AlreadyRegisteredForVATMossFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class AlreadyRegisteredForVATMossController @Inject()(appConfig: FrontendAppConfig,
+                                                      mcc: MessagesControllerComponents,
+                                                      navigator: Navigator[Call],
+                                                      authenticate: AuthAction,
+                                                      serviceInfoData: ServiceInfoAction,
+                                                      formProvider: AlreadyRegisteredForVATMossFormProvider,
+                                                      alreadyRegisteredForVATMoss: alreadyRegisteredForVATMoss)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
-  lazy val viewAction =
-    ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossNoVatIomVatRegistered")
+  val form: Form[AlreadyRegisteredForVATMoss] = formProvider()
+  lazy val viewAction: ViewAction = ViewAction(routes.AlreadyRegisteredForVATMossController.onSubmit(), "VatMossNoVatIomVatRegistered")
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(alreadyRegisteredForVATMoss(appConfig, form, viewAction)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(alreadyRegisteredForVATMoss(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(IsleOfMan, value)))
+        formWithErrors =>
+          Future.successful(BadRequest(alreadyRegisteredForVATMoss(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
+        value => Future.successful(Redirect(navigator.nextPage(IsleOfMan, value)))
       )
   }
 }

@@ -16,47 +16,43 @@
 
 package controllers.vat.moss.noneu
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
 import forms.vat.moss.noneu.HaveYouRegisteredForVATMOSSFormProvider
 import identifiers.HaveYouRegisteredForVATMOSSId
-import play.api.mvc.Call
+import javax.inject.Inject
+import models.vat.moss.noneu.HaveYouRegisteredForVATMOSS
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.vat.moss.noneu.haveYouRegisteredForVATMOSS
 
 import scala.concurrent.Future
 
-class HaveYouRegisteredForVATMOSSController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: HaveYouRegisteredForVATMOSSFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class HaveYouRegisteredForVATMOSSController @Inject()(appConfig: FrontendAppConfig,
+                                                      mcc: MessagesControllerComponents,
+                                                      navigator: Navigator[Call],
+                                                      authenticate: AuthAction,
+                                                      serviceInfoData: ServiceInfoAction,
+                                                      formProvider: HaveYouRegisteredForVATMOSSFormProvider,
+                                                      haveYouRegisteredForVATMOSS: haveYouRegisteredForVATMOSS)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[HaveYouRegisteredForVATMOSS] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(haveYouRegisteredForVATMOSS(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     routes.HaveYouRegisteredForVATMOSSController.onSubmit()
-    form
-      .bindFromRequest()
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(haveYouRegisteredForVATMOSS(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(HaveYouRegisteredForVATMOSSId, value)))
+        formWithErrors =>
+          Future.successful(BadRequest(haveYouRegisteredForVATMOSS(appConfig, formWithErrors)(request.serviceInfoContent))),
+        value => Future.successful(Redirect(navigator.nextPage(HaveYouRegisteredForVATMOSSId, value)))
       )
   }
 }

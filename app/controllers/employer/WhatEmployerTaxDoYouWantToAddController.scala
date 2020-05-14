@@ -16,76 +16,61 @@
 
 package controllers.employer
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import forms.employer.WhatEmployerTaxDoYouWantToAddFormProvider
 import identifiers.WhatEmployerTaxDoYouWantToAddId
+import javax.inject.Inject
 import models.employer.WhatEmployerTaxDoYouWantToAdd
 import models.employer.WhatEmployerTaxDoYouWantToAdd.{EPAYE, PS}
-import play.api.mvc.Call
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.auth.core.Enrolments
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator, RadioOption}
 import views.html.employer.whatEmployerTaxDoYouWantToAdd
 
-class WhatEmployerTaxDoYouWantToAddController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: WhatEmployerTaxDoYouWantToAddFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class WhatEmployerTaxDoYouWantToAddController @Inject()(appConfig: FrontendAppConfig,
+                                                        mcc: MessagesControllerComponents,
+                                                        navigator: Navigator[Call],
+                                                        authenticate: AuthAction,
+                                                        serviceInfoData: ServiceInfoAction,
+                                                        formProvider: WhatEmployerTaxDoYouWantToAddFormProvider,
+                                                        whatEmployerTaxDoYouWantToAdd: whatEmployerTaxDoYouWantToAdd)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[WhatEmployerTaxDoYouWantToAdd] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(
-      whatEmployerTaxDoYouWantToAdd(appConfig, form, getOptions(request.request.enrolments))(
-        request.serviceInfoContent))
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    Ok(whatEmployerTaxDoYouWantToAdd(appConfig, form, getOptions(request.request.enrolments))(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          BadRequest(
-            whatEmployerTaxDoYouWantToAdd(appConfig, formWithErrors, getOptions(request.request.enrolments))(
-              request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(WhatEmployerTaxDoYouWantToAddId, (value, request.request.enrolments)))
+        formWithErrors =>
+          BadRequest(whatEmployerTaxDoYouWantToAdd(appConfig, formWithErrors, getOptions(request.request.enrolments))(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(WhatEmployerTaxDoYouWantToAddId, (value, request.request.enrolments)))
       )
   }
 
-  def getOptions(enrolments: Enrolments): Seq[RadioOption] =
-    checkPensionScheme(enrolments).intersect(checkEpayeEnrolment(enrolments))
+  private def getOptions(enrolments: Enrolments): Seq[RadioOption] = checkPensionScheme(enrolments).intersect(checkEpayeEnrolment(enrolments))
 
   private def checkPensionScheme: Enrolments => Seq[RadioOption] = filterOptions(checkPension, PS)
   private def checkEpayeEnrolment: Enrolments => Seq[RadioOption] = filterOptions(checkEPaye, EPAYE)
 
-  private def filterOptions(
-    predicate: Enrolments => Boolean,
-    option: WhatEmployerTaxDoYouWantToAdd): Enrolments => Seq[RadioOption] =
+  private def filterOptions(predicate: Enrolments => Boolean, option: WhatEmployerTaxDoYouWantToAdd): Enrolments => Seq[RadioOption] = {
     (enrolments: Enrolments) =>
       if (predicate(enrolments)) {
         WhatEmployerTaxDoYouWantToAdd.options.filterNot(_.value == option.toString)
       } else {
         WhatEmployerTaxDoYouWantToAdd.options
-    }
+      }
+  }
 
-  private def checkPension: Enrolments => Boolean =
-    e => checkPensionPractitionerScheme(e)
-
-  private def checkPensionPractitionerScheme: Enrolments => Boolean =
-    _.getEnrolment(utils.Enrolments.PP.toString).isDefined
-
-  private def checkEPaye: Enrolments => Boolean =
-    _.getEnrolment(utils.Enrolments.EPAYE.toString).isDefined
+  private def checkPension: Enrolments => Boolean = e => checkPensionPractitionerScheme(e)
+  private def checkPensionPractitionerScheme: Enrolments => Boolean = _.getEnrolment(utils.Enrolments.PP.toString).isDefined
+  private def checkEPaye: Enrolments => Boolean = _.getEnrolment(utils.Enrolments.EPAYE.toString).isDefined
 
 }

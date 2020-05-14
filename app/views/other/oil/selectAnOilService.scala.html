@@ -15,11 +15,16 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html._
+@import uk.gov.hmrc.play.views.html.helpers._
 @import controllers.routes._
 @import controllers.other.oil.routes._
 @import models.other.oil.SelectAnOilService
 @import utils.RadioOption
+
+@this(
+    uiForm: FormWithCSRF,
+    main_template: main_template
+)
 
 @(appConfig: FrontendAppConfig, form: Form[_], options: Seq[RadioOption])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
@@ -29,7 +34,7 @@
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @helpers.form(action = SelectAnOilServiceController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    @uiForm(action = SelectAnOilServiceController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 

@@ -24,10 +24,20 @@ import views.html.sa.trust.registerTrust
 
 class RegisterTrustControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new RegisterTrustController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: registerTrust = injector.instanceOf[registerTrust]
 
-  def viewAsString() = registerTrust(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): RegisterTrustController = {
+    new RegisterTrustController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new registerTrust(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterTrust Controller" must {
 

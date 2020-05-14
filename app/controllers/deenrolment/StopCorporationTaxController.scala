@@ -16,45 +16,39 @@
 
 package controllers.deenrolment
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
 import forms.deenrolment.StopCorporationTaxFormProvider
 import identifiers.StopCorporationTaxId
-import play.api.mvc.Call
+import javax.inject.Inject
+import models.deenrolment.StopCorporationTax
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.deenrolment.stopCorporationTax
 
-import scala.concurrent.Future
+class StopCorporationTaxController @Inject()(appConfig: FrontendAppConfig,
+                                             mcc: MessagesControllerComponents,
+                                             navigator: Navigator[Call],
+                                             authenticate: AuthAction,
+                                             serviceInfoData: ServiceInfoAction,
+                                             formProvider: StopCorporationTaxFormProvider,
+                                             stopCorporationTax: stopCorporationTax)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-class StopCorporationTaxController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: StopCorporationTaxFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+  val form: Form[StopCorporationTax] = formProvider()
 
-  val form = formProvider()
-
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(stopCorporationTax(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          BadRequest(stopCorporationTax(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(StopCorporationTaxId, value))
+        formWithErrors => BadRequest(stopCorporationTax(appConfig, formWithErrors)(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(StopCorporationTaxId, value))
       )
   }
 }

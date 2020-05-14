@@ -18,15 +18,20 @@ package testonly
 
 import javax.inject.Inject
 import play.api.libs.json.Json
-import play.api.mvc.{Action, AnyContent}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import playconfig.featuretoggle.{Feature, FeatureConfig, FeatureToggleSupport}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
-class SetFeaturesController @Inject()(config: FeatureConfig) extends FrontendController with FeatureToggleSupport {
+class SetFeaturesController @Inject()(config: FeatureConfig, mcc: MessagesControllerComponents)
+  extends FrontendController(mcc) with FeatureToggleSupport {
 
   def set(features: List[(Feature, Boolean)]): Action[AnyContent] = Action {
-    features.foreach { case (feature, setting) => setFeature(feature, setting) }
-    Ok(Json.toJson(features.map { case (feature, _) => Json.obj(feature.key -> config.isEnabled(feature)) }))
+    features.foreach {
+      case (feature, setting) => setFeature(feature, setting)
+    }
+    Ok(Json.toJson(features.map {
+      case (feature, _) => Json.obj(feature.key -> config.isEnabled(feature))
+    }))
   }
 
 }

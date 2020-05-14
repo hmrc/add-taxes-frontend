@@ -17,25 +17,22 @@
 package controllers.deenrolment
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.deenrolment.routes._
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Call
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.Enrolments
 import utils.Enrolments._
 
-class DeenrolmentProxyController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  authenticate: AuthAction,
-  serviceInfo: ServiceInfoAction)
-    extends FrontendController
-    with I18nSupport {
+class DeenrolmentProxyController @Inject()(appConfig: FrontendAppConfig,
+                                           mcc: MessagesControllerComponents,
+                                           authenticate: AuthAction,
+                                           serviceInfo: ServiceInfoAction)
+  extends FrontendController(mcc) with I18nSupport {
 
-  def onPageLoad(service: Enrolments) = (authenticate andThen serviceInfo) { implicit request =>
+  def onPageLoad(service: Enrolments): Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
     val enrolmentRoutes: Map[Enrolments, Call] = Map(
       VATMOSS           -> DoYouNeedToLeaveVATMOSSController.onPageLoad(),
       VATMOSSNonUnion   -> DoYouNeedToStopVatMossNUController.onPageLoad(),

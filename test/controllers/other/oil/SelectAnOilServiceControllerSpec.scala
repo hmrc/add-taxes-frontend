@@ -20,37 +20,38 @@ import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.other.oils.SelectAnOilServiceFormProvider
 import models.other.oil.SelectAnOilService
-import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import play.api.data.Form
-import play.api.mvc.{AnyContent, Call}
-import play.api.test.FakeRequest
+import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
-import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
 import utils.{FakeNavigator, RadioOption}
 import views.html.other.oil.selectAnOilService
 
 class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = routes.HaveYouRegisteredForTiedOilsController.onPageLoad()
+  def onwardRoute: Call = routes.HaveYouRegisteredForTiedOilsController.onPageLoad()
 
   val formProvider = new SelectAnOilServiceFormProvider()
-  val form = formProvider()
+  val form: Form[SelectAnOilService] = formProvider()
 
-  def controller() =
+  val view: selectAnOilService = injector.instanceOf[selectAnOilService]
+
+  def controller(): SelectAnOilServiceController = {
     new SelectAnOilServiceController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    selectAnOilService(frontendAppConfig, form, SelectAnOilService.options.toSeq)(HtmlFormat.empty)(
-      fakeRequest,
-      messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new selectAnOilService(
+      formWithCSRF, mainTemplate
+    )(frontendAppConfig, form, SelectAnOilService.options.toSeq)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "SelectAnOilService Controller" must {
 

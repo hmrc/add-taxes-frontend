@@ -16,21 +16,19 @@
 
 package controllers.actions
 
-import javax.inject.Inject
-
-import com.google.inject.ImplementedBy
 import config.AddTaxesHeaderCarrierForPartialsConverter
 import connectors.ServiceInfoPartialConnector
+import javax.inject.Inject
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import play.api.mvc._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class ServiceInfoActionImpl @Inject()(
+class ServiceInfoAction @Inject()(
   serviceInfoPartialConnector: ServiceInfoPartialConnector,
-  addTaxesHeaderCarrierForPartialsConverter: AddTaxesHeaderCarrierForPartialsConverter
-)(implicit ec: ExecutionContext)
-    extends ServiceInfoAction {
+  addTaxesHeaderCarrierForPartialsConverter: AddTaxesHeaderCarrierForPartialsConverter)(
+  implicit val executionContext: ExecutionContext)
+    extends ActionTransformer[AuthenticatedRequest, ServiceInfoRequest] {
 
   import addTaxesHeaderCarrierForPartialsConverter._
 
@@ -42,6 +40,3 @@ class ServiceInfoActionImpl @Inject()(
   }
 
 }
-
-@ImplementedBy(classOf[ServiceInfoActionImpl])
-trait ServiceInfoAction extends ActionTransformer[AuthenticatedRequest, ServiceInfoRequest]

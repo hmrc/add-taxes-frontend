@@ -24,40 +24,46 @@ import play.twirl.api.HtmlFormat
 import views.html.sa.enterSAUTR
 import forms.sa.SAUTRFormProvider
 import models.sa.SAUTR
-import org.scalatest.mockito.MockitoSugar
 import org.mockito.Mockito.when
-import org.mockito.Matchers._
+import org.mockito.ArgumentMatchers._
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.data.Form
+import play.api.mvc.Call
 import utils.FakeNavigator
-import scala.concurrent.ExecutionContext.Implicits.global
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new SAUTRFormProvider()
 
-  val form = formProvider()
+  val form: Form[SAUTR] = formProvider()
 
-  val mockEnrolmentStoreProxyConnector = mock[EnrolmentStoreProxyConnector]
+  val mockEnrolmentStoreProxyConnector: EnrolmentStoreProxyConnector = mock[EnrolmentStoreProxyConnector]
 
-  def controller() =
+  val view: enterSAUTR = injector.instanceOf[enterSAUTR]
+
+  def controller(): EnterSAUTRController = {
     new EnterSAUTRController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider,
-      mockEnrolmentStoreProxyConnector
+      mockEnrolmentStoreProxyConnector,
+      view
     )
+  }
 
-  def viewAsString() = enterSAUTR(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(): String =
+    new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  def viewAsString(form: Form[SAUTR] = form) =
-    enterSAUTR(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[SAUTR] = form): String =
+    new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "EnterSAUTR Controller" must {
 

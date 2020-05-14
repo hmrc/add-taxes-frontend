@@ -24,10 +24,20 @@ import views.html.other.gambling.gbd.registerGBD
 
 class RegisterGBDControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new RegisterGBDController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: registerGBD = injector.instanceOf[registerGBD]
 
-  def viewAsString() = registerGBD(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): RegisterGBDController = {
+    new RegisterGBDController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new registerGBD(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterGBD Controller" must {
 

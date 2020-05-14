@@ -30,23 +30,27 @@ import views.html.vat.registeredForVAT
 
 class RegisteredForVATEURefundsControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new RegisteredForVATFormProvider()
-  val form = formProvider()
-  lazy val viewAction = ViewAction(routes.RegisteredForVATEURefundsController.onSubmit(), "VatEuRefundsNoVat")
+  val form: Form[RegisteredForVAT] = formProvider()
+
+  val view: registeredForVAT = injector.instanceOf[registeredForVAT]
+  lazy val viewAction: ViewAction = ViewAction(routes.RegisteredForVATEURefundsController.onSubmit(), "VatEuRefundsNoVat")
 
   def controller() =
     new RegisteredForVATEURefundsController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       FakeAuthAction,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
 
-  def viewAsString(form: Form[_] = form) =
-    registeredForVAT(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new registeredForVAT(formWithCSRF, mainTemplate)(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisteredForVATEURefunds Controller" must {
 

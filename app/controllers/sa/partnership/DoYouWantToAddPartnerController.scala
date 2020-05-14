@@ -16,45 +16,42 @@
 
 package controllers.sa.partnership
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
 import forms.sa.partnership.DoYouWantToAddPartnerFormProvider
 import identifiers.DoYouWantToAddPartnerId
-import play.api.mvc.Call
+import javax.inject.Inject
+import models.sa.partnership.DoYouWantToAddPartner
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.sa.partnership.doYouWantToAddPartner
 
 import scala.concurrent.Future
 
-class DoYouWantToAddPartnerController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: DoYouWantToAddPartnerFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class DoYouWantToAddPartnerController @Inject()(appConfig: FrontendAppConfig,
+                                                mcc: MessagesControllerComponents,
+                                                navigator: Navigator[Call],
+                                                authenticate: AuthAction,
+                                                serviceInfoData: ServiceInfoAction,
+                                                formProvider: DoYouWantToAddPartnerFormProvider,
+                                                doYouWantToAddPartner: doYouWantToAddPartner)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[DoYouWantToAddPartner] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(doYouWantToAddPartner(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
+        formWithErrors =>
           Future.successful(BadRequest(doYouWantToAddPartner(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) =>
+        value =>
           Future.successful(Redirect(navigator.nextPage(DoYouWantToAddPartnerId, (value, request.request.enrolments))))
       )
   }

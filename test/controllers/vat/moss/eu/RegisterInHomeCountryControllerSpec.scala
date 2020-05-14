@@ -24,10 +24,20 @@ import views.html.vat.moss.eu.registerInHomeCountry
 
 class RegisterInHomeCountryControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new RegisterInHomeCountryController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: registerInHomeCountry = injector.instanceOf[registerInHomeCountry]
 
-  def viewAsString() = registerInHomeCountry(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): RegisterInHomeCountryController = {
+    new RegisterInHomeCountryController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new registerInHomeCountry(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterInHomeCountry Controller" must {
 

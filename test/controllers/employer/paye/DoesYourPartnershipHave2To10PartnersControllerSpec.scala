@@ -16,38 +16,40 @@
 
 package controllers.employer.paye
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.FakeServiceInfoAction
 import forms.employer.paye.DoesYourPartnershipHave2To10PartnersFormProvider
-import identifiers.DoesYourPartnershipHave2To10PartnersId
 import models.employer.paye.DoesYourPartnershipHave2To10Partners
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.employer.paye.doesYourPartnershipHave2To10Partners
 
 class DoesYourPartnershipHave2To10PartnersControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DoesYourPartnershipHave2To10PartnersFormProvider()
-  val form = formProvider()
+  val form: Form[DoesYourPartnershipHave2To10Partners] = formProvider()
 
-  def controller() =
+  val view: doesYourPartnershipHave2To10Partners = injector.instanceOf[doesYourPartnershipHave2To10Partners]
+
+  def controller(): DoesYourPartnershipHave2To10PartnersController = {
     new DoesYourPartnershipHave2To10PartnersController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    doesYourPartnershipHave2To10Partners(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doesYourPartnershipHave2To10Partners(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoesYourPartnershipHave2To10Partners Controller" must {
 
@@ -86,7 +88,7 @@ class DoesYourPartnershipHave2To10PartnersControllerSpec extends ControllerSpecB
 
     for (option <- DoesYourPartnershipHave2To10Partners.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

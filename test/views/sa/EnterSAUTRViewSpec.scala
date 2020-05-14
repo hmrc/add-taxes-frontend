@@ -16,7 +16,7 @@
 
 package views.sa
 
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.sa.enterSAUTR
 import forms.sa.SAUTRFormProvider
@@ -29,12 +29,13 @@ class EnterSAUTRViewSpec extends ViewBehaviours {
 
   val form = new SAUTRFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView = () => enterSAUTR(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[SAUTR]) => enterSAUTR(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[SAUTR] => HtmlFormat.Appendable = (form: Form[SAUTR]) =>
+    new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "EnterSAUTR view" must {
     behave like normalPage(createView, messageKeyPrefix)

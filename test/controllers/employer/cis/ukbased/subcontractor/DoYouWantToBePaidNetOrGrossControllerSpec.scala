@@ -16,36 +16,40 @@
 
 package controllers.employer.cis.ukbased.subcontractor
 
-import play.api.data.Form
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.FakeServiceInfoAction
 import forms.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGrossFormProvider
-import identifiers.DoYouWantToBePaidNetOrGrossId
 import models.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGross
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.employer.cis.ukbased.subcontractor.doYouWantToBePaidNetOrGross
 
 class DoYouWantToBePaidNetOrGrossControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DoYouWantToBePaidNetOrGrossFormProvider()
-  val form = formProvider()
+  val form: Form[DoYouWantToBePaidNetOrGross] = formProvider()
 
-  def controller() =
+  val view: doYouWantToBePaidNetOrGross = injector.instanceOf[doYouWantToBePaidNetOrGross]
+
+  def controller(): DoYouWantToBePaidNetOrGrossController = {
     new DoYouWantToBePaidNetOrGrossController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    doYouWantToBePaidNetOrGross(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doYouWantToBePaidNetOrGross(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouWantToBePaidNetOrGross Controller" must {
 
@@ -83,7 +87,7 @@ class DoYouWantToBePaidNetOrGrossControllerSpec extends ControllerSpecBase {
 
     for (option <- DoYouWantToBePaidNetOrGross.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

@@ -24,7 +24,8 @@ class RegisterTrustViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "registerTrust"
 
-  def createView = () => registerTrust(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new registerTrust(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "RegisterTrust view" must {
     behave like normalPage(createView, messageKeyPrefix)

@@ -18,19 +18,18 @@ package utils.nextpage.vat
 
 import config.FrontendAppConfig
 import controllers.vat.ec.{routes => ecRoutes}
-import controllers.vat.{routes => vatRoutes}
 import controllers.vat.eurefunds.{routes => euRoutes}
 import controllers.vat.giant.{routes => giantRoutes}
-import controllers.vat.moss.{routes => mossRoutes}
-import controllers.vat.moss.ukbased.{routes => ukbasedRoutes}
 import controllers.vat.moss.newaccount.{routes => newAccountRoutes}
+import controllers.vat.moss.ukbased.{routes => ukbasedRoutes}
+import controllers.vat.moss.{routes => mossRoutes}
 import controllers.vat.rcsl.{routes => rcslRoutes}
+import controllers.vat.{routes => vatRoutes}
 import identifiers.WhichVATServicesToAddId
 import models.vat.WhichVATServicesToAdd
 import play.api.mvc.{Call, Request}
 import playconfig.featuretoggle.FeatureConfig
-import uk.gov.hmrc.auth.core.AffinityGroup
-import uk.gov.hmrc.auth.core.Enrolments
+import uk.gov.hmrc.auth.core.{AffinityGroup, Enrolments}
 import utils.{HmrcEnrolmentType, NextPage}
 
 trait WhichVATServicesToAddNextPage {

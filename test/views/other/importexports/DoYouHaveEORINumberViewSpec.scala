@@ -19,7 +19,7 @@ package views.other.importexports
 import forms.other.importexports.DoYouHaveEORINumberFormProvider
 import models.other.importexports.DoYouHaveEORINumber
 import play.api.data.Form
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
 import viewmodels.ViewAction
 import views.behaviours.ViewBehaviours
 import views.html.other.importexports.doYouHaveEORINumber
@@ -30,23 +30,17 @@ class DoYouHaveEORINumberViewSpec extends ViewBehaviours {
 
   val form = new DoYouHaveEORINumberFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView =
-    () =>
-      doYouHaveEORINumber(
-        frontendAppConfig,
-        form,
-        ViewAction(controllers.other.importexports.ics.routes.DoYouHaveEORINumberController.onSubmit(), ""))(
-        serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new doYouHaveEORINumber(
+      formWithCSRF, mainTemplate
+    )(frontendAppConfig, form, ViewAction(controllers.other.importexports.ics.routes.DoYouHaveEORINumberController.onSubmit(), ""))(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) =>
-      doYouHaveEORINumber(
-        frontendAppConfig,
-        form,
-        ViewAction(controllers.other.importexports.ics.routes.DoYouHaveEORINumberController.onSubmit(), ""))(
-        serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+    new doYouHaveEORINumber(
+      formWithCSRF, mainTemplate
+    )(frontendAppConfig, form, ViewAction(controllers.other.importexports.ics.routes.DoYouHaveEORINumberController.onSubmit(), ""))(serviceInfoContent)(fakeRequest, messages)
 
   "EconomicOperatorsRegistrationAndIdentification view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -62,7 +56,7 @@ class DoYouHaveEORINumberViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- DoYouHaveEORINumber.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
@@ -71,10 +65,10 @@ class DoYouHaveEORINumberViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- DoYouHaveEORINumber.options.filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

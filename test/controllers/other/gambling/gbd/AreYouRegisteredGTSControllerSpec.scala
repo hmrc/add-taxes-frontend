@@ -30,23 +30,27 @@ import views.html.other.gambling.areYouRegisteredGTS
 
 class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new AreYouRegisteredGTSFormProvider()
-  val form = formProvider()
-  lazy val viewAction = ViewAction(routes.AreYouRegisteredGTSController.onSubmit(), "AddGbdGamblingTax")
+  val form: Form[AreYouRegisteredGTS] = formProvider()
+
+  val view: areYouRegisteredGTS = injector.instanceOf[areYouRegisteredGTS]
+  lazy val viewAction: ViewAction = ViewAction(routes.AreYouRegisteredGTSController.onSubmit(), "AddGbdGamblingTax")
 
   def controller() =
     new AreYouRegisteredGTSController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
 
-  def viewAsString(form: Form[_] = form) =
-    areYouRegisteredGTS(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new areYouRegisteredGTS(formWithCSRF, mainTemplate)(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "AreYouRegisteredGTS Controller" must {
 
@@ -84,7 +88,7 @@ class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
 
     for (option <- AreYouRegisteredGTS.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

@@ -19,22 +19,22 @@ package controllers.vat
 import config.FrontendAppConfig
 import controllers.actions._
 import javax.inject.Inject
-import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import playconfig.featuretoggle.NewVatJourney
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.vat.vatRegistrationProcess
 
-class VatRegistrationProcessController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  authenticate: AuthAction,
-  serviceInfo: ServiceInfoAction,
-  featureDepandantAction: FeatureDependantAction)
-    extends FrontendController
-    with I18nSupport {
+class VatRegistrationProcessController @Inject()(appConfig: FrontendAppConfig,
+                                                 mcc: MessagesControllerComponents,
+                                                 authenticate: AuthAction,
+                                                 serviceInfo: ServiceInfoAction,
+                                                 featureDepandantAction: FeatureDependantAction,
+                                                 vatRegistrationProcess: vatRegistrationProcess)
+  extends FrontendController(mcc) with I18nSupport {
 
-  def onPageLoad = (authenticate andThen serviceInfo andThen featureDepandantAction.permitFor(NewVatJourney)) {
-    implicit request =>
+  def onPageLoad: Action[AnyContent] =
+    (authenticate andThen serviceInfo andThen featureDepandantAction.permitFor(NewVatJourney)) { implicit request =>
       Ok(vatRegistrationProcess(appConfig)(request.serviceInfoContent))
-  }
+    }
 }

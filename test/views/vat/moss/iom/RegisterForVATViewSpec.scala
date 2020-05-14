@@ -24,7 +24,8 @@ class RegisterForVATViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "registerForVAT"
 
-  def createView = () => registerForVAT(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new registerForVAT(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "RegisterForVAT view" must {
     behave like normalPage(createView, messageKeyPrefix)

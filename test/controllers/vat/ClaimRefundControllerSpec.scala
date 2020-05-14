@@ -16,43 +16,43 @@
 
 package controllers.vat
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.{FakeServiceInfoAction, _}
 import forms.vat.ClaimRefundFormProvider
-import identifiers.ClaimRefundId
 import models.vat.ClaimRefund
 import org.scalatest.BeforeAndAfterEach
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import playconfig.featuretoggle.{FeatureToggleSupport, NewVatJourney}
 import uk.gov.hmrc.http.NotFoundException
+import utils.FakeNavigator
 import views.html.vat.claimRefund
 
 class ClaimRefundControllerSpec extends ControllerSpecBase with BeforeAndAfterEach with FeatureToggleSupport {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new ClaimRefundFormProvider()
-  val form = formProvider()
+  val form: Form[ClaimRefund] = formProvider()
+
+  val view: claimRefund = injector.instanceOf[claimRefund]
 
   def controller() =
     new ClaimRefundController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider,
-      featureDepandantAction = app.injector.instanceOf[FeatureDependantAction]
+      featureDepandantAction = app.injector.instanceOf[FeatureDependantAction],
+      view
     )
 
-  def viewAsString(form: Form[_] = form) =
-    claimRefund(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new claimRefund(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -103,7 +103,7 @@ class ClaimRefundControllerSpec extends ControllerSpecBase with BeforeAndAfterEa
 
     for (option <- ClaimRefund.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

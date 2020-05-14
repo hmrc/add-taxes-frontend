@@ -25,7 +25,7 @@ class VatRegistrationProcessViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "vatRegistrationProcess"
 
   def createView(): HtmlFormat.Appendable =
-    vatRegistrationProcess(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+    new vatRegistrationProcess(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "VATRegistrationProcess view" must {
     behave like normalPage(createView, messageKeyPrefix)

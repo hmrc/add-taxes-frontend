@@ -21,20 +21,26 @@ import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice._
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.inject.Injector
+import play.api.mvc.{AnyContent, MessagesControllerComponents}
 import play.api.test.FakeRequest
 import playconfig.featuretoggle.FeatureConfig
+import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
+import views.html.main_template
 
 trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
 
   def injector: Injector = app.injector
 
+  val formWithCSRF: FormWithCSRF = injector.instanceOf[FormWithCSRF]
+  val mainTemplate: main_template = injector.instanceOf[main_template]
+
   implicit def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
 
   implicit def featureConfig: FeatureConfig = injector.instanceOf[FeatureConfig]
 
-  implicit def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
+  implicit def mcc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
 
-  def fakeRequest = FakeRequest("", "")
+  def fakeRequest: FakeRequest[AnyContent] = FakeRequest("", "")
 
-  def messages: Messages = messagesApi.preferred(fakeRequest)
+  def messages: Messages = mcc.messagesApi.preferred(fakeRequest)
 }

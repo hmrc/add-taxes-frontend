@@ -17,7 +17,7 @@
 package controllers.sa
 
 import controllers._
-import controllers.actions.{FakeServiceInfoAction, _}
+import controllers.actions.FakeServiceInfoAction
 import forms.sa.SelectSACategoryFormProvider
 import models.sa.SelectSACategory
 import play.api.data.Form
@@ -29,36 +29,34 @@ import views.html.sa.selectSACategory
 
 class SelectSACategoryControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new SelectSACategoryFormProvider()
-  val form = formProvider()
+  val form: Form[SelectSACategory] = formProvider()
 
-  def controller()(enrolmentTypes: HmrcEnrolmentType*) =
+  val view: selectSACategory = injector.instanceOf[selectSACategory]
+
+  def controller()(enrolmentTypes: HmrcEnrolmentType*): SelectSACategoryController = {
     new SelectSACategoryController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction(enrolmentTypes: _*),
-      formProvider
+      formProvider,
+      view
     )
+  }
 
-  def viewAsString(form: Form[_] = form, radioOptions: Set[RadioOption] = SelectSACategory.options) =
-    selectSACategory(
-      frontendAppConfig,
-      form,
-      routes.SelectSACategoryController.onSubmitHasUTR(),
-      radioOptions
-    )(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form, radioOptions: Set[RadioOption] = SelectSACategory.options): String =
+    new selectSACategory(
+      formWithCSRF, mainTemplate
+    )(frontendAppConfig, form, routes.SelectSACategoryController.onSubmitHasUTR(), radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  def viewAsStringNoUTR(form: Form[_] = form, radioOptions: Set[RadioOption] = SelectSACategory.options) =
-    selectSACategory(
-      frontendAppConfig,
-      form,
-      routes.SelectSACategoryController.onSubmitNoUTR(),
-      radioOptions
-    )(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsStringNoUTR(form: Form[_] = form, radioOptions: Set[RadioOption] = SelectSACategory.options): String =
+    new selectSACategory(
+      formWithCSRF, mainTemplate
+    )(frontendAppConfig, form, routes.SelectSACategoryController.onSubmitNoUTR(), radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "SelectSACategory Controller" must {
 
@@ -103,7 +101,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
 
     for (option <- SelectSACategory.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller()().onSubmitHasUTR()(postRequest)
 
         status(result) mustBe SEE_OTHER

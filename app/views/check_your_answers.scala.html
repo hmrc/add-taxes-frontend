@@ -17,6 +17,11 @@
 @import config.FrontendAppConfig
 @import viewmodels.{Section, AnswerSection, RepeaterAnswerSection}
 
+@this(
+    uiForm: FormWithCSRF,
+    main_template: main_template
+)
+
 @(appConfig: FrontendAppConfig, answerSections: Seq[Section])(implicit request: Request[_], messages: Messages)
 
 @main_template(

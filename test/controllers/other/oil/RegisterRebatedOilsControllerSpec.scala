@@ -24,10 +24,20 @@ import views.html.other.oil.registerRebatedOils
 
 class RegisterRebatedOilsControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new RegisterRebatedOilsController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: registerRebatedOils = injector.instanceOf[registerRebatedOils]
 
-  def viewAsString() = registerRebatedOils(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): RegisterRebatedOilsController = {
+    new RegisterRebatedOilsController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new registerRebatedOils(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterRebatedOils Controller" must {
 

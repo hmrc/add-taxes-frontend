@@ -27,15 +27,21 @@ import views.html.vat.cannotRegisterVAT
 
 class CannotRegisterVATControllerSpec extends ControllerSpecBase with FeatureToggleSupport with BeforeAndAfterEach {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  val view: cannotRegisterVAT = injector.instanceOf[cannotRegisterVAT]
+
+  def controller(): CannotRegisterVATController = {
     new CannotRegisterVATController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       FakeAuthAction,
       FakeServiceInfoAction,
-      featureDepandantAction = app.injector.instanceOf[FeatureDependantAction])
+      featureDepandantAction = app.injector.instanceOf[FeatureDependantAction],
+      view
+    )
+  }
 
-  def viewAsString() = cannotRegisterVAT(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(): String =
+    new cannotRegisterVAT(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   override def beforeEach(): Unit = {
     super.beforeEach()

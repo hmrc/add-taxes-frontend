@@ -16,45 +16,39 @@
 
 package controllers.deenrolment
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
 import forms.deenrolment.DoYouNeedToStopROFormProvider
 import identifiers.DoYouNeedToStopROId
-import play.api.mvc.Call
+import javax.inject.Inject
+import models.deenrolment.DoYouNeedToStopRO
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.deenrolment.doYouNeedToStopRO
 
-import scala.concurrent.Future
+class DoYouNeedToStopROController @Inject()(appConfig: FrontendAppConfig,
+                                            mcc: MessagesControllerComponents,
+                                            navigator: Navigator[Call],
+                                            authenticate: AuthAction,
+                                            serviceInfoData: ServiceInfoAction,
+                                            formProvider: DoYouNeedToStopROFormProvider,
+                                            doYouNeedToStopRO: doYouNeedToStopRO)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-class DoYouNeedToStopROController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: DoYouNeedToStopROFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+  val form: Form[DoYouNeedToStopRO] = formProvider()
 
-  val form = formProvider()
-
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(doYouNeedToStopRO(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          BadRequest(doYouNeedToStopRO(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(DoYouNeedToStopROId, value))
+        formWithErrors => BadRequest(doYouNeedToStopRO(appConfig, formWithErrors)(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(DoYouNeedToStopROId, value))
       )
   }
 }

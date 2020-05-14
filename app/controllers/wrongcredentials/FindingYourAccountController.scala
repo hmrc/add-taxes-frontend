@@ -16,45 +16,41 @@
 
 package controllers.wrongcredentials
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import forms.wrongcredentials.FindingYourAccountFormProvider
 import identifiers.FindingYourAccountId
+import javax.inject.Inject
+import models.wrongcredentials.FindingYourAccount
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Call
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import views.html.wrongcredentials.findingYourAccount
 
 import scala.concurrent.Future
 
-class FindingYourAccountController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: FindingYourAccountFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class FindingYourAccountController @Inject()(appConfig: FrontendAppConfig,
+                                             mcc: MessagesControllerComponents,
+                                             navigator: Navigator[Call],
+                                             authenticate: AuthAction,
+                                             serviceInfoData: ServiceInfoAction,
+                                             formProvider: FindingYourAccountFormProvider,
+                                             findingYourAccount: findingYourAccount)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[FindingYourAccount] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(findingYourAccount(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(findingYourAccount(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(FindingYourAccountId, value)))
+        formWithErrors => Future.successful(BadRequest(findingYourAccount(appConfig, formWithErrors)(request.serviceInfoContent))),
+        value => Future.successful(Redirect(navigator.nextPage(FindingYourAccountId, value)))
       )
   }
 }

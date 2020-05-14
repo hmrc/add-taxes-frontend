@@ -16,35 +16,40 @@
 
 package controllers.other.gambling.rgd
 
-import play.api.data.Form
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.FakeServiceInfoAction
 import forms.other.gambling.rgd.DoYouHaveRGDRegistrationFormProvider
 import models.other.gambling.rgd.DoYouHaveRGDRegistration
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.other.gambling.rgd.doYouHaveRGDRegistration
 
 class DoYouHaveRGDRegistrationControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DoYouHaveRGDRegistrationFormProvider()
-  val form = formProvider()
+  val form: Form[DoYouHaveRGDRegistration] = formProvider()
 
-  def controller() =
+  val view: doYouHaveRGDRegistration = injector.instanceOf[doYouHaveRGDRegistration]
+
+  def controller(): DoYouHaveRGDRegistrationController = {
     new DoYouHaveRGDRegistrationController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    doYouHaveRGDRegistration(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doYouHaveRGDRegistration(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouHaveRGDRegistration Controller" must {
 
@@ -82,7 +87,7 @@ class DoYouHaveRGDRegistrationControllerSpec extends ControllerSpecBase {
 
     for (option <- DoYouHaveRGDRegistration.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

@@ -16,35 +16,40 @@
 
 package controllers.sa.trust
 
-import play.api.data.Form
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.{FakeServiceInfoAction, _}
 import forms.sa.trust.HaveYouRegisteredTrustFormProvider
 import models.sa.trust.HaveYouRegisteredTrust
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.sa.trust.haveYouRegisteredTrust
 
 class HaveYouRegisteredTrustControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new HaveYouRegisteredTrustFormProvider()
-  val form = formProvider()
+  val form: Form[HaveYouRegisteredTrust] = formProvider()
 
-  def controller() =
+  val view: haveYouRegisteredTrust = injector.instanceOf[haveYouRegisteredTrust]
+
+  def controller(): HaveYouRegisteredTrustController = {
     new HaveYouRegisteredTrustController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    haveYouRegisteredTrust(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new haveYouRegisteredTrust(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "HaveYouRegisteredTrust Controller" must {
 
@@ -82,7 +87,7 @@ class HaveYouRegisteredTrustControllerSpec extends ControllerSpecBase {
 
     for (option <- HaveYouRegisteredTrust.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

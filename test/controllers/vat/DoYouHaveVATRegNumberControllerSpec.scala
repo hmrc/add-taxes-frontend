@@ -29,22 +29,27 @@ import views.html.vat.doYouHaveVATRegNumber
 
 class DoYouHaveVATRegNumberControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DoYouHaveVATRegNumberFormProvider()
-  val form = formProvider()
+  val form: Form[DoYouHaveVATRegNumber] = formProvider()
 
-  def controller() =
+  val view = injector.instanceOf[doYouHaveVATRegNumber]
+
+  def controller(): DoYouHaveVATRegNumberController = {
     new DoYouHaveVATRegNumberController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    doYouHaveVATRegNumber(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doYouHaveVATRegNumber(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouHaveVATRegNumber Controller" must {
 
@@ -82,7 +87,7 @@ class DoYouHaveVATRegNumberControllerSpec extends ControllerSpecBase {
 
     for (option <- DoYouHaveVATRegNumber.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

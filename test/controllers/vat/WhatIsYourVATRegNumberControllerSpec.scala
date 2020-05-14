@@ -17,11 +17,11 @@
 package controllers.vat
 
 import controllers.ControllerSpecBase
-import controllers.actions.{FakeAuthAction, FakeServiceInfoAction}
+import controllers.actions.FakeServiceInfoAction
 import forms.vat.WhatIsYourVATRegNumberFormProvider
-import org.mockito.Matchers._
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
@@ -37,23 +37,27 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
   def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new WhatIsYourVATRegNumberFormProvider()
-  val form = formProvider()
+  val form: Form[String] = formProvider()
   lazy val mockVatSubscriptionService: VatSubscriptionService = mock[VatSubscriptionService]
   val testVrn = "968501689"
 
-  def controller() =
+  val view: whatIsYourVATRegNumber = injector.instanceOf[whatIsYourVATRegNumber]
+
+  def controller(): WhatIsYourVATRegNumberController = {
     new WhatIsYourVATRegNumberController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       mockVatSubscriptionService,
-      formProvider
+      formProvider,
+      view
     )
+  }
 
   def viewAsString(form: Form[_] = form): String =
-    whatIsYourVATRegNumber(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new whatIsYourVATRegNumber(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "WhatIsYourVATRegNumber Controller" must {
 

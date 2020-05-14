@@ -17,9 +17,12 @@
 @import config.FrontendAppConfig
 @import utils.Enrolments
 
-@(
-    appConfig: FrontendAppConfig
-)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@this(
+    uiForm: FormWithCSRF,
+    main_template: main_template
+)
+
+@(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("addVATFirst.title"),

@@ -16,35 +16,40 @@
 
 package controllers.vat.moss.ukbased
 
-import play.api.data.Form
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.FakeServiceInfoAction
 import forms.vat.moss.uk.OnlineVATAccountFormProvider
 import models.vat.moss.uk.OnlineVATAccount
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.vat.moss.ukbased.onlineVATAccount
 
 class OnlineVATAccountControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new OnlineVATAccountFormProvider()
-  val form = formProvider()
+  val form: Form[OnlineVATAccount] = formProvider()
 
-  def controller() =
+  val view: onlineVATAccount = injector.instanceOf[onlineVATAccount]
+
+  def controller(): OnlineVATAccountController = {
     new OnlineVATAccountController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    onlineVATAccount(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new onlineVATAccount(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "OnlineVATAccount Controller" must {
 
@@ -82,7 +87,7 @@ class OnlineVATAccountControllerSpec extends ControllerSpecBase {
 
     for (option <- OnlineVATAccount.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

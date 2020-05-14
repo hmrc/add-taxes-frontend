@@ -16,46 +16,39 @@
 
 package controllers.employer.paye
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Call
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
-
 import forms.employer.paye.DoesYourPartnershipHave2To10PartnersFormProvider
 import identifiers.DoesYourPartnershipHave2To10PartnersId
+import javax.inject.Inject
+import models.employer.paye.DoesYourPartnershipHave2To10Partners
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.employer.paye.doesYourPartnershipHave2To10Partners
 
-import scala.concurrent.Future
+class DoesYourPartnershipHave2To10PartnersController @Inject()(appConfig: FrontendAppConfig,
+                                                               mcc: MessagesControllerComponents,
+                                                               navigator: Navigator[Call],
+                                                               authenticate: AuthAction,
+                                                               serviceInfoData: ServiceInfoAction,
+                                                               formProvider: DoesYourPartnershipHave2To10PartnersFormProvider,
+                                                               doesYourPartnershipHave2To10Partners: doesYourPartnershipHave2To10Partners)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-class DoesYourPartnershipHave2To10PartnersController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: DoesYourPartnershipHave2To10PartnersFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+  val form: Form[DoesYourPartnershipHave2To10Partners] = formProvider()
 
-  val form = formProvider()
-
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(doesYourPartnershipHave2To10Partners(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          BadRequest(doesYourPartnershipHave2To10Partners(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(DoesYourPartnershipHave2To10PartnersId, value))
+        formWithErrors => BadRequest(doesYourPartnershipHave2To10Partners(appConfig, formWithErrors)(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(DoesYourPartnershipHave2To10PartnersId, value))
       )
   }
 }

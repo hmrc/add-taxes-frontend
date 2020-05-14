@@ -16,26 +16,22 @@
 
 package controllers.other.importexports.ncts
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Call
+import javax.inject.Inject
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.Navigator
 import views.html.other.importexports.ncts.registerEORI
 
-class RegisterEORIController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  authenticate: AuthAction,
-  serviceInfo: ServiceInfoAction,
-  navigator: Navigator[Call])
-    extends FrontendController
-    with I18nSupport {
+class RegisterEORIController @Inject()(appConfig: FrontendAppConfig,
+                                       mcc: MessagesControllerComponents,
+                                       authenticate: AuthAction,
+                                       serviceInfo: ServiceInfoAction,
+                                       registerEORI: registerEORI)
+  extends FrontendController(mcc) with I18nSupport {
 
-  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
+  def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
     Ok(registerEORI(appConfig)(request.serviceInfoContent))
   }
 

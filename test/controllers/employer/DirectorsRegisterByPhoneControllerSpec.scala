@@ -24,10 +24,20 @@ import views.html.employer.directorsRegisterByPhone
 
 class DirectorsRegisterByPhoneControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new DirectorsRegisterByPhoneController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: directorsRegisterByPhone = injector.instanceOf[directorsRegisterByPhone]
 
-  def viewAsString() = directorsRegisterByPhone(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): DirectorsRegisterByPhoneController = {
+    new DirectorsRegisterByPhoneController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new directorsRegisterByPhone(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DirectorsRegisterByPhone Controller" must {
 

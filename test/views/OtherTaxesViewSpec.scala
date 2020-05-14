@@ -19,9 +19,10 @@ package views
 import forms.OtherTaxesFormProvider
 import models.OtherTaxes
 import play.api.data.Form
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.otherTaxes
+
 import scala.collection.JavaConverters._
 
 class OtherTaxesViewSpec extends ViewBehaviours {
@@ -30,14 +31,13 @@ class OtherTaxesViewSpec extends ViewBehaviours {
 
   val form = new OtherTaxesFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView =
-    () => otherTaxes(frontendAppConfig, form, OtherTaxes.options)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new otherTaxes(formWithCSRF, mainTemplate)(frontendAppConfig, form, OtherTaxes.options)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) =>
-      otherTaxes(frontendAppConfig, form, OtherTaxes.options)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+    new otherTaxes(formWithCSRF, mainTemplate)(frontendAppConfig, form, OtherTaxes.options)(serviceInfoContent)(fakeRequest, messages)
 
   "OtherTaxes view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -78,7 +78,7 @@ class OtherTaxesViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- OtherTaxes.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
@@ -87,10 +87,10 @@ class OtherTaxesViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- OtherTaxes.options.filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

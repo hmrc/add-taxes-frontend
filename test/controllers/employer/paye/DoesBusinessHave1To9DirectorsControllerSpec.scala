@@ -16,38 +16,40 @@
 
 package controllers.employer.paye
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.FakeServiceInfoAction
 import forms.employer.paye.DoesBusinessHave1To9DirectorsFormProvider
-import identifiers.DoesBusinessHave1To9DirectorsId
 import models.employer.paye.DoesBusinessHave1To9Directors
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.employer.paye.doesBusinessHave1To9Directors
 
 class DoesBusinessHave1To9DirectorsControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DoesBusinessHave1To9DirectorsFormProvider()
-  val form = formProvider()
+  val form: Form[DoesBusinessHave1To9Directors] = formProvider()
 
-  def controller() =
+  val view: doesBusinessHave1To9Directors = injector.instanceOf[doesBusinessHave1To9Directors]
+
+  def controller(): DoesBusinessHave1To9DirectorsController = {
     new DoesBusinessHave1To9DirectorsController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    doesBusinessHave1To9Directors(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doesBusinessHave1To9Directors(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoesBusinessHave1To9Directors Controller" must {
 
@@ -85,7 +87,7 @@ class DoesBusinessHave1To9DirectorsControllerSpec extends ControllerSpecBase {
 
     for (option <- DoesBusinessHave1To9Directors.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

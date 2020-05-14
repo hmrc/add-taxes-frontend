@@ -24,7 +24,8 @@ class RegisterInHomeCountryViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "registerInHomeCountry"
 
-  def createView = () => registerInHomeCountry(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new registerInHomeCountry(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "RegisterInHomeCountry view" must {
     behave like normalPage(createView, messageKeyPrefix)

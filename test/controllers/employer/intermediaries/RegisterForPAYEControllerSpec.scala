@@ -24,10 +24,20 @@ import views.html.employer.intermediaries.registerForPAYE
 
 class RegisterForPAYEControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new RegisterForPAYEController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: registerForPAYE = injector.instanceOf[registerForPAYE]
 
-  def viewAsString() = registerForPAYE(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): RegisterForPAYEController = {
+    new RegisterForPAYEController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new registerForPAYE(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterForPAYE Controller" must {
     "return OK and the correct view for a GET" in {

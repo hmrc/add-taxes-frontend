@@ -16,38 +16,39 @@
 
 package controllers.vat.giant
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.{FakeServiceInfoAction, _}
 import forms.vat.giant.WhatIsYourOrganisationFormProvider
-import identifiers.WhatIsYourOrganisationId
 import models.vat.giant.WhatIsYourOrganisation
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.vat.giant.whatIsYourOrganisation
 
 class WhatIsYourOrganisationControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new WhatIsYourOrganisationFormProvider()
-  val form = formProvider()
+  val form: Form[WhatIsYourOrganisation] = formProvider()
+
+  val view: whatIsYourOrganisation = injector.instanceOf[whatIsYourOrganisation]
 
   def controller() =
     new WhatIsYourOrganisationController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
 
-  def viewAsString(form: Form[_] = form) =
-    whatIsYourOrganisation(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new whatIsYourOrganisation(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "WhatIsYourOrganisation Controller" must {
 
@@ -85,7 +86,7 @@ class WhatIsYourOrganisationControllerSpec extends ControllerSpecBase {
 
     for (option <- WhatIsYourOrganisation.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

@@ -16,46 +16,43 @@
 
 package controllers.vat
 
-import javax.inject.Inject
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Call
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
 import forms.vat.CompanyDivisionFormProvider
 import identifiers.CompanyDivisionId
+import javax.inject.Inject
+import models.vat.CompanyDivision
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import playconfig.featuretoggle.NewVatJourney
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.vat.companyDivision
 
-import scala.concurrent.Future
+class CompanyDivisionController @Inject()(appConfig: FrontendAppConfig,
+                                          mcc: MessagesControllerComponents,
+                                          navigator: Navigator[Call],
+                                          authenticate: AuthAction,
+                                          serviceInfoData: ServiceInfoAction,
+                                          formProvider: CompanyDivisionFormProvider,
+                                          featureDepandantAction: FeatureDependantAction,
+                                          companyDivision: companyDivision)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-class CompanyDivisionController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: CompanyDivisionFormProvider,
-  featureDepandantAction: FeatureDependantAction)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+  val form: Form[CompanyDivision] = formProvider()
 
-  val form = formProvider()
-
-  def onPageLoad() = (authenticate andThen serviceInfoData andThen featureDepandantAction.permitFor(NewVatJourney)) {
-    implicit request =>
+  def onPageLoad(): Action[AnyContent] = {
+    (authenticate andThen serviceInfoData andThen featureDepandantAction.permitFor(NewVatJourney)) { implicit request =>
       Ok(companyDivision(appConfig, form)(request.serviceInfoContent))
+    }
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) => BadRequest(companyDivision(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(CompanyDivisionId, value))
+        formWithErrors => BadRequest(companyDivision(appConfig, formWithErrors)(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(CompanyDivisionId, value))
       )
   }
 }

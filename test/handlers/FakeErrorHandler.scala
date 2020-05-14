@@ -17,15 +17,19 @@
 package handlers
 
 import config.FrontendAppConfig
-import play.api.i18n.MessagesApi
+import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Request
 import play.twirl.api.Html
-
-class FakeErrorHandler(serverErrorTemplate: String)(
-  implicit
-  appConfig: FrontendAppConfig,
-  messagesApi: MessagesApi)
-    extends ErrorHandler(appConfig, messagesApi) {
-
-  override def internalServerErrorTemplate(implicit request: Request[_]): Html = Html(serverErrorTemplate)
-}
+import views.html.error_template
+//
+//class FakeErrorHandler(serverErrorTemplate: String,
+//                       val messagesApi: MessagesApi,
+//                       error_template: error_template)(implicit appConfig: FrontendAppConfig)
+//  extends ErrorHandler with I18nSupport {
+//
+//  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit rh: Request[_]): Html = {
+//    error_template(pageTitle, heading, message, appConfig)
+//  }
+//
+//  override def internalServerErrorTemplate(implicit request: Request[_]): Html = Html(serverErrorTemplate)
+//}

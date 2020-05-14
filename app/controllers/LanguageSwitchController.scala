@@ -16,38 +16,43 @@
 
 package controllers
 
-import com.google.inject.Inject
 import config.FrontendAppConfig
-import play.api.Configuration
-import play.api.i18n.{I18nSupport, Lang, MessagesApi}
-import play.api.mvc.{Action, AnyContent, Call, Controller}
+import javax.inject.Inject
+import play.api.i18n.{I18nSupport, Lang}
+import play.api.mvc._
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import uk.gov.hmrc.play.language.LanguageUtils
+import LanguageSwitchController._
 
-// TODO, upstream this into play-language
-class LanguageSwitchController @Inject()(
-  configuration: Configuration,
-  appConfig: FrontendAppConfig,
-  implicit val messagesApi: MessagesApi
-) extends Controller
-    with I18nSupport {
-
-  private def langToCall(lang: String): (String) => Call = appConfig.routeToSwitchLanguage
+class LanguageSwitchController @Inject()(configuration: ServicesConfig,
+                                         appConfig: FrontendAppConfig,
+                                         languageUtils: LanguageUtils,
+                                         mcc: MessagesControllerComponents)
+  extends FrontendController(mcc) with I18nSupport {
 
   private def fallbackURL: String = routes.IndexController.onPageLoad().url
 
   private def languageMap: Map[String, Lang] = appConfig.languageMap
 
-  def switchToLanguage(language: String): Action[AnyContent] = Action { implicit request =>
+  def switchToLanguage(language: String): Action[AnyContent] = controllerComponents.actionBuilder { implicit request =>
     val enabled = isWelshEnabled
     val lang = if (enabled) {
-      languageMap.getOrElse(language, LanguageUtils.getCurrentLang)
+      languageMap.getOrElse(language, languageUtils.getCurrentLang)
     } else {
-      Lang("en")
+      english
     }
     val redirectURL = request.headers.get(REFERER).getOrElse(fallbackURL)
-    Redirect(redirectURL).withLang(Lang.apply(lang.code)).flashing(LanguageUtils.FlashWithSwitchIndicator)
+    Redirect(redirectURL).withLang(Lang.apply(lang.code)).flashing(FlashWithSwitchIndicator)
   }
 
   private def isWelshEnabled: Boolean =
-    configuration.getBoolean("microservice.services.features.welsh-translation").getOrElse(true)
+    configuration.getBoolean("microservice.services.features.welsh-translation")
+}
+
+object LanguageSwitchController {
+  private val SwitchIndicatorKey: String      = "switching-language"
+  private val FlashWithSwitchIndicator: Flash = Flash(Map(SwitchIndicatorKey -> "true"))
+  val english: Lang                           = Lang("en")
+  val welsh: Lang                             = Lang("cy")
 }

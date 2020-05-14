@@ -16,43 +16,44 @@
 
 package controllers.employer.cis.ukbased.contractor
 
-import play.api.data.Form
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
 import forms.employer.IsBusinessRegisteredForPAYEFormProvider
-import play.api.test.Helpers._
 import models.employer.IsBusinessRegisteredForPAYE
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import viewmodels.ViewAction
 import views.html.employer.isBusinessRegisteredForPAYE
 
+
 class IsBusinessRegisteredForPAYEControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new IsBusinessRegisteredForPAYEFormProvider()
-  val form = formProvider()
-  val viewAction = ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddCisUkContractor")
+  val form: Form[IsBusinessRegisteredForPAYE] = formProvider()
 
-  def controller() =
+  val view: isBusinessRegisteredForPAYE = injector.instanceOf[isBusinessRegisteredForPAYE]
+  val viewAction: ViewAction = ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddCisUkContractor")
+
+  def controller(): IsBusinessRegisteredForPAYEController = {
     new IsBusinessRegisteredForPAYEController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    isBusinessRegisteredForPAYE(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
-  isBusinessRegisteredForPAYE(
-    frontendAppConfig,
-    form,
-    ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "CisUkContractorEpaye"))(HtmlFormat.empty)(
-    fakeRequest,
-    messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new isBusinessRegisteredForPAYE(
+      formWithCSRF, mainTemplate
+    )(frontendAppConfig, form, ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddCisUkContractor"))(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "IsBusinessRegisteredForPAYE Controller" must {
 
@@ -90,7 +91,7 @@ class IsBusinessRegisteredForPAYEControllerSpec extends ControllerSpecBase {
 
     for (option <- IsBusinessRegisteredForPAYE.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

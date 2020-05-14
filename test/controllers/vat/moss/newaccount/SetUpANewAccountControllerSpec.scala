@@ -24,10 +24,20 @@ import views.html.vat.moss.newaccount.setUpANewAccount
 
 class SetUpANewAccountControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new SetUpANewAccountController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: setUpANewAccount = injector.instanceOf[setUpANewAccount]
 
-  def viewAsString() = setUpANewAccount(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): SetUpANewAccountController = {
+    new SetUpANewAccountController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new setUpANewAccount(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "SetUpANewAccount Controller" must {
 

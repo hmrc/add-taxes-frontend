@@ -24,10 +24,20 @@ import views.html.other.importexports.nes.getCHIEFRole
 
 class GetCHIEFRoleControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new GetCHIEFRoleController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: getCHIEFRole = injector.instanceOf[getCHIEFRole]
 
-  def viewAsString() = getCHIEFRole(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): GetCHIEFRoleController = {
+    new GetCHIEFRoleController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new getCHIEFRole(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "GetCHIEFRole Controller" must {
 

@@ -16,7 +16,7 @@
 
 package views.ct
 
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.ct.individual_add_corporation_tax
 
@@ -24,9 +24,10 @@ class IndividualAddCorporationTaxViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "individualAddCorporationTax"
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView = () => individual_add_corporation_tax(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new individual_add_corporation_tax(formWithCSRF, mainTemplate)(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
 
   "IndividualAddCorporationTaxViewSpec" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -62,7 +63,8 @@ class IndividualAddCorporationTaxViewSpec extends ViewBehaviours {
           linkId = "create-account",
           expectedText = "Sign out and create ‘Organisation’ account",
           expectedUrl =
-            "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fcoafe%2Fgovernment-gateway%2Fregister%3FaccountType%3Dorganisation%2526continue%3D%2Fbusiness-account%2Fadd-tax%2526origin%3Dunknown",
+            "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fcoafe%2Fgovernment-gateway%2Fregister%" +
+              "3FaccountType%3Dorganisation%2526continue%3D%2Fbusiness-account%2Fadd-tax%2526origin%3Dunknown",
           expectedGAEvent = "link - click:Individual add corporation tax:Sign out and create Organisation account",
           expectedRole = Some("button")
         )

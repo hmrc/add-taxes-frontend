@@ -16,7 +16,7 @@
 
 package views
 
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.organisation_only
 
@@ -26,9 +26,10 @@ class OrganisationOnlyViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "organisationOnly"
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView = () => organisation_only(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new organisation_only(formWithCSRF, mainTemplate)(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
 
   "OrganisationOnly view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -69,7 +70,8 @@ class OrganisationOnlyViewSpec extends ViewBehaviours {
           doc,
           "create-account",
           "Sign out and create ‘Organisation’ account",
-          "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fcoafe%2Fgovernment-gateway%2Fregister%3FaccountType%3Dorganisation%2526continue%3D%2Fbusiness-account%2Fadd-tax%2526origin%3Dunknown",
+          "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fcoafe%2Fgovernment-gateway%2" +
+            "Fregister%3FaccountType%3Dorganisation%2526continue%3D%2Fbusiness-account%2Fadd-tax%2526origin%3Dunknown",
           "SetUpAccountbusinesstaxes:Click:Register",
           expectedRole = Some("button")
         )

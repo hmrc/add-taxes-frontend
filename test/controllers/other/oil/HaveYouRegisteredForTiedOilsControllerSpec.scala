@@ -29,22 +29,26 @@ import views.html.other.oil.haveYouRegisteredForTiedOils
 
 class HaveYouRegisteredForTiedOilsControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new HaveYouRegisteredForTiedOilsFormProvider()
-  val form = formProvider()
+  val form: Form[HaveYouRegisteredForTiedOils] = formProvider()
+
+  val view: haveYouRegisteredForTiedOils = injector.instanceOf[haveYouRegisteredForTiedOils]
 
   def controller() =
     new HaveYouRegisteredForTiedOilsController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
 
-  def viewAsString(form: Form[_] = form) =
-    haveYouRegisteredForTiedOils(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new haveYouRegisteredForTiedOils(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "HaveYouRegisteredForTiedOils Controller" must {
 

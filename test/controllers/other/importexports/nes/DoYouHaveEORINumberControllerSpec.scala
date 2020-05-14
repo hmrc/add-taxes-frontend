@@ -30,23 +30,28 @@ import views.html.other.importexports.doYouHaveEORINumber
 
 class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DoYouHaveEORINumberFormProvider()
-  val form = formProvider()
-  val viewAction = ViewAction(routes.DoYouHaveEORINumberController.onSubmit(), "AddNESTax")
+  val form: Form[DoYouHaveEORINumber] = formProvider()
+  val viewAction: ViewAction = ViewAction(routes.DoYouHaveEORINumberController.onSubmit(), "AddNESTax")
 
-  def controller =
+  val view: doYouHaveEORINumber = injector.instanceOf[doYouHaveEORINumber]
+
+  def controller: DoYouHaveEORINumberController = {
     new DoYouHaveEORINumberController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    doYouHaveEORINumber(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doYouHaveEORINumber(formWithCSRF, mainTemplate)(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouHaveEORINumber Controller" must {
 

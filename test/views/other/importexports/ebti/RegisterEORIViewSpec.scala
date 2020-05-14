@@ -24,7 +24,8 @@ class RegisterEORIViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "registerEORI"
 
-  def createView = () => registerEORI(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new registerEORI(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "RegisterEORI view" must {
     behave like normalPage(createView, messageKeyPrefix)

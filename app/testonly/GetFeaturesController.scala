@@ -18,13 +18,14 @@ package testonly
 
 import javax.inject.Inject
 import play.api.libs.json.Json
-import play.api.mvc.{Action, AnyContent}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import playconfig.featuretoggle.{Feature, FeatureConfig, FeatureToggleSupport}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
-class GetFeaturesController @Inject()(config: FeatureConfig) extends FrontendController with FeatureToggleSupport {
+class GetFeaturesController @Inject()(config: FeatureConfig, mcc: MessagesControllerComponents)
+  extends FrontendController(mcc) with FeatureToggleSupport {
 
-  def getAllFeatures(): Action[AnyContent] = Action {
+  def getAllFeatures: Action[AnyContent] = Action {
     val features = Feature.allTogglableFeatures
     Ok(Json.toJson(features.map(feature => Json.obj(feature.key -> config.isEnabled(feature)))))
   }

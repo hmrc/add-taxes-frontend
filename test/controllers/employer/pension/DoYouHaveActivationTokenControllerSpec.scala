@@ -29,22 +29,27 @@ import views.html.employer.pension.doYouHaveActivationToken
 
 class DoYouHaveActivationTokenControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DoYouHaveActivationTokenFormProvider()
-  val form = formProvider()
+  val form: Form[DoYouHaveActivationToken] = formProvider()
 
-  def controller() =
+  val view: doYouHaveActivationToken = injector.instanceOf[doYouHaveActivationToken]
+
+  def controller(): DoYouHaveActivationTokenController = {
     new DoYouHaveActivationTokenController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    doYouHaveActivationToken(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doYouHaveActivationToken(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouHaveActivationToken Controller" must {
 
@@ -82,7 +87,7 @@ class DoYouHaveActivationTokenControllerSpec extends ControllerSpecBase {
 
     for (option <- DoYouHaveActivationToken.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

@@ -29,22 +29,25 @@ import views.html.other.gambling.mgd.doYouHaveMGDRegistration
 
 class DoYouHaveMGDRegistrationControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DoYouHaveMGDRegistrationFormProvider()
-  val form = formProvider()
+  val form: Form[DoYouHaveMGDRegistration] = formProvider()
+
+  val view: doYouHaveMGDRegistration = injector.instanceOf[doYouHaveMGDRegistration]
 
   def controller() =
     new DoYouHaveMGDRegistrationController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view)
 
-  def viewAsString(form: Form[_] = form) =
-    doYouHaveMGDRegistration(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doYouHaveMGDRegistration(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouHaveMGDRegistration Controller" must {
 
@@ -82,7 +85,7 @@ class DoYouHaveMGDRegistrationControllerSpec extends ControllerSpecBase {
 
     for (option <- DoYouHaveMGDRegistration.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

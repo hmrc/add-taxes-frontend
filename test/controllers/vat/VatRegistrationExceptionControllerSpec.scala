@@ -16,21 +16,18 @@
 
 package controllers.vat
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.{FakeServiceInfoAction, _}
 import forms.vat.VatRegistrationExceptionFormProvider
-import identifiers.VatRegistrationExceptionId
 import models.vat.VatRegistrationException
 import org.scalatest.BeforeAndAfterEach
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import playconfig.featuretoggle.{FeatureToggleSupport, NewVatJourney}
 import uk.gov.hmrc.http.NotFoundException
+import utils.FakeNavigator
 import views.html.vat.vatRegistrationException
 
 class VatRegistrationExceptionControllerSpec
@@ -38,24 +35,28 @@ class VatRegistrationExceptionControllerSpec
     with BeforeAndAfterEach
     with FeatureToggleSupport {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new VatRegistrationExceptionFormProvider()
-  val form = formProvider()
+  val form: Form[VatRegistrationException] = formProvider()
 
-  def controller() =
+  val view: vatRegistrationException = injector.instanceOf[vatRegistrationException]
+
+  def controller(): VatRegistrationExceptionController = {
     new VatRegistrationExceptionController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider,
-      featureDepandantAction = app.injector.instanceOf[FeatureDependantAction]
+      featureDepandantAction = app.injector.instanceOf[FeatureDependantAction],
+      view
     )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    vatRegistrationException(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new vatRegistrationException(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -106,7 +107,7 @@ class VatRegistrationExceptionControllerSpec
 
     for (option <- VatRegistrationException.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

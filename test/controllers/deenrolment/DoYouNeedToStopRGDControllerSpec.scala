@@ -16,37 +16,40 @@
 
 package controllers.deenrolment
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import controllers.actions._
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions._
 import forms.deenrolment.DoYouNeedToStopRGDFormProvider
-import identifiers.DoYouNeedToStopRGDId
 import models.deenrolment.DoYouNeedToStopRGD
+import play.api.data.Form
+import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.deenrolment.doYouNeedToStopRGD
 
 class DoYouNeedToStopRGDControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DoYouNeedToStopRGDFormProvider()
-  val form = formProvider()
+  val form: Form[DoYouNeedToStopRGD] = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  val view: doYouNeedToStopRGD = injector.instanceOf[doYouNeedToStopRGD]
+
+  def controller(): DoYouNeedToStopRGDController = {
     new DoYouNeedToStopRGDController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    doYouNeedToStopRGD(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doYouNeedToStopRGD(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouNeedToStopRGD Controller" must {
 
@@ -77,15 +80,15 @@ class DoYouNeedToStopRGDControllerSpec extends ControllerSpecBase {
     }
 
     "return OK if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+      val result = controller().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
     }
 
     for (option <- DoYouNeedToStopRGD.options) {
       s"redirect to next page when '${option.value}' is submitted and no existing data is found" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
-        val result = controller(dontGetAnyData).onSubmit()(postRequest)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
+        val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)

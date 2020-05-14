@@ -16,8 +16,8 @@
 
 package controllers.other.importexports.emcs
 
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers.ControllerSpecBase
+import controllers.actions.FakeServiceInfoAction
 import forms.other.importexports.emcs.DoYouHaveASEEDNumberFormProvider
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import play.api.data.Form
@@ -29,22 +29,27 @@ import views.html.other.importexports.emcs.doYouHaveASEEDNumber
 
 class DoYouHaveASEEDNumberControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DoYouHaveASEEDNumberFormProvider()
-  val form = formProvider()
+  val form: Form[DoYouHaveASEEDNumber] = formProvider()
 
-  def controller() =
+  val view: doYouHaveASEEDNumber = injector.instanceOf[doYouHaveASEEDNumber]
+
+  def controller(): DoYouHaveASEEDNumberController = {
     new DoYouHaveASEEDNumberController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    doYouHaveASEEDNumber(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doYouHaveASEEDNumber(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouHaveASEEDNumber Controller" must {
 
@@ -81,7 +86,7 @@ class DoYouHaveASEEDNumberControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (DoYouHaveASEEDNumber.options.head.value)))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveASEEDNumber.options.head.value))
       val result = controller().onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER

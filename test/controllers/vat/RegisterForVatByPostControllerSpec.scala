@@ -24,10 +24,20 @@ import views.html.vat.registerForVatByPost
 
 class RegisterForVatByPostControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new RegisterForVatByPostController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: registerForVatByPost = injector.instanceOf[registerForVatByPost]
 
-  def viewAsString() = registerForVatByPost(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): RegisterForVatByPostController = {
+    new RegisterForVatByPostController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new registerForVatByPost(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterForVatByPost Controller" must {
     "return OK and the correct view for a GET" in {

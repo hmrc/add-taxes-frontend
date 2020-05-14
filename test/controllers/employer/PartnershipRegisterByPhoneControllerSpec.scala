@@ -24,10 +24,20 @@ import views.html.employer.partnershipRegisterByPhone
 
 class PartnershipRegisterByPhoneControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new PartnershipRegisterByPhoneController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: partnershipRegisterByPhone = injector.instanceOf[partnershipRegisterByPhone]
 
-  def viewAsString() = partnershipRegisterByPhone(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): PartnershipRegisterByPhoneController = {
+    new PartnershipRegisterByPhoneController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new partnershipRegisterByPhone(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "PartnershipRegisterByPhone Controller" must {
 

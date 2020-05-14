@@ -16,10 +16,10 @@
 
 package views.other.alcohol.atwd
 
-import play.api.data.Form
 import forms.other.alcohol.atwd.AreYouRegisteredWarehousekeeperFormProvider
 import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
-import play.twirl.api.HtmlFormat
+import play.api.data.Form
+import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.other.alcohol.atwd.areYouRegisteredWarehousekeeper
 
@@ -29,14 +29,13 @@ class AreYouRegisteredWarehousekeeperViewSpec extends ViewBehaviours {
 
   val form = new AreYouRegisteredWarehousekeeperFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView =
-    () => areYouRegisteredWarehousekeeper(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new areYouRegisteredWarehousekeeper(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) =>
-      areYouRegisteredWarehousekeeper(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+    new areYouRegisteredWarehousekeeper(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "AreYouRegisteredWarehousekeeper view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -52,7 +51,7 @@ class AreYouRegisteredWarehousekeeperViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- AreYouRegisteredWarehousekeeper.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
 
@@ -68,10 +67,10 @@ class AreYouRegisteredWarehousekeeperViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- AreYouRegisteredWarehousekeeper.options.filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

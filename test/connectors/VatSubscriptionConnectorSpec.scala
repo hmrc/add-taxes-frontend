@@ -17,22 +17,23 @@
 package connectors
 
 import base.SpecBase
-import org.mockito.Matchers
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.http.Status._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class VatSubscriptionConnectorSpec extends SpecBase with MockitoSugar with ScalaFutures with MockHttpClient {
+class VatSubscriptionConnectorSpec extends SpecBase with MockitoSugar with ScalaFutures {
 
-  def vatSubscriptionConnector[A](
-    mockedResponse: HttpResponse,
-    httpWrapper: HttpWrapper = mock[HttpWrapper]): VatSubscriptionConnector = {
-    when(httpWrapper.getF[A](Matchers.any())).thenReturn(mockedResponse)
-    new VatSubscriptionConnector(http(httpWrapper), frontendAppConfig)
+  val mockHttp: HttpClient = mock[HttpClient]
+
+  def vatSubscriptionConnector: VatSubscriptionConnector = {
+    new VatSubscriptionConnector(mockHttp, frontendAppConfig)
   }
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
@@ -40,14 +41,13 @@ class VatSubscriptionConnectorSpec extends SpecBase with MockitoSugar with Scala
   val vrn: String = "123456789"
 
   "VatConnector" when {
-
     "mandationStatus is called" should {
 
       "return Right(true) when the call is successful (200)" in {
+        when(mockHttp.GET[Either[String, Boolean]](any())(any(),any(),any()))
+          .thenReturn(Future.successful(Right(true)))
 
-        val response: Future[Either[String, Boolean]] =
-          vatSubscriptionConnector(mockedResponse = HttpResponse(OK, None))
-            .getMandationStatus(vrn)
+        val response: Future[Either[String, Boolean]] = vatSubscriptionConnector.getMandationStatus(vrn)
 
         whenReady(response) { result =>
           result mustBe Right(true)
@@ -55,10 +55,10 @@ class VatSubscriptionConnectorSpec extends SpecBase with MockitoSugar with Scala
       }
 
       "return Right(false) if a VRN is not found in ETMP (404)" in {
+        when(mockHttp.GET[Either[String, Boolean]](any())(any(),any(),any()))
+          .thenReturn(Future.successful(Right(false)))
 
-        val response: Future[Either[String, Boolean]] =
-          vatSubscriptionConnector(mockedResponse = HttpResponse(NOT_FOUND, None))
-            .getMandationStatus(vrn)
+        val response: Future[Either[String, Boolean]] = vatSubscriptionConnector.getMandationStatus(vrn)
 
         whenReady(response) { result =>
           result mustBe Right(false)
@@ -66,10 +66,10 @@ class VatSubscriptionConnectorSpec extends SpecBase with MockitoSugar with Scala
       }
 
       "return a Left('Failed')) if the response could not be mapped" in {
+        when(mockHttp.GET[Either[String, Boolean]](any())(any(),any(),any()))
+          .thenReturn(Future.successful(Left("Failed")))
 
-        val response: Future[Either[String, Boolean]] =
-          vatSubscriptionConnector(mockedResponse = HttpResponse(INTERNAL_SERVER_ERROR, None))
-            .getMandationStatus(vrn)
+        val response: Future[Either[String, Boolean]] = vatSubscriptionConnector.getMandationStatus(vrn)
 
         whenReady(response) { result =>
           result mustBe Left("Failed")

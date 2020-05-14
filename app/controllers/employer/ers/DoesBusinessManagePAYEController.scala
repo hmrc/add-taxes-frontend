@@ -16,48 +16,44 @@
 
 package controllers.employer.ers
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import forms.employer.DoesBusinessManagePAYEFormProvider
+import identifiers.DoesBusinessManagePAYEId
+import javax.inject.Inject
+import models.employer.DoesBusinessManagePAYE
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-import identifiers.DoesBusinessManagePAYEId
-import play.api.mvc.Call
 import viewmodels.ViewAction
 import views.html.employer.doesBusinessManagePAYE
 
 import scala.concurrent.Future
 
-class DoesBusinessManagePAYEController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: DoesBusinessManagePAYEFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class DoesBusinessManagePAYEController @Inject()(appConfig: FrontendAppConfig,
+                                                 mcc: MessagesControllerComponents,
+                                                 navigator: Navigator[Call],
+                                                 authenticate: AuthAction,
+                                                 serviceInfoData: ServiceInfoAction,
+                                                 formProvider: DoesBusinessManagePAYEFormProvider,
+                                                 doesBusinessManagePAYE: doesBusinessManagePAYE)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  lazy val viewAction = ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "AddErsEpayeOnline")
-  val form = formProvider()
+  lazy val viewAction: ViewAction = ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "AddErsEpayeOnline")
+  val form: Form[DoesBusinessManagePAYE] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(doesBusinessManagePAYE(appConfig, form, viewAction)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(doesBusinessManagePAYE(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(DoesBusinessManagePAYEId.ERS, value)))
+        formWithErrors =>
+          Future.successful(BadRequest(doesBusinessManagePAYE(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
+        value => Future.successful(Redirect(navigator.nextPage(DoesBusinessManagePAYEId.ERS, value)))
       )
   }
 }

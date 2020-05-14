@@ -24,7 +24,8 @@ class AddVATMOSSViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "addVATMOSS"
 
-  def createView = () => addVATMOSS(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new addVATMOSS(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "AddVATMOSS view" must {
     behave like normalPage(createView, messageKeyPrefix)

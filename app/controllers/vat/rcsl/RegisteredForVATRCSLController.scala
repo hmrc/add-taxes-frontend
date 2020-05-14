@@ -16,15 +16,15 @@
 
 package controllers.vat.rcsl
 
-import javax.inject.Inject
-
-import controllers.actions._
 import config.FrontendAppConfig
+import controllers.actions._
 import forms.vat.RegisteredForVATFormProvider
 import identifiers.RegisteredForVATRCSLId
+import javax.inject.Inject
+import models.vat.RegisteredForVAT
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Call
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.Navigator
 import viewmodels.ViewAction
@@ -32,31 +32,28 @@ import views.html.vat.registeredForVAT
 
 import scala.concurrent.Future
 
-class RegisteredForVATRCSLController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  authenticate: AuthAction,
-  navigator: Navigator[Call],
-  serviceInfo: ServiceInfoAction,
-  formProvider: RegisteredForVATFormProvider)
-    extends FrontendController
-    with I18nSupport {
+class RegisteredForVATRCSLController @Inject()(appConfig: FrontendAppConfig,
+                                               mcc: MessagesControllerComponents,
+                                               authenticate: AuthAction,
+                                               navigator: Navigator[Call],
+                                               serviceInfo: ServiceInfoAction,
+                                               formProvider: RegisteredForVATFormProvider,
+                                               registeredForVAT: registeredForVAT)
+  extends FrontendController(mcc) with I18nSupport {
 
-  val form = formProvider()
-  lazy val viewAction = ViewAction(routes.RegisteredForVATRCSLController.onSubmit(), "VatRCSLNoVat")
+  val form: Form[RegisteredForVAT] = formProvider()
+  lazy val viewAction: ViewAction = ViewAction(routes.RegisteredForVATRCSLController.onSubmit(), "VatRCSLNoVat")
 
-  def onPageLoad = (authenticate andThen serviceInfo) { implicit request =>
+  def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
     Ok(registeredForVAT(appConfig, form, viewAction)(request.serviceInfoContent))
   }
 
-  def onSubmit = (authenticate andThen serviceInfo).async { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit: Action[AnyContent] = (authenticate andThen serviceInfo).async { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(registeredForVAT(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(RegisteredForVATRCSLId, value)))
+        formWithErrors =>
+          Future.successful(BadRequest(registeredForVAT(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
+        value => Future.successful(Redirect(navigator.nextPage(RegisteredForVATRCSLId, value)))
       )
   }
 }

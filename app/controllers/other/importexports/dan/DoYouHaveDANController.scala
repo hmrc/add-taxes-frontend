@@ -16,45 +16,42 @@
 
 package controllers.other.importexports.dan
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
 import forms.other.importexports.dan.DoYouHaveDANFormProvider
 import identifiers.DoYouHaveDANId
-import play.api.mvc.Call
+import javax.inject.Inject
+import models.other.importexports.dan.DoYouHaveDAN
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.other.importexports.dan.doYouHaveDAN
 
 import scala.concurrent.Future
 
-class DoYouHaveDANController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: DoYouHaveDANFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class DoYouHaveDANController @Inject()(appConfig: FrontendAppConfig,
+                                       mcc: MessagesControllerComponents,
+                                       navigator: Navigator[Call],
+                                       authenticate: AuthAction,
+                                       serviceInfoData: ServiceInfoAction,
+                                       formProvider: DoYouHaveDANFormProvider,
+                                       doYouHaveDAN: doYouHaveDAN)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[DoYouHaveDAN] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(doYouHaveDAN(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
+        formWithErrors =>
           Future.successful(BadRequest(doYouHaveDAN(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(DoYouHaveDANId, value)))
+        value => Future.successful(Redirect(navigator.nextPage(DoYouHaveDANId, value)))
       )
   }
 }

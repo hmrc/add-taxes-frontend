@@ -24,10 +24,20 @@ import views.html.other.importexports.ebti.registerEORI
 
 class RegisterEORIControllerSpec extends ControllerSpecBase {
 
-  def controller() =
-    new RegisterEORIController(frontendAppConfig, messagesApi, FakeAuthAction, FakeServiceInfoAction)
+  val view: registerEORI = injector.instanceOf[registerEORI]
 
-  def viewAsString() = registerEORI(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def controller(): RegisterEORIController = {
+    new RegisterEORIController(
+      frontendAppConfig,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      view
+    )
+  }
+
+  def viewAsString(): String =
+    new registerEORI(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterEORI Controller" must {
 

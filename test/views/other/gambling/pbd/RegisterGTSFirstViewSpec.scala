@@ -24,7 +24,8 @@ class RegisterGTSFirstViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "registerGTSFirst"
 
-  def createView = () => registerGTSFirst(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new registerGTSFirst(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "RegisterGTSFirst view" must {
     behave like normalPage(createView, messageKeyPrefix)

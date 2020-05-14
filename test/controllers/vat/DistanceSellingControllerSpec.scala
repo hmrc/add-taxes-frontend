@@ -16,43 +16,44 @@
 
 package controllers.vat
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import controllers.actions.{FakeServiceInfoAction, _}
 import controllers._
-import play.api.test.Helpers._
+import controllers.actions.{FakeServiceInfoAction, _}
 import forms.vat.DistanceSellingFormProvider
-import identifiers.DistanceSellingId
 import models.vat.DistanceSelling
-import org.scalatest.{BeforeAndAfter, BeforeAndAfterEach}
+import org.scalatest.BeforeAndAfterEach
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import playconfig.featuretoggle.{FeatureToggleSupport, NewVatJourney}
 import uk.gov.hmrc.http.NotFoundException
+import utils.FakeNavigator
 import views.html.vat.distanceSelling
 
 class DistanceSellingControllerSpec extends ControllerSpecBase with FeatureToggleSupport with BeforeAndAfterEach {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DistanceSellingFormProvider()
-  val form = formProvider()
+  val form: Form[DistanceSelling] = formProvider()
 
-  def controller() =
+  val view: distanceSelling = injector.instanceOf[distanceSelling]
+
+  def controller(): DistanceSellingController = {
     new DistanceSellingController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider,
-      featureDependantAction = app.injector.instanceOf[FeatureDependantAction]
+      featureDependantAction = app.injector.instanceOf[FeatureDependantAction],
+      view
     )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    distanceSelling(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new distanceSelling(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -103,7 +104,7 @@ class DistanceSellingControllerSpec extends ControllerSpecBase with FeatureToggl
 
     for (option <- DistanceSelling.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

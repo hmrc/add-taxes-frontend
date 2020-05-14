@@ -17,6 +17,11 @@
 @import config.FrontendAppConfig
 @import utils.Enrolments
 
+@this(
+    uiForm: FormWithCSRF,
+    main_template: main_template
+)
+
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(

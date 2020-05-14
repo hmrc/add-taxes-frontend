@@ -16,14 +16,16 @@
 
 package services
 
-import scala.concurrent.{ExecutionContext, Future}
 import connectors.VatSubscriptionConnector
 import javax.inject.{Inject, Singleton}
 import uk.gov.hmrc.http.HeaderCarrier
 
+import scala.concurrent.{ExecutionContext, Future}
+
 @Singleton
 case class VatSubscriptionService @Inject()(connector: VatSubscriptionConnector) {
 
-  def getMandationStatus(vrn: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[Boolean]] =
+  def getMandationStatus(vrn: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[Boolean]] = {
     connector.getMandationStatus(vrn).map(_.right.toOption)
+  }
 }

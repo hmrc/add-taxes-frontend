@@ -16,61 +16,58 @@
 
 package controllers.other.oil
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import forms.other.oils.SelectAnOilServiceFormProvider
 import identifiers.SelectAnOilServiceId
+import javax.inject.Inject
+import models.other.oil.SelectAnOilService
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
 import models.requests.ServiceInfoRequest
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.{AnyContent, Call}
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enrolments, Enumerable, Navigator, RadioOption}
+import uk.gov.hmrc.auth.core.{Enrolments => GovEnrolments}
 import views.html.other.oil.selectAnOilService
 
 import scala.concurrent.Future
 
-class SelectAnOilServiceController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: SelectAnOilServiceFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class SelectAnOilServiceController @Inject()(appConfig: FrontendAppConfig,
+                                             mcc: MessagesControllerComponents,
+                                             navigator: Navigator[Call],
+                                             authenticate: AuthAction,
+                                             serviceInfoData: ServiceInfoAction,
+                                             formProvider: SelectAnOilServiceFormProvider,
+                                             selectAnOilService: selectAnOilService)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[SelectAnOilService] = formProvider()
 
-  def getOptions(implicit r: ServiceInfoRequest[AnyContent]): Seq[RadioOption] = {
+  private[oil] def getOptions(implicit r: ServiceInfoRequest[AnyContent]): Seq[RadioOption] = {
     val checks = Seq(checkRebatedOil, checkTiedOil)
     checks.flatMap(_.apply(r.request.enrolments))
   }
 
-  private def checkRebatedOil: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
+  private def checkRebatedOil: GovEnrolments => Option[RadioOption] =
     _.getEnrolment(Enrolments.RebatedOils.toString)
       .fold[Option[RadioOption]](Some(RebatedOilsEnquiryService.toRadioOption))(_ => None)
 
-  private def checkTiedOil: (uk.gov.hmrc.auth.core.Enrolments) => Option[RadioOption] =
+  private def checkTiedOil: GovEnrolments => Option[RadioOption] =
     _.getEnrolment(Enrolments.TiedOils.toString)
       .fold[Option[RadioOption]](Some(TiedOilsEnquiryService.toRadioOption))(_ => None)
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(selectAnOilService(appConfig, form, getOptions)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(selectAnOilService(appConfig, formWithErrors, getOptions)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(SelectAnOilServiceId, value)))
+        formWithErrors =>
+          Future.successful(BadRequest(selectAnOilService(appConfig, formWithErrors, getOptions)(request.serviceInfoContent))),
+        value => Future.successful(Redirect(navigator.nextPage(SelectAnOilServiceId, value)))
       )
   }
 }

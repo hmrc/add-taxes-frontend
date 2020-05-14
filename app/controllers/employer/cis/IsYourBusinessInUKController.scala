@@ -16,45 +16,39 @@
 
 package controllers.employer.cis
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import utils.{Enumerable, Navigator}
 import forms.employer.cis.IsYourBusinessInUKFormProvider
 import identifiers.IsYourBusinessInUKId
-import play.api.mvc.Call
+import javax.inject.Inject
+import models.employer.cis.IsYourBusinessInUK
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.employer.cis.isYourBusinessInUK
 
-import scala.concurrent.Future
+class IsYourBusinessInUKController @Inject()(appConfig: FrontendAppConfig,
+                                             mcc: MessagesControllerComponents,
+                                             navigator: Navigator[Call],
+                                             authenticate: AuthAction,
+                                             serviceInfoData: ServiceInfoAction,
+                                             formProvider: IsYourBusinessInUKFormProvider,
+                                             isYourBusinessInUK: isYourBusinessInUK)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-class IsYourBusinessInUKController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: IsYourBusinessInUKFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+  val form: Form[IsYourBusinessInUK] = formProvider()
 
-  val form = formProvider()
-
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(isYourBusinessInUK(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          BadRequest(isYourBusinessInUK(appConfig, formWithErrors)(request.serviceInfoContent)),
-        (value) => Redirect(navigator.nextPage(IsYourBusinessInUKId, value))
+        formWithErrors => BadRequest(isYourBusinessInUK(appConfig, formWithErrors)(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(IsYourBusinessInUKId, value))
       )
   }
 }

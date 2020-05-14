@@ -24,7 +24,8 @@ class CanRegisterForVATViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "canRegisterForVAT"
 
-  def createView = () => canRegisterForVAT(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new canRegisterForVAT(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
 
   "CanRegisterForVAT view" must {
     behave like normalPage(createView, messageKeyPrefix)

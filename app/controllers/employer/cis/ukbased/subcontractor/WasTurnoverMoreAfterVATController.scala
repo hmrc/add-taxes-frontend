@@ -16,39 +16,36 @@
 
 package controllers.employer.cis.ukbased.subcontractor
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
 import forms.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVATFormProvider
 import identifiers.WasTurnoverMoreAfterVATId
-import play.api.mvc.Call
+import javax.inject.Inject
+import models.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVAT
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.employer.cis.ukbased.subcontractor.wasTurnoverMoreAfterVAT
 
-class WasTurnoverMoreAfterVATController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: WasTurnoverMoreAfterVATFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class WasTurnoverMoreAfterVATController @Inject()(appConfig: FrontendAppConfig,
+                                                  mcc: MessagesControllerComponents,
+                                                  navigator: Navigator[Call],
+                                                  authenticate: AuthAction,
+                                                  serviceInfoData: ServiceInfoAction,
+                                                  formProvider: WasTurnoverMoreAfterVATFormProvider,
+                                                  wasTurnoverMoreAfterVAT: wasTurnoverMoreAfterVAT)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[WasTurnoverMoreAfterVAT] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(wasTurnoverMoreAfterVAT(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData) { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    form.bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
           BadRequest(wasTurnoverMoreAfterVAT(appConfig, formWithErrors)(request.serviceInfoContent)),

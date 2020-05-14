@@ -16,14 +16,10 @@
 
 package views.employer
 
-import play.api.data.Form
 import forms.employer.WhatEmployerTaxDoYouWantToAddFormProvider
 import models.employer.WhatEmployerTaxDoYouWantToAdd
-import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
-import play.api.mvc.AnyContent
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
-import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
-import utils.HmrcEnrolmentType
 import views.behaviours.ViewBehaviours
 import views.html.employer.whatEmployerTaxDoYouWantToAdd
 
@@ -33,19 +29,17 @@ class WhatEmployerTaxDoYouWantToAddViewSpec extends ViewBehaviours {
 
   val form = new WhatEmployerTaxDoYouWantToAddFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView =
-    () =>
-      whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form, WhatEmployerTaxDoYouWantToAdd.options)(serviceInfoContent)(
-        fakeRequest,
-        messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+      new whatEmployerTaxDoYouWantToAdd(
+        formWithCSRF, mainTemplate
+      )(frontendAppConfig, form, WhatEmployerTaxDoYouWantToAdd.options)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) =>
-      whatEmployerTaxDoYouWantToAdd(frontendAppConfig, form, WhatEmployerTaxDoYouWantToAdd.options)(serviceInfoContent)(
-        fakeRequest,
-        messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+      new whatEmployerTaxDoYouWantToAdd(
+        formWithCSRF, mainTemplate
+      )(frontendAppConfig, form, WhatEmployerTaxDoYouWantToAdd.options)(serviceInfoContent)(fakeRequest, messages)
 
   "WhatEmployerTaxDoYouWantToAdd view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -61,7 +55,7 @@ class WhatEmployerTaxDoYouWantToAddViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- WhatEmployerTaxDoYouWantToAdd.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
@@ -70,10 +64,10 @@ class WhatEmployerTaxDoYouWantToAddViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- WhatEmployerTaxDoYouWantToAdd.options.filterNot(_ == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

@@ -16,7 +16,8 @@
 
 package views.components
 
-import play.api.i18n.Lang
+import play.api.i18n.{Lang, Messages}
+import play.twirl.api.HtmlFormat
 import views.ViewSpecBase
 import views.html.components.language_selection
 
@@ -27,10 +28,10 @@ class LanguageSelectionViewSpec extends ViewSpecBase {
     "cymraeg" -> Lang("cy")
   )
 
-  def welshMessages = messagesApi.preferred(Seq(Lang("cy")))
+  def welshMessages: Messages = mcc.messagesApi.preferred(Seq(Lang("cy")))
 
-  val view = () => language_selection(langMap, frontendAppConfig.routeToSwitchLanguage)(messages)
-  val welshView = () => language_selection(langMap, frontendAppConfig.routeToSwitchLanguage)(welshMessages)
+  val view: () => HtmlFormat.Appendable = () => language_selection(langMap, frontendAppConfig.routeToSwitchLanguage)(messages)
+  val welshView: () => HtmlFormat.Appendable = () => language_selection(langMap, frontendAppConfig.routeToSwitchLanguage)(welshMessages)
 
   "render a Cymraeg link if the language is set to English" in {
     val doc = asDocument(view())

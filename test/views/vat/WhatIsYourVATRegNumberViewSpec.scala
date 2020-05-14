@@ -30,11 +30,11 @@ class WhatIsYourVATRegNumberViewSpec extends ViewBehaviours {
 
   val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView: () => HtmlFormat.Appendable =
-    () => whatIsYourVATRegNumber(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new whatIsYourVATRegNumber(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm: Form[String] => HtmlFormat.Appendable =
-    (form: Form[String]) => whatIsYourVATRegNumber(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[String] => HtmlFormat.Appendable = (form: Form[String]) =>
+    new whatIsYourVATRegNumber(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   def viewIncludes(s: String): Unit = asDocument(createView()).text() must include(s)
 

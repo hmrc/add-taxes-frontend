@@ -19,7 +19,7 @@ package views.vat
 import forms.vat.RegisteredForVATFormProvider
 import models.vat.RegisteredForVAT
 import play.api.data.Form
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
 import viewmodels.ViewAction
 import views.behaviours.ViewBehaviours
 import views.html.vat.registeredForVAT
@@ -29,15 +29,15 @@ class RegisteredForVATECSalesViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "registeredForVATECSales"
 
   val form = new RegisteredForVATFormProvider()()
-  lazy val viewAction = ViewAction(controllers.routes.IndexController.onPageLoad(), "")
+  lazy val viewAction: ViewAction = ViewAction(controllers.routes.IndexController.onPageLoad(), "")
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView =
-    () => registeredForVAT(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new registeredForVAT(formWithCSRF, mainTemplate)(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) => registeredForVAT(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+    new registeredForVAT(formWithCSRF, mainTemplate)(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
 
   "RegisteredForVATECSales view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -53,7 +53,7 @@ class RegisteredForVATECSalesViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- RegisteredForVAT.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
@@ -62,10 +62,10 @@ class RegisteredForVATECSalesViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- RegisteredForVAT.options.filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

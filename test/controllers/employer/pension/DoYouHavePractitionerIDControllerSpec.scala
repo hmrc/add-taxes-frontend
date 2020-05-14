@@ -29,22 +29,27 @@ import views.html.employer.pension.doYouHavePractitionerID
 
 class DoYouHavePractitionerIDControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DoYouHavePractitionerIDFormProvider()
-  val form = formProvider()
+  val form: Form[DoYouHavePractitionerID] = formProvider()
 
-  def controller() =
+  val view: doYouHavePractitionerID = injector.instanceOf[doYouHavePractitionerID]
+
+  def controller(): DoYouHavePractitionerIDController = {
     new DoYouHavePractitionerIDController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    doYouHavePractitionerID(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doYouHavePractitionerID(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouHavePractitionerID Controller" must {
 
@@ -82,7 +87,7 @@ class DoYouHavePractitionerIDControllerSpec extends ControllerSpecBase {
 
     for (option <- DoYouHavePractitionerID.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER

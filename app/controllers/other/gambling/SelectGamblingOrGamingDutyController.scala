@@ -16,46 +16,42 @@
 
 package controllers.other.gambling
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{Enumerable, Navigator}
 import forms.other.gambling.SelectGamblingOrGamingDutyFormProvider
 import identifiers.SelectGamblingOrGamingDutyId
-import play.api.mvc.Call
+import javax.inject.Inject
+import models.other.gambling.SelectGamblingOrGamingDuty
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.{Enumerable, Navigator}
 import views.html.other.gambling.selectGamblingOrGamingDuty
 
 import scala.concurrent.Future
 
-class SelectGamblingOrGamingDutyController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: SelectGamblingOrGamingDutyFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class SelectGamblingOrGamingDutyController @Inject()(appConfig: FrontendAppConfig,
+                                                     mcc: MessagesControllerComponents,
+                                                     navigator: Navigator[Call],
+                                                     authenticate: AuthAction,
+                                                     serviceInfoData: ServiceInfoAction,
+                                                     formProvider: SelectGamblingOrGamingDutyFormProvider,
+                                                     selectGamblingOrGamingDuty: selectGamblingOrGamingDuty)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[SelectGamblingOrGamingDuty] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(selectGamblingOrGamingDuty(appConfig, form)(request.serviceInfoContent))
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(selectGamblingOrGamingDuty(appConfig, formWithErrors)(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(SelectGamblingOrGamingDutyId, value)))
+        formWithErrors =>
+          Future.successful(BadRequest(selectGamblingOrGamingDuty(appConfig, formWithErrors)(request.serviceInfoContent))),
+        value => Future.successful(Redirect(navigator.nextPage(SelectGamblingOrGamingDutyId, value)))
       )
   }
 }

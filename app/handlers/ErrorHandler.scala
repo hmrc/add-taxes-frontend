@@ -25,24 +25,24 @@ import play.api.mvc.{Request, RequestHeader, Result}
 import play.twirl.api.Html
 import uk.gov.hmrc.http.NotFoundException
 import uk.gov.hmrc.play.bootstrap.http.FrontendErrorHandler
+import views.html.error_template
 
 import scala.language.implicitConversions
 
 @Singleton
-class ErrorHandler @Inject()(
-  appConfig: FrontendAppConfig,
-  val messagesApi: MessagesApi
-) extends FrontendErrorHandler
-    with I18nSupport {
+class ErrorHandler @Inject()(appConfig: FrontendAppConfig,
+                             val messagesApi: MessagesApi,
+                             error_template: error_template) extends FrontendErrorHandler with I18nSupport {
 
   implicit def rhToRequest(rh: RequestHeader): Request[_] = Request(rh, "")
 
-  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(
-    implicit rh: Request[_]): Html =
-    views.html.error_template(pageTitle, heading, message, appConfig)
+  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit rh: Request[_]): Html = {
+    error_template(pageTitle, heading, message, appConfig)
+  }
 
   override def resolveError(rh: RequestHeader, ex: Throwable): Result = ex match {
     case _: NotFoundException => NotFound(notFoundTemplate(rh)).withHeaders(CACHE_CONTROL -> "no-cache")
     case _                    => super.resolveError(rh, ex)
   }
 }
+

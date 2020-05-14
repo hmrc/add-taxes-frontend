@@ -30,23 +30,28 @@ import views.html.vat.registeredForVAT
 
 class RegisteredForVATRCSLControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new RegisteredForVATFormProvider()
-  val form = formProvider()
-  lazy val viewAction = ViewAction(routes.RegisteredForVATRCSLController.onSubmit(), "VatRCSLNoVat")
+  val form: Form[RegisteredForVAT] = formProvider()
 
-  def controller() =
+  val view: registeredForVAT = injector.instanceOf[registeredForVAT]
+  lazy val viewAction: ViewAction = ViewAction(routes.RegisteredForVATRCSLController.onSubmit(), "VatRCSLNoVat")
+
+  def controller(): RegisteredForVATRCSLController = {
     new RegisteredForVATRCSLController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       FakeAuthAction,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    registeredForVAT(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new registeredForVAT(formWithCSRF, mainTemplate)(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisteredForVATRCSL Controller" must {
 

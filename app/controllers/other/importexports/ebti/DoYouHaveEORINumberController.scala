@@ -16,16 +16,16 @@
 
 package controllers.other.importexports.ebti
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.other.importexports.ebti.routes._
 import forms.other.importexports.DoYouHaveEORINumberFormProvider
 import identifiers.DoYouHaveEORINumberId
+import javax.inject.Inject
+import models.other.importexports.DoYouHaveEORINumber
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Call
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import viewmodels.ViewAction
@@ -33,37 +33,34 @@ import views.html.other.importexports.doYouHaveEORINumber
 
 import scala.concurrent.Future
 
-class DoYouHaveEORINumberController @Inject()(
-  appConfig: FrontendAppConfig,
-  override val messagesApi: MessagesApi,
-  navigator: Navigator[Call],
-  authenticate: AuthAction,
-  serviceInfoData: ServiceInfoAction,
-  formProvider: DoYouHaveEORINumberFormProvider)
-    extends FrontendController
-    with I18nSupport
-    with Enumerable.Implicits {
+class DoYouHaveEORINumberController @Inject()(appConfig: FrontendAppConfig,
+                                              mcc: MessagesControllerComponents,
+                                              navigator: Navigator[Call],
+                                              authenticate: AuthAction,
+                                              serviceInfoData: ServiceInfoAction,
+                                              formProvider: DoYouHaveEORINumberFormProvider,
+                                              doYouHaveEORINumber: doYouHaveEORINumber)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[DoYouHaveEORINumber] = formProvider()
 
-  def onPageLoad() = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(
-      doYouHaveEORINumber(appConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddEBTITax"))(
-        request.serviceInfoContent))
+      doYouHaveEORINumber(appConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddEBTITax"))(request.serviceInfoContent)
+    )
   }
 
-  def onSubmit() = (authenticate andThen serviceInfoData).async { implicit request =>
-    form
-      .bindFromRequest()
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
+    form.bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(
-            BadRequest(
+        formWithErrors =>
+          Future.successful(BadRequest(
               doYouHaveEORINumber(
                 appConfig,
                 formWithErrors,
-                ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddEBTITax"))(request.serviceInfoContent))),
-        (value) => Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.EBTI, value)))
+                ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddEBTITax"))(request.serviceInfoContent)
+          )),
+        value => Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.EBTI, value)))
       )
   }
 }

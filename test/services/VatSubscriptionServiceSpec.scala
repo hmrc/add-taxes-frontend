@@ -18,7 +18,7 @@ package services
 
 import org.mockito.Mockito._
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 import uk.gov.hmrc.http.HeaderCarrier
 import connectors.VatSubscriptionConnector
 import org.scalatest.{Matchers, WordSpec}

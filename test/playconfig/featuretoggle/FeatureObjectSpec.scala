@@ -18,6 +18,7 @@ package playconfig.featuretoggle
 
 import org.scalatest.{MustMatchers, WordSpec}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 class FeatureObjectSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite {
 
@@ -51,10 +52,10 @@ class FeatureObjectSpec extends WordSpec with MustMatchers with GuiceOneAppPerSu
     }
 
     "have an associated config value under feature-toggles" in {
-      val config = app.injector.instanceOf[FeatureConfig]
+      val config = app.injector.instanceOf[ServicesConfig]
       Feature.allTogglableFeatures foreach { feature =>
         withClue(s"feature: $feature\n") {
-          config.runModeConfiguration.getBoolean(feature.toString) mustBe defined
+          Option(config.getBoolean(feature.toString)).isDefined mustBe true
         }
       }
     }

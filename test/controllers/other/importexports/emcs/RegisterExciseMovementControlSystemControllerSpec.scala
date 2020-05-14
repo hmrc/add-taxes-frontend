@@ -24,15 +24,20 @@ import views.html.other.importexports.emcs.registerExciseMovementControlSystem
 
 class RegisterExciseMovementControlSystemControllerSpec extends ControllerSpecBase {
 
-  def controller() =
+  val view: registerExciseMovementControlSystem = injector.instanceOf[registerExciseMovementControlSystem]
+
+  def controller(): RegisterExciseMovementControlSystemController = {
     new RegisterExciseMovementControlSystemController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       FakeAuthAction,
-      FakeServiceInfoAction)
+      FakeServiceInfoAction,
+      view
+    )
+  }
 
-  def viewAsString() =
-    registerExciseMovementControlSystem(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(): String =
+    new registerExciseMovementControlSystem(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "RegisterExciseMovementControlSystem Controller" must {
 

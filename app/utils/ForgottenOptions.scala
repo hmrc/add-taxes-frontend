@@ -17,6 +17,7 @@
 package utils
 
 sealed trait ForgottenOptions
+
 object ForgottenOptions {
   case object ForgottenPassword extends WithName("lost-password") with ForgottenOptions
   case object ForgottenId extends WithName("lost-userid") with ForgottenOptions

@@ -16,10 +16,10 @@
 
 package views.employer.cis.ukbased
 
-import play.api.data.Form
 import forms.employer.cis.uk.AreYouContractorOrSubcontractorFormProvider
 import models.employer.cis.uk.AreYouContractorOrSubcontractor
-import play.twirl.api.HtmlFormat
+import play.api.data.Form
+import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.employer.cis.ukbased.areYouContractorOrSubcontractor
 
@@ -29,14 +29,13 @@ class AreYouContractorOrSubcontractorViewSpec extends ViewBehaviours {
 
   val form = new AreYouContractorOrSubcontractorFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView =
-    () => areYouContractorOrSubcontractor(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+      new areYouContractorOrSubcontractor(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) =>
-      areYouContractorOrSubcontractor(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+      new areYouContractorOrSubcontractor(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "AreYouContractorOrSubcontractor view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -52,7 +51,7 @@ class AreYouContractorOrSubcontractorViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- AreYouContractorOrSubcontractor.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
@@ -61,10 +60,10 @@ class AreYouContractorOrSubcontractorViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- AreYouContractorOrSubcontractor.options.filterNot(_ == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

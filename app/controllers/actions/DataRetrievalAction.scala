@@ -16,20 +16,22 @@
 
 package controllers.actions
 
-import com.google.inject.{ImplementedBy, Inject}
+import javax.inject.Inject
 import connectors.DataCacheConnector
 import models.requests.{AuthenticatedRequest, OptionalDataRequest}
 import play.api.mvc.ActionTransformer
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import utils.UserAnswers
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class DataRetrievalActionImpl @Inject()(val dataCacheConnector: DataCacheConnector) extends DataRetrievalAction {
+class DataRetrievalActionImpl @Inject()(val dataCacheConnector: DataCacheConnector,
+                                        implicit val executionContext: ExecutionContext) extends DataRetrievalAction {
 
   override protected def transform[A](request: AuthenticatedRequest[A]): Future[OptionalDataRequest[A]] = {
-    implicit val hc = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+    implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
     dataCacheConnector.fetch(request.externalId).map {
       case None       => OptionalDataRequest(request.request, request.externalId, None)
@@ -38,5 +40,4 @@ class DataRetrievalActionImpl @Inject()(val dataCacheConnector: DataCacheConnect
   }
 }
 
-@ImplementedBy(classOf[DataRetrievalActionImpl])
 trait DataRetrievalAction extends ActionTransformer[AuthenticatedRequest, OptionalDataRequest]

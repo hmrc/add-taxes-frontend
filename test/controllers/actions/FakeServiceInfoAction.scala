@@ -16,6 +16,8 @@
 
 package controllers.actions
 
+import config.AddTaxesHeaderCarrierForPartialsConverter
+import connectors.ServiceInfoPartialConnector
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import play.api.mvc._
 import play.twirl.api.HtmlFormat
@@ -23,10 +25,13 @@ import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
 import utils.HmrcEnrolmentType
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
-object FakeServiceInfoAction extends ServiceInfoAction {
+class FakeServiceInfoAction(sipc: ServiceInfoPartialConnector,
+                            athc: AddTaxesHeaderCarrierForPartialsConverter) extends ServiceInfoAction(sipc, athc) {
+
   def apply(enrolments: HmrcEnrolmentType*): FakeServiceInfoActionWithEnrolments =
-    new FakeServiceInfoActionWithEnrolments(enrolments: _*)
+    new FakeServiceInfoActionWithEnrolments(enrolments: _*)(sipc, athc)
 
   override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
     implicit val r: Request[A] = request
@@ -34,7 +39,9 @@ object FakeServiceInfoAction extends ServiceInfoAction {
   }
 }
 
-class FakeServiceInfoActionWithEnrolments(enrolmentTypes: HmrcEnrolmentType*) extends ServiceInfoAction {
+class FakeServiceInfoActionWithEnrolments(enrolmentTypes: HmrcEnrolmentType*)
+                                         (sipc: ServiceInfoPartialConnector,
+                                          athc: AddTaxesHeaderCarrierForPartialsConverter) extends ServiceInfoAction(sipc, athc) {
   override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
     implicit val r: Request[A] = request
     val enrolments = Enrolments(enrolmentTypes.map(e => Enrolment(e.toString)).toSet)

@@ -20,7 +20,7 @@ import controllers.employer.intermediaries.routes
 import forms.employer.IsBusinessRegisteredForPAYEFormProvider
 import models.employer.IsBusinessRegisteredForPAYE
 import play.api.data.Form
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
 import viewmodels.ViewAction
 import views.behaviours.ViewBehaviours
 import views.html.employer.isBusinessRegisteredForPAYE
@@ -31,22 +31,19 @@ class IsBusinessRegisteredForPAYEViewSpec extends ViewBehaviours {
 
   val form = new IsBusinessRegisteredForPAYEFormProvider()()
 
-  val serviceInfoContent = HtmlFormat.empty
+  val serviceInfoContent: Html = HtmlFormat.empty
 
-  val viewAction = ViewAction(controllers.routes.IndexController.onPageLoad(), "")
+  val viewAction: ViewAction = ViewAction(controllers.routes.IndexController.onPageLoad(), "")
 
-  def createView =
-    () => isBusinessRegisteredForPAYE(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new isBusinessRegisteredForPAYE(
+      formWithCSRF, mainTemplate
+    )(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm =
-    (form: Form[_]) =>
-      isBusinessRegisteredForPAYE(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)
-  (form: Form[_]) =>
-    isBusinessRegisteredForPAYE(
-      frontendAppConfig,
-      form,
-      ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddIntermediariesEpayeOnline"))(
-      serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+    new isBusinessRegisteredForPAYE(
+      formWithCSRF, mainTemplate
+    )(frontendAppConfig, form, ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddIntermediariesEpayeOnline"))(serviceInfoContent)(fakeRequest, messages)
 
   "IsBusinessRegisteredForPAYE view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -62,7 +59,7 @@ class IsBusinessRegisteredForPAYEViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- IsBusinessRegisteredForPAYE.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
@@ -71,10 +68,10 @@ class IsBusinessRegisteredForPAYEViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- IsBusinessRegisteredForPAYE.options.filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }

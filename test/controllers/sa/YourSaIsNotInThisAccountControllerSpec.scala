@@ -17,38 +17,39 @@
 package controllers.sa
 
 import controllers.ControllerSpecBase
-import controllers.actions.{FakeAuthAction, FakeServiceInfoAction}
+import controllers.actions.FakeServiceInfoAction
 import forms.sa.YourSaIsNotInThisAccountFormProvider
 import models.sa.YourSaIsNotInThisAccount
 import play.api.data.Form
 import play.api.mvc.Call
-import play.api.test.Helpers.{contentAsString, redirectLocation, status}
-import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
-import views.html.sa.yourSaIsNotInThisAccount
-import play.api.test.Helpers._
+import play.api.test.Helpers.{contentAsString, redirectLocation, status, _}
 import play.twirl.api.HtmlFormat
+import utils.{FakeNavigator, HmrcEnrolmentType}
+import views.html.sa.yourSaIsNotInThisAccount
 
 class YourSaIsNotInThisAccountControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.sa.routes.SelectSACategoryController.onPageLoadHasUTR()
+  def onwardRoute: Call = controllers.sa.routes.SelectSACategoryController.onPageLoadHasUTR()
 
   val formProvider = new YourSaIsNotInThisAccountFormProvider()
-  val form = formProvider()
+  val form: Form[YourSaIsNotInThisAccount] = formProvider()
 
-  def controller()(enrolmentTypes: HmrcEnrolmentType*) = new YourSaIsNotInThisAccountController(
-    frontendAppConfig,
-    messagesApi,
-    new FakeNavigator[Call](desiredRoute = onwardRoute),
-    FakeAuthAction,
-    FakeServiceInfoAction(enrolmentTypes: _*),
-    formProvider
-  )
+  val view: yourSaIsNotInThisAccount = injector.instanceOf[yourSaIsNotInThisAccount]
 
-  def viewAsString(form: Form[_] = form, radioOptions: Set[RadioOption] = YourSaIsNotInThisAccount.options) =
-    yourSaIsNotInThisAccount(
+  def controller()(enrolmentTypes: HmrcEnrolmentType*): YourSaIsNotInThisAccountController = {
+    new YourSaIsNotInThisAccountController(
       frontendAppConfig,
-      form
-    )(HtmlFormat.empty)(fakeRequest, messages).toString
+      mcc,
+      new FakeNavigator[Call](desiredRoute = onwardRoute),
+      FakeAuthAction,
+      FakeServiceInfoAction(enrolmentTypes: _*),
+      formProvider,
+      view
+    )
+  }
+
+  def viewAsString(form: Form[_] = form): String =
+    new yourSaIsNotInThisAccount(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "Not in this account controller" must {
     "return OK and the correct view for a GET" in {

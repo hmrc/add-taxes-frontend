@@ -17,7 +17,7 @@
 package controllers.employer.ers
 
 import controllers._
-import controllers.actions.{FakeServiceInfoAction, _}
+import controllers.actions.FakeServiceInfoAction
 import forms.employer.DoesBusinessManagePAYEFormProvider
 import models.employer.DoesBusinessManagePAYE
 import play.api.data.Form
@@ -30,23 +30,28 @@ import views.html.employer.doesBusinessManagePAYE
 
 class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new DoesBusinessManagePAYEFormProvider()
-  val form = formProvider()
-  val viewAction = ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "AddErsEpayeOnline")
+  val form: Form[DoesBusinessManagePAYE] = formProvider()
 
-  def controller() =
+  val view: doesBusinessManagePAYE = injector.instanceOf[doesBusinessManagePAYE]
+  val viewAction: ViewAction = ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "AddErsEpayeOnline")
+
+  def controller(): DoesBusinessManagePAYEController = {
     new DoesBusinessManagePAYEController(
       frontendAppConfig,
-      messagesApi,
+      mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      formProvider)
+      formProvider,
+      view
+    )
+  }
 
-  def viewAsString(form: Form[_] = form) =
-    doesBusinessManagePAYE(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String =
+    new doesBusinessManagePAYE(formWithCSRF, mainTemplate)(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoesBusinessManagePAYE Controller" must {
 
@@ -84,7 +89,7 @@ class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
 
     for (option <- DoesBusinessManagePAYE.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", (option.value)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
