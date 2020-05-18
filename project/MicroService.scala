@@ -23,11 +23,11 @@ trait MicroService {
 
   val appName: String
 
-  lazy val appDependencies : Seq[ModuleID] = Seq()
-  lazy val plugins : Seq[Plugins] = Seq.empty
-  lazy val playSettings : Seq[Setting[_]] = Seq.empty
+  lazy val appDependencies: Seq[ModuleID] = Seq()
+  lazy val plugins: Seq[Plugins] = Seq.empty
+  lazy val playSettings: Seq[Setting[_]] = Seq.empty
 
-  val migrate : TaskKey[Unit] = taskKey[Unit]("Execute migrate script")
+  val migrate: TaskKey[Unit] = taskKey[Unit]("Execute migrate script")
 
   lazy val microservice = Project(appName, file("."))
     .enablePlugins(Seq(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin, SbtArtifactory) ++ plugins : _*)
