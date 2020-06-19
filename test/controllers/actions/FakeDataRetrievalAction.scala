@@ -20,7 +20,6 @@ import models.requests.{AuthenticatedRequest, OptionalDataRequest}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.UserAnswers
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 class FakeDataRetrievalAction(cacheMapToReturn: Option[CacheMap], implicit val executionContext: ExecutionContext) extends DataRetrievalAction {
