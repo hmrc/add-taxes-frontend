@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import identifiers.IsYourBusinessInUKId
 import play.api.mvc.{Call, Request}
 import models.employer.cis.IsYourBusinessInUK
-import utils.{Enrolments, NextPage}
+import utils.NextPage
 import controllers.employer.cis.ukbased.routes._
 import playconfig.featuretoggle.FeatureConfig
 
