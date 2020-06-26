@@ -25,7 +25,7 @@ import identifiers.WhereIsYourBusinessBasedId
 import models.vat.moss.WhereIsYourBusinessBased
 import play.api.mvc.{Call, Request}
 import playconfig.featuretoggle.FeatureConfig
-import utils.{Enrolments, NextPage}
+import utils.NextPage
 
 trait WhereIsYourBusinessBasedNextPage {
 

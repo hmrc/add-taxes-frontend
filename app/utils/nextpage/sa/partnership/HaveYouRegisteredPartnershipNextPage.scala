@@ -18,9 +18,8 @@ package utils.nextpage.sa.partnership
 
 import config.FrontendAppConfig
 import identifiers.HaveYouRegisteredPartnershipId
-import models.requests.ServiceInfoRequest
 import models.sa.partnership.HaveYouRegisteredPartnership
-import play.api.mvc.{AnyContent, Call, Request}
+import play.api.mvc.{Call, Request}
 import playconfig.featuretoggle.FeatureConfig
 import utils.{HmrcEnrolmentType, NextPage}
 import uk.gov.hmrc.auth.core.Enrolments

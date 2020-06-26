@@ -17,7 +17,6 @@
 package forms.vat
 
 import javax.inject.Inject
-
 import forms.FormErrorHelper
 import forms.mappings.Mappings
 import play.api.data.Form

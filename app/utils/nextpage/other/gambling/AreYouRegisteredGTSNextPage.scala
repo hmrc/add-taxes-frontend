@@ -18,7 +18,6 @@ package utils.nextpage.other.gambling
 
 import config.FrontendAppConfig
 import controllers.other.gambling.gbd.{routes => gbdRoutes}
-import controllers.other.gambling.rgd.{routes => rgdRoutes}
 import identifiers.AreYouRegisteredGTSId
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import play.api.mvc.{Call, Request}

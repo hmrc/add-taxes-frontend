@@ -41,6 +41,7 @@ class VatSubscriptionConnector @Inject()(val http: HttpClient, val appConfig: Fr
           case NOT_FOUND =>
             Logger.debug("[VatSubscriptionConnector][handleResponse.read] - Received 404 when getting mandation status")
             Right(false)
+          // Requires PRECONDITION_FAILED case here to handle 412 errors
           case _ =>
             Logger.warn(
               s"[VatSubscriptionConnector][handleResponse.read] - Failed to retrieve mandation status. Received status: ${response.status}." +
