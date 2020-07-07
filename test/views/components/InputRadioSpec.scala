@@ -43,16 +43,17 @@ class InputRadioSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite
     "value" -> boolean
   )
 
-  def inputRadio(field: Field): Html = input_radio(
+  def inputRadio(field: Field, hint: Option[String] = None): Html = input_radio(
     field,
     testLegend,
-    testRadios
+    testRadios,
+    hint = hint
   )
 
   val testField: Field = testForm("value")
 
   "inputRadio" must {
-    "not include error markups when form doesnot have errors" in {
+    "not include error markups when form does not have errors" in {
       val doc: Document = Jsoup.parse(inputRadio(testField).toString)
 
       val forms = doc.select("div.form-group")
@@ -61,13 +62,22 @@ class InputRadioSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite
       forms.get(0).className().split(" ").filter(_.nonEmpty) mustBe Array("form-group", "margin-top-medium")
     }
 
-    "include hint text as aria-describedby for fieldset" in {
-      val doc: Document = Jsoup.parse(inputRadio(testField).toString)
+    "include hint text as aria-describedby for fieldset when hint is present" in {
+      val doc: Document = Jsoup.parse(inputRadio(testField, Some("hint")).toString)
 
       val forms = doc.select("fieldset")
       forms.size mustBe 1
 
       forms.get(0).attr("aria-describedby") mustBe "form-hint-text"
+    }
+
+    "include no hint text as aria-describedby for fieldset when no hint is present" in {
+      val doc: Document = Jsoup.parse(inputRadio(testField, None).toString)
+
+      val forms = doc.select("fieldset")
+      forms.size mustBe 1
+
+      forms.get(0).attr("aria-describedby") mustBe ""
     }
 
     "include error markups when there is an form error" in {
