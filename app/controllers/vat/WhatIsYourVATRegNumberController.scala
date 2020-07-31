@@ -17,19 +17,18 @@
 package controllers.vat
 
 import config.FrontendAppConfig
+import connectors.VatSubscriptionConnector
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import forms.vat.WhatIsYourVATRegNumberFormProvider
+import handlers.ErrorHandler
 import identifiers.WhatIsYourVATRegNumberId
 import javax.inject.Inject
-import play.api.Logger
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
-import services.VatSubscriptionService
-import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
-import views.html.vat.whatIsYourVATRegNumber
+import views.html.vat.{vatAccountUnavailable, vatRegistrationException, whatIsYourVATRegNumber}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -39,23 +38,22 @@ class WhatIsYourVATRegNumberController @Inject()(appConfig: FrontendAppConfig,
                                                  navigator: Navigator[Call],
                                                  authenticate: AuthAction,
                                                  serviceInfoData: ServiceInfoAction,
-                                                 vatSubscriptionService: VatSubscriptionService,
+                                                 vatSubscriptionConnector: VatSubscriptionConnector,
                                                  formProvider: WhatIsYourVATRegNumberFormProvider,
+                                                 vatRegistrationException: vatRegistrationException,
+                                                 vatAccountUnavailable: vatAccountUnavailable,
+                                                 errorHandler: ErrorHandler,
                                                  whatIsYourVATRegNumber: whatIsYourVATRegNumber)
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
   val form: Form[String] = formProvider()
 
-  private def getMandationStatus(vrn: String)(implicit hc: HeaderCarrier): Future[Boolean] =
-    vatSubscriptionService.getMandationStatus(vrn).map {
-      _.getOrElse {
-        Logger.error("There was an error retrieving mandation status")
-        throw new Exception("There was an error retrieving mandation status")
-      }
-    }
-
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(whatIsYourVATRegNumber(appConfig, form)(request.serviceInfoContent))
+  }
+
+  def onPageLoadVatUnanavailable(): Action[AnyContent] = authenticate { implicit request =>
+    Ok(vatAccountUnavailable(appConfig))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
@@ -63,9 +61,11 @@ class WhatIsYourVATRegNumberController @Inject()(appConfig: FrontendAppConfig,
       .fold(
         formWithErrors =>
           Future.successful(BadRequest(whatIsYourVATRegNumber(appConfig, formWithErrors)(request.serviceInfoContent))),
-        value =>
-          getMandationStatus(value).map { mandationStatus =>
-            Redirect(navigator.nextPage(WhatIsYourVATRegNumberId, (mandationStatus, value)))
+        vrn =>
+          vatSubscriptionConnector.getMandationStatus(vrn).map {
+            case status if(status == OK || status == NOT_FOUND)  => Redirect(navigator.nextPage(WhatIsYourVATRegNumberId, (status, vrn)))
+            case PRECONDITION_FAILED => Redirect(routes.WhatIsYourVATRegNumberController.onPageLoadVatUnanavailable())
+            case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
           }
       )
   }

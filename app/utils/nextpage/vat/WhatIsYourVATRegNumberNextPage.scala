@@ -21,10 +21,11 @@ import identifiers.WhatIsYourVATRegNumberId
 import play.api.mvc.{Call, Request}
 import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
+import play.api.http.Status.OK
 
 trait WhatIsYourVATRegNumberNextPage {
 
-  type WhatIsYourVATRegNumberWithRequests = (Boolean, String)
+  type WhatIsYourVATRegNumberWithRequests = (Int, String)
 
   implicit val whatIsYourVATRegNumber
     : NextPage[WhatIsYourVATRegNumberId.type, WhatIsYourVATRegNumberWithRequests, Call] = {
@@ -34,7 +35,7 @@ trait WhatIsYourVATRegNumberNextPage {
         featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
-          case (true, vrn) => Call("GET", appConfig.vatSignUpClaimSubscriptionUrl(vrn))
+          case (OK, vrn) => Call("GET", appConfig.vatSignUpClaimSubscriptionUrl(vrn))
           case _           => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.VAT))
         }
     }

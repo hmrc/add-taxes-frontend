@@ -50,12 +50,12 @@ class VatEligibilityCheckControllerSpec extends ControllerSpecBase with BeforeAn
 
   "VatEligibilityCheck Controller" must {
 
-    "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(fakeRequest)
+      "return OK and the correct view for a GET" in {
+        val result = controller().onPageLoad(fakeRequest)
 
-      status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
-    }
+        status(result) mustBe OK
+        contentAsString(result) mustBe viewAsString()
+      }
 
     "return exception when newVatJourney is disabled" in {
       disable(NewVatJourney)

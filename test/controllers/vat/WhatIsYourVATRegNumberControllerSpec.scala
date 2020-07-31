@@ -16,9 +16,10 @@
 
 package controllers.vat
 
+import connectors.VatSubscriptionConnector
 import controllers.ControllerSpecBase
-import controllers.actions.FakeServiceInfoAction
 import forms.vat.WhatIsYourVATRegNumberFormProvider
+import handlers.ErrorHandler
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatestplus.mockito.MockitoSugar
@@ -26,22 +27,27 @@ import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import services.VatSubscriptionService
 import utils.FakeNavigator
-import views.html.vat.whatIsYourVATRegNumber
+import views.html.vat.{vatAccountUnavailable, vatRegistrationException, whatIsYourVATRegNumber}
 
 import scala.concurrent.Future
+
 
 class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with MockitoSugar {
 
   def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def vatAccountUnavailableRoute: Call = routes.WhatIsYourVATRegNumberController.onPageLoadVatUnanavailable()
 
   val formProvider = new WhatIsYourVATRegNumberFormProvider()
   val form: Form[String] = formProvider()
-  lazy val mockVatSubscriptionService: VatSubscriptionService = mock[VatSubscriptionService]
-  val testVrn = "968501689"
+  lazy val mockVatSubscriptionConnector: VatSubscriptionConnector = mock[VatSubscriptionConnector]
 
+  val testVrn = "968501689"
+  val vatAccountUnavailable: vatAccountUnavailable = injector.instanceOf[vatAccountUnavailable]
+  val whatIsYourVATRegNumber: whatIsYourVATRegNumber = injector.instanceOf[whatIsYourVATRegNumber]
+  val vatRegistrationException: vatRegistrationException = injector.instanceOf[vatRegistrationException]
   val view: whatIsYourVATRegNumber = injector.instanceOf[whatIsYourVATRegNumber]
+  val errorHandler: ErrorHandler = injector.instanceOf[ErrorHandler]
 
   def controller(): WhatIsYourVATRegNumberController = {
     new WhatIsYourVATRegNumberController(
@@ -50,8 +56,11 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
-      mockVatSubscriptionService,
+      mockVatSubscriptionConnector,
       formProvider,
+      vatRegistrationException,
+      vatAccountUnavailable,
+      errorHandler = errorHandler,
       view
     )
   }
@@ -70,8 +79,8 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
 
     "redirect to the next page when valid data is submitted" in {
 
-      when(mockVatSubscriptionService.getMandationStatus(any())(any(), any()))
-        .thenReturn(Future.successful(Some(true)))
+      when(mockVatSubscriptionConnector.getMandationStatus(any())(any(), any()))
+        .thenReturn(Future.successful(OK))
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn))
 
@@ -79,7 +88,20 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockVatSubscriptionService, times(1)).getMandationStatus(any())(any(), any())
+      verify(mockVatSubscriptionConnector, times(1)).getMandationStatus(any())(any(), any())
+    }
+
+    "redirect to the vatAccountUnavailable page when migrating data is submitted" in {
+
+      when(mockVatSubscriptionConnector.getMandationStatus(any())(any(), any()))
+        .thenReturn(Future.successful(PRECONDITION_FAILED))
+
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn))
+
+      val result = controller().onSubmit()(postRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(vatAccountUnavailableRoute.toString)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {

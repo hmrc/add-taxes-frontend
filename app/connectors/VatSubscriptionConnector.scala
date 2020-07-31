@@ -18,10 +18,9 @@ package connectors
 
 import config.FrontendAppConfig
 import javax.inject.{Inject, Singleton}
-import play.api.Logger
-import play.api.http.Status.{NOT_FOUND, OK}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
+
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
@@ -29,30 +28,13 @@ class VatSubscriptionConnector @Inject()(val http: HttpClient, val appConfig: Fr
 
   lazy val vatSubscriptionUrl: String = appConfig.vatSubscriptionUrl
 
-  private def handleResponse()(implicit rds: HttpReads[Boolean]): HttpReads[Either[String, Boolean]] =
-    new HttpReads[Either[String, Boolean]] {
-      override def read(method: String, url: String, response: HttpResponse): Either[String, Boolean] =
-        response.status match {
-          case OK =>
-            Logger.debug(
-              "[VatSubscriptionConnector][handleResponse.read] - Successfully retrieved OK 200 response with body:" + response.body
-            )
-            Right(true)
-          case NOT_FOUND =>
-            Logger.debug("[VatSubscriptionConnector][handleResponse.read] - Received 404 when getting mandation status")
-            Right(false)
-          // Requires PRECONDITION_FAILED case here to handle 412 errors
-          case _ =>
-            Logger.warn(
-              s"[VatSubscriptionConnector][handleResponse.read] - Failed to retrieve mandation status. Received status: ${response.status}." +
-                s"Response body: ${response.body}"
-            )
-            Left("Failed")
-        }
+  private def handleResponse()(implicit rds: HttpReads[Boolean]): HttpReads[Int] =
+    new HttpReads[Int] {
+      override def read(method: String, url: String, response: HttpResponse): Int = response.status
     }
 
-  def getMandationStatus(vrn: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[String, Boolean]] = {
+  def getMandationStatus(vrn: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Int] = {
     val url = vatSubscriptionUrl + s"/vat-subscription/$vrn/mandation-status"
-    http.GET[Either[String, Boolean]](url)(handleResponse(), hc, ec)
+    http.GET[Int](url)(handleResponse(), hc, ec)
   }
 }

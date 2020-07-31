@@ -18,19 +18,19 @@ package utils.nextpage.vat
 
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
-
+import play.api.http.Status.{OK, NOT_FOUND}
 class WhatIsYourVATRegNumberNextPageSpec extends NextPageSpecBase {
 
   "whatIsYourVATRegNumber" when {
     behave like nextPage(
       NextPage.whatIsYourVATRegNumber,
-      (true, "999999999"),
+      (OK, "999999999"),
       "http://localhost:9566/vat-through-software/sign-up/claim-subscription/999999999"
     )
 
     behave like nextPage(
       NextPage.whatIsYourVATRegNumber,
-      (false, "999999999"),
+      (NOT_FOUND, "999999999"),
       "http://localhost:9555/enrolment-management-frontend/HMCE-VATDEC-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
   }

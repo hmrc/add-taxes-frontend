@@ -1319,3 +1319,12 @@ cannotRegisterVAT.title = Nid ydych yn gymwys i gofrestru ar gyfer TAW ar-lein
 cannotRegisterVAT.heading = Nid ydych yn gymwys i gofrestru ar gyfer TAW ar-lein.
 cannotRegisterVAT.continue = Cofrestru ar gyfer TAW drwy’r post
 cannotRegisterVAT.p1 = Mae’n rhaid i chi gofrestru ar gyfer TAW drwy’r post.
+
+#######################################################
+##  vatAccountUnavailable
+#######################################################
+vatAccountUnavailable.title = Mae’ch cyfrif Troi Treth yn Ddigidol ar gyfer TAW wrthi’n cael ei greu
+vatAccountUnavailable.heading = Mae’ch cyfrif Troi Treth yn Ddigidol ar gyfer TAW wrthi’n cael ei greu
+vatAccountUnavailable.p1 = Cawsoch eich cofrestru’n ddiweddar ar gyfer y gwasanaeth newydd, Troi Treth yn Ddigidol. Mae hyn er mwyn sicrhau eich bod yn gallu cyflwyno’ch Ffurflenni TAW i CThEM gan ddefnyddio meddalwedd sy’n cydweddu.
+vatAccountUnavailable.p2 = Bydd yn cymryd hyd at 72 awr i greu’ch cyfrif.
+vatAccountUnavailable.p3 = Dewch yn ôl yn nes ymlaen.
