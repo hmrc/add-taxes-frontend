@@ -1319,3 +1319,11 @@ cannotRegisterVAT.heading = You are not eligible to register for VAT online
 cannotRegisterVAT.continue = Register for VAT by post
 cannotRegisterVAT.p1 = You must register for VAT by post.
 
+#######################################################
+##  vatAccountUnavailable
+#######################################################
+vatAccountUnavailable.title = Your Making Tax Digital for VAT account is being set up
+vatAccountUnavailable.heading = Your Making Tax Digital for VAT account is being set up
+vatAccountUnavailable.p1 = You were recently signed up to the new Making Tax Digital service. This is so you can submit your VAT Returns to HMRC using compatible software.
+vatAccountUnavailable.p2 = It will take up to 72 hours for your account to be set up.
+vatAccountUnavailable.p3 = Check back again later.

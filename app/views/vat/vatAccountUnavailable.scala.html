@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,20 +12,23 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package services
+@import config.FrontendAppConfig
 
-import connectors.VatSubscriptionConnector
-import javax.inject.{Inject, Singleton}
-import uk.gov.hmrc.http.HeaderCarrier
+@this(
+        main_template: main_template
+)
 
-import scala.concurrent.{ExecutionContext, Future}
+@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
 
-@Singleton
-case class VatSubscriptionService @Inject()(connector: VatSubscriptionConnector) {
+@main_template(
+    title = messages("vatAccountUnavailable.title"),
+    appConfig = appConfig,
+) {
 
-  def getMandationStatus(vrn: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[Boolean]] = {
-    connector.getMandationStatus(vrn).map(_.right.toOption)
-  }
+ @components.heading("vat-Account-Unavailable", "vatAccountUnavailable.title")
+    <p>@messages("vatAccountUnavailable.p1")</p>
+    <p>@messages("vatAccountUnavailable.p2")</p>
+    <p>@messages("vatAccountUnavailable.p3")</p>
 }
