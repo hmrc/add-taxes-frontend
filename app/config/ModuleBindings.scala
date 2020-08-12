@@ -17,17 +17,17 @@
 package config
 
 import controllers.actions.{AuthAction, AuthActionImpl, DataRetrievalAction, DataRetrievalActionImpl}
-import uk.gov.hmrc.play.bootstrap.http.{DefaultHttpClient, HttpClient}
 import play.api.inject.{Binding, Module}
 import play.api.{Configuration, Environment}
-
+import uk.gov.hmrc.http.HttpClient
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 class ModuleBindings extends Module {
 
   override def bindings(environment: Environment, configuration: Configuration): Seq[Binding[_]] = Seq(
-    bind(classOf[HttpClient]) to classOf[DefaultHttpClient],
-    bind(classOf[AuthAction]) to classOf[AuthActionImpl],
-    bind(classOf[DataRetrievalAction]) to classOf[DataRetrievalActionImpl]
+    bind[HttpClient] to classOf[DefaultHttpClient],
+    bind[AuthAction] to classOf[AuthActionImpl],
+    bind[DataRetrievalAction] to classOf[DataRetrievalActionImpl]
   )
 
 }
