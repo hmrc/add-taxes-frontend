@@ -27,7 +27,6 @@ object Feature {
   val prefix = "feature-toggles"
 
   def allTogglableFeatures: Set[Feature] = Set(
-    NewVatJourney
   )
 
   def fromQuery(key: String): Option[Feature] =
@@ -36,5 +35,3 @@ object Feature {
     }
 
 }
-
-case object NewVatJourney extends Feature("newVatJourney")

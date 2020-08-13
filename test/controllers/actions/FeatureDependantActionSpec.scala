@@ -30,32 +30,10 @@ import scala.concurrent.Future
 
 class FeatureDependantActionSpec extends WordSpec with MustMatchers with FeatureToggleSupport with GuiceOneAppPerSuite {
 
-  val testFeature: Feature = NewVatJourney
   val testFeatureDependantAction: FeatureDependantAction = new FeatureDependantAction(app.injector.instanceOf[FeatureConfig], global)
-  val testAction: ActionFilter[Request] = testFeatureDependantAction.permitFor(testFeature)
 
   val testRequest: Request[AnyContent] = FakeRequest()
   val testResultBody = "testBody"
   val testBlock: Request[AnyContent] => Future[Result] = _ => Future.successful(Ok(testResultBody))
-
-  "Feature is disabled return not found" in {
-    disable(testFeature)
-
-    val exceptionMessage = intercept[NotFoundException] {
-      val result: Future[Result] = testAction.invokeBlock[AnyContent](testRequest, testBlock)
-      await(result)
-    }
-
-    exceptionMessage.toString must include("The page is not enabled")
-  }
-
-  "Feature is enabled execute the block" in {
-    enable(testFeature)
-
-    val result: Future[Result] = testAction.invokeBlock[AnyContent](testRequest, testBlock)
-
-    status(result) mustBe OK
-    contentAsString(result) mustBe testResultBody
-  }
 
 }

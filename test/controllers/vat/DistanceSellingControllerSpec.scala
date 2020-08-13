@@ -25,7 +25,7 @@ import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import playconfig.featuretoggle.{FeatureToggleSupport, NewVatJourney}
+import playconfig.featuretoggle.FeatureToggleSupport
 import uk.gov.hmrc.http.NotFoundException
 import utils.FakeNavigator
 import views.html.vat.distanceSelling
@@ -57,7 +57,6 @@ class DistanceSellingControllerSpec extends ControllerSpecBase with FeatureToggl
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    enable(NewVatJourney)
   }
 
   "DistanceSelling Controller" must {
@@ -92,14 +91,6 @@ class DistanceSellingControllerSpec extends ControllerSpecBase with FeatureToggl
       val result = controller().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
-    }
-
-    "return an exception when new vat journey toggle is false" in {
-      disable(NewVatJourney)
-      intercept[NotFoundException] {
-        val result = controller().onPageLoad()(fakeRequest)
-        await(result)
-      }
     }
 
     for (option <- DistanceSelling.options) {

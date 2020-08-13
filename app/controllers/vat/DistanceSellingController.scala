@@ -25,7 +25,6 @@ import models.vat.DistanceSelling
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
-import playconfig.featuretoggle.NewVatJourney
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import views.html.vat.distanceSelling
@@ -43,7 +42,7 @@ class DistanceSellingController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[DistanceSelling] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = {
-    (authenticate andThen serviceInfoData andThen featureDependantAction.permitFor(NewVatJourney)) { implicit request =>
+    (authenticate andThen serviceInfoData) { implicit request =>
       Ok(distanceSelling(appConfig, form)(request.serviceInfoContent))
     }
   }

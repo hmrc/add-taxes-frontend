@@ -146,11 +146,6 @@ trait FeatureToggles {
 
   private def featureEnabled(key: String): Boolean = config.getBoolean(s"feature-toggles.$key")
 
-  lazy val stampDutyEnabled: Boolean = featureEnabled("stampduty")
-  lazy val employerPayeJourneyEnabled: Boolean = featureEnabled("employer.paye")
-  lazy val mtdVatSignUpJourneyEnabled: Boolean = featureEnabled("mtd-vat-signup")
-  lazy val newVatJourneyEnabled: Boolean = featureEnabled("newVatJourney")
-
   final val sessionTimeoutInSeconds: Long = 900
   final val sessionCountdownInSeconds: Int = 60
 }

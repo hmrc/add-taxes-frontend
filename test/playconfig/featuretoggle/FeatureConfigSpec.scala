@@ -27,7 +27,6 @@ class FeatureConfigSpec extends WordSpec with MustMatchers with GuiceOneAppPerSu
   val testToggleValue = true
 
   override implicit lazy val app: Application = GuiceApplicationBuilder()
-    .configure(s"feature-toggles.${NewVatJourney.key}" -> testToggleValue.toString)
     .build()
 
   val appConf: ServicesConfig = app.injector.instanceOf[ServicesConfig]
@@ -37,29 +36,4 @@ class FeatureConfigSpec extends WordSpec with MustMatchers with GuiceOneAppPerSu
     super.beforeEach()
     Feature.allTogglableFeatures.foreach(removeOverride)
   }
-
-  "FeatureConfig.isEnabled" when {
-    "there is a runtime override" should {
-      "return true if the override for the feature is true" in {
-        appConf.getBoolean(NewVatJourney.toString) mustBe testToggleValue
-
-        enable(NewVatJourney)
-        config.isEnabled(NewVatJourney) mustBe true
-      }
-      "return false if the override for the feature is false" in {
-        appConf.getBoolean(NewVatJourney.toString) mustBe testToggleValue
-
-        disable(NewVatJourney)
-        config.isEnabled(NewVatJourney) mustBe false
-      }
-    }
-    "there is not a runtime override" should {
-      "return true if the config for the feature is true" in {
-        appConf.getBoolean(NewVatJourney.toString) mustBe testToggleValue
-
-        config.isEnabled(NewVatJourney) mustBe testToggleValue
-      }
-    }
-  }
-
 }

@@ -25,7 +25,6 @@ import models.vat.AgriculturalFlatRateScheme
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
-import playconfig.featuretoggle.NewVatJourney
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import views.html.vat.agriculturalFlatRateScheme
@@ -43,7 +42,7 @@ class AgriculturalFlatRateSchemeController @Inject()(appConfig: FrontendAppConfi
   val form: Form[AgriculturalFlatRateScheme] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = {
-    (authenticate andThen serviceInfoData andThen featureDepandantAction.permitFor(NewVatJourney)) { implicit request =>
+    (authenticate andThen serviceInfoData) { implicit request =>
       Ok(agriculturalFlatRateScheme(appConfig, form)(request.serviceInfoContent))
     }
   }

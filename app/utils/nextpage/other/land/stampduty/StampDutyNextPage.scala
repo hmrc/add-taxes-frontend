@@ -31,9 +31,7 @@ trait StampDutyNextPage {
       override def get(
         b: StampDuty)(implicit appConfig: FrontendAppConfig, featureConfig: FeatureConfig, request: Request[_]): Call =
         b match {
-          case StampDuty.Yes if appConfig.stampDutyEnabled =>
-            Call("GET", appConfig.getStampDutyUrl("enrol"))
-          case StampDuty.Yes => Call("GET", appConfig.getPortalUrl("stampduty"))
+          case StampDuty.Yes => Call("GET", appConfig.getStampDutyUrl("enrol"))
           case StampDuty.No  => stampDutyRoutes.PaperFormsController.onPageLoad()
         }
     }

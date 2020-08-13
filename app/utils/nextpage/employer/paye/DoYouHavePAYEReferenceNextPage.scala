@@ -33,13 +33,8 @@ trait DoYouHavePAYEReferenceNextPage {
         featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
-          case DoYouHavePAYEReference.Yes =>
-            if (appConfig.employerPayeJourneyEnabled) {
-              Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.EPAYE))
-            } else {
-              Call("GET", appConfig.getPortalUrl("businessRegistration"))
-            }
-          case DoYouHavePAYEReference.No => employerRoutes.DoesBusinessHaveDirectorsOrPartnersController.onPageLoad()
+          case DoYouHavePAYEReference.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.EPAYE))
+          case DoYouHavePAYEReference.No  => employerRoutes.DoesBusinessHaveDirectorsOrPartnersController.onPageLoad()
         }
     }
   }

@@ -22,12 +22,6 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 class FeatureObjectSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite {
 
-  "Feature.toString" should {
-    "be in prefix.key format" in {
-      NewVatJourney.toString mustBe "feature-toggles.newVatJourney"
-    }
-  }
-
   "Feature.allTogglableFeatures" should {
     "contain all members of Feature" in {
       import scala.reflect.runtime.universe
