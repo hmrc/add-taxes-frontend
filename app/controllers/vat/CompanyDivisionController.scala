@@ -25,7 +25,6 @@ import models.vat.CompanyDivision
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
-import playconfig.featuretoggle.NewVatJourney
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import views.html.vat.companyDivision
@@ -43,7 +42,7 @@ class CompanyDivisionController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[CompanyDivision] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = {
-    (authenticate andThen serviceInfoData andThen featureDepandantAction.permitFor(NewVatJourney)) { implicit request =>
+    (authenticate andThen serviceInfoData) { implicit request =>
       Ok(companyDivision(appConfig, form)(request.serviceInfoContent))
     }
   }

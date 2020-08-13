@@ -27,7 +27,6 @@ import utils.{Enumerable, Navigator}
 import forms.vat.ImportedGoodsFormProvider
 import identifiers.ImportedGoodsId
 import models.vat.ImportedGoods
-import playconfig.featuretoggle.NewVatJourney
 import views.html.vat.importedGoods
 
 import scala.concurrent.Future
@@ -45,7 +44,7 @@ class ImportedGoodsController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[ImportedGoods] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = {
-    (authenticate andThen serviceInfoData andThen featureDepandantAction.permitFor(NewVatJourney)) { implicit request =>
+    (authenticate andThen serviceInfoData) { implicit request =>
       Ok(importedGoods(appConfig, form)(request.serviceInfoContent))
     }
   }

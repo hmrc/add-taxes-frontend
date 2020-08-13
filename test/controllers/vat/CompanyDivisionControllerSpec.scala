@@ -25,7 +25,7 @@ import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import playconfig.featuretoggle.{FeatureToggleSupport, NewVatJourney}
+import playconfig.featuretoggle.FeatureToggleSupport
 import uk.gov.hmrc.http.NotFoundException
 import utils.FakeNavigator
 import views.html.vat.companyDivision
@@ -57,7 +57,6 @@ class CompanyDivisionControllerSpec extends ControllerSpecBase with BeforeAndAft
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    enable(NewVatJourney)
   }
 
   "CompanyDivision Controller" must {
@@ -92,14 +91,6 @@ class CompanyDivisionControllerSpec extends ControllerSpecBase with BeforeAndAft
       val result = controller().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
-    }
-
-    "return exception when newVatJourney is disabled" in {
-      disable(NewVatJourney)
-      intercept[NotFoundException] {
-        val result = controller().onPageLoad()(fakeRequest)
-        await(result)
-      }
     }
 
     for (option <- CompanyDivision.options) {

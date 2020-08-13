@@ -22,10 +22,10 @@ import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.Call
-import playconfig.featuretoggle.{FeatureToggleSupport, NewVatJourney}
+import playconfig.featuretoggle.FeatureToggleSupport
 import uk.gov.hmrc.auth.core.AffinityGroup
 import utils.nextpage.NextPageSpecBase
-import utils.{Enrolments, NextPage}
+import utils.NextPage
 
 class DoYouHaveVATRegNumberNextPageSpec
     extends NextPageSpecBase
@@ -39,27 +39,15 @@ class DoYouHaveVATRegNumberNextPageSpec
   val affinityGroupOrganisation = Some(AffinityGroup.Organisation)
   val affinityGroupIndividual = Some(AffinityGroup.Individual)
 
-  private trait FeatureEnabled {
-    when(frontendAppConfig.mtdVatSignUpJourneyEnabled).thenReturn(true)
-  }
-
-  private trait FeatureDisabled {
-    when(frontendAppConfig.mtdVatSignUpJourneyEnabled).thenReturn(false)
-    when(frontendAppConfig.emacEnrollmentsUrl(Enrolments.VAT)).thenReturn(
-      "http://localhost:9555/enrolment-management-frontend/HMCE-VATDEC-ORG/" +
-        "request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-  }
 
   override def beforeEach(): Unit = {
-    disable(NewVatJourney)
     super.beforeEach()
   }
 
   behave like nextPage(
     NextPage.doYouHaveVATRegNumber,
     (DoYouHaveVATRegNumber.No, affinityGroupOrganisation),
-    "/business-account/add-tax/vat/register-online"
+    "/business-account/add-tax/vat/registration-process"
   )
 
   behave like nextPage(
@@ -70,23 +58,21 @@ class DoYouHaveVATRegNumberNextPageSpec
 
   "doYouHaveVATRegNumber" when {
 
-    "the mtd-vat-signup feature is turned on" should {
+    "mtd-vat-signup" should {
 
       val nextPage = NextPage.doYouHaveVATRegNumber
       val userSelection = (DoYouHaveVATRegNumber.Yes, None)
       val redirectLocation = "/business-account/add-tax/vat/what-is-your-vat-number"
 
-      s"redirect to $redirectLocation" in new FeatureEnabled {
+      s"redirect to $redirectLocation" in {
         val result: Call = nextPage.get(userSelection)
         result.url mustBe redirectLocation
       }
     }
 
-    "the newVatJourney feature is turned on" should {
+    "the newVatJourney" should {
 
       "redirect the user to start the new vat journey" in {
-
-        enable(NewVatJourney)
 
         val nextPage = NextPage.doYouHaveVATRegNumber
 
@@ -95,19 +81,5 @@ class DoYouHaveVATRegNumberNextPageSpec
         result.url mustBe "/business-account/add-tax/vat/registration-process"
       }
     }
-
-    "the mtd-vat-signup feature is turned off" should {
-
-      val nextPage = NextPage.doYouHaveVATRegNumber
-      val userSelection = (DoYouHaveVATRegNumber.Yes, None)
-      val redirectLocation = "http://localhost:9555/enrolment-management-frontend/HMCE-VATDEC-ORG/" +
-        "request-access-tax-scheme?continue=%2Fbusiness-account"
-
-      s"redirect to $redirectLocation" in new FeatureDisabled {
-        val result: Call = nextPage.get(userSelection)
-        result.url mustBe redirectLocation
-      }
-    }
-
   }
 }

@@ -22,7 +22,7 @@ import controllers.vat.{routes => vatRoutes}
 import identifiers.DoYouHaveVATRegNumberId
 import models.vat.DoYouHaveVATRegNumber
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.{FeatureConfig, NewVatJourney}
+import playconfig.featuretoggle.FeatureConfig
 import uk.gov.hmrc.auth.core.AffinityGroup
 import utils.{Enrolments, NextPage}
 
@@ -38,21 +38,12 @@ trait DoYouHaveVATRegNumberNextPage {
         config: FeatureConfig,
         request: Request[_]): Call =
         b match {
-          case (DoYouHaveVATRegNumber.Yes, _) =>
-            if (appConfig.mtdVatSignUpJourneyEnabled) {
-              vatRoutes.WhatIsYourVATRegNumberController.onPageLoad()
-            } else {
-              Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.VAT))
-            }
+          case (DoYouHaveVATRegNumber.Yes, _) => vatRoutes.WhatIsYourVATRegNumberController.onPageLoad()
           case (DoYouHaveVATRegNumber.No, Some(AffinityGroup.Individual)) => {
             vatVatRoutes.SetupNewAccountController.onPageLoad()
           }
           case (DoYouHaveVATRegNumber.No, _) => {
-            if (config.isEnabled(NewVatJourney)) {
               vatRoutes.VatRegistrationProcessController.onPageLoad()
-            } else {
-              vatRoutes.RegisterForVATOnlineController.onPageLoad()
-            }
           }
         }
     }

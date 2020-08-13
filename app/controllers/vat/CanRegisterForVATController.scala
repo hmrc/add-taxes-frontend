@@ -22,7 +22,6 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
-import playconfig.featuretoggle.NewVatJourney
 import views.html.vat.canRegisterForVAT
 
 import scala.concurrent.Future
@@ -36,7 +35,7 @@ class CanRegisterForVATController @Inject()(appConfig: FrontendAppConfig,
   extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = {
-    (authenticate andThen serviceInfo andThen featureDepandantAction.permitFor(NewVatJourney)) { implicit request =>
+    (authenticate andThen serviceInfo) { implicit request =>
       Ok(canRegisterForVAT(appConfig)(request.serviceInfoContent))
     }
   }

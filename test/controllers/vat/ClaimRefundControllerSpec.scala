@@ -25,7 +25,7 @@ import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import playconfig.featuretoggle.{FeatureToggleSupport, NewVatJourney}
+import playconfig.featuretoggle.FeatureToggleSupport
 import uk.gov.hmrc.http.NotFoundException
 import utils.FakeNavigator
 import views.html.vat.claimRefund
@@ -56,7 +56,6 @@ class ClaimRefundControllerSpec extends ControllerSpecBase with BeforeAndAfterEa
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    enable(NewVatJourney)
   }
 
   "ClaimRefund Controller" must {
@@ -91,15 +90,7 @@ class ClaimRefundControllerSpec extends ControllerSpecBase with BeforeAndAfterEa
       val result = controller().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
-    }
-
-    "return exception when newVatJourney is disabled" in {
-      disable(NewVatJourney)
-      intercept[NotFoundException] {
-        val result = controller().onPageLoad()(fakeRequest)
-        await(result)
       }
-    }
 
     for (option <- ClaimRefund.options) {
       s"redirect to next page when '${option.value}' is submitted" in {

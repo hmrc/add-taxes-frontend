@@ -43,11 +43,7 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
         request: Request[_]): Call =
         details match {
           case (WhatEmployerTaxDoYouWantToAdd.EPAYE, _) =>
-            if (appConfig.employerPayeJourneyEnabled) {
               payeRoutes.DoYouHavePAYEReferenceController.onPageLoad()
-            } else {
-              Call("GET", appConfig.getPortalUrl("businessRegistration"))
-            }
           case (WhatEmployerTaxDoYouWantToAdd.CIS, _) =>
             cisRoutes.IsYourBusinessInUKController.onPageLoad()
           case (WhatEmployerTaxDoYouWantToAdd.PS, _) =>

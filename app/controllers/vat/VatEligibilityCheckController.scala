@@ -21,7 +21,6 @@ import controllers.actions._
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import playconfig.featuretoggle.NewVatJourney
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.vat.vatEligibilityCheck
 
@@ -34,7 +33,7 @@ class VatEligibilityCheckController @Inject()(appConfig: FrontendAppConfig,
   extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = {
-    (authenticate andThen serviceInfo andThen featureDepandantAction.permitFor(NewVatJourney)) { implicit request =>
+    (authenticate andThen serviceInfo) { implicit request =>
       Ok(vatEligibilityCheck(appConfig)(request.serviceInfoContent))
     }
   }
