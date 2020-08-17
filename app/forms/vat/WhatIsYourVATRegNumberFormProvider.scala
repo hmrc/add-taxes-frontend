@@ -21,7 +21,7 @@ import forms.FormErrorHelper
 import forms.mappings.Mappings
 import play.api.data.Form
 import uk.gov.hmrc.play.mappers.StopOnFirstFail
-import uk.gov.hmrc.referencechecker.VatReferenceChecker
+import utils.VatReferenceChecker
 
 class WhatIsYourVATRegNumberFormProvider @Inject() extends FormErrorHelper with Mappings {
 
