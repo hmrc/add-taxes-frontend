@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import javax.inject.{Inject, Singleton}
 import play.api.Logger
 import play.twirl.api.Html
-import uk.gov.hmrc.http.HttpClient
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.partials.HtmlPartial._
 import uk.gov.hmrc.play.partials.{HeaderCarrierForPartials, HtmlPartial}
 

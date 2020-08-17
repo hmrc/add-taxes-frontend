@@ -21,7 +21,7 @@ import controllers.actions.{AuthAction, DataRequiredAction, DataRetrievalAction}
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import viewmodels.AnswerSection
 import views.html.check_your_answers
 

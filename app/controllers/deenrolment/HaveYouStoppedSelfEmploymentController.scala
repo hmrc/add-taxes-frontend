@@ -25,11 +25,11 @@ import models.requests.ServiceInfoRequest
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents, Result}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, HmrcEnrolmentType, Navigator}
 import forms.deenrolment.HaveYouStoppedSelfEmploymentFormProvider
 import identifiers.HaveYouStoppedSelfEmploymentId
 import models.deenrolment.HaveYouStoppedSelfEmployment
-import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import views.html.deenrolment.haveYouStoppedSelfEmployment
 
 class HaveYouStoppedSelfEmploymentController @Inject()(appConfig: FrontendAppConfig,

@@ -25,7 +25,7 @@ import models.other.gambling.gbd.AreYouRegisteredGTS
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import viewmodels.ViewAction
 import views.html.other.gambling.areYouRegisteredGTS
