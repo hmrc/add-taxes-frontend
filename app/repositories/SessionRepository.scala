@@ -20,7 +20,7 @@ import javax.inject.{Inject, Singleton}
 import org.joda.time.{DateTime, DateTimeZone}
 import play.api.libs.json.{Format, JsValue, Json, OFormat}
 import play.api.{Configuration, Logger}
-import play.modules.reactivemongo.MongoDbConnection
+import play.modules.reactivemongo.{MongoDbConnection, ReactiveMongoComponent}
 import reactivemongo.api.DefaultDB
 import reactivemongo.api.indexes.{Index, IndexType}
 import reactivemongo.bson.{BSONDocument, BSONObjectID}

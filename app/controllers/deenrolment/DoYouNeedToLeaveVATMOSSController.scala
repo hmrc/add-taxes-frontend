@@ -28,7 +28,7 @@ import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.auth.core.Enrolment
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enrolments, Enumerable, LoggingHelper, Navigator}
 import views.html.deenrolment.doYouNeedToLeaveVATMOSS
 
@@ -52,6 +52,7 @@ class DoYouNeedToLeaveVATMOSSController @Inject()(appConfig: FrontendAppConfig,
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
+
         formWithErrors => BadRequest(doYouNeedToLeaveVATMOSS(appConfig, formWithErrors)(request.serviceInfoContent)),
         value => {
           val nextPage = navigator.nextPage(DoYouNeedToLeaveVATMOSSId, (value, vatMossEnrolment))

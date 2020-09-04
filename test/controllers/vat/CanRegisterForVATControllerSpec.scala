@@ -35,7 +35,6 @@ class CanRegisterForVATControllerSpec extends ControllerSpecBase with BeforeAndA
       mcc,
       FakeAuthAction,
       FakeServiceInfoAction,
-      featureDepandantAction = app.injector.instanceOf[FeatureDependantAction],
       view
     )
   }

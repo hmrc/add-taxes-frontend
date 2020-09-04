@@ -41,7 +41,7 @@ trait DoYouNeedToStopMGDNextPage {
             Right(Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.MachineGamesDuty)))
 
           case (DoYouNeedToStopMGD.No, Some(enrolment)) =>
-            enrolment.identifiers match {
+            enrolment.identifiers.toList match {
               case Nil    => Left(s"unable to find identifier for ${enrolment.key}")
               case h :: _ => Right(Call("GET", appConfig.getPortalUrl("stopMGD", h.value)))
             }

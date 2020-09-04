@@ -19,7 +19,7 @@ package controllers.other.importexports.nes
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
 import forms.other.importexports.DoYouHaveEORINumberFormProvider

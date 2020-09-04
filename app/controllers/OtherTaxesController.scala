@@ -29,7 +29,7 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.auth.core.{Enrolments => CoreEnrolments}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enrolments, Enumerable, Navigator, RadioOption}
 import views.html.{organisation_only, otherTaxes}
 
@@ -65,13 +65,6 @@ class OtherTaxesController @Inject()(appConfig: FrontendAppConfig,
 
   private val checkAlcohol: CoreEnrolments => Option[RadioOption] =
     (_: CoreEnrolments) => Some(AlcoholAndTobacco.toRadioOption)
-
-  //TODO Should these be used?
-//  private val checkAlcoholWholesalerRegistrationScheme: CoreEnrolments => Boolean =
-//    _.getEnrolment(Enrolments.AWRS.toString).isDefined
-//
-//  private val checkAlcoholAndTobaccoWarehousingDeclarations: CoreEnrolments => Boolean =
-//    _.getEnrolment(Enrolments.ATWD.toString).isDefined
 
   private val checkAutomaticExchangeOfInformation: CoreEnrolments => Option[RadioOption] =
     _.getEnrolment(Enrolments.AEOI.toString)
