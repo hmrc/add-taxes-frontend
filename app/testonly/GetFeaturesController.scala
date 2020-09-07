@@ -20,7 +20,7 @@ import javax.inject.Inject
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import playconfig.featuretoggle.{Feature, FeatureConfig, FeatureToggleSupport}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 
 class GetFeaturesController @Inject()(config: FeatureConfig, mcc: MessagesControllerComponents)
   extends FrontendController(mcc) with FeatureToggleSupport {

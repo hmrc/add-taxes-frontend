@@ -16,21 +16,18 @@
 
 package controllers.vat
 
+import config.FrontendAppConfig
+import controllers.actions._
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import controllers.actions._
-import config.FrontendAppConfig
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import views.html.vat.canRegisterForVAT
-
-import scala.concurrent.Future
 
 class CanRegisterForVATController @Inject()(appConfig: FrontendAppConfig,
                                             mcc: MessagesControllerComponents,
                                             authenticate: AuthAction,
                                             serviceInfo: ServiceInfoAction,
-                                            featureDepandantAction: FeatureDependantAction,
                                             canRegisterForVAT: canRegisterForVAT)
   extends FrontendController(mcc) with I18nSupport {
 

@@ -16,20 +16,18 @@
 
 package controllers.vat
 
-import javax.inject.Inject
 import config.FrontendAppConfig
 import controllers.actions._
+import forms.vat.ImportedGoodsFormProvider
+import identifiers.ImportedGoodsId
+import javax.inject.Inject
+import models.vat.ImportedGoods
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enumerable, Navigator}
-import forms.vat.ImportedGoodsFormProvider
-import identifiers.ImportedGoodsId
-import models.vat.ImportedGoods
 import views.html.vat.importedGoods
-
-import scala.concurrent.Future
 
 class ImportedGoodsController @Inject()(appConfig: FrontendAppConfig,
                                         mcc: MessagesControllerComponents,
@@ -37,7 +35,6 @@ class ImportedGoodsController @Inject()(appConfig: FrontendAppConfig,
                                         authenticate: AuthAction,
                                         serviceInfoData: ServiceInfoAction,
                                         formProvider: ImportedGoodsFormProvider,
-                                        featureDepandantAction: FeatureDependantAction,
                                         importedGoods: importedGoods)
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 

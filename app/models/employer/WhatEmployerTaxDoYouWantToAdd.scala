@@ -16,9 +16,7 @@
 
 package models.employer
 
-import uk.gov.hmrc.auth.core.Enrolments
-import utils.{Enumerable, HmrcEnrolmentType, RadioOption, WithName}
-import play.api.mvc.Request
+import utils.{Enumerable, RadioOption, WithName}
 
 sealed trait WhatEmployerTaxDoYouWantToAdd
 

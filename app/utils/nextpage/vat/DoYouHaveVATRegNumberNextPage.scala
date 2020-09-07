@@ -24,7 +24,7 @@ import models.vat.DoYouHaveVATRegNumber
 import play.api.mvc.{Call, Request}
 import playconfig.featuretoggle.FeatureConfig
 import uk.gov.hmrc.auth.core.AffinityGroup
-import utils.{Enrolments, NextPage}
+import utils.NextPage
 
 trait DoYouHaveVATRegNumberNextPage {
 

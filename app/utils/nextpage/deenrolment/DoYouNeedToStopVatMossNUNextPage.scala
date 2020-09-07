@@ -35,7 +35,7 @@ trait DoYouNeedToStopVatMossNUNextPage {
         request: Request[_]): Either[String, Call] =
         b match {
           case (DoYouNeedToStopVatMossNU.Yes, Some(enrolment)) =>
-            enrolment.identifiers match {
+            enrolment.identifiers.toList match {
               case Nil    => Left(s"unable to find identifier for ${enrolment.key}")
               case h :: _ => Right(Call("GET", appConfig.getPortalUrl("mossChangeDetails", h.value)))
             }

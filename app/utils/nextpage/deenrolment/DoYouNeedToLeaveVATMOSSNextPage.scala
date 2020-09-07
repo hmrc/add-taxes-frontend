@@ -37,9 +37,9 @@ trait DoYouNeedToLeaveVATMOSSNextPage {
         request: Request[_]): Either[String, Call] =
         b match {
           case (DoYouNeedToLeaveVATMOSS.Yes, Some(enrolment)) =>
-            enrolment.identifiers match {
+            enrolment.identifiers.toList match {
               case Nil    => Left(s"unable to find identifier for ${enrolment.key}")
-              case h :: _ => Right(Call("GET", appConfig.getPortalUrl("mossChangeDetails", h.value)))
+              case h :: _ => Right(Call("GET", appConfig.getPortalUrl("mossChangeDetails", h.value)(request)))
             }
           case (DoYouNeedToLeaveVATMOSS.Yes, None) => Left("unable to find enrolment")
           case (DoYouNeedToLeaveVATMOSS.No, _)     => Right(Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.VATMOSS)))

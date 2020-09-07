@@ -47,7 +47,6 @@ class ImportedGoodsControllerSpec extends ControllerSpecBase with BeforeAndAfter
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider,
-      featureDepandantAction = app.injector.instanceOf[FeatureDependantAction],
       view
     )
 
