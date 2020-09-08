@@ -72,8 +72,8 @@ selectAnOilService.error.required = Dewiswch pa wasanaeth olew sydd ei angen arn
 haveYouRegisteredForTiedOils.title = A ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew ‘Tied’?
 haveYouRegisteredForTiedOils.heading = A ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew ‘Tied’?
 haveYouRegisteredForTiedOils.message1 = Os ydych wedi cofrestru, bydd gennych rif cymeradwyo.
-haveYouRegisteredForTiedOils.yes = Iawn
-haveYouRegisteredForTiedOils.no = Na
+haveYouRegisteredForTiedOils.Yes = Iawn
+haveYouRegisteredForTiedOils.No = Na
 haveYouRegisteredForTiedOils.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew ‘Tied’
 
 
@@ -92,8 +92,8 @@ registerTiedOils.button.text = Cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew �
 haveYouRegisteredForRebatedOils.title = A ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew Ad-daledig?
 haveYouRegisteredForRebatedOils.heading = A ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew Ad-daledig?
 haveYouRegisteredForRebatedOils.message1 = Os ydych wedi cofrestru, bydd gennych rif cymeradwyo.
-haveYouRegisteredForRebatedOils.yes = Iawn
-haveYouRegisteredForRebatedOils.no = Na
+haveYouRegisteredForRebatedOils.Yes = Iawn
+haveYouRegisteredForRebatedOils.No = Na
 haveYouRegisteredForRebatedOils.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru ar gyfer y Gwasanaeth Ymholiadau Olew Ad-daledig
 
 
