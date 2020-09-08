@@ -20,15 +20,15 @@ import config.FrontendAppConfig
 import javax.inject.Inject
 import play.api.Logger
 import play.api.http.Status._
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.HttpClient
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
+
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) {
 
   def checkExistingUTR(utr: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
-    http.GET(appConfig.checkUtrUrl(utr)).map { response =>
+    http.GET[HttpResponse](appConfig.checkUtrUrl(utr)).map { response =>
       response.status match {
         case OK         => true
         case NO_CONTENT => false

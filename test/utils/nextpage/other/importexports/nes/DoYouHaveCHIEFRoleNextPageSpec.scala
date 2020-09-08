@@ -29,4 +29,26 @@ class DoYouHaveCHIEFRoleNextPageSpec extends NextPageSpecBase {
       "http://localhost:9555/enrolment-management-frontend/HMCE-NES/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
   }
+  "DoYouHaveCHIEFRole" when {
+    behave like nextPage(
+      NextPage.doYouHaveCHIEFHasEORIRole,
+      DoYouHaveCHIEFRole.No,
+      "/business-account/add-tax/other/import-export/nes/has-eori/register-chief"
+    )
+  }
+
+  "DoYouHaveCHIEFNoEORIRole" when {
+    behave like nextPage(
+      NextPage.doYouHaveCHIEFNoEORIRole,
+      DoYouHaveCHIEFRole.Yes,
+      "/business-account/add-tax/other/import-export/nes/no-eori/register-eori"
+    )
+  }
+  "DoYouHaveCHIEFNoEORIRole" when {
+    behave like nextPage(
+      NextPage.doYouHaveCHIEFNoEORIRole,
+      DoYouHaveCHIEFRole.No,
+      "/business-account/add-tax/other/import-export/nes/no-eori/register-both"
+    )
+  }
 }

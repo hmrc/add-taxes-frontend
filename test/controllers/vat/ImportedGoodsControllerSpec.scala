@@ -17,7 +17,6 @@
 package controllers.vat
 
 import controllers._
-import controllers.actions.{FakeServiceInfoAction, _}
 import forms.vat.ImportedGoodsFormProvider
 import models.vat.ImportedGoods
 import org.scalatest.BeforeAndAfterEach
@@ -26,7 +25,6 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import playconfig.featuretoggle.FeatureToggleSupport
-import uk.gov.hmrc.http.NotFoundException
 import utils.FakeNavigator
 import views.html.vat.importedGoods
 
