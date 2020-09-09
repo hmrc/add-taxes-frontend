@@ -71,8 +71,8 @@ selectAnOilService.error.required = Select which oil service you need
 haveYouRegisteredForTiedOils.title = Have you already registered for the Tied Oils Enquiry Service?
 haveYouRegisteredForTiedOils.heading = Have you already registered for the Tied Oils Enquiry Service?
 haveYouRegisteredForTiedOils.message1 = If you are registered, you will have an approval number.
-haveYouRegisteredForTiedOils.yes = Yes
-haveYouRegisteredForTiedOils.no = No
+haveYouRegisteredForTiedOils.Yes = Yes
+haveYouRegisteredForTiedOils.No = No
 haveYouRegisteredForTiedOils.error.required = Select yes if you have already registered for the Tied Oils Enquiry Service
 
 
@@ -91,8 +91,8 @@ registerTiedOils.button.text = Register for the Tied Oils Enquiry Service
 haveYouRegisteredForRebatedOils.title = Have you already registered for the Rebated Oils Enquiry Service?
 haveYouRegisteredForRebatedOils.heading = Have you already registered for the Rebated Oils Enquiry Service?
 haveYouRegisteredForRebatedOils.message1 = If you are registered, you will have an approval number.
-haveYouRegisteredForRebatedOils.yes = Yes
-haveYouRegisteredForRebatedOils.no = No
+haveYouRegisteredForRebatedOils.Yes = Yes
+haveYouRegisteredForRebatedOils.No = No
 haveYouRegisteredForRebatedOils.error.required = Select yes if you have already registered for the Rebated Oils Enquiry Service
 
 
