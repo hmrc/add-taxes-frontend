@@ -16,10 +16,11 @@
 
 package controllers.vat
 
+import config.FrontendAppConfig
 import controllers._
-import controllers.actions._
 import forms.vat.DoYouHaveVATRegNumberFormProvider
 import models.vat.DoYouHaveVATRegNumber
+import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
@@ -34,9 +35,9 @@ class DoYouHaveVATRegNumberControllerSpec extends ControllerSpecBase {
   val formProvider = new DoYouHaveVATRegNumberFormProvider()
   val form: Form[DoYouHaveVATRegNumber] = formProvider()
 
-  val view = injector.instanceOf[doYouHaveVATRegNumber]
+  val view: doYouHaveVATRegNumber = injector.instanceOf[doYouHaveVATRegNumber]
 
-  def controller(): DoYouHaveVATRegNumberController = {
+  def controller(mtdSwitch: Boolean = false): DoYouHaveVATRegNumberController = {
     new DoYouHaveVATRegNumberController(
       frontendAppConfig,
       mcc,
@@ -45,7 +46,9 @@ class DoYouHaveVATRegNumberControllerSpec extends ControllerSpecBase {
       FakeServiceInfoAction,
       formProvider,
       view
-    )
+    ){
+      override val useMtdVatReg: Boolean = mtdSwitch
+    }
   }
 
   def viewAsString(form: Form[_] = form): String =
@@ -58,25 +61,6 @@ class DoYouHaveVATRegNumberControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
-    }
-
-    "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveVATRegNumber.options.head.value))
-
-      val result = controller().onSubmit()(postRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
-    }
-
-    "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-      val boundForm = form.bind(Map("value" -> "invalid value"))
-
-      val result = controller().onSubmit()(postRequest)
-
-      status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm)
     }
 
     "return OK" in {
@@ -93,6 +77,52 @@ class DoYouHaveVATRegNumberControllerSpec extends ControllerSpecBase {
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)
       }
+    }
+
+    "redirect to the next page when valid data is submitted" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveVATRegNumber.options.head.value))
+
+      val result = controller().onSubmit()(postRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
+
+    "redirect to MTD when feature flag is enabled and the user says NO" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveVATRegNumber.options.last.value))
+
+      val result = controller(mtdSwitch = true).onSubmit()(postRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some("http://localhost:9895/register-for-vat")
+    }
+
+    "not redirect to MTD when feature flag is disabled and the user says NO" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveVATRegNumber.options.last.value))
+
+      val result = controller(mtdSwitch = false).onSubmit()(postRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
+
+    "not redirect to MTD when feature flag is enabled and the user says YES" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveVATRegNumber.options.head.value))
+
+      val result = controller(mtdSwitch = true).onSubmit()(postRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
+
+    "return a Bad Request and errors when invalid data is submitted" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val boundForm = form.bind(Map("value" -> "invalid value"))
+
+      val result = controller().onSubmit()(postRequest)
+
+      status(result) mustBe BAD_REQUEST
+      contentAsString(result) mustBe viewAsString(boundForm)
     }
   }
 }

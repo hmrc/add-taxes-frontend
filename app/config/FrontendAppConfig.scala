@@ -139,12 +139,18 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   lazy val changeBusinessDetailsHost: String = config.getString("urls.manage-vat-subscription-frontend.host")
   lazy val changeBusinessDetailsUri: String = config.getString("urls.manage-vat-subscription-frontend.changeBusinessDetails")
   lazy val changeBusinessDetailsUrl: String = changeBusinessDetailsHost + changeBusinessDetailsUri
+
+  lazy val vatRegHost: String = config.getString("urls.vat-registration-frontend.host")
+  lazy val vatRegHandoff: String = vatRegHost + config.getString("urls.vat-registration-frontend.handoff")
+
 }
 
 trait FeatureToggles {
   val config: ServicesConfig
 
   private def featureEnabled(key: String): Boolean = config.getBoolean(s"feature-toggles.$key")
+
+  lazy val useMtdVatReg: Boolean = featureEnabled("useMtdVatReg")
 
   final val sessionTimeoutInSeconds: Long = 900
   final val sessionCountdownInSeconds: Int = 60

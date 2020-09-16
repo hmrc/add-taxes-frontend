@@ -39,6 +39,7 @@ class DoYouHaveVATRegNumberController @Inject()(appConfig: FrontendAppConfig,
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
   val form: Form[DoYouHaveVATRegNumber] = formProvider()
+  val useMtdVatReg: Boolean = appConfig.useMtdVatReg
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(doYouHaveVATRegNumber(appConfig, form)(request.serviceInfoContent))
@@ -48,7 +49,12 @@ class DoYouHaveVATRegNumberController @Inject()(appConfig: FrontendAppConfig,
     form.bindFromRequest()
       .fold(
         formWithErrors => BadRequest(doYouHaveVATRegNumber(appConfig, formWithErrors)(request.serviceInfoContent)),
-        value => Redirect(navigator.nextPage(DoYouHaveVATRegNumberId, (value, request.request.affinityGroup)))
+        value =>
+          if(useMtdVatReg & value == DoYouHaveVATRegNumber.No){
+            Redirect(appConfig.vatRegHandoff)
+          } else {
+            Redirect(navigator.nextPage(DoYouHaveVATRegNumberId, (value, request.request.affinityGroup)))
+          }
       )
   }
 }
