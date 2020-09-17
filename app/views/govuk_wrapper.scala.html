@@ -93,6 +93,10 @@
 
 @footerTop = {}
 
+@footerLinks = {
+    @uiFooterLinks(euExitLinks = Some(uiEuExitLinks()))
+}
+
 @serviceInfo = {
     <div id="global-header-bar"></div>
     @uiServiceInfo(
@@ -138,4 +142,4 @@
 </main>
 }
 
-@hmrcGovUkTemplate(Some(title), bodyClasses)(head, bodyEnd, insideHeader, afterHeader, footerTop, Some(uiFooterLinks(None, Some(uiEuExitLinks()))), true)(content)
+@hmrcGovUkTemplate(Some(title), bodyClasses)(head, bodyEnd, insideHeader, afterHeader, footerTop, Some(footerLinks), true)(content)
