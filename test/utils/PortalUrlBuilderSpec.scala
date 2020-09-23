@@ -86,7 +86,7 @@ class PortalUrlBuilderSpec extends SpecBase with MockitoSugar {
 
         ForgottenOptions.values.map { forgottenOption =>
           frontendAppConfig.lostCredentials(forgottenOption) mustBe
-            s"http://localhost:9810/account-recovery/choose-account-type/${forgottenOption.toString}"
+            s"http://localhost:9553/bas-gateway/cred-recovery?continue_url=/account&recovery=${forgottenOption.toString}"
         }
       }
     }

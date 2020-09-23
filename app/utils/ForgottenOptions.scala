@@ -19,9 +19,9 @@ package utils
 sealed trait ForgottenOptions
 
 object ForgottenOptions {
-  case object ForgottenPassword extends WithName("lost-password") with ForgottenOptions
-  case object ForgottenId extends WithName("lost-userid") with ForgottenOptions
-  case object ForgottenIdAndPassword extends WithName("lost-userid") with ForgottenOptions
+  case object ForgottenPassword extends WithName("password") with ForgottenOptions
+  case object ForgottenId extends WithName("userid") with ForgottenOptions
+  case object ForgottenIdAndPassword extends WithName("both") with ForgottenOptions
 
   val values: Set[ForgottenOptions] = Set(
     ForgottenPassword,

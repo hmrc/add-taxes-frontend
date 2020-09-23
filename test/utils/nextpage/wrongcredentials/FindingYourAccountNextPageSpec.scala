@@ -24,21 +24,21 @@ class FindingYourAccountNextPageSpec extends NextPageSpecBase {
 
   "FindingYourAccountFormProvider" when {
     def lostCredentialsUrlGenerator(forgottenOption: String): String =
-      s"http://localhost:9810/account-recovery/choose-account-type/$forgottenOption"
+      s"http://localhost:9553/bas-gateway/cred-recovery?continue_url=/account&recovery=$forgottenOption"
 
     behave like nextPage(
       NextPage.findingYourAccount,
       FindingYourAccount.DontKnowId,
-      lostCredentialsUrlGenerator("lost-userid"))
+      lostCredentialsUrlGenerator("userid"))
 
     behave like nextPage(
       NextPage.findingYourAccount,
       FindingYourAccount.DontKnowPassword,
-      lostCredentialsUrlGenerator("lost-password"))
+      lostCredentialsUrlGenerator("password"))
 
     behave like nextPage(
       NextPage.findingYourAccount,
       FindingYourAccount.DontKnowIdOrPassword,
-      lostCredentialsUrlGenerator("lost-userid"))
+      lostCredentialsUrlGenerator("both"))
   }
 }
