@@ -53,7 +53,8 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   lazy val authUrl: String = config.baseUrl("auth")
 
   lazy val vatSubscriptionUrl: String = config.baseUrl("vat-subscription")
-  lazy val basGatewayFrontendUrl: String = config.baseUrl("bas-gateway-frontend")
+  lazy val basGatewayFrontendHost: String = config.getString("urls.bas-gateway-frontend.host")
+  lazy val basGatewayCredRecovery: String = config.getString("urls.bas-gateway-frontend.credRecovery")
   lazy val btaUrl: String = config.baseUrl("business-tax-account")
 
   private lazy val stampDutyEnrollmentHost = config.getString("stamp-duty-land-tax-enrolment-frontend.host")
@@ -125,7 +126,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   lazy val atwdDeenrolmentUrl = s"$enrolmentManagementFrontendHost/enrolment-management-frontend/HMCE-ATWD-ORG/remove-warehouse?continue=/account"
 
-  def lostCredentials(forgottenOption: ForgottenOptions): String = s"$basGatewayFrontendUrl/bas-gateway/cred-recovery?continue_url=/account&recovery=$forgottenOption"
+  def lostCredentials(forgottenOption: ForgottenOptions): String = s"$basGatewayFrontendHost$basGatewayCredRecovery?continue_url=/account&recovery=$forgottenOption"
 
   lazy val checkUtrHost: String = config.getString("enrolment-store-proxy.host")
 
