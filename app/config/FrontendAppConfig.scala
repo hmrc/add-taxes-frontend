@@ -128,9 +128,10 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   def lostCredentials(forgottenOption: ForgottenOptions): String = s"$basGatewayFrontendHost$basGatewayCredRecovery?continue_url=/account&recovery=$forgottenOption"
 
-  lazy val checkUtrHost: String = config.getString("enrolment-store-proxy.host")
+  lazy val enrolmentStoreProxyHost: String = config.getString("enrolment-store-proxy.host")
 
-  def checkUtrUrl(utr: String): String = s"$checkUtrHost/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=principal"
+  def checkUtrUrl(utr: String): String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=principal"
+  def checkEmpRefUrl(officeNumber: String, payeReference: String): String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/enrolments/IR-PAYE~TaxOfficeNumber~$officeNumber~TaxOfficeReference~$payeReference/users?type=principal"
 
   private lazy val pensionsHost: String = config.getString("urls.external.pensions.host")
 
@@ -153,6 +154,7 @@ trait FeatureToggles {
   private def featureEnabled(key: String): Boolean = config.getBoolean(s"feature-toggles.$key")
 
   lazy val useMtdVatReg: Boolean = featureEnabled("useMtdVatReg")
+  lazy val epayeEnrolmentCheckerEnabled: Boolean = featureEnabled("epayeEnrolmentCheckerEnabled")
 
   final val sessionTimeoutInSeconds: Long = 900
   final val sessionCountdownInSeconds: Int = 60

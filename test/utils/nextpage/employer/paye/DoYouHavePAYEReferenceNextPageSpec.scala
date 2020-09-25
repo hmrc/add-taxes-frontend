@@ -16,24 +16,35 @@
 
 package utils.nextpage.employer.paye
 
+import config.FrontendAppConfig
 import models.employer.paye.DoYouHavePAYEReference
+import org.mockito.Mockito._
+import org.scalatestplus.mockito.MockitoSugar
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
-class DoYouHavePAYEReferenceNextPageSpec extends NextPageSpecBase {
+class DoYouHavePAYEReferenceNextPageSpec extends NextPageSpecBase with MockitoSugar {
+
+  val mockConfig: FrontendAppConfig = mock[FrontendAppConfig]
+
+  override implicit def frontendAppConfig: FrontendAppConfig = mockConfig
 
   "doYouHavePAYEReference" when {
 
-    behave like nextPage(
-      NextPage.doYouHavePAYEReference,
-      DoYouHavePAYEReference.Yes,
-      "http://localhost:9555/enrolment-management-frontend/IR-PAYE/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
+    "epayeEnrolmentCheckerEnabled feature toggle is set to true" when {
 
-    behave like nextPage(
-      NextPage.doYouHavePAYEReference,
-      DoYouHavePAYEReference.No,
-      "/business-account/add-tax/employer/directors-or-partners"
-    )
+      when(frontendAppConfig.epayeEnrolmentCheckerEnabled) thenReturn true
+      behave like nextPage(
+        NextPage.doYouHavePAYEReference,
+        DoYouHavePAYEReference.Yes,
+        "/business-account/add-tax/employer/enter-paye-ref"
+      )
+
+      behave like nextPage(
+        NextPage.doYouHavePAYEReference,
+        DoYouHavePAYEReference.No,
+        "/business-account/add-tax/employer/directors-or-partners"
+      )
+    }
   }
 }

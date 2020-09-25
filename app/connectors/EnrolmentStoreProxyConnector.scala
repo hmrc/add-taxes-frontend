@@ -41,4 +41,19 @@ class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http:
         Logger.error("Enrolment Store Proxy error", exception)
         false
     }
+
+  def checkExistingEmpRef(officeNumber: String, payeReference: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
+    http.GET[HttpResponse](appConfig.checkEmpRefUrl(officeNumber, payeReference)).map { response =>
+      response.status match {
+        case OK         => true
+        case NO_CONTENT => false
+        case status =>
+          Logger.error(s"Enrolment Store Proxy returned status code: $status, body: ${response.body}")
+          false
+      }
+    } recover {
+      case exception =>
+        Logger.error("Enrolment Store Proxy error", exception)
+        false
+    }
 }
