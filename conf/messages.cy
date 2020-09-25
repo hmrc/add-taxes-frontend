@@ -330,6 +330,21 @@ registerRGD.heading = Cofrestrwch ar gyfer Toll Hapchwarae o Bell cyn ei hychwan
 registerRGD.p1 = Pan gewch eich rhif cofrestru, mewngofnodwch i’ch cyfrif ac ychwanegwch Toll Hapchwarae o Bell.
 registerRGD.continue = Cofrestru ar gyfer Toll Hapchwarae o Bell
 
+#TODO change to Welsh once experiment is completed
+#######################################################
+##  EnterYourPAYEReference
+#######################################################
+enterYourPAYEReference.title = What is your employer PAYE reference?
+enterYourPAYEReference.heading = What is your employer PAYE reference?
+enterYourPAYEReference.officeNumber.label = HMRC office number
+enterYourPAYEReference.officeNumber.hintText = It is on the letter HMRC sent you when you registered as an employer. Enter the first 3 numbers. For example, 123/A246, enter 123
+enterYourPAYEReference.employerPayeReference.label = Employer PAYE reference
+enterYourPAYEReference.employerPayeReference.hintText = Enter the second part of your reference (any letters and numbers after the slash). For example, A246
+enterYourPAYEReference.officeNumber.error.required = Enter your HMRC office number
+enterYourPAYEReference.officeNumber.error.format = Enter your HMRC office number in the correct format
+enterYourPAYEReference.employerPayeReference.error.required = Enter your employer PAYE reference
+enterYourPAYEReference.employerPayeReference.error.format = Enter your employer PAYE reference in the correct format
+
 #######################################################
 ##  HaveYouRegisteredPartnership
 #######################################################

@@ -141,6 +141,7 @@ object NextPage
     with RegisterForVATOnlineNextPage
     with AreYouSelfEmployedNextPage
     with YourSaIsNotInThisAccountNextPage
+    with EnterPAYEReferenceNextPage
     with utils.nextpage.vat.VatRegistrationExceptionNextPage
     with utils.nextpage.vat.AgriculturalFlatRateSchemeNextPage
     with utils.nextpage.vat.CompanyDivisionNextPage

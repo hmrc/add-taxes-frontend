@@ -17,26 +17,28 @@
 package utils.nextpage.employer.paye
 
 import config.FrontendAppConfig
-import identifiers.DoYouHavePAYEReferenceId
+import identifiers.EnterPAYEReferenceId
 import play.api.mvc.{Call, Request}
-import models.employer.paye.DoYouHavePAYEReference
-import utils.{Enrolments, NextPage}
-import controllers.employer.paye.{routes => employerRoutes}
 import playconfig.featuretoggle.FeatureConfig
+import utils.{Enrolments, NextPage}
 
-trait DoYouHavePAYEReferenceNextPage {
+trait EnterPAYEReferenceNextPage {
 
-  implicit val doYouHavePAYEReference: NextPage[DoYouHavePAYEReferenceId.type, DoYouHavePAYEReference, Call] = {
-    new NextPage[DoYouHavePAYEReferenceId.type, DoYouHavePAYEReference, Call] {
-      override def get(b: DoYouHavePAYEReference)(
+  type EmpRefExists = Boolean
+
+  implicit val enterPAYEReference: NextPage[EnterPAYEReferenceId.type, EmpRefExists, Call] = {
+
+    new NextPage[EnterPAYEReferenceId.type, EmpRefExists, Call] {
+      override def get(b: EmpRefExists)(
         implicit appConfig: FrontendAppConfig,
         featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
-          case DoYouHavePAYEReference.Yes if appConfig.epayeEnrolmentCheckerEnabled => employerRoutes.EnterYourPAYEReferenceController.onPageLoad()
-          case DoYouHavePAYEReference.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.EPAYE))
-          case DoYouHavePAYEReference.No => employerRoutes.DoesBusinessHaveDirectorsOrPartnersController.onPageLoad()
+          case false => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.EPAYE))
+          case true  => Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials"))
         }
     }
+
   }
+
 }
