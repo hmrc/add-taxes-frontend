@@ -16,6 +16,9 @@
 
 package utils
 
+import identifiers.EnterSAUTRId
+import models.sa.SAUTR
 import uk.gov.hmrc.http.cache.client.CacheMap
 
-class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {}
+class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
+}

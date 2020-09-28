@@ -89,7 +89,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
 
     "When a user is an individual, render the you can't add this business account view" in {
       val request = ServiceInfoRequest[AnyContent](
-        AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual)),
+        AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId),
         HtmlFormat.empty)
 
       val result = controller(new FakeAuthActionIndividual(parser)).onPageLoad()(request)
@@ -101,7 +101,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
 
     "When a user is an agent, render the you can't add this business account view" in {
       val request = ServiceInfoRequest[AnyContent](
-        AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Agent)),
+        AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Agent), groupId, providerId),
         HtmlFormat.empty)
 
       val result = controller(fakeAuthAction = new FakeAuthActionAgent(parser)).onPageLoad()(request)
@@ -188,7 +188,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
       val enrolment =
         Enrolment("HMRC-OBTDS-ORG", Seq(EnrolmentIdentifier("EtmpRegistrationNumber", "123")), "Activated")
       val request = ServiceInfoRequest[AnyContent](
-        AuthenticatedRequest(FakeRequest(), "", Enrolments(Set(enrolment)), Some(Organisation)),
+        AuthenticatedRequest(FakeRequest(), "", Enrolments(Set(enrolment)), Some(Organisation), groupId, providerId),
         HtmlFormat.empty)
       val result = controller().getOptions(request)
 

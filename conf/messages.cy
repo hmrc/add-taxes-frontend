@@ -1343,3 +1343,12 @@ vatAccountUnavailable.heading = Mae’ch cyfrif Troi Treth yn Ddigidol ar gyfer 
 vatAccountUnavailable.p1 = Cawsoch eich cofrestru’n ddiweddar ar gyfer y gwasanaeth newydd, Troi Treth yn Ddigidol. Mae hyn er mwyn sicrhau eich bod yn gallu cyflwyno’ch Ffurflenni TAW i CThEM gan ddefnyddio meddalwedd sy’n cydweddu.
 vatAccountUnavailable.p2 = Bydd yn cymryd hyd at 72 awr i greu’ch cyfrif.
 vatAccountUnavailable.p3 = Dewch yn ôl yn nes ymlaen.
+
+#######################################################
+##  MyNewPage
+#######################################################
+myNewPage.title = WelshPageTitle
+myNewPage.heading = WelshPageHeading
+myNewPage.option1 = WELSH NEEDED HERE
+myNewPage.option2 = WELSH NEEDED HERE
+myNewPage.error.required = WelshErrorMessage

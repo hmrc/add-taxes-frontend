@@ -35,6 +35,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 trait ControllerSpecBase extends SpecBase {
 
   val cacheMapId = "id"
+  val groupId ="group-id"
+  val providerId="provider-id"
 
   val parser: PlayBodyParsers = injector.instanceOf[PlayBodyParsers]
   val FakeAuthAction = new FakeAuthAction(parser)
@@ -56,7 +58,7 @@ trait ControllerSpecBase extends SpecBase {
   def requestWithEnrolments(keys: String*): ServiceInfoRequest[AnyContent] = {
     val enrolments = Enrolments(keys.map(Enrolment(_)).toSet)
     ServiceInfoRequest[AnyContent](
-      AuthenticatedRequest(FakeRequest(), "", enrolments, Some(Organisation)),
+      AuthenticatedRequest(FakeRequest(), "", enrolments, Some(Organisation), groupId, providerId),
       HtmlFormat.empty)
   }
 }

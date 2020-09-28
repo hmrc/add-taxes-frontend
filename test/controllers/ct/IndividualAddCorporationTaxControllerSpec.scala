@@ -75,10 +75,11 @@ class IndividualAddCorporationTaxControllerSpec extends ControllerSpecBase {
 }
 
 class FakeAuthActionAuthenticated @Inject()(bodyParsers: PlayBodyParsers)(implicit val executionContext: ExecutionContext) extends AuthAction {
+  val groupId ="group-id"
+  val providerId="provider-id"
   override val parser: BodyParser[AnyContent] = bodyParsers.default
-
   override def invokeBlock[A](request: Request[A], block: AuthenticatedRequest[A] => Future[Result]): Future[Result] =
-    block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Organisation)))
+    block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Organisation), groupId, providerId))
 }
 
 //class FakeServiceInfoActionEmpty(bodyParsers: PlayBodyParsers)(implicit val executionContext: ExecutionContext) extends AuthAction {

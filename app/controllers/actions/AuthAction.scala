@@ -42,11 +42,12 @@ class AuthActionImpl @Inject()(val authConnector: AuthConnector,
     implicit val hc: HeaderCarrier =
       HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
-    authorised().retrieve(Retrievals.externalId and Retrievals.allEnrolments and Retrievals.affinityGroup) {
-      case externalId ~ enrolments ~ affinityGroup =>
+    authorised().retrieve(Retrievals.externalId and Retrievals.allEnrolments and Retrievals.affinityGroup
+      and Retrievals.groupIdentifier and Retrievals.credentials) {
+      case externalId ~ enrolments ~ affinityGroup ~ Some(groupId) ~ Some(creds) =>
         externalId
           .map { externalId =>
-            block(AuthenticatedRequest(request, externalId, enrolments, affinityGroup))
+            block(AuthenticatedRequest(request, externalId, enrolments, affinityGroup, groupId, creds.providerId))
           }
           .getOrElse(throw new UnauthorizedException("Unable to retrieve external Id"))
     } recover {

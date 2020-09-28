@@ -24,22 +24,27 @@ import uk.gov.hmrc.auth.core.Enrolments
 import scala.concurrent.{ExecutionContext, Future}
 
 class FakeAuthAction(bodyParsers: PlayBodyParsers)(implicit val executionContext: ExecutionContext) extends AuthAction {
+  val groupId ="group-id"
+  val providerId="provider-id"
   val parser: BodyParser[AnyContent] = bodyParsers.default
 
   override def invokeBlock[A](request: Request[A], block: AuthenticatedRequest[A] => Future[Result]): Future[Result] =
-    block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Organisation)))
+    block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Organisation), groupId, providerId))
 }
 
 class FakeAuthActionIndividual(bodyParsers: PlayBodyParsers)(implicit val executionContext: ExecutionContext) extends AuthAction {
   val parser: BodyParser[AnyContent] = bodyParsers.default
-
+  val groupId ="group-id"
+  val providerId="provider-id"
   override def invokeBlock[A](request: Request[A], block: AuthenticatedRequest[A] => Future[Result]): Future[Result] =
-    block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Individual)))
+    block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Individual), groupId, providerId))
 }
 
 class FakeAuthActionAgent(bodyParsers: PlayBodyParsers)(implicit val executionContext: ExecutionContext) extends AuthAction {
   val parser: BodyParser[AnyContent] = bodyParsers.default
+  val groupId ="group-id"
+  val providerId="provider-id"
 
   override def invokeBlock[A](request: Request[A], block: AuthenticatedRequest[A] => Future[Result]): Future[Result] =
-    block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Agent)))
+    block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Agent), groupId, providerId))
 }

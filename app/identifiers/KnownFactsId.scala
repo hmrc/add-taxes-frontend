@@ -14,27 +14,8 @@
  * limitations under the License.
  */
 
-package playconfig.featuretoggle
+package identifiers
 
-sealed abstract class Feature(val key: String) {
-  require(key.nonEmpty)
-
-  override val toString = s"${Feature.prefix}.$key"
+case object KnownFactsId extends Identifier {
+  override def toString: String = "knownFacts"
 }
-
-object Feature {
-
-  val prefix = "feature-toggles"
-
-  def allTogglableFeatures: Set[Feature] = Set(
-    PinAndPostFeature
-  )
-
-  def fromQuery(key: String): Option[Feature] =
-    allTogglableFeatures.collectFirst {
-      case feature if feature.key.toLowerCase == key.toLowerCase => feature
-    }
-
-}
-
-case object PinAndPostFeature extends Feature("pin-and-post")

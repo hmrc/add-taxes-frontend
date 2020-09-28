@@ -56,6 +56,12 @@ trait Constraints {
       case _                         => Invalid(errorKey, regex)
     }
 
+  protected def regexpOptional(regex: String, errorKey: String): Constraint[Option[String]] =
+    Constraint {
+      case Some(str) if str.matches(regex) => Valid
+      case _                         => Invalid(errorKey, regex)
+    }
+
   protected def maxLength(maximum: Int, errorKey: String): Constraint[String] =
     Constraint {
       case str if str.length <= maximum => Valid
@@ -72,6 +78,12 @@ trait Constraints {
     Constraint {
       case str if str.length == length => Valid
       case _                           => Invalid(errorKey, length)
+    }
+
+  protected def lengthOptional(length: Int, errorKey: String): Constraint[Option[String]] =
+    Constraint {
+      case  Some(str) if str.length == length => Valid
+      case _                                  => Invalid(errorKey, length)
     }
 
   protected def validateFunction(func: String => Boolean, errorKey: String): Constraint[String] =
