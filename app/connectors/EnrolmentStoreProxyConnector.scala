@@ -18,10 +18,10 @@ package connectors
 
 import config.FrontendAppConfig
 import javax.inject.Inject
+import models.sa.{KnownFacts, KnownFactsAndIdentifiers, SAUTR, SaEnrolment}
 import play.api.Logger
 import play.api.http.Status._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
-
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -56,4 +56,23 @@ class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http:
         Logger.error("Enrolment Store Proxy error", exception)
         false
     }
+
+
+  lazy val serviceUrl = s"${appConfig.enrolmentStoreHost}/enrolment-store-proxy/enrolment-store"
+
+  def queryKnownFacts(utr: SAUTR, knownFacts: KnownFacts)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] = {
+    val knownFactsCombined = KnownFactsAndIdentifiers(utr.value, knownFacts.nino, knownFacts.postcode)
+
+    http.POST[KnownFactsAndIdentifiers, HttpResponse](s"$serviceUrl/enrolments", knownFactsCombined).map {
+        _.status == OK
+    }.recover {
+      case exception =>
+        Logger.error("Enrolment Store Proxy error for queryKnownFacts", exception)
+        false
+    }
+  }
+
+  def enrolForSa(saEnrolment: SaEnrolment, utr: String, groupId: String)(implicit headerCarrier: HeaderCarrier, ec: ExecutionContext): Future[HttpResponse]= {
+    http.POST[SaEnrolment, HttpResponse](s"/enrolment-store/groups/${groupId}/enrolments/IR-SA~UTR~${utr}", saEnrolment)
+  }
 }

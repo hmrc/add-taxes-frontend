@@ -16,7 +16,8 @@
 
 package controllers.sa
 
-import connectors.EnrolmentStoreProxyConnector
+import config.FeatureToggles
+import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
 import controllers._
 import controllers.actions._
 import play.api.test.Helpers._
@@ -29,12 +30,13 @@ import org.mockito.ArgumentMatchers._
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.data.Form
 import play.api.mvc.Call
+import playconfig.featuretoggle.{FeatureToggleSupport, PinAndPostFeature}
 import utils.FakeNavigator
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
+class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar with FeatureToggleSupport {
 
   def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
@@ -43,6 +45,7 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
   val form: Form[SAUTR] = formProvider()
 
   val mockEnrolmentStoreProxyConnector: EnrolmentStoreProxyConnector = mock[EnrolmentStoreProxyConnector]
+  val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
 
   val view: enterSAUTR = injector.instanceOf[enterSAUTR]
 
@@ -55,6 +58,7 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
       FakeServiceInfoAction,
       formProvider,
       mockEnrolmentStoreProxyConnector,
+      mockDataCacheConnector,
       view
     )
   }
@@ -85,6 +89,18 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
     }
 
     "redirect when valid sa utr is submitted and is in the enrolment store" in {
+      when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any())(any(), any())).thenReturn(Future.successful(true))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789"))
+
+      val result = controller().onSubmit()(postRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
+
+    "redirect when valid sa utr is submitted and is in the enrolment store and pin and post feature is on" in {
+      enable(PinAndPostFeature)
+      when(mockDataCacheConnector.save[SAUTR](any(), any(), any())(any())).thenReturn(Future.successful(emptyCacheMap))
       when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any())(any(), any())).thenReturn(Future.successful(true))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789"))
 

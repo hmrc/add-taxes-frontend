@@ -17,11 +17,14 @@
 package connectors
 
 import base.SpecBase
+import models.sa.{KnownFacts, KnownFactsAndIdentifiers, SAUTR, SaEnrolment}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.http.Status.{BAD_REQUEST, INTERNAL_SERVER_ERROR, NOT_FOUND, NO_CONTENT, OK, PRECONDITION_FAILED}
+import play.api.http.Status.{CREATED, INTERNAL_SERVER_ERROR, NO_CONTENT, OK}
+import play.api.libs.json.{JsValue, Json}
+import play.api.test.Helpers._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -87,54 +90,160 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
           result mustBe false
         }
       }
+
+      "queryKnownFacts is called" should {
+        val knownFacts = new KnownFacts(Some("AB112233D"), Some("SW1A 2AA"))
+        val saUtr = new SAUTR("AB112233D")
+        val responseKnownFacts = KnownFactsAndIdentifiers("IR-SA", Some("AB112233D"), Some("SW1A 2AA"))
+        val responseJson = Json.toJson(responseKnownFacts).toString()
+
+        "return true when the call is successful (200)" in {
+          when(mockHttp.POST[JsValue, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
+            .thenReturn(Future.successful(HttpResponse.apply(OK, responseJson)))
+          val response: Future[Boolean] = enrolmentStoreProxyConnector.queryKnownFacts(saUtr, knownFacts)
+
+          whenReady(response) { result =>
+            result mustBe true
+          }
+        }
+
+        "return false if no utr found (204)" in {
+          when(mockHttp.POST[JsValue, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
+            .thenReturn(Future.successful(HttpResponse.apply(NO_CONTENT, responseJson)))
+
+          val response: Future[Boolean] = enrolmentStoreProxyConnector.queryKnownFacts(saUtr, knownFacts)
+
+          whenReady(response) { result =>
+            result mustBe false
+          }
+        }
+
+        "return false if internal server error (500)" in {
+          when(mockHttp.POST[JsValue, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
+            .thenReturn(Future.successful(HttpResponse.apply(INTERNAL_SERVER_ERROR, responseJson)))
+
+          val response: Future[Boolean] = enrolmentStoreProxyConnector.queryKnownFacts(saUtr, knownFacts)
+
+          whenReady(response) { result =>
+            result mustBe false
+          }
+        }
+
+        "return false when an exception occurs" in {
+          when(mockHttp.POST[JsValue, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
+            .thenReturn(Future.failed(new Exception))
+          val response: Future[Boolean] = enrolmentStoreProxyConnector.queryKnownFacts(saUtr, knownFacts)
+
+          whenReady(response) { result =>
+            result mustBe false
+          }
+        }
+      }
+
+      "checkExistingEmpRef is called" should {
+
+        "return true when the call is successful (200)" in {
+          when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+            .thenReturn(Future.successful(HttpResponse.apply(OK, "body")))
+
+          val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingEmpRef(officeNumber, payeReference)
+
+          whenReady(response) { result =>
+            result mustBe true
+          }
+        }
+
+        "return false if no officeNumber, payeReference found (204)" in {
+          when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+            .thenReturn(Future.successful(HttpResponse.apply(NO_CONTENT, "body")))
+
+          val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingEmpRef(officeNumber, payeReference)
+
+          whenReady(response) { result =>
+            result mustBe false
+          }
+        }
+
+        "return false if internal server error (500)" in {
+          when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+            .thenReturn(Future.successful(HttpResponse.apply(INTERNAL_SERVER_ERROR, "body")))
+
+          val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingEmpRef(officeNumber, payeReference)
+
+          whenReady(response) { result =>
+            result mustBe false
+          }
+        }
+
+        "return false when an exception occurs" in {
+          when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+            .thenReturn(Future.failed(new Exception))
+
+          val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingEmpRef(officeNumber, payeReference)
+
+          whenReady(response) { result =>
+            result mustBe false
+          }
+        }
+      }
+
+      "enrolForSa is called" should {
+        val userId: String = "1212121212121"
+        val utr: String = "1234"
+        val groupId: String = "12121212"
+        val saEnrolment = new SaEnrolment(userId)
+
+        "return created when the call is successful (201)" in {
+          when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
+            .thenReturn(Future.successful(HttpResponse(CREATED, "")))
+          val response = enrolmentStoreProxyConnector.enrolForSa(saEnrolment, utr, groupId)
+
+          whenReady(response) { result =>
+            result.status mustBe CREATED
+          }
+        }
+
+        "return no content if no utr found (204)" in {
+          when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
+            .thenReturn(Future.successful(HttpResponse(NO_CONTENT, "")))
+          val response = enrolmentStoreProxyConnector.enrolForSa(saEnrolment, utr, groupId)
+
+          whenReady(response) { result =>
+            result.status mustBe NO_CONTENT
+          }
+        }
+
+        "return forbidden  if no utr found (403)" in {
+          when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
+            .thenReturn(Future.successful(HttpResponse(FORBIDDEN, "")))
+          val response = enrolmentStoreProxyConnector.enrolForSa(saEnrolment, utr, groupId)
+
+          whenReady(response) { result =>
+            result.status mustBe FORBIDDEN
+          }
+        }
+
+        "return bad request  if no utr found (400)" in {
+          when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
+            .thenReturn(Future.successful(HttpResponse(BAD_REQUEST, "")))
+          val response = enrolmentStoreProxyConnector.enrolForSa(saEnrolment, utr, groupId)
+
+          whenReady(response) { result =>
+            result.status mustBe BAD_REQUEST
+          }
+        }
+
+        "return internal server error if internal server error (500)" in {
+          when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
+            .thenReturn(Future.successful(HttpResponse(INTERNAL_SERVER_ERROR, "")))
+
+          val response = enrolmentStoreProxyConnector.enrolForSa(saEnrolment, utr, groupId)
+
+          whenReady(response) { result =>
+            result.status mustBe INTERNAL_SERVER_ERROR
+            }
+          }
+        }
+     }
     }
-
-    "checkExistingEmpRef is called" should {
-
-      "return true when the call is successful (200)" in {
-        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
-          .thenReturn(Future.successful(HttpResponse.apply(OK, "body")))
-
-        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingEmpRef(officeNumber, payeReference)
-
-        whenReady(response) { result =>
-          result mustBe true
-        }
-      }
-
-      "return false if no officeNumber, payeReference found (204)" in {
-        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
-          .thenReturn(Future.successful(HttpResponse.apply(NO_CONTENT, "body")))
-
-        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingEmpRef(officeNumber, payeReference)
-
-        whenReady(response) { result =>
-          result mustBe false
-        }
-      }
-
-      "return false if internal server error (500)" in {
-        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
-          .thenReturn(Future.successful(HttpResponse.apply(INTERNAL_SERVER_ERROR, "body")))
-
-        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingEmpRef(officeNumber, payeReference)
-
-        whenReady(response) { result =>
-          result mustBe false
-        }
-      }
-
-      "return false when an exception occurs" in {
-        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
-          .thenReturn(Future.failed(new Exception))
-
-        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingEmpRef(officeNumber, payeReference)
-
-        whenReady(response) { result =>
-          result mustBe false
-        }
-      }
-    }
-
   }
-}

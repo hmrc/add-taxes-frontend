@@ -56,6 +56,9 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   lazy val basGatewayFrontendHost: String = config.getString("urls.bas-gateway-frontend.host")
   lazy val basGatewayCredRecovery: String = config.getString("urls.bas-gateway-frontend.credRecovery")
   lazy val btaUrl: String = config.baseUrl("business-tax-account")
+  lazy val postcodeValidLength: Int = config.getInt(s"valid-known-facts-lengths.validationMaxLengthPostcode")
+  lazy val validationMinLengthNINO: Int = config.getInt(s"valid-known-facts-lengths.validationMinLengthNINO")
+  lazy val validationMaxLengthNINO: Int = config.getInt(s"valid-known-facts-lengths.validationMaxLengthNINO")
 
   private lazy val stampDutyEnrollmentHost = config.getString("stamp-duty-land-tax-enrolment-frontend.host")
 
@@ -132,6 +135,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   def checkUtrUrl(utr: String): String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=principal"
   def checkEmpRefUrl(officeNumber: String, payeReference: String): String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/enrolments/IR-PAYE~TaxOfficeNumber~$officeNumber~TaxOfficeReference~$payeReference/users?type=principal"
+  lazy val enrolmentStoreHost: String = config.getString("enrolment-store-proxy.host")
 
   private lazy val pensionsHost: String = config.getString("urls.external.pensions.host")
 
@@ -156,6 +160,7 @@ trait FeatureToggles {
   lazy val useMtdVatReg: Boolean = featureEnabled("useMtdVatReg")
   lazy val epayeEnrolmentCheckerEnabled: Boolean = featureEnabled("epayeEnrolmentCheckerEnabled")
 
+  lazy val pinAndPostFeatureToggle: Boolean = featureEnabled("pin-and-post")
   final val sessionTimeoutInSeconds: Long = 900
   final val sessionCountdownInSeconds: Int = 60
 }

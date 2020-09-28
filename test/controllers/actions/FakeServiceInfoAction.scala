@@ -46,7 +46,7 @@ class FakeServiceInfoActionWithEnrolments(enrolmentTypes: HmrcEnrolmentType*)
     implicit val r: Request[A] = request
     val enrolments = Enrolments(enrolmentTypes.map(e => Enrolment(e.toString)).toSet)
     val requestWithEnrolments =
-      AuthenticatedRequest(request.request, request.externalId, enrolments, request.affinityGroup)
+      AuthenticatedRequest(request.request, request.externalId, enrolments, request.affinityGroup, request.groupId, request.credId)
 
     Future.successful(ServiceInfoRequest(requestWithEnrolments, HtmlFormat.empty))
   }

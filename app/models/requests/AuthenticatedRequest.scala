@@ -23,5 +23,7 @@ case class AuthenticatedRequest[A](
   request: Request[A],
   externalId: String,
   enrolments: Enrolments,
-  affinityGroup: Option[AffinityGroup])
+  affinityGroup: Option[AffinityGroup],
+  groupId: String,
+  credId: String)
     extends WrappedRequest[A](request)
