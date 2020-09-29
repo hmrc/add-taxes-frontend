@@ -345,6 +345,16 @@ enterYourPAYEReference.officeNumber.error.format = Enter your HMRC office number
 enterYourPAYEReference.employerPayeReference.error.required = Enter your employer PAYE reference
 enterYourPAYEReference.employerPayeReference.error.format = Enter your employer PAYE reference in the correct format
 
+#TODO change to Welsh once experiment is completed
+#######################################################
+##  WhatIsYourPAYEReference
+#######################################################
+whatIsYourPAYEReference.title = What is your employer PAYE reference?
+whatIsYourPAYEReference.heading = What is your employer PAYE reference?
+whatIsYourPAYEReference.hintText = It is on letters from HMRC about PAYE. For example, 123/A246. You may need to enter this reference again on the next screen, to verify your request.
+whatIsYourPAYEReference.error.required = Enter your employer PAYE reference
+whatIsYourPAYEReference.error.format = Enter your employer PAYE reference in the correct format
+
 #######################################################
 ##  HaveYouRegisteredPartnership
 #######################################################

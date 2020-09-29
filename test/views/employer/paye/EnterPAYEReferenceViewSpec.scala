@@ -41,7 +41,7 @@ class EnterPAYEReferenceViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
   }
 
-  "EnterSAUTR view" when {
+  "enterYourPAYEReference view" when {
     "rendered with no errors" must {
       val doc = asDocument(createViewUsingForm(form))
 
@@ -97,7 +97,7 @@ class EnterPAYEReferenceViewSpec extends ViewBehaviours {
     }
   }
 
-  "EnterSAUTR view" when {
+  "enterYourPAYEReference view" when {
     "when the form fields are left empty" must {
       val doc = asDocument(createViewUsingForm(form.bind(Map("officeNumber" -> "", "payeReference" -> ""))))
 
@@ -128,7 +128,7 @@ class EnterPAYEReferenceViewSpec extends ViewBehaviours {
     }
   }
 
-  "EnterSAUTR view" when {
+  "enterYourPAYEReference view" when {
     "when invalid data is submitted" must {
       val doc = asDocument(createViewUsingForm(form.bind(Map("officeNumber" -> "hjds", "payeReference" -> ":_+\""))))
 

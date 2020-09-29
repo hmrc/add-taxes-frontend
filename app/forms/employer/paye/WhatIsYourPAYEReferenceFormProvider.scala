@@ -14,13 +14,20 @@
  * limitations under the License.
  */
 
-package models.employer.paye
+package forms.employer.paye
 
-case class PAYEReference(officeNumber: String, payeReference: String)
+import forms.FormErrorHelper
+import forms.mappings.Mappings
+import javax.inject.Inject
+import models.employer.paye.{PAYEReference, PAYEReference_}
+import play.api.data.Form
+import play.api.data.Forms._
 
-object PAYEReference_ {
-  def apply(empRef: String): PAYEReference =
-    PAYEReference(empRef.split("/")(0), empRef.split("/")(1))
-
-  def unapply(arg: PAYEReference): Option[String] = Option(s"${arg.officeNumber}/${arg.payeReference}")
+class WhatIsYourPAYEReferenceFormProvider @Inject() extends FormErrorHelper with Mappings {
+  def apply(): Form[PAYEReference] = Form(
+    mapping(
+      "empRef" -> text("whatIsYourPAYEReference.error.required")
+        .verifying(regexp("^\\d{3}\\/[A-Za-z0-9]{1,10}$", "whatIsYourPAYEReference.error.format"))
+    )(PAYEReference_.apply)(PAYEReference_.unapply)
+  )
 }
