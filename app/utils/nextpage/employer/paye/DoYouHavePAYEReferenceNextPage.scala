@@ -33,7 +33,6 @@ trait DoYouHavePAYEReferenceNextPage {
         featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
-          case DoYouHavePAYEReference.Yes if appConfig.epayeEnrolmentCheckerEnabled => employerRoutes.EnterYourPAYEReferenceController.onPageLoad()
           case DoYouHavePAYEReference.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.EPAYE))
           case DoYouHavePAYEReference.No => employerRoutes.DoesBusinessHaveDirectorsOrPartnersController.onPageLoad()
         }

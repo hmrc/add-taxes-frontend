@@ -1195,6 +1195,15 @@ enterYourPAYEReference.employerPayeReference.error.required = Enter your employe
 enterYourPAYEReference.employerPayeReference.error.format = Enter your employer PAYE reference in the correct format
 
 #######################################################
+##  WhatIsYourPAYEReference
+#######################################################
+whatIsYourPAYEReference.title = What is your employer PAYE reference?
+whatIsYourPAYEReference.heading = What is your employer PAYE reference?
+whatIsYourPAYEReference.hintText = It is on letters from HMRC about PAYE. For example, 123/A246. You may need to enter this reference again on the next screen, to verify your request.
+whatIsYourPAYEReference.error.required = Enter your employer PAYE reference
+whatIsYourPAYEReference.error.format = Enter your employer PAYE reference in the correct format
+
+#######################################################
 ##  RegisterForVatByPost
 #######################################################
 registerForVatByPost.title = You must register for VAT by post

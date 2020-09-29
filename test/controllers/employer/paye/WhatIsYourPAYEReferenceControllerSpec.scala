@@ -18,7 +18,7 @@ package controllers.employer.paye
 
 import connectors.EnrolmentStoreProxyConnector
 import controllers._
-import forms.employer.paye.PAYEReferenceFormProvider
+import forms.employer.paye.WhatIsYourPAYEReferenceFormProvider
 import models.employer.paye.PAYEReference
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito.when
@@ -29,28 +29,28 @@ import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import playconfig.featuretoggle.{EpayeEnrolmentChecker, FeatureToggleSupport}
 import utils.{Enrolments, FakeNavigator}
-import views.html.employer.paye.enterPAYEReference
+import views.html.employer.paye.whatIsYourPAYEReference
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with MockitoSugar with FeatureToggleSupport {
+class WhatIsYourPAYEReferenceControllerSpec extends ControllerSpecBase with MockitoSugar with FeatureToggleSupport {
 
-  val formProvider = new PAYEReferenceFormProvider()
+  val formProvider = new WhatIsYourPAYEReferenceFormProvider()
 
   val form: Form[PAYEReference] = formProvider()
 
   val mockEnrolmentStoreProxyConnector: EnrolmentStoreProxyConnector = mock[EnrolmentStoreProxyConnector]
 
-  val view: enterPAYEReference = injector.instanceOf[enterPAYEReference]
+  val view: whatIsYourPAYEReference = injector.instanceOf[whatIsYourPAYEReference]
 
-  def controller(empRefExists: Boolean, featureSwitch: Boolean = false): EnterYourPAYEReferenceController = {
+  def controller(empRefExists: Boolean, featureSwitch: Boolean = false): WhatIsYourPAYEReferenceController = {
     val desiredRoute = if(empRefExists) {
       Call("GET", frontendAppConfig.getBusinessAccountUrl("wrong-credentials"))
     } else {
       Call("GET", frontendAppConfig.emacEnrollmentsUrl(Enrolments.EPAYE))
     }
-    new EnterYourPAYEReferenceController(
+    new WhatIsYourPAYEReferenceController(
       frontendAppConfig,
       view,
       mcc,
@@ -65,16 +65,17 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
   }
 
   def viewAsString(): String =
-    new enterPAYEReference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new whatIsYourPAYEReference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   def viewAsString(form: Form[PAYEReference] = form): String =
-    new enterPAYEReference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new whatIsYourPAYEReference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  "EnterYourPAYEReferenceController Controller" must {
+  "WhatIsYourPAYEReferenceController Controller" must {
 
     "return OK and the correct view for a GET" when {
 
       "epayeEnrolmentCheckerEnabled is enabled" in {
+        enable(EpayeEnrolmentChecker)
         val result = controller(false, true).onPageLoad()(fakeRequest)
 
         status(result) mustBe OK
@@ -82,17 +83,16 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
       }
 
       "epayeEnrolmentCheckerEnabled is disabled" in {
+        disable(EpayeEnrolmentChecker)
         val result = controller(false).onPageLoad()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("http://localhost:9555/enrolment-management-frontend/IR-PAYE/request-access-tax-scheme?continue=%2Fbusiness-account")
       }
-
     }
-
-    "return bad request when invalid officeNumber and payeReference are provided" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("officeNumber", "ads"),("payeReference", ":_£("))
-      val boundForm = form.bind(Map("officeNumber" -> "ads", "payeReference" -> ":_£("))
+    "return bad request when invalid empRef is provided" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("empRef", "A1@S/D$^G*"))
+      val boundForm = form.bind(Map("empRef"-> "A1@S/D$^G*"))
 
       val result = controller(false).onSubmit()(postRequest)
 
@@ -100,9 +100,9 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    "redirect when valid officeNumber and payeReference are submitted and are in the enrolment store" in {
+    "redirect when valid empRef is submitted and are in the enrolment store" in {
       when(mockEnrolmentStoreProxyConnector.checkExistingEmpRef(any(), any())(any(), any())).thenReturn(Future.successful(true))
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("officeNumber", "123"),("payeReference", "AB123"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("empRef", "123/AB123"))
 
       val result = controller(true).onSubmit()(postRequest)
 
@@ -110,9 +110,9 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
       redirectLocation(result) mustBe Some(Call("GET", frontendAppConfig.getBusinessAccountUrl("wrong-credentials")).url)
     }
 
-    "redirect when valid officeNumber and payeReference is submitted and are not in the enrolment store" in {
+    "redirect when valid empRef is submitted and are not in the enrolment store" in {
       when(mockEnrolmentStoreProxyConnector.checkExistingEmpRef(any(), any())(any(), any())).thenReturn(Future.successful(false))
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("officeNumber", "123"),("payeReference", "AB123"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("empRef", "123/AB123"))
 
       val result = controller(false).onSubmit()(postRequest)
 

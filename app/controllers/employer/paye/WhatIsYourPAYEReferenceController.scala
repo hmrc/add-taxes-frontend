@@ -16,32 +16,31 @@
 
 package controllers.employer.paye
 
-import config.{FeatureToggles, FrontendAppConfig}
+import config.FrontendAppConfig
 import connectors.EnrolmentStoreProxyConnector
 import controllers.actions.{AuthAction, ServiceInfoAction}
-import forms.employer.paye.PAYEReferenceFormProvider
+import forms.employer.paye.WhatIsYourPAYEReferenceFormProvider
 import identifiers.EnterPAYEReferenceId
 import javax.inject.Inject
 import models.employer.paye.PAYEReference
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enrolments, Navigator}
-import views.html.employer.paye.enterPAYEReference
+import views.html.employer.paye.whatIsYourPAYEReference
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class EnterYourPAYEReferenceController @Inject()(appConfig: FrontendAppConfig,
-                                                 enterPAYEReference: enterPAYEReference,
-                                                 mcc: MessagesControllerComponents,
-                                                 navigator: Navigator[Call],
-                                                 authenticate: AuthAction,
-                                                 serviceInfoData: ServiceInfoAction,
-                                                 enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
-                                                 formProvider: PAYEReferenceFormProvider)
-                                                (implicit val ec: ExecutionContext)
+class WhatIsYourPAYEReferenceController @Inject()(appConfig: FrontendAppConfig,
+                                                  whatIsYourPAYEReference: whatIsYourPAYEReference,
+                                                  mcc: MessagesControllerComponents,
+                                                  navigator: Navigator[Call],
+                                                  authenticate: AuthAction,
+                                                  serviceInfoData: ServiceInfoAction,
+                                                  enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
+                                                  formProvider: WhatIsYourPAYEReferenceFormProvider)
+                                                 (implicit val ec: ExecutionContext)
   extends FrontendController(mcc)
     with I18nSupport {
 
@@ -51,7 +50,7 @@ class EnterYourPAYEReferenceController @Inject()(appConfig: FrontendAppConfig,
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     if(enrolmentCheckerFeature) {
-      Ok(enterPAYEReference(appConfig, form)(request.serviceInfoContent))
+      Ok(whatIsYourPAYEReference(appConfig, form)(request.serviceInfoContent))
     } else {
       Redirect(Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.EPAYE)))
     }
@@ -60,7 +59,7 @@ class EnterYourPAYEReferenceController @Inject()(appConfig: FrontendAppConfig,
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => Future(BadRequest(enterPAYEReference(appConfig, formWithErrors)(request.serviceInfoContent))),
+        formWithErrors => Future(BadRequest(whatIsYourPAYEReference(appConfig, formWithErrors)(request.serviceInfoContent))),
         empRef =>
           enrolmentStoreProxyConnector.checkExistingEmpRef(empRef.officeNumber, empRef.payeReference).map { enrolmentStoreResult =>
             Redirect(navigator.nextPage(EnterPAYEReferenceId, enrolmentStoreResult))
