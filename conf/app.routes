@@ -115,6 +115,13 @@ POST       /self-assessment/enter-sa-utr                controllers.sa.EnterSAUT
 GET        /self-assessment/have-sa-utr                 controllers.sa.DoYouHaveSAUTRController.onPageLoad()
 POST       /self-assessment/have-sa-utr                 controllers.sa.DoYouHaveSAUTRController.onSubmit()
 
+
+# This route will be the completion url we send to IV (Pin in Post)
+GET        /self-assessment/sa-iv-router                controllers.sa.IvJourneyController.ivRouter()
+
+GET        /self-assessment/enrolment-successful        controllers.sa.EnrolmentSuccessController.onPageLoad()
+GET        /self-assessment/try-pin-in-post             controllers.sa.TryPinInPostController.onPageLoad()
+
 GET        /other/aeoi/register                         controllers.other.aeoi.RegisterAEOIController.onPageLoad()
 
 GET        /other/aeoi                                  controllers.other.aeoi.HaveYouRegisteredAEOIController.onPageLoad()
@@ -122,6 +129,12 @@ POST       /other/aeoi                                  controllers.other.aeoi.H
 
 GET        /self-assessment                             controllers.sa.SelectSACategoryController.onPageLoadHasUTR()
 POST       /self-assessment                             controllers.sa.SelectSACategoryController.onSubmitHasUTR()
+
+GET        /known-facts                                 controllers.sa.KnownFactsController.onPageLoad()
+POST       /known-facts                                 controllers.sa.KnownFactsController.onSubmit()
+
+GET        /iv-or-pin                                   controllers.sa.IvOrPinController.onPageLoad()
+POST       /iv-or-pin                                   controllers.sa.IvOrPinController.onSubmit()
 
 GET        /self-assessment/no-utr                      controllers.sa.SelectSACategoryController.onPageLoadNoUTR()
 POST       /self-assessment/no-utr                      controllers.sa.SelectSACategoryController.onSubmitNoUTR()

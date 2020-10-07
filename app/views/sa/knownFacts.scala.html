@@ -18,6 +18,7 @@
 @import uk.gov.hmrc.play.views.html.helpers._
 @import models.sa.KnownFacts
 @import controllers.sa.routes._
+@import akka.http.scaladsl.model.headers.LinkParams.title
 
 @this(
         uiForm: FormWithCSRF,
@@ -27,30 +28,28 @@
 @(appConfig: FrontendAppConfig, form: Form[KnownFacts])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages(""),
+    title = messages("enterKnownFacts.title"),
     appConfig = appConfig,
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @uiForm(action = EnterSAUTRController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    @uiForm(action = KnownFactsController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
-        @components.input_text(
-            field = form("postcode"),
-            label = messages(""),
-            hint  = Some(messages("")),
-            formHintMargin= Some(""),
-            headingId = ""
-        )
+        @components.heading("known-facts-heading", "enterKnownFacts.heading")
 
-        @components.input_text(
+        @components.input_text_field(
+            field = form("postcode"),
+            label = messages("enterKnownFacts.postcode.label"),
+            hint  = Some(messages("enterKnownFacts.postcode.hintText")),
+            formHintMargin= Some(""))
+
+        @components.input_text_field(
             field = form("nino"),
-            label = messages(""),
-            hint  = Some(messages("")),
-            formHintMargin= Some(""),
-            headingId = ""
-        )
+            label = messages("enterKnownFacts.nino.label"),
+            hint  = Some(messages("enterKnownFacts.nino.hintText")),
+            formHintMargin= Some(""))
 
         @components.submit_button(gaEvent = "GaEvent")
     }

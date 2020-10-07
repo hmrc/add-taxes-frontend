@@ -16,18 +16,18 @@
 
 package controllers.sa
 
-import config.FrontendAppConfig
-import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
+import config.{FeatureToggles, FrontendAppConfig}
 import controllers.actions._
 import forms.sa.KnownFactsFormProvider
-import identifiers.EnterSAUTRId
 import javax.inject.Inject
-import models.sa.{KnownFacts, SAUTR}
+import models.sa.KnownFacts
 import play.api.data.Form
 import play.api.i18n.I18nSupport
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import service.KnownFactsService
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import utils.{Enumerable, UserAnswers}
+import utils.Enumerable
 import views.html.sa.knownFacts
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -38,17 +38,22 @@ class KnownFactsController @Inject()(
                                       authenticate: AuthAction,
                                       serviceInfoData: ServiceInfoAction,
                                       formProvider: KnownFactsFormProvider,
-                                      dataCacheConnector: DataCacheConnector,
-                                      enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
-                                      knownFactsPage: knownFacts)
+                                      knownFactsPage: knownFacts,
+                                      knownFactsService: KnownFactsService
+                                    )
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = mcc.executionContext
   val form: Form[KnownFacts] = formProvider()
+  val pinAndPostFeatureToggle = appConfig.pinAndPostFeatureToggle
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
-      Ok(knownFactsPage(appConfig, form)(request.serviceInfoContent))
+      if (pinAndPostFeatureToggle) {
+        Ok(knownFactsPage(appConfig, form)(request.serviceInfoContent))
+      } else {
+        Redirect(Call("GET", appConfig.getBusinessAccountUrl("home")))
+      }
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
@@ -57,22 +62,8 @@ class KnownFactsController @Inject()(
         (formWithErrors: Form[KnownFacts]) => {
           Future(BadRequest(knownFactsPage(appConfig, formWithErrors)(request.serviceInfoContent)))
         },
-        (value) => {
-          val queryKnownFactsBoolean: Future[Boolean] = dataCacheConnector.getEntry[SAUTR](request.request.externalId, EnterSAUTRId.toString)
-            .flatMap { maybeSAUTR =>
-              (
-                for {
-                  utr <- maybeSAUTR
-                } yield enrolmentStoreProxyConnector.queryKnownFacts(utr, value)
-              ).getOrElse(Future.successful(false))
-            }
-
-          queryKnownFactsBoolean.map {
-            case true => Redirect(controllers.routes.LanguageSwitchController.switchToLanguage("en"))
-            case false => Redirect(controllers.routes.LanguageSwitchController.switchToLanguage("cy"))
-            case _ => Redirect(controllers.routes.LanguageSwitchController.switchToLanguage("cy"))
-          }
-        }
+        value => knownFactsService.knownFactsLocation(value)
       )
   }
+
 }

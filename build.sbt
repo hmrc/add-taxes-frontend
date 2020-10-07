@@ -1,3 +1,4 @@
+import com.typesafe.sbt.web.Import.WebKeys.assets
 import play.sbt.routes.RoutesKeys
 import scoverage.ScoverageKeys
 import uk.gov.hmrc.DefaultBuildSettings.{addTestReportOption, defaultSettings, scalaSettings}
@@ -14,6 +15,11 @@ lazy val playSettings: Seq[Setting[_]] = Seq(
   TwirlKeys.templateImports ++= Seq()
 )
 val silencerVersion = "1.7.0"
+
+def unitFilter(name: String): Boolean = name startsWith "unit"
+
+def getSourceDirectories(root: File, testType: String) = Seq(root / s"test/$testType")
+def getResourceDirectories(root: File, testType: String) = Seq(root / s"test/$testType", root / "target/web/public/test")
 
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(Seq(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin, SbtArtifactory) ++ plugins : _*)
@@ -51,8 +57,23 @@ lazy val microservice = Project(appName, file("."))
     PlayKeys.playDefaultPort := 9730,
     scalaVersion := "2.12.11"
   )
+  .settings(inConfig(Test)(Defaults.testSettings): _*)
+  .settings(
+    addTestReportOption(Test, "test-reports"),
+    unmanagedSourceDirectories in Test := (baseDirectory in Test)(base => getSourceDirectories(base, "unit")).value,
+    unmanagedResourceDirectories in Test := (baseDirectory in Test)(base => getResourceDirectories(base, "unit")).value
+  )
   .configs(IntegrationTest)
   .settings(inConfig(IntegrationTest)(Defaults.itSettings): _*)
+  .settings(
+    unmanagedSourceDirectories in IntegrationTest := (baseDirectory in IntegrationTest) (base => getSourceDirectories(base, "it")).value,
+    unmanagedResourceDirectories in IntegrationTest := (baseDirectory in IntegrationTest) (base => getResourceDirectories(base, "it")).value,
+    Keys.fork in IntegrationTest := true,
+    parallelExecution in IntegrationTest:= false,
+    addTestReportOption(IntegrationTest, "it-test-reports"),
+    (compile in IntegrationTest) := (compile in IntegrationTest).dependsOn(assets in TestAssets).value,
+    unmanagedClasspath in IntegrationTest += ((baseDirectory in IntegrationTest) map { base => Attributed.blank(base / "target/web/public/test") }).value
+  )
   .settings(
     Keys.fork in Test := true,
     Keys.fork in IntegrationTest := false,

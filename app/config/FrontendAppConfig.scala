@@ -135,21 +135,19 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   def checkUtrUrl(utr: String): String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=principal"
   def checkEmpRefUrl(officeNumber: String, payeReference: String): String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/enrolments/IR-PAYE~TaxOfficeNumber~$officeNumber~TaxOfficeReference~$payeReference/users?type=principal"
-  lazy val enrolmentStoreHost: String = config.getString("enrolment-store-proxy.host")
-
-  private lazy val pensionsHost: String = config.getString("urls.external.pensions.host")
-
   def getPensionsUrl(key: String): String = pensionsHost + config.getString(s"urls.external.pensions.$key")
+  lazy val queryKnownFactsUrl: String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/enrolments"
+  lazy val enrolForSaUrl: String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/groups/"
 
+  lazy val saBaseUrl: String = config.baseUrl("sa")
+  private lazy val pensionsHost: String = config.getString("urls.external.pensions.host")
   lazy val googleTagManagerId: String = config.getString(s"google-tag-manager.id")
-
   lazy val changeBusinessDetailsHost: String = config.getString("urls.manage-vat-subscription-frontend.host")
   lazy val changeBusinessDetailsUri: String = config.getString("urls.manage-vat-subscription-frontend.changeBusinessDetails")
   lazy val changeBusinessDetailsUrl: String = changeBusinessDetailsHost + changeBusinessDetailsUri
-
   lazy val vatRegHost: String = config.getString("urls.vat-registration-frontend.host")
   lazy val vatRegHandoff: String = vatRegHost + config.getString("urls.vat-registration-frontend.handoff")
-
+  lazy val identityVerificationFrontendUrl: String = config.baseUrl("identity-verification-frontend")
 }
 
 trait FeatureToggles {

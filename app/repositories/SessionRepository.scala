@@ -81,11 +81,9 @@ class ReactiveMongoRepository(config: Configuration, mongo: () => DefaultDB)
 }
 
 @Singleton
-class SessionRepository @Inject()(config: Configuration) {
+class SessionRepository @Inject()(config: Configuration, reactiveMongoComponent: ReactiveMongoComponent) {
 
-  class DbConnection extends MongoDbConnection
-
-  private lazy val sessionRepository = new ReactiveMongoRepository(config, new DbConnection().db)
+  private lazy val sessionRepository = new ReactiveMongoRepository(config, reactiveMongoComponent.mongoConnector.db)
 
   def apply(): ReactiveMongoRepository = sessionRepository
 }

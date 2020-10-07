@@ -24,7 +24,7 @@ import utils.{Enrolments, NextPage}
 import controllers.sa.{routes => saRoutes}
 import controllers.sa.partnership.{routes => saPartnerRoutes}
 import controllers.sa.trust.{routes => trustRoutes}
-import playconfig.featuretoggle.FeatureConfig
+import playconfig.featuretoggle.{FeatureConfig, PinAndPostFeature}
 import uk.gov.hmrc.auth.core.AffinityGroup
 
 trait SelectSACategoryNextPage {
@@ -40,7 +40,10 @@ trait SelectSACategoryNextPage {
         request: Request[_]): Call =
         (saCategory._1, saCategory._2, saCategory._3) match {
 
-          case (SelectSACategory.Sa, DoYouHaveSAUTR.Yes, _) => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.SA))
+          case (SelectSACategory.Sa, DoYouHaveSAUTR.Yes, _) =>
+            if(featureConfig.isEnabled(PinAndPostFeature)){
+              saRoutes.IvOrPinController.onPageLoad()
+            } else { Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.SA)) }
 
           case (SelectSACategory.Sa, _, Some(AffinityGroup.Individual)) =>
             saRoutes.AreYouSelfEmployedController.onPageLoad()

@@ -42,9 +42,9 @@ class EnterSAUTRController @Inject()(appConfig: FrontendAppConfig,
                                      enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
                                      dataCacheConnector: DataCacheConnector,
                                      enterSAUTR: enterSAUTR)(implicit val ec: ExecutionContext)
-  extends FrontendController(mcc) with I18nSupport with FeatureToggles {
+  extends FrontendController(mcc) with I18nSupport {
 
-  override val config: ServicesConfig = appConfig.config
+  val pinAndPostFeatureToggle: Boolean = appConfig.pinAndPostFeatureToggle
   val form: Form[SAUTR] = formProvider()
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>

@@ -1,0 +1,80 @@
+/*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package controllers.sa
+
+import controllers.Assets.{Redirect, SEE_OTHER}
+import controllers.ControllerSpecBase
+import controllers.sa.{routes => saRoutes}
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.when
+import org.scalatestplus.mockito.MockitoSugar
+import play.api.mvc.Call
+import play.api.test.Helpers.{defaultAwaitTimeout, redirectLocation, status}
+import playconfig.featuretoggle.{FeatureToggleSupport, PinAndPostFeature}
+import service.IvService
+
+import scala.concurrent.Future
+
+class IvJourneyControllerSpec extends ControllerSpecBase with MockitoSugar with FeatureToggleSupport {
+
+  val mockIvService: IvService = mock[IvService]
+
+  def controller(pinAndPostToggle: Boolean = true) = {
+    new IvJourneyController(
+      mockIvService,
+      mcc,
+      FakeAuthAction,
+      FakeServiceInfoAction,
+      frontendAppConfig
+    ){
+      override val pinAndPostFeatureToggle: Boolean = pinAndPostToggle
+    }
+  }
+
+  "IvJourney Controller" must {
+    "redirect to enrolment success page when checkAndEnrol returns redirect to enrolment success" in {
+      when(mockIvService.ivCheckAndEnrol()(any(), any(), any()))
+        .thenReturn(Future.successful(Redirect(saRoutes.EnrolmentSuccessController.onPageLoad())))
+
+      val result = controller().ivRouter()(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result).get mustBe saRoutes.EnrolmentSuccessController.onPageLoad().url
+    }
+
+    "redirect to try pin and post page when checkAndEnrol returns redirect to try pin and post page" in {
+      when(mockIvService.ivCheckAndEnrol()(any(), any(), any()))
+        .thenReturn(Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad())))
+
+      val result = controller().ivRouter()(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result).get mustBe saRoutes.TryPinInPostController.onPageLoad().url
+    }
+
+    "redirect to BTA home page when feature flag is set to false" in {
+      when(mockIvService.ivCheckAndEnrol()(any(), any(), any()))
+        .thenReturn(Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad())))
+
+      val result = controller(false).ivRouter()(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result).get mustBe frontendAppConfig.getBusinessAccountUrl("home")
+    }
+  }
+
+}
