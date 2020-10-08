@@ -1352,10 +1352,40 @@ vatAccountUnavailable.p2 = It will take up to 72 hours for your account to be se
 vatAccountUnavailable.p3 = Check back again later.
 
 #######################################################
-##  MyNewPage
+##  ivOrPin
 #######################################################
-myNewPage.title = MyPageTitle
-myNewPage.heading = MyPageHeading
-myNewPage.option1 = myNewPage Option 1
-myNewPage.option2 = myNewPage Option 2
-myNewPage.error.required = ErrorMessage
+ivOrPin.title = MyPageTitle
+ivOrPin.heading = MyPageHeading
+ivOrPin.Iv = Iv
+ivOrPin.Pin = Pin
+ivOrPin.Iv.hint = ivOrPin Option 2
+ivOrPin.Pin.hint = ivOrPin Option 2
+ivOrPin.error.required = ErrorMessage
+
+#######################################################
+##  successfulEnrolment
+#######################################################
+successfulEnrolment.title = MyPageTitle
+successfulEnrolment.heading = MyPageHeading
+
+#######################################################
+##  enterKnownFacts
+#######################################################
+enterKnownFacts.title = Enter these facts
+enterKnownFacts.heading = Enter these facts heading
+enterKnownFacts.nino.label = Nino
+enterKnownFacts.nino.hintText = Nino hint
+enterKnownFacts.postcode.label = Postcode
+enterKnownFacts.postcode.hintText = Postcode hint
+enterKnownFacts.nino.error.format = Nino Format Error English
+enterKnownFacts.nino.error.length = Nino Length Error English
+enterKnownFacts.nino.error.required = Nino Required Error English
+enterKnownFacts.postcode.error.invalid = Postcode Invalid Error English
+enterKnownFacts.postcode.error.required = Postcode Required Error English
+
+#######################################################
+##  tryPinInPost
+#######################################################
+tryPinInPost.title = MyPageTitle
+tryPinInPost.heading = MyPageHeading
+tryPinInPost.info = MyPageInfo

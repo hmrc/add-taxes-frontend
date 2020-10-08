@@ -1355,10 +1355,40 @@ vatAccountUnavailable.p2 = Bydd yn cymryd hyd at 72 awr i greu’ch cyfrif.
 vatAccountUnavailable.p3 = Dewch yn ôl yn nes ymlaen.
 
 #######################################################
-##  MyNewPage
+##  ivOrPin
 #######################################################
-myNewPage.title = WelshPageTitle
-myNewPage.heading = WelshPageHeading
-myNewPage.option1 = WELSH NEEDED HERE
-myNewPage.option2 = WELSH NEEDED HERE
-myNewPage.error.required = WelshErrorMessage
+ivOrPin.title = MyPageTitle Welsh
+ivOrPin.heading = MyPageHeading Welsh
+ivOrPin.Iv = ivOrPin Option 1 Welsh
+ivOrPin.Pin = ivOrPin Option 2 Welsh
+ivOrPin.Iv.hint = ivOrPin Option 2 Welsh
+ivOrPin.Pin.hint = ivOrPin Option 2 Welsh
+ivOrPin.error.required = ErrorMessage Welsh
+
+#######################################################
+##  successfulEnrolment
+#######################################################
+successfulEnrolment.title = MyPageTitle Welsh
+successfulEnrolment.heading = MyPageHeading Welsh
+
+#######################################################
+##  enterKnownFacts
+#######################################################
+enterKnownFacts.title = MyPageTitle Welsh
+enterKnownFacts.heading = MyPageHeading Welsh
+enterKnownFacts.nino.label = myNewPage Option 1 Welsh
+enterKnownFacts.nino.hintText = myNewPage Option 2 Welsh
+enterKnownFacts.postcode.label = myNewPage Option 2 Welsh
+enterKnownFacts.postcode.hintText = myNewPage Option 2 Welsh
+enterKnownFacts.nino.error.format = Nino Format Error Welsh
+enterKnownFacts.nino.error.length = Nino Length Error Welsh
+enterKnownFacts.nino.error.required = Nino Required Error Welsh
+enterKnownFacts.postcode.error.invalid = Nino Postcode Invalid Error Welsh
+enterKnownFacts.postcode.error.required = Nino Postcode Required Error Welsh
+
+#######################################################
+##  tryPinInPost
+#######################################################
+tryPinInPost.title = MyPageTitle Welsh
+tryPinInPost.heading = MyPageHeading Welsh
+tryPinInPost.info = MyPageInfo Welsh

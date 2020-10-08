@@ -30,8 +30,15 @@ class KnownFactsFormProvider @Inject()(knownFactsFormValidator: KnownFactsFormVa
 
   def apply(): Form[KnownFacts] = Form(
       mapping(
-      "postcode" -> optional(of(knownFactsFormValidator.validatePostcode("postcode", "TBC", "TBC"))),
-      "nino" -> optional(of(knownFactsFormValidator.ninoFormatter("nino", "TBC", "TBC", "TBC")))
+      "postcode" -> optional(of(knownFactsFormValidator.validatePostcode(
+        postcodeKey = "postcode",
+        blankPostcodeMessageKey = "enterKnownFacts.postcode.error.required",
+        invalidPostcodeMessageKey = "enterKnownFacts.postcode.error.invalid"))),
+      "nino" -> optional(of(knownFactsFormValidator.ninoFormatter(
+        ninoKey = "nino",
+        blankMessageKey = "enterKnownFacts.nino.error.required",
+        lengthMessageKey = "enterKnownFacts.nino.error.length",
+        formatMessageKey = "enterKnownFacts.nino.error.format")))
   )(KnownFacts.apply)(KnownFacts.unapply)
         .verifying(knownFactsFormValidator.optionValidator))
 }

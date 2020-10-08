@@ -18,7 +18,7 @@ package connectors
 
 import config.FrontendAppConfig
 import javax.inject.Inject
-import models.sa.{KnownFacts, KnownFactsAndIdentifiers, SAUTR, SaEnrolment}
+import models.sa.{KnownFacts, KnownFactsAndIdentifiers, KnownFactsReturn, SAUTR, SaEnrolment}
 import play.api.Logger
 import play.api.http.Status._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
@@ -26,6 +26,8 @@ import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 import scala.concurrent.{ExecutionContext, Future}
 
 class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) {
+
+  val enrolForSaUrl = appConfig.enrolForSaUrl
 
   def checkExistingUTR(utr: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
     http.GET[HttpResponse](appConfig.checkUtrUrl(utr)).map { response =>
@@ -57,22 +59,22 @@ class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http:
         false
     }
 
-
-  lazy val serviceUrl = s"${appConfig.enrolmentStoreHost}/enrolment-store-proxy/enrolment-store"
-
-  def queryKnownFacts(utr: SAUTR, knownFacts: KnownFacts)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] = {
+  def queryKnownFacts(utr: SAUTR, knownFacts: KnownFacts)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[KnownFactsReturn] = {
     val knownFactsCombined = KnownFactsAndIdentifiers(utr.value, knownFacts.nino, knownFacts.postcode)
 
-    http.POST[KnownFactsAndIdentifiers, HttpResponse](s"$serviceUrl/enrolments", knownFactsCombined).map {
-        _.status == OK
+    http.POST[KnownFactsAndIdentifiers, HttpResponse](appConfig.queryKnownFactsUrl, knownFactsCombined).map { response =>
+      response.status match {
+        case OK => KnownFactsReturn(utr.value, knownFactsResult = true)
+        case _ => KnownFactsReturn(utr.value, knownFactsResult = false)
+      }
     }.recover {
       case exception =>
         Logger.error("Enrolment Store Proxy error for queryKnownFacts", exception)
-        false
+        KnownFactsReturn(utr.value, knownFactsResult = false)
     }
   }
 
   def enrolForSa(saEnrolment: SaEnrolment, utr: String, groupId: String)(implicit headerCarrier: HeaderCarrier, ec: ExecutionContext): Future[HttpResponse]= {
-    http.POST[SaEnrolment, HttpResponse](s"/enrolment-store/groups/${groupId}/enrolments/IR-SA~UTR~${utr}", saEnrolment)
+    http.POST[SaEnrolment, HttpResponse](s"$enrolForSaUrl$groupId/enrolments/IR-SA~UTR~$utr", saEnrolment)
   }
 }

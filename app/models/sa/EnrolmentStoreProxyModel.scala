@@ -16,7 +16,6 @@
 
 package models.sa
 
-import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 class EnrolmentStoreProxyModel
@@ -37,11 +36,15 @@ object KnownFactsAndIdentifiers {
 
   implicit val writes: Writes[KnownFactsAndIdentifiers] = (kif: KnownFactsAndIdentifiers) => {
     Json.obj("service" -> "IR-SA") ++
-      Json.obj("knownFacts" -> Json.arr(
-        kif.postcode.map(x => Json.obj("key" -> "Postcode", "value" -> x)),
-        Json.obj("key" -> "UTR", "value" -> kif.utr),
-        kif.nino.map(x => Json.obj("key" -> "NINO", "value" -> x))
-      ))
+    Json.obj("knownFacts" ->
+      Json.toJson(
+        List(
+          Some(Json.obj("key" -> "UTR", "value" -> kif.utr)),
+          kif.nino.map(x => Json.obj("key" -> "NINO", "value" -> x)),
+          kif.postcode.map(x => Json.obj("key" -> "Postcode", "value" -> x))
+        ).flatten
+      )
+    )
   }
 }
 
@@ -58,4 +61,5 @@ object SaEnrolment {
   }
 }
 
+case class KnownFactsReturn(utr: String, knownFactsResult: Boolean)
 
