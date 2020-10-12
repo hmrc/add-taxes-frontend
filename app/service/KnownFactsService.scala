@@ -16,6 +16,7 @@
 
 package service
 
+import config.FrontendAppConfig
 import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
 import controllers.Assets.{Forbidden, Ok, Redirect}
 import controllers.sa.EnrolmentSuccessController
@@ -33,7 +34,7 @@ class KnownFactsService @Inject()(enrolForSaService: EnrolForSaService,
                                   saService: SaService,
                                   dataCacheConnector: DataCacheConnector,
                                   enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
-                                  enrolmentSuccessController: EnrolmentSuccessController) {
+                                  enrolmentSuccessController: EnrolmentSuccessController){
 
   def knownFactsLocation(knownFacts: KnownFacts)
                         (implicit request: ServiceInfoRequest[AnyContent],

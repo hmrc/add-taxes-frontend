@@ -51,7 +51,8 @@ trait AddTaxesIntegrationTest
       "auditing.enabled" -> "false",
       "play.filters.csrf.header.bypassHeaders.Csrf-Token" -> "nocheck",
       "messages-feature-switch" -> "false",
-      "enrolment-store-proxy.host"-> "http://localhost:6002"
+      "enrolment-store-proxy.host"-> "http://localhost:6002",
+      "identity-verification-frontend.host" -> "http://localhost:6002"
     ) ++ microservices.flatMap { microserviceName =>
       val key: String = s"microservice.services.$microserviceName"
       Map(s"$key.host" -> stubHost, s"$key.port" -> stubPort)

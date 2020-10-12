@@ -17,9 +17,9 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
   val testUtr = "1234567890"
   val testTaxOfficeNumber = "123"
   val testTaxOfficeReference = "4567890"
-  val testAllKnownFacts: KnownFacts = KnownFacts(Some("AA00000A"), Some("AA1 1AA"))
-  val testNinoOnlyKnownFacts: KnownFacts = KnownFacts(Some("AA00000A"), None)
-  val testPostCodeOnlyKnownFacts: KnownFacts = KnownFacts(None, Some("AA1 1AA"))
+  val testAllKnownFacts: KnownFacts = KnownFacts(Some("AA1 1AA"), Some("AA00000A"))
+  val testNinoOnlyKnownFacts: KnownFacts = KnownFacts(None, Some("AA00000A"))
+  val testPostCodeOnlyKnownFacts: KnownFacts = KnownFacts(Some("AA1 1AA"), None)
 
   "EnrolmentStoreProxyConnector" when {
     "checkExistingUTR" should {

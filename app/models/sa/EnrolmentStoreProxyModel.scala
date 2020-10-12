@@ -20,8 +20,8 @@ import play.api.libs.json._
 
 class EnrolmentStoreProxyModel
 
-case class KnownFacts(nino: Option[String], postcode: Option[String]) {
-  def provided: Seq[String] = List(nino, postcode).flatten
+case class KnownFacts(postcode: Option[String], nino: Option[String]) {
+  def provided: Seq[String] = List(postcode, nino).flatten
   def isValid: Boolean = this.provided.nonEmpty
 }
 

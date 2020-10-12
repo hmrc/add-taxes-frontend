@@ -16,6 +16,7 @@
 
 package service
 
+import config.FrontendAppConfig
 import connectors.{DataCacheConnector, SaConnector}
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
@@ -28,14 +29,17 @@ import controllers.sa.{routes => saRoutes}
 import scala.concurrent.{ExecutionContext, Future}
 
 class SaService @Inject()(saConnector: SaConnector,
-                         dataCacheConnector: DataCacheConnector) extends Logging {
+                         dataCacheConnector: DataCacheConnector,
+                         appConfig: FrontendAppConfig) extends Logging {
+
+  val serviceUrl = appConfig.identityVerificationFrontendUrl
 
   def getIvRedirectLink(utr: String)
                        (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[String] = {
     saConnector.getIvLinks(utr).map {
-        case Some(ivLinks) =>
-          dataCacheConnector.save[IvLinks](request.request.externalId, "IvLinksId", ivLinks)
-          ivLinks.link
+      case Some(ivLinks) =>
+        dataCacheConnector.save[IvLinks](request.request.externalId, "IvLinksId", ivLinks)
+        s"${serviceUrl}${ivLinks.link}"
         case _ =>
           logger.error("Failed retrieving IV link from SA")
           saRoutes.TryPinInPostController.onPageLoad().url

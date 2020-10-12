@@ -1366,7 +1366,7 @@ ivOrPin.error.required = ErrorMessage
 ##  successfulEnrolment
 #######################################################
 successfulEnrolment.title = MyPageTitle
-successfulEnrolment.heading = MyPageHeading
+successfulEnrolment.heading = Successfully Enrolled
 
 #######################################################
 ##  enterKnownFacts
@@ -1387,5 +1387,5 @@ enterKnownFacts.postcode.error.required = Postcode Required Error English
 ##  tryPinInPost
 #######################################################
 tryPinInPost.title = MyPageTitle
-tryPinInPost.heading = MyPageHeading
+tryPinInPost.heading = Try Pin in Post Instead?
 tryPinInPost.info = MyPageInfo
