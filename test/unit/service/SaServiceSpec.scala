@@ -49,7 +49,8 @@ class SaServiceSpec extends ControllerSpecBase with MockitoSugar {
 
   def service() = new SaService(
     mockSaConnector,
-    mockDataCacheConnector
+    mockDataCacheConnector,
+    frontendAppConfig
   )
 
 
@@ -71,7 +72,7 @@ class SaServiceSpec extends ControllerSpecBase with MockitoSugar {
         val result = service().getIvRedirectLink("1234567890")
 
         whenReady(result) { result =>
-          result mustBe "/iv-link"
+          result must include("/iv-link")
         }
       }
     }

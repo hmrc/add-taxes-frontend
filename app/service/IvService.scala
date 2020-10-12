@@ -69,7 +69,9 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
           case true => Redirect(saRoutes.EnrolmentSuccessController.onPageLoad())
           case _    => Redirect(saRoutes.TryPinInPostController.onPageLoad())
         }
-      } else Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad()))
+      } else {
+        Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad()))
+      }
     }
   }
 
