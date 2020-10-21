@@ -17,7 +17,6 @@
 package controllers.employer.cis.ukbased.contractor
 
 import controllers._
-import controllers.actions.FakeServiceInfoAction
 import forms.employer.DoesBusinessManagePAYEFormProvider
 import models.employer.DoesBusinessManagePAYE
 import play.api.data.Form

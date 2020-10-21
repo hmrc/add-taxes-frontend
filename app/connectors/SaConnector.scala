@@ -19,12 +19,13 @@ package connectors
 import config.FrontendAppConfig
 import javax.inject.Inject
 import models.sa.IvLinks
-import play.api.Logger
+import play.api.Logging
+import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class SaConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) {
+class SaConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) extends Logging{
 
   def serviceUrl(utr: String) = s"${appConfig.saBaseUrl}/sa/individual/${utr}/details-for-iv"
 
@@ -33,7 +34,7 @@ class SaConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) {
       Some(result)
     }.recover {
       case exception =>
-        Logger.error("Enrolment Store Proxy error", exception)
+        logger.error("Enrolment Store Proxy error", exception)
         None
     }
   }

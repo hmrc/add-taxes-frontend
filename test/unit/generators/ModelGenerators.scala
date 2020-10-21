@@ -16,7 +16,6 @@
 
 package generators
 
-import models.sa.SAUTR
 import org.scalacheck.Gen
 import org.scalacheck.Gen._
 

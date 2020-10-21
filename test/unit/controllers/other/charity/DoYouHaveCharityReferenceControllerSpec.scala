@@ -17,7 +17,6 @@
 package controllers.other.charity
 
 import controllers._
-import controllers.actions.FakeServiceInfoAction
 import forms.other.charity.DoYouHaveCharityReferenceFormProvider
 import models.other.charity.DoYouHaveCharityReference
 import play.api.data.Form

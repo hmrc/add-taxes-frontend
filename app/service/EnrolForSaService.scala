@@ -16,21 +16,19 @@
 
 package service
 
-import config.FrontendAppConfig
 import connectors.EnrolmentStoreProxyConnector
 import controllers.Assets.CREATED
 import javax.inject.Inject
 import models.sa.SaEnrolment
-import play.api.Logger
-import play.api.mvc.Request
+import play.api.Logging
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class EnrolForSaService @Inject()(enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector) {
+class EnrolForSaService @Inject()(enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector) extends Logging{
 
   def enrolForSa(utr: String, credId: String, groupId: String)
-                (implicit ec: ExecutionContext, request: Request[_], hc: HeaderCarrier): Future[Boolean] = {
+                (implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Boolean] = {
     val saEnrolment: SaEnrolment = new SaEnrolment(credId)
     enrolmentStoreProxyConnector.enrolForSa(saEnrolment, utr, groupId).flatMap { response =>
       response.status match {
@@ -38,7 +36,7 @@ class EnrolForSaService @Inject()(enrolmentStoreProxyConnector: EnrolmentStorePr
       }
     }.recover {
       case e: Throwable =>
-        Logger.error(s"[EnrolForSaController][enrolForSa] failed with error ${e.getMessage}")
+        logger.error(s"[EnrolForSaController][enrolForSa] failed with error ${e.getMessage}")
         false
     }
   }

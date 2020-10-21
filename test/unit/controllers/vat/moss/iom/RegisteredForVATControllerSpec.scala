@@ -17,7 +17,6 @@
 package controllers.vat.moss.iom
 
 import controllers._
-import controllers.actions.FakeServiceInfoAction
 import forms.vat.moss.iom.RegisteredForVATFormProvider
 import models.vat.moss.iom.RegisteredForVAT
 import play.api.data.Form

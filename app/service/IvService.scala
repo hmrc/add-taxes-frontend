@@ -23,7 +23,7 @@ import identifiers.EnterSAUTRId
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.sa.{IvLinks, SAUTR}
-import play.api.Logger
+import play.api.{Logging}
 import play.api.mvc.{AnyContent, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -31,7 +31,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class IvService @Inject()(dataCacheConnector: DataCacheConnector,
                          ivConnector: IvConnector,
-                         enrolForSaService: EnrolForSaService) {
+                         enrolForSaService: EnrolForSaService) extends Logging{
 
   def journeyLinkCheck()(implicit request: ServiceInfoRequest[AnyContent],
                          ec: ExecutionContext,
@@ -44,7 +44,7 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
             pass => pass.result.equals("Success")
       }.recover {
         case exception =>
-          Logger.error("Enrolment Store Proxy error", exception)
+          logger.error("Enrolment Store Proxy error", exception)
           false
       }
       case _ => Future.successful(false)

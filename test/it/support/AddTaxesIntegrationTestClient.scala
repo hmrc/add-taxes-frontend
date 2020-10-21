@@ -34,7 +34,7 @@ private[support] sealed abstract class TestClient(baseContext: String) {
     await(buildFullPath(url).get())
 
   def get(url: String, cookies: Map[String, String])(implicit app: Application): WSResponse =
-    await(buildFullPath(url).withHeaders(HeaderNames.COOKIE -> cookieValue(cookies, None)).get())
+    await(buildFullPath(url).withHttpHeaders(HeaderNames.COOKIE -> cookieValue(cookies, None)).get())
 
   def get(url: String, configuredDateTime: DateTime)(implicit app: Application): WSResponse =
     get(url, configuredDateTime, cookies = Map.empty)
@@ -42,7 +42,7 @@ private[support] sealed abstract class TestClient(baseContext: String) {
   def get(url: String, configuredDateTime: DateTime, cookies: Map[String, String])(
       implicit app: Application
   ): WSResponse =
-    await(buildFullPath(url).withHeaders(HeaderNames.COOKIE -> cookieValue(cookies, Some(configuredDateTime))).get())
+    await(buildFullPath(url).withHttpHeaders(HeaderNames.COOKIE -> cookieValue(cookies, Some(configuredDateTime))).get())
 
 }
 

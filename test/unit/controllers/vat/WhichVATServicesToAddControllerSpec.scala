@@ -17,7 +17,6 @@
 package controllers.vat
 
 import controllers._
-import controllers.actions.FakeServiceInfoAction
 import forms.vat.WhichVATServicesToAddFormProvider
 import models.vat.WhichVATServicesToAdd
 import play.api.data.Form

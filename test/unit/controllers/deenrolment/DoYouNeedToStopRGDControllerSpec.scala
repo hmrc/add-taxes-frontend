@@ -17,7 +17,6 @@
 package controllers.deenrolment
 
 import controllers._
-import controllers.actions._
 import forms.deenrolment.DoYouNeedToStopRGDFormProvider
 import models.deenrolment.DoYouNeedToStopRGD
 import play.api.data.Form

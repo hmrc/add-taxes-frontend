@@ -17,7 +17,6 @@
 package controllers.other.oil
 
 import controllers.ControllerSpecBase
-import controllers.actions._
 import forms.other.oils.HaveYouRegisteredForRebatedOilsFormProvider
 import models.other.oil.HaveYouRegisteredForRebatedOils
 import play.api.data.Form

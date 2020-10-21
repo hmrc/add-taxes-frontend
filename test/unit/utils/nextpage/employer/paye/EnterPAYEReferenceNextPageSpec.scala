@@ -16,7 +16,6 @@
 
 package utils.nextpage.employer.paye
 
-import play.api.test.FakeRequest
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 

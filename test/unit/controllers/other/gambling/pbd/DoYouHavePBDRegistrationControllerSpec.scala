@@ -17,7 +17,6 @@
 package controllers.other.gambling.pbd
 
 import controllers._
-import controllers.actions.FakeServiceInfoAction
 import forms.other.gambling.pbd.DoYouHavePBDRegistrationFormProvider
 import models.other.gambling.pbd.DoYouHavePBDRegistration
 import play.api.data.Form

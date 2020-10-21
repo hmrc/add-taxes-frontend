@@ -16,11 +16,9 @@
 
 package controllers.vat
 
-import config.FrontendAppConfig
 import controllers._
 import forms.vat.DoYouHaveVATRegNumberFormProvider
 import models.vat.DoYouHaveVATRegNumber
-import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._

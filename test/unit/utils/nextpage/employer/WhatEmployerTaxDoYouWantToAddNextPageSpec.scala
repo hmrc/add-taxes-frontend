@@ -17,7 +17,7 @@
 package utils.nextpage.employer
 
 import models.employer.WhatEmployerTaxDoYouWantToAdd
-import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
+import uk.gov.hmrc.auth.core.Enrolments
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 

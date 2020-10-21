@@ -17,13 +17,11 @@
 package controllers.sa
 
 import config.FrontendAppConfig
-import controllers.Assets.Ok
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import utils.Enumerable
 import views.html.sa.successfulEnrolment
 
 class EnrolmentSuccessController @Inject()(authenticate: AuthAction,

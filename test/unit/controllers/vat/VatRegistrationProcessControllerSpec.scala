@@ -22,7 +22,6 @@ import org.scalatest.BeforeAndAfterEach
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import playconfig.featuretoggle.FeatureToggleSupport
-import uk.gov.hmrc.http.NotFoundException
 import views.html.vat.vatRegistrationProcess
 
 class VatRegistrationProcessControllerSpec extends ControllerSpecBase with FeatureToggleSupport with BeforeAndAfterEach {

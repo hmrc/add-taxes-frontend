@@ -17,7 +17,6 @@
 package controllers.deenrolment
 
 import controllers._
-import controllers.actions.FakeServiceInfoAction
 import forms.deenrolment.DoYouNeedToCloseCharityFormProvider
 import models.deenrolment.DoYouNeedToCloseCharity
 import play.api.data.Form

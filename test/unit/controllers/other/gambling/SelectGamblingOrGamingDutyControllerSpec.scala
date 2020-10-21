@@ -17,7 +17,6 @@
 package controllers.other.gambling
 
 import controllers._
-import controllers.actions.{FakeServiceInfoAction, _}
 import forms.other.gambling.SelectGamblingOrGamingDutyFormProvider
 import models.other.gambling.SelectGamblingOrGamingDuty
 import play.api.data.Form

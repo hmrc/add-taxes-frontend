@@ -17,7 +17,6 @@
 package controllers.employer.pension
 
 import controllers._
-import controllers.actions._
 import forms.employer.pension.DoYouHaveActivationTokenFormProvider
 import models.employer.pension.DoYouHaveActivationToken
 import play.api.data.Form

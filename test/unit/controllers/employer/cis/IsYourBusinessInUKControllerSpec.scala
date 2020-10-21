@@ -17,7 +17,6 @@
 package controllers.employer.cis
 
 import controllers._
-import controllers.actions.FakeServiceInfoAction
 import forms.employer.cis.IsYourBusinessInUKFormProvider
 import models.employer.cis.IsYourBusinessInUK
 import play.api.data.Form

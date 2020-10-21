@@ -17,7 +17,6 @@
 package controllers.sa
 
 import controllers._
-import controllers.actions.FakeServiceInfoAction
 import forms.sa.SelectSACategoryFormProvider
 import models.sa.SelectSACategory
 import play.api.data.Form

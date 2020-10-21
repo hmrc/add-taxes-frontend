@@ -18,16 +18,16 @@ package controllers.sa
 
 import config.FrontendAppConfig
 import controllers.actions.{AuthAction, ServiceInfoAction}
-import forms.sa.{AreYouSelfEmployedFormProvider, IvOrPinFormProvider}
-import identifiers.{AreYouSelfEmployedId, IvOrPinId}
+import forms.sa.IvOrPinFormProvider
+import identifiers.IvOrPinId
 import javax.inject.Inject
-import models.sa.{AreYouSelfEmployed, IvOrPin}
+import models.sa.IvOrPin
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enumerable, Navigator}
-import views.html.sa.{areYouSelfEmployed, ivOrPin}
+import views.html.sa.ivOrPin
 
 class IvOrPinController @Inject()(appConfig: FrontendAppConfig,
                                   mcc: MessagesControllerComponents,

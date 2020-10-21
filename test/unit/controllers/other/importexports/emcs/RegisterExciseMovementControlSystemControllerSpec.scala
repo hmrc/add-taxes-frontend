@@ -17,7 +17,6 @@
 package controllers.other.importexports.emcs
 
 import controllers.ControllerSpecBase
-import controllers.actions._
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import views.html.other.importexports.emcs.registerExciseMovementControlSystem

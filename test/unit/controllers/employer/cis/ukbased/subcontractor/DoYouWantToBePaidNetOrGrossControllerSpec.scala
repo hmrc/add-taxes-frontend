@@ -17,7 +17,6 @@
 package controllers.employer.cis.ukbased.subcontractor
 
 import controllers._
-import controllers.actions.FakeServiceInfoAction
 import forms.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGrossFormProvider
 import models.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGross
 import play.api.data.Form

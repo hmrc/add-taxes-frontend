@@ -17,7 +17,6 @@
 package controllers.sa
 
 import controllers._
-import controllers.actions.FakeServiceInfoAction
 import forms.sa.DoYouHaveSAUTRFormProvider
 import models.sa.DoYouHaveSAUTR
 import play.api.data.Form

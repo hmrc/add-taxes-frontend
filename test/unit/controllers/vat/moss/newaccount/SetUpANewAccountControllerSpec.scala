@@ -17,7 +17,6 @@
 package controllers.vat.moss.newaccount
 
 import controllers._
-import controllers.actions._
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import views.html.vat.moss.newaccount.setUpANewAccount

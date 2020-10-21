@@ -17,7 +17,6 @@
 package controllers.vat.rcsl
 
 import controllers._
-import controllers.actions._
 import forms.vat.RegisteredForVATFormProvider
 import models.vat.RegisteredForVAT
 import play.api.data.Form

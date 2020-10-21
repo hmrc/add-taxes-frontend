@@ -18,7 +18,7 @@ package support.stubs
 
 import com.github.tomakehurst.wiremock.client.WireMock._
 import controllers.Assets._
-import models.sa.{KnownFacts, SAUTR, SaEnrolment}
+import models.sa.{KnownFacts, SaEnrolment}
 import play.api.test.Helpers.OK
 
 object StubEnrolmentStoreConnector extends StubHelper {

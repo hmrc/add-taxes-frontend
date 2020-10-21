@@ -17,7 +17,6 @@
 package controllers.employer.intermediaries
 
 import controllers._
-import controllers.actions.FakeServiceInfoAction
 import forms.employer.IsBusinessRegisteredForPAYEFormProvider
 import models.employer.IsBusinessRegisteredForPAYE
 import play.api.data.Form

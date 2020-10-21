@@ -90,7 +90,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar {
       when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())).thenReturn(Future.successful(Some(SAUTR("1234567890"))))
       when(mockEnrolmentStoreProxyConnector.queryKnownFacts(any(), any())(any(), any()))
         .thenReturn(Future.successful(KnownFactsReturn("1234567890", knownFactsResult = true)))
-      when(mockEnrolForSaService.enrolForSa(any(),any(), any())(any(), any(), any())).thenReturn(Future.successful(false))
+      when(mockEnrolForSaService.enrolForSa(any(),any(), any())(any(), any())).thenReturn(Future.successful(false))
 
       val result = service().knownFactsLocation(testKnownFacts)
       status(result) mustBe SEE_OTHER
@@ -117,7 +117,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar {
       when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())).thenReturn(Future.successful(Some(utr)))
       when(mockEnrolmentStoreProxyConnector.queryKnownFacts(any(), any())(any(), any()))
         .thenReturn(Future.successful(KnownFactsReturn(utr.value, knownFactsResult = true)))
-      when(mockEnrolForSaService.enrolForSa(any(),any(), any())(any(), any(), any())).thenReturn(Future.successful(true))
+      when(mockEnrolForSaService.enrolForSa(any(),any(), any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = service().knownFactsLocation(testKnownFacts)
       status(result) mustBe SEE_OTHER

@@ -16,7 +16,7 @@
 
 package controllers.employer.paye
 
-import config.{FeatureToggles, FrontendAppConfig}
+import config.FrontendAppConfig
 import connectors.EnrolmentStoreProxyConnector
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import forms.employer.paye.PAYEReferenceFormProvider
@@ -26,7 +26,6 @@ import models.employer.paye.PAYEReference
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enrolments, Navigator}
 import views.html.employer.paye.enterPAYEReference

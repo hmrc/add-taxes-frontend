@@ -19,8 +19,8 @@ package connectors
 import config.FrontendAppConfig
 import javax.inject.Inject
 import models.sa.JourneyLinkResponse
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
-
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
+import uk.gov.hmrc.http.HttpReads.Implicits._
 import scala.concurrent.{ExecutionContext, Future}
 
 class IvConnector @Inject()(appConfig: FrontendAppConfig,

@@ -16,7 +16,7 @@
 
 package controllers.sa
 
-import config.{FeatureToggles, FrontendAppConfig}
+import config.FrontendAppConfig
 import controllers.actions._
 import forms.sa.KnownFactsFormProvider
 import javax.inject.Inject
@@ -25,7 +25,6 @@ import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import service.KnownFactsService
-import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.Enumerable
 import views.html.sa.knownFacts

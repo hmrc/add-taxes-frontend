@@ -17,7 +17,6 @@
 package controllers.other.gambling.rgd
 
 import controllers._
-import controllers.actions.FakeServiceInfoAction
 import forms.other.gambling.rgd.DoYouHaveRGDRegistrationFormProvider
 import models.other.gambling.rgd.DoYouHaveRGDRegistration
 import play.api.data.Form

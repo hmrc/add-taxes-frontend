@@ -17,7 +17,6 @@
 package controllers.other.oil
 
 import controllers.ControllerSpecBase
-import controllers.actions._
 import forms.other.oils.HaveYouRegisteredForTiedOilsFormProvider
 import models.other.oil.HaveYouRegisteredForTiedOils
 import play.api.data.Form

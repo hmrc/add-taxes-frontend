@@ -17,7 +17,6 @@
 package controllers.deenrolment
 
 import controllers._
-import controllers.actions.{FakeServiceInfoAction, _}
 import forms.deenrolment.DoYouNeedToCancelVATFormProvider
 import models.deenrolment.DoYouNeedToCancelVAT
 import play.api.data.Form

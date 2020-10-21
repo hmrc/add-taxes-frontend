@@ -19,11 +19,9 @@ package controllers.actions
 import org.scalatest.{MustMatchers, WordSpec}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.mvc.Results._
-import play.api.mvc.{ActionFilter, AnyContent, Request, Result}
+import play.api.mvc.{AnyContent, Request, Result}
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
 import playconfig.featuretoggle._
-import uk.gov.hmrc.http.NotFoundException
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

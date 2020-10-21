@@ -20,10 +20,9 @@ import config.FrontendAppConfig
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
-import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents, Result}
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import service.IvService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-
 import scala.concurrent.{ExecutionContext, Future}
 
 class IvJourneyController @Inject()(ivService: IvService,
