@@ -19,13 +19,13 @@ package connectors
 import config.FrontendAppConfig
 import javax.inject.Inject
 import models.sa.{KnownFacts, KnownFactsAndIdentifiers, KnownFactsReturn, SAUTR, SaEnrolment}
-import play.api.Logger
+import play.api.Logging
 import play.api.http.Status._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
-
 import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.HttpReads.Implicits._
 
-class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) {
+class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) extends Logging{
 
   val enrolForSaUrl = appConfig.enrolForSaUrl
 
@@ -35,12 +35,12 @@ class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http:
         case OK         => true
         case NO_CONTENT => false
         case status =>
-          Logger.error(s"Enrolment Store Proxy returned status code: $status, body: ${response.body}")
+          logger.error(s"Enrolment Store Proxy returned status code: $status, body: ${response.body}")
           false
       }
     } recover {
       case exception =>
-        Logger.error("Enrolment Store Proxy error", exception)
+        logger.error("Enrolment Store Proxy error", exception)
         false
     }
 
@@ -50,12 +50,12 @@ class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http:
         case OK         => true
         case NO_CONTENT => false
         case status =>
-          Logger.error(s"Enrolment Store Proxy returned status code: $status, body: ${response.body}")
+          logger.error(s"Enrolment Store Proxy returned status code: $status, body: ${response.body}")
           false
       }
     } recover {
       case exception =>
-        Logger.error("Enrolment Store Proxy error", exception)
+        logger.error("Enrolment Store Proxy error", exception)
         false
     }
 
@@ -69,7 +69,7 @@ class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http:
       }
     }.recover {
       case exception =>
-        Logger.error("Enrolment Store Proxy error for queryKnownFacts", exception)
+        logger.error("Enrolment Store Proxy error for queryKnownFacts", exception)
         KnownFactsReturn(utr.value, knownFactsResult = false)
     }
   }

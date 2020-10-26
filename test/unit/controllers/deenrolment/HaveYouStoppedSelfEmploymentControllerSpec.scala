@@ -17,7 +17,6 @@
 package controllers.deenrolment
 
 import controllers._
-import controllers.actions._
 import controllers.deenrolment.routes.StopFilingSelfAssessmentController
 import forms.deenrolment.HaveYouStoppedSelfEmploymentFormProvider
 import models.deenrolment.HaveYouStoppedSelfEmployment

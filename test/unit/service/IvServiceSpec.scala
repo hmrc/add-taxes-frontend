@@ -18,7 +18,7 @@ package service
 
 import connectors.{DataCacheConnector, IvConnector}
 import controllers.ControllerSpecBase
-import controllers.sa.{EnrolmentSuccessController, TryPinInPostController, routes => saRoutes}
+import controllers.sa.{routes => saRoutes}
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.sa.{IvLinks, JourneyLinkResponse, SAUTR}
 import org.mockito.ArgumentMatchers.any
@@ -136,7 +136,7 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar {
         "enrol for sa returns false" in {
           when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
             .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
-          when(mockEnrolForSaService.enrolForSa(any(), any(), any())(any(), any(), any()))
+          when(mockEnrolForSaService.enrolForSa(any(), any(), any())(any(), any()))
             .thenReturn(Future.successful(false))
 
           val result = serviceWithStubbedLinkCheck(true).ivCheckAndEnrol()
@@ -149,7 +149,7 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar {
         "journeyLink returns true and enrol for sa returns true" in {
           when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
             .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
-          when(mockEnrolForSaService.enrolForSa(any(), any(), any())(any(), any(), any()))
+          when(mockEnrolForSaService.enrolForSa(any(), any(), any())(any(), any()))
             .thenReturn(Future.successful(true))
 
           val result = serviceWithStubbedLinkCheck(true).ivCheckAndEnrol()

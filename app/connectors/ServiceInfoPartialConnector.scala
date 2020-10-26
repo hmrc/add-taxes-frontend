@@ -18,16 +18,15 @@ package connectors
 
 import config.FrontendAppConfig
 import javax.inject.{Inject, Singleton}
-import play.api.Logger
+import play.api.Logging
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HttpClient
 import uk.gov.hmrc.play.partials.HtmlPartial._
 import uk.gov.hmrc.play.partials.{HeaderCarrierForPartials, HtmlPartial}
-
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class ServiceInfoPartialConnector @Inject()(val http: HttpClient, val config: FrontendAppConfig) {
+class ServiceInfoPartialConnector @Inject()(val http: HttpClient, val config: FrontendAppConfig) extends Logging{
 
   lazy val btaUrl: String = config.btaUrl + "/business-account/partial/service-info"
 
@@ -37,7 +36,7 @@ class ServiceInfoPartialConnector @Inject()(val http: HttpClient, val config: Fr
       .map(_.successfulContentOrEmpty)
       .recover {
         case _ =>
-          Logger.warn(s"[ServiceInfoPartialConnector][getServiceInfoPartial] - Unexpected future failed error")
+          logger.warn(s"[ServiceInfoPartialConnector][getServiceInfoPartial] - Unexpected future failed error")
           Html("")
       }
 }

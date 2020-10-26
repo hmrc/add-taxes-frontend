@@ -17,7 +17,6 @@
 package controllers.employer.ers
 
 import controllers._
-import controllers.actions._
 import forms.employer.IsBusinessRegisteredForPAYEFormProvider
 import models.employer.IsBusinessRegisteredForPAYE
 import play.api.data.Form

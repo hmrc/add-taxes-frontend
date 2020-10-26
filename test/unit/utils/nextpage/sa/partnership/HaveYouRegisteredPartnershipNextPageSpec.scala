@@ -16,12 +16,8 @@
 
 package utils.nextpage.sa.partnership
 
-import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.sa.partnership.HaveYouRegisteredPartnership
-import play.api.mvc.AnyContent
-import play.twirl.api.Html
-import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier, Enrolments}
-import utils.HmrcEnrolmentType
+import uk.gov.hmrc.auth.core.Enrolments
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 

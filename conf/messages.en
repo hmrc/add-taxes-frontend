@@ -198,8 +198,8 @@ registerEORIICS.p1 = When you get this, sign in and add the Import Control Syste
 #######################################################
 ##  RegisterDefermentApprovalNumber
 #######################################################
-registerDefermentApprovalNumber.title = ​You need a Deferment Approval Number (DAN) to add this service
-registerDefermentApprovalNumber.heading = ​You need a Deferment Approval Number (DAN) to add this service
+registerDefermentApprovalNumber.title = You need a Deferment Approval Number (DAN) to add this service
+registerDefermentApprovalNumber.heading = You need a Deferment Approval Number (DAN) to add this service
 registerDefermentApprovalNumber.p1 = When you get this, sign in and add Duty Deferment Electronic Statements to your account.
 registerDefermentApprovalNumber.continue = Apply for deferment approval
 

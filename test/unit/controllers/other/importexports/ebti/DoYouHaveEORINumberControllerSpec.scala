@@ -17,7 +17,6 @@
 package controllers.other.importexports.ebti
 
 import controllers.ControllerSpecBase
-import controllers.actions.FakeServiceInfoAction
 import controllers.other.importexports.ebti.routes._
 import controllers.routes._
 import forms.other.importexports.DoYouHaveEORINumberFormProvider

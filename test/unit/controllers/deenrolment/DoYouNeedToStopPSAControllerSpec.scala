@@ -17,7 +17,6 @@
 package controllers.deenrolment
 
 import controllers._
-import controllers.actions.FakeServiceInfoAction
 import forms.deenrolment.DoYouNeedToStopPSAFormProvider
 import models.deenrolment.DoYouNeedToStopPSA
 import play.api.data.Form

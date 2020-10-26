@@ -16,15 +16,9 @@
 
 package utils.nextpage.employer.cis.uk.subcontractor
 
-import identifiers.WhatTypeOfSubcontractorId
 import models.employer.cis.uk.subcontractor.WhatTypeOfSubcontractor
-import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
-import play.api.mvc.AnyContent
-import play.api.test.FakeRequest
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
-import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
-import utils.{HmrcEnrolmentType, NextPage, WithName}
+import uk.gov.hmrc.auth.core.Enrolments
+import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
 class WhatTypeOfSubcontractorNextPageSpec extends NextPageSpecBase {

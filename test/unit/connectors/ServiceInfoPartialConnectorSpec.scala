@@ -24,12 +24,11 @@ import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
 import play.mvc.Http.Status
 import play.twirl.api.Html
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 import uk.gov.hmrc.play.partials.HtmlPartial.{Failure, Success}
 import uk.gov.hmrc.play.partials.{HeaderCarrierForPartials, HtmlPartial}
-import scala.concurrent.ExecutionContext.Implicits.global
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class ServiceInfoPartialConnectorSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures {
@@ -73,7 +72,7 @@ class ServiceInfoPartialConnectorSpec extends SpecBase with MockitoSugar with Be
   val successResponse: Success = Success(None, serviceInfoPartialSuccess)
   val badRequestResponse: Failure = Failure(Some(Status.BAD_REQUEST))
   val gatewayTimeoutResponse: Failure = Failure(Some(Status.GATEWAY_TIMEOUT))
-  val badResponse: HttpResponse = HttpResponse(Status.BAD_REQUEST, responseString = Some("Error Message"))
+  val badResponse: HttpResponse = HttpResponse.apply(Status.BAD_REQUEST, "Error Message")
   implicit val hcwc: HeaderCarrierForPartials = HeaderCarrierForPartials(HeaderCarrier(), "")
 
   "The ServiceInfoPartialConnector.getServiceInfoPartial() method" when {

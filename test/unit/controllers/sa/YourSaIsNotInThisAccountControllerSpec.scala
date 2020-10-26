@@ -17,7 +17,6 @@
 package controllers.sa
 
 import controllers.ControllerSpecBase
-import controllers.actions.FakeServiceInfoAction
 import forms.sa.YourSaIsNotInThisAccountFormProvider
 import models.sa.YourSaIsNotInThisAccount
 import play.api.data.Form

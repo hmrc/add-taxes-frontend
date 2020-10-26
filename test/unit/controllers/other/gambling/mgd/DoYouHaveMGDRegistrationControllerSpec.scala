@@ -17,7 +17,6 @@
 package controllers.other.gambling.mgd
 
 import controllers._
-import controllers.actions.{FakeServiceInfoAction, _}
 import forms.other.gambling.mgd.DoYouHaveMGDRegistrationFormProvider
 import models.other.gambling.mgd.DoYouHaveMGDRegistration
 import play.api.data.Form

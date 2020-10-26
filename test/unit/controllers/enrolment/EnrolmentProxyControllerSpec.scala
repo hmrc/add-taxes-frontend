@@ -17,7 +17,6 @@
 package controllers.enrolment
 
 import controllers.ControllerSpecBase
-import controllers.actions.FakeServiceInfoAction
 import play.api.test.Helpers._
 import utils.Enrolments
 

@@ -17,7 +17,6 @@
 package controllers.deenrolment
 
 import controllers._
-import controllers.actions.{FakeServiceInfoAction, _}
 import forms.deenrolment.StopCorporationTaxFormProvider
 import models.deenrolment.StopCorporationTax
 import play.api.data.Form

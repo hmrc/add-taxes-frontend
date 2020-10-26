@@ -17,7 +17,6 @@
 package controllers.other.aeio.register
 
 import controllers._
-import controllers.actions._
 import controllers.other.aeoi.RegisterAEOIController
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat

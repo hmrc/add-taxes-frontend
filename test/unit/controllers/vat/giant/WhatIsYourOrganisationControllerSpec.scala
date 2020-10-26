@@ -17,7 +17,6 @@
 package controllers.vat.giant
 
 import controllers._
-import controllers.actions.{FakeServiceInfoAction, _}
 import forms.vat.giant.WhatIsYourOrganisationFormProvider
 import models.vat.giant.WhatIsYourOrganisation
 import play.api.data.Form

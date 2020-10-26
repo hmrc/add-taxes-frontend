@@ -27,7 +27,7 @@ import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import playconfig.featuretoggle.{EpayeEnrolmentChecker, FeatureToggleSupport}
+import playconfig.featuretoggle.FeatureToggleSupport
 import utils.{Enrolments, FakeNavigator}
 import views.html.employer.paye.enterPAYEReference
 

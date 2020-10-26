@@ -17,7 +17,6 @@
 package controllers.vat.moss.ukbased
 
 import controllers._
-import controllers.actions.FakeServiceInfoAction
 import forms.vat.moss.uk.OnlineVATAccountFormProvider
 import models.vat.moss.uk.OnlineVATAccount
 import play.api.data.Form

@@ -17,7 +17,6 @@
 package controllers.deenrolment
 
 import controllers._
-import controllers.actions.FakeServiceInfoAction
 import forms.deenrolment.DoYouWantToLeaveCISFormProvider
 import models.deenrolment.DoYouWantToLeaveCIS
 import play.api.data.Form

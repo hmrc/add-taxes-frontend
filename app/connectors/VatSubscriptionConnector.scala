@@ -18,8 +18,8 @@ package connectors
 
 import config.FrontendAppConfig
 import javax.inject.{Inject, Singleton}
-import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse}
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import uk.gov.hmrc.http.HttpReads.Implicits._
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -28,13 +28,8 @@ class VatSubscriptionConnector @Inject()(val http: HttpClient, val appConfig: Fr
 
   lazy val vatSubscriptionUrl: String = appConfig.vatSubscriptionUrl
 
-  private def handleResponse()(implicit rds: HttpReads[Boolean]): HttpReads[Int] =
-    new HttpReads[Int] {
-      override def read(method: String, url: String, response: HttpResponse): Int = response.status
-    }
-
   def getMandationStatus(vrn: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Int] = {
     val url = vatSubscriptionUrl + s"/vat-subscription/$vrn/mandation-status"
-    http.GET[Int](url)(handleResponse(), hc, ec)
+    http.GET[HttpResponse](url).map(_.status)
   }
 }

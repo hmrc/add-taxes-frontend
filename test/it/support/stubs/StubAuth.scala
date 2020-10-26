@@ -25,6 +25,8 @@ object StubAuth {
 
   def stubAuthorisedUserSa(authProfile: AuthenticatedRequest[_]): Unit = {
 
+    val credId = authProfile.credId
+
     val responseJson: JsValue =
       Json.obj(
         "externalId" -> authProfile.externalId,
@@ -32,8 +34,8 @@ object StubAuth {
         "affinityGroup" -> authProfile.affinityGroup.toString,
         "groupIdentifier" -> authProfile.groupId,
         "optionalCredentials" ->
-        (authProfile.credId match {
-          case credId =>
+        (credId match {
+          case `credId` =>
         Json.obj(
           "providerId" -> credId,
           "providerType" -> "GovernmmentGateway"
@@ -44,6 +46,7 @@ object StubAuth {
           case ConfidenceLevel.L200 => 200
           case ConfidenceLevel.L100 => 100
           case ConfidenceLevel.L50 => 50
+          case _ => 200
         })
       )
 

@@ -22,9 +22,8 @@ import controllers.sa.{routes => saRoutes}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.mvc.Call
 import play.api.test.Helpers.{defaultAwaitTimeout, redirectLocation, status}
-import playconfig.featuretoggle.{FeatureToggleSupport, PinAndPostFeature}
+import playconfig.featuretoggle.FeatureToggleSupport
 import service.IvService
 
 import scala.concurrent.Future

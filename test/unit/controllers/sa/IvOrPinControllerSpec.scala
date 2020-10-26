@@ -17,14 +17,14 @@
 package controllers.sa
 
 import controllers._
-import forms.sa.{AreYouSelfEmployedFormProvider, IvOrPinFormProvider}
-import models.sa.{AreYouSelfEmployed, IvOrPin}
+import forms.sa.IvOrPinFormProvider
+import models.sa.IvOrPin
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
-import views.html.sa.{areYouSelfEmployed, ivOrPin}
+import views.html.sa.ivOrPin
 
 class IvOrPinControllerSpec extends ControllerSpecBase {
 

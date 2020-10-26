@@ -17,7 +17,6 @@
 package controllers.other.importexports.dan
 
 import controllers._
-import controllers.actions._
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import views.html.other.importexports.dan.registerDefermentApprovalNumber

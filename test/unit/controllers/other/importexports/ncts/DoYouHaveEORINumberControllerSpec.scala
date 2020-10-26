@@ -17,7 +17,6 @@
 package controllers.other.importexports.ncts
 
 import controllers.ControllerSpecBase
-import controllers.actions.FakeServiceInfoAction
 import controllers.routes._
 import forms.other.importexports.DoYouHaveEORINumberFormProvider
 import models.other.importexports.DoYouHaveEORINumber

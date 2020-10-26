@@ -17,7 +17,6 @@
 package controllers.other.alcohol.awrs
 
 import controllers._
-import controllers.actions.FakeServiceInfoAction
 import forms.other.alcohol.awrs.SelectAlcoholSchemeFormProvider
 import models.other.alcohol.awrs.SelectAlcoholScheme
 import play.api.data.Form

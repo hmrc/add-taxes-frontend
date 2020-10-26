@@ -17,7 +17,6 @@
 package controllers.sa
 
 import controllers._
-import controllers.actions.{FakeServiceInfoAction, _}
 import forms.sa.AreYouSelfEmployedFormProvider
 import models.sa.AreYouSelfEmployed
 import play.api.data.Form

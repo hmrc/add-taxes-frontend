@@ -16,11 +16,10 @@
 
 package service
 
-import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector, SaConnector}
-import controllers.ControllerSpecBase
+import connectors.EnrolmentStoreProxyConnector
 import controllers.Assets._
+import controllers.ControllerSpecBase
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
-import models.sa.{IvLinks, SaEnrolment}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.concurrent.ScalaFutures.whenReady
@@ -31,7 +30,6 @@ import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
-import controllers.sa.{routes => saRoutes}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

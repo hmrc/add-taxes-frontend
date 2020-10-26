@@ -17,7 +17,6 @@
 package controllers.vat.moss.ukbased
 
 import controllers._
-import controllers.actions._
 import forms.vat.moss.AlreadyRegisteredForVATMossFormProvider
 import models.vat.moss.AlreadyRegisteredForVATMoss
 import play.api.data.Form

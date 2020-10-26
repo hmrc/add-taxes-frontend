@@ -14,7 +14,7 @@ lazy val playSettings: Seq[Setting[_]] = Seq(
   RoutesKeys.routesImport ++= Seq(),
   TwirlKeys.templateImports ++= Seq()
 )
-val silencerVersion = "1.7.0"
+val silencerVersion = "1.7.1"
 
 def unitFilter(name: String): Boolean = name startsWith "unit"
 
@@ -55,7 +55,7 @@ lazy val microservice = Project(appName, file("."))
     retrieveManaged := true,
     evictionWarningOptions in update := EvictionWarningOptions.default.withWarnScalaVersionEviction(false),
     PlayKeys.playDefaultPort := 9730,
-    scalaVersion := "2.12.11"
+    scalaVersion := "2.12.12"
   )
   .settings(inConfig(Test)(Defaults.testSettings): _*)
   .settings(

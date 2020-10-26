@@ -19,7 +19,6 @@ package connectors
 import controllers.Assets.OK
 import models.sa.JourneyLinkResponse
 import org.scalatest.{MustMatchers, WordSpec}
-import play.api.libs.json.Json
 import play.api.test.Helpers._
 import support.AddTaxesIntegrationTest
 import support.stubs.StubIvConnector

@@ -17,7 +17,6 @@
 package controllers.other.importexports.ics
 
 import controllers.ControllerSpecBase
-import controllers.actions.FakeServiceInfoAction
 import controllers.other.importexports.ics.routes._
 import controllers.routes._
 import forms.other.importexports.DoYouHaveEORINumberFormProvider

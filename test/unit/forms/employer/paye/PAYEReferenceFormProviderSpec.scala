@@ -17,12 +17,8 @@
 package forms.employer.paye
 
 import forms.behaviours.FormBehaviours
-import generators.ModelGenerators
 import models.employer.paye.PAYEReference
-import models.sa.SAUTR
 import models.{Field, Required}
-import org.scalacheck.Gen._
-import org.scalacheck.{Gen, Shrink}
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import play.api.data.Form
 

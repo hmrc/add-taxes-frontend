@@ -17,7 +17,6 @@
 package controllers.employer.cis.ukbased.contractor
 
 import controllers._
-import controllers.actions._
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.test.Helpers._

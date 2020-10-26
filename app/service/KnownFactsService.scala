@@ -16,17 +16,15 @@
 
 package service
 
-import config.FrontendAppConfig
 import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
-import controllers.Assets.{Forbidden, Ok, Redirect}
-import controllers.sa.EnrolmentSuccessController
+import controllers.Assets.Redirect
+import controllers.sa.{EnrolmentSuccessController, routes => saRoutes}
 import identifiers.EnterSAUTRId
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.sa.{KnownFacts, KnownFactsReturn, SAUTR}
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.http.HeaderCarrier
-import controllers.sa.{routes => saRoutes}
 
 import scala.concurrent.{ExecutionContext, Future}
 

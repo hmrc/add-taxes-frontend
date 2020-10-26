@@ -17,7 +17,7 @@
 package controllers.vat
 
 import controllers._
-import controllers.actions.{FakeServiceInfoAction, _}
+import controllers.actions._
 import forms.vat.ClaimRefundFormProvider
 import models.vat.ClaimRefund
 import org.scalatest.BeforeAndAfterEach
@@ -26,7 +26,6 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import playconfig.featuretoggle.FeatureToggleSupport
-import uk.gov.hmrc.http.NotFoundException
 import utils.FakeNavigator
 import views.html.vat.claimRefund
 

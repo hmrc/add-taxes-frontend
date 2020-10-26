@@ -17,7 +17,6 @@
 package controllers.other.alcohol.atwd
 
 import controllers._
-import controllers.actions.FakeServiceInfoAction
 import forms.other.alcohol.atwd.AreYouRegisteredWarehousekeeperFormProvider
 import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
 import play.api.data.Form

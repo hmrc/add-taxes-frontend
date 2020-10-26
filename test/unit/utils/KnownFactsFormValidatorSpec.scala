@@ -21,7 +21,7 @@ import play.api.data.FormError
 
 class KnownFactsFormValidatorSpec extends SpecBase {
 
-  val mockKnownFactsFormValidator: KnownFactsFormValidator = new KnownFactsFormValidator()(frontendAppConfig)
+  val mockKnownFactsFormValidator: KnownFactsFormValidator = new KnownFactsFormValidator()
 
   "validate postcode" must {
     val blankPostcodeError = "TBC - Blank"

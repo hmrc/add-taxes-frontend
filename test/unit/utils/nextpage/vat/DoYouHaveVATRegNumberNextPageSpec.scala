@@ -18,7 +18,6 @@ package utils.nextpage.vat
 
 import config.FrontendAppConfig
 import models.vat.DoYouHaveVATRegNumber
-import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.Call
