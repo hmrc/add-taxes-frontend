@@ -27,7 +27,7 @@ import uk.gov.hmrc.http.HttpReads.Implicits._
 
 class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) extends Logging{
 
-  val enrolForSaUrl = appConfig.enrolForSaUrl
+  val enrolForSaUrl: String = appConfig.enrolForSaUrl
 
   def checkExistingUTR(utr: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
     http.GET[HttpResponse](appConfig.checkUtrUrl(utr)).map { response =>

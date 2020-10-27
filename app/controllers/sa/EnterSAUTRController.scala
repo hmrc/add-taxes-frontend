@@ -26,6 +26,7 @@ import models.sa.SAUTR
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import service.AuditService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.Navigator
 import views.html.sa.enterSAUTR
@@ -40,7 +41,8 @@ class EnterSAUTRController @Inject()(appConfig: FrontendAppConfig,
                                      formProvider: SAUTRFormProvider,
                                      enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
                                      dataCacheConnector: DataCacheConnector,
-                                     enterSAUTR: enterSAUTR)(implicit val ec: ExecutionContext)
+                                     enterSAUTR: enterSAUTR,
+                                     auditService: AuditService)(implicit val ec: ExecutionContext)
   extends FrontendController(mcc) with I18nSupport {
 
   val pinAndPostFeatureToggle: Boolean = appConfig.pinAndPostFeatureToggle
@@ -54,16 +56,22 @@ class EnterSAUTRController @Inject()(appConfig: FrontendAppConfig,
     form.bindFromRequest()
       .fold(
         formWithErrors => Future(BadRequest(enterSAUTR(appConfig, formWithErrors)(request.serviceInfoContent))),
-        saUTR =>
+        saUTR => {
+          lazy val enrolmentCheck = {
+            enrolmentStoreProxyConnector.checkExistingUTR(saUTR.value).map { enrolmentStoreResult =>
+              auditService.auditSA(request.request.credId, saUTR.value, enrolmentStoreResult)
+              Redirect(navigator.nextPage(EnterSAUTRId, enrolmentStoreResult))
+            }
+          }
+
           if(pinAndPostFeatureToggle){
-          dataCacheConnector.save[SAUTR](request.request.externalId, EnterSAUTRId.toString, saUTR).flatMap { _ =>
-            enrolmentStoreProxyConnector.checkExistingUTR(saUTR.value).map { enrolmentStoreResult =>
-              Redirect(navigator.nextPage(EnterSAUTRId, enrolmentStoreResult))
+            dataCacheConnector.save[SAUTR](request.request.externalId, EnterSAUTRId.toString, saUTR).flatMap { _ =>
+              enrolmentCheck
             }
-          }} else {
-            enrolmentStoreProxyConnector.checkExistingUTR(saUTR.value).map { enrolmentStoreResult =>
-              Redirect(navigator.nextPage(EnterSAUTRId, enrolmentStoreResult))
-            }
-          })
+          } else {
+             enrolmentCheck
+          }
+        }
+      )
   }
 }

@@ -28,6 +28,8 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import playconfig.featuretoggle.FeatureToggleSupport
+import service.AuditService
+import uk.gov.hmrc.play.audit.http.connector.AuditResult
 import utils.FakeNavigator
 import views.html.sa.enterSAUTR
 
@@ -44,6 +46,7 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar with
 
   val mockEnrolmentStoreProxyConnector: EnrolmentStoreProxyConnector = mock[EnrolmentStoreProxyConnector]
   val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
+  val mockAuditService: AuditService = mock[AuditService]
 
   val view: enterSAUTR = injector.instanceOf[enterSAUTR]
 
@@ -60,7 +63,8 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar with
       formProvider,
       mockEnrolmentStoreProxyConnector,
       mockDataCacheConnector,
-      view
+      view,
+      mockAuditService
     ){
       override val pinAndPostFeatureToggle: Boolean = pinAndPostToggle
     }
@@ -73,6 +77,9 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar with
     new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "EnterSAUTR Controller" must {
+
+    when(mockAuditService.auditSA(any(), any(), any())(any(), any(), any()))
+      .thenReturn(Future.successful(AuditResult.Success))
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(fakeRequest)
