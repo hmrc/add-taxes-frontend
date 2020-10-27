@@ -28,6 +28,8 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import playconfig.featuretoggle.FeatureToggleSupport
+import service.AuditService
+import uk.gov.hmrc.play.audit.http.connector.AuditResult
 import utils.{Enrolments, FakeNavigator}
 import views.html.employer.paye.enterPAYEReference
 
@@ -41,6 +43,7 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
   val form: Form[PAYEReference] = formProvider()
 
   val mockEnrolmentStoreProxyConnector: EnrolmentStoreProxyConnector = mock[EnrolmentStoreProxyConnector]
+  val mockAuditService: AuditService = mock[AuditService]
 
   val view: enterPAYEReference = injector.instanceOf[enterPAYEReference]
 
@@ -58,9 +61,10 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
       FakeAuthAction,
       FakeServiceInfoAction,
       mockEnrolmentStoreProxyConnector,
-      formProvider
+      formProvider,
+      mockAuditService
     ) {
-      override val enrolmentCheckerFeature = featureSwitch
+      override val enrolmentCheckerFeature: Boolean = featureSwitch
     }
   }
 
@@ -72,20 +76,24 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
 
   "EnterYourPAYEReferenceController Controller" must {
 
+    when(mockAuditService.auditEPAYE(any(),any(),any())(any(),any(),any()))
+      .thenReturn(Future.successful(AuditResult.Success))
+
     "return OK and the correct view for a GET" when {
 
       "epayeEnrolmentCheckerEnabled is enabled" in {
-        val result = controller(false, true).onPageLoad()(fakeRequest)
+        val result = controller(empRefExists = false, featureSwitch = true).onPageLoad()(fakeRequest)
 
         status(result) mustBe OK
         contentAsString(result) mustBe viewAsString()
       }
 
       "epayeEnrolmentCheckerEnabled is disabled" in {
-        val result = controller(false).onPageLoad()(fakeRequest)
+        val result = controller(empRefExists = false).onPageLoad()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some("http://localhost:9555/enrolment-management-frontend/IR-PAYE/request-access-tax-scheme?continue=%2Fbusiness-account")
+        redirectLocation(result) mustBe
+          Some("http://localhost:9555/enrolment-management-frontend/IR-PAYE/request-access-tax-scheme?continue=%2Fbusiness-account")
       }
 
     }
@@ -94,7 +102,7 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
       val postRequest = fakeRequest.withFormUrlEncodedBody(("officeNumber", "ads"),("payeReference", ":_£("))
       val boundForm = form.bind(Map("officeNumber" -> "ads", "payeReference" -> ":_£("))
 
-      val result = controller(false).onSubmit()(postRequest)
+      val result = controller(empRefExists = false).onSubmit()(postRequest)
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe viewAsString(boundForm)
@@ -104,7 +112,7 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
       when(mockEnrolmentStoreProxyConnector.checkExistingEmpRef(any(), any())(any(), any())).thenReturn(Future.successful(true))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("officeNumber", "123"),("payeReference", "AB123"))
 
-      val result = controller(true).onSubmit()(postRequest)
+      val result = controller(empRefExists = true).onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(Call("GET", frontendAppConfig.getBusinessAccountUrl("wrong-credentials")).url)

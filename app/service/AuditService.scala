@@ -28,6 +28,7 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
 
   final private val enrolmentChecker: String = "business-tax-account-check"
   final private val utrEvent: String = "UTR-check"
+  final private val payeEvent: String = "PAYE-check"
 
   def auditSA(credId: String, saUtr: String, recordMatch: Boolean)
              (implicit ec: ExecutionContext, hc: HeaderCarrier, request: Request[_]): Future[AuditResult] = {
@@ -40,6 +41,23 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
     val data = DataEvent(
       enrolmentChecker,
       utrEvent,
+      tags = buildTags(),
+      detail = detail
+    )
+    auditConnector.sendEvent(data)
+  }
+
+  def auditEPAYE(credId: String, epayeRef: String, recordMatch: Boolean)
+             (implicit ec: ExecutionContext, hc: HeaderCarrier, request: Request[_]): Future[AuditResult] = {
+    val detail = Map[String,String](elems =
+      "credId" -> credId,
+      "utr" -> epayeRef,
+      "recordFound" -> recordMatch.toString
+    )
+
+    val data = DataEvent(
+      enrolmentChecker,
+      payeEvent,
       tags = buildTags(),
       detail = detail
     )
