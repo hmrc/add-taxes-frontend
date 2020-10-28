@@ -26,6 +26,7 @@ import models.employer.paye.PAYEReference
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import service.AuditService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enrolments, Navigator}
 import views.html.employer.paye.enterPAYEReference
@@ -39,7 +40,8 @@ class EnterYourPAYEReferenceController @Inject()(appConfig: FrontendAppConfig,
                                                  authenticate: AuthAction,
                                                  serviceInfoData: ServiceInfoAction,
                                                  enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
-                                                 formProvider: PAYEReferenceFormProvider)
+                                                 formProvider: PAYEReferenceFormProvider,
+                                                 auditService: AuditService)
                                                 (implicit val ec: ExecutionContext)
   extends FrontendController(mcc)
     with I18nSupport {
@@ -62,6 +64,7 @@ class EnterYourPAYEReferenceController @Inject()(appConfig: FrontendAppConfig,
         formWithErrors => Future(BadRequest(enterPAYEReference(appConfig, formWithErrors)(request.serviceInfoContent))),
         empRef =>
           enrolmentStoreProxyConnector.checkExistingEmpRef(empRef.officeNumber, empRef.payeReference).map { enrolmentStoreResult =>
+            auditService.auditEPAYE(request.request.credId, s"${empRef.officeNumber}/${empRef.payeReference}", enrolmentStoreResult)
             Redirect(navigator.nextPage(EnterPAYEReferenceId, enrolmentStoreResult))
           }
       )

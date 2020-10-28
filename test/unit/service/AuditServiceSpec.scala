@@ -40,4 +40,24 @@ class AuditServiceSpec extends PlaySpec with MockitoSugar {
       whenReady(result){ _ mustBe expected }
     }
   }
+
+  "auditEPAYE" should {
+
+    implicit val hc: HeaderCarrier = HeaderCarrier(
+      requestId = Some(RequestId("testId")),
+      sessionId = Some(SessionId("testId2")),
+      trueClientIp = Some("testIp"),
+      trueClientPort = Some("testPort")
+    )
+    implicit val request: FakeRequest[AnyContent] = FakeRequest()
+
+    "successfully audit" in {
+      when(mockAuditConnector.sendEvent(any())(any(), any()))
+        .thenReturn(Future.successful(expected))
+
+      val result = testService.auditEPAYE("credId123", "ref321", recordMatch = true)
+
+      whenReady(result){ _ mustBe expected }
+    }
+  }
 }
