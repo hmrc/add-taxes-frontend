@@ -18,7 +18,9 @@ package connectors
 
 import config.FrontendAppConfig
 import javax.inject.{Inject, Singleton}
+import play.api.http.Status._
 import uk.gov.hmrc.http.HttpReads.Implicits._
+import uk.gov.hmrc.http.UpstreamErrorResponse.Upstream4xxResponse
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -31,5 +33,8 @@ class VatSubscriptionConnector @Inject()(val http: HttpClient, val appConfig: Fr
   def getMandationStatus(vrn: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Int] = {
     val url = vatSubscriptionUrl + s"/vat-subscription/$vrn/mandation-status"
     http.GET[HttpResponse](url).map(_.status)
+  }.recover {
+    case Upstream4xxResponse(error) if error.statusCode == NOT_FOUND => NOT_FOUND
+    case Upstream4xxResponse(error) if error.statusCode == PRECONDITION_FAILED => PRECONDITION_FAILED
   }
 }
