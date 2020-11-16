@@ -21,8 +21,8 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.http.Status.{BAD_REQUEST, OK, PRECONDITION_FAILED, NOT_FOUND}
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
+import play.api.http.Status.{BAD_REQUEST, NOT_FOUND, OK, PRECONDITION_FAILED}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse, UpstreamErrorResponse}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -64,6 +64,31 @@ class VatSubscriptionConnectorSpec extends SpecBase with MockitoSugar with Scala
         }
 
       }
+
+      "return Right(false) if a VRN is not found in ETMP (UpstreamErrorResponse(404))" in {
+        when(mockHttp.GET[HttpResponse](any())(any(),any(),any()))
+          .thenReturn(Future.failed(UpstreamErrorResponse("Not found", NOT_FOUND, NOT_FOUND)))
+
+        val response: Future[Int] = vatSubscriptionConnector.getMandationStatus(vrn)
+
+        whenReady(response) { result =>
+          result mustBe NOT_FOUND
+        }
+
+      }
+
+      "return Right(false) if a VRN is pre-condition failed in ETMP (UpstreamErrorResponse(412))" in {
+        when(mockHttp.GET[HttpResponse](any())(any(),any(),any()))
+          .thenReturn(Future.failed(UpstreamErrorResponse("Pre-condition failed", PRECONDITION_FAILED, PRECONDITION_FAILED)))
+
+        val response: Future[Int] = vatSubscriptionConnector.getMandationStatus(vrn)
+
+        whenReady(response) { result =>
+          result mustBe PRECONDITION_FAILED
+        }
+
+      }
+
       "return Left(true) if a VRN is in migration (412)" in {
         when(mockHttp.GET[HttpResponse](any())(any(),any(),any()))
           .thenReturn(Future.successful(HttpResponse.apply(PRECONDITION_FAILED, "NOT_FOUND")))
