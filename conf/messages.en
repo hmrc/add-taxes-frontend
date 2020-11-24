@@ -1352,40 +1352,57 @@ vatAccountUnavailable.p2 = It will take up to 72 hours for your account to be se
 vatAccountUnavailable.p3 = Check back again later.
 
 #######################################################
-##  ivOrPin
-#######################################################
-ivOrPin.title = MyPageTitle
-ivOrPin.heading = MyPageHeading
-ivOrPin.Iv = Iv
-ivOrPin.Pin = Pin
-ivOrPin.Iv.hint = ivOrPin Option 2
-ivOrPin.Pin.hint = ivOrPin Option 2
-ivOrPin.error.required = ErrorMessage
-
-#######################################################
 ##  successfulEnrolment
 #######################################################
-successfulEnrolment.title = MyPageTitle
-successfulEnrolment.heading = Successfully Enrolled
+successfulEnrolment.title = You now have access to Self Assessment
+successfulEnrolment.heading = You now have access to Self Assessment
+successfulEnrolment.p1 = You can start using this tax or scheme straight away.
 
 #######################################################
 ##  enterKnownFacts
 #######################################################
-enterKnownFacts.title = Enter these facts
-enterKnownFacts.heading = Enter these facts heading
-enterKnownFacts.nino.label = Nino
-enterKnownFacts.nino.hintText = Nino hint
-enterKnownFacts.postcode.label = Postcode
-enterKnownFacts.postcode.hintText = Postcode hint
-enterKnownFacts.nino.error.format = Nino Format Error English
-enterKnownFacts.nino.error.length = Nino Length Error English
-enterKnownFacts.nino.error.required = Nino Required Error English
-enterKnownFacts.postcode.error.invalid = Postcode Invalid Error English
-enterKnownFacts.postcode.error.required = Postcode Required Error English
+enterKnownFacts.nino.title = What National Insurance number did you use to register for Self Assessment?
+enterKnownFacts.postcode.title = What postcode is registered to your Self Assessment?
+enterKnownFacts.nino.heading = What National Insurance number did you use to register for Self Assessment?
+enterKnownFacts.postcode.heading = What postcode is registered to your Self Assessment?
+enterKnownFacts.nino.hintText = For example, 'QQ 12 34 56 C'.
+enterKnownFacts.nino.linkText = I do not know my National Insurance number.
+enterKnownFacts.postcode.hintText = For example SW1A 2AA
+enterKnownFacts.postcode.p1 = or
+enterKnownFacts.postcode.abroadLabel = I live abroad
+enterKnownFacts.nino.error.format = Enter a National Insurance number in the right format, for example QQ 12 34 56 C
+enterKnownFacts.nino.error.length = Enter a National Insurance number in the right format, for example QQ 12 34 56 C
+enterKnownFacts.nino.error.required = Enter your National Insurance number
+enterKnownFacts.postcode.error.invalid = Enter a postcode in the right format
+enterKnownFacts.postcode.error.required = Enter a postcode or select if you live abroad
+
+#######################################################
+##  retryKnownFacts
+#######################################################
+retryKnownFacts.title = The information you gave does not match an HMRC record
+retryKnownFacts.heading = The information you gave does not match an HMRC record
+retryKnownFacts.p1 = This might mean that some of the details you entered were incorrect.
+retryKnownFacts.p2 = You can try entering the details again, or
+retryKnownFacts.linkText = contact HMRC(opens in new tab)
+retryKnownFacts.p3 = to get help.
+retryKnownFacts.button = Try again
 
 #######################################################
 ##  tryPinInPost
 #######################################################
-tryPinInPost.title = MyPageTitle
-tryPinInPost.heading = Try Pin in Post Instead?
-tryPinInPost.info = MyPageInfo
+tryPinInPost.title = Request access to Self Assessment
+tryPinInPost.heading= Request access to Self Assessment
+tryPinInPost.p1 = You can
+tryPinInPost.linkText = confirm your identity online
+tryPinInPost.p2 = to get access to Self Assessment straight away, or you can request an activation code in the post. This will take up to 10 days.
+tryPinInPost.p3 = If you choose to receive your activation code by post, you will not be able to go back and confirm your identity online.
+tryPinInPost.button = Request an activation code in the post
+tryPinInPost.p4 = You can request an activation code in the post. This will take up to 10 days.
+
+#######################################################
+##  requestedAccess
+#######################################################
+requestedAccess.title = You''ve requested access to Self Assessment
+requestedAccess.heading = You''ve requested access to Self Assessment
+requestedAccess.p1 = You''ll receive an activation code in the post within 10 days.
+requestedAccess.p2 = You need to use the activation code to get access to the tax or scheme.

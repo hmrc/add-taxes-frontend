@@ -40,7 +40,7 @@ class EnrolmentSuccessControllerSpec extends ControllerSpecBase with MockitoSuga
   }
 
   def viewAsString(): String =
-    new successfulEnrolment(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new successfulEnrolment(mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "EnrolmentSuccess Controller" must {
     "return OK and the correct view for a GET" in {

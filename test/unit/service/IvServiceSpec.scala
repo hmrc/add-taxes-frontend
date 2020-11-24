@@ -27,7 +27,7 @@ import org.scalatest.concurrent.ScalaFutures.whenReady
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
+import play.api.test.Helpers.{status, _}
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.auth.core.Enrolments
@@ -41,6 +41,7 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar {
   val mockEnrolForSaService: EnrolForSaService = mock[EnrolForSaService]
   val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
   val mockIvConnector: IvConnector = mock[IvConnector]
+  val enrolActivate: String = "enrolAndActivate"
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
   implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
@@ -53,7 +54,7 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar {
     mockEnrolForSaService
   )
 
-  def serviceWithStubbedLinkCheck(journeyLinkCheckResult: Boolean): IvService = new IvService(
+  def serviceWithStubbedLinkCheck(journeyLinkCheckResult: String): IvService = new IvService(
     mockDataCacheConnector,
     mockIvConnector,
     mockEnrolForSaService
@@ -61,7 +62,7 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar {
     override def journeyLinkCheck()
                                  (implicit request: ServiceInfoRequest[AnyContent],
                                   ec: ExecutionContext,
-                                  hc: HeaderCarrier): Future[Boolean] = {
+                                  hc: HeaderCarrier): Future[String] = {
       Future.successful(journeyLinkCheckResult)
     }
   }
@@ -73,7 +74,7 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar {
         val result = service().journeyLinkCheck()
 
         whenReady(result) { result =>
-          result mustBe false
+          result mustBe "Failed"
         }
       }
 
@@ -85,20 +86,7 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar {
         val result = service().journeyLinkCheck()
 
         whenReady(result) { result =>
-          result mustBe false
-        }
-      }
-
-      "returns false when iv connector returns a result that is not Success" in {
-        when(mockDataCacheConnector.getEntry[IvLinks](any(), any())(any()))
-          .thenReturn(Future.successful(Some(IvLinks("link", "journeyLink"))))
-        when(mockIvConnector.checkJourneyLink(any())(any(), any()))
-          .thenReturn(Future.successful(JourneyLinkResponse("NONE", "0")))
-
-        val result = service().journeyLinkCheck()
-
-        whenReady(result) { result =>
-          result mustBe false
+          result mustBe "Failed"
         }
       }
 
@@ -111,7 +99,7 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar {
         val result = service().journeyLinkCheck()
 
         whenReady(result) { result =>
-          result mustBe true
+          result mustBe "Success"
         }
       }
     }
@@ -119,40 +107,85 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar {
     "ivCheckAndEnrol is called" must {
       "return try pin an post call" when {
         "journeyLink returns false" in {
-          val result = serviceWithStubbedLinkCheck(false).ivCheckAndEnrol()
+          val result = serviceWithStubbedLinkCheck("Failed").ivCheckAndEnrol()
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad().url)
+          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed")).url)
         }
 
         "data cache connector returns None and journeyLink is true" in {
           when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
             .thenReturn(Future.successful(None))
 
-          val result = serviceWithStubbedLinkCheck(true).ivCheckAndEnrol()
+          val result = serviceWithStubbedLinkCheck("Success").ivCheckAndEnrol()
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad().url)
+          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed")).url)
         }
 
         "enrol for sa returns false" in {
           when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
             .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
-          when(mockEnrolForSaService.enrolForSa(any(), any(), any())(any(), any()))
+          when(mockEnrolForSaService.enrolForSa(any(), any(), any(), any())(any(), any()))
             .thenReturn(Future.successful(false))
 
-          val result = serviceWithStubbedLinkCheck(true).ivCheckAndEnrol()
+          val result = serviceWithStubbedLinkCheck("Success").ivCheckAndEnrol()
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad().url)
+          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed")).url)
 
+        }
+
+        "Journey link result is InsufficientEvidence" in {
+          when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
+            .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
+
+          val result = serviceWithStubbedLinkCheck("InsufficientEvidence").ivCheckAndEnrol()
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError")).url)
+        }
+
+        "Journey link result is LockedOut" in {
+          when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
+            .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
+
+          val result = serviceWithStubbedLinkCheck("LockedOut").ivCheckAndEnrol()
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("LockedOut")).url)
+        }
+
+        "Journey link result is FailedIV" in {
+          when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
+            .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
+
+          val result = serviceWithStubbedLinkCheck("FailedIV").ivCheckAndEnrol()
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError")).url)
+        }
+
+        "Journey link result is PreconditionFailed" in {
+          when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
+            .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
+
+          val result = serviceWithStubbedLinkCheck("PreconditionFailed").ivCheckAndEnrol()
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError")).url)
+        }
+
+        "Journey link result is FailedMatching" in {
+          when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
+            .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
+
+          val result = serviceWithStubbedLinkCheck("FailedMatching").ivCheckAndEnrol()
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError")).url)
         }
       }
       "return enrolment successful call" when {
         "journeyLink returns true and enrol for sa returns true" in {
           when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
             .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
-          when(mockEnrolForSaService.enrolForSa(any(), any(), any())(any(), any()))
+          when(mockEnrolForSaService.enrolForSa(any(), any(), any(), any())(any(), any()))
             .thenReturn(Future.successful(true))
 
-          val result = serviceWithStubbedLinkCheck(true).ivCheckAndEnrol()
+          val result = serviceWithStubbedLinkCheck("Success").ivCheckAndEnrol()
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some(saRoutes.EnrolmentSuccessController.onPageLoad().url)
         }

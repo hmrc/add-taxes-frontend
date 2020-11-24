@@ -42,14 +42,14 @@
 
         @components.input_text_field(
             field = form("officeNumber"),
-            label = messages("enterYourPAYEReference.officeNumber.label"),
+            label = Some(messages("enterYourPAYEReference.officeNumber.label")),
             hint  = Some(messages("enterYourPAYEReference.officeNumber.hintText")),
             formHintMargin= Some("margin-bottom-small")
             )
 
         @components.input_text_field(
             field = form("payeReference"),
-            label = messages("enterYourPAYEReference.employerPayeReference.label"),
+            label = Some(messages("enterYourPAYEReference.employerPayeReference.label")),
             hint  = Some(messages("enterYourPAYEReference.employerPayeReference.hintText")),
             formHintMargin= Some("margin-bottom-small")
         )

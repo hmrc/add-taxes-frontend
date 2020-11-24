@@ -26,20 +26,32 @@ class EnterSAUTRNextPageSpec extends NextPageSpecBase {
 
     behave like nextPage(
       NextPage.enterSAUTR,
-      true,
+      (false, true),
       "http://localhost:9020/business-account/wrong-credentials"
     )
 
     behave like nextPage(
       NextPage.enterSAUTR,
-      false,
+      (true, true),
+      "http://localhost:9020/business-account/wrong-credentials"
+    )
+
+    behave like nextPage(
+      NextPage.enterSAUTR,
+      (false, false),
       "/business-account/add-tax/self-assessment"
+    )
+
+    behave like nextPage(
+      NextPage.enterSAUTR,
+      (true, false),
+      "/business-account/add-tax/self-assessment/known-facts"
     )
 
     "called with a session variable tryingToAccessSa = true and the utr is not associated with another account" should {
       "redirect to the 'Your SA is not in this account' page" in {
         val result =
-          NextPage.enterSAUTR.get(false)(
+          NextPage.enterSAUTR.get(false, false)(
             frontendAppConfig,
             featureConfig,
             FakeRequest().withSession(("tryingToAccessSa", "true")))

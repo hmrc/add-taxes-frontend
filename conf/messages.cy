@@ -1355,40 +1355,58 @@ vatAccountUnavailable.p2 = Bydd yn cymryd hyd at 72 awr i greu’ch cyfrif.
 vatAccountUnavailable.p3 = Dewch yn ôl yn nes ymlaen.
 
 #######################################################
-##  ivOrPin
-#######################################################
-ivOrPin.title = MyPageTitle Welsh
-ivOrPin.heading = MyPageHeading Welsh
-ivOrPin.Iv = ivOrPin Option 1 Welsh
-ivOrPin.Pin = ivOrPin Option 2 Welsh
-ivOrPin.Iv.hint = ivOrPin Option 2 Welsh
-ivOrPin.Pin.hint = ivOrPin Option 2 Welsh
-ivOrPin.error.required = ErrorMessage Welsh
-
-#######################################################
 ##  successfulEnrolment
 #######################################################
-successfulEnrolment.title = MyPageTitle Welsh
-successfulEnrolment.heading = MyPageHeading Welsh
+successfulEnrolment.title = Gallwch nawr gael at eich cyfrif Hunanasesiad
+successfulEnrolment.heading = Gallwch nawr gael at eich cyfrif Hunanasesiad
+successfulEnrolment.p1 = Gallwch ddechrau defnyddio’r dreth hon neu’r cynllun hwn ar unwaith.
 
 #######################################################
 ##  enterKnownFacts
 #######################################################
-enterKnownFacts.title = MyPageTitle Welsh
-enterKnownFacts.heading = MyPageHeading Welsh
-enterKnownFacts.nino.label = myNewPage Option 1 Welsh
-enterKnownFacts.nino.hintText = myNewPage Option 2 Welsh
-enterKnownFacts.postcode.label = myNewPage Option 2 Welsh
-enterKnownFacts.postcode.hintText = myNewPage Option 2 Welsh
-enterKnownFacts.nino.error.format = Nino Format Error Welsh
-enterKnownFacts.nino.error.length = Nino Length Error Welsh
-enterKnownFacts.nino.error.required = Nino Required Error Welsh
-enterKnownFacts.postcode.error.invalid = Nino Postcode Invalid Error Welsh
-enterKnownFacts.postcode.error.required = Nino Postcode Required Error Welsh
+enterKnownFacts.nino.title = Pa rif Yswiriant Gwladol a ddefnyddioch i gofrestru ar gyfer Hunanasesiad?
+enterKnownFacts.postcode.title = Pa god post sydd wedi ei gofrestru i’ch cyfrif Hunanasesiad?
+enterKnownFacts.nino.heading = Pa rif Yswiriant Gwladol a ddefnyddioch i gofrestru ar gyfer Hunanasesiad?
+enterKnownFacts.postcode.heading = Pa god post sydd wedi ei gofrestru i’ch cyfrif Hunanasesiad?
+enterKnownFacts.nino.hintText = Er enghraifft, ‘QQ 12 34 56 C’.
+enterKnownFacts.nino.linkText = Nid wyf yn gwybod beth yw’r rhif Yswiriant Gwladol
+enterKnownFacts.postcode.hintText = Er enghraifft, SW1A 1AA
+enterKnownFacts.postcode.p1 = neu
+enterKnownFacts.postcode.abroadLabel = Rwy’n byw dramor
+enterKnownFacts.nino.error.format = Nodwch rif Yswiriant Gwladol yn y fformat cywir, er enghraifft QQ 12 34 56 C
+enterKnownFacts.nino.error.length = Nodwch rif Yswiriant Gwladol yn y fformat cywir, er enghraifft QQ 12 34 56 C
+enterKnownFacts.nino.error.required = Nodwch rif Yswiriant Gwladol yn y fformat cywir, er enghraifft QQ 12 34 56 C
+enterKnownFacts.postcode.error.invalid = Rhowch god post yn y fformat cywir
+enterKnownFacts.postcode.error.required = Rhowch god post neu dewiswch a ydych chi’n byw dramor
+
+#######################################################
+##  retryKnownFacts
+#######################################################
+retryKnownFacts.title = Nid yw’r wybodaeth a roesoch yn cyd-fynd â chofnod sydd gan CThEM
+retryKnownFacts.heading = Nid yw’r wybodaeth a roesoch yn cyd-fynd â chofnod sydd gan CThEM
+retryKnownFacts.p1 = Gallai hyn olygu bod rhai o’r manylion a nodwyd gennych yn anghywir.
+retryKnownFacts.p2 = You can try entering the details again, orwelsh
+retryKnownFacts.linkText = contact HMRC(opens in new tab)welsh
+retryKnownFacts.p3 = to get help.welsh
+retryKnownFacts.button = Rhoi cynnig arall arni
 
 #######################################################
 ##  tryPinInPost
 #######################################################
-tryPinInPost.title = MyPageTitle Welsh
-tryPinInPost.heading = MyPageHeading Welsh
-tryPinInPost.info = MyPageInfo Welsh
+tryPinInPost.title = Gwneud cais i gael at eich cyfrif Hunanasesiad
+tryPinInPost.heading= Gwneud cais i gael at eich cyfrif Hunanasesiad
+tryPinInPost.p1 = You canwelsh
+tryPinInPost.linkText = confirm your identity onlinewelsh
+tryPinInPost.p2 = to get access to Self Assessment straight away, or you can request an activation code in the post. This will take up to 10 days. welsh
+tryPinInPost.p3 = If you choose to receive your activation code by post, you will not be able to go back and confirm your identity online. welsh
+tryPinInPost.button = Request an activation code in the post welsh
+tryPinInPost.p4 = You can request an activation code in the post. This will take up to 10 days.welsh
+
+
+#######################################################
+##  requestedAccess
+#######################################################
+requestedAccess.title = TitleWelsh
+requestedAccess.heading = HeadingWelsh
+requestedAccess.p1 = Info1Welsh
+requestedAccess.p2 = Info2Welsh

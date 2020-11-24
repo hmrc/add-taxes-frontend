@@ -49,13 +49,14 @@ class EnrolForSaServiceSpec extends ControllerSpecBase with MockitoSugar {
 
   val utr: String = "utr"
   val credId: String = "cred"
+  val enrolActivate: String = "enrolAndActivate"
 
   "EnrolForSaService" when {
     "enrolForSa is called" must {
       "returns false when Enrolment connector returns an exception" in {
         when(mockEnrolmentStoreProxyConnector.enrolForSa(any(), any(), any())(any(), any()))
           .thenReturn(Future.failed(new Exception("")))
-        val result = service.enrolForSa(utr, credId, groupId)
+        val result = service.enrolForSa(utr, credId, groupId, enrolActivate)
 
         whenReady(result) { result =>
           result mustBe false
@@ -64,7 +65,7 @@ class EnrolForSaServiceSpec extends ControllerSpecBase with MockitoSugar {
       "returns false when Enrolment connector returns NOT_FOUND" in {
         when(mockEnrolmentStoreProxyConnector.enrolForSa(any(), any(), any())(any(), any()))
           .thenReturn(Future.successful(HttpResponse(NOT_FOUND, "")))
-        val result = service.enrolForSa(utr, credId, groupId)
+        val result = service.enrolForSa(utr, credId, groupId, enrolActivate)
 
         whenReady(result) { result =>
           result mustBe false
@@ -74,7 +75,7 @@ class EnrolForSaServiceSpec extends ControllerSpecBase with MockitoSugar {
       "returns false when Enrolment connector returns FORBIDDEN" in {
         when(mockEnrolmentStoreProxyConnector.enrolForSa(any(), any(), any())(any(), any()))
           .thenReturn(Future.successful(HttpResponse(FORBIDDEN, "")))
-        val result = service.enrolForSa(utr, credId, groupId)
+        val result = service.enrolForSa(utr, credId, groupId, enrolActivate)
 
         whenReady(result) { result =>
           result mustBe false
@@ -85,7 +86,7 @@ class EnrolForSaServiceSpec extends ControllerSpecBase with MockitoSugar {
         when(mockEnrolmentStoreProxyConnector.enrolForSa(any(), any(), any())(any(), any()))
           .thenReturn(Future.successful(HttpResponse(CREATED, "")))
 
-        val result = service.enrolForSa(utr, credId, groupId)
+        val result = service.enrolForSa(utr, credId, groupId, enrolActivate)
 
         whenReady(result) { result =>
           result mustBe true

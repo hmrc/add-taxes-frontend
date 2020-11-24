@@ -31,23 +31,23 @@ import play.twirl.api.HtmlFormat
 import playconfig.featuretoggle.FeatureToggleSupport
 import service.KnownFactsService
 import utils.KnownFactsFormValidator
-import views.html.sa.knownFacts
+import views.html.sa.postcodeKnownFacts
 
 import scala.concurrent.Future
 
-class KnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar with FeatureToggleSupport {
+class PostCodeControllerSpec extends ControllerSpecBase with MockitoSugar with FeatureToggleSupport {
 
   def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
-  val view: knownFacts = injector.instanceOf[knownFacts]
+  val view: postcodeKnownFacts = injector.instanceOf[postcodeKnownFacts]
   val knownFactsValidator: KnownFactsFormValidator = injector.instanceOf[KnownFactsFormValidator]
   val mockKnownFactsService: KnownFactsService = mock[KnownFactsService]
 
   val formProvider = new KnownFactsFormProvider(knownFactsValidator, frontendAppConfig)
-  val form = formProvider()
+  val form = formProvider(true)
 
-  def controller(pinAndPostToggle: Boolean = true): KnownFactsController = {
-    new KnownFactsController(
+  def controller(pinAndPostToggle: Boolean = true): PostcodeController = {
+    new PostcodeController(
       frontendAppConfig,
       mcc,
       FakeAuthAction,
@@ -61,13 +61,13 @@ class KnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar with
 
 
   def viewAsString(form: Form[KnownFacts] = form): String = {
-    injector.instanceOf[knownFacts].apply(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    injector.instanceOf[postcodeKnownFacts].apply(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
   }
   def viewAsString(): String = {
-     injector.instanceOf[knownFacts].apply(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+     injector.instanceOf[postcodeKnownFacts].apply(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
   }
 
-  "KnownFacts Controller" must {
+  "Postcode  Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad()(fakeRequest)
@@ -83,15 +83,6 @@ class KnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar with
       redirectLocation(result) mustBe Some(frontendAppConfig.getBusinessAccountUrl("home"))
     }
 
-    "return bad request with a invalid nino" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("nino", "zzzzzzzzzzzzz"))
-      val boundForm = form.bind(Map("nino" -> "zzzzzzzzzzzzz"))
-      val result = controller().onSubmit()(postRequest)
-
-      status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm)
-    }
-
     "return bad request with a invalid postcode" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("postcode", "zzzzzzzzzzzzz"))
       val boundForm = form.bind(Map("postcode" -> "zzzzzzzzzzzzz"))
@@ -101,23 +92,15 @@ class KnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar with
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    "return bad request if postcode and nino provided" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("postcode", "AA1 1AA"), ("nino", "AA000000A"))
-      val boundForm = form.bind(Map("postcode" -> "AA1 1AA", "nino" -> "AA000000A"))
+    "return bad request if postcode and isAbroad provided" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("postcode", "AA1 1AA"), ("isAbroad", "Y"))
+      val boundForm = form.bind(Map("postcode" -> "AA1 1AA", "isAbroad" -> "Y"))
       val result = controller().onSubmit()(postRequest)
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    "return bad request if 3 known facts provided" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("postcode", "AA1 1AA"), ("nino", "AA000000A"), ("isAbroad", "Y"))
-      val boundForm = form.bind(Map("postcode" -> "AA1 1AA", "nino" -> "AA000000A"))
-      val result = controller().onSubmit()(postRequest)
-
-      status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm)
-    }
 
     "return bad request with a no data" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody()
@@ -134,17 +117,6 @@ class KnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar with
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(saRoutes.RetryKnownFactsController.onPageLoad().url)
-    }
-
-    "redirect to successful enrolment page when query known facts returns true on nino" in {
-      when(mockKnownFactsService.knownFactsLocation(any())(any(), any(), any()))
-        .thenReturn(Future.successful(Redirect(saRoutes.EnrolmentSuccessController.onPageLoad())))
-
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("nino", "AA000000A"))
-      val result = controller().onSubmit()(postRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(saRoutes.EnrolmentSuccessController.onPageLoad().url)
     }
 
     "redirect to successful enrolment page when query known facts returns true on postcode" in {

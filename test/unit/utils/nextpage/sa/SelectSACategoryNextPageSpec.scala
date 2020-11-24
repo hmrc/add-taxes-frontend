@@ -29,7 +29,7 @@ class SelectSACategoryNextPageSpec extends NextPageSpecBase {
       NextPage.selectSACategory,
       (SelectSACategory.Sa, DoYouHaveSAUTR.Yes, Some(Organisation)),
       SelectSACategory.Sa.toString,
-      "http://localhost:9555/enrolment-management-frontend/IR-SA/request-access-tax-scheme?continue=%2Fbusiness-account",
+      "/business-account/add-tax/self-assessment/known-facts",
       "organisation"
     )
 

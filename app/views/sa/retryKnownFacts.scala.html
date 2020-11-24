@@ -16,7 +16,7 @@
 
 @import config.FrontendAppConfig
 @import utils.Enrolments._
-
+@import controllers.sa.routes._
 @this(
         uiForm: FormWithCSRF,
         main_template: main_template
@@ -25,20 +25,25 @@
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("tryPinInPost.title"),
+    title = messages("retryKnownFacts.title"),
     appConfig = appConfig,
     serviceInfoContent = serviceInfoContent) {
 
-    @components.heading("main-heading", "tryPinInPost.heading")
+    @components.heading("retry-knownFacts-header", "retryKnownFacts.heading")
 
-    <p>@messages("tryPinInPost.info")</p>
+    <p>@messages("retryKnownFacts.p1")</p>
+    <p>@messages("retryKnownFacts.p2")
+        <a id="online-services-helpdesk-link" target="_blank"
+        data-journey-click="link - click: Retry Knownfacts Gov Uk Online Services Help Desk"
+        href="@appConfig.getGovUKUrl("onlineServicesHelpdesk")">
+        @messages("retryKnownFacts.linkText")
+        </a> @messages("retryKnownFacts.p3")
+    </p>
 
-    <a id="continue"
-    href="@appConfig.emacEnrollmentsUrl(SA)"
-    class="button"
-    role="button"
-    data-journey-click="$gaEventPrefix$:Click:Continue">
+    @uiForm(action = RetryKnownFactsController.onSubmit()) {
+        <div class="section">
+            <button id="continue-button" class="button" data-journey-click="TryAgain:Click:" data-journey-target>@messages("retryKnownFacts.button")</button>
+        </div>
+    }
 
-    @messages("site.continue")
-    </a>
 }

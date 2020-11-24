@@ -16,9 +16,15 @@
 
 package controllers.sa
 
+import connectors.DataCacheConnector
 import controllers._
 import forms.sa.DoYouHaveSAUTRFormProvider
 import models.sa.DoYouHaveSAUTR
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.{reset, verify, when}
+import org.mockito.internal.verification.VerificationModeFactory.times
+import org.scalatest.BeforeAndAfterEach
+import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
@@ -26,7 +32,9 @@ import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
 import views.html.sa.doYouHaveSAUTR
 
-class DoYouHaveSAUTRControllerSpec extends ControllerSpecBase {
+import scala.concurrent.Future
+
+class DoYouHaveSAUTRControllerSpec extends ControllerSpecBase with BeforeAndAfterEach {
 
   def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
@@ -34,6 +42,7 @@ class DoYouHaveSAUTRControllerSpec extends ControllerSpecBase {
   val form: Form[DoYouHaveSAUTR] = formProvider()
 
   val view: doYouHaveSAUTR = injector.instanceOf[doYouHaveSAUTR]
+  val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
 
   def controller(): DoYouHaveSAUTRController = {
     new DoYouHaveSAUTRController(
@@ -43,14 +52,21 @@ class DoYouHaveSAUTRControllerSpec extends ControllerSpecBase {
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider,
-      view
+      view,
+      mockDataCacheConnector
     )
+  }
+
+  override def beforeEach(): Unit = {
+    reset(mockDataCacheConnector)
   }
 
   def viewAsString(form: Form[_] = form): String =
     new doYouHaveSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouHaveSAUTR Controller" must {
+
+    when(mockDataCacheConnector.remove(any(), any())).thenReturn(Future.successful(true))
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad()(fakeRequest)
@@ -66,6 +82,7 @@ class DoYouHaveSAUTRControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
+      verify(mockDataCacheConnector, times(1)).remove(any(), any())
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
@@ -76,12 +93,7 @@ class DoYouHaveSAUTRControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe viewAsString(boundForm)
-    }
-
-    "return OK" in {
-      val result = controller().onPageLoad()(fakeRequest)
-
-      status(result) mustBe OK
+      verify(mockDataCacheConnector, times(1)).remove(any(), any())
     }
 
     for (option <- DoYouHaveSAUTR.options) {

@@ -1,0 +1,59 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.FrontendAppConfig
+@import controllers.sa.routes._
+@this(
+        uiForm: FormWithCSRF,
+        main_template: main_template
+)
+
+@(appConfig: FrontendAppConfig, status: Option[String] = Some("Failed"))(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    title = messages("tryPinInPost.title"),
+    appConfig = appConfig,
+    serviceInfoContent = serviceInfoContent) {
+
+    @components.heading("tryPinInPost", "tryPinInPost.heading")
+
+    @if(status.contains("Failed")){
+        <p>@messages("tryPinInPost.p1")
+            <a id="iv-route-link"
+            data-journey-click="link - click: try to confirm identify online"
+            href="@controllers.sa.routes.TryIvController.onPageLoad()">
+            @messages("tryPinInPost.linkText")
+            </a> @messages("tryPinInPost.p2")
+        </p>
+        <p>@messages("tryPinInPost.p3")</p>
+    }
+
+    @if(status.contains("LockedOut")){
+        <p>@messages("tryPinInPost.p4")</p>
+        <p>@messages("tryPinInPost.p3")</p>
+    }
+
+    @if(status.contains("MatchingError")){
+        <p>@messages("tryPinInPost.p4")</p>
+    }
+
+    @uiForm(action = TryPinInPostController.onSubmit()) {
+        <div class="section">
+            <button id="tryPinInPost-button" class="button margin-top-small" data-journey-click="TryPinInPost:Click:" data-journey-target>@messages("tryPinInPost.button")</button>
+        </div>
+    }
+
+}

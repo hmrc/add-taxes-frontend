@@ -18,6 +18,7 @@ package controllers.sa
 
 import config.FrontendAppConfig
 import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
+import controllers.Assets.Redirect
 import controllers.actions._
 import forms.sa.SAUTRFormProvider
 import identifiers.EnterSAUTRId
@@ -25,8 +26,9 @@ import javax.inject.Inject
 import models.sa.SAUTR
 import play.api.data.Form
 import play.api.i18n.I18nSupport
-import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
-import service.AuditService
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents, Result}
+import play.libs.F.Tuple
+import service.{AuditService, KnownFactsService}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.Navigator
 import views.html.sa.enterSAUTR
@@ -42,7 +44,8 @@ class EnterSAUTRController @Inject()(appConfig: FrontendAppConfig,
                                      enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
                                      dataCacheConnector: DataCacheConnector,
                                      enterSAUTR: enterSAUTR,
-                                     auditService: AuditService)(implicit val ec: ExecutionContext)
+                                     auditService: AuditService,
+                                     knownFactsService: KnownFactsService)(implicit val ec: ExecutionContext)
   extends FrontendController(mcc) with I18nSupport {
 
   val pinAndPostFeatureToggle: Boolean = appConfig.pinAndPostFeatureToggle
@@ -52,24 +55,29 @@ class EnterSAUTRController @Inject()(appConfig: FrontendAppConfig,
     Ok(enterSAUTR(appConfig, form)(request.serviceInfoContent))
   }
 
+
   def onSubmit: Action[AnyContent] = (authenticate andThen serviceInfo).async { implicit request =>
+
     form.bindFromRequest()
       .fold(
         formWithErrors => Future(BadRequest(enterSAUTR(appConfig, formWithErrors)(request.serviceInfoContent))),
         saUTR => {
-          lazy val enrolmentCheck = {
-            enrolmentStoreProxyConnector.checkExistingUTR(saUTR.value).map { enrolmentStoreResult =>
-              auditService.auditSA(request.request.credId, saUTR.value, enrolmentStoreResult)
-              Redirect(navigator.nextPage(EnterSAUTRId, enrolmentStoreResult))
+
+          lazy val enrolmentCheck: Future[Result] = {
+            for {
+              tryAgain <- dataCacheConnector.getEntry[Boolean](request.request.credId, "tryAgain").map(_.getOrElse(false))
+              enrolmentStoreResult <- knownFactsService.enrolmentCheck(request.request.credId, saUTR)
+            } yield {
+              val mapBoolean: (Boolean, Boolean) = (tryAgain, enrolmentStoreResult)
+              Redirect(navigator.nextPage(EnterSAUTRId, mapBoolean))
             }
           }
-
           if(pinAndPostFeatureToggle){
-            dataCacheConnector.save[SAUTR](request.request.externalId, EnterSAUTRId.toString, saUTR).flatMap { _ =>
+            dataCacheConnector.save[SAUTR](request.request.credId, EnterSAUTRId.toString, saUTR).flatMap { _ =>
               enrolmentCheck
             }
           } else {
-             enrolmentCheck
+            enrolmentCheck
           }
         }
       )

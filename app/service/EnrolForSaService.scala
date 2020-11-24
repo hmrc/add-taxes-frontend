@@ -27,9 +27,9 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class EnrolForSaService @Inject()(enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector) extends Logging{
 
-  def enrolForSa(utr: String, credId: String, groupId: String)
+  def enrolForSa(utr: String, credId: String, groupId: String, action: String)
                 (implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Boolean] = {
-    val saEnrolment: SaEnrolment = new SaEnrolment(credId)
+    val saEnrolment: SaEnrolment = new SaEnrolment(credId, action)
     enrolmentStoreProxyConnector.enrolForSa(saEnrolment, utr, groupId).flatMap { response =>
       response.status match {
         case CREATED => Future.successful(true)
@@ -40,4 +40,5 @@ class EnrolForSaService @Inject()(enrolmentStoreProxyConnector: EnrolmentStorePr
         false
     }
   }
+
 }

@@ -17,9 +17,9 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
   val testUtr = "1234567890"
   val testTaxOfficeNumber = "123"
   val testTaxOfficeReference = "4567890"
-  val testAllKnownFacts: KnownFacts = KnownFacts(Some("AA1 1AA"), Some("AA00000A"))
-  val testNinoOnlyKnownFacts: KnownFacts = KnownFacts(None, Some("AA00000A"))
-  val testPostCodeOnlyKnownFacts: KnownFacts = KnownFacts(Some("AA1 1AA"), None)
+  val testAllKnownFacts: KnownFacts = KnownFacts(Some("AA1 1AA"), Some("AA00000A"), None)
+  val testNinoOnlyKnownFacts: KnownFacts = KnownFacts(None, Some("AA00000A"), None)
+  val testPostCodeOnlyKnownFacts: KnownFacts = KnownFacts(Some("AA1 1AA"), None, None)
 
   "EnrolmentStoreProxyConnector" when {
     "checkExistingUTR" should {
@@ -123,7 +123,7 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
     "enrolForSa" should {
       val userId: String = "00000000123166122235"
       val groupId: String = "ABCEDEFGI1234568"
-      val saEnrolment = new SaEnrolment(userId)
+      val saEnrolment = new SaEnrolment(userId, "enrolAndActivate")
 
       "return a valid HttpResponse" in {
         StubEnrolmentStoreConnector.successFulEnrolForSa(saEnrolment, testUtr, groupId)

@@ -25,20 +25,20 @@ import models.requests.ServiceInfoRequest
 import models.sa.{KnownFacts, KnownFactsReturn, SAUTR}
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class KnownFactsService @Inject()(enrolForSaService: EnrolForSaService,
-                                  saService: SaService,
+class KnownFactsService @Inject()(saService: SaService,
                                   dataCacheConnector: DataCacheConnector,
                                   enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
-                                  enrolmentSuccessController: EnrolmentSuccessController){
+                                  auditService: AuditService){
 
   def knownFactsLocation(knownFacts: KnownFacts)
                         (implicit request: ServiceInfoRequest[AnyContent],
                          ec: ExecutionContext,
                          hc: HeaderCarrier): Future[Result] = {
-    val utr = dataCacheConnector.getEntry[SAUTR](request.request.externalId, EnterSAUTRId.toString)
+    val utr = dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
     val queryKnownFactsResult: Future[KnownFactsReturn] = utr.flatMap {
       maybeSAUTR => (
           for {
@@ -48,15 +48,20 @@ class KnownFactsService @Inject()(enrolForSaService: EnrolForSaService,
       }
 
     queryKnownFactsResult.flatMap {
-      case result@KnownFactsReturn(_, true) if(request.request.confidenceLevel.level >= 200) =>
-        enrolForSaService.enrolForSa(result.utr, request.request.credId, request.request.groupId) map {
-          case true => Redirect(saRoutes.EnrolmentSuccessController.onPageLoad())
-          case _    => Redirect(saRoutes.TryPinInPostController.onPageLoad())
-        }
       case result@KnownFactsReturn(_, true) =>
         saService.getIvRedirectLink(result.utr).map(link => Redirect(Call("GET", link)))
-      case _ => Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad()))
+      case _ => Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad()))
     }
   }
 
+  def enrolmentCheck(credId: String, saUTR: SAUTR)(implicit request: ServiceInfoRequest[AnyContent],
+                                                   ec: ExecutionContext,
+                                                   hc: HeaderCarrier): Future[Boolean] = {
+    lazy val enrolmentCheck = enrolmentStoreProxyConnector.checkExistingUTR(saUTR.value)
+
+    enrolmentCheck.map { enrolmentStoreResult: Boolean =>
+      auditService.auditSA(credId, saUTR.value, enrolmentStoreResult)
+    }
+    enrolmentCheck
+  }
 }

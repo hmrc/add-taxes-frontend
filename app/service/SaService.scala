@@ -38,11 +38,11 @@ class SaService @Inject()(saConnector: SaConnector,
                        (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[String] = {
     saConnector.getIvLinks(utr).map {
       case Some(ivLinks) =>
-        dataCacheConnector.save[IvLinks](request.request.externalId, "IvLinksId", ivLinks)
+        dataCacheConnector.save[IvLinks](request.request.credId, "IvLinksId", ivLinks)
         s"${serviceUrl}${ivLinks.link}"
-        case _ =>
-          logger.error("Failed retrieving IV link from SA")
-          saRoutes.TryPinInPostController.onPageLoad().url
+      case _ =>
+        logger.error("[SaService][getIvRedirectLink] Failed retrieving IV link from SA")
+        saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError")).url
     }
   }
 

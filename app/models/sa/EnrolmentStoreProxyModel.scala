@@ -18,18 +18,21 @@ package models.sa
 
 import play.api.libs.json._
 
+import scala.collection.immutable
+
 class EnrolmentStoreProxyModel
 
-case class KnownFacts(postcode: Option[String], nino: Option[String]) {
-  def provided: Seq[String] = List(postcode, nino).flatten
+case class KnownFacts(postcode: Option[String], nino: Option[String], isAbroad: Option[String]) {
+  def provided: Seq[String] = List(postcode, nino, isAbroad).flatten
   def isValid: Boolean = this.provided.nonEmpty
+  def validSize: Boolean = this.provided.size == 1
 }
 
 object KnownFacts {
   implicit val format: OFormat[KnownFacts] = Json.format[KnownFacts]
 }
 
-case class KnownFactsAndIdentifiers(utr: String, nino: Option[String], postcode: Option[String])
+case class KnownFactsAndIdentifiers(utr: String, nino: Option[String], postcode: Option[String], isAbroad: Option[String])
 
 object KnownFactsAndIdentifiers {
   implicit val reads: Reads[KnownFactsAndIdentifiers] = Json.reads[KnownFactsAndIdentifiers]
@@ -41,14 +44,15 @@ object KnownFactsAndIdentifiers {
         List(
           Some(Json.obj("key" -> "UTR", "value" -> kif.utr)),
           kif.nino.map(x => Json.obj("key" -> "NINO", "value" -> x)),
-          kif.postcode.map(x => Json.obj("key" -> "Postcode", "value" -> x))
+          kif.postcode.map(x => Json.obj("key" -> "Postcode", "value" -> x)),
+          kif.isAbroad.map(x => Json.obj("key" -> "IsAbroad", "value" -> x))
         ).flatten
       )
     )
   }
 }
 
-case class SaEnrolment(userId: String)
+case class SaEnrolment(userId: String, action: String)
 
 object SaEnrolment {
 
@@ -57,7 +61,7 @@ object SaEnrolment {
   implicit val writes: Writes[SaEnrolment] = (saEnrolment: SaEnrolment) => {
     Json.obj("userId" -> saEnrolment.userId,
       "type" -> "principal",
-      "action" -> "enrolAndActivate")
+      "action" -> saEnrolment.action)
   }
 }
 

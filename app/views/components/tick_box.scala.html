@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,27 +12,20 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package utils.nextpage.sa
+@(
+ field: Field,
+ id: String,
+ message: String
+)(implicit messages: Messages)
+<div class="form-group">
+ <fieldset>
+  <div class="multiple-choice">
+   <input id="@id" name="@id" type="checkbox" value="Y">
+   <label for="@id">@message</label>
+  </div>
+ </fieldset>
+</div>
 
-import models.sa.IvOrPin
-import utils.NextPage
-import utils.nextpage.NextPageSpecBase
 
-class IvOrPinNextPageSpec extends NextPageSpecBase {
-
-  "ivOrPin" when {
-    behave like nextPage(
-      NextPage.ivOrPin,
-      IvOrPin.Iv,
-      "/business-account/add-tax/known-facts"
-    )
-
-    behave like nextPage(
-      NextPage.ivOrPin,
-      IvOrPin.Pin,
-      "http://localhost:9555/enrolment-management-frontend/IR-SA/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-  }
-}
