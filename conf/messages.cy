@@ -1386,7 +1386,7 @@ retryKnownFacts.title = Nid yw’r wybodaeth a roesoch yn cyd-fynd â chofnod sy
 retryKnownFacts.heading = Nid yw’r wybodaeth a roesoch yn cyd-fynd â chofnod sydd gan CThEM
 retryKnownFacts.p1 = Gallai hyn olygu bod rhai o’r manylion a nodwyd gennych yn anghywir.
 retryKnownFacts.p2 = You can try entering the details again, orwelsh
-retryKnownFacts.linkText = contact HMRC(opens in new tab)welsh
+retryKnownFacts.linkText = contact HMRC (opens in new tab)welsh
 retryKnownFacts.p3 = to get help.welsh
 retryKnownFacts.button = Rhoi cynnig arall arni
 
