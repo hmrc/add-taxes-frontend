@@ -1383,7 +1383,7 @@ retryKnownFacts.title = The information you gave does not match an HMRC record
 retryKnownFacts.heading = The information you gave does not match an HMRC record
 retryKnownFacts.p1 = This might mean that some of the details you entered were incorrect.
 retryKnownFacts.p2 = You can try entering the details again, or
-retryKnownFacts.linkText = contact HMRC(opens in new tab)
+retryKnownFacts.linkText = contact HMRC (opens in new tab)
 retryKnownFacts.p3 = to get help.
 retryKnownFacts.button = Try again
 

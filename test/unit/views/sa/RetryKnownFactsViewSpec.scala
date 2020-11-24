@@ -23,7 +23,7 @@ class RetryKnownFactsViewSpec extends ViewBehaviours {
       assertLinkById(
         doc,
         linkId = "online-services-helpdesk-link",
-        expectedText = "contact HMRC(opens in new tab)",
+        expectedText = "contact HMRC (opens in new tab)",
         expectedUrl = "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/online-services-helpdesk",
         expectedGAEvent = "link - click: Retry Knownfacts Gov Uk Online Services Help Desk",
         expectedOpensInNewTab = true
