@@ -15,43 +15,38 @@
  */
 
 package controllers.sa
-
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.Assets.Redirect
 import controllers.actions.{AuthAction, ServiceInfoAction}
-import identifiers.EnterSAUTRId
 import javax.inject.Inject
-import models.sa.{KnownFacts, SAUTR}
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
-import service.{EnrolForSaService, TryPinInPostService}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import views.html.sa.tryPinInPost
+import views.html.sa.retryKnownFacts
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 
-class TryPinInPostController @Inject()(appConfig: FrontendAppConfig,
-                                       authenticate: AuthAction,
-                                       serviceInfoData: ServiceInfoAction,
-                                       mcc: MessagesControllerComponents,
-                                       tryPinInPost: tryPinInPost,
-                                       tryPinInPostService: TryPinInPostService
-                                      )(implicit val ec: ExecutionContext)
+class RetryKnownFactsController @Inject()(appConfig: FrontendAppConfig,
+                                          authenticate: AuthAction,
+                                          serviceInfoData: ServiceInfoAction,
+                                          dataCacheConnector: DataCacheConnector,
+                                          mcc: MessagesControllerComponents,
+                                          retryKnownFacts: retryKnownFacts)(implicit val ec: ExecutionContext)
 extends FrontendController(mcc) with I18nSupport {
   val pinAndPostFeatureToggle = appConfig.pinAndPostFeatureToggle
 
-  def onPageLoad(status: Option[String] = Some("Failed")): Action[AnyContent] = (authenticate andThen serviceInfoData) {
+  def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
-      if(pinAndPostFeatureToggle) {
-        Ok(tryPinInPost(appConfig, status)(request.serviceInfoContent))
+      if (pinAndPostFeatureToggle) {
+        Ok(retryKnownFacts(appConfig)(request.serviceInfoContent))
       } else {
         Redirect(Call("GET", appConfig.getBusinessAccountUrl("home")))
       }
   }
 
-  def onSubmit: Action[AnyContent] = (authenticate andThen serviceInfoData).async {
+  def onSubmit: Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
-      tryPinInPostService.checkEnrol()
+      dataCacheConnector.save[Boolean](request.request.credId, "tryAgain", true)
+        Redirect(routes.EnterSAUTRController.onPageLoad())
   }
 }

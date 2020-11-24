@@ -148,5 +148,4 @@ object NextPage
     with utils.nextpage.vat.DistanceSellingNextPage
     with utils.nextpage.vat.ImportedGoodsNextPage
     with utils.nextpage.vat.ClaimRefundNextPage
-    with utils.nextpage.sa.IvOrPinNextPage
 

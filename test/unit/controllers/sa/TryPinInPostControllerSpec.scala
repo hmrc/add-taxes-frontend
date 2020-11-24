@@ -1,60 +1,87 @@
-/*
- * Copyright 2020 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package controllers.sa
 
-import controllers.Assets.{OK, SEE_OTHER}
+import controllers.Assets.{InternalServerError, Redirect}
 import controllers.ControllerSpecBase
+import handlers.ErrorHandler
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.test.Helpers._
+import play.api.http.Status.INTERNAL_SERVER_ERROR
+import play.api.mvc.AnyContent
+import play.api.test.FakeRequest
+import play.api.test.Helpers.{contentAsString, status, _}
 import play.twirl.api.HtmlFormat
-import views.html.sa.tryPinAndPost
+import playconfig.featuretoggle.FeatureToggleSupport
+import service.TryPinInPostService
+import uk.gov.hmrc.auth.core.AffinityGroup.Individual
+import uk.gov.hmrc.auth.core.Enrolments
+import views.html.sa.tryPinInPost
 
-class TryPinInPostControllerSpec extends ControllerSpecBase with MockitoSugar {
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
-  val view: tryPinAndPost = injector.instanceOf[tryPinAndPost]
+class TryPinInPostControllerSpec extends ControllerSpecBase with MockitoSugar with FeatureToggleSupport {
 
-  def controller(pinInPostFeature: Boolean = true): TryPinInPostController = {
+  val mockTryPinInPostService: TryPinInPostService = mock[TryPinInPostService]
+  val view: tryPinInPost = injector.instanceOf[tryPinInPost]
+  val errorHandler: ErrorHandler = injector.instanceOf[ErrorHandler]
+  implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel),
+    HtmlFormat.empty)
+
+  def controller(pinAndPostToggle: Boolean = true): TryPinInPostController = {
     new TryPinInPostController(
       frontendAppConfig,
       FakeAuthAction,
       FakeServiceInfoAction,
       mcc,
-      view
-    ) {
-      override val pinAndPostFeatureToggle = pinInPostFeature
+      view,
+      mockTryPinInPostService
+    ){
+      override val pinAndPostFeatureToggle: Boolean = pinAndPostToggle
     }
   }
 
   def viewAsString(): String =
-    new tryPinAndPost(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new tryPinInPost(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "TryPinInPost Controller" must {
-    "return OK and the correct view for a GET when feature toggle is set to true" in {
+
+    "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
 
-    "redirect to BTA homepage when feature toggle set to false" in {
-      val result = controller(false).onPageLoad()(fakeRequest)
+    "redirect to BTA home page when the toggle is set to false" in {
+      val result = controller(pinAndPostToggle = false).onPageLoad()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(frontendAppConfig.getBusinessAccountUrl("home"))
+    }
+
+    "redirect when valid sa utr is submitted and service returns unsuccessful enrolment" in {
+      when(mockTryPinInPostService.checkEnrol()(any(), any(), any()))
+        .thenReturn(Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate)))
+
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789"))
+
+      val result = controller().onSubmit()(postRequest)
+
+      status(result) mustBe INTERNAL_SERVER_ERROR
+    }
+
+    "redirect when valid sa utr is submitted and service returns successful request" in {
+      when(mockTryPinInPostService.checkEnrol()(any(), any(), any()))
+        .thenReturn(Future.successful(Redirect(controllers.sa.routes.RequestedAccessController.onPageLoad())))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789"))
+
+      val result = controller().onSubmit()(postRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result).get mustBe controllers.sa.routes.RequestedAccessController.onPageLoad().url
     }
   }
 

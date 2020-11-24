@@ -132,4 +132,15 @@ trait ViewSpecBase extends SpecBase {
     assert(link.attr("href") == expectedUrl, s"\n\n Link containing '$expectedText' does not have href '$expectedUrl'")
   }
 
+  def assertInputValueById(doc: Document, id: String, name: String, value: String): Assertion = {
+    assertRenderedById(doc, id)
+    val input = doc.getElementById(id)
+    assert(input.attr("name") == name, s"\n\nElement $id does not have name $name")
+    assert(input.attr("value") == value, s"\n\nElement $id does not have value $value")
+  }
+
+  def errorMessageValue(doc: Document): String = {
+    doc.getElementsByClass("error-summary-list").tagName("a").text()
+  }
+
 }

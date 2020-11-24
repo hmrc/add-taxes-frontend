@@ -15,32 +15,28 @@
  *@
 
 @import config.FrontendAppConfig
-@import controllers.sa.routes._
-@import models.sa.IvOrPin
 
 @this(
-uiForm: FormWithCSRF,
-main_template: main_template
+        main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("ivOrPin.title"),
+    title = messages("requestedAccess.title"),
     appConfig = appConfig,
-    form = Some(form),
     serviceInfoContent = serviceInfoContent) {
+    <div class="govuk-box-highlight">
+        @components.heading("requested-access-heading", "requestedAccess.heading", "bold-xlarge")
+    </div>
 
-    @uiForm(action = IvOrPinController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    <p class="govuk-body">@messages("requestedAccess.p1")</p>
+    <p class="govuk-body">@messages("requestedAccess.p2")</p>
 
-        @components.error_summary(form.errors)
-
-        @components.input_radio(
-            field = form("value"),
-            legend = components.heading("iv-or-pin", "ivOrPin.heading").body,
-            inputs = IvOrPin.options.toSeq
-        )
-
-        @components.submit_button(gaEvent = "IvOrPin")
-    }
+    <a id="continue"
+    href='@appConfig.getBusinessAccountUrl("home")'
+    class="button"
+    role="button"
+    data-journey-click="AccessRequested - Continue:Click:Continue">
+    @messages("site.continue")</a>
 }

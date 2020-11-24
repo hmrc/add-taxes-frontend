@@ -17,6 +17,7 @@
 package controllers.sa
 
 import config.FrontendAppConfig
+import connectors.DataCacheConnector
 import controllers.actions._
 import forms.sa.DoYouHaveSAUTRFormProvider
 import identifiers.DoYouHaveSAUTRId
@@ -35,7 +36,8 @@ class DoYouHaveSAUTRController @Inject()(appConfig: FrontendAppConfig,
                                          authenticate: AuthAction,
                                          serviceInfoData: ServiceInfoAction,
                                          formProvider: DoYouHaveSAUTRFormProvider,
-                                         doYouHaveSAUTR: doYouHaveSAUTR)
+                                         doYouHaveSAUTR: doYouHaveSAUTR,
+                                         dataCacheConnector: DataCacheConnector)
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
   val form: Form[DoYouHaveSAUTR] = formProvider()
@@ -45,6 +47,7 @@ class DoYouHaveSAUTRController @Inject()(appConfig: FrontendAppConfig,
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    dataCacheConnector.remove(request.request.credId,"tryAgain")
     form.bindFromRequest()
       .fold(
         formWithErrors => BadRequest(doYouHaveSAUTR(appConfig, formWithErrors)(request.serviceInfoContent)),

@@ -92,9 +92,9 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
       }
 
       "queryKnownFacts is called" should {
-        val knownFacts = new KnownFacts(Some("AB112233D"), Some("SW1A 2AA"))
+        val knownFacts = new KnownFacts(Some("AB112233D"), Some("SW1A 2AA"), None)
         val saUtr = new SAUTR("AB112233D")
-        val responseKnownFacts = KnownFactsAndIdentifiers("IR-SA", Some("AB112233D"), Some("SW1A 2AA"))
+        val responseKnownFacts = KnownFactsAndIdentifiers("IR-SA", Some("AB112233D"), Some("SW1A 2AA"), None)
         val responseJson = Json.toJson(responseKnownFacts).toString()
 
         "return true when the call is successful (200)" in {
@@ -202,7 +202,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
         val userId: String = "1212121212121"
         val utr: String = "1234"
         val groupId: String = "12121212"
-        val saEnrolment = new SaEnrolment(userId)
+        val saEnrolment = new SaEnrolment(userId, "enrolAndActivate")
 
         "return created when the call is successful (201)" in {
           when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))

@@ -32,7 +32,7 @@ class IvJourneyControllerSpec extends ControllerSpecBase with MockitoSugar with 
 
   val mockIvService: IvService = mock[IvService]
 
-  def controller(pinAndPostToggle: Boolean = true) = {
+  def controller(pinAndPostToggle: Boolean = true): IvJourneyController = {
     new IvJourneyController(
       mockIvService,
       mcc,
@@ -57,17 +57,17 @@ class IvJourneyControllerSpec extends ControllerSpecBase with MockitoSugar with 
 
     "redirect to try pin and post page when checkAndEnrol returns redirect to try pin and post page" in {
       when(mockIvService.ivCheckAndEnrol()(any(), any(), any()))
-        .thenReturn(Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad())))
+        .thenReturn(Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad())))
 
       val result = controller().ivRouter()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result).get mustBe saRoutes.TryPinInPostController.onPageLoad().url
+      redirectLocation(result).get mustBe saRoutes.RetryKnownFactsController.onPageLoad().url
     }
 
     "redirect to BTA home page when feature flag is set to false" in {
       when(mockIvService.ivCheckAndEnrol()(any(), any(), any()))
-        .thenReturn(Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad())))
+        .thenReturn(Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad())))
 
       val result = controller(false).ivRouter()(fakeRequest)
 

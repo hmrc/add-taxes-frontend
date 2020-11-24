@@ -42,7 +42,7 @@ trait SelectSACategoryNextPage {
 
           case (SelectSACategory.Sa, DoYouHaveSAUTR.Yes, _) =>
             if(featureConfig.isEnabled(PinAndPostFeature)){
-              saRoutes.IvOrPinController.onPageLoad()
+              saRoutes.KnownFactsController.onPageLoad()
             } else { Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.SA)) }
 
           case (SelectSACategory.Sa, _, Some(AffinityGroup.Individual)) =>

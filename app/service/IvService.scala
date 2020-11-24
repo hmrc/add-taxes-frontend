@@ -23,7 +23,7 @@ import identifiers.EnterSAUTRId
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.sa.{IvLinks, SAUTR}
-import play.api.{Logging}
+import play.api.Logging
 import play.api.mvc.{AnyContent, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -31,47 +31,51 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class IvService @Inject()(dataCacheConnector: DataCacheConnector,
                          ivConnector: IvConnector,
-                         enrolForSaService: EnrolForSaService) extends Logging{
+                         enrolForSaService: EnrolForSaService) extends Logging {
 
   def journeyLinkCheck()(implicit request: ServiceInfoRequest[AnyContent],
                          ec: ExecutionContext,
-                         hc: HeaderCarrier): Future[Boolean] = {
+                         hc: HeaderCarrier): Future[String] = {
 
-    val journeyLink: Future[Option[IvLinks]] = dataCacheConnector.getEntry[IvLinks](request.request.externalId, "IvLinksId")
+    val journeyLink: Future[Option[IvLinks]] = dataCacheConnector.getEntry[IvLinks](request.request.credId, "IvLinksId")
 
     journeyLink.flatMap {
-      case Some(x) => ivConnector.checkJourneyLink(x.journeyLink).map {
-            pass => pass.result.equals("Success")
+      case Some(x) => ivConnector.checkJourneyLink(x.journeyLink).map { result =>
+        result.result
       }.recover {
         case exception =>
           logger.error("Enrolment Store Proxy error", exception)
-          false
+          "Failed"
       }
-      case _ => Future.successful(false)
+      case _ =>
+        logger.warn("[IvService][journeyLinkCheck] Failed to retrieve IvLinks from DataCache")
+        Future.successful("Failed")
     }
   }
 
   def ivCheckAndEnrol()(implicit request: ServiceInfoRequest[AnyContent],
                         ec: ExecutionContext,
                         hc: HeaderCarrier): Future[Result] = {
-    journeyLinkCheck().flatMap { result =>
-      if(result) {
-        val utr = dataCacheConnector.getEntry[SAUTR](request.request.externalId, EnterSAUTRId.toString)
+    journeyLinkCheck().flatMap {
+      case "Success" =>
+        val utr = dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
         val enrolForSaBoolean: Future[Boolean] = utr.flatMap {
           maybeSAUTR =>
             (
               for {
                 utr <- maybeSAUTR
-              } yield enrolForSaService.enrolForSa(utr.value, request.request.credId, request.request.groupId)
+              } yield enrolForSaService.enrolForSa(utr.value, request.request.credId, request.request.groupId, "enrolAndActivate")
               ).getOrElse(Future.successful(false))
         }
         enrolForSaBoolean.map {
           case true => Redirect(saRoutes.EnrolmentSuccessController.onPageLoad())
-          case _    => Redirect(saRoutes.TryPinInPostController.onPageLoad())
+          case _ => Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed")))
         }
-      } else {
-        Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad()))
-      }
+      case "LockedOut" => Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("LockedOut"))))
+      case x if x == "InsufficientEvidence" || x == "PreconditionFailed" || x == "FailedMatching" || x == "FailedIV" => Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError"))))
+      case result =>
+        logger.warn(s"[IvService][ivCheckAndEnrol] Failed Iv for ${result}")
+        Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"))))
     }
   }
 

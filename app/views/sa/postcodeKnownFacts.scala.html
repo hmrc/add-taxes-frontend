@@ -28,23 +28,28 @@
 @(appConfig: FrontendAppConfig, form: Form[KnownFacts])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("enterKnownFacts.nino.title"),
+    title = messages("enterKnownFacts.postcode.title"),
     appConfig = appConfig,
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @uiForm(action = KnownFactsController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    @uiForm(action = PostcodeController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("known-facts-heading", "enterKnownFacts.nino.heading")
+        @components.heading("known-facts-heading", "enterKnownFacts.postcode.heading")
 
         @components.input_text_field(
-            field = form("nino"),
-            hint  = Some(messages("enterKnownFacts.nino.hintText")),
+            field = form("postcode"),
+            hint  = Some(messages("enterKnownFacts.postcode.hintText")),
             formHintMargin= Some(""))
 
-        @components.known_facts(gaEvent = "GaEvent")
+        <p>@messages("enterKnownFacts.postcode.p1")</p>
+
+        @components.tick_box(
+            field = form("isAbroad"),
+            "isAbroad",
+            messages("enterKnownFacts.postcode.abroadLabel"))
 
         @components.submit_button(gaEvent = "GaEvent")
     }

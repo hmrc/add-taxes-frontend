@@ -75,14 +75,38 @@ class KnownFactsFormValidator @Inject()() {
       }
     }
 
-  def optionValidator = {
-    Constraint("constraints.knownFacts")({
-      (model: KnownFacts) =>
-        if(model.isValid){
-          Valid
-        } else {
-          Invalid(Seq(ValidationError("TBC", "TBC")))
+  def stringFormatter(abroadKey: String)
+                   (implicit appConfig: FrontendAppConfig) =
+    new Formatter[String] {
+      override def bind(key: String, data: Map[String, String]) = {
+        val value = data.getOrElse(key, "")
+        value match {
+          case "Y" => Right("Y")
         }
+      }
+
+      override def unbind(key: String, value: String): Map[String, String] = {
+        Map(key -> value.toString)
+      }
+    }
+
+  def optionValidator(postcodeView: Boolean) = {
+    Constraint("constraints.knownFacts")({
+      (model: KnownFacts) => model match {
+        case _ if(model.validSize && model.isValid) => Valid
+        case _ if(!model.isValid) =>
+          if(postcodeView) {
+          Invalid(Seq(ValidationError("enterKnownFacts.postcode.error.invalid")))
+        } else {
+          Invalid(Seq(ValidationError("enterKnownFacts.nino.error.required")))
+        }
+        case _ if(!model.validSize) =>
+          if(postcodeView) {
+          Invalid(Seq(ValidationError("enterKnownFacts.postcode.error.required")))
+        } else {
+          Invalid(Seq(ValidationError("enterKnownFacts.nino.error.format")))
+        }
+      }
     })
   }
 

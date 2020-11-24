@@ -118,9 +118,16 @@ POST       /self-assessment/have-sa-utr                 controllers.sa.DoYouHave
 
 # This route will be the completion url we send to IV (Pin in Post)
 GET        /self-assessment/sa-iv-router                controllers.sa.IvJourneyController.ivRouter()
+GET        /self-assessment/try-iv                      controllers.sa.TryIvController.onPageLoad()
 
 GET        /self-assessment/enrolment-successful        controllers.sa.EnrolmentSuccessController.onPageLoad()
-GET        /self-assessment/try-pin-in-post             controllers.sa.TryPinInPostController.onPageLoad()
+GET        /self-assessment/retry-known-facts           controllers.sa.RetryKnownFactsController.onPageLoad()
+POST       /self-assessment/retry-known-facts           controllers.sa.RetryKnownFactsController.onSubmit()
+
+GET        /self-assessment/try-pin-in-post             controllers.sa.TryPinInPostController.onPageLoad(status: Option[String])
+POST       /self-assessment/try-pin-in-post             controllers.sa.TryPinInPostController.onSubmit()
+
+GET        /self-assessment/access-requested            controllers.sa.RequestedAccessController.onPageLoad()
 
 GET        /other/aeoi/register                         controllers.other.aeoi.RegisterAEOIController.onPageLoad()
 
@@ -130,11 +137,11 @@ POST       /other/aeoi                                  controllers.other.aeoi.H
 GET        /self-assessment                             controllers.sa.SelectSACategoryController.onPageLoadHasUTR()
 POST       /self-assessment                             controllers.sa.SelectSACategoryController.onSubmitHasUTR()
 
-GET        /known-facts                                 controllers.sa.KnownFactsController.onPageLoad()
-POST       /known-facts                                 controllers.sa.KnownFactsController.onSubmit()
+GET        /self-assessment/known-facts                 controllers.sa.KnownFactsController.onPageLoad()
+POST       /self-assessment/known-facts                 controllers.sa.KnownFactsController.onSubmit()
 
-GET        /iv-or-pin                                   controllers.sa.IvOrPinController.onPageLoad()
-POST       /iv-or-pin                                   controllers.sa.IvOrPinController.onSubmit()
+GET        /self-assessment/postcode                    controllers.sa.PostcodeController.onPageLoad()
+POST       /self-assessment/postcode                    controllers.sa.PostcodeController.onSubmit()
 
 GET        /self-assessment/no-utr                      controllers.sa.SelectSACategoryController.onPageLoadNoUTR()
 POST       /self-assessment/no-utr                      controllers.sa.SelectSACategoryController.onSubmitNoUTR()

@@ -17,7 +17,7 @@
 package views.sa
 
 import forms.sa.KnownFactsFormProvider
-import models.sa.KnownFacts
+import models.sa.{AreYouSelfEmployed, KnownFacts}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import utils.KnownFactsFormValidator
@@ -31,16 +31,62 @@ class KnownFactsViewSpec extends ViewBehaviours {
 
 
   val formProvider = new KnownFactsFormProvider(mockKnownFactsValidator, frontendAppConfig)
-  val form = formProvider()
+  val form: Form[KnownFacts] = formProvider()
   val serviceInfoContent = HtmlFormat.empty
 
-  def createView: knownFacts = injector.instanceOf[knownFacts]
 
-  def createViewUsingForm:(Form[KnownFacts]) => HtmlFormat.Appendable = (form: Form[KnownFacts]) =>
-    injector.instanceOf[knownFacts].apply(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new knownFacts(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+
+  def createViewUsingForm: Form[KnownFacts] => HtmlFormat.Appendable = (form: Form[KnownFacts]) =>
+    new knownFacts(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "knownFacts view" must {
-    //TODO Test when we have content for DL-4157
+    "contain heading ID" in {
+      val doc = asDocument(createView())
+      doc.getElementsByTag("h1").attr("id") mustBe "known-facts-heading"
+    }
   }
 
+  "knownFacts view" when {
+    "rendered" must {
+      "contain input for nino value" in {
+        val doc = asDocument(createViewUsingForm(form.bind(Map("nino" -> "aa000000a"))))
+        assertInputValueById(doc, "nino", "nino", "aa000000a")
+      }
+      "contain link to postcode page" in {
+        val doc = asDocument(createViewUsingForm(form))
+        assertLinkById(
+          doc,
+          linkId = "postcode-button",
+          expectedText = "I do not know my National Insurance number.",
+          expectedUrl = "/business-account/add-tax/self-assessment/postcode",
+          expectedGAEvent = "GaEvent:Click:PostcodeLink"
+        )
+      }
+    }
+      "invalid data is sent" must {
+        "prepend title with Error: " in {
+          val doc = asDocument(createViewUsingForm(form.bind(Map("nino" -> ""))))
+          val title = messages("site.service_title", messages(s"enterKnownFacts.nino.title"))
+
+          assertEqualsMessage(doc, "title", "error.browser.title", title)
+        }
+        "show error message when nino is in the wrong format" in {
+          val doc = asDocument(createViewUsingForm(form.bind(Map("nino" -> "aaaaaaaaa"))))
+
+          errorMessageValue(doc) mustBe "Enter a National Insurance number in the right format, for example QQ 12 34 56 C"
+        }
+        "show error message when nino is the wrong length" in {
+          val doc = asDocument(createViewUsingForm(form.bind(Map("nino" -> "aa0000000a"))))
+
+          errorMessageValue(doc) mustBe "Enter a National Insurance number in the right format, for example QQ 12 34 56 C"
+        }
+        "show error message when input is blank" in {
+          val doc = asDocument(createViewUsingForm(form.bind(Map("nino" -> ""))))
+
+          errorMessageValue(doc) mustBe "Enter your National Insurance number"
+        }
+      }
+    }
 }

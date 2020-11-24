@@ -28,17 +28,22 @@ import utils.KnownFactsFormValidator
 class KnownFactsFormProvider @Inject()(knownFactsFormValidator: KnownFactsFormValidator,
                                        implicit val appConfig: FrontendAppConfig) extends FormErrorHelper with Mappings {
 
-  def apply(): Form[KnownFacts] = Form(
+  def apply(postcodeView: Boolean = false): Form[KnownFacts] = Form(
       mapping(
       "postcode" -> optional(of(knownFactsFormValidator.validatePostcode(
         postcodeKey = "postcode",
         blankPostcodeMessageKey = "enterKnownFacts.postcode.error.required",
-        invalidPostcodeMessageKey = "enterKnownFacts.postcode.error.invalid"))),
+        invalidPostcodeMessageKey = "enterKnownFacts.postcode.error.invalid"))
+      ),
       "nino" -> optional(of(knownFactsFormValidator.ninoFormatter(
         ninoKey = "nino",
         blankMessageKey = "enterKnownFacts.nino.error.required",
         lengthMessageKey = "enterKnownFacts.nino.error.length",
-        formatMessageKey = "enterKnownFacts.nino.error.format")))
+        formatMessageKey = "enterKnownFacts.nino.error.format"))
+      ),
+        "isAbroad" -> optional(of(knownFactsFormValidator.stringFormatter(
+          abroadKey = "isAbroad"
+        )))
   )(KnownFacts.apply)(KnownFacts.unapply)
-        .verifying(knownFactsFormValidator.optionValidator))
+        .verifying(knownFactsFormValidator.optionValidator(postcodeView)))
 }

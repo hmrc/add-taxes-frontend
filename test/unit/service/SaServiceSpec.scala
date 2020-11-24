@@ -62,7 +62,7 @@ class SaServiceSpec extends ControllerSpecBase with MockitoSugar {
         val result = service().getIvRedirectLink("1234567890")
 
         whenReady(result) { result =>
-          result mustBe saRoutes.TryPinInPostController.onPageLoad().url
+          result mustBe saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError")).url
         }
       }
 
