@@ -32,7 +32,7 @@ class SaService @Inject()(saConnector: SaConnector,
                          dataCacheConnector: DataCacheConnector,
                          appConfig: FrontendAppConfig) extends Logging {
 
-  val serviceUrl = appConfig.identityVerificationFrontendUrl
+  val serviceUrl = appConfig.identityVerificationHost
 
   def getIvRedirectLink(utr: String)
                        (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[String] = {

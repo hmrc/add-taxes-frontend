@@ -147,7 +147,8 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   lazy val changeBusinessDetailsUrl: String = changeBusinessDetailsHost + changeBusinessDetailsUri
   lazy val vatRegHost: String = config.getString("urls.vat-registration-frontend.host")
   lazy val vatRegHandoff: String = vatRegHost + config.getString("urls.vat-registration-frontend.handoff")
-  lazy val identityVerificationFrontendUrl: String = config.baseUrl("identity-verification-frontend")
+  lazy val identityVerificationFrontendBaseUrl: String = config.baseUrl("identity-verification-frontend")
+  lazy val identityVerificationHost: String = config.getString("identity-verification-frontend.host")
 }
 
 trait FeatureToggles {
