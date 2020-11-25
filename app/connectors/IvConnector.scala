@@ -26,7 +26,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class IvConnector @Inject()(appConfig: FrontendAppConfig,
                             http: HttpClient) {
 
-  val serviceUrl = appConfig.identityVerificationFrontendUrl
+  val serviceUrl = appConfig.identityVerificationFrontendBaseUrl
 
   def checkJourneyLink(journeyLinkUrl: String)
                       (implicit ec: ExecutionContext, hc: HeaderCarrier): Future[JourneyLinkResponse] = {
