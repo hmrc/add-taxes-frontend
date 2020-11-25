@@ -1385,9 +1385,9 @@ enterKnownFacts.postcode.error.required = Rhowch god post neu dewiswch a ydych c
 retryKnownFacts.title = Nid yw’r wybodaeth a roesoch yn cyd-fynd â chofnod sydd gan CThEM
 retryKnownFacts.heading = Nid yw’r wybodaeth a roesoch yn cyd-fynd â chofnod sydd gan CThEM
 retryKnownFacts.p1 = Gallai hyn olygu bod rhai o’r manylion a nodwyd gennych yn anghywir.
-retryKnownFacts.p2 = You can try entering the details again, orwelsh
-retryKnownFacts.linkText = contact HMRC (opens in new tab)welsh
-retryKnownFacts.p3 = to get help.welsh
+retryKnownFacts.p2 = Gallwch geisio nodi’ch manylion eto, neu gysylltu â CThEM i gael help.
+retryKnownFacts.linkText = gysylltu â CThEM (yn agor tab newydd)
+retryKnownFacts.p3 = i gael help.
 retryKnownFacts.button = Rhoi cynnig arall arni
 
 #######################################################
@@ -1395,18 +1395,18 @@ retryKnownFacts.button = Rhoi cynnig arall arni
 #######################################################
 tryPinInPost.title = Gwneud cais i gael at eich cyfrif Hunanasesiad
 tryPinInPost.heading= Gwneud cais i gael at eich cyfrif Hunanasesiad
-tryPinInPost.p1 = You canwelsh
-tryPinInPost.linkText = confirm your identity onlinewelsh
-tryPinInPost.p2 = to get access to Self Assessment straight away, or you can request an activation code in the post. This will take up to 10 days. welsh
-tryPinInPost.p3 = If you choose to receive your activation code by post, you will not be able to go back and confirm your identity online. welsh
-tryPinInPost.button = Request an activation code in the post welsh
-tryPinInPost.p4 = You can request an activation code in the post. This will take up to 10 days.welsh
+tryPinInPost.p1 = Gallwch
+tryPinInPost.linkText = gadarnhau pwy ydych ar-lein
+tryPinInPost.p2 =  i gael mynediad at eich cyfrif Hunanasesiad ar unwaith, neu gallwch ofyn am gael cod cychwyn drwy’r post.
+tryPinInPost.p3 = Os dewiswch gael eich cod cychwyn drwy’r post, ni fyddwch yn gallu mynd yn ôl a chadarnhau pwy ydych ar-lein.
+tryPinInPost.button = Gwneud cais i gael at eich cyfrif Hunanasesiad
+tryPinInPost.p4 = Gallwch ofyn am gael cod cychwyn drwy’r post. Bydd hyn yn cymryd hyd at 10 diwrnod.
 
 
 #######################################################
 ##  requestedAccess
 #######################################################
-requestedAccess.title = TitleWelsh
-requestedAccess.heading = HeadingWelsh
-requestedAccess.p1 = Info1Welsh
-requestedAccess.p2 = Info2Welsh
+requestedAccess.title = Rydych wedi gwneud cais i gyrchu Hunanasesiad
+requestedAccess.heading = Rydych wedi gwneud cais i gyrchu Hunanasesiad
+requestedAccess.p1 = Byddwch yn cael cod cychwyn drwy''r post cyn pen 10 diwrnod.
+requestedAccess.p2 = Mae''n rhaid i chi ddefnyddio''r cod cychwyn i gyrchu''r dreth neu''r cynllun.
