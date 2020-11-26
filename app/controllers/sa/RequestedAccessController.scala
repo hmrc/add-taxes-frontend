@@ -34,7 +34,7 @@ class RequestedAccessController @Inject()(authenticate: AuthAction,
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
       if(pinAndPostFeatureToggle) {
-        Ok(requestedAccess(appConfig)(request.serviceInfoContent))
+        Ok(requestedAccess(appConfig)(request.serviceInfoContent)).withNewSession
       } else {
         Redirect(Call("GET", appConfig.getBusinessAccountUrl("home")))
       }

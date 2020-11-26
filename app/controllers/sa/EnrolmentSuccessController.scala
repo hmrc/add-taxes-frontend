@@ -36,7 +36,7 @@ extends FrontendController(mcc) with I18nSupport  {
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
       if(pinAndPostFeatureToggle) {
-    Ok(successfulEnrolment(appConfig)(request.serviceInfoContent))
+    Ok(successfulEnrolment(appConfig)(request.serviceInfoContent)).withNewSession
         } else {
         Redirect(Call("GET", appConfig.getBusinessAccountUrl("home")))
       }

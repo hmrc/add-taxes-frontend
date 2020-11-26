@@ -27,12 +27,12 @@ class RequestedAccessViewSpec extends ViewBehaviours {
     "have the correct info content" in {
       val paragraphs = doc.select(".govuk-body")
       paragraphs.first().text() mustBe "You'll receive an activation code in the post within 10 days."
-      paragraphs.get(1).text() mustBe "You need to use the activation code to get access to the tax or scheme."
+      paragraphs.get(1).text() mustBe "You need to use the activation code to get access to Self Assessment."
     }
 
     "have a continue link, styled like a button, going to the correct destination" in {
       val button = doc.select("#continue")
-      button.text() mustBe "Continue"
+      button.text() mustBe "Sign out"
       button.attr("class") mustBe "button"
       button.attr("href") mustBe "http://localhost:9020/business-account"
     }
