@@ -1357,6 +1357,7 @@ vatAccountUnavailable.p3 = Check back again later.
 successfulEnrolment.title = You now have access to Self Assessment
 successfulEnrolment.heading = You now have access to Self Assessment
 successfulEnrolment.p1 = You can start using this tax or scheme straight away.
+successfulEnrolment.p2 = Sign out and sign in again to start using this tax or scheme
 
 #######################################################
 ##  enterKnownFacts
@@ -1405,4 +1406,5 @@ tryPinInPost.p4 = You can request an activation code in the post. This will take
 requestedAccess.title = You''ve requested access to Self Assessment
 requestedAccess.heading = You''ve requested access to Self Assessment
 requestedAccess.p1 = You''ll receive an activation code in the post within 10 days.
-requestedAccess.p2 = You need to use the activation code to get access to the tax or scheme.
+requestedAccess.p2 = You need to use the activation code to get access to Self Assessment.
+requestedAccess.p3 = This tax or scheme will appear on your business tax account the next time you sign in.

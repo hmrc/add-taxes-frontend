@@ -1360,6 +1360,7 @@ vatAccountUnavailable.p3 = Dewch yn ôl yn nes ymlaen.
 successfulEnrolment.title = Gallwch nawr gael at eich cyfrif Hunanasesiad
 successfulEnrolment.heading = Gallwch nawr gael at eich cyfrif Hunanasesiad
 successfulEnrolment.p1 = Gallwch ddechrau defnyddio’r dreth hon neu’r cynllun hwn ar unwaith.
+successfulEnrolment.p2 = Sign out and sign in again to start using this tax or scheme
 
 #######################################################
 ##  enterKnownFacts
@@ -1410,3 +1411,4 @@ requestedAccess.title = Rydych wedi gwneud cais i gyrchu Hunanasesiad
 requestedAccess.heading = Rydych wedi gwneud cais i gyrchu Hunanasesiad
 requestedAccess.p1 = Byddwch yn cael cod cychwyn drwy''r post cyn pen 10 diwrnod.
 requestedAccess.p2 = Mae''n rhaid i chi ddefnyddio''r cod cychwyn i gyrchu''r dreth neu''r cynllun.
+requestedAccess.p3 = This tax or scheme will appear on your business tax account the next time you sign in.
