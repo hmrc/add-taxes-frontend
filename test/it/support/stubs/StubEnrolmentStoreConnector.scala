@@ -122,6 +122,10 @@ object StubEnrolmentStoreConnector extends StubHelper {
     CREATED, None
   )
 
+  def unsuccessFulEnrolForSa(saEnrolment: SaEnrolment, utr: String, groupId: String) = withResponseForEnrolForSa(saEnrolment, utr, groupId)(
+    BAD_REQUEST, None
+  )
+
   def verifyCheckUtr(count: Int, utr: String): Unit =
     verify(count, getRequestedFor(urlEqualTo(s"/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=principal")))
 

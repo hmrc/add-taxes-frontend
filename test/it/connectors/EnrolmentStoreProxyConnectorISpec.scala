@@ -15,6 +15,8 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
   implicit val hc: HeaderCarrier = HeaderCarrier()
   lazy val connector: EnrolmentStoreProxyConnector = inject[EnrolmentStoreProxyConnector]
   val testUtr = "1234567890"
+  val credId: String = "cred"
+  val enrolActivate: String = "enrolAndActivate"
   val testTaxOfficeNumber = "123"
   val testTaxOfficeReference = "4567890"
   val testAllKnownFacts: KnownFacts = KnownFacts(Some("AA1 1AA"), Some("AA00000A"), None)
@@ -125,14 +127,23 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
       val groupId: String = "ABCEDEFGI1234568"
       val saEnrolment = new SaEnrolment(userId, "enrolAndActivate")
 
-      "return a valid HttpResponse" in {
+      "return a true when a enrolment is created" in {
         StubEnrolmentStoreConnector.successFulEnrolForSa(saEnrolment, testUtr, groupId)
 
-        val result: Future[HttpResponse] = connector.enrolForSa(saEnrolment, testUtr, groupId)
+        val result: Future[Boolean] = connector.enrolForSa(testUtr, userId, groupId, enrolActivate)
 
-        await(result.map(_.status)) mustBe CREATED
+        await(result) mustBe true
         StubEnrolmentStoreConnector.verifyEnrolForSa(1, groupId, testUtr)
         }
+
+      "return a false when an enerolment is not created" in {
+        StubEnrolmentStoreConnector.unsuccessFulEnrolForSa(saEnrolment, testUtr, groupId)
+
+        val result: Future[Boolean] = connector.enrolForSa(testUtr, userId, groupId, enrolActivate)
+
+        await(result) mustBe false
+        StubEnrolmentStoreConnector.verifyEnrolForSa(1, groupId, testUtr)
+      }
       }
     }
 }

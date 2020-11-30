@@ -202,45 +202,46 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
         val userId: String = "1212121212121"
         val utr: String = "1234"
         val groupId: String = "12121212"
+        val enrolActivate: String = "enrolAndActivate"
         val saEnrolment = new SaEnrolment(userId, "enrolAndActivate")
 
         "return created when the call is successful (201)" in {
           when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
             .thenReturn(Future.successful(HttpResponse(CREATED, "")))
-          val response = enrolmentStoreProxyConnector.enrolForSa(saEnrolment, utr, groupId)
+          val response = enrolmentStoreProxyConnector.enrolForSa(utr, userId, groupId, enrolActivate)
 
           whenReady(response) { result =>
-            result.status mustBe CREATED
+            result mustBe true
           }
         }
 
         "return no content if no utr found (204)" in {
           when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
             .thenReturn(Future.successful(HttpResponse(NO_CONTENT, "")))
-          val response = enrolmentStoreProxyConnector.enrolForSa(saEnrolment, utr, groupId)
+          val response = enrolmentStoreProxyConnector.enrolForSa(utr, userId, groupId, enrolActivate)
 
           whenReady(response) { result =>
-            result.status mustBe NO_CONTENT
+            result mustBe false
           }
         }
 
         "return forbidden  if no utr found (403)" in {
           when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
             .thenReturn(Future.successful(HttpResponse(FORBIDDEN, "")))
-          val response = enrolmentStoreProxyConnector.enrolForSa(saEnrolment, utr, groupId)
+          val response = enrolmentStoreProxyConnector.enrolForSa(utr, userId, groupId, enrolActivate)
 
           whenReady(response) { result =>
-            result.status mustBe FORBIDDEN
+            result mustBe false
           }
         }
 
         "return bad request  if no utr found (400)" in {
           when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
             .thenReturn(Future.successful(HttpResponse(BAD_REQUEST, "")))
-          val response = enrolmentStoreProxyConnector.enrolForSa(saEnrolment, utr, groupId)
+          val response = enrolmentStoreProxyConnector.enrolForSa(utr, userId, groupId, enrolActivate)
 
           whenReady(response) { result =>
-            result.status mustBe BAD_REQUEST
+            result mustBe false
           }
         }
 
@@ -248,10 +249,10 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
           when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
             .thenReturn(Future.successful(HttpResponse(INTERNAL_SERVER_ERROR, "")))
 
-          val response = enrolmentStoreProxyConnector.enrolForSa(saEnrolment, utr, groupId)
+          val response = enrolmentStoreProxyConnector.enrolForSa(utr, userId, groupId, enrolActivate)
 
           whenReady(response) { result =>
-            result.status mustBe INTERNAL_SERVER_ERROR
+            result mustBe false
           }
         }
       }

@@ -21,9 +21,11 @@ import javax.inject.Inject
 import models.sa.{KnownFacts, KnownFactsAndIdentifiers, KnownFactsReturn, SAUTR, SaEnrolment}
 import play.api.Logging
 import play.api.http.Status._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse, UpstreamErrorResponse}
+
 import scala.concurrent.{ExecutionContext, Future}
 import uk.gov.hmrc.http.HttpReads.Implicits._
+import uk.gov.hmrc.http.UpstreamErrorResponse.Upstream4xxResponse
 
 class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) extends Logging{
 
@@ -74,7 +76,23 @@ class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http:
     }
   }
 
-  def enrolForSa(saEnrolment: SaEnrolment, utr: String, groupId: String)(implicit headerCarrier: HeaderCarrier, ec: ExecutionContext): Future[HttpResponse]= {
-    http.POST[SaEnrolment, HttpResponse](s"$enrolForSaUrl$groupId/enrolments/IR-SA~UTR~$utr", saEnrolment)
+  def enrolForSa(utr: String, credId: String, groupId: String, action: String)(implicit headerCarrier: HeaderCarrier, ec: ExecutionContext): Future[Boolean]= {
+    val saEnrolment: SaEnrolment = new SaEnrolment(credId, action)
+    http.POST[SaEnrolment, HttpResponse](s"$enrolForSaUrl$groupId/enrolments/IR-SA~UTR~$utr", saEnrolment).map { response =>
+    response.status match {
+      case CREATED => true
+      case _ =>
+        logger.error(s"[EnrolForSaController][enrolForSa] failed with status ${response.status}, body: ${response.body}")
+        false
+      }
+    }.recover {
+      case Upstream4xxResponse(error) =>
+        logger.error(s"[EnrolmentStoreProxyConnector][enrolForSa] Enrolment Store Proxy status ${error.statusCode}, message ${error.message}")
+        false
+      case exception =>
+        logger.error("[EnrolmentStoreProxyConnector][enrolForSa]Enrolment Store Proxy error", exception)
+        false
+    }
   }
+
 }

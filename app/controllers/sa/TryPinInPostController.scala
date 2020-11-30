@@ -25,7 +25,7 @@ import javax.inject.Inject
 import models.sa.{KnownFacts, SAUTR}
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
-import service.{EnrolForSaService, TryPinInPostService}
+import service.TryPinInPostService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import views.html.sa.tryPinInPost
 
