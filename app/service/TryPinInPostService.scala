@@ -16,7 +16,7 @@
 
 package service
 
-import connectors.DataCacheConnector
+import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
 import controllers.Assets.{InternalServerError, Redirect}
 import handlers.ErrorHandler
 import identifiers.EnterSAUTRId
@@ -30,7 +30,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import scala.concurrent.{ExecutionContext, Future}
 
 class TryPinInPostService @Inject()(dataCacheConnector: DataCacheConnector,
-                                   enrolForSaService: EnrolForSaService,
+                                   enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
                                    errorHandler: ErrorHandler
                                    ) extends Logging {
 
@@ -43,15 +43,13 @@ class TryPinInPostService @Inject()(dataCacheConnector: DataCacheConnector,
         (
           for {
             utr <- maybeSAUTR
-          } yield enrolForSaService.enrolForSa(utr.value, request.request.credId, request.request.groupId, "enrolOnly")
+          } yield enrolmentStoreProxyConnector.enrolForSa(utr.value, request.request.credId, request.request.groupId, "enrolOnly")
           ).getOrElse(Future.successful(false))
     }
 
     enrolForSaBoolean.map {
       case true  => Redirect(controllers.sa.routes.RequestedAccessController.onPageLoad())
-      case false =>
-        logger.error("[TryPinInPostService][checkEnrol] Error when enrolling for Pin in Post")
-        InternalServerError(errorHandler.internalServerErrorTemplate)
+      case false => InternalServerError(errorHandler.internalServerErrorTemplate)
     }
   }
 
