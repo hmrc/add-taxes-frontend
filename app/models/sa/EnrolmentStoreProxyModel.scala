@@ -67,3 +67,15 @@ object SaEnrolment {
 
 case class KnownFactsReturn(utr: String, knownFactsResult: Boolean)
 
+
+case class SaTotalRecords(totalRecords: Int)
+
+object SaTotalRecords {
+  implicit val format: OFormat[SaTotalRecords] = Json.format[SaTotalRecords]
+}
+
+sealed trait EnrolmentCheckResult
+
+case object NoRecordFound extends EnrolmentCheckResult
+case object CredIdFound extends EnrolmentCheckResult
+case object GroupIdFound extends EnrolmentCheckResult

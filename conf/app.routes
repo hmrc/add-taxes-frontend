@@ -129,6 +129,8 @@ POST       /self-assessment/try-pin-in-post             controllers.sa.TryPinInP
 
 GET        /self-assessment/access-requested            controllers.sa.RequestedAccessController.onPageLoad()
 
+GET        /self-assessment/group-error                 controllers.sa.GroupIdFoundController.onPageLoad()
+
 GET        /other/aeoi/register                         controllers.other.aeoi.RegisterAEOIController.onPageLoad()
 
 GET        /other/aeoi                                  controllers.other.aeoi.HaveYouRegisteredAEOIController.onPageLoad()

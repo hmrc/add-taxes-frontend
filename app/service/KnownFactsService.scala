@@ -22,7 +22,7 @@ import controllers.sa.{EnrolmentSuccessController, routes => saRoutes}
 import identifiers.EnterSAUTRId
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
-import models.sa.{KnownFacts, KnownFactsReturn, SAUTR}
+import models.sa.{CredIdFound, EnrolmentCheckResult, GroupIdFound, KnownFacts, KnownFactsReturn, NoRecordFound, SAUTR}
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -54,14 +54,25 @@ class KnownFactsService @Inject()(saService: SaService,
     }
   }
 
-  def enrolmentCheck(credId: String, saUTR: SAUTR)(implicit request: ServiceInfoRequest[AnyContent],
+  def enrolmentCheck(credId: String, saUTR: SAUTR, groupId: String)(implicit request: ServiceInfoRequest[AnyContent],
                                                    ec: ExecutionContext,
-                                                   hc: HeaderCarrier): Future[Boolean] = {
-    lazy val enrolmentCheck = enrolmentStoreProxyConnector.checkExistingUTR(saUTR.value)
+                                                   hc: HeaderCarrier): Future[EnrolmentCheckResult] = {
 
-    enrolmentCheck.map { enrolmentStoreResult: Boolean =>
-      auditService.auditSA(credId, saUTR.value, enrolmentStoreResult)
+   val enrolmentCheck: Future[EnrolmentCheckResult] = enrolmentStoreProxyConnector.checkExistingUTR(saUTR.value).flatMap { enrolmentStoreResult =>
+      if(!enrolmentStoreResult) {
+        enrolmentStoreProxyConnector.checkSaGroup(groupId).map(
+          res =>
+            if(res) GroupIdFound else NoRecordFound
+        )
+      } else {
+        Future.successful(CredIdFound)
+      }
     }
+
+    enrolmentCheck.map { enrolmentCheckResult =>
+      auditService.auditSA(credId, saUTR.value, enrolmentCheckResult)
+    }
+
     enrolmentCheck
   }
 }

@@ -1408,3 +1408,13 @@ requestedAccess.heading = You''ve requested access to Self Assessment
 requestedAccess.p1 = You''ll receive an activation code in the post within 10 days.
 requestedAccess.p2 = You need to use the activation code to get access to Self Assessment.
 requestedAccess.p3 = This tax or scheme will appear on your business tax account the next time you sign in.
+
+#######################################################
+##  useOtherAccount
+#######################################################
+useOtherAccount.title = Sorry, there is a problem.
+useOtherAccount.heading = Sorry, there is a problem.
+useOtherAccount.p1 = You cannot request access to Self Assessment using this Unique Taxpayer Reference (UTR) and Government Gateway user ID.
+useOtherAccount.p2 = You must sign out then sign in with another user ID.
+useOtherAccount.p3 = This can be a new user ID, or an existing user ID which does not already have access to Self Assessment.
+useOtherAccount.p4 = Search GOV.UK for ''Government Gateway'' to create a new user ID.

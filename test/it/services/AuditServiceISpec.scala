@@ -1,5 +1,6 @@
 package services
 
+import models.sa.CredIdFound
 import org.scalatest.concurrent.ScalaFutures.whenReady
 import org.scalatest.{MustMatchers, WordSpec}
 import play.api.mvc.AnyContent
@@ -24,7 +25,7 @@ class AuditServiceISpec extends WordSpec with MustMatchers with AddTaxesIntegrat
     implicit val request: FakeRequest[AnyContent] = FakeRequest()
 
     "successfully audit" in {
-      val result = testService.auditSA("credId123", "utr321", recordMatch = true)
+      val result = testService.auditSA("credId123", "utr321", enrolmentCheckResult = CredIdFound)
 
       whenReady(result){ _ mustBe expected }
     }

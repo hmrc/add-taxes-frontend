@@ -1,5 +1,6 @@
 package service
 
+import models.sa.CredIdFound
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.concurrent.ScalaFutures.whenReady
@@ -35,7 +36,7 @@ class AuditServiceSpec extends PlaySpec with MockitoSugar {
       when(mockAuditConnector.sendEvent(any())(any(), any()))
         .thenReturn(Future.successful(expected))
 
-      val result = testService.auditSA("credId123", "utr321", recordMatch = true)
+      val result = testService.auditSA("credId123", "utr321", enrolmentCheckResult = CredIdFound)
 
       whenReady(result){ _ mustBe expected }
     }
