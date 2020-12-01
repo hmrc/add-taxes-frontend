@@ -21,7 +21,7 @@ import controllers.Assets.SEE_OTHER
 import controllers.ControllerSpecBase
 import controllers.sa.{EnrolmentSuccessController, routes => saRoutes}
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
-import models.sa.{KnownFacts, KnownFactsReturn, SAUTR}
+import models.sa.{CredIdFound, GroupIdFound, KnownFacts, KnownFactsReturn, NoRecordFound, SAUTR}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, times, verify, when}
 import org.scalatest.BeforeAndAfterEach
@@ -100,24 +100,36 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
     }
 
     "enrolmentCheck is called" must {
-      "return true and send and audit event when the connector returns true" in {
+      "return CredIdFound and send and audit event when the ES0 connector returns true" in {
         when(mockAuditService.auditSA(any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(AuditResult.Success))
         when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any())(any(), any())).thenReturn(Future.successful(true))
 
-        await(service().enrolmentCheck("234", utr)) mustBe true
-//        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
+        await(service().enrolmentCheck("234", utr, "37219-dsjjd")) mustBe CredIdFound
+        //        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
       }
 
-      "return true and send and audit event when the connector returns false" in {
+      "return NoRecordFound and send and audit event when the ES0 and ES3 connectors returns false" in {
         when(mockAuditService.auditSA(any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(AuditResult.Success))
         when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any())(any(), any())).thenReturn(Future.successful(false))
+        when(mockEnrolmentStoreProxyConnector.checkSaGroup(any())(any(), any())).thenReturn(Future.successful(false))
 
-        await(service().enrolmentCheck("234", utr)) mustBe false
-//        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
+        await(service().enrolmentCheck("234", utr, "37219-dsjjd")) mustBe NoRecordFound
+        //        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
       }
+
+
+      "return GroupIdFound and send and audit event when the ES0 connector returns false and ES3 connectors returns true" in {
+        when(mockAuditService.auditSA(any(), any(), any())(any(), any(), any()))
+          .thenReturn(Future.successful(AuditResult.Success))
+        when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any())(any(), any())).thenReturn(Future.successful(false))
+        when(mockEnrolmentStoreProxyConnector.checkSaGroup(any())(any(), any())).thenReturn(Future.successful(true))
+
+        await(service().enrolmentCheck("234", utr, "37219-dsjjd")) mustBe GroupIdFound
+        //        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
+      }
+
     }
   }
-
 }

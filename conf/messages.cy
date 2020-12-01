@@ -1359,8 +1359,8 @@ vatAccountUnavailable.p3 = Dewch yn ôl yn nes ymlaen.
 #######################################################
 successfulEnrolment.title = Gallwch nawr gael at eich cyfrif Hunanasesiad
 successfulEnrolment.heading = Gallwch nawr gael at eich cyfrif Hunanasesiad
-successfulEnrolment.p1 = Gallwch ddechrau defnyddio’r dreth hon neu’r cynllun hwn ar unwaith.
-successfulEnrolment.p2 = Sign out and sign in again to start using this tax or scheme
+successfulEnrolment.p1 = Gallwch ddechrau defnyddio''r dreth hon neu''r cynllun hwn ar unwaith.
+successfulEnrolment.p2 = Allgofnodwch a mewngofnodwch eto er mwyn dechrau defnyddio''r dreth hon neu''r cynllun hwn.
 
 #######################################################
 ##  enterKnownFacts
@@ -1403,12 +1403,21 @@ tryPinInPost.p3 = Os dewiswch gael eich cod cychwyn drwy’r post, ni fyddwch yn
 tryPinInPost.button = Gwneud cais i gael at eich cyfrif Hunanasesiad
 tryPinInPost.p4 = Gallwch ofyn am gael cod cychwyn drwy’r post. Bydd hyn yn cymryd hyd at 10 diwrnod.
 
-
 #######################################################
 ##  requestedAccess
 #######################################################
 requestedAccess.title = Rydych wedi gwneud cais i gyrchu Hunanasesiad
 requestedAccess.heading = Rydych wedi gwneud cais i gyrchu Hunanasesiad
 requestedAccess.p1 = Byddwch yn cael cod cychwyn drwy''r post cyn pen 10 diwrnod.
-requestedAccess.p2 = Mae''n rhaid i chi ddefnyddio''r cod cychwyn i gyrchu''r dreth neu''r cynllun.
-requestedAccess.p3 = This tax or scheme will appear on your business tax account the next time you sign in.
+requestedAccess.p2 = Mae''n rhaid i chi ddefnyddio''r cod cychwyn i gyrchu Hunanasesiad.
+requestedAccess.p3 = Bydd y dreth hon neu''r cynllun hwn yn ymddangos ar eich cyfrif treth busnes y tro nesaf y byddwch yn mewngofnodi.
+
+#######################################################
+##  useOtherAccount
+#######################################################
+useOtherAccount.title = Sorry, there is a problem.
+useOtherAccount.heading = Sorry, there is a problem.
+useOtherAccount.p1 = You cannot request access to Self Assessment using this Unique Taxpayer Reference (UTR) and Government Gateway user ID.
+useOtherAccount.p2 = You must sign out then sign in with another user ID.
+useOtherAccount.p3 = This can be a new user ID, or an existing user ID which does not already have access to Self Assessment.
+useOtherAccount.p4 = Search GOV.UK for ''Government Gateway'' to create a new user ID.

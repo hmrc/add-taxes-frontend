@@ -16,6 +16,7 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
   lazy val connector: EnrolmentStoreProxyConnector = inject[EnrolmentStoreProxyConnector]
   val testUtr = "1234567890"
   val credId: String = "cred"
+  val groupId: String = "HSHGFG734-YHDJS83"
   val enrolActivate: String = "enrolAndActivate"
   val testTaxOfficeNumber = "123"
   val testTaxOfficeReference = "4567890"
@@ -26,7 +27,7 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
   "EnrolmentStoreProxyConnector" when {
     "checkExistingUTR" should {
       "return false when NO_CONTENT is received" in {
-        StubEnrolmentStoreConnector.unsuccessfulCheckUtrNotFoundResponse(testUtr)
+        StubEnrolmentStoreConnector.checkUtrNoContentResponse(testUtr)
 
         val result: Future[Boolean] = connector.checkExistingUTR(testUtr)
 
@@ -35,7 +36,7 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
       }
 
       "return false when a status other than OK and NO_CONTENT is received" in {
-       StubEnrolmentStoreConnector.unsuccessfulCheckUtrResponse(testUtr)
+        StubEnrolmentStoreConnector.unsuccessfulCheckUtrResponse(testUtr)
 
         val result: Future[Boolean] = connector.checkExistingUTR(testUtr)
 
@@ -43,13 +44,51 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
         StubEnrolmentStoreConnector.verifyCheckUtr(1, testUtr)
       }
 
-      "return true when a status OK  is received" in {
-        StubEnrolmentStoreConnector.successfulCheckUtrOkResponse(testUtr)
+      "return true when a status OK  is received and principal enrolments found" in {
+        StubEnrolmentStoreConnector.successfulCheckUtrOkResponsePrincipal(testUtr)
 
         val result: Future[Boolean] = connector.checkExistingUTR(testUtr)
 
         await(result) mustBe true
         StubEnrolmentStoreConnector.verifyCheckUtr(1, testUtr)
+      }
+
+      "return false when a status OK  is received and no principal enrolments found" in {
+        StubEnrolmentStoreConnector.successfulCheckUtrOkResponseDelegated(testUtr)
+
+        val result: Future[Boolean] = connector.checkExistingUTR(testUtr)
+
+        await(result) mustBe false
+        StubEnrolmentStoreConnector.verifyCheckUtr(1, testUtr)
+      }
+    }
+
+    "checkSaGroup" should {
+      "return false when NO_CONTENT is received" in {
+        StubEnrolmentStoreConnector.checkGroupSAResponseNoContent(groupId)
+
+        val result: Future[Boolean] = connector.checkSaGroup(groupId)
+
+        await(result) mustBe false
+        StubEnrolmentStoreConnector.verifyCheckGroupSA(1, groupId)
+      }
+
+      "return false when a status other than OK and NO_CONTENT is received" in {
+        StubEnrolmentStoreConnector.checkGroupSAResponseInternalServerError(groupId)
+
+        val result: Future[Boolean] = connector.checkSaGroup(groupId)
+
+        await(result) mustBe false
+        StubEnrolmentStoreConnector.verifyCheckGroupSA(1, groupId)
+      }
+
+      "return true when a status OK  is received" in {
+        StubEnrolmentStoreConnector.checkGroupSAResponseOK(groupId)
+
+        val result: Future[Boolean] = connector.checkSaGroup(groupId)
+
+        await(result) mustBe true
+        StubEnrolmentStoreConnector.verifyCheckGroupSA(1, groupId)
       }
     }
 
@@ -134,7 +173,7 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
 
         await(result) mustBe true
         StubEnrolmentStoreConnector.verifyEnrolForSa(1, groupId, testUtr)
-        }
+      }
 
       "return a false when an enerolment is not created" in {
         StubEnrolmentStoreConnector.unsuccessFulEnrolForSa(saEnrolment, testUtr, groupId)
@@ -144,6 +183,6 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
         await(result) mustBe false
         StubEnrolmentStoreConnector.verifyEnrolForSa(1, groupId, testUtr)
       }
-      }
     }
+  }
 }

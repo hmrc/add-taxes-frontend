@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.sa.SAUTRFormProvider
 import identifiers.EnterSAUTRId
 import javax.inject.Inject
-import models.sa.SAUTR
+import models.sa.{EnrolmentCheckResult, SAUTR}
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents, Result}
@@ -66,9 +66,9 @@ class EnterSAUTRController @Inject()(appConfig: FrontendAppConfig,
           lazy val enrolmentCheck: Future[Result] = {
             for {
               tryAgain <- dataCacheConnector.getEntry[Boolean](request.request.credId, "tryAgain").map(_.getOrElse(false))
-              enrolmentStoreResult <- knownFactsService.enrolmentCheck(request.request.credId, saUTR)
+              enrolmentStoreResult <- knownFactsService.enrolmentCheck(request.request.credId, saUTR, request.request.groupId)
             } yield {
-              val mapBoolean: (Boolean, Boolean) = (tryAgain, enrolmentStoreResult)
+              val mapBoolean: (Boolean, EnrolmentCheckResult) = (tryAgain, enrolmentStoreResult)
               Redirect(navigator.nextPage(EnterSAUTRId, mapBoolean))
             }
           }

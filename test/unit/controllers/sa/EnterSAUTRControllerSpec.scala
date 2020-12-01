@@ -19,7 +19,7 @@ package controllers.sa
 import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
 import controllers._
 import forms.sa.SAUTRFormProvider
-import models.sa.SAUTR
+import models.sa.{CredIdFound, SAUTR}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito.{times, verify, when}
 import org.scalatestplus.mockito.MockitoSugar
@@ -101,7 +101,7 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar with
     "redirect when valid sa utr is submitted and is in the enrolment store" in {
       when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any())(any(), any())).thenReturn(Future.successful(true))
       when(mockDataCacheConnector.getEntry[Boolean](any(),any())(any())).thenReturn(Future.successful(Some(false)))
-      when(mockKnowFactsService.enrolmentCheck(any(), any())(any(), any(), any())).thenReturn(Future.successful(true))
+      when(mockKnowFactsService.enrolmentCheck(any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(CredIdFound))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789"))
 
       val result = controller().onSubmit()(postRequest)
@@ -115,7 +115,7 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar with
       when(mockDataCacheConnector.save[SAUTR](any(), any(), any())(any())).thenReturn(Future.successful(emptyCacheMap))
       when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any())(any(), any())).thenReturn(Future.successful(true))
       when(mockDataCacheConnector.getEntry[Boolean](any(),any())(any())).thenReturn(Future.successful(Some(false)))
-      when(mockKnowFactsService.enrolmentCheck(any(), any())(any(), any(), any())).thenReturn(Future.successful(true))
+      when(mockKnowFactsService.enrolmentCheck(any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(CredIdFound))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789"))
 
       val result = controller(pinAndPostToggle = true).onSubmit()(postRequest)

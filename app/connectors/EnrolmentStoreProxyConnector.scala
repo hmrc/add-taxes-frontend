@@ -18,7 +18,7 @@ package connectors
 
 import config.FrontendAppConfig
 import javax.inject.Inject
-import models.sa.{KnownFacts, KnownFactsAndIdentifiers, KnownFactsReturn, SAUTR, SaEnrolment}
+import models.sa.{ExistingUtrModel, KnownFacts, KnownFactsAndIdentifiers, KnownFactsReturn, SAUTR, SaEnrolment, SaTotalRecords}
 import play.api.Logging
 import play.api.http.Status._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse, UpstreamErrorResponse}
@@ -34,15 +34,23 @@ class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http:
   def checkExistingUTR(utr: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
     http.GET[HttpResponse](appConfig.checkUtrUrl(utr)).map { response =>
       response.status match {
-        case OK         => true
+        case OK         => response.json.as[ExistingUtrModel].principalUserIds.isDefined
         case NO_CONTENT => false
-        case status =>
-          logger.error(s"Enrolment Store Proxy returned status code: $status, body: ${response.body}")
-          false
       }
     } recover {
       case exception =>
-        logger.error("Enrolment Store Proxy error", exception)
+        logger.error("[EnrolmentStoreProxyConnector][checkExistingUTR] Enrolment Store Proxy error", exception)
+        false
+    }
+
+  def checkSaGroup(groupId: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
+    http.GET[HttpResponse](appConfig.checkSaGroupUrl(groupId)).map { response =>
+      response.status match {
+        case OK         => true
+        case NO_CONTENT => false
+      }    } recover {
+      case exception =>
+        logger.error("[EnrolmentStoreProxyConnector][checkSaGroup] Enrolment Store Proxy error", exception)
         false
     }
 
@@ -52,12 +60,12 @@ class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http:
         case OK         => true
         case NO_CONTENT => false
         case status =>
-          logger.error(s"Enrolment Store Proxy returned status code: $status, body: ${response.body}")
+          logger.error(s"[EnrolmentStoreProxyConnector][checkExistingEmpRef] Enrolment Store Proxy returned status code: $status, body: ${response.body}")
           false
       }
     } recover {
       case exception =>
-        logger.error("Enrolment Store Proxy error", exception)
+        logger.error("[EnrolmentStoreProxyConnector][checkExistingEmpRef] Enrolment Store Proxy error", exception)
         false
     }
 
@@ -71,7 +79,7 @@ class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http:
       }
     }.recover {
       case exception =>
-        logger.error("Enrolment Store Proxy error for queryKnownFacts", exception)
+        logger.error("[EnrolmentStoreProxyConnector][queryKnownFacts] Enrolment Store Proxy error for queryKnownFacts", exception)
         KnownFactsReturn(utr.value, knownFactsResult = false)
     }
   }

@@ -1,0 +1,43 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.FrontendAppConfig
+@import uk.gov.hmrc.play.views.html.helpers._
+@import models.sa.KnownFacts
+@import controllers.sa.routes._
+@import akka.http.scaladsl.model.headers.LinkParams.title
+
+@this(
+        main_template: main_template
+)
+
+@(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    title = messages("useOtherAccount.title"),
+    appConfig = appConfig,
+    serviceInfoContent = serviceInfoContent) {
+
+
+        @components.heading("useOtherAccount-heading", "useOtherAccount.heading")
+
+        <p>@messages("useOtherAccount.p1")</p>
+        <p>@messages("useOtherAccount.p2")</p>
+        <p>@messages("useOtherAccount.p3")</p>
+        <p>@messages("useOtherAccount.p4")</p>
+
+    <a class="button" id="signOut" href="@appConfig.ssoUrl" data-journey-click="SAUseAnotherAccount:Click:SignOut">@messages("site.signout")</a>
+}

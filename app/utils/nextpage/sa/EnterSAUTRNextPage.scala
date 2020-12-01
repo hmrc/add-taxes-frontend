@@ -20,14 +20,16 @@ import config.FrontendAppConfig
 import controllers.sa.routes.SelectSACategoryController
 import controllers.sa.routes.YourSaIsNotInThisAccountController
 import controllers.sa.routes.KnownFactsController
+import controllers.sa.routes.GroupIdFoundController
 import identifiers.EnterSAUTRId
+import models.sa.{CredIdFound, EnrolmentCheckResult, GroupIdFound, NoRecordFound}
 import play.api.mvc.{Call, Request}
 import playconfig.featuretoggle.FeatureConfig
 import utils.NextPage
 
 trait EnterSAUTRNextPage {
 
-  type EnterSAUtrBooleans = (Boolean, Boolean)
+  type EnterSAUtrBooleans = (Boolean, EnrolmentCheckResult)
 
   implicit val enterSAUTR: NextPage[EnterSAUTRId.type, EnterSAUtrBooleans, Call] = {
 
@@ -37,15 +39,16 @@ trait EnterSAUTRNextPage {
         featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
-          case (false, false) if request.session.get("tryingToAccessSa").contains("true") =>
+          case (false, NoRecordFound) if request.session.get("tryingToAccessSa").contains("true") =>
             YourSaIsNotInThisAccountController.onPageLoad()
-          case (false, false) => SelectSACategoryController.onPageLoadHasUTR()
-          case (false, true)  => Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials"))
-          case (true, false) => KnownFactsController.onPageLoad()
-          case (true, true)  => Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials"))
+          case (false, NoRecordFound) => SelectSACategoryController.onPageLoadHasUTR()
+          case (false, CredIdFound)  => Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials"))
+          case (false, GroupIdFound)  => GroupIdFoundController.onPageLoad()
+          case (true, NoRecordFound) => KnownFactsController.onPageLoad()
+          case (true, CredIdFound)  => Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials"))
+          case (true, GroupIdFound)  => GroupIdFoundController.onPageLoad()
         }
     }
-
   }
 
 }

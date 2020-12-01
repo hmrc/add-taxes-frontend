@@ -19,14 +19,13 @@ package support.stubs
 import com.github.tomakehurst.wiremock.client.WireMock._
 import controllers.Assets._
 import models.sa.{KnownFacts, SaEnrolment}
+import play.api.libs.json.{JsValue, Json}
 import play.api.test.Helpers.OK
 
 object StubEnrolmentStoreConnector extends StubHelper {
 
-
-
   def withResponseForCheckUtr(utr: String)(status: Int, optBody: Option[String]): Unit =
-    stubGet(s"/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=principal", status, optBody)
+    stubGet(s"/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=all", status, optBody)
 
   def withResponseForCheckEmpRef(officeNumber: String, payeReference: String)(status: Int, optBody: Option[String]): Unit =
     stubGet(
@@ -34,6 +33,9 @@ object StubEnrolmentStoreConnector extends StubHelper {
       status,
       optBody
     )
+
+  def withResponseForCheckGroupSA(groupId: String)(status: Int, optBody: Option[String]): Unit =
+    stubGet(s"/enrolment-store-proxy/enrolment-store/groups/$groupId/enrolments?type=principal&service=IR-SA", status, optBody)
 
   def queryKnownFactsAllDataPost(utr: String, kf: KnownFacts) =
     s"""
@@ -98,11 +100,36 @@ object StubEnrolmentStoreConnector extends StubHelper {
        |  "action": "enrolAndActivate"
        |}""".stripMargin
 
+  val es0ResponsePrincipals  =
+    """
+      |{
+      |    "principalUserIds": [
+      |       "ABCEDEFGI1234567",
+      |       "ABCEDEFGI1234568"
+      |    ],
+      |    "delegatedUserIds": [
+      |       "ABCEDEFGI1234567",
+      |       "ABCEDEFGI1234568"
+      |    ]
+      |}
+      |""".stripMargin
+
+  val es0ResponseDelegated =
+    """
+      |{
+      |    "delegatedUserIds": [
+      |       "ABCEDEFGI1234567",
+      |       "ABCEDEFGI1234568"
+      |    ]
+      |}
+      |""".stripMargin
+
   def withResponseForEnrolForSa(saEnrolment: SaEnrolment, utr: String, groupId: String)(status: Int, optBody: Option[String]): Unit =
     stubPost(s"/enrolment-store-proxy/enrolment-store/groups/$groupId/enrolments/IR-SA~UTR~$utr", status, enrolForSaPost(saEnrolment), optBody)
 
-  def successfulCheckUtrOkResponse(utr: String) = withResponseForCheckUtr(utr)(OK, None)
-  def unsuccessfulCheckUtrNotFoundResponse(utr: String) = withResponseForCheckUtr(utr)(NOT_FOUND, None)
+  def successfulCheckUtrOkResponsePrincipal(utr: String) = withResponseForCheckUtr(utr)(OK, Some(es0ResponsePrincipals))
+  def successfulCheckUtrOkResponseDelegated(utr: String) = withResponseForCheckUtr(utr)(OK, Some(es0ResponseDelegated))
+  def checkUtrNoContentResponse(utr: String) = withResponseForCheckUtr(utr)(NO_CONTENT, None)
   def unsuccessfulCheckUtrResponse(utr: String) = withResponseForCheckUtr(utr)(INTERNAL_SERVER_ERROR, None)
 
   def successfulExistingEmpRefOkResponse(officeNumber: String, payeReference: String) =
@@ -111,6 +138,15 @@ object StubEnrolmentStoreConnector extends StubHelper {
     withResponseForCheckEmpRef(officeNumber, payeReference)(NOT_FOUND, None)
   def unsuccessfulExistingEmpRefResponse(officeNumber: String, payeReference: String) =
     withResponseForCheckEmpRef(officeNumber, payeReference)(INTERNAL_SERVER_ERROR, None)
+
+  def checkGroupSAResponseOK(groupId: String) =
+    withResponseForCheckGroupSA(groupId)(OK, None)
+
+  def checkGroupSAResponseNoContent(groupId: String) =
+    withResponseForCheckGroupSA(groupId)(NO_CONTENT, None)
+
+  def checkGroupSAResponseInternalServerError(groupId: String) =
+    withResponseForCheckGroupSA(groupId)(INTERNAL_SERVER_ERROR, None)
 
   def successfulQueryKnownFacts(postBody: String) = withResponseForQueryKnownFacts(postBody)(OK, None)
 
@@ -127,7 +163,10 @@ object StubEnrolmentStoreConnector extends StubHelper {
   )
 
   def verifyCheckUtr(count: Int, utr: String): Unit =
-    verify(count, getRequestedFor(urlEqualTo(s"/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=principal")))
+    verify(count, getRequestedFor(urlEqualTo(s"/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=all")))
+
+  def verifyCheckGroupSA(count: Int, groupId: String): Unit =
+    verify(count, getRequestedFor(urlEqualTo(s"/enrolment-store-proxy/enrolment-store/groups/$groupId/enrolments?type=principal&service=IR-SA")))
 
   def verifyExistingEmpRef(count: Int, officeNumber: String, payeReference: String): Unit =
     verify(count, getRequestedFor(urlEqualTo(s"/enrolment-store-proxy/enrolment-store/enrolments/IR-PAYE~TaxOfficeNumber~$officeNumber~TaxOfficeReference~$payeReference/users?type=principal")))
