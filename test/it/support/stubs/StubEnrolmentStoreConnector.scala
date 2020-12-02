@@ -124,6 +124,96 @@ object StubEnrolmentStoreConnector extends StubHelper {
       |}
       |""".stripMargin
 
+  val es3ResponseEnrolmentsWithSA =
+    """
+      |{
+      |    "startRecord": 1,
+      |    "totalRecords": 2,
+      |    "enrolments": [
+      |    {
+      |           "service": "IR-CT",
+      |           "state": "Activated",
+      |           "friendlyName": "My Second Client's SA Enrolment",
+      |           "enrolmentDate": "2017-06-25T12:24:00.000Z",
+      |           "failedActivationCount": 1,
+      |           "activationDate": "2017-07-01T09:52:00.000Z",
+      |           "identifiers": [
+      |              {
+      |                 "key": "UTR",
+      |                 "value": "9876543210"
+      |              }
+      |           ]
+      |        },
+      |        {
+      |           "service": "IR-SA",
+      |           "state": "Activated",
+      |           "friendlyName": "My First Client's SA Enrolment",
+      |           "enrolmentDate": "2018-10-05T14:48:00.000Z",
+      |           "failedActivationCount": 1,
+      |           "activationDate": "2018-10-13T17:36:00.000Z",
+      |           "identifiers": [
+      |              {
+      |                 "key": "UTR",
+      |                 "value": "1234567890"
+      |              }
+      |           ]
+      |        },
+      |        {
+      |           "service": "IR-CT",
+      |           "state": "Activated",
+      |           "friendlyName": "My Second Client's SA Enrolment",
+      |           "enrolmentDate": "2017-06-25T12:24:00.000Z",
+      |           "failedActivationCount": 1,
+      |           "activationDate": "2017-07-01T09:52:00.000Z",
+      |           "identifiers": [
+      |              {
+      |                 "key": "UTR",
+      |                 "value": "9876543210"
+      |              }
+      |           ]
+      |        }
+      |    ]
+      |}
+      |""".stripMargin
+
+  val es3ResponseEnrolmentsWithOutSa =
+    """
+      |{
+      |    "startRecord": 1,
+      |    "totalRecords": 2,
+      |    "enrolments": [
+      |        {
+      |           "service": "IR-PAYE",
+      |           "state": "Activated",
+      |           "friendlyName": "My First Client's SA Enrolment",
+      |           "enrolmentDate": "2018-10-05T14:48:00.000Z",
+      |           "failedActivationCount": 1,
+      |           "activationDate": "2018-10-13T17:36:00.000Z",
+      |           "identifiers": [
+      |              {
+      |                 "key": "UTR",
+      |                 "value": "1234567890"
+      |              }
+      |           ]
+      |        },
+      |        {
+      |           "service": "IR-CT",
+      |           "state": "Activated",
+      |           "friendlyName": "My Second Client's SA Enrolment",
+      |           "enrolmentDate": "2017-06-25T12:24:00.000Z",
+      |           "failedActivationCount": 1,
+      |           "activationDate": "2017-07-01T09:52:00.000Z",
+      |           "identifiers": [
+      |              {
+      |                 "key": "UTR",
+      |                 "value": "9876543210"
+      |              }
+      |           ]
+      |        }
+      |    ]
+      |}
+      |""".stripMargin
+
   def withResponseForEnrolForSa(saEnrolment: SaEnrolment, utr: String, groupId: String)(status: Int, optBody: Option[String]): Unit =
     stubPost(s"/enrolment-store-proxy/enrolment-store/groups/$groupId/enrolments/IR-SA~UTR~$utr", status, enrolForSaPost(saEnrolment), optBody)
 
@@ -139,8 +229,8 @@ object StubEnrolmentStoreConnector extends StubHelper {
   def unsuccessfulExistingEmpRefResponse(officeNumber: String, payeReference: String) =
     withResponseForCheckEmpRef(officeNumber, payeReference)(INTERNAL_SERVER_ERROR, None)
 
-  def checkGroupSAResponseOK(groupId: String) =
-    withResponseForCheckGroupSA(groupId)(OK, None)
+  def checkGroupSAResponseOK(groupId: String, body: String) =
+    withResponseForCheckGroupSA(groupId)(OK, Some(body))
 
   def checkGroupSAResponseNoContent(groupId: String) =
     withResponseForCheckGroupSA(groupId)(NO_CONTENT, None)

@@ -82,12 +82,21 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
         StubEnrolmentStoreConnector.verifyCheckGroupSA(1, groupId)
       }
 
-      "return true when a status OK  is received" in {
-        StubEnrolmentStoreConnector.checkGroupSAResponseOK(groupId)
+      "return true when a status OK  is received and json contains IR-SA" in {
+        StubEnrolmentStoreConnector.checkGroupSAResponseOK(groupId, StubEnrolmentStoreConnector.es3ResponseEnrolmentsWithSA)
 
         val result: Future[Boolean] = connector.checkSaGroup(groupId)
 
         await(result) mustBe true
+        StubEnrolmentStoreConnector.verifyCheckGroupSA(1, groupId)
+      }
+
+      "return false when a status OK  is received and Json does not contain IR-SA" in {
+        StubEnrolmentStoreConnector.checkGroupSAResponseOK(groupId, StubEnrolmentStoreConnector.es3ResponseEnrolmentsWithOutSa)
+
+        val result: Future[Boolean] = connector.checkSaGroup(groupId)
+
+        await(result) mustBe false
         StubEnrolmentStoreConnector.verifyCheckGroupSA(1, groupId)
       }
     }

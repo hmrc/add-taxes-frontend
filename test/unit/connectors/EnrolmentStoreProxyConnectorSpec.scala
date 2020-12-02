@@ -69,6 +69,96 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
       |""".stripMargin
   )
 
+  val es3ResponseEnrolmentsWithSA =
+    """
+      |{
+      |    "startRecord": 1,
+      |    "totalRecords": 2,
+      |    "enrolments": [
+      |    {
+      |           "service": "IR-CT",
+      |           "state": "Activated",
+      |           "friendlyName": "My Second Client's SA Enrolment",
+      |           "enrolmentDate": "2017-06-25T12:24:00.000Z",
+      |           "failedActivationCount": 1,
+      |           "activationDate": "2017-07-01T09:52:00.000Z",
+      |           "identifiers": [
+      |              {
+      |                 "key": "UTR",
+      |                 "value": "9876543210"
+      |              }
+      |           ]
+      |        },
+      |        {
+      |           "service": "IR-SA",
+      |           "state": "Activated",
+      |           "friendlyName": "My First Client's SA Enrolment",
+      |           "enrolmentDate": "2018-10-05T14:48:00.000Z",
+      |           "failedActivationCount": 1,
+      |           "activationDate": "2018-10-13T17:36:00.000Z",
+      |           "identifiers": [
+      |              {
+      |                 "key": "UTR",
+      |                 "value": "1234567890"
+      |              }
+      |           ]
+      |        },
+      |        {
+      |           "service": "IR-CT",
+      |           "state": "Activated",
+      |           "friendlyName": "My Second Client's SA Enrolment",
+      |           "enrolmentDate": "2017-06-25T12:24:00.000Z",
+      |           "failedActivationCount": 1,
+      |           "activationDate": "2017-07-01T09:52:00.000Z",
+      |           "identifiers": [
+      |              {
+      |                 "key": "UTR",
+      |                 "value": "9876543210"
+      |              }
+      |           ]
+      |        }
+      |    ]
+      |}
+      |""".stripMargin
+
+  val es3ResponseEnrolmentsWithOutSa =
+    """
+      |{
+      |    "startRecord": 1,
+      |    "totalRecords": 2,
+      |    "enrolments": [
+      |        {
+      |           "service": "IR-PAYE",
+      |           "state": "Activated",
+      |           "friendlyName": "My First Client's SA Enrolment",
+      |           "enrolmentDate": "2018-10-05T14:48:00.000Z",
+      |           "failedActivationCount": 1,
+      |           "activationDate": "2018-10-13T17:36:00.000Z",
+      |           "identifiers": [
+      |              {
+      |                 "key": "UTR",
+      |                 "value": "1234567890"
+      |              }
+      |           ]
+      |        },
+      |        {
+      |           "service": "IR-CT",
+      |           "state": "Activated",
+      |           "friendlyName": "My Second Client's SA Enrolment",
+      |           "enrolmentDate": "2017-06-25T12:24:00.000Z",
+      |           "failedActivationCount": 1,
+      |           "activationDate": "2017-07-01T09:52:00.000Z",
+      |           "identifiers": [
+      |              {
+      |                 "key": "UTR",
+      |                 "value": "9876543210"
+      |              }
+      |           ]
+      |        }
+      |    ]
+      |}
+      |""".stripMargin
+
   implicit val hc: HeaderCarrier = HeaderCarrier()
 
   "EnrolmentStoreProxy" when {
@@ -132,13 +222,23 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
     }
 
     "checkSaGroup is called" should {
-      "return true when OK is returned from ES3" in {
+      "return true when OK is returned from ES3 with SA" in {
         when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
-          .thenReturn(Future.successful(HttpResponse.apply(OK, "body")))
+          .thenReturn(Future.successful(HttpResponse.apply(OK, es3ResponseEnrolmentsWithSA,  Map("" -> Seq.empty))))
 
         val response: Future[Boolean] = enrolmentStoreProxyConnector.checkSaGroup(groupId)
         whenReady(response) { res =>
           res mustBe true
+        }
+      }
+
+      "return false when OK is returned from ES3 without SA" in {
+        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+          .thenReturn(Future.successful(HttpResponse.apply(OK, es3ResponseEnrolmentsWithOutSa,  Map("" -> Seq.empty))))
+
+        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkSaGroup(groupId)
+        whenReady(response) { res =>
+          res mustBe false
         }
       }
 
