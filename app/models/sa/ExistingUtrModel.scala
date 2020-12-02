@@ -18,7 +18,7 @@ package models.sa
 
 import play.api.libs.json._
 
-case class ExistingUtrModel(principalUserIds: Option[Seq[String]])
+case class ExistingUtrModel(principalUserIds: Seq[String])
 
 object ExistingUtrModel {
   implicit val format: OFormat[ExistingUtrModel] = Json.format[ExistingUtrModel]
