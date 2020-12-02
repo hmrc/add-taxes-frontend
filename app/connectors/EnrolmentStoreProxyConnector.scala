@@ -18,14 +18,14 @@ package connectors
 
 import config.FrontendAppConfig
 import javax.inject.Inject
-import models.sa.{ExistingUtrModel, KnownFacts, KnownFactsAndIdentifiers, KnownFactsReturn, SAUTR, SaEnrolment, SaTotalRecords}
+import models.sa._
 import play.api.Logging
 import play.api.http.Status._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse, UpstreamErrorResponse}
-
-import scala.concurrent.{ExecutionContext, Future}
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.UpstreamErrorResponse.Upstream4xxResponse
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
+
+import scala.concurrent.{ExecutionContext, Future}
 
 class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) extends Logging{
 
@@ -46,7 +46,7 @@ class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http:
   def checkSaGroup(groupId: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
     http.GET[HttpResponse](appConfig.checkSaGroupUrl(groupId)).map { response =>
       response.status match {
-        case OK         => true
+        case OK         => response.json.as[QueryGroupsEnrolmentsResponseModel].enrolments.exists(_.service.contains("IR-SA"))
         case NO_CONTENT => false
       }    } recover {
       case exception =>

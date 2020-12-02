@@ -16,10 +16,26 @@
 
 package models.sa
 
-import play.api.libs.json.{Json, OFormat}
+import play.api.i18n.Messages
+import play.api.libs.json._
 
 case class ExistingUtrModel(principalUserIds: Option[Seq[String]])
 
 object ExistingUtrModel {
   implicit val format: OFormat[ExistingUtrModel] = Json.format[ExistingUtrModel]
+}
+
+case class ServiceIdentifier(key: String, value: String, maskedValue: Option[String] = None)
+
+object ServiceIdentifier {
+  implicit val identifierFormat = Json.format[ServiceIdentifier]
+}
+
+case class QueryGroupsEnrolmentsResponseModel(enrolments: Seq[Enrolment])
+
+case class Enrolment(service: String)
+
+object QueryGroupsEnrolmentsResponseModel {
+  implicit val enrolmentReads = Json.format[Enrolment]
+  implicit val queryGroupsEnrolmentsReads = Json.format[QueryGroupsEnrolmentsResponseModel]
 }
