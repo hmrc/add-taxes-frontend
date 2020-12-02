@@ -61,9 +61,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
   val es0ResponseNoPrincipal: JsValue = Json.parse(
     """
       |{
-      |    "principalUserIds": [
-      |       "ABCEDEFGI1234568"
-      |    ],
+      |    "principalUserIds": [],
       |    "delegatedUserIds": [
       |       "ABCEDEFGI1234567",
       |       "ABCEDEFGI1234568"
