@@ -117,6 +117,7 @@ object StubEnrolmentStoreConnector extends StubHelper {
   val es0ResponseDelegated =
     """
       |{
+      |    "principalUserIds": [],
       |    "delegatedUserIds": [
       |       "ABCEDEFGI1234567",
       |       "ABCEDEFGI1234568"

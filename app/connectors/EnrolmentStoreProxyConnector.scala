@@ -34,7 +34,7 @@ class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http:
   def checkExistingUTR(utr: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
     http.GET[HttpResponse](appConfig.checkUtrUrl(utr)).map { response =>
       response.status match {
-        case OK         => response.json.as[ExistingUtrModel].principalUserIds.isDefined
+        case OK         => response.json.as[ExistingUtrModel].principalUserIds.nonEmpty
         case NO_CONTENT => false
       }
     } recover {
