@@ -19,7 +19,6 @@ package support.stubs
 import com.github.tomakehurst.wiremock.client.WireMock._
 import controllers.Assets._
 import models.sa.{KnownFacts, SaEnrolment}
-import play.api.libs.json.{JsValue, Json}
 import play.api.test.Helpers.OK
 
 object StubEnrolmentStoreConnector extends StubHelper {
@@ -215,9 +214,6 @@ object StubEnrolmentStoreConnector extends StubHelper {
       |}
       |""".stripMargin
 
-  def withResponseForEnrolForSa(saEnrolment: SaEnrolment, utr: String, groupId: String)(status: Int, optBody: Option[String]): Unit =
-    stubPost(s"/enrolment-store-proxy/enrolment-store/groups/$groupId/enrolments/IR-SA~UTR~$utr", status, enrolForSaPost(saEnrolment), optBody)
-
   def successfulCheckUtrOkResponsePrincipal(utr: String) = withResponseForCheckUtr(utr)(OK, Some(es0ResponsePrincipals))
   def successfulCheckUtrOkResponseDelegated(utr: String) = withResponseForCheckUtr(utr)(OK, Some(es0ResponseDelegated))
   def checkUtrNoContentResponse(utr: String) = withResponseForCheckUtr(utr)(NO_CONTENT, None)
@@ -245,14 +241,6 @@ object StubEnrolmentStoreConnector extends StubHelper {
     NO_CONTENT, None
   )
 
-  def successFulEnrolForSa(saEnrolment: SaEnrolment, utr: String, groupId: String) = withResponseForEnrolForSa(saEnrolment, utr, groupId)(
-    CREATED, None
-  )
-
-  def unsuccessFulEnrolForSa(saEnrolment: SaEnrolment, utr: String, groupId: String) = withResponseForEnrolForSa(saEnrolment, utr, groupId)(
-    BAD_REQUEST, None
-  )
-
   def verifyCheckUtr(count: Int, utr: String): Unit =
     verify(count, getRequestedFor(urlEqualTo(s"/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=all")))
 
@@ -264,8 +252,5 @@ object StubEnrolmentStoreConnector extends StubHelper {
 
   def verifyQueryKnownFacts(count: Int): Unit =
     verify(count, postRequestedFor(urlEqualTo(s"/enrolment-store-proxy/enrolment-store/enrolments")))
-
-  def verifyEnrolForSa(count: Int, groupId: String, utr: String): Unit =
-    verify(count, postRequestedFor(urlEqualTo(s"/enrolment-store-proxy/enrolment-store/groups/$groupId/enrolments/IR-SA~UTR~$utr")))
 
 }

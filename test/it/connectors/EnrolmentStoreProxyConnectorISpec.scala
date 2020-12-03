@@ -170,28 +170,5 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
       }
     }
 
-    "enrolForSa" should {
-      val userId: String = "00000000123166122235"
-      val groupId: String = "ABCEDEFGI1234568"
-      val saEnrolment = new SaEnrolment(userId, "enrolAndActivate")
-
-      "return a true when a enrolment is created" in {
-        StubEnrolmentStoreConnector.successFulEnrolForSa(saEnrolment, testUtr, groupId)
-
-        val result: Future[Boolean] = connector.enrolForSa(testUtr, userId, groupId, enrolActivate)
-
-        await(result) mustBe true
-        StubEnrolmentStoreConnector.verifyEnrolForSa(1, groupId, testUtr)
-      }
-
-      "return a false when an enerolment is not created" in {
-        StubEnrolmentStoreConnector.unsuccessFulEnrolForSa(saEnrolment, testUtr, groupId)
-
-        val result: Future[Boolean] = connector.enrolForSa(testUtr, userId, groupId, enrolActivate)
-
-        await(result) mustBe false
-        StubEnrolmentStoreConnector.verifyEnrolForSa(1, groupId, testUtr)
-      }
-    }
   }
 }

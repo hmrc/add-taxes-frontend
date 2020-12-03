@@ -65,7 +65,8 @@ trait AddTaxesIntegrationTest
     "enrolment-store-proxy",
     "vat-subscription",
     "auth",
-    "identity-verification-frontend"
+    "identity-verification-frontend",
+    "tax-enrolments"
   )
 
   protected def resetAllFeatures(): Unit =
