@@ -16,7 +16,7 @@
 
 package service
 
-import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector, IvConnector}
+import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector, IvConnector, TaxEnrolmentsConnector}
 import controllers.Assets.Redirect
 import controllers.sa.{routes => saRoutes}
 import identifiers.EnterSAUTRId
@@ -31,7 +31,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class IvService @Inject()(dataCacheConnector: DataCacheConnector,
                          ivConnector: IvConnector,
-                         enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector) extends Logging {
+                         taxEnrolmentsConnector: TaxEnrolmentsConnector) extends Logging {
 
   def journeyLinkCheck()(implicit request: ServiceInfoRequest[AnyContent],
                          ec: ExecutionContext,
@@ -64,7 +64,7 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
             (
               for {
                 utr <- maybeSAUTR
-              } yield enrolmentStoreProxyConnector.enrolForSa(utr.value, request.request.credId, request.request.groupId, "enrolAndActivate")
+              } yield taxEnrolmentsConnector.enrolForSa(utr.value, request.request.credId, request.request.groupId, "enrolAndActivate")
               ).getOrElse(Future.successful(false))
         }
         enrolForSaBoolean.map {

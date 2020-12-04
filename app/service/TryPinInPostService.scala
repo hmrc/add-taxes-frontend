@@ -16,7 +16,7 @@
 
 package service
 
-import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
+import connectors.{DataCacheConnector, TaxEnrolmentsConnector}
 import controllers.Assets.{InternalServerError, Redirect}
 import handlers.ErrorHandler
 import identifiers.EnterSAUTRId
@@ -30,8 +30,8 @@ import uk.gov.hmrc.http.HeaderCarrier
 import scala.concurrent.{ExecutionContext, Future}
 
 class TryPinInPostService @Inject()(dataCacheConnector: DataCacheConnector,
-                                   enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
-                                   errorHandler: ErrorHandler
+                                    taxEnrolmentsConnector: TaxEnrolmentsConnector,
+                                    errorHandler: ErrorHandler
                                    ) extends Logging {
 
   def checkEnrol()(implicit request: ServiceInfoRequest[AnyContent],
@@ -43,7 +43,7 @@ class TryPinInPostService @Inject()(dataCacheConnector: DataCacheConnector,
         (
           for {
             utr <- maybeSAUTR
-          } yield enrolmentStoreProxyConnector.enrolForSa(utr.value, request.request.credId, request.request.groupId, "enrolOnly")
+          } yield taxEnrolmentsConnector.enrolForSa(utr.value, request.request.credId, request.request.groupId, "enrolOnly")
           ).getOrElse(Future.successful(false))
     }
 

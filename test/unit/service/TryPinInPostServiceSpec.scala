@@ -1,7 +1,7 @@
 package service
 
-import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
-import controllers.Assets.{InternalServerError, SEE_OTHER}
+import connectors.{DataCacheConnector, TaxEnrolmentsConnector}
+import controllers.Assets.SEE_OTHER
 import controllers.ControllerSpecBase
 import handlers.ErrorHandler
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
@@ -25,7 +25,7 @@ import scala.concurrent.Future
 class TryPinInPostServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach {
 
   val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
-  val mockEnrolmentStoreProxyConnector: EnrolmentStoreProxyConnector = mock[EnrolmentStoreProxyConnector]
+  val mockTaxEnrolmentsConnector: TaxEnrolmentsConnector = mock[TaxEnrolmentsConnector]
   val errorHandler: ErrorHandler = injector.instanceOf[ErrorHandler]
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
@@ -35,7 +35,7 @@ class TryPinInPostServiceSpec extends ControllerSpecBase with MockitoSugar with 
 
   def service = new TryPinInPostService(
     mockDataCacheConnector,
-    mockEnrolmentStoreProxyConnector,
+    mockTaxEnrolmentsConnector,
     errorHandler
   )
 
@@ -44,7 +44,7 @@ class TryPinInPostServiceSpec extends ControllerSpecBase with MockitoSugar with 
       "return a redirect to the unsuccessful page when enrolForSa returns false" in {
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
           .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
-        when(mockEnrolmentStoreProxyConnector.enrolForSa(any(), any(), any(), any())(any(), any()))
+        when(mockTaxEnrolmentsConnector.enrolForSa(any(), any(), any(), any())(any(), any()))
           .thenReturn(Future.successful(false))
 
         val result = service.checkEnrol()
@@ -55,7 +55,7 @@ class TryPinInPostServiceSpec extends ControllerSpecBase with MockitoSugar with 
       "return a redirect to the Requested Access page when enrolForSa returns true" in {
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
           .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
-        when(mockEnrolmentStoreProxyConnector.enrolForSa(any(), any(), any(), any())(any(), any()))
+        when(mockTaxEnrolmentsConnector.enrolForSa(any(), any(), any(), any())(any(), any()))
           .thenReturn(Future.successful(true))
 
         val result = service.checkEnrol()
