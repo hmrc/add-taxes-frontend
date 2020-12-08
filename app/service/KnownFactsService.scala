@@ -16,6 +16,7 @@
 
 package service
 
+import config.FrontendAppConfig
 import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
 import controllers.Assets.Redirect
 import controllers.sa.{EnrolmentSuccessController, routes => saRoutes}
@@ -32,9 +33,11 @@ import scala.concurrent.{ExecutionContext, Future}
 class KnownFactsService @Inject()(saService: SaService,
                                   dataCacheConnector: DataCacheConnector,
                                   enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
-                                  auditService: AuditService){
+                                  auditService: AuditService,
+                                  appConfig: FrontendAppConfig
+                                 ){
 
-  def knownFactsLocation(knownFacts: KnownFacts)
+  def knownFactsLocation(knownFacts: KnownFacts, upliftJourney: Boolean = false)
                         (implicit request: ServiceInfoRequest[AnyContent],
                          ec: ExecutionContext,
                          hc: HeaderCarrier): Future[Result] = {
@@ -49,7 +52,15 @@ class KnownFactsService @Inject()(saService: SaService,
 
     queryKnownFactsResult.flatMap {
       case result@KnownFactsReturn(_, true) =>
-        saService.getIvRedirectLink(result.utr).map(link => Redirect(Call("GET", link)))
+        if(upliftJourney){
+          Future.successful(Redirect(Call("GET", appConfig.ivUplift(
+            origin = "pta-sa",
+            confidenceLevel = 200,
+            completionUrl = "???",
+            failureUrl = "???"))))
+        } else {
+          saService.getIvRedirectLink(result.utr).map(link => Redirect(Call("GET", link)))
+        }
       case _ => Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad()))
     }
   }

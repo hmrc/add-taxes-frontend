@@ -22,6 +22,7 @@ import play.api.i18n.Lang
 import play.api.Configuration
 import utils.{Enrolments, ForgottenOptions, PortalUrlBuilder}
 import play.api.mvc.{Call, Request}
+import uk.gov.hmrc.auth.core.ConfidenceLevel
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.language.LanguageUtils
 
@@ -139,6 +140,15 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   def getPensionsUrl(key: String): String = pensionsHost + config.getString(s"urls.external.pensions.$key")
   lazy val queryKnownFactsUrl: String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/enrolments"
   lazy val enrolForSaUrl: String = s"$taxEnrolmentsBaseUrl/tax-enrolments/groups/"
+
+  def ivUplift(origin: String,
+               confidenceLevel: Int,
+               completionUrl: String,
+               failureUrl: String): String = s"$identityVerificationHost/mdtp/uplift?origin=${origin}&confidenceLevel=${confidenceLevel}&completionURL=${completionUrl}&failureURL=${failureUrl}"
+
+  def addTaxesHost: String = config.getString("add-taxes-frontend.host")
+  def ivCompletionUrl: String = s"$addTaxesHost/business-account/add-tax/self-assessment/sa-iv-router-uplift?origin=pta-sa"
+  def ivFailureUrl: String = s"$addTaxesHost/business-account/add-tax/self-assessment/try-pin-in-post"
 
   lazy val saBaseUrl: String = config.baseUrl("sa")
   private lazy val pensionsHost: String = config.getString("urls.external.pensions.host")

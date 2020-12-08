@@ -33,10 +33,10 @@ extends FrontendController(mcc) with I18nSupport  {
 
   val pinAndPostFeatureToggle = appConfig.pinAndPostFeatureToggle
 
-  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) {
+  def onPageLoad(origin: Option[String]): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
       if(pinAndPostFeatureToggle) {
-    Ok(successfulEnrolment(appConfig)(request.serviceInfoContent))
+    Ok(successfulEnrolment(appConfig, origin)(request.serviceInfoContent))
         } else {
         Redirect(Call("GET", appConfig.getBusinessAccountUrl("home")))
       }

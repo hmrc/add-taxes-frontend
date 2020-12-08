@@ -117,8 +117,10 @@ POST       /self-assessment/have-sa-utr                 controllers.sa.DoYouHave
 
 
 # This route will be the completion url we send to IV (Pin in Post)
-GET        /self-assessment/sa-iv-router                controllers.sa.IvJourneyController.ivRouter()
+GET        /self-assessment/sa-iv-router                controllers.sa.IvJourneyController.ivRouterStandAlone()
+GET        /self-assessment/sa-iv-router-uplift         controllers.sa.IvJourneyController.ivRouterUplift(origin: String)
 GET        /self-assessment/try-iv                      controllers.sa.TryIvController.onPageLoad()
+GET        /self-assessment/sa-uplift/:utr/:nino        controllers.IvUplift.ExternalServicesController.upliftJourney(utr: String, nino: String)
 
 GET        /self-assessment/enrolment-successful        controllers.sa.EnrolmentSuccessController.onPageLoad()
 GET        /self-assessment/retry-known-facts           controllers.sa.RetryKnownFactsController.onPageLoad()
