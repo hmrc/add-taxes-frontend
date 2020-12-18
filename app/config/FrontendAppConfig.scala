@@ -18,6 +18,7 @@ package config
 
 import com.google.inject.{Inject, Singleton}
 import controllers.routes
+import models.sa.SaEnrolment
 import play.api.i18n.Lang
 import play.api.Configuration
 import utils.{Enrolments, ForgottenOptions, PortalUrlBuilder}
@@ -133,8 +134,8 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   lazy val enrolmentStoreProxyHost: String = config.getString("enrolment-store-proxy.host")
 
-  def checkUtrUrl(utr: String): String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=all"
-  def checkSaGroupUrl(groupId: String): String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/groups/${groupId}/enrolments?type=principal&service=IR-SA"
+  def checkUtrUrl(utr: String, saEnrolment: String): String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/enrolments/$saEnrolment~UTR~$utr/users?type=all"
+  def checkSaGroupUrl(groupId: String, saEnrolment: String): String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/groups/${groupId}/enrolments?type=principal&service=${saEnrolment}"
   def checkEmpRefUrl(officeNumber: String, payeReference: String): String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/enrolments/IR-PAYE~TaxOfficeNumber~$officeNumber~TaxOfficeReference~$payeReference/users?type=principal"
   def getPensionsUrl(key: String): String = pensionsHost + config.getString(s"urls.external.pensions.$key")
   lazy val queryKnownFactsUrl: String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/enrolments"

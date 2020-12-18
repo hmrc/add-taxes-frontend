@@ -81,7 +81,6 @@ object NextPage
     with RegisteredForVATUKNextPage
     with OtherTaxesNextPage
     with OnlineVATAccountNextPage
-    with SelectSACategoryNextPage
     with DoYouHaveEORINumberNextPage
     with AreYouRegisteredGTSNextPage
     with DoYouWantToAddPartnerNextPage
@@ -130,7 +129,6 @@ object NextPage
     with vatuk.AlreadyRegisteredForVATMossNextPage
     with DoYouHaveVATRegNumberNextPage
     with WhatIsYourVATRegNumberNextPage
-    with EnterSAUTRNextPage
     with DoYouHaveSAUTRNextPage
     with DoYouHaveActivationTokenNextPage
     with DoYouHavePractitionerIDNextPage

@@ -22,7 +22,7 @@ import controllers.sa.{EnrolmentSuccessController, routes => saRoutes}
 import identifiers.EnterSAUTRId
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
-import models.sa.{CredIdFound, EnrolmentCheckResult, GroupIdFound, KnownFacts, KnownFactsReturn, NoRecordFound, SAUTR}
+import models.sa.{CredIdFound, DoYouHaveSAUTR, EnrolmentCheckResult, GroupIdFound, KnownFacts, KnownFactsReturn, NoRecordFound, NoSaUtr, SAUTR, SelectSACategory}
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -54,20 +54,25 @@ class KnownFactsService @Inject()(saService: SaService,
     }
   }
 
-  def enrolmentCheck(credId: String, saUTR: SAUTR, groupId: String)(implicit request: ServiceInfoRequest[AnyContent],
+  def enrolmentCheck(credId: String,
+                     saUTR: SAUTR,
+                     groupId: String,
+                     saEnrolment: String,
+                     doYouHaveSaUtr: DoYouHaveSAUTR)(implicit request: ServiceInfoRequest[AnyContent],
                                                    ec: ExecutionContext,
                                                    hc: HeaderCarrier): Future[EnrolmentCheckResult] = {
 
-   val enrolmentCheck: Future[EnrolmentCheckResult] = enrolmentStoreProxyConnector.checkExistingUTR(saUTR.value).flatMap { enrolmentStoreResult =>
-      if(!enrolmentStoreResult) {
-        enrolmentStoreProxyConnector.checkSaGroup(groupId).map(
-          res =>
-            if(res) GroupIdFound else NoRecordFound
-        )
-      } else {
-        Future.successful(CredIdFound)
-      }
-    }
+   val enrolmentCheck: Future[EnrolmentCheckResult] = {
+     if(doYouHaveSaUtr.equals(DoYouHaveSAUTR.Yes)) {
+       enrolmentStoreProxyConnector.checkExistingUTR(saUTR.value, saEnrolment).flatMap { enrolmentStoreResult =>
+         if (!enrolmentStoreResult) {
+           enrolmentStoreProxyConnector.checkSaGroup(groupId, saEnrolment).map(
+             res => if (res) GroupIdFound else NoRecordFound
+           )
+         } else { Future.successful(CredIdFound) }
+       }
+     } else { Future.successful(NoSaUtr) }
+   }
 
     enrolmentCheck.map { enrolmentCheckResult =>
       auditService.auditSA(credId, saUTR.value, enrolmentCheckResult)

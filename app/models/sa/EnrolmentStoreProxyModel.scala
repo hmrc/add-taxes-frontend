@@ -79,3 +79,5 @@ sealed trait EnrolmentCheckResult
 case object NoRecordFound extends EnrolmentCheckResult
 case object CredIdFound extends EnrolmentCheckResult
 case object GroupIdFound extends EnrolmentCheckResult
+case object NoSaUtr extends EnrolmentCheckResult
+

@@ -29,7 +29,7 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
       "return false when NO_CONTENT is received" in {
         StubEnrolmentStoreConnector.checkUtrNoContentResponse(testUtr)
 
-        val result: Future[Boolean] = connector.checkExistingUTR(testUtr)
+        val result: Future[Boolean] = connector.checkExistingUTR(testUtr, "IR-SA")
 
         await(result) mustBe false
         StubEnrolmentStoreConnector.verifyCheckUtr(1, testUtr)
@@ -38,7 +38,7 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
       "return false when a status other than OK and NO_CONTENT is received" in {
         StubEnrolmentStoreConnector.unsuccessfulCheckUtrResponse(testUtr)
 
-        val result: Future[Boolean] = connector.checkExistingUTR(testUtr)
+        val result: Future[Boolean] = connector.checkExistingUTR(testUtr, "IR-SA")
 
         await(result) mustBe false
         StubEnrolmentStoreConnector.verifyCheckUtr(1, testUtr)
@@ -47,7 +47,7 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
       "return true when a status OK  is received and principal enrolments found" in {
         StubEnrolmentStoreConnector.successfulCheckUtrOkResponsePrincipal(testUtr)
 
-        val result: Future[Boolean] = connector.checkExistingUTR(testUtr)
+        val result: Future[Boolean] = connector.checkExistingUTR(testUtr, "IR-SA")
 
         await(result) mustBe true
         StubEnrolmentStoreConnector.verifyCheckUtr(1, testUtr)
@@ -56,7 +56,7 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
       "return false when a status OK  is received and no principal enrolments found" in {
         StubEnrolmentStoreConnector.successfulCheckUtrOkResponseDelegated(testUtr)
 
-        val result: Future[Boolean] = connector.checkExistingUTR(testUtr)
+        val result: Future[Boolean] = connector.checkExistingUTR(testUtr, "IR-SA")
 
         await(result) mustBe false
         StubEnrolmentStoreConnector.verifyCheckUtr(1, testUtr)
@@ -67,7 +67,7 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
       "return false when NO_CONTENT is received" in {
         StubEnrolmentStoreConnector.checkGroupSAResponseNoContent(groupId)
 
-        val result: Future[Boolean] = connector.checkSaGroup(groupId)
+        val result: Future[Boolean] = connector.checkSaGroup(groupId, "IR-SA")
 
         await(result) mustBe false
         StubEnrolmentStoreConnector.verifyCheckGroupSA(1, groupId)
@@ -76,7 +76,7 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
       "return false when a status other than OK and NO_CONTENT is received" in {
         StubEnrolmentStoreConnector.checkGroupSAResponseInternalServerError(groupId)
 
-        val result: Future[Boolean] = connector.checkSaGroup(groupId)
+        val result: Future[Boolean] = connector.checkSaGroup(groupId, "IR-SA")
 
         await(result) mustBe false
         StubEnrolmentStoreConnector.verifyCheckGroupSA(1, groupId)
@@ -85,7 +85,7 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
       "return true when a status OK  is received and json contains IR-SA" in {
         StubEnrolmentStoreConnector.checkGroupSAResponseOK(groupId, StubEnrolmentStoreConnector.es3ResponseEnrolmentsWithSA)
 
-        val result: Future[Boolean] = connector.checkSaGroup(groupId)
+        val result: Future[Boolean] = connector.checkSaGroup(groupId, "IR-SA")
 
         await(result) mustBe true
         StubEnrolmentStoreConnector.verifyCheckGroupSA(1, groupId)
@@ -94,7 +94,7 @@ class EnrolmentStoreProxyConnectorISpec extends WordSpec with MustMatchers with 
       "return false when a status OK  is received and Json does not contain IR-SA" in {
         StubEnrolmentStoreConnector.checkGroupSAResponseOK(groupId, StubEnrolmentStoreConnector.es3ResponseEnrolmentsWithOutSa)
 
-        val result: Future[Boolean] = connector.checkSaGroup(groupId)
+        val result: Future[Boolean] = connector.checkSaGroup(groupId, "IR-SA")
 
         await(result) mustBe false
         StubEnrolmentStoreConnector.verifyCheckGroupSA(1, groupId)
