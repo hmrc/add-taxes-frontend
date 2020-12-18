@@ -16,34 +16,44 @@
 
 package controllers.sa
 
+import controllers.Assets.Redirect
 import controllers._
 import forms.sa.SelectSACategoryFormProvider
 import models.sa.SelectSACategory
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.when
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import service.SelectSaCategoryService
 import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
 import views.html.sa.selectSACategory
+import controllers.sa.{routes => saRoutes}
+import controllers.sa.partnership.{routes => saPartnerRoutes}
+import controllers.sa.trust.{routes => trustRoutes}
 
-class SelectSACategoryControllerSpec extends ControllerSpecBase {
+import scala.concurrent.Future
+
+class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSugar {
 
   def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new SelectSACategoryFormProvider()
   val form: Form[SelectSACategory] = formProvider()
-
+  val mockSaCategoryService: SelectSaCategoryService = mock[SelectSaCategoryService]
   val view: selectSACategory = injector.instanceOf[selectSACategory]
 
   def controller()(enrolmentTypes: HmrcEnrolmentType*): SelectSACategoryController = {
     new SelectSACategoryController(
       frontendAppConfig,
       mcc,
-      new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction(enrolmentTypes: _*),
       formProvider,
-      view
+      view,
+      mockSaCategoryService
     )
   }
 
@@ -58,6 +68,9 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
     )(frontendAppConfig, form, routes.SelectSACategoryController.onSubmitNoUTR(), radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "SelectSACategory Controller" must {
+
+    when(mockSaCategoryService.saCategoryResult(any(), any())(any(), any(), any()))
+      .thenReturn(Future.successful(Redirect(onwardRoute.url)))
 
     "return OK and the correct view for a GET" in {
       val result = controller()().onPageLoadHasUTR()(fakeRequest)
@@ -75,7 +88,6 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", SelectSACategory.options.head.value))
-
       val result = controller()().onSubmitHasUTR()(postRequest)
 
       status(result) mustBe SEE_OTHER

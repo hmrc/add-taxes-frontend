@@ -169,7 +169,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
         when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(OK, es0ResponsePrincipals, Map("" -> Seq.empty))))
 
-        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingUTR(utr)
+        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingUTR(utr, "IR-SA")
 
         whenReady(response) { result =>
           result mustBe true
@@ -180,7 +180,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
         when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(OK, es0ResponseNoPrincipal, Map("" -> Seq.empty))))
 
-        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingUTR(utr)
+        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingUTR(utr, "IR-SA")
 
         whenReady(response) { result =>
           result mustBe false
@@ -191,7 +191,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
         when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(NO_CONTENT, "body")))
 
-        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingUTR(utr)
+        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingUTR(utr, "IR-SA")
 
         whenReady(response) { result =>
           result mustBe false
@@ -202,7 +202,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
         when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(INTERNAL_SERVER_ERROR, "body")))
 
-        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingUTR(utr)
+        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingUTR(utr, "IR-SA")
 
         whenReady(response) { result =>
           result mustBe false
@@ -213,7 +213,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
         when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
           .thenReturn(Future.failed(new Exception))
 
-        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingUTR(utr)
+        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingUTR(utr, "IR-SA")
 
         whenReady(response) { result =>
           result mustBe false
@@ -227,7 +227,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
         when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(OK, es3ResponseEnrolmentsWithSA,  Map("" -> Seq.empty))))
 
-        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkSaGroup(groupId)
+        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkSaGroup(groupId, "IR-SA")
         whenReady(response) { res =>
           res mustBe true
         }
@@ -237,7 +237,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
         when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(OK, es3ResponseEnrolmentsWithOutSa,  Map("" -> Seq.empty))))
 
-        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkSaGroup(groupId)
+        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkSaGroup(groupId, "IR-SA")
         whenReady(response) { res =>
           res mustBe false
         }
@@ -247,7 +247,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
         when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(NO_CONTENT, "")))
 
-        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkSaGroup(groupId)
+        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkSaGroup(groupId, "IR-SA")
         whenReady(response) { res =>
           res mustBe false
         }
@@ -257,7 +257,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
         when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(INTERNAL_SERVER_ERROR, "body")))
 
-        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkSaGroup(groupId)
+        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkSaGroup(groupId, "IR-SA")
         whenReady(response) { res =>
           res mustBe false
         }
@@ -267,7 +267,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
         when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
           .thenReturn(Future.failed(new Exception))
 
-        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkSaGroup(groupId)
+        val response: Future[Boolean] = enrolmentStoreProxyConnector.checkSaGroup(groupId, "IR-SA")
 
         whenReady(response) { result =>
           result mustBe false

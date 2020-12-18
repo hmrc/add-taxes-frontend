@@ -22,15 +22,14 @@ import models.sa._
 import play.api.Logging
 import play.api.http.Status._
 import uk.gov.hmrc.http.HttpReads.Implicits._
-import uk.gov.hmrc.http.UpstreamErrorResponse.Upstream4xxResponse
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) extends Logging {
 
-  def checkExistingUTR(utr: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
-    http.GET[HttpResponse](appConfig.checkUtrUrl(utr)).map { response =>
+  def checkExistingUTR(utr: String, saEnrolment: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
+    http.GET[HttpResponse](appConfig.checkUtrUrl(utr, saEnrolment)).map { response =>
       response.status match {
         case OK         => response.json.as[ExistingUtrModel].principalUserIds.nonEmpty
         case NO_CONTENT => false
@@ -41,10 +40,10 @@ class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http:
         false
     }
 
-  def checkSaGroup(groupId: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
-    http.GET[HttpResponse](appConfig.checkSaGroupUrl(groupId)).map { response =>
+  def checkSaGroup(groupId: String, saEnrolment: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
+    http.GET[HttpResponse](appConfig.checkSaGroupUrl(groupId, saEnrolment)).map { response =>
       response.status match {
-        case OK         => response.json.as[QueryGroupsEnrolmentsResponseModel].enrolments.exists(_.service.contains("IR-SA"))
+        case OK         => response.json.as[QueryGroupsEnrolmentsResponseModel].enrolments.exists(_.service.contains(saEnrolment))
         case NO_CONTENT => false
       }    } recover {
       case exception =>

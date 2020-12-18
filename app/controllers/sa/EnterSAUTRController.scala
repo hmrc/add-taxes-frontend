@@ -23,12 +23,12 @@ import controllers.actions._
 import forms.sa.SAUTRFormProvider
 import identifiers.EnterSAUTRId
 import javax.inject.Inject
-import models.sa.{EnrolmentCheckResult, SAUTR}
+import models.sa.{DoYouHaveSAUTR, EnrolmentCheckResult, SAUTR, SelectSACategory}
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents, Result}
 import play.libs.F.Tuple
-import service.{AuditService, KnownFactsService}
+import service.{AuditService, KnownFactsService, SelectSaCategoryService}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.Navigator
 import views.html.sa.enterSAUTR
@@ -37,15 +37,12 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class EnterSAUTRController @Inject()(appConfig: FrontendAppConfig,
                                      mcc: MessagesControllerComponents,
-                                     navigator: Navigator[Call],
                                      authenticate: AuthAction,
                                      serviceInfo: ServiceInfoAction,
                                      formProvider: SAUTRFormProvider,
-                                     enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
                                      dataCacheConnector: DataCacheConnector,
                                      enterSAUTR: enterSAUTR,
-                                     auditService: AuditService,
-                                     knownFactsService: KnownFactsService)(implicit val ec: ExecutionContext)
+                                     selectSaCategoryService: SelectSaCategoryService)(implicit val ec: ExecutionContext)
   extends FrontendController(mcc) with I18nSupport {
 
   val pinAndPostFeatureToggle: Boolean = appConfig.pinAndPostFeatureToggle
@@ -62,22 +59,22 @@ class EnterSAUTRController @Inject()(appConfig: FrontendAppConfig,
       .fold(
         formWithErrors => Future(BadRequest(enterSAUTR(appConfig, formWithErrors)(request.serviceInfoContent))),
         saUTR => {
-
-          lazy val enrolmentCheck: Future[Result] = {
+          lazy val tryAgainBoolean: Future[Boolean] = {
             for {
               tryAgain <- dataCacheConnector.getEntry[Boolean](request.request.credId, "tryAgain").map(_.getOrElse(false))
-              enrolmentStoreResult <- knownFactsService.enrolmentCheck(request.request.credId, saUTR, request.request.groupId)
             } yield {
-              val mapBoolean: (Boolean, EnrolmentCheckResult) = (tryAgain, enrolmentStoreResult)
-              Redirect(navigator.nextPage(EnterSAUTRId, mapBoolean))
+              tryAgain
             }
           }
-          if(pinAndPostFeatureToggle){
-            dataCacheConnector.save[SAUTR](request.request.credId, EnterSAUTRId.toString, saUTR).flatMap { _ =>
-              enrolmentCheck
+
+          dataCacheConnector.save[SAUTR](request.request.credId, EnterSAUTRId.toString, saUTR).flatMap { _ =>
+            tryAgainBoolean.flatMap { tryAgain =>
+              if (tryAgain) {
+                selectSaCategoryService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.Yes)
+              } else {
+                Future.successful(Redirect(controllers.sa.routes.SelectSACategoryController.onPageLoadHasUTR()))
+              }
             }
-          } else {
-            enrolmentCheck
           }
         }
       )

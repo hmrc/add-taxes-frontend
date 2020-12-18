@@ -17,6 +17,7 @@
 package controllers.sa
 
 import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
+import controllers.Assets.Redirect
 import controllers._
 import forms.sa.SAUTRFormProvider
 import models.sa.{CredIdFound, SAUTR}
@@ -28,7 +29,7 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import playconfig.featuretoggle.FeatureToggleSupport
-import service.{AuditService, KnownFactsService}
+import service.{AuditService, KnownFactsService, SelectSaCategoryService}
 import uk.gov.hmrc.play.audit.http.connector.AuditResult
 import utils.FakeNavigator
 import views.html.sa.enterSAUTR
@@ -47,7 +48,7 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar with
   val mockEnrolmentStoreProxyConnector: EnrolmentStoreProxyConnector = mock[EnrolmentStoreProxyConnector]
   val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
   val mockAuditService: AuditService = mock[AuditService]
-  val mockKnowFactsService: KnownFactsService = mock[KnownFactsService]
+  val mockSaCategoryService: SelectSaCategoryService = mock[SelectSaCategoryService]
 
   val view: enterSAUTR = injector.instanceOf[enterSAUTR]
 
@@ -58,15 +59,12 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar with
     new EnterSAUTRController(
       frontendAppConfig,
       mcc,
-      new FakeNavigator(desiredRoute = onwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider,
-      mockEnrolmentStoreProxyConnector,
       mockDataCacheConnector,
       view,
-      mockAuditService,
-      mockKnowFactsService
+      mockSaCategoryService
     ){
       override val pinAndPostFeatureToggle: Boolean = pinAndPostToggle
     }
@@ -98,30 +96,29 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar with
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    "redirect when valid sa utr is submitted and is in the enrolment store" in {
-      when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any())(any(), any())).thenReturn(Future.successful(true))
-      when(mockDataCacheConnector.getEntry[Boolean](any(),any())(any())).thenReturn(Future.successful(Some(false)))
-      when(mockKnowFactsService.enrolmentCheck(any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(CredIdFound))
+    "redirect to the describes you page when try again is false" in {
+      when(mockDataCacheConnector.getEntry[Boolean](any(), any())(any())).thenReturn(Future.successful(Some(false)))
+      when(mockDataCacheConnector.save[SAUTR](any(), any(), any())(any())).thenReturn(Future.successful(emptyCacheMap))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789"))
 
       val result = controller().onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
-      verifyDataCacheSave(expectedTimes = 0)
-      redirectLocation(result) mustBe Some(onwardRoute.url)
+      verifyDataCacheSave(expectedTimes = 1)
+      redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment")
     }
 
-    "redirect when valid sa utr is submitted and is in the enrolment store and pin and post feature is on" in {
+    "redirect when valid sa utr is submitted and is in the enrolment store and " in {
       when(mockDataCacheConnector.save[SAUTR](any(), any(), any())(any())).thenReturn(Future.successful(emptyCacheMap))
-      when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any())(any(), any())).thenReturn(Future.successful(true))
-      when(mockDataCacheConnector.getEntry[Boolean](any(),any())(any())).thenReturn(Future.successful(Some(false)))
-      when(mockKnowFactsService.enrolmentCheck(any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(CredIdFound))
+      when(mockDataCacheConnector.getEntry[Boolean](any(),any())(any())).thenReturn(Future.successful(Some(true)))
+      when(mockSaCategoryService.saCategoryResult(any(), any())(any(), any(), any()))
+        .thenReturn(Future.successful(Redirect(onwardRoute.url)))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789"))
 
       val result = controller(pinAndPostToggle = true).onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
-      verifyDataCacheSave(expectedTimes = 1)
+      verifyDataCacheSave(expectedTimes = 2)
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
   }

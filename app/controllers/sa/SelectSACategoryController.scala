@@ -17,36 +17,42 @@
 package controllers.sa
 
 import config.FrontendAppConfig
+import connectors.DataCacheConnector
 import controllers.actions._
 import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
 import forms.sa.SelectSACategoryFormProvider
-import identifiers.SelectSACategoryId
+import identifiers.{EnterSAUTRId, SelectSACategoryId}
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
-import models.sa.{DoYouHaveSAUTR, SelectSACategory}
+import models.sa.{DoYouHaveSAUTR, EnrolmentCheckResult, SAUTR, SelectSACategory}
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc._
+import service.{KnownFactsService, SelectSaCategoryService}
 import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils._
 import views.html.sa.selectSACategory
 
+import scala.concurrent.{ExecutionContext, Future}
+
 class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
                                            mcc: MessagesControllerComponents,
-                                           navigator: Navigator[Call],
                                            authenticate: AuthAction,
                                            serviceInfoData: ServiceInfoAction,
                                            formProvider: SelectSACategoryFormProvider,
-                                           selectSACategory: selectSACategory)
+                                           selectSACategory: selectSACategory,
+                                           selectSaCategoryService: SelectSaCategoryService)
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
+
+  implicit val ec: ExecutionContext = mcc.executionContext
 
   val form: Form[SelectSACategory] = formProvider()
 
-  private def onPageLoad(action: Call): Action[AnyContent] = (authenticate andThen serviceInfoData) {
+  private def onPageLoad(action: Call): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
       redirectWhenHasSAAndRT {
-        Ok(selectSACategory(appConfig, form, action, getRadioOptions(request.request.enrolments))(request.serviceInfoContent))
+        Future.successful(Ok(selectSACategory(appConfig, form, action, getRadioOptions(request.request.enrolments))(request.serviceInfoContent)))
       }
   }
 
@@ -54,13 +60,13 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
   def onPageLoadNoUTR: Action[AnyContent] = onPageLoad(routes.SelectSACategoryController.onSubmitNoUTR())
 
   private def onSubmit(action: Call, answer: DoYouHaveSAUTR): Action[AnyContent] = {
-    (authenticate andThen serviceInfoData) { implicit request =>
+    (authenticate andThen serviceInfoData).async { implicit request =>
       redirectWhenHasSAAndRT {
         form.bindFromRequest()
           .fold(
             formWithErrors =>
-              BadRequest(selectSACategory(appConfig, formWithErrors, action, getRadioOptions(request.request.enrolments))(request.serviceInfoContent)),
-            value => Redirect(navigator.nextPage(SelectSACategoryId, (value, answer, request.request.affinityGroup)))
+              Future(BadRequest(selectSACategory(appConfig, formWithErrors, action, getRadioOptions(request.request.enrolments))(request.serviceInfoContent))),
+            value => selectSaCategoryService.saCategoryResult(value, answer)
           )
       }
     }
@@ -70,12 +76,11 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
   def onSubmitNoUTR: Action[AnyContent] = onSubmit(routes.SelectSACategoryController.onSubmitNoUTR(), DoYouHaveSAUTR.No)
 
 
-  private def redirectWhenHasSAAndRT[A](noRedirect: => Result)(implicit request: ServiceInfoRequest[A]): Result = {
+  private def redirectWhenHasSAAndRT[A](noRedirect: => Future[Result])(implicit request: ServiceInfoRequest[A]): Future[Result] = {
     request.request.enrolments match {
       case HmrcEnrolmentType.SA() && HmrcEnrolmentType.RegisterTrusts() =>
-        Redirect(DoYouWantToAddPartnerController.onPageLoad())
-      case _ =>
-        noRedirect
+        Future.successful(Redirect(DoYouWantToAddPartnerController.onPageLoad()))
+      case _ =>  noRedirect
     }
   }
 
