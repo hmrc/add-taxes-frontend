@@ -26,6 +26,9 @@ import play.api.mvc.{Call, Request}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.language.LanguageUtils
 
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
 @Singleton
 class FrontendAppConfig @Inject()(val config: ServicesConfig,
                                   val conf: Configuration,
@@ -152,6 +155,11 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   lazy val identityVerificationFrontendBaseUrl: String = config.baseUrl("identity-verification-frontend")
   lazy val identityVerificationHost: String = config.getString("identity-verification-frontend.host")
   lazy val taxEnrolmentsBaseUrl: String = config.baseUrl("tax-enrolments")
+
+  private val dtf: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm")
+  def ebtiDateTime: LocalDateTime =  LocalDateTime.parse(config.getString("ebti"), dtf)
+  def now(): LocalDateTime = LocalDateTime.now()
+
 }
 
 trait FeatureToggles {
@@ -165,4 +173,6 @@ trait FeatureToggles {
   lazy val pinAndPostFeatureToggle: Boolean = featureEnabled("pin-and-post")
   final val sessionTimeoutInSeconds: Long = 900
   final val sessionCountdownInSeconds: Int = 60
+
+  lazy val ebtiRemovalFeatureToggle: Boolean = featureEnabled("ebtiRemovalFeatureToggle")
 }

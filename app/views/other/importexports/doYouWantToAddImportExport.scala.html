@@ -39,7 +39,7 @@
         @components.input_radio(
             field = form("value"),
             legend = components.heading("do-you-want-to-add-import-export", "doYouWantToAddImportExport.heading").body,
-            inputs = DoYouWantToAddImportExport.options.toSeq
+            inputs = DoYouWantToAddImportExport.options(appConfig).toSeq
         )
 
         @components.submit_button(gaEvent = "AddImportExportTax")
