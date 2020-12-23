@@ -16,7 +16,8 @@
 
 package models.other.importexports
 
-import utils.{Enumerable, RadioOption, WithName}
+import config.FrontendAppConfig
+import utils.{DateUtil, Enumerable, RadioOption, WithName}
 
 sealed trait DoYouWantToAddImportExport
 
@@ -42,8 +43,9 @@ object DoYouWantToAddImportExport {
     ISD
   )
 
-  val options: List[RadioOption] = values.map { value =>
-    RadioOption("doYouWantToAddImportExport", value.toString)
+  def options(appConfig: FrontendAppConfig) = values.collect {
+    case value if !(value == eBTI && (appConfig.ebtiRemovalFeatureToggle || !appConfig.now().isBefore(appConfig.ebtiDateTime))) =>
+      RadioOption("doYouWantToAddImportExport", value.toString)
   }
 
   implicit val enumerable: Enumerable[DoYouWantToAddImportExport] =

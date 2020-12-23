@@ -28,7 +28,8 @@ object Feature {
 
   def allTogglableFeatures: Set[Feature] = Set(
     PinAndPostFeature,
-    EpayeEnrolmentChecker
+    EpayeEnrolmentChecker,
+    EbtiRemovalFeatureToggle
   )
 
   def fromQuery(key: String): Option[Feature] =
@@ -40,3 +41,4 @@ object Feature {
 
 case object PinAndPostFeature extends Feature("pin-and-post")
 case object EpayeEnrolmentChecker extends Feature("epayeEnrolmentCheckerEnabled")
+case object EbtiRemovalFeatureToggle extends Feature("ebtiRemovalFeatureToggle")

@@ -16,15 +16,20 @@
 
 package controllers.other.importexports
 
+import config.FrontendAppConfig
 import play.api.data.Form
 import utils.FakeNavigator
 import controllers._
 import play.api.test.Helpers._
 import forms.other.importexports.DoYouWantToAddImportExportFormProvider
 import models.other.importexports.DoYouWantToAddImportExport
+import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.html.other.importexports.doYouWantToAddImportExport
+
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
 
@@ -59,7 +64,7 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouWantToAddImportExport.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouWantToAddImportExport.options(frontendAppConfig).head.value))
 
       val result = controller().onSubmit()(postRequest)
 
@@ -83,7 +88,7 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    for (option <- DoYouWantToAddImportExport.options) {
+    for (option <- DoYouWantToAddImportExport.options(frontendAppConfig)) {
       s"redirect to next page when '${option.value}' is submitted" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
@@ -92,5 +97,8 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
         redirectLocation(result) mustBe Some(onwardRoute.url)
       }
     }
-  }
+
+
+
+    }
 }
