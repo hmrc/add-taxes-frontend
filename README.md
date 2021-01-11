@@ -25,11 +25,16 @@ This code is open source software licensed under the [Apache 2.0 License]("http:
 |  PTA   | pta-sa  |
 |  SSTTP | ssttp-sa|
 
+| Fields |  Description(Optional or Mandatory) |
+|--------|-----------|
+| origin | Mandatory |
+|  utr   | Optional  |
+
 **Request format**
 ```
 {
   "origin": "bta-sa", // your origin here
-  "utr": "1234567890" // optional
+  "utr": "1234567890"
 }
 ```
 
