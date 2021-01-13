@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,29 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(gaEvent: String, marginClass: Option[String] = None, origin: String)(implicit messages: Messages)
+package models.sa
 
-<div class="section">
-    <a id="postcode-button" href="@controllers.sa.routes.PostcodeController.onPageLoad(origin)" data-journey-click="@gaEvent:Click:PostcodeLink" data-journey-target>@messages("enterKnownFacts.nino.linkText")</a>
-</div>
+import play.api.libs.json._
+
+case class SaEnrolmentDetails(utr: Option[String], origin: String, providerId: String)
+
+object SaEnrolmentDetails {
+
+  implicit val formats: Format[SaEnrolmentDetails] = {
+    val reads: Reads[SaEnrolmentDetails] = {
+      for {
+        utr <- (__ \ "utr").readNullable[String]
+        origin <- (__ \ "origin").read[String]
+        credId <- (__ \ "providerId").read[String]
+      } yield {
+        SaEnrolmentDetails(utr, origin, credId)
+      }
+    }
+
+    val writes = Json.writes[SaEnrolmentDetails]
+    Format(reads, writes)
+  }
+
+}

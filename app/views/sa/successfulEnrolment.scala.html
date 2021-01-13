@@ -20,7 +20,7 @@
         main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, origin: String)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("successfulEnrolment.title"),
@@ -33,7 +33,7 @@
         <p>@Messages("successfulEnrolment.p1")</p>
 
     <a id="continue"
-    href= "@appConfig.getBusinessAccountUrl("home")"
+    href= "@appConfig.originServiceRouter(origin)"
     class="button"
     role="button"
     data-journey-click="$gaEventPrefix$:Click:Continue">

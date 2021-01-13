@@ -7,7 +7,6 @@ The add taxes section of the Business tax account.
 Many of its journeys are still in Business tax account and will be migrated in due course.  
 
 ## License
-
 This code is open source software licensed under the [Apache 2.0 License]("http://www.apache.org/licenses/LICENSE-2.0.html").
 
 ### Endpoints
@@ -55,3 +54,4 @@ This code is open source software licensed under the [Apache 2.0 License]("http:
 |   400  | Return error message "Invalid utr: test-utr"                              |
 |   400  | Return error message "Invalid origin: test-origin, Invalid utr: test-utr" |
 |   400  | Return error message "Json Body is incorrect"                             |
+

@@ -17,18 +17,16 @@
 package controllers.sa
 
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
 import forms.sa.SelectSACategoryFormProvider
-import identifiers.{EnterSAUTRId, SelectSACategoryId}
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
-import models.sa.{DoYouHaveSAUTR, EnrolmentCheckResult, SAUTR, SelectSACategory}
+import models.sa.{DoYouHaveSAUTR, SelectSACategory}
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc._
-import service.{KnownFactsService, SelectSaCategoryService}
+import service.SelectSaCategoryService
 import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils._
@@ -49,31 +47,42 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
 
   val form: Form[SelectSACategory] = formProvider()
 
-  private def onPageLoad(action: Call): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
+  private def onPageLoad(action: Call,
+                         origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
       redirectWhenHasSAAndRT {
-        Future.successful(Ok(selectSACategory(appConfig, form, action, getRadioOptions(request.request.enrolments))(request.serviceInfoContent)))
+        Future.successful(Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments))(request.serviceInfoContent)))
       }
   }
 
-  def onPageLoadHasUTR: Action[AnyContent] = onPageLoad(routes.SelectSACategoryController.onSubmitHasUTR())
-  def onPageLoadNoUTR: Action[AnyContent] = onPageLoad(routes.SelectSACategoryController.onSubmitNoUTR())
+  def onPageLoadHasUTR(origin: Option[String]): Action[AnyContent] = {
+    origin match {
+      case Some(origin) => onPageLoad(routes.SelectSACategoryController.onSubmitHasUTR(origin), origin)
+      case _ => onPageLoad(routes.SelectSACategoryController.onSubmitHasUTR("bta-sa"), "bta-sa")
+    }
+  }
 
-  private def onSubmit(action: Call, answer: DoYouHaveSAUTR): Action[AnyContent] = {
+  def onPageLoadNoUTR(): Action[AnyContent] = onPageLoad(routes.SelectSACategoryController.onSubmitNoUTR(), "bta-sa")
+
+  private def onSubmit(action: Call,
+                       answer: DoYouHaveSAUTR,
+                       origin: String): Action[AnyContent] = {
     (authenticate andThen serviceInfoData).async { implicit request =>
       redirectWhenHasSAAndRT {
         form.bindFromRequest()
           .fold(
             formWithErrors =>
-              Future(BadRequest(selectSACategory(appConfig, formWithErrors, action, getRadioOptions(request.request.enrolments))(request.serviceInfoContent))),
-            value => selectSaCategoryService.saCategoryResult(value, answer)
+              Future(BadRequest(selectSACategory(appConfig, formWithErrors, action, origin, getRadioOptions(request.request.enrolments))(request.serviceInfoContent))),
+            value => selectSaCategoryService.saCategoryResult(value, answer, origin)
           )
       }
     }
   }
 
-  def onSubmitHasUTR: Action[AnyContent] = onSubmit(routes.SelectSACategoryController.onSubmitHasUTR(), DoYouHaveSAUTR.Yes)
-  def onSubmitNoUTR: Action[AnyContent] = onSubmit(routes.SelectSACategoryController.onSubmitNoUTR(), DoYouHaveSAUTR.No)
+  def onSubmitHasUTR(origin: String): Action[AnyContent] =
+    onSubmit(routes.SelectSACategoryController.onSubmitHasUTR(origin), DoYouHaveSAUTR.Yes, origin)
+  def onSubmitNoUTR(): Action[AnyContent] =
+    onSubmit(routes.SelectSACategoryController.onSubmitNoUTR(), DoYouHaveSAUTR.No, "bta-sa")
 
 
   private def redirectWhenHasSAAndRT[A](noRedirect: => Future[Result])(implicit request: ServiceInfoRequest[A]): Future[Result] = {

@@ -30,6 +30,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
     HtmlFormat.empty)
   val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
   val mockKnownFactsService: KnownFactsService = mock[KnownFactsService]
+  val btaOrigin: String = "bta-sa"
 
   class Setup {
     implicit val request = test(Organisation)
@@ -52,7 +53,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
           .thenReturn(Future.successful(NoRecordFound))
         override implicit val request: ServiceInfoRequest[AnyContent] = test(Individual)
 
-        val result = testService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.No)
+        val result = testService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.No, btaOrigin)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/self-employed")
@@ -63,7 +64,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(Some(SAUTR("")))
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(NoSaUtr))
-        val result = testService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.No)
+        val result = testService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.No, btaOrigin)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result).get must include("portal/business-registration/select-taxes")
@@ -75,10 +76,10 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(NoRecordFound))
 
-        val result = testService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.Yes)
+        val result = testService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.Yes, btaOrigin)
 
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/known-facts")
+        redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/known-facts?origin=bta-sa")
 
       }
 
@@ -87,7 +88,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(CredIdFound))
 
-        val result = testService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.Yes)
+        val result = testService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.Yes, btaOrigin)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result).get must include("business-account/wrong-credentials")
@@ -99,7 +100,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(GroupIdFound))
 
-        val result = testService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.Yes)
+        val result = testService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.Yes, btaOrigin)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/group-error")
@@ -112,7 +113,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(CredIdFound))
-        val result = testService.saCategoryResult(SelectSACategory.Partnership, DoYouHaveSAUTR.Yes)
+        val result = testService.saCategoryResult(SelectSACategory.Partnership, DoYouHaveSAUTR.Yes, btaOrigin)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result).get must include("business-account/wrong-credentials")
@@ -123,7 +124,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(GroupIdFound))
-        val result = testService.saCategoryResult(SelectSACategory.Partnership, DoYouHaveSAUTR.No)
+        val result = testService.saCategoryResult(SelectSACategory.Partnership, DoYouHaveSAUTR.No, btaOrigin)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/group-error")
@@ -134,7 +135,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(NoRecordFound))
-        val result = testService.saCategoryResult(SelectSACategory.Partnership, DoYouHaveSAUTR.No)
+        val result = testService.saCategoryResult(SelectSACategory.Partnership, DoYouHaveSAUTR.No, btaOrigin)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/partnership")
@@ -146,7 +147,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(NoRecordFound))
         override implicit val request: ServiceInfoRequest[AnyContent] = test(Individual)
-        val result = testService.saCategoryResult(SelectSACategory.Partnership, DoYouHaveSAUTR.No)
+        val result = testService.saCategoryResult(SelectSACategory.Partnership, DoYouHaveSAUTR.No, btaOrigin)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/partnership/new-account")
@@ -159,7 +160,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(CredIdFound))
-        val result = testService.saCategoryResult(SelectSACategory.Trust, DoYouHaveSAUTR.Yes)
+        val result = testService.saCategoryResult(SelectSACategory.Trust, DoYouHaveSAUTR.Yes, btaOrigin)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result).get must include("business-account/wrong-credentials")
@@ -170,7 +171,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(GroupIdFound))
-        val result = testService.saCategoryResult(SelectSACategory.Trust, DoYouHaveSAUTR.No)
+        val result = testService.saCategoryResult(SelectSACategory.Trust, DoYouHaveSAUTR.No, btaOrigin)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/group-error")
@@ -181,7 +182,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(NoRecordFound))
-        val result = testService.saCategoryResult(SelectSACategory.Trust, DoYouHaveSAUTR.No)
+        val result = testService.saCategoryResult(SelectSACategory.Trust, DoYouHaveSAUTR.No, btaOrigin)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/trust")
@@ -193,7 +194,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(NoRecordFound))
         override implicit val request: ServiceInfoRequest[AnyContent] = test(Individual)
-        val result = testService.saCategoryResult(SelectSACategory.Trust, DoYouHaveSAUTR.No)
+        val result = testService.saCategoryResult(SelectSACategory.Trust, DoYouHaveSAUTR.No, btaOrigin)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/trust/new-account")

@@ -20,10 +20,10 @@ import play.api.test.Helpers.{OK, NOT_FOUND}
 
 object StubSaConnector extends StubHelper {
 
-  def withResponseForGetIvLinks(utr: String)(status: Int, optBody: Option[String]): Unit =
-    stubGet(s"/sa/individual/${utr}/details-for-iv", status, optBody)
+  def withResponseForGetIvLinks(utr: String, origin: String)(status: Int, optBody: Option[String]): Unit =
+    stubGetWithQuery(s"/sa/individual/$utr/details-for-iv", status, "origin", origin, optBody)
 
-  def successfulLinkRetrieval(utr: String) = withResponseForGetIvLinks(utr)(OK,
+  def successfulLinkRetrieval(utr: String, origin: String) = withResponseForGetIvLinks(utr, origin)(OK,
   Some(
     s"""
        |{
@@ -32,10 +32,10 @@ object StubSaConnector extends StubHelper {
        |}""".stripMargin
   ))
 
-  def unSuccessfulLinkRetrieval(utr: String) = withResponseForGetIvLinks(utr)(NOT_FOUND,
+  def unSuccessfulLinkRetrieval(utr: String, origin: String) = withResponseForGetIvLinks(utr, origin)(NOT_FOUND,
     None)
 
-  def verifyGetIvLinks(count: Int, utr: String): Unit =
-    verify(count, getRequestedFor(urlMatching(s"/sa/individual/$utr/details-for-iv")))
+  def verifyGetIvLinks(count: Int, utr: String, origin: String): Unit =
+    verify(count, getRequestedFor(urlMatching(s"/sa/individual/$utr/details-for-iv\\?origin=${origin}")))
 
 }

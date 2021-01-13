@@ -30,21 +30,19 @@ class EnterSAUTRViewSpec extends ViewBehaviours {
   val form = new SAUTRFormProvider()()
 
   val serviceInfoContent: Html = HtmlFormat.empty
+  val btaOrigin: String = "bta-sa"
 
-  def createView: () => HtmlFormat.Appendable = () =>
-    new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages)
+  def createView: (String) => HtmlFormat.Appendable = (origin: String) =>
+    new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(HtmlFormat.empty)(fakeRequest, messages)
 
-  def createViewUsingForm: Form[SAUTR] => HtmlFormat.Appendable = (form: Form[SAUTR]) =>
-    new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: (Form[SAUTR], String) => HtmlFormat.Appendable = (form: Form[SAUTR], origin: String) =>
+    new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(serviceInfoContent)(fakeRequest, messages)
 
-  "EnterSAUTR view" must {
-    behave like normalPage(createView, messageKeyPrefix)
-  }
 
   "EnterSAUTR view" when {
     "rendered" must {
       "contain paragraph text" in {
-        val doc = asDocument(createViewUsingForm(form))
+        val doc = asDocument(createViewUsingForm(form, btaOrigin))
 
         assertContainsText(
           doc,
@@ -54,7 +52,7 @@ class EnterSAUTRViewSpec extends ViewBehaviours {
       }
 
       "contain heading id" in {
-        val doc = asDocument(createViewUsingForm(form))
+        val doc = asDocument(createViewUsingForm(form, btaOrigin))
         doc.getElementsByTag("h1").attr("id") mustBe "enter-sa-utr-heading"
       }
     }
@@ -62,14 +60,14 @@ class EnterSAUTRViewSpec extends ViewBehaviours {
 
   "invalid data is sent" must {
     "prepend title with Error: " in {
-      val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> ""))))
+      val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> "")), btaOrigin))
       val title = messages("site.service_title", messages(s"$messageKeyPrefix.title"))
 
       assertEqualsMessage(doc, "title", "error.browser.title", title)
     }
 
     "show error summary when there is error " in {
-      val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> ""))))
+      val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> "")), btaOrigin))
 
       assertRenderedById(doc, "error-summary-heading")
     }

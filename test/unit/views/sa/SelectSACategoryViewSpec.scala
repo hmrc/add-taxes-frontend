@@ -31,24 +31,22 @@ class SelectSACategoryViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "selectSACategory"
 
   val form = new SelectSACategoryFormProvider()()
-
+  val btaOrigin: String = "bta-sa"
   val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView: () => HtmlFormat.Appendable = () =>
+  def createView: (String) => HtmlFormat.Appendable = (origin: String) =>
     new selectSACategory(
       formWithCSRF, mainTemplate
-    )(frontendAppConfig, form, onSubmit, SelectSACategory.options)(serviceInfoContent)(fakeRequest, messages)
+    )(frontendAppConfig, form, onSubmit, origin, SelectSACategory.options)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
+  def createViewUsingForm: (Form[_], String) => HtmlFormat.Appendable = (form: Form[_], origin: String) =>
     new selectSACategory(
       formWithCSRF, mainTemplate
-    )(frontendAppConfig, form, onSubmit, SelectSACategory.options)(serviceInfoContent)(fakeRequest, messages)
+    )(frontendAppConfig, form, onSubmit, origin, SelectSACategory.options)(serviceInfoContent)(fakeRequest, messages)
 
   "SelectSACategory view" must {
-    behave like normalPage(createView, messageKeyPrefix)
-
     "contain heading ID" in {
-      val doc = asDocument(createView())
+      val doc = asDocument(createView(btaOrigin))
       doc.getElementsByTag("h1").attr("id") mustBe "select-sa-category"
     }
   }
@@ -56,7 +54,7 @@ class SelectSACategoryViewSpec extends ViewBehaviours {
   "SelectSACategory view" when {
     "rendered" must {
       "contain radio buttons for the value" in {
-        val doc = asDocument(createViewUsingForm(form))
+        val doc = asDocument(createViewUsingForm(form, btaOrigin))
         for (option <- SelectSACategory.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
@@ -66,7 +64,7 @@ class SelectSACategoryViewSpec extends ViewBehaviours {
     for (option <- SelectSACategory.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
-          val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+          val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}")), btaOrigin))
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- SelectSACategory.options.filterNot(o => o == option)) {
@@ -78,7 +76,7 @@ class SelectSACategoryViewSpec extends ViewBehaviours {
 
     "invalid data is sent" must {
       "prepend title with Error: " in {
-        val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> ""))))
+        val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> "")), btaOrigin))
         val title = messages("site.service_title", messages(s"$messageKeyPrefix.title"))
 
         assertEqualsMessage(doc, "title", "error.browser.title", title)

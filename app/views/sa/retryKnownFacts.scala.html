@@ -22,7 +22,7 @@
         main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, origin: String)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("retryKnownFacts.title"),
@@ -40,7 +40,7 @@
         </a> @messages("retryKnownFacts.p3")
     </p>
 
-    @uiForm(action = RetryKnownFactsController.onSubmit()) {
+    @uiForm(action = RetryKnownFactsController.onSubmit(origin)) {
         <div class="section">
             <button id="continue-button" class="button" data-journey-click="TryAgain:Click:" data-journey-target>@messages("retryKnownFacts.button")</button>
         </div>

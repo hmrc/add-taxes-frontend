@@ -20,11 +20,13 @@ import connectors.{DataCacheConnector, IvConnector, TaxEnrolmentsConnector}
 import controllers.ControllerSpecBase
 import controllers.sa.{routes => saRoutes}
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
-import models.sa.{IvLinks, JourneyLinkResponse, SAUTR}
+import models.sa.{IvLinks, JourneyLinkResponse, SAUTR, SaEnrolmentDetails}
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.when
+import org.mockito.Mockito.{reset, times, verify, when}
+import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.ScalaFutures.whenReady
 import org.scalatestplus.mockito.MockitoSugar
+import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{status, _}
@@ -36,17 +38,25 @@ import uk.gov.hmrc.http.HeaderCarrier
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-class IvServiceSpec extends ControllerSpecBase with MockitoSugar {
+class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach {
 
   val mockTaxEnrolmentsConnector: TaxEnrolmentsConnector = mock[TaxEnrolmentsConnector]
   val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
   val mockIvConnector: IvConnector = mock[IvConnector]
   val enrolActivate: String = "enrolAndActivate"
+  val btaOrigin: String = "bta-sa"
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
   implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
     AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel),
     HtmlFormat.empty)
+
+  implicit val requestWithJson: ServiceInfoRequest[JsValue] = ServiceInfoRequest[JsValue](
+    AuthenticatedRequest(FakeRequest().withBody(Json.parse(s"""{}""")), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel),
+    HtmlFormat.empty)
+
+  def verifyDataCacheSave(expectedTimes: Int): Unit =
+    verify(mockDataCacheConnector, times(expectedTimes)).save(any(), any(), any())(any())
 
   def service() = new IvService(
     mockDataCacheConnector,
@@ -65,6 +75,10 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar {
                                   hc: HeaderCarrier): Future[String] = {
       Future.successful(journeyLinkCheckResult)
     }
+  }
+
+  override def beforeEach(): Unit = {
+    reset(mockDataCacheConnector)
   }
 
   "Iv service" when {
@@ -107,18 +121,18 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar {
     "ivCheckAndEnrol is called" must {
       "return try pin an post call" when {
         "journeyLink returns false" in {
-          val result = serviceWithStubbedLinkCheck("Failed").ivCheckAndEnrol()
+          val result = serviceWithStubbedLinkCheck("Failed").ivCheckAndEnrol(btaOrigin)
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed")).url)
+          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"), btaOrigin).url)
         }
 
         "data cache connector returns None and journeyLink is true" in {
           when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
             .thenReturn(Future.successful(None))
 
-          val result = serviceWithStubbedLinkCheck("Success").ivCheckAndEnrol()
+          val result = serviceWithStubbedLinkCheck("Success").ivCheckAndEnrol(btaOrigin)
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed")).url)
+          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"), btaOrigin).url)
         }
 
         "enrol for sa returns false" in {
@@ -127,9 +141,9 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar {
           when(mockTaxEnrolmentsConnector.enrolForSa(any(), any(), any(), any())(any(), any()))
             .thenReturn(Future.successful(false))
 
-          val result = serviceWithStubbedLinkCheck("Success").ivCheckAndEnrol()
+          val result = serviceWithStubbedLinkCheck("Success").ivCheckAndEnrol(btaOrigin)
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed")).url)
+          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"), btaOrigin).url)
 
         }
 
@@ -137,45 +151,45 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar {
           when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
             .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
 
-          val result = serviceWithStubbedLinkCheck("InsufficientEvidence").ivCheckAndEnrol()
+          val result = serviceWithStubbedLinkCheck("InsufficientEvidence").ivCheckAndEnrol(btaOrigin)
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError")).url)
+          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError"), btaOrigin).url)
         }
 
         "Journey link result is LockedOut" in {
           when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
             .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
 
-          val result = serviceWithStubbedLinkCheck("LockedOut").ivCheckAndEnrol()
+          val result = serviceWithStubbedLinkCheck("LockedOut").ivCheckAndEnrol(btaOrigin)
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("LockedOut")).url)
+          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("LockedOut"), btaOrigin).url)
         }
 
         "Journey link result is FailedIV" in {
           when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
             .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
 
-          val result = serviceWithStubbedLinkCheck("FailedIV").ivCheckAndEnrol()
+          val result = serviceWithStubbedLinkCheck("FailedIV").ivCheckAndEnrol(btaOrigin)
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError")).url)
+          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError"), btaOrigin).url)
         }
 
         "Journey link result is PreconditionFailed" in {
           when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
             .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
 
-          val result = serviceWithStubbedLinkCheck("PreconditionFailed").ivCheckAndEnrol()
+          val result = serviceWithStubbedLinkCheck("PreconditionFailed").ivCheckAndEnrol(btaOrigin)
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError")).url)
+          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError"), btaOrigin).url)
         }
 
         "Journey link result is FailedMatching" in {
           when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
             .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
 
-          val result = serviceWithStubbedLinkCheck("FailedMatching").ivCheckAndEnrol()
+          val result = serviceWithStubbedLinkCheck("FailedMatching").ivCheckAndEnrol(btaOrigin)
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError")).url)
+          redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError"), btaOrigin).url)
         }
       }
       "return enrolment successful call" when {
@@ -185,9 +199,28 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar {
           when(mockTaxEnrolmentsConnector.enrolForSa(any(), any(), any(), any())(any(), any()))
             .thenReturn(Future.successful(true))
 
-          val result = serviceWithStubbedLinkCheck("Success").ivCheckAndEnrol()
+          val result = serviceWithStubbedLinkCheck("Success").ivCheckAndEnrol(btaOrigin)
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(saRoutes.EnrolmentSuccessController.onPageLoad().url)
+          redirectLocation(result) mustBe Some(saRoutes.EnrolmentSuccessController.onPageLoad(btaOrigin).url)
+        }
+      }
+    }
+
+    "journeyRouter is called" must {
+      "return try-iv url" when {
+        "a utr is provided" in  {
+          val result = service().journeyRouter(SaEnrolmentDetails(Some("1234567890"), "pta-sa", "12345"))
+          await(result) mustBe "/business-account/add-tax/self-assessment/try-iv?origin=pta-sa"
+          verifyDataCacheSave(1)
+        }
+      }
+
+      "return enter-sa-utr url" when {
+
+        "no utr is provided" in {
+          val result = service().journeyRouter(SaEnrolmentDetails(None, "pta-sa", "12345"))
+          await(result) mustBe "/business-account/add-tax/self-assessment/enter-sa-utr?origin=pta-sa"
+          verifyDataCacheSave(1)
         }
       }
     }

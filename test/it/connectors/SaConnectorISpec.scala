@@ -15,23 +15,24 @@ class SaConnectorISpec extends WordSpec with MustMatchers with AddTaxesIntegrati
   implicit val hc: HeaderCarrier = HeaderCarrier()
   lazy val connector: SaConnector = inject[SaConnector]
   val testUtr = "1234567890"
+  val origin = "bta-sa"
 
   "SaConnector" when {
     "getIvLinks" should {
       "returns IvLinks for a successful call" in {
-        StubSaConnector.successfulLinkRetrieval(testUtr)
-        val result: Future[Option[IvLinks]] = connector.getIvLinks(testUtr)
+        StubSaConnector.successfulLinkRetrieval(testUtr, origin)
+        val result: Future[Option[IvLinks]] = connector.getIvLinks(testUtr, origin)
 
         await(result) mustBe Some(IvLinks("/mdtp/confirm/proxy/some-iv-link", "/mdtp/journey/journeyId/iv-stub-data"))
-        StubSaConnector.verifyGetIvLinks(1, testUtr)
+        StubSaConnector.verifyGetIvLinks(1, testUtr, origin)
       }
 
       "returns None when an exception is returned from Iv" in {
-        StubSaConnector.unSuccessfulLinkRetrieval(testUtr)
-        val result: Future[Option[IvLinks]] = connector.getIvLinks(testUtr)
+        StubSaConnector.unSuccessfulLinkRetrieval(testUtr, origin)
+        val result: Future[Option[IvLinks]] = connector.getIvLinks(testUtr, origin)
 
         await(result) mustBe None
-        StubSaConnector.verifyGetIvLinks(1, testUtr)
+        StubSaConnector.verifyGetIvLinks(1, testUtr, origin)
       }
     }
   }

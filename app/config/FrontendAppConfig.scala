@@ -156,6 +156,24 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   lazy val identityVerificationHost: String = config.getString("identity-verification-frontend.host")
   lazy val taxEnrolmentsBaseUrl: String = config.baseUrl("tax-enrolments")
 
+  lazy val ptaHost: String = config.getString("personal-tax-account.host")
+  lazy val ptaHomeUrl = s"$ptaHost/personal-account"
+
+  //TODO change to real host/url once known
+  lazy val ssttpHost: String = config.getString("self-service-time-to-pay-frontend.host")
+  lazy val ssttpSuccessUrl: String = s"${ssttpHost}/pay-what-you-owe-in-instalments/arrangement/determine-eligibility"
+  lazy val ssttpFailUrl: String = s"${ssttpHost}/pay-what-you-owe-in-instalments/eligibility/not-enrolled"
+
+  lazy val validOrigins: Seq[String] = Seq("pta-sa", "ssttp-sa")
+
+  def originServiceRouter(origin: String): String = {
+    origin.toLowerCase match {
+      case "pta-sa" => ptaHomeUrl
+      case "ssttp-sa" => ssttpSuccessUrl
+      case _ => getBusinessAccountUrl("home")
+    }
+  }
+
   private val dtf: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm")
   def ebtiDateTime: LocalDateTime =  LocalDateTime.parse(config.getString("ebti"), dtf)
   def now(): LocalDateTime = LocalDateTime.now()

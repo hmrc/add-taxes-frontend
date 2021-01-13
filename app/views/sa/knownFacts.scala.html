@@ -25,7 +25,7 @@
         main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig, form: Form[KnownFacts])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[KnownFacts], origin: String)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("enterKnownFacts.nino.title"),
@@ -33,7 +33,7 @@
     form = Some(form),
     serviceInfoContent = serviceInfoContent) {
 
-    @uiForm(action = KnownFactsController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    @uiForm(action = KnownFactsController.onSubmit(origin), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
 
@@ -44,7 +44,7 @@
             hint  = Some(messages("enterKnownFacts.nino.hintText")),
             formHintMargin= Some(""))
 
-        @components.known_facts(gaEvent = "GaEvent")
+        @components.known_facts(gaEvent = "GaEvent", None, origin)
 
         @components.submit_button(gaEvent = "GaEvent")
     }

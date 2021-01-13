@@ -27,14 +27,14 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class SaConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) extends Logging{
 
-  def serviceUrl(utr: String) = s"${appConfig.saBaseUrl}/sa/individual/${utr}/details-for-iv"
+  def serviceUrl(utr: String, origin: String): String = s"${appConfig.saBaseUrl}/sa/individual/$utr/details-for-iv?origin=$origin"
 
-  def getIvLinks(utr: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[IvLinks]] = {
-    http.GET[IvLinks](serviceUrl(utr)).map { result =>
+  def getIvLinks(utr: String, origin: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[IvLinks]] = {
+    http.GET[IvLinks](serviceUrl(utr, origin)).map { result =>
       Some(result)
     }.recover {
       case exception =>
-        logger.error("Enrolment Store Proxy error", exception)
+        logger.error("[SaConnector][getIvLinks] resulted in", exception)
         None
     }
   }

@@ -29,6 +29,7 @@ class TryPinInPostControllerSpec extends ControllerSpecBase with MockitoSugar wi
   implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
     AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel),
     HtmlFormat.empty)
+  val btaOrigin: String = "bta-sa"
 
   def controller(pinAndPostToggle: Boolean = true): TryPinInPostController = {
     new TryPinInPostController(
@@ -43,45 +44,45 @@ class TryPinInPostControllerSpec extends ControllerSpecBase with MockitoSugar wi
     }
   }
 
-  def viewAsString(): String =
-    new tryPinInPost(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(origin: String, status: Option[String] = Some("Failed")): String =
+    new tryPinInPost(formWithCSRF, mainTemplate)(frontendAppConfig, status, origin)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "TryPinInPost Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
+      val result = controller().onPageLoad(origin = btaOrigin)(fakeRequest)
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe viewAsString(btaOrigin)
     }
 
     "redirect to BTA home page when the toggle is set to false" in {
-      val result = controller(pinAndPostToggle = false).onPageLoad()(fakeRequest)
+      val result = controller(pinAndPostToggle = false).onPageLoad(origin = btaOrigin)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(frontendAppConfig.getBusinessAccountUrl("home"))
     }
 
     "redirect when valid sa utr is submitted and service returns unsuccessful enrolment" in {
-      when(mockTryPinInPostService.checkEnrol()(any(), any(), any()))
+      when(mockTryPinInPostService.checkEnrol(any())(any(), any(), any()))
         .thenReturn(Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate)))
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789"))
 
-      val result = controller().onSubmit()(postRequest)
+      val result = controller().onSubmit(origin = btaOrigin)(postRequest)
 
       status(result) mustBe INTERNAL_SERVER_ERROR
     }
 
     "redirect when valid sa utr is submitted and service returns successful request" in {
-      when(mockTryPinInPostService.checkEnrol()(any(), any(), any()))
-        .thenReturn(Future.successful(Redirect(controllers.sa.routes.RequestedAccessController.onPageLoad())))
+      when(mockTryPinInPostService.checkEnrol(any())(any(), any(), any()))
+        .thenReturn(Future.successful(Redirect(controllers.sa.routes.RequestedAccessController.onPageLoad(btaOrigin))))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789"))
 
-      val result = controller().onSubmit()(postRequest)
+      val result = controller().onSubmit(origin = btaOrigin)(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result).get mustBe controllers.sa.routes.RequestedAccessController.onPageLoad().url
+      redirectLocation(result).get mustBe controllers.sa.routes.RequestedAccessController.onPageLoad(btaOrigin).url
     }
   }
 

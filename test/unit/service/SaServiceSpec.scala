@@ -19,13 +19,14 @@ package service
 import connectors.{DataCacheConnector, SaConnector}
 import controllers.ControllerSpecBase
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
-import models.sa.IvLinks
+import models.sa.{IvLinks, YourSaIsNotInThisAccount}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.concurrent.ScalaFutures.whenReady
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.auth.core.Enrolments
@@ -41,6 +42,7 @@ class SaServiceSpec extends ControllerSpecBase with MockitoSugar {
   val mockSaConnector: SaConnector = mock[SaConnector]
   val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
   val testIvLinks: IvLinks = IvLinks("/iv-link", "/journeyLink")
+  val btaOrigin: String = "bta-sa"
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
   implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
@@ -57,22 +59,41 @@ class SaServiceSpec extends ControllerSpecBase with MockitoSugar {
   "Sa service" when {
     "getIvRedirectLink is called" must {
       "return redirect url of Try Pin in post when fails to retrieve iv links" in {
-        when(mockSaConnector.getIvLinks(any())(any(), any())).thenReturn(Future.successful(None))
+        when(mockSaConnector.getIvLinks(any(), any())(any(), any())).thenReturn(Future.successful(None))
+        when(mockDataCacheConnector.getEntry[String](any(), any())(any()))
+          .thenReturn(Future.successful(None))
 
-        val result = service().getIvRedirectLink("1234567890")
+        val result = service().getIvRedirectLink("1234567890", btaOrigin)
 
         whenReady(result) { result =>
-          result mustBe saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError")).url
+          result mustBe saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError"), btaOrigin).url
         }
       }
 
       "return redirect url from retrieve iv links" in {
-        when(mockSaConnector.getIvLinks(any())(any(), any())).thenReturn(Future.successful(Some(testIvLinks)))
+        when(mockSaConnector.getIvLinks(any(), any())(any(), any())).thenReturn(Future.successful(Some(testIvLinks)))
+        when(mockDataCacheConnector.getEntry[String](any(), any())(any()))
+          .thenReturn(Future.successful(None))
 
-        val result = service().getIvRedirectLink("1234567890")
+        val result = service().getIvRedirectLink("1234567890", btaOrigin)
 
         whenReady(result) { result =>
           result must include("/iv-link")
+        }
+      }
+    }
+
+    "yourSaIsNotInThisAccount is called" must {
+      "redirect to the correct location" when {
+        "user chooses to look in another account" in {
+          val result = service().yourSaIsNotInThisAccount(YourSaIsNotInThisAccount.LookInOtherAccount, "bta-sa")
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some("http://localhost:9020/business-account/wrong-credentials")
+        }
+        "user chooses to add to this account" in {
+          val result = service().yourSaIsNotInThisAccount(YourSaIsNotInThisAccount.AddToThisAccount, "bta-sa")
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment?origin=bta-sa")
         }
       }
     }

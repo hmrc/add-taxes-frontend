@@ -25,30 +25,28 @@ import views.behaviours.ViewBehaviours
 import views.html.sa.yourSaIsNotInThisAccount
 
 class YourSaIsNotInThisAccountViewSpec extends ViewBehaviours {
-  lazy val onSubmit: Call = controllers.sa.routes.YourSaIsNotInThisAccountController.onSubmit()
 
+  val btaOrigin: String = "bta-sa"
+  lazy val onSubmit: Call = controllers.sa.routes.YourSaIsNotInThisAccountController.onSubmit(btaOrigin)
   val messageKeyPrefix = "yourSaIsNotInThisAccount"
 
   val form = new YourSaIsNotInThisAccountFormProvider()()
-
   val serviceInfoContent: Html = HtmlFormat.empty
 
-  def createView: () => HtmlFormat.Appendable = () =>
-    new yourSaIsNotInThisAccount(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createView: (String) => HtmlFormat.Appendable = (origin: String) =>
+    new yourSaIsNotInThisAccount(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
-    new yourSaIsNotInThisAccount(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm: (Form[_], String) => HtmlFormat.Appendable = (form: Form[_], origin: String) =>
+    new yourSaIsNotInThisAccount(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(serviceInfoContent)(fakeRequest, messages)
 
   "YourSaIsNotInThisAccountView" must {
-    behave like normalPage(createView, messageKeyPrefix)
-
     "contain heading ID" in {
-      val doc = asDocument(createView())
+      val doc = asDocument(createView(btaOrigin))
       doc.getElementsByTag("h1").attr("id") mustBe "your-sa-is-not-in-this-account"
     }
 
     "Render the correct content" in {
-      val doc = asDocument(createView())
+      val doc = asDocument(createView(btaOrigin))
       val view = doc.text()
 
       view must include("Your Self Assessment has not been added to an account")
@@ -62,7 +60,7 @@ class YourSaIsNotInThisAccountViewSpec extends ViewBehaviours {
   "YourSaIsNotInThisAccountView" when {
     "rendered" must {
       "contain radio buttons for the value" in {
-        val doc = asDocument(createViewUsingForm(form))
+        val doc = asDocument(createViewUsingForm(form, btaOrigin))
         for (option <- YourSaIsNotInThisAccount.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
@@ -72,7 +70,7 @@ class YourSaIsNotInThisAccountViewSpec extends ViewBehaviours {
     for (option <- YourSaIsNotInThisAccount.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
-          val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+          val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}")), btaOrigin))
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for (unselectedOption <- YourSaIsNotInThisAccount.options.filterNot(o => o == option)) {
@@ -84,7 +82,7 @@ class YourSaIsNotInThisAccountViewSpec extends ViewBehaviours {
 
     "invalid data is sent" must {
       "prepend title with Error: " in {
-        val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> ""))))
+        val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> "")), btaOrigin))
         val title = messages("site.service_title", messages(s"$messageKeyPrefix.title"))
 
         assertEqualsMessage(doc, "title", "error.browser.title", title)

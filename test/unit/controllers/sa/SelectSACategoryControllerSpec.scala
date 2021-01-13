@@ -44,6 +44,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
   val form: Form[SelectSACategory] = formProvider()
   val mockSaCategoryService: SelectSaCategoryService = mock[SelectSaCategoryService]
   val view: selectSACategory = injector.instanceOf[selectSACategory]
+  val btaOrigin: String = "bta-sa"
 
   def controller()(enrolmentTypes: HmrcEnrolmentType*): SelectSACategoryController = {
     new SelectSACategoryController(
@@ -57,38 +58,38 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
     )
   }
 
-  def viewAsString(form: Form[_] = form, radioOptions: Set[RadioOption] = SelectSACategory.options): String =
+  def viewAsString(form: Form[_] = form, radioOptions: Set[RadioOption] = SelectSACategory.options, origin: String): String =
     new selectSACategory(
       formWithCSRF, mainTemplate
-    )(frontendAppConfig, form, routes.SelectSACategoryController.onSubmitHasUTR(), radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
+    )(frontendAppConfig, form, routes.SelectSACategoryController.onSubmitHasUTR(origin), origin, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  def viewAsStringNoUTR(form: Form[_] = form, radioOptions: Set[RadioOption] = SelectSACategory.options): String =
+  def viewAsStringNoUTR(form: Form[_] = form, radioOptions: Set[RadioOption] = SelectSACategory.options, origin: String): String =
     new selectSACategory(
       formWithCSRF, mainTemplate
-    )(frontendAppConfig, form, routes.SelectSACategoryController.onSubmitNoUTR(), radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
+    )(frontendAppConfig, form, routes.SelectSACategoryController.onSubmitNoUTR(), origin, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "SelectSACategory Controller" must {
 
-    when(mockSaCategoryService.saCategoryResult(any(), any())(any(), any(), any()))
+    when(mockSaCategoryService.saCategoryResult(any(), any(), any())(any(), any(), any()))
       .thenReturn(Future.successful(Redirect(onwardRoute.url)))
 
     "return OK and the correct view for a GET" in {
-      val result = controller()().onPageLoadHasUTR()(fakeRequest)
+      val result = controller()().onPageLoadHasUTR(Some(btaOrigin))(fakeRequest)
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe viewAsString(origin = btaOrigin)
     }
 
     "return OK and the correct view for a GET when called on the no UTR path" in {
       val result = controller()().onPageLoadNoUTR()(fakeRequest)
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsStringNoUTR()
+      contentAsString(result) mustBe viewAsStringNoUTR(origin = btaOrigin)
     }
 
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", SelectSACategory.options.head.value))
-      val result = controller()().onSubmitHasUTR()(postRequest)
+      val result = controller()().onSubmitHasUTR(btaOrigin)(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -98,14 +99,14 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
-      val result = controller()().onSubmitHasUTR()(postRequest)
+      val result = controller()().onSubmitHasUTR(btaOrigin)(postRequest)
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm)
+      contentAsString(result) mustBe viewAsString(boundForm, origin = btaOrigin)
     }
 
     "return OK" in {
-      val result = controller()().onPageLoadHasUTR()(fakeRequest)
+      val result = controller()().onPageLoadHasUTR(Some(btaOrigin))(fakeRequest)
 
       status(result) mustBe OK
     }
@@ -113,7 +114,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
     for (option <- SelectSACategory.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
-        val result = controller()().onSubmitHasUTR()(postRequest)
+        val result = controller()().onSubmitHasUTR(btaOrigin)(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -124,8 +125,8 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
       val radioOptions: Set[RadioOption] = SelectSACategory.options
 
       "on page load and not enrolled for SA or Trust" in {
-        val result = controller()().onPageLoadHasUTR()(fakeRequest)
-        val view = viewAsString(radioOptions = radioOptions)
+        val result = controller()().onPageLoadHasUTR(Some(btaOrigin))(fakeRequest)
+        val view = viewAsString(radioOptions = radioOptions, origin = btaOrigin)
 
         contentAsString(result) mustBe view
       }
@@ -133,9 +134,9 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
       "on page submit and not enrolled for SA or Trust" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
         val boundForm = form.bind(Map("value" -> "invalid value"))
-        val view = viewAsString(boundForm, radioOptions)
+        val view = viewAsString(boundForm, radioOptions, origin = btaOrigin)
 
-        val result = controller()().onSubmitHasUTR()(postRequest)
+        val result = controller()().onSubmitHasUTR(btaOrigin)(postRequest)
 
         contentAsString(result) mustBe view
       }
@@ -146,8 +147,8 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
         SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
 
       "on page load and enrolled for SA" in {
-        val result = controller()(HmrcEnrolmentType.SA).onPageLoadHasUTR()(fakeRequest)
-        val view = viewAsString(radioOptions = radioOptions)
+        val result = controller()(HmrcEnrolmentType.SA).onPageLoadHasUTR(Some(btaOrigin))(fakeRequest)
+        val view = viewAsString(radioOptions = radioOptions, origin = btaOrigin)
 
         contentAsString(result) mustBe view
       }
@@ -155,9 +156,9 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
       "on page submit and enrolled for SA" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
         val boundForm = form.bind(Map("value" -> "invalid value"))
-        val view = viewAsString(boundForm, radioOptions)
+        val view = viewAsString(boundForm, radioOptions, btaOrigin)
 
-        val result = controller()(HmrcEnrolmentType.SA).onSubmitHasUTR()(postRequest)
+        val result = controller()(HmrcEnrolmentType.SA).onSubmitHasUTR(btaOrigin)(postRequest)
 
         contentAsString(result) mustBe view
       }
@@ -168,8 +169,8 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
         SelectSACategory.options.filterNot(_.value == SelectSACategory.Trust.toString)
 
       "on page load and enrolled for Trust" in {
-        val result = controller()(HmrcEnrolmentType.RegisterTrusts).onPageLoadHasUTR()(fakeRequest)
-        val view = viewAsString(radioOptions = radioOptions)
+        val result = controller()(HmrcEnrolmentType.RegisterTrusts).onPageLoadHasUTR(Some(btaOrigin))(fakeRequest)
+        val view = viewAsString(radioOptions = radioOptions, origin = btaOrigin)
 
         contentAsString(result) mustBe view
       }
@@ -177,9 +178,9 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
       "on page submit and enrolled for Trust" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
         val boundForm = form.bind(Map("value" -> "invalid value"))
-        val view = viewAsString(boundForm, radioOptions)
+        val view = viewAsString(boundForm, radioOptions, origin = btaOrigin)
 
-        val result = controller()(HmrcEnrolmentType.RegisterTrusts).onSubmitHasUTR()(postRequest)
+        val result = controller()(HmrcEnrolmentType.RegisterTrusts).onSubmitHasUTR(btaOrigin)(postRequest)
 
         contentAsString(result) mustBe view
       }
@@ -188,7 +189,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
     "redirect to do you want to add a partner" when {
       "on page load and enrolled for SA and Trust" in {
         val result =
-          controller()(HmrcEnrolmentType.SA, HmrcEnrolmentType.RegisterTrusts).onPageLoadHasUTR()(fakeRequest)
+          controller()(HmrcEnrolmentType.SA, HmrcEnrolmentType.RegisterTrusts).onPageLoadHasUTR(Some(btaOrigin))(fakeRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/partnership")
@@ -196,7 +197,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
 
       "on submit and enrolled for SA and Trust" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-        val result = controller()(HmrcEnrolmentType.SA, HmrcEnrolmentType.RegisterTrusts).onSubmitHasUTR()(postRequest)
+        val result = controller()(HmrcEnrolmentType.SA, HmrcEnrolmentType.RegisterTrusts).onSubmitHasUTR(btaOrigin)(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/partnership")

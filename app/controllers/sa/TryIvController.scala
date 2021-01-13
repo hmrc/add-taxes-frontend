@@ -40,15 +40,15 @@ class TryIvController @Inject()(authenticate: AuthAction,
   val pinAndPostFeatureToggle = appConfig.pinAndPostFeatureToggle
   implicit val ec: ExecutionContext = mcc.executionContext
 
-  def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfoData).async {
+  def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
       if(pinAndPostFeatureToggle) {
         val utr = dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
         val urlString: Future[String] = utr.flatMap {
-          case Some(utr) => saService.getIvRedirectLink(utr.value)
+          case Some(utr) => saService.getIvRedirectLink(utr.value, origin)
           case _ =>
             logger.warn("[TryIvController][onPageLoad] Failed to get UTR from DataCache")
-            Future.successful(routes.TryPinInPostController.onPageLoad(Some("MatchingError")).url)
+            Future.successful(routes.TryPinInPostController.onPageLoad(Some("MatchingError"), origin).url)
         }
 
       for (

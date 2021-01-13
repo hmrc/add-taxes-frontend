@@ -18,6 +18,7 @@ package controllers.sa
 
 import config.FrontendAppConfig
 import controllers.actions._
+import controllers.sa.routes.SelectSACategoryController
 import forms.sa.YourSaIsNotInThisAccountFormProvider
 import identifiers.YourSaIsNotInThisAccountId
 import javax.inject.Inject
@@ -25,34 +26,39 @@ import models.sa.YourSaIsNotInThisAccount
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import service.SaService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import views.html.sa.yourSaIsNotInThisAccount
 
+import scala.concurrent.Future
+
 class YourSaIsNotInThisAccountController @Inject()(appConfig: FrontendAppConfig,
                                                    mcc: MessagesControllerComponents,
-                                                   navigator: Navigator[Call],
                                                    authenticate: AuthAction,
                                                    serviceInfoData: ServiceInfoAction,
                                                    formProvider: YourSaIsNotInThisAccountFormProvider,
-                                                   yourSaIsNotInThisAccount: yourSaIsNotInThisAccount)
+                                                   yourSaIsNotInThisAccount: yourSaIsNotInThisAccount,
+                                                   saService: SaService)
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
+  implicit val ec = mcc.executionContext
   val form: Form[YourSaIsNotInThisAccount] = formProvider()
 
-  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+  def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     if (request.session.get("tryingToAccessSa").contains("true")) {
-      Ok(yourSaIsNotInThisAccount(appConfig, form)(request.serviceInfoContent))
+      Ok(yourSaIsNotInThisAccount(appConfig, form, origin)(request.serviceInfoContent))
     } else {
       SeeOther(appConfig.getBusinessAccountUrl("home"))
     }
   }
 
-  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+  def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(yourSaIsNotInThisAccount(appConfig, formWithErrors)(request.serviceInfoContent)),
-        value => Redirect(navigator.nextPage(YourSaIsNotInThisAccountId, value))
+        formWithErrors => Future(BadRequest(yourSaIsNotInThisAccount(appConfig, formWithErrors, origin)(request.serviceInfoContent))),
+        value => saService.yourSaIsNotInThisAccount(value, origin)
       )
   }
+
 }

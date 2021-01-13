@@ -30,6 +30,7 @@ class RetryKnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar
 
   val view: retryKnownFacts = injector.instanceOf[retryKnownFacts]
   val mockDataCacheConnector = mock[DataCacheConnector]
+  val btaOrigin: String = "bta-sa"
 
   def controller(pinInPostFeature: Boolean = true): RetryKnownFactsController = {
     new RetryKnownFactsController(
@@ -44,29 +45,29 @@ class RetryKnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar
     }
   }
 
-  def viewAsString(): String =
-    new retryKnownFacts(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(origin: String): String =
+    new retryKnownFacts(formWithCSRF, mainTemplate)(frontendAppConfig, origin)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "TryPinInPost Controller" must {
     "return OK and the correct view for a GET when feature toggle is set to true" in {
-      val result = controller().onPageLoad()(fakeRequest)
+      val result = controller().onPageLoad(btaOrigin)(fakeRequest)
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe viewAsString(btaOrigin)
     }
 
     "redirect to BTA homepage when feature toggle set to false" in {
-      val result = controller(false).onPageLoad()(fakeRequest)
+      val result = controller(false).onPageLoad(btaOrigin)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(frontendAppConfig.getBusinessAccountUrl("home"))
     }
 
     "redirect to enter SaUTR page" in {
-      val result = controller().onSubmit()(fakeRequest)
+      val result = controller().onSubmit(btaOrigin)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result).get mustBe routes.EnterSAUTRController.onPageLoad().url
+      redirectLocation(result).get mustBe routes.EnterSAUTRController.onPageLoad(btaOrigin).url
     }
   }
 

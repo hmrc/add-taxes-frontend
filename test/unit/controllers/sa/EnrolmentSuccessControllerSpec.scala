@@ -16,16 +16,22 @@
 
 package controllers.sa
 
+import connectors.DataCacheConnector
 import controllers.Assets.{OK, SEE_OTHER}
 import controllers.ControllerSpecBase
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout, redirectLocation, status}
 import play.twirl.api.HtmlFormat
 import views.html.sa.successfulEnrolment
 
+import scala.concurrent.Future
+
 class EnrolmentSuccessControllerSpec extends ControllerSpecBase with MockitoSugar {
 
   val view: successfulEnrolment = injector.instanceOf[successfulEnrolment]
+  val btaOrigin = "bta-sa"
 
   def controller(pinInPostFeature: Boolean = true): EnrolmentSuccessController = {
     new EnrolmentSuccessController(
@@ -39,19 +45,19 @@ class EnrolmentSuccessControllerSpec extends ControllerSpecBase with MockitoSuga
     }
   }
 
-  def viewAsString(): String =
-    new successfulEnrolment(mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(origin: String, returnUrl: Option[String] = None): String =
+    new successfulEnrolment(mainTemplate)(frontendAppConfig, origin)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "EnrolmentSuccess Controller" must {
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
+      val result = controller().onPageLoad(btaOrigin)(fakeRequest)
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe viewAsString(btaOrigin)
     }
 
     "redirect to BTA home page when the toggle is set to false" in {
-      val result = controller(pinInPostFeature = false).onPageLoad()(fakeRequest)
+      val result = controller(pinInPostFeature = false).onPageLoad(btaOrigin)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(frontendAppConfig.getBusinessAccountUrl("home"))

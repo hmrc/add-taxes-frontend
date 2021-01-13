@@ -16,14 +16,17 @@
 
 package service
 
+import java.net.URLEncoder
+
 import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector, IvConnector, TaxEnrolmentsConnector}
 import controllers.Assets.Redirect
 import controllers.sa.{routes => saRoutes}
 import identifiers.EnterSAUTRId
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
-import models.sa.{IvLinks, SAUTR}
+import models.sa.{IvLinks, SAUTR, SaEnrolmentDetails}
 import play.api.Logging
+import play.api.libs.json.JsValue
 import play.api.mvc.{AnyContent, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -44,7 +47,7 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
         result.result
       }.recover {
         case exception =>
-          logger.error("Enrolment Store Proxy error", exception)
+          logger.error("[IvService][journeyLinkCheck] Check journey link failed with", exception)
           "Failed"
       }
       case _ =>
@@ -53,7 +56,7 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
     }
   }
 
-  def ivCheckAndEnrol()(implicit request: ServiceInfoRequest[AnyContent],
+  def ivCheckAndEnrol(origin: String)(implicit request: ServiceInfoRequest[AnyContent],
                         ec: ExecutionContext,
                         hc: HeaderCarrier): Future[Result] = {
     journeyLinkCheck().flatMap {
@@ -68,14 +71,28 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
               ).getOrElse(Future.successful(false))
         }
         enrolForSaBoolean.map {
-          case true => Redirect(saRoutes.EnrolmentSuccessController.onPageLoad())
-          case _ => Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed")))
+          case true => Redirect(saRoutes.EnrolmentSuccessController.onPageLoad(origin))
+          case _ => Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"), origin))
         }
-      case "LockedOut" => Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("LockedOut"))))
-      case x if x == "InsufficientEvidence" || x == "PreconditionFailed" || x == "FailedMatching" || x == "FailedIV" => Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError"))))
+      case "LockedOut" => Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("LockedOut"), origin)))
+      case x if x == "InsufficientEvidence" || x == "PreconditionFailed" || x == "FailedMatching" || x == "FailedIV" =>
+        Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError"), origin)))
       case result =>
         logger.warn(s"[IvService][ivCheckAndEnrol] Failed Iv for ${result}")
-        Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"))))
+        Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"), origin)))
+    }
+  }
+
+  def journeyRouter(details: SaEnrolmentDetails): Future[String] = {
+    details match {
+      case SaEnrolmentDetails(Some(utr), origin, credId) => {
+        dataCacheConnector.save[SAUTR](credId, EnterSAUTRId.toString, SAUTR(utr))
+        Future.successful(controllers.sa.routes.TryIvController.onPageLoad(origin).url)
+      }
+      case SaEnrolmentDetails(None, origin, credId) => {
+        dataCacheConnector.save[Boolean](credId, "tryAgain", true)
+        Future.successful(controllers.sa.routes.EnterSAUTRController.onPageLoad(origin).url)
+      }
     }
   }
 

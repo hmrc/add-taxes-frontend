@@ -15,6 +15,7 @@ class TryIvControllerSpec extends ControllerSpecBase with MockitoSugar with Feat
 
   val mockSaService = mock[SaService]
   val mockDataCacheConnector = mock[DataCacheConnector]
+  val btaOrigin: String = "bta-sa"
 
   def controller(featureToggle: Boolean = true): TryIvController =
     new TryIvController(
@@ -31,7 +32,7 @@ class TryIvControllerSpec extends ControllerSpecBase with MockitoSugar with Feat
   "TryIVController" when {
     "pinInPost feature toggle is set to false" must {
       "redirect to the BTA homepage" in {
-        val result = controller(false).onPageLoad()(fakeRequest)
+        val result = controller(false).onPageLoad(btaOrigin)(fakeRequest)
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("http://localhost:9020/business-account")
       }
@@ -40,15 +41,15 @@ class TryIvControllerSpec extends ControllerSpecBase with MockitoSugar with Feat
     "pinInPost feature toggle is set to true" must {
       "redirect back to TryPinInPost when no UTR is found" in {
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
-        val result = controller().onPageLoad()(fakeRequest)
+        val result = controller().onPageLoad(btaOrigin)(fakeRequest)
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/try-pin-in-post?status=MatchingError")
+        redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/try-pin-in-post?status=MatchingError&origin=bta-sa")
       }
 
       "redirect back to the IV link returned from the connector when UTR is found" in {
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(Some(SAUTR("1234567890")))
-        when(mockSaService.getIvRedirectLink(any())(any(), any(), any())) thenReturn(Future.successful("/iv-link"))
-        val result = controller().onPageLoad()(fakeRequest)
+        when(mockSaService.getIvRedirectLink(any(), any())(any(), any(), any())) thenReturn(Future.successful("/iv-link"))
+        val result = controller().onPageLoad(btaOrigin)(fakeRequest)
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/iv-link")
       }

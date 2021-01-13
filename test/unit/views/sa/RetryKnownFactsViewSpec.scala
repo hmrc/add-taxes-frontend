@@ -7,19 +7,20 @@ import views.html.sa.retryKnownFacts
 class RetryKnownFactsViewSpec extends ViewBehaviours {
 
   val serviceInfoContent = HtmlFormat.empty
+  val btaOrigin: String = "bta-sa"
 
-  def createView: () => HtmlFormat.Appendable = () =>
-    new retryKnownFacts(formWithCSRF, mainTemplate)(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
+  def createView: (String) => HtmlFormat.Appendable = (origin: String) =>
+    new retryKnownFacts(formWithCSRF, mainTemplate)(frontendAppConfig, origin)(serviceInfoContent)(fakeRequest, messages)
 
 
   "retryKnownFacts view" must {
     "contain heading ID" in {
-      val doc = asDocument(createView())
+      val doc = asDocument(createView(btaOrigin))
       doc.getElementsByTag("h1").attr("id") mustBe "retry-knownFacts-header"
     }
 
     "contain link to contact hmrc" in {
-      val doc = asDocument(createView())
+      val doc = asDocument(createView(btaOrigin))
       assertLinkById(
         doc,
         linkId = "online-services-helpdesk-link",

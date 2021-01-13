@@ -34,7 +34,8 @@ class KnownFactsService @Inject()(saService: SaService,
                                   enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
                                   auditService: AuditService){
 
-  def knownFactsLocation(knownFacts: KnownFacts)
+  def knownFactsLocation(knownFacts: KnownFacts,
+                         origin: String)
                         (implicit request: ServiceInfoRequest[AnyContent],
                          ec: ExecutionContext,
                          hc: HeaderCarrier): Future[Result] = {
@@ -49,8 +50,8 @@ class KnownFactsService @Inject()(saService: SaService,
 
     queryKnownFactsResult.flatMap {
       case result@KnownFactsReturn(_, true) =>
-        saService.getIvRedirectLink(result.utr).map(link => Redirect(Call("GET", link)))
-      case _ => Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad()))
+        saService.getIvRedirectLink(result.utr, origin).map(link => Redirect(Call("GET", link)))
+      case _ => Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(origin)))
     }
   }
 
