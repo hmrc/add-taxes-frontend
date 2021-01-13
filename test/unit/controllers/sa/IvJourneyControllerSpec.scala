@@ -31,6 +31,7 @@ import scala.concurrent.Future
 class IvJourneyControllerSpec extends ControllerSpecBase with MockitoSugar with FeatureToggleSupport {
 
   val mockIvService: IvService = mock[IvService]
+  val btaOrigin: String = "bta-sa"
 
   def controller(pinAndPostToggle: Boolean = true): IvJourneyController = {
     new IvJourneyController(
@@ -46,30 +47,30 @@ class IvJourneyControllerSpec extends ControllerSpecBase with MockitoSugar with 
 
   "IvJourney Controller" must {
     "redirect to enrolment success page when checkAndEnrol returns redirect to enrolment success" in {
-      when(mockIvService.ivCheckAndEnrol()(any(), any(), any()))
-        .thenReturn(Future.successful(Redirect(saRoutes.EnrolmentSuccessController.onPageLoad())))
+      when(mockIvService.ivCheckAndEnrol(any())(any(), any(), any()))
+        .thenReturn(Future.successful(Redirect(saRoutes.EnrolmentSuccessController.onPageLoad(btaOrigin))))
 
-      val result = controller().ivRouter()(fakeRequest)
+      val result = controller().ivRouter(btaOrigin)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result).get mustBe saRoutes.EnrolmentSuccessController.onPageLoad().url
+      redirectLocation(result).get mustBe saRoutes.EnrolmentSuccessController.onPageLoad(btaOrigin).url
     }
 
     "redirect to try pin and post page when checkAndEnrol returns redirect to try pin and post page" in {
-      when(mockIvService.ivCheckAndEnrol()(any(), any(), any()))
-        .thenReturn(Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad())))
+      when(mockIvService.ivCheckAndEnrol(any())(any(), any(), any()))
+        .thenReturn(Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(btaOrigin))))
 
-      val result = controller().ivRouter()(fakeRequest)
+      val result = controller().ivRouter(btaOrigin)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result).get mustBe saRoutes.RetryKnownFactsController.onPageLoad().url
+      redirectLocation(result).get mustBe saRoutes.RetryKnownFactsController.onPageLoad(btaOrigin).url
     }
 
     "redirect to BTA home page when feature flag is set to false" in {
-      when(mockIvService.ivCheckAndEnrol()(any(), any(), any()))
-        .thenReturn(Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad())))
+      when(mockIvService.ivCheckAndEnrol(any())(any(), any(), any()))
+        .thenReturn(Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(btaOrigin))))
 
-      val result = controller(false).ivRouter()(fakeRequest)
+      val result = controller(false).ivRouter(btaOrigin)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).get mustBe frontendAppConfig.getBusinessAccountUrl("home")

@@ -2,6 +2,7 @@ package support.stubs
 
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder
 import com.github.tomakehurst.wiremock.client.WireMock._
+import com.github.tomakehurst.wiremock.matching.StringValuePattern
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
 
 trait StubHelper {
@@ -31,5 +32,16 @@ trait StubHelper {
     )
   }
 
+  def stubGetWithQuery(url: String, status: Int, queryName: String, queryValue: String, body: Option[String]): StubMapping = {
+    stubFor(
+      get(urlPathEqualTo(url)).withQueryParam(queryName, equalTo(queryValue)) willReturn {
+        val response: ResponseDefinitionBuilder = aResponse().withStatus(status)
+        body match {
+          case Some(x) => response.withBody(x)
+          case _ => response
+        }
+      }
+    )
+  }
 }
 

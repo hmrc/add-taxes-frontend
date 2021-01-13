@@ -33,7 +33,7 @@ trait DoYouHaveSAUTRNextPage {
         featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
-          case DoYouHaveSAUTR.Yes => EnterSAUTRController.onPageLoad()
+          case DoYouHaveSAUTR.Yes => EnterSAUTRController.onPageLoad("bta-sa")
           case DoYouHaveSAUTR.No  => SelectSACategoryController.onPageLoadNoUTR()
         }
     }

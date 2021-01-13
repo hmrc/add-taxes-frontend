@@ -35,18 +35,18 @@ class RetryKnownFactsController @Inject()(appConfig: FrontendAppConfig,
 extends FrontendController(mcc) with I18nSupport {
   val pinAndPostFeatureToggle = appConfig.pinAndPostFeatureToggle
 
-  def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfoData) {
+  def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
       if (pinAndPostFeatureToggle) {
-        Ok(retryKnownFacts(appConfig)(request.serviceInfoContent))
+        Ok(retryKnownFacts(appConfig, origin)(request.serviceInfoContent))
       } else {
         Redirect(Call("GET", appConfig.getBusinessAccountUrl("home")))
       }
   }
 
-  def onSubmit: Action[AnyContent] = (authenticate andThen serviceInfoData) {
+  def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
       dataCacheConnector.save[Boolean](request.request.credId, "tryAgain", true)
-        Redirect(routes.EnterSAUTRController.onPageLoad())
+        Redirect(routes.EnterSAUTRController.onPageLoad(origin))
   }
 }

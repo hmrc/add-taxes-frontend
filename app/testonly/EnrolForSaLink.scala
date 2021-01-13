@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(gaEvent: String, marginClass: Option[String] = None, origin: String)(implicit messages: Messages)
+package testonly
 
-<div class="section">
-    <a id="postcode-button" href="@controllers.sa.routes.PostcodeController.onPageLoad(origin)" data-journey-click="@gaEvent:Click:PostcodeLink" data-journey-target>@messages("enterKnownFacts.nino.linkText")</a>
-</div>
+import play.api.libs.json.{Json, OFormat}
+
+case class EnrolForSaLink(redirectUrl: String)
+
+object EnrolForSaLink {
+  implicit val format: OFormat[EnrolForSaLink] = Json.format[EnrolForSaLink]
+}

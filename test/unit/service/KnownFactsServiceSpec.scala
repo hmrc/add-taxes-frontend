@@ -21,7 +21,7 @@ import controllers.Assets.SEE_OTHER
 import controllers.ControllerSpecBase
 import controllers.sa.{EnrolmentSuccessController, routes => saRoutes}
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
-import models.sa.{CredIdFound, DoYouHaveSAUTR, GroupIdFound, KnownFacts, KnownFactsReturn, NoRecordFound, SAUTR}
+import models.sa.{CredIdFound, DoYouHaveSAUTR, GroupIdFound, KnownFacts, KnownFactsReturn, NoRecordFound, NoSaUtr, SAUTR}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, times, verify, when}
 import org.scalatest.BeforeAndAfterEach
@@ -44,6 +44,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
   implicit val request = ServiceInfoRequest[AnyContent](
     AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel),
     HtmlFormat.empty)
+  val btaOrigin: String = "bta-sa"
 
   val mockSaService: SaService = mock[SaService]
   val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
@@ -70,9 +71,9 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
       "return redirect to Try Pin in post when fails to retrieve UTR from dataCacheConnector" in {
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())).thenReturn(Future.successful(None))
 
-        val result = service().knownFactsLocation(testKnownFacts)
+        val result = service().knownFactsLocation(testKnownFacts, btaOrigin)
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(saRoutes.RetryKnownFactsController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(saRoutes.RetryKnownFactsController.onPageLoad(btaOrigin).url)
 
       }
 
@@ -81,9 +82,9 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
         when(mockEnrolmentStoreProxyConnector.queryKnownFacts(any(), any())(any(), any()))
           .thenReturn(Future.successful(KnownFactsReturn(utr.value, knownFactsResult = false)))
 
-        val result = service().knownFactsLocation(testKnownFacts)
+        val result = service().knownFactsLocation(testKnownFacts, btaOrigin)
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(saRoutes.RetryKnownFactsController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(saRoutes.RetryKnownFactsController.onPageLoad(btaOrigin).url)
 
       }
 
@@ -91,9 +92,9 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())).thenReturn(Future.successful(Some(utr)))
         when(mockEnrolmentStoreProxyConnector.queryKnownFacts(any(), any())(any(), any()))
           .thenReturn(Future.successful(KnownFactsReturn(utr.value, knownFactsResult = true)))
-        when(mockSaService.getIvRedirectLink(utr.value)).thenReturn(Future.successful("/iv-redirect"))
+        when(mockSaService.getIvRedirectLink(utr.value, btaOrigin)).thenReturn(Future.successful("/iv-redirect"))
 
-        val result = service().knownFactsLocation(testKnownFacts)
+        val result = service().knownFactsLocation(testKnownFacts, btaOrigin)
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/iv-redirect")
       }
@@ -106,7 +107,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
         when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any(), any())(any(), any())).thenReturn(Future.successful(true))
 
         await(service().enrolmentCheck("234", utr, "37219-dsjjd", "IR-SA", DoYouHaveSAUTR.Yes)) mustBe CredIdFound
-        //        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
+//        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
       }
 
       "return NoRecordFound and send and audit event when the ES0 and ES3 connectors returns false" in {
@@ -116,7 +117,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
         when(mockEnrolmentStoreProxyConnector.checkSaGroup(any(), any())(any(), any())).thenReturn(Future.successful(false))
 
         await(service().enrolmentCheck("234", utr, "37219-dsjjd", "IR-SA", DoYouHaveSAUTR.Yes)) mustBe NoRecordFound
-        //        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
+//        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
       }
 
 
@@ -127,6 +128,16 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
         when(mockEnrolmentStoreProxyConnector.checkSaGroup(any(), any())(any(), any())).thenReturn(Future.successful(true))
 
         await(service().enrolmentCheck("234", utr, "37219-dsjjd", "IR-SA", DoYouHaveSAUTR.Yes)) mustBe GroupIdFound
+//        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
+      }
+
+      "return NOSAUTR and send and audit event when the ES0 connector returns false and ES3 connectors returns true" in {
+        when(mockAuditService.auditSA(any(), any(), any())(any(), any(), any()))
+          .thenReturn(Future.successful(AuditResult.Success))
+        when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any(), any())(any(), any())).thenReturn(Future.successful(false))
+        when(mockEnrolmentStoreProxyConnector.checkSaGroup(any(), any())(any(), any())).thenReturn(Future.successful(true))
+
+        await(service().enrolmentCheck("234", utr, "37219-dsjjd", "IR-SA", DoYouHaveSAUTR.No)) mustBe NoSaUtr
         //        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
       }
 

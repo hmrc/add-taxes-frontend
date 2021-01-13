@@ -46,22 +46,22 @@ class KnownFactsController @Inject()(
   val form: Form[KnownFacts] = formProvider()
   val pinAndPostFeatureToggle = appConfig.pinAndPostFeatureToggle
 
-  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) {
+  def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
       if (pinAndPostFeatureToggle) {
-        Ok(knownFactsPage(appConfig, form)(request.serviceInfoContent))
+        Ok(knownFactsPage(appConfig, form, origin)(request.serviceInfoContent))
       } else {
         Redirect(Call("GET", appConfig.getBusinessAccountUrl("home")))
       }
   }
 
-  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
+  def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[KnownFacts]) => {
-          Future(BadRequest(knownFactsPage(appConfig, formWithErrors)(request.serviceInfoContent)))
+          Future(BadRequest(knownFactsPage(appConfig, formWithErrors, origin)(request.serviceInfoContent)))
         },
-        value => knownFactsService.knownFactsLocation(value)
+        value => knownFactsService.knownFactsLocation(value, origin)
       )
   }
 

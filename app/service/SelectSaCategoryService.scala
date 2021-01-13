@@ -36,7 +36,9 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
                                         knownFactsService: KnownFactsService,
                                         appConfig: FrontendAppConfig) {
 
-  def saCategoryResult(saType: SelectSACategory, doYouHaveSaUtr: DoYouHaveSAUTR)(implicit request: ServiceInfoRequest[AnyContent],
+  def saCategoryResult(saType: SelectSACategory,
+                       doYouHaveSaUtr: DoYouHaveSAUTR,
+                       origin: String)(implicit request: ServiceInfoRequest[AnyContent],
                                                                           ec: ExecutionContext,
                                                                           hc: HeaderCarrier): Future[Result] = {
     val saEnrolment: String = saType match {
@@ -51,17 +53,19 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
       enrolmentStoreResult <- knownFactsService.enrolmentCheck(request.request.credId, utr, request.request.groupId, saEnrolment, doYouHaveSaUtr)
     } yield {
       saType match {
-        case SelectSACategory.Sa          => saResult(doYouHaveSaUtr, enrolmentStoreResult)
+        case SelectSACategory.Sa          => saResult(doYouHaveSaUtr, enrolmentStoreResult, origin)
         case SelectSACategory.Partnership => partnershipResult(doYouHaveSaUtr, enrolmentStoreResult)
         case SelectSACategory.Trust       => trustsResult(doYouHaveSaUtr, enrolmentStoreResult)
       }
     }
   }
 
-  def saResult(doYouHaveSaUtr: DoYouHaveSAUTR, enrolmentStoreResult: EnrolmentCheckResult)
+  def saResult(doYouHaveSaUtr: DoYouHaveSAUTR,
+               enrolmentStoreResult: EnrolmentCheckResult,
+               origin: String)
                 (implicit request: ServiceInfoRequest[AnyContent], ec: ExecutionContext, hc: HeaderCarrier): Result = {
     (doYouHaveSaUtr, enrolmentStoreResult) match {
-      case (DoYouHaveSAUTR.Yes, NoRecordFound) => Redirect(saRoutes.KnownFactsController.onPageLoad())
+      case (DoYouHaveSAUTR.Yes, NoRecordFound) => Redirect(saRoutes.KnownFactsController.onPageLoad(origin))
       case (_, CredIdFound)                    => Redirect(Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials")))
       case (_, GroupIdFound)                   => Redirect(saRoutes.GroupIdFoundController.onPageLoad())
       case (_, _) if (request.request.affinityGroup.contains(AffinityGroup.Individual)) =>
@@ -70,7 +74,8 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
     }
   }
 
-  def partnershipResult(doYouHaveSaUtr: DoYouHaveSAUTR, enrolmentStoreResult: EnrolmentCheckResult)
+  def partnershipResult(doYouHaveSaUtr: DoYouHaveSAUTR,
+                        enrolmentStoreResult: EnrolmentCheckResult)
                        (implicit request: ServiceInfoRequest[AnyContent], ec: ExecutionContext, hc: HeaderCarrier): Result = {
     (doYouHaveSaUtr, enrolmentStoreResult) match {
       case (_, CredIdFound)     => Redirect(Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials")))
@@ -81,7 +86,8 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
     }
   }
 
-  def trustsResult(doYouHaveSaUtr: DoYouHaveSAUTR, enrolmentStoreResult: EnrolmentCheckResult)
+  def trustsResult(doYouHaveSaUtr: DoYouHaveSAUTR,
+                   enrolmentStoreResult: EnrolmentCheckResult)
                   (implicit request: ServiceInfoRequest[AnyContent], ec: ExecutionContext, hc: HeaderCarrier): Result = {
     (doYouHaveSaUtr, enrolmentStoreResult) match {
       case (_, CredIdFound)    => Redirect(Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials")))

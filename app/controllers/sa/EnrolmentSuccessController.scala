@@ -24,21 +24,23 @@ import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import views.html.sa.successfulEnrolment
 
+import scala.concurrent.Future
+
 class EnrolmentSuccessController @Inject()(authenticate: AuthAction,
-                                          appConfig: FrontendAppConfig,
+                                           appConfig: FrontendAppConfig,
                                            serviceInfoData: ServiceInfoAction,
-                                          mcc: MessagesControllerComponents,
-                                          successfulEnrolment: successfulEnrolment)
-extends FrontendController(mcc) with I18nSupport  {
+                                           mcc: MessagesControllerComponents,
+                                           successfulEnrolment: successfulEnrolment)
+  extends FrontendController(mcc) with I18nSupport  {
 
-  val pinAndPostFeatureToggle = appConfig.pinAndPostFeatureToggle
+  val pinAndPostFeatureToggle: Boolean = appConfig.pinAndPostFeatureToggle
 
-  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) {
+  def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
       if(pinAndPostFeatureToggle) {
-    Ok(successfulEnrolment(appConfig)(request.serviceInfoContent))
-        } else {
-        Redirect(Call("GET", appConfig.getBusinessAccountUrl("home")))
+        Future.successful(Ok(successfulEnrolment(appConfig, origin)(request.serviceInfoContent)))
+      } else {
+        Future.successful(Redirect(Call("GET", appConfig.getBusinessAccountUrl("home"))))
       }
   }
 

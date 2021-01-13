@@ -26,7 +26,7 @@ class DoYouHaveSAUTRNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.doYouHaveSAUTR,
       DoYouHaveSAUTR.Yes,
-      "/business-account/add-tax/self-assessment/enter-sa-utr"
+      "/business-account/add-tax/self-assessment/enter-sa-utr?origin=bta-sa"
     )
 
     behave like nextPage(

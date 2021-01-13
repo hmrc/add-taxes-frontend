@@ -17,7 +17,7 @@
 package service
 
 import javax.inject.Inject
-import models.sa.{CredIdFound, EnrolmentCheckResult, GroupIdFound, NoRecordFound}
+import models.sa.{CredIdFound, EnrolmentCheckResult, GroupIdFound, NoRecordFound, NoSaUtr}
 import uk.gov.hmrc.play.audit.http.connector.{AuditConnector, AuditResult}
 import uk.gov.hmrc.play.audit.model.DataEvent
 import play.api.mvc.Request
@@ -35,8 +35,9 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
              (implicit ec: ExecutionContext, hc: HeaderCarrier, request: Request[_]): Future[AuditResult] = {
 
     val recordMatch: Boolean = enrolmentCheckResult match {
-      case CredIdFound => true
-      case GroupIdFound => true
+      case CredIdFound   => true
+      case GroupIdFound  => true
+      case NoSaUtr       => true
       case NoRecordFound => false
     }
 

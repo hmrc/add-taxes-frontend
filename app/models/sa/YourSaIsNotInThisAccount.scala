@@ -26,8 +26,8 @@ object YourSaIsNotInThisAccount {
   case object AddToThisAccount extends WithName("add_") with YourSaIsNotInThisAccount
 
   val values: Set[YourSaIsNotInThisAccount] = Set(
-    LookInOtherAccount,
-    AddToThisAccount
+      AddToThisAccount,
+      LookInOtherAccount
   )
 
   val options: Set[RadioOption] = values.map { value =>

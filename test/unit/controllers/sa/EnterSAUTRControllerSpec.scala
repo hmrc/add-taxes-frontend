@@ -37,14 +37,13 @@ import views.html.sa.enterSAUTR
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar with FeatureToggleSupport {
+class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
 
   def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
 
   val formProvider = new SAUTRFormProvider()
-
   val form: Form[SAUTR] = formProvider()
-
+  val btaOrigin: String = "bta-sa"
   val mockEnrolmentStoreProxyConnector: EnrolmentStoreProxyConnector = mock[EnrolmentStoreProxyConnector]
   val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
   val mockAuditService: AuditService = mock[AuditService]
@@ -70,30 +69,30 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar with
     }
   }
 
-  def viewAsString(): String =
-    new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(origin: String): String =
+    new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  def viewAsString(form: Form[SAUTR] = form): String =
-    new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[SAUTR] = form, origin: String): String =
+    new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "EnterSAUTR Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(fakeRequest)
+      val result = controller().onPageLoad(btaOrigin)(fakeRequest)
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe viewAsString(btaOrigin)
     }
 
     "return bad request when invalid sa utr is provided" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid sa utr"))
       val boundForm = form.bind(Map("value" -> "invalid sa utr"))
 
-      val result = controller().onSubmit()(postRequest)
+      val result = controller().onSubmit(btaOrigin)(postRequest)
 
       status(result) mustBe BAD_REQUEST
       verifyDataCacheSave(expectedTimes = 0)
-      contentAsString(result) mustBe viewAsString(boundForm)
+      contentAsString(result) mustBe viewAsString(boundForm, btaOrigin)
     }
 
     "redirect to the describes you page when try again is false" in {
@@ -101,21 +100,21 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar with
       when(mockDataCacheConnector.save[SAUTR](any(), any(), any())(any())).thenReturn(Future.successful(emptyCacheMap))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789"))
 
-      val result = controller().onSubmit()(postRequest)
+      val result = controller().onSubmit(btaOrigin)(postRequest)
 
       status(result) mustBe SEE_OTHER
       verifyDataCacheSave(expectedTimes = 1)
-      redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment")
+      redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment?origin=bta-sa")
     }
 
     "redirect when valid sa utr is submitted and is in the enrolment store and " in {
       when(mockDataCacheConnector.save[SAUTR](any(), any(), any())(any())).thenReturn(Future.successful(emptyCacheMap))
       when(mockDataCacheConnector.getEntry[Boolean](any(),any())(any())).thenReturn(Future.successful(Some(true)))
-      when(mockSaCategoryService.saCategoryResult(any(), any())(any(), any(), any()))
+      when(mockSaCategoryService.saCategoryResult(any(), any(), any())(any(), any(), any()))
         .thenReturn(Future.successful(Redirect(onwardRoute.url)))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789"))
 
-      val result = controller(pinAndPostToggle = true).onSubmit()(postRequest)
+      val result = controller(pinAndPostToggle = true).onSubmit(btaOrigin)(postRequest)
 
       status(result) mustBe SEE_OTHER
       verifyDataCacheSave(expectedTimes = 2)

@@ -35,12 +35,13 @@ class IvJourneyController @Inject()(ivService: IvService,
   implicit val ec: ExecutionContext = mcc.executionContext
   val pinAndPostFeatureToggle: Boolean = appConfig.pinAndPostFeatureToggle
 
-  def ivRouter(): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
+  def ivRouter(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
       if(pinAndPostFeatureToggle){
-        ivService.ivCheckAndEnrol()
+        ivService.ivCheckAndEnrol(origin)
       } else {
         Future.successful(Redirect(Call("GET", appConfig.getBusinessAccountUrl("home"))))
       }
   }
+
 }

@@ -48,16 +48,14 @@ class EnterSAUTRController @Inject()(appConfig: FrontendAppConfig,
   val pinAndPostFeatureToggle: Boolean = appConfig.pinAndPostFeatureToggle
   val form: Form[SAUTR] = formProvider()
 
-  def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(enterSAUTR(appConfig, form)(request.serviceInfoContent))
+  def onPageLoad(origin: String = "bta-sa"): Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
+    Ok(enterSAUTR(appConfig, form, origin)(request.serviceInfoContent))
   }
 
-
-  def onSubmit: Action[AnyContent] = (authenticate andThen serviceInfo).async { implicit request =>
-
+  def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfo).async { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => Future(BadRequest(enterSAUTR(appConfig, formWithErrors)(request.serviceInfoContent))),
+        formWithErrors => Future(BadRequest(enterSAUTR(appConfig, formWithErrors, origin)(request.serviceInfoContent))),
         saUTR => {
           lazy val tryAgainBoolean: Future[Boolean] = {
             for {
@@ -70,9 +68,9 @@ class EnterSAUTRController @Inject()(appConfig: FrontendAppConfig,
           dataCacheConnector.save[SAUTR](request.request.credId, EnterSAUTRId.toString, saUTR).flatMap { _ =>
             tryAgainBoolean.flatMap { tryAgain =>
               if (tryAgain) {
-                selectSaCategoryService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.Yes)
+                selectSaCategoryService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.Yes, origin)
               } else {
-                Future.successful(Redirect(controllers.sa.routes.SelectSACategoryController.onPageLoadHasUTR()))
+                Future.successful(Redirect(controllers.sa.routes.SelectSACategoryController.onPageLoadHasUTR(Some(origin))))
               }
             }
           }

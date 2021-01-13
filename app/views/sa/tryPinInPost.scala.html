@@ -21,7 +21,7 @@
         main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig, status: Option[String] = Some("Failed"))(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, status: Option[String] = Some("Failed"), origin: String)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("tryPinInPost.title"),
@@ -34,7 +34,7 @@
         <p>@messages("tryPinInPost.p1")
             <a id="iv-route-link"
             data-journey-click="link - click: try to confirm identify online"
-            href="@controllers.sa.routes.TryIvController.onPageLoad()">
+            href="@controllers.sa.routes.TryIvController.onPageLoad(origin)">
             @messages("tryPinInPost.linkText")
             </a> @messages("tryPinInPost.p2")
         </p>
@@ -50,7 +50,7 @@
         <p>@messages("tryPinInPost.p4")</p>
     }
 
-    @uiForm(action = TryPinInPostController.onSubmit()) {
+    @uiForm(action = TryPinInPostController.onSubmit(origin)) {
         <div class="section">
             <button id="tryPinInPost-button" class="button margin-top-small" data-journey-click="TryPinInPost:Click:" data-journey-target>@messages("tryPinInPost.button")</button>
         </div>

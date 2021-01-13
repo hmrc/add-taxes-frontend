@@ -31,10 +31,10 @@ class RequestedAccessController @Inject()(authenticate: AuthAction,
                                           requestedAccess: requestedAccess) extends FrontendController(mcc) with I18nSupport {
   val pinAndPostFeatureToggle = appConfig.pinAndPostFeatureToggle
 
-  def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfoData) {
+  def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
       if(pinAndPostFeatureToggle) {
-        Ok(requestedAccess(appConfig)(request.serviceInfoContent))
+        Ok(requestedAccess(appConfig, origin)(request.serviceInfoContent))
       } else {
         Redirect(Call("GET", appConfig.getBusinessAccountUrl("home")))
       }
