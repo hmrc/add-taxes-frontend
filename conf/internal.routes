@@ -1,1 +1,2 @@
++ nocsrf
 POST            /self-assessment/enrol-for-sa                           controllers.internal.ExternalUserController.initiateJourney()

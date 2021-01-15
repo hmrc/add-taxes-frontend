@@ -23,16 +23,17 @@ import models.sa.SaEnrolmentDetails
 import play.api.Logging
 import play.api.i18n.I18nSupport
 import play.api.libs.json.{JsError, JsSuccess, JsValue, Json}
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, BaseController, ControllerComponents, MessagesControllerComponents}
 import service.IvService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class ExternalUserController @Inject()(appConfig: FrontendAppConfig,
-                                       mcc: MessagesControllerComponents,
-                                       ivService: IvService)(implicit ec: ExecutionContext) extends FrontendController(mcc) with I18nSupport with Logging {
+                                       messagesControllerComponents: MessagesControllerComponents,
+                                       ivService: IvService)(implicit ec: ExecutionContext) extends BaseController {
 
+  override val controllerComponents = messagesControllerComponents
 
   def initiateJourney(): Action[AnyContent] = Action.async(parse.anyContent) {
     implicit request =>
@@ -60,5 +61,6 @@ class ExternalUserController @Inject()(appConfig: FrontendAppConfig,
 
     (originBool, utrBool)
   }
+
 }
 
