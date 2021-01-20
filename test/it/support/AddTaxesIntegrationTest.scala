@@ -66,6 +66,7 @@ trait AddTaxesIntegrationTest
     "vat-subscription",
     "auth",
     "identity-verification-frontend",
+    "self-service-time-to-pay-frontend",
     "tax-enrolments"
   )
 

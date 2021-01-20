@@ -45,6 +45,7 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
   val mockIvConnector: IvConnector = mock[IvConnector]
   val enrolActivate: String = "enrolAndActivate"
   val btaOrigin: String = "bta-sa"
+  val ssttpOrigin: String = "ssttp-sa"
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
   implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
@@ -202,6 +203,32 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
           val result = serviceWithStubbedLinkCheck("Success").ivCheckAndEnrol(btaOrigin)
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some(saRoutes.EnrolmentSuccessController.onPageLoad(btaOrigin).url)
+        }
+
+        "journeyLink returns true and enrol for sa returns true for ssttp-sa origin and ssttpJourney is true" in {
+          when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
+            .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
+          when(mockTaxEnrolmentsConnector.enrolForSa(any(), any(), any(), any())(any(), any()))
+            .thenReturn(Future.successful(true))
+          when(mockIvConnector.ssttpJourney()(any(), any())).thenReturn(Future.successful(true))
+
+
+          val result = serviceWithStubbedLinkCheck("Success").ivCheckAndEnrol(ssttpOrigin)
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(saRoutes.EnrolmentSuccessController.onPageLoad(ssttpOrigin).url)
+        }
+
+        "journeyLink returns true and enrol for sa returns true for ssttp-sa origin and ssttpJourney is false" in {
+          when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
+            .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
+          when(mockTaxEnrolmentsConnector.enrolForSa(any(), any(), any(), any())(any(), any()))
+            .thenReturn(Future.successful(true))
+          when(mockIvConnector.ssttpJourney()(any(), any())).thenReturn(Future.successful(false))
+
+
+          val result = serviceWithStubbedLinkCheck("Success").ivCheckAndEnrol(ssttpOrigin)
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(saRoutes.EnrolmentSuccessController.onPageLoad(ssttpOrigin).url)
         }
       }
     }

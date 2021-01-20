@@ -26,4 +26,10 @@ object StubIvConnector extends StubHelper {
   def verifyCheckJourneyLink(count: Int): Unit =
     verify(count, getRequestedFor(urlMatching(s"/mdtp/journey/journeyId/iv-stub-data")))
 
+  def withResponseSsttpJourney(status: Int): Unit =
+    stubPostEmpty("/internal/enrolled-for-sa", status)
+
+  def verifySsttpJourney(count: Int): Unit =
+    verify(count, postRequestedFor(urlMatching(s"/internal/enrolled-for-sa")))
+
 }

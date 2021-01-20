@@ -32,6 +32,14 @@ trait StubHelper {
     )
   }
 
+  def stubPostEmpty(url: String, status: Int): StubMapping = {
+    stubFor(
+      post(urlMatching(url)) willReturn {
+        aResponse().withStatus(status)
+      }
+    )
+  }
+
   def stubGetWithQuery(url: String, status: Int, queryName: String, queryValue: String, body: Option[String]): StubMapping = {
     stubFor(
       get(urlPathEqualTo(url)).withQueryParam(queryName, equalTo(queryValue)) willReturn {

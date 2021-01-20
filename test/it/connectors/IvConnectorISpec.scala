@@ -33,24 +33,36 @@ class IvConnectorISpec extends WordSpec with MustMatchers with AddTaxesIntegrati
 
   lazy val connector: IvConnector = inject[IvConnector]
 
-  val checkJourneyLinkJson: Option[String] = Some(s"""
-                                                      |{
-                                                      | "result" : "Success",
-                                                      | "token" : "token"
-                                                      |}
-                                               """.stripMargin)
+  val checkJourneyLinkJson: Option[String] = Some(
+    s"""
+       |{
+       | "result" : "Success",
+       | "token" : "token"
+       |}
+       """.stripMargin)
 
   "IvConnector" when {
     "checkJourneyLink" should {
       "return a valid JourneyLinkResponse" in {
-       StubIvConnector.withResponseCheckJourneyLink()(OK, checkJourneyLinkJson)
+        StubIvConnector.withResponseCheckJourneyLink()(OK, checkJourneyLinkJson)
 
         val result: Future[JourneyLinkResponse] = connector.checkJourneyLink("/mdtp/journey/journeyId/iv-stub-data")
 
         await(result) mustBe JourneyLinkResponse("Success", "token")
         StubIvConnector.verifyCheckJourneyLink(1)
-
       }
+    }
+
+    "ssttpJourney" should {
+      "return true" in {
+        StubIvConnector.withResponseSsttpJourney(OK)
+
+        val result: Future[Boolean] = connector.ssttpJourney()
+
+        await(result) mustBe true
+        StubIvConnector.verifySsttpJourney(1)
+      }
+
     }
   }
 }
