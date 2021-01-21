@@ -61,19 +61,21 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
                         hc: HeaderCarrier): Future[Result] = {
     journeyLinkCheck().flatMap {
       case "Success" =>
-        val utr = dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
-        val enrolForSaBoolean: Future[Boolean] = utr.flatMap {
-          maybeSAUTR =>
-            (
-              for {
-                utr <- maybeSAUTR
-              } yield taxEnrolmentsConnector.enrolForSa(utr.value, request.request.credId, request.request.groupId, "enrolAndActivate")
-              ).getOrElse(Future.successful(false))
-        }
-        enrolForSaBoolean.map {
-          case true => Redirect(saRoutes.EnrolmentSuccessController.onPageLoad(origin))
-          case _ => Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"), origin))
-        }
+        for {
+          maybeSAUTR <- dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
+          updateSSTTP <- if(origin == "ssttp-sa") { ivConnector.ssttpJourney() } else { Future.successful(true) }
+          enrolForSaBoolean <- {
+            maybeSAUTR.map { utr =>
+              taxEnrolmentsConnector.enrolForSa(utr.value, request.request.credId, request.request.groupId, "enrolAndActivate")
+            }.getOrElse(Future.successful(false))
+          }
+          } yield {
+            if(enrolForSaBoolean) {
+              Redirect(saRoutes.EnrolmentSuccessController.onPageLoad(origin))
+            } else {
+              Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"), origin))
+            }
+          }
       case "LockedOut" => Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("LockedOut"), origin)))
       case x if x == "InsufficientEvidence" || x == "PreconditionFailed" || x == "FailedMatching" || x == "FailedIV" =>
         Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError"), origin)))
