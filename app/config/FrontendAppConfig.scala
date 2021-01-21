@@ -168,13 +168,22 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   lazy val validOrigins: Seq[String] = Seq("pta-sa", "ssttp-sa")
 
-  def originServiceRouter(origin: String): String = {
+  def originServiceRouterEnrolmentSuccess(origin: String): String = {
     origin.toLowerCase match {
       case "pta-sa" => ptaHomeUrl
       case "ssttp-sa" => ssttpSuccessUrl
       case _ => getBusinessAccountUrl("home")
     }
   }
+
+  def originServiceRouterRequestedAccess(origin: String): String = {
+    origin.toLowerCase match {
+      case "pta-sa" => ptaHomeUrl
+      case "ssttp-sa" => ssttpFailUrl
+      case _ => getBusinessAccountUrl("home")
+    }
+  }
+
 
   private val dtf: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm")
   def ebtiDateTime: LocalDateTime =  LocalDateTime.parse(config.getString("ebti"), dtf)
