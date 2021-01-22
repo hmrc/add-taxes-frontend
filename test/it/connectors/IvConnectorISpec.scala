@@ -52,17 +52,5 @@ class IvConnectorISpec extends WordSpec with MustMatchers with AddTaxesIntegrati
         StubIvConnector.verifyCheckJourneyLink(1)
       }
     }
-
-    "ssttpJourney" should {
-      "return true" in {
-        StubIvConnector.withResponseSsttpJourney(OK)
-
-        val result: Future[Boolean] = connector.ssttpJourney()
-
-        await(result) mustBe true
-        StubIvConnector.verifySsttpJourney(1)
-      }
-
-    }
   }
 }

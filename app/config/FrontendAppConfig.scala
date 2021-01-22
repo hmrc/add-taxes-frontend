@@ -161,8 +161,6 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   //TODO change to real host/url once known
   lazy val ssttpHost: String = config.getString("self-service-time-to-pay-frontend.host")
-  lazy val ssttpInternal: String = config.baseUrl("self-service-time-to-pay-frontend")
-  lazy val ssttpPostUrl: String = s"${ssttpInternal}/internal/enrolled-for-sa"
   lazy val ssttpSuccessUrl: String = s"${ssttpHost}/pay-what-you-owe-in-instalments/arrangement/determine-eligibility"
   lazy val ssttpFailUrl: String = s"${ssttpHost}/pay-what-you-owe-in-instalments/eligibility/not-enrolled"
 

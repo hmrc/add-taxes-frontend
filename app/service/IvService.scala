@@ -63,7 +63,6 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
       case "Success" =>
         for {
           maybeSAUTR <- dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
-          updateSSTTP <- if(origin == "ssttp-sa") { ivConnector.ssttpJourney() } else { Future.successful(true) }
           enrolForSaBoolean <- {
             maybeSAUTR.map { utr =>
               taxEnrolmentsConnector.enrolForSa(utr.value, request.request.credId, request.request.groupId, "enrolAndActivate")
