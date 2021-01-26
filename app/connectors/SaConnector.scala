@@ -17,11 +17,13 @@
 package connectors
 
 import config.FrontendAppConfig
+
 import javax.inject.Inject
 import models.sa.IvLinks
 import play.api.Logging
+import play.api.http.Status.NOT_FOUND
 import uk.gov.hmrc.http.HttpReads.Implicits._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, UpstreamErrorResponse}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -33,6 +35,7 @@ class SaConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) exte
     http.GET[IvLinks](serviceUrl(utr, origin)).map { result =>
       Some(result)
     }.recover {
+      case UpstreamErrorResponse(_, NOT_FOUND, _, _) => None
       case exception =>
         logger.error("[SaConnector][getIvLinks] resulted in", exception)
         None

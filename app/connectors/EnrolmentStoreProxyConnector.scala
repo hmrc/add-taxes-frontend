@@ -31,8 +31,11 @@ class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http:
   def checkExistingUTR(utr: String, saEnrolment: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
     http.GET[HttpResponse](appConfig.checkUtrUrl(utr, saEnrolment)).map { response =>
       response.status match {
-        case OK         => response.json.as[ExistingUtrModel].principalUserIds.nonEmpty
+        case OK => response.json.as[ExistingUtrModel].principalUserIds.nonEmpty
         case NO_CONTENT => false
+        case other =>
+          logger.error(s"[EnrolmentStoreProxyConnector][checkExistingUTR] Enrolment Store Proxy error with status $other")
+          false
       }
     } recover {
       case exception =>
@@ -41,15 +44,21 @@ class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http:
     }
 
   def checkSaGroup(groupId: String, saEnrolment: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
-    http.GET[HttpResponse](appConfig.checkSaGroupUrl(groupId, saEnrolment)).map { response =>
-      response.status match {
-        case OK         => response.json.as[QueryGroupsEnrolmentsResponseModel].enrolments.exists(_.service.contains(saEnrolment))
-        case NO_CONTENT => false
-      }    } recover {
+    http.GET[HttpResponse](appConfig.checkSaGroupUrl(groupId, saEnrolment)).map {
+      response =>
+        response.status match {
+          case OK => response.json.as[QueryGroupsEnrolmentsResponseModel].enrolments.exists(_.service.contains(saEnrolment))
+          case NO_CONTENT => false
+          case other =>
+            logger.error(s"[EnrolmentStoreProxyConnector][checkSaGroup] Enrolment Store Proxy error with status $other")
+            false
+        }
+    } recover {
       case exception =>
         logger.error("[EnrolmentStoreProxyConnector][checkSaGroup] Enrolment Store Proxy error", exception)
         false
     }
+
 
   def checkExistingEmpRef(officeNumber: String, payeReference: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
     http.GET[HttpResponse](appConfig.checkEmpRefUrl(officeNumber, payeReference)).map { response =>
