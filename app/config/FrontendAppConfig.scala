@@ -18,13 +18,12 @@ package config
 
 import com.google.inject.{Inject, Singleton}
 import controllers.routes
-import models.sa.SaEnrolment
-import play.api.i18n.Lang
 import play.api.Configuration
-import utils.{Enrolments, ForgottenOptions, PortalUrlBuilder}
+import play.api.i18n.Lang
 import play.api.mvc.{Call, Request}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.language.LanguageUtils
+import utils.{Enrolments, ForgottenOptions, PortalUrlBuilder}
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

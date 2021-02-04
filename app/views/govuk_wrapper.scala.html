@@ -18,9 +18,13 @@
 @import uk.gov.hmrc.play.views.html.layouts._
 @import uk.gov.hmrc.play.views.html.helpers._
 @import views.html.layouts.GovUkTemplate
+@import uk.gov.hmrc.play.views.html.layouts.HeadWithTrackingConsent
+@import uk.gov.hmrc.play.views.html.layouts.TrackingConsentSnippet
+
 
 @this(
-    uiHead: Head,
+    uiHead: HeadWithTrackingConsent,
+        trackingConsentSnippet: TrackingConsentSnippet,
     uiHeaderNav: HeaderNav,
     uiFooter: Footer,
     uiServiceInfo: ServiceInfo,
@@ -66,11 +70,6 @@
 }
 
 @insideHeader = {
-    @if(appConfig.googleTagManagerId != "N/A") {
-        <noscript>
-            <iframe src="https://www.googletagmanager.com/ns.html?id=@appConfig.googleTagManagerId" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-        </noscript>
-    }
     @uiHeaderNav(
       navTitle = Some(messages("site.service_name")),
       navTitleLink = None,
