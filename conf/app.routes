@@ -109,7 +109,7 @@ GET        /self-assessment/trust/not-registered        controllers.sa.trust.Reg
 GET        /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onPageLoad()
 POST       /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onSubmit()
 
-GET        /self-assessment/enter-sa-utr                controllers.sa.EnterSAUTRController.onPageLoad(origin: String)
+GET        /self-assessment/enter-sa-utr                controllers.sa.EnterSAUTRController.onPageLoad(origin: Option[String])
 POST       /self-assessment/enter-sa-utr                controllers.sa.EnterSAUTRController.onSubmit(origin: String)
 
 GET        /self-assessment/have-sa-utr                 controllers.sa.DoYouHaveSAUTRController.onPageLoad()
