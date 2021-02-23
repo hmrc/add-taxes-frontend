@@ -47,6 +47,6 @@ extends FrontendController(mcc) with I18nSupport {
   def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
       dataCacheConnector.save[Boolean](request.request.credId, "tryAgain", true)
-        Redirect(routes.EnterSAUTRController.onPageLoad(Some(origin)))
+        Redirect(routes.EnterSAUTRController.onPageLoad(origin))
   }
 }

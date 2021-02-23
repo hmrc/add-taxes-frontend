@@ -67,7 +67,7 @@ class RetryKnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar
       val result = controller().onSubmit(btaOrigin)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result).get mustBe routes.EnterSAUTRController.onPageLoad(Some(btaOrigin)).url
+      redirectLocation(result).get mustBe routes.EnterSAUTRController.onPageLoad(btaOrigin).url
     }
   }
 

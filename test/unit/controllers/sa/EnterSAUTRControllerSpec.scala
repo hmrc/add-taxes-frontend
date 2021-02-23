@@ -78,14 +78,7 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
   "EnterSAUTR Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(Some(btaOrigin))(fakeRequest)
-
-      status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString(btaOrigin)
-    }
-
-    "return OK and the correct view for a GET with a default" in {
-      val result = controller().onPageLoad(None)(fakeRequest)
+      val result = controller().onPageLoad(btaOrigin)(fakeRequest)
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString(btaOrigin)

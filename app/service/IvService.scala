@@ -92,7 +92,7 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
       }
       case SaEnrolmentDetails(None, origin, credId) => {
         dataCacheConnector.save[Boolean](credId, "tryAgain", true)
-        Future.successful(controllers.sa.routes.EnterSAUTRController.onPageLoad(Some(origin)).url)
+        Future.successful(controllers.sa.routes.EnterSAUTRController.onPageLoad(origin).url)
       }
     }
   }

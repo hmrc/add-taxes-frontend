@@ -48,13 +48,8 @@ class EnterSAUTRController @Inject()(appConfig: FrontendAppConfig,
   val pinAndPostFeatureToggle: Boolean = appConfig.pinAndPostFeatureToggle
   val form: Form[SAUTR] = formProvider()
 
-  def onPageLoad(origin: Option[String]): Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    val originBta = origin match {
-      case Some(value) => value
-      case _ => "bta-sa"
-    }
-
-    Ok(enterSAUTR(appConfig, form, originBta)(request.serviceInfoContent))
+  def onPageLoad(origin: String = "bta-sa"): Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
+    Ok(enterSAUTR(appConfig, form, origin)(request.serviceInfoContent))
   }
 
   def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfo).async { implicit request =>
