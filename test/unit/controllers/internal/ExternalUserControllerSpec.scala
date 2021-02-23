@@ -102,7 +102,7 @@ class ExternalUserControllerSpec extends ControllerSpecBase with MockitoSugar {
       }
 
       "return enter-sa-utr url as JSON when JSON body is valid and does not contains a UTR" in {
-        when(mockIvService.journeyRouter(any())).thenReturn(Future.successful(controllers.sa.routes.EnterSAUTRController.onPageLoad("pta-sa").url))
+        when(mockIvService.journeyRouter(any())).thenReturn(Future.successful(controllers.sa.routes.EnterSAUTRController.onPageLoad(Some("pta-sa")).url))
         val result = controller().initiateJourney()(fakeRequestWithBody(validJsonNoUtr))
         status(result) mustBe OK
         contentAsJson(result) mustBe Json.parse(
