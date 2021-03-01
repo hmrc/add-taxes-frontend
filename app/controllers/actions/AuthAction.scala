@@ -16,9 +16,9 @@
 
 package controllers.actions
 
-import javax.inject.Inject
 import config.FrontendAppConfig
 import controllers.routes
+import javax.inject.Inject
 import models.requests.AuthenticatedRequest
 import play.api.mvc.Results._
 import play.api.mvc._
@@ -56,6 +56,8 @@ class AuthActionImpl @Inject()(val authConnector: AuthConnector,
               confidenceLevel))
           }
           .getOrElse(throw new UnauthorizedException("Unable to retrieve external Id"))
+      case externalId ~ enrolments ~ affinityGroup ~ None ~ Some(creds) ~ confidenceLevel =>
+        Future.successful(Redirect(routes.VerifiedUserController.onPageLoad()))
     } recover {
       case _: NoActiveSession             => Redirect(config.loginUrl, Map("continue" -> Seq(config.loginContinueUrl)))
       case _: InsufficientEnrolments      => Redirect(routes.UnauthorisedController.onPageLoad())

@@ -1419,3 +1419,22 @@ useOtherAccount.p1 = You cannot request access to Self Assessment using this Uni
 useOtherAccount.p2 = You must sign out then sign in with another user ID.
 useOtherAccount.p3 = This can be a new user ID, or an existing user ID which does not already have access to Self Assessment.
 useOtherAccount.p4 = Search GOV.UK for ''Government Gateway'' to create a new user ID.
+
+#######################################################
+##  You do not have access - verified user
+#######################################################
+
+noAccessVerified.title = Nid oes gennych fynediad at y gwasanaeth hwn.
+noAccessVerified.heading = Nid oes gennych fynediad at y gwasanaeth hwn.
+noAccessVerified.youNeedTo = Bydd yn rhaid i chi
+noAccessVerified.signInLinkText = fewngofnodi gan ddefnyddio Dynodydd Defnyddiwr (ID) gwahanol ar gyfer Porth y Llywodraeth.
+noAccessVerified.contactHMRC = Os nad oes gennych fynediad at y gwasanaeth hwn o hyd, cysylltwch â CThEM.
+noAccessVerified.telephone = Ffôn:
+noAccessVerified.textphone = Ffôn testum:
+noAccessVerified.telephoneNumber = 0300 200 1900
+noAccessVerified.textphoneNumber = 0300 200 3319
+noAccessVerified.outsideUK = Y tu allan i''r DU:
+noAccessVerified.outsideUKNumber = +44 300 200 1900
+noAccessVerified.openingTimes = Oriau agor:
+noAccessVerified.mondayToFriday = Dydd Llun i ddydd Gwener: 08:30 – 17:00
+noAccessVerified.ClosedWeekendsAndBankHolidays = Ar gau dros y penwythnos ac ar wyliau banc

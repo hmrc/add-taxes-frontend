@@ -1416,3 +1416,22 @@ useOtherAccount.p1 = You cannot request access to Self Assessment using this Uni
 useOtherAccount.p2 = You must sign out then sign in with another user ID.
 useOtherAccount.p3 = This can be a new user ID, or an existing user ID which does not already have access to Self Assessment.
 useOtherAccount.p4 = Search GOV.UK for ''Government Gateway'' to create a new user ID.
+
+#######################################################
+##  You do not have access - verified user
+#######################################################
+
+noAccessVerified.title = You do not have access to this service
+noAccessVerified.heading = You do not have access to this service
+noAccessVerified.youNeedTo = You need to
+noAccessVerified.signInLinkText = sign in with a different Government Gateway user ID.
+noAccessVerified.contactHMRC = If you are still unable to access this service, contact HMRC.
+noAccessVerified.telephone = Telephone:
+noAccessVerified.textphone = Textphone:
+noAccessVerified.telephoneNumber = 0300 200 3310
+noAccessVerified.textphoneNumber = 0300 200 3319
+noAccessVerified.outsideUK = Outside UK:
+noAccessVerified.outsideUKNumber = +44 161 931 9070
+noAccessVerified.openingTimes = Opening times:
+noAccessVerified.mondayToFriday = Monday to Friday: 8am to 6pm
+noAccessVerified.ClosedWeekendsAndBankHolidays = Closed weekends and bank holidays

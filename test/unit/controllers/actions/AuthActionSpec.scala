@@ -17,19 +17,32 @@
 package controllers.actions
 
 import base.SpecBase
+import controllers.actions.AuthActionSpec.AuthUtil
 import controllers.routes
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.when
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.{Action, AnyContent, PlayBodyParsers}
 import play.api.test.Helpers._
+import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.auth.core._
-import uk.gov.hmrc.auth.core.authorise.Predicate
-import uk.gov.hmrc.auth.core.retrieve.Retrieval
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.auth.core.retrieve.{Credentials, ~}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
-class AuthActionSpec extends SpecBase {
+object AuthActionSpec {
+
+  implicit class AuthUtil[A](val input: A) extends AnyVal {
+    def ~[B](input2: B): ~[A, B] = new ~(input, input2)
+  }
+
+}
+
+class AuthActionSpec extends SpecBase with MockitoSugar {
+
+  val mockAuthConnector = mock[AuthConnector]
 
   val parser: PlayBodyParsers = injector.instanceOf[PlayBodyParsers]
 
@@ -37,10 +50,33 @@ class AuthActionSpec extends SpecBase {
     def onPageLoad(): Action[AnyContent] = authAction { _ => Ok }
   }
 
+  type RetrievalType = Option[String] ~ Enrolments ~ Option[AffinityGroup] ~ Option[String] ~ Option[Credentials] ~ ConfidenceLevel
+
+  def retrievals(externaId: Option[String] = Some("externalId"),
+                 enrolments: Enrolments = Enrolments(Set.empty),
+                 affinityGroup: Option[AffinityGroup] = Some(Organisation),
+                 groupId: Option[String] = Some("groupId"),
+                 creds: Option[Credentials] = Some(Credentials("foo", "bar")),
+                 confidenceLevel: ConfidenceLevel = ConfidenceLevel.L50): Harness = {
+
+    when(mockAuthConnector.authorise[RetrievalType](any(), any())(any(), any())).thenReturn(
+      Future.successful(externaId ~ enrolments ~ affinityGroup ~ groupId ~ creds ~ confidenceLevel)
+    )
+
+    val authAction =
+      new AuthActionImpl(mockAuthConnector, frontendAppConfig, parser)
+
+    new Harness(authAction)
+  }
+
   "Auth Action" when {
+
     "the user hasn't logged in" must {
       "redirect the user to log in " in {
-        val authAction = new AuthActionImpl(new FakeFailingAuthConnector(new MissingBearerToken), frontendAppConfig, parser)
+
+        when(mockAuthConnector.authorise[RetrievalType](any(), any())(any(), any())).thenReturn(Future.failed(MissingBearerToken()))
+
+        val authAction = new AuthActionImpl(mockAuthConnector, frontendAppConfig, parser)
         val controller = new Harness(authAction)
         val result = controller.onPageLoad()(fakeRequest)
         status(result) mustBe SEE_OTHER
@@ -50,7 +86,10 @@ class AuthActionSpec extends SpecBase {
 
     "the user's session has expired" must {
       "redirect the user to log in " in {
-        val authAction = new AuthActionImpl(new FakeFailingAuthConnector(new BearerTokenExpired), frontendAppConfig, parser)
+
+        when(mockAuthConnector.authorise[RetrievalType](any(), any())(any(), any())).thenReturn(Future.failed(BearerTokenExpired()))
+
+        val authAction = new AuthActionImpl(mockAuthConnector, frontendAppConfig, parser)
         val controller = new Harness(authAction)
         val result = controller.onPageLoad()(fakeRequest)
         status(result) mustBe SEE_OTHER
@@ -60,7 +99,9 @@ class AuthActionSpec extends SpecBase {
 
     "the user doesn't have sufficient enrolments" must {
       "redirect the user to the unauthorised page" in {
-        val authAction = new AuthActionImpl(new FakeFailingAuthConnector(new InsufficientEnrolments), frontendAppConfig, parser)
+        when(mockAuthConnector.authorise[RetrievalType](any(), any())(any(), any())).thenReturn(Future.failed(InsufficientEnrolments()))
+
+        val authAction = new AuthActionImpl(mockAuthConnector, frontendAppConfig, parser)
         val controller = new Harness(authAction)
         val result = controller.onPageLoad()(fakeRequest)
         status(result) mustBe SEE_OTHER
@@ -70,8 +111,9 @@ class AuthActionSpec extends SpecBase {
 
     "the user doesn't have sufficient confidence level" must {
       "redirect the user to the unauthorised page" in {
-        val authAction =
-          new AuthActionImpl(new FakeFailingAuthConnector(new InsufficientConfidenceLevel), frontendAppConfig, parser)
+        when(mockAuthConnector.authorise[RetrievalType](any(), any())(any(), any())).thenReturn(Future.failed(InsufficientConfidenceLevel()))
+
+        val authAction = new AuthActionImpl(mockAuthConnector, frontendAppConfig, parser)
         val controller = new Harness(authAction)
         val result = controller.onPageLoad()(fakeRequest)
         status(result) mustBe SEE_OTHER
@@ -81,8 +123,9 @@ class AuthActionSpec extends SpecBase {
 
     "the user used an unaccepted auth provider" must {
       "redirect the user to the unauthorised page" in {
-        val authAction =
-          new AuthActionImpl(new FakeFailingAuthConnector(new UnsupportedAuthProvider), frontendAppConfig, parser)
+        when(mockAuthConnector.authorise[RetrievalType](any(), any())(any(), any())).thenReturn(Future.failed(UnsupportedAuthProvider()))
+
+        val authAction = new AuthActionImpl(mockAuthConnector, frontendAppConfig, parser)
         val controller = new Harness(authAction)
         val result = controller.onPageLoad()(fakeRequest)
         status(result) mustBe SEE_OTHER
@@ -92,8 +135,10 @@ class AuthActionSpec extends SpecBase {
 
     "the user has an unsupported affinity group" must {
       "redirect the user to the unauthorised page" in {
+        when(mockAuthConnector.authorise[RetrievalType](any(), any())(any(), any())).thenReturn(Future.failed(UnsupportedAffinityGroup()))
+
         val authAction =
-          new AuthActionImpl(new FakeFailingAuthConnector(new UnsupportedAffinityGroup), frontendAppConfig, parser)
+          new AuthActionImpl(mockAuthConnector, frontendAppConfig, parser)
         val controller = new Harness(authAction)
         val result = controller.onPageLoad()(fakeRequest)
         status(result) mustBe SEE_OTHER
@@ -103,22 +148,34 @@ class AuthActionSpec extends SpecBase {
 
     "the user has an unsupported credential role" must {
       "redirect the user to the unauthorised page" in {
-        val authAction =
-          new AuthActionImpl(new FakeFailingAuthConnector(new UnsupportedCredentialRole), frontendAppConfig, parser)
+        when(mockAuthConnector.authorise[RetrievalType](any(), any())(any(), any())).thenReturn(Future.failed(UnsupportedCredentialRole()))
+
+        val authAction = new AuthActionImpl(mockAuthConnector, frontendAppConfig, parser)
         val controller = new Harness(authAction)
         val result = controller.onPageLoad()(fakeRequest)
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(routes.UnauthorisedController.onPageLoad().url)
       }
     }
+
+    "the user has no groupId" must {
+      "redirect the user to the verified user error page" in {
+
+        val controller = retrievals(groupId = None)
+        val result = controller.onPageLoad()(fakeRequest)
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(routes.VerifiedUserController.onPageLoad().url)
+      }
+    }
+
+    "all retrievals returned from auth" must {
+      "return 200" in {
+
+        val controller = retrievals()
+        val result = controller.onPageLoad()(fakeRequest)
+        status(result) mustBe OK
+      }
+    }
+
   }
-}
-
-class FakeFailingAuthConnector(exceptionToReturn: Throwable) extends AuthConnector {
-  val serviceUrl: String = ""
-
-  override def authorise[A](predicate: Predicate, retrieval: Retrieval[A])(
-    implicit hc: HeaderCarrier,
-    ec: ExecutionContext): Future[A] =
-    Future.failed(exceptionToReturn)
 }

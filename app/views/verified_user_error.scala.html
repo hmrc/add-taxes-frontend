@@ -1,0 +1,43 @@
+@*
+ * Copyright 2021 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.FrontendAppConfig
+
+@this(
+    main_template: main_template
+)
+
+@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    title = messages("noAccessVerified.title"),
+    appConfig = appConfig,
+    bodyClasses = None) {
+
+    <h1 id="verified-unauthorised-heading" class="heading-xlarge">@messages("noAccessVerified.heading")</h1>
+
+    <p>@messages("noAccessVerified.youNeedTo") <a id="sign-in-different-user-id" href="@appConfig.getBusinessAccountUrl("signoutBTA")">@messages("sign in with a different Government Gateway user ID.")</a></p>
+    <p>@messages("noAccessVerified.contactHMRC")</p>
+    <p class="no-bottom-margin">@messages("noAccessVerified.telephone")</p>
+    <p class="no-top-margin"><strong class="bold-small">@messages("noAccessVerified.telephoneNumber")</strong></p>
+    <p class="no-bottom-margin">@messages("noAccessVerified.textphone")</p>
+    <p class="no-top-margin"><strong class="bold-small">@messages("noAccessVerified.textphoneNumber")</strong></p>
+    <p class="no-bottom-margin">@messages("noAccessVerified.outsideUK")</p>
+    <p class="no-top-margin"><strong class="bold-small">@messages("noAccessVerified.outsideUKNumber")</strong></p>
+    <p class="no-bottom-margin">@messages("noAccessVerified.openingTimes")</p>
+    <p class="no-top-margin">@messages("noAccessVerified.mondayToFriday")</p>
+    <p>@messages("noAccessVerified.ClosedWeekendsAndBankHolidays")</p>
+}
