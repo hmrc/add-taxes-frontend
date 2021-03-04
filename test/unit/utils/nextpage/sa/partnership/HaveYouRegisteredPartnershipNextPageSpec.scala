@@ -44,7 +44,7 @@ class HaveYouRegisteredPartnershipNextPageSpec extends NextPageSpecBase {
       NextPage.haveYouRegisteredPartnership,
       (HaveYouRegisteredPartnership.No, Enrolments(Set(saEnrolment))),
       HaveYouRegisteredPartnership.No.toString,
-      "/forms/form/register-a-partner-or-a-partnership-for-self-assessment/start#1",
+      "/digital-forms/form/register-a-partner-or-a-partnership-for-self-assessment/draft/guide",
       "SA Enrolment"
     )
 
@@ -52,7 +52,7 @@ class HaveYouRegisteredPartnershipNextPageSpec extends NextPageSpecBase {
       NextPage.haveYouRegisteredPartnership,
       (HaveYouRegisteredPartnership.No, Enrolments(Set(ctEnrolment))),
       HaveYouRegisteredPartnership.No.toString,
-      "/forms/form/register-a-partner-or-a-partnership-for-self-assessment/start#1",
+      "/digital-forms/form/register-a-partner-or-a-partnership-for-self-assessment/draft/guide",
       "CT Enrolment"
     )
 
@@ -60,7 +60,7 @@ class HaveYouRegisteredPartnershipNextPageSpec extends NextPageSpecBase {
       NextPage.haveYouRegisteredPartnership,
       (HaveYouRegisteredPartnership.No, Enrolments(Set(saEnrolment, ctEnrolment))),
       HaveYouRegisteredPartnership.No.toString,
-      "/forms/form/register-a-partner-or-a-partnership-for-self-assessment/start#1",
+      "/digital-forms/form/register-a-partner-or-a-partnership-for-self-assessment/draft/guide",
       "SA and CT Enrolment"
     )
 
