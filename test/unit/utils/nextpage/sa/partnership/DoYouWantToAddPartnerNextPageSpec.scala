@@ -44,7 +44,7 @@ class DoYouWantToAddPartnerNextPageSpec extends NextPageSpecBase {
       NextPage.doYouWantToAddPartner,
       (DoYouWantToAddPartner.Yes, Enrolments(Set(saEnrolment))),
       DoYouWantToAddPartner.Yes.toString,
-      "/forms/form/register-a-partner-or-a-partnership-for-self-assessment/start#1",
+      "/digital-forms/form/register-a-partner-or-a-partnership-for-self-assessment/draft/guide",
       "SA Enrolment"
     )
 
@@ -52,7 +52,7 @@ class DoYouWantToAddPartnerNextPageSpec extends NextPageSpecBase {
       NextPage.doYouWantToAddPartner,
       (DoYouWantToAddPartner.Yes, Enrolments(Set(ctEnrolment))),
       DoYouWantToAddPartner.Yes.toString,
-      "/forms/form/register-a-partner-or-a-partnership-for-self-assessment/start#1",
+      "/digital-forms/form/register-a-partner-or-a-partnership-for-self-assessment/draft/guide",
       "CT Enrolment"
     )
 
@@ -60,7 +60,7 @@ class DoYouWantToAddPartnerNextPageSpec extends NextPageSpecBase {
       NextPage.doYouWantToAddPartner,
       (DoYouWantToAddPartner.Yes, Enrolments(Set(saEnrolment, ctEnrolment))),
       DoYouWantToAddPartner.Yes.toString,
-      "/forms/form/register-a-partner-or-a-partnership-for-self-assessment/start#1",
+      "/digital-forms/form/register-a-partner-or-a-partnership-for-self-assessment/draft/guide",
       "SA and CT Enrolment"
     )
 

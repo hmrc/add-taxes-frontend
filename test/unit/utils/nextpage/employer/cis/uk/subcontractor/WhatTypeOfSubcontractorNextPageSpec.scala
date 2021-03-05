@@ -31,7 +31,7 @@ class WhatTypeOfSubcontractorNextPageSpec extends NextPageSpecBase {
       NextPage.whatTypeOfSubcontractor,
       nextPageSoleTraderSAValue,
       WhatTypeOfSubcontractor.SoleTrader.toString,
-      "/forms/form/CIS301302/start#1",
+      "/digital-forms/form/CIS301302/draft/guide",
       "SA Enrolment"
     )
 
@@ -41,7 +41,7 @@ class WhatTypeOfSubcontractorNextPageSpec extends NextPageSpecBase {
       NextPage.whatTypeOfSubcontractor,
       nextPageSoleTraderCTValue,
       WhatTypeOfSubcontractor.SoleTrader.toString,
-      "/forms/form/CIS301302/start#1",
+      "/digital-forms/form/CIS301302/draft/guide",
       "CT Enrolment"
     )
 
@@ -62,7 +62,7 @@ class WhatTypeOfSubcontractorNextPageSpec extends NextPageSpecBase {
       NextPage.whatTypeOfSubcontractor,
       nextPageSoleTraderTwoEnrolmentValue,
       WhatTypeOfSubcontractor.SoleTrader.toString,
-      "/forms/form/CIS301302/start#1",
+      "/digital-forms/form/CIS301302/draft/guide",
       "two Enrolments"
     )
 
@@ -72,7 +72,7 @@ class WhatTypeOfSubcontractorNextPageSpec extends NextPageSpecBase {
       NextPage.whatTypeOfSubcontractor,
       nextPagePartnershipSAValue,
       WhatTypeOfSubcontractor.Partnership.toString,
-      "/forms/form/Construction-Industry-Scheme-register-your-partnership/new",
+      "/digital-forms/form/Construction-Industry-Scheme-register-your-partnership/draft/guide",
       "SA Enrolment"
     )
 
@@ -82,7 +82,7 @@ class WhatTypeOfSubcontractorNextPageSpec extends NextPageSpecBase {
       NextPage.whatTypeOfSubcontractor,
       nextPagePartnershipCTValue,
       WhatTypeOfSubcontractor.Partnership.toString,
-      "/forms/form/Construction-Industry-Scheme-register-your-partnership/new",
+      "/digital-forms/form/Construction-Industry-Scheme-register-your-partnership/draft/guide",
       "CT Enrolment"
     )
 
