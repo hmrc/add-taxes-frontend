@@ -26,11 +26,7 @@ object Feature {
 
   val prefix = "feature-toggles"
 
-  def allTogglableFeatures: Set[Feature] = Set(
-    PinAndPostFeature,
-    EpayeEnrolmentChecker,
-    EbtiRemovalFeatureToggle
-  )
+  def allTogglableFeatures: Set[Feature] = Set()
 
   def fromQuery(key: String): Option[Feature] =
     allTogglableFeatures.collectFirst {
@@ -39,6 +35,3 @@ object Feature {
 
 }
 
-case object PinAndPostFeature extends Feature("pin-and-post")
-case object EpayeEnrolmentChecker extends Feature("epayeEnrolmentCheckerEnabled")
-case object EbtiRemovalFeatureToggle extends Feature("ebtiRemovalFeatureToggle")

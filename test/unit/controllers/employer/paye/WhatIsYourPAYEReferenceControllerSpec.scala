@@ -27,7 +27,7 @@ import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import playconfig.featuretoggle.{EpayeEnrolmentChecker, FeatureToggleSupport}
+import playconfig.featuretoggle.FeatureToggleSupport
 import service.AuditService
 import uk.gov.hmrc.play.audit.http.connector.AuditResult
 import utils.{Enrolments, FakeNavigator}
@@ -39,15 +39,12 @@ import scala.concurrent.Future
 class WhatIsYourPAYEReferenceControllerSpec extends ControllerSpecBase with MockitoSugar with FeatureToggleSupport {
 
   val formProvider = new WhatIsYourPAYEReferenceFormProvider()
-
   val form: Form[PAYEReference] = formProvider()
-
   val mockEnrolmentStoreProxyConnector: EnrolmentStoreProxyConnector = mock[EnrolmentStoreProxyConnector]
   val mockAuditService: AuditService = mock[AuditService]
-
   val view: whatIsYourPAYEReference = injector.instanceOf[whatIsYourPAYEReference]
 
-  def controller(empRefExists: Boolean, featureSwitch: Boolean = false): WhatIsYourPAYEReferenceController = {
+  def controller(empRefExists: Boolean): WhatIsYourPAYEReferenceController = {
     val desiredRoute = if(empRefExists) {
       Call("GET", frontendAppConfig.getBusinessAccountUrl("wrong-credentials"))
     } else {
@@ -63,9 +60,7 @@ class WhatIsYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mock
       mockEnrolmentStoreProxyConnector,
       formProvider,
       mockAuditService
-    ) {
-      override val enrolmentCheckerFeature: Boolean = featureSwitch
-    }
+    )
   }
 
   def viewAsString(): String =
@@ -80,24 +75,14 @@ class WhatIsYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mock
       .thenReturn(Future.successful(AuditResult.Success))
 
     "return OK and the correct view for a GET" when {
-
-      "epayeEnrolmentCheckerEnabled is enabled" in {
-        enable(EpayeEnrolmentChecker)
-        val result = controller(empRefExists = false, featureSwitch = true).onPageLoad()(fakeRequest)
+      "onPageLoad()" in {
+        val result = controller(empRefExists = false).onPageLoad()(fakeRequest)
 
         status(result) mustBe OK
         contentAsString(result) mustBe viewAsString()
       }
-
-      "epayeEnrolmentCheckerEnabled is disabled" in {
-        disable(EpayeEnrolmentChecker)
-        val result = controller(empRefExists = false).onPageLoad()(fakeRequest)
-
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe
-          Some("http://localhost:9555/enrolment-management-frontend/IR-PAYE/request-access-tax-scheme?continue=%2Fbusiness-account")
-      }
     }
+
     "return bad request when invalid empRef is provided" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("empRef", "A1@S/D$^G*"))
       val boundForm = form.bind(Map("empRef"-> "A1@S/D$^G*"))

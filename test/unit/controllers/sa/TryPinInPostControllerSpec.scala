@@ -31,7 +31,7 @@ class TryPinInPostControllerSpec extends ControllerSpecBase with MockitoSugar wi
     HtmlFormat.empty)
   val btaOrigin: String = "bta-sa"
 
-  def controller(pinAndPostToggle: Boolean = true): TryPinInPostController = {
+  def controller(): TryPinInPostController = {
     new TryPinInPostController(
       frontendAppConfig,
       FakeAuthAction,
@@ -39,9 +39,7 @@ class TryPinInPostControllerSpec extends ControllerSpecBase with MockitoSugar wi
       mcc,
       view,
       mockTryPinInPostService
-    ){
-      override val pinAndPostFeatureToggle: Boolean = pinAndPostToggle
-    }
+    )
   }
 
   def viewAsString(origin: String, status: Option[String] = Some("Failed")): String =
@@ -54,13 +52,6 @@ class TryPinInPostControllerSpec extends ControllerSpecBase with MockitoSugar wi
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString(btaOrigin)
-    }
-
-    "redirect to BTA home page when the toggle is set to false" in {
-      val result = controller(pinAndPostToggle = false).onPageLoad(origin = btaOrigin)(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(frontendAppConfig.getBusinessAccountUrl("home"))
     }
 
     "redirect when valid sa utr is submitted and service returns unsuccessful enrolment" in {

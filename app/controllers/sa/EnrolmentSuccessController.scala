@@ -33,15 +33,9 @@ class EnrolmentSuccessController @Inject()(authenticate: AuthAction,
                                            successfulEnrolment: successfulEnrolment)
   extends FrontendController(mcc) with I18nSupport  {
 
-  val pinAndPostFeatureToggle: Boolean = appConfig.pinAndPostFeatureToggle
-
   def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
-      if(pinAndPostFeatureToggle) {
         Future.successful(Ok(successfulEnrolment(appConfig, origin)(request.serviceInfoContent)))
-      } else {
-        Future.successful(Redirect(Call("GET", appConfig.getBusinessAccountUrl("home"))))
-      }
   }
 
 }

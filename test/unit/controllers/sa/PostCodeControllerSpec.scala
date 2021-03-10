@@ -47,7 +47,7 @@ class PostCodeControllerSpec extends ControllerSpecBase with MockitoSugar with F
   val form = formProvider(true)
   val btaOrigin: String = "bta-sa"
 
-  def controller(pinAndPostToggle: Boolean = true): PostcodeController = {
+  def controller(): PostcodeController = {
     new PostcodeController(
       frontendAppConfig,
       mcc,
@@ -55,9 +55,7 @@ class PostCodeControllerSpec extends ControllerSpecBase with MockitoSugar with F
       FakeServiceInfoAction,
       formProvider,
       view,
-      mockKnownFactsService){
-      override val pinAndPostFeatureToggle: Boolean = pinAndPostToggle
-    }
+      mockKnownFactsService)
   }
 
 
@@ -75,13 +73,6 @@ class PostCodeControllerSpec extends ControllerSpecBase with MockitoSugar with F
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString(btaOrigin)
-    }
-
-    "redirect to BTA home page if feature toggle is false" in {
-      val result = controller(false).onPageLoad(btaOrigin)(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(frontendAppConfig.getBusinessAccountUrl("home"))
     }
 
     "return bad request with a invalid postcode" in {

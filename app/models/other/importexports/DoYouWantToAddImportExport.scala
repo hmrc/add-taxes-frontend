@@ -43,8 +43,8 @@ object DoYouWantToAddImportExport {
     ISD
   )
 
-  def options(appConfig: FrontendAppConfig) = values.collect {
-    case value if !(value == eBTI && (appConfig.ebtiRemovalFeatureToggle || !appConfig.now().isBefore(appConfig.ebtiDateTime))) =>
+  def options() = values.collect {
+    case value if !(value == eBTI) =>
       RadioOption("doYouWantToAddImportExport", value.toString)
   }
 

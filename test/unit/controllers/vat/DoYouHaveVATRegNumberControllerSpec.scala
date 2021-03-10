@@ -35,7 +35,7 @@ class DoYouHaveVATRegNumberControllerSpec extends ControllerSpecBase {
 
   val view: doYouHaveVATRegNumber = injector.instanceOf[doYouHaveVATRegNumber]
 
-  def controller(mtdSwitch: Boolean = false): DoYouHaveVATRegNumberController = {
+  def controller(): DoYouHaveVATRegNumberController = {
     new DoYouHaveVATRegNumberController(
       frontendAppConfig,
       mcc,
@@ -44,9 +44,7 @@ class DoYouHaveVATRegNumberControllerSpec extends ControllerSpecBase {
       FakeServiceInfoAction,
       formProvider,
       view
-    ){
-      override val useMtdVatReg: Boolean = mtdSwitch
-    }
+    )
   }
 
   def viewAsString(form: Form[_] = form): String =
@@ -67,18 +65,16 @@ class DoYouHaveVATRegNumberControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    for (option <- DoYouHaveVATRegNumber.options) {
-      s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
-        val result = controller().onSubmit()(postRequest)
-
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(onwardRoute.url)
-      }
-    }
-
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveVATRegNumber.options.head.value))
+      val result = controller().onSubmit()(postRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
+
+    "redirect to MTD and the user says NO" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveVATRegNumber.options.last.value))
 
       val result = controller().onSubmit()(postRequest)
 
@@ -86,28 +82,10 @@ class DoYouHaveVATRegNumberControllerSpec extends ControllerSpecBase {
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
-    "redirect to MTD when feature flag is enabled and the user says NO" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveVATRegNumber.options.last.value))
 
-      val result = controller(mtdSwitch = true).onSubmit()(postRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("http://localhost:9895/register-for-vat")
-    }
-
-    "not redirect to MTD when feature flag is disabled and the user says NO" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveVATRegNumber.options.last.value))
-
-      val result = controller(mtdSwitch = false).onSubmit()(postRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
-    }
-
-    "not redirect to MTD when feature flag is enabled and the user says YES" in {
+    "not redirect to MTD when the user says YES" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveVATRegNumber.options.head.value))
-
-      val result = controller(mtdSwitch = true).onSubmit()(postRequest)
+      val result = controller().onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)

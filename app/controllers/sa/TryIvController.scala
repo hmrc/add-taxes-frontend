@@ -37,12 +37,10 @@ class TryIvController @Inject()(authenticate: AuthAction,
                                 saService: SaService,
                                 dataCacheConnector: DataCacheConnector) extends FrontendController(mcc) with I18nSupport {
 
-  val pinAndPostFeatureToggle = appConfig.pinAndPostFeatureToggle
   implicit val ec: ExecutionContext = mcc.executionContext
 
   def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
-      if(pinAndPostFeatureToggle) {
         val utr = dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
         val urlString: Future[String] = utr.flatMap {
           case Some(utr) => saService.getIvRedirectLink(utr.value, origin)
@@ -54,10 +52,6 @@ class TryIvController @Inject()(authenticate: AuthAction,
       for (
         redirectUrl <- urlString
       ) yield Redirect(Call("GET", redirectUrl))
-
-      } else {
-        Future.successful(Redirect(Call("GET", appConfig.getBusinessAccountUrl("home"))))
-      }
   }
 
 }

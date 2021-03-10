@@ -54,7 +54,7 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
   def verifyDataCacheSave(expectedTimes: Int): Unit =
     verify(mockDataCacheConnector, times(expectedTimes)).save(any(), any(), any())(any())
 
-  def controller(pinAndPostToggle: Boolean = false): EnterSAUTRController = {
+  def controller(): EnterSAUTRController = {
     new EnterSAUTRController(
       frontendAppConfig,
       mcc,
@@ -64,9 +64,7 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
       mockDataCacheConnector,
       view,
       mockSaCategoryService
-    ){
-      override val pinAndPostFeatureToggle: Boolean = pinAndPostToggle
-    }
+    )
   }
 
   def viewAsString(origin: String): String =
@@ -121,7 +119,7 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
         .thenReturn(Future.successful(Redirect(onwardRoute.url)))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789"))
 
-      val result = controller(pinAndPostToggle = true).onSubmit(btaOrigin)(postRequest)
+      val result = controller().onSubmit(btaOrigin)(postRequest)
 
       status(result) mustBe SEE_OTHER
       verifyDataCacheSave(expectedTimes = 2)

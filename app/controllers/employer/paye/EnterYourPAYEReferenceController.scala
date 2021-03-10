@@ -46,16 +46,10 @@ class EnterYourPAYEReferenceController @Inject()(appConfig: FrontendAppConfig,
   extends FrontendController(mcc)
     with I18nSupport {
 
-  val enrolmentCheckerFeature = appConfig.epayeEnrolmentCheckerEnabled
-
   val form: Form[PAYEReference] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    if(enrolmentCheckerFeature) {
       Ok(enterPAYEReference(appConfig, form)(request.serviceInfoContent))
-    } else {
-      Redirect(Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.EPAYE)))
-    }
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>

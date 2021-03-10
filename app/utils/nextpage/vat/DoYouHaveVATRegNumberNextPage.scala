@@ -17,7 +17,6 @@
 package utils.nextpage.vat
 
 import config.FrontendAppConfig
-import controllers.vat.vat.{routes => vatVatRoutes}
 import controllers.vat.{routes => vatRoutes}
 import identifiers.DoYouHaveVATRegNumberId
 import models.vat.DoYouHaveVATRegNumber
@@ -39,12 +38,7 @@ trait DoYouHaveVATRegNumberNextPage {
         request: Request[_]): Call =
         b match {
           case (DoYouHaveVATRegNumber.Yes, _) => vatRoutes.WhatIsYourVATRegNumberController.onPageLoad()
-          case (DoYouHaveVATRegNumber.No, Some(AffinityGroup.Individual)) => {
-            vatVatRoutes.SetupNewAccountController.onPageLoad()
-          }
-          case (DoYouHaveVATRegNumber.No, _) => {
-              vatRoutes.VatRegistrationProcessController.onPageLoad()
-          }
+          case (DoYouHaveVATRegNumber.No, _) => Call("GET", appConfig.vatRegHandoff)
         }
     }
   }

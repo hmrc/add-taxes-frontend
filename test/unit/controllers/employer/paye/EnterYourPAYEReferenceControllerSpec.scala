@@ -47,7 +47,7 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
 
   val view: enterPAYEReference = injector.instanceOf[enterPAYEReference]
 
-  def controller(empRefExists: Boolean, featureSwitch: Boolean = false): EnterYourPAYEReferenceController = {
+  def controller(empRefExists: Boolean): EnterYourPAYEReferenceController = {
     val desiredRoute = if(empRefExists) {
       Call("GET", frontendAppConfig.getBusinessAccountUrl("wrong-credentials"))
     } else {
@@ -63,9 +63,7 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
       mockEnrolmentStoreProxyConnector,
       formProvider,
       mockAuditService
-    ) {
-      override val enrolmentCheckerFeature: Boolean = featureSwitch
-    }
+    )
   }
 
   def viewAsString(): String =
@@ -81,21 +79,12 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
 
     "return OK and the correct view for a GET" when {
 
-      "epayeEnrolmentCheckerEnabled is enabled" in {
-        val result = controller(empRefExists = false, featureSwitch = true).onPageLoad()(fakeRequest)
+      "onPageload" in {
+        val result = controller(empRefExists = false).onPageLoad()(fakeRequest)
 
         status(result) mustBe OK
         contentAsString(result) mustBe viewAsString()
       }
-
-      "epayeEnrolmentCheckerEnabled is disabled" in {
-        val result = controller(empRefExists = false).onPageLoad()(fakeRequest)
-
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe
-          Some("http://localhost:9555/enrolment-management-frontend/IR-PAYE/request-access-tax-scheme?continue=%2Fbusiness-account")
-      }
-
     }
 
     "return bad request when invalid officeNumber and payeReference are provided" in {

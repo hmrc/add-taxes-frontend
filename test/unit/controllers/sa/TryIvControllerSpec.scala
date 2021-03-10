@@ -17,7 +17,7 @@ class TryIvControllerSpec extends ControllerSpecBase with MockitoSugar with Feat
   val mockDataCacheConnector = mock[DataCacheConnector]
   val btaOrigin: String = "bta-sa"
 
-  def controller(featureToggle: Boolean = true): TryIvController =
+  def controller(): TryIvController =
     new TryIvController(
       FakeAuthAction,
       FakeServiceInfoAction,
@@ -25,20 +25,9 @@ class TryIvControllerSpec extends ControllerSpecBase with MockitoSugar with Feat
       mcc,
       mockSaService,
       mockDataCacheConnector
-    ) {
-      override val pinAndPostFeatureToggle = featureToggle
-    }
+    )
 
   "TryIVController" when {
-    "pinInPost feature toggle is set to false" must {
-      "redirect to the BTA homepage" in {
-        val result = controller(false).onPageLoad(btaOrigin)(fakeRequest)
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some("http://localhost:9020/business-account")
-      }
-    }
-
-    "pinInPost feature toggle is set to true" must {
       "redirect back to TryPinInPost when no UTR is found" in {
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
         val result = controller().onPageLoad(btaOrigin)(fakeRequest)
@@ -53,6 +42,5 @@ class TryIvControllerSpec extends ControllerSpecBase with MockitoSugar with Feat
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/iv-link")
       }
-    }
   }
 }

@@ -32,7 +32,7 @@ class RetryKnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar
   val mockDataCacheConnector = mock[DataCacheConnector]
   val btaOrigin: String = "bta-sa"
 
-  def controller(pinInPostFeature: Boolean = true): RetryKnownFactsController = {
+  def controller(): RetryKnownFactsController = {
     new RetryKnownFactsController(
       frontendAppConfig,
       FakeAuthAction,
@@ -40,9 +40,7 @@ class RetryKnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar
       mockDataCacheConnector,
       mcc,
       view
-    ) {
-      override val pinAndPostFeatureToggle = pinInPostFeature
-    }
+    )
   }
 
   def viewAsString(origin: String): String =
@@ -54,13 +52,6 @@ class RetryKnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString(btaOrigin)
-    }
-
-    "redirect to BTA homepage when feature toggle set to false" in {
-      val result = controller(false).onPageLoad(btaOrigin)(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(frontendAppConfig.getBusinessAccountUrl("home"))
     }
 
     "redirect to enter SaUTR page" in {
