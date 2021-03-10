@@ -44,15 +44,10 @@ class PostcodeController@Inject()(
 
   implicit val ec: ExecutionContext = mcc.executionContext
   val form: Form[KnownFacts] = formProvider(true)
-  val pinAndPostFeatureToggle = appConfig.pinAndPostFeatureToggle
 
   def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
-      if (pinAndPostFeatureToggle) {
         Ok(postcodePage(appConfig, form, origin)(request.serviceInfoContent))
-      } else {
-        Redirect(Call("GET", appConfig.getBusinessAccountUrl("home")))
-      }
   }
 
   def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {

@@ -33,16 +33,14 @@ class EnrolmentSuccessControllerSpec extends ControllerSpecBase with MockitoSuga
   val view: successfulEnrolment = injector.instanceOf[successfulEnrolment]
   val btaOrigin = "bta-sa"
 
-  def controller(pinInPostFeature: Boolean = true): EnrolmentSuccessController = {
+  def controller(): EnrolmentSuccessController = {
     new EnrolmentSuccessController(
       FakeAuthAction,
       frontendAppConfig,
       FakeServiceInfoAction,
       mcc,
       view
-    ){
-      override val pinAndPostFeatureToggle: Boolean = pinInPostFeature
-    }
+    )
   }
 
   def viewAsString(origin: String, returnUrl: Option[String] = None): String =
@@ -54,13 +52,6 @@ class EnrolmentSuccessControllerSpec extends ControllerSpecBase with MockitoSuga
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString(btaOrigin)
-    }
-
-    "redirect to BTA home page when the toggle is set to false" in {
-      val result = controller(pinInPostFeature = false).onPageLoad(btaOrigin)(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(frontendAppConfig.getBusinessAccountUrl("home"))
     }
   }
 }

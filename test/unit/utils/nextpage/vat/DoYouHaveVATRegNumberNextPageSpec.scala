@@ -32,7 +32,7 @@ class DoYouHaveVATRegNumberNextPageSpec
     with FeatureToggleSupport
     with BeforeAndAfterEach {
 
-  val mockConfig: FrontendAppConfig = mock[FrontendAppConfig]
+  val mockConfig: FrontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
   override implicit def frontendAppConfig: FrontendAppConfig = mockConfig
 
   val affinityGroupOrganisation = Some(AffinityGroup.Organisation)
@@ -46,13 +46,13 @@ class DoYouHaveVATRegNumberNextPageSpec
   behave like nextPage(
     NextPage.doYouHaveVATRegNumber,
     (DoYouHaveVATRegNumber.No, affinityGroupOrganisation),
-    "/business-account/add-tax/vat/registration-process"
+    frontendAppConfig.vatRegHandoff
   )
 
   behave like nextPage(
     NextPage.doYouHaveVATRegNumber,
     (DoYouHaveVATRegNumber.No, affinityGroupIndividual),
-    "/business-account/add-tax/vat/registered/no"
+    frontendAppConfig.vatRegHandoff
   )
 
   "doYouHaveVATRegNumber" when {
@@ -77,7 +77,7 @@ class DoYouHaveVATRegNumberNextPageSpec
 
         val result: Call = nextPage.get((DoYouHaveVATRegNumber.No, None))
 
-        result.url mustBe "/business-account/add-tax/vat/registration-process"
+        result.url mustBe frontendAppConfig.vatRegHandoff
       }
     }
   }

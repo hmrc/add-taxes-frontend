@@ -39,16 +39,11 @@ class TryPinInPostController @Inject()(appConfig: FrontendAppConfig,
                                        tryPinInPostService: TryPinInPostService
                                       )(implicit val ec: ExecutionContext)
 extends FrontendController(mcc) with I18nSupport {
-  val pinAndPostFeatureToggle = appConfig.pinAndPostFeatureToggle
 
   def onPageLoad(status: Option[String] = Some("Failed"),
                  origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
-      if(pinAndPostFeatureToggle) {
         Ok(tryPinInPost(appConfig, status, origin)(request.serviceInfoContent))
-      } else {
-        Redirect(Call("GET", appConfig.getBusinessAccountUrl("home")))
-      }
   }
 
   def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {

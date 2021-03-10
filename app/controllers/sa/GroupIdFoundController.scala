@@ -33,15 +33,10 @@ class GroupIdFoundController @Inject()(authenticate: AuthAction,
                                        groupIdError: groupIdError) extends FrontendController(mcc) with I18nSupport {
 
   implicit val ec: ExecutionContext = mcc.executionContext
-  val pinAndPostFeatureToggle = appConfig.pinAndPostFeatureToggle
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
-      if (pinAndPostFeatureToggle) {
         Ok(groupIdError(appConfig)(request.serviceInfoContent))
-      } else {
-        Redirect(Call("GET", appConfig.getBusinessAccountUrl("home")))
-      }
   }
 
 }

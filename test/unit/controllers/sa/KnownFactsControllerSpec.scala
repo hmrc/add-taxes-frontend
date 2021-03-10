@@ -47,7 +47,7 @@ class KnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar with
   val formProvider = new KnownFactsFormProvider(knownFactsValidator, frontendAppConfig)
   val form = formProvider()
 
-  def controller(pinAndPostToggle: Boolean = true): KnownFactsController = {
+  def controller(): KnownFactsController = {
     new KnownFactsController(
       frontendAppConfig,
       mcc,
@@ -55,9 +55,7 @@ class KnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar with
       FakeServiceInfoAction,
       formProvider,
       view,
-      mockKnownFactsService){
-      override val pinAndPostFeatureToggle: Boolean = pinAndPostToggle
-    }
+      mockKnownFactsService)
   }
 
 
@@ -75,13 +73,6 @@ class KnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar with
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString(btaOrigin)
-    }
-
-    "redirect to BTA home page if feature toggle is false" in {
-      val result = controller(false).onPageLoad(btaOrigin)(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(frontendAppConfig.getBusinessAccountUrl("home"))
     }
 
     "return bad request with a invalid nino" in {

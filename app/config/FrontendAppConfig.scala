@@ -181,9 +181,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
     }
   }
 
-
   private val dtf: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm")
-  def ebtiDateTime: LocalDateTime =  LocalDateTime.parse(config.getString("ebti"), dtf)
   def now(): LocalDateTime = LocalDateTime.now()
 
 }
@@ -192,13 +190,6 @@ trait FeatureToggles {
   val config: ServicesConfig
 
   private def featureEnabled(key: String): Boolean = config.getBoolean(s"feature-toggles.$key")
-
-  lazy val useMtdVatReg: Boolean = featureEnabled("useMtdVatReg")
-  lazy val epayeEnrolmentCheckerEnabled: Boolean = featureEnabled("epayeEnrolmentCheckerEnabled")
-
-  lazy val pinAndPostFeatureToggle: Boolean = featureEnabled("pin-and-post")
   final val sessionTimeoutInSeconds: Long = 900
   final val sessionCountdownInSeconds: Int = 60
-
-  lazy val ebtiRemovalFeatureToggle: Boolean = featureEnabled("ebtiRemovalFeatureToggle")
 }

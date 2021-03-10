@@ -310,8 +310,6 @@ GET        /enrol/:service                              controllers.enrolment.En
 
 GET        /vat/giant/newaccount                        controllers.vat.giant.SetupNewAccountController.onPageLoad()
 
-GET        /vat/registered/no                           controllers.vat.vat.SetupNewAccountController.onPageLoad()
-
 GET        /employer/directors-register-by-phone        controllers.employer.DirectorsRegisterByPhoneController.onPageLoad()
 
 GET        /employer/partners-register-by-phone         controllers.employer.PartnershipRegisterByPhoneController.onPageLoad()
@@ -335,8 +333,6 @@ GET        /employer/what-is-your-paye-ref              controllers.employer.pay
 POST       /employer/what-is-your-paye-ref              controllers.employer.paye.WhatIsYourPAYEReferenceController.onSubmit()
 
 GET        /corporation-tax                             controllers.ct.IndividualAddCorporationTaxController.onPageLoad()
-
-GET        /vat/registration-process                    controllers.vat.VatRegistrationProcessController.onPageLoad()
 
 GET        /vat/eligibility                             controllers.vat.VatEligibilityCheckController.onPageLoad()
 

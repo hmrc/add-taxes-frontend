@@ -33,15 +33,10 @@ class RetryKnownFactsController @Inject()(appConfig: FrontendAppConfig,
                                           mcc: MessagesControllerComponents,
                                           retryKnownFacts: retryKnownFacts)(implicit val ec: ExecutionContext)
 extends FrontendController(mcc) with I18nSupport {
-  val pinAndPostFeatureToggle = appConfig.pinAndPostFeatureToggle
 
   def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
-      if (pinAndPostFeatureToggle) {
         Ok(retryKnownFacts(appConfig, origin)(request.serviceInfoContent))
-      } else {
-        Redirect(Call("GET", appConfig.getBusinessAccountUrl("home")))
-      }
   }
 
   def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {

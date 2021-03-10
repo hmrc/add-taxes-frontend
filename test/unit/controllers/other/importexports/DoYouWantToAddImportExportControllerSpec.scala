@@ -64,7 +64,7 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouWantToAddImportExport.options(frontendAppConfig).head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouWantToAddImportExport.options().head.value))
 
       val result = controller().onSubmit()(postRequest)
 
@@ -88,7 +88,7 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    for (option <- DoYouWantToAddImportExport.options(frontendAppConfig)) {
+    for (option <- DoYouWantToAddImportExport.options()) {
       s"redirect to next page when '${option.value}' is submitted" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)
