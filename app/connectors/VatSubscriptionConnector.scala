@@ -18,6 +18,7 @@ package connectors
 
 import config.FrontendAppConfig
 import javax.inject.{Inject, Singleton}
+import play.api.Logger.logger
 import play.api.http.Status._
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.UpstreamErrorResponse.Upstream4xxResponse
@@ -36,5 +37,8 @@ class VatSubscriptionConnector @Inject()(val http: HttpClient, val appConfig: Fr
   }.recover {
     case Upstream4xxResponse(error) if error.statusCode == NOT_FOUND => NOT_FOUND
     case Upstream4xxResponse(error) if error.statusCode == PRECONDITION_FAILED => PRECONDITION_FAILED
+    case e: Exception =>
+      logger.error(s"[VatSubscriptionConnector][getMandationStatus] Failed with error: ${e.getMessage}")
+      INTERNAL_SERVER_ERROR
   }
 }
