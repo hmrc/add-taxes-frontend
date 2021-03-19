@@ -42,6 +42,7 @@
         @components.input_text_field(
             field = form("nino"),
             hint  = Some(messages("enterKnownFacts.nino.hintText")),
+            label = Some(messages("enterKnownFacts.nino.heading")),
             formHintMargin= Some(""))
 
         @components.known_facts(gaEvent = "GaEvent", None, origin)
