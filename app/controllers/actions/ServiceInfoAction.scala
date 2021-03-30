@@ -16,24 +16,23 @@
 
 package controllers.actions
 
-import config.AddTaxesHeaderCarrierForPartialsConverter
 import connectors.ServiceInfoPartialConnector
 import javax.inject.Inject
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import play.api.mvc._
+import uk.gov.hmrc.play.partials.{HeaderCarrierForPartials, HeaderCarrierForPartialsConverter}
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class ServiceInfoAction @Inject()(
   serviceInfoPartialConnector: ServiceInfoPartialConnector,
-  addTaxesHeaderCarrierForPartialsConverter: AddTaxesHeaderCarrierForPartialsConverter)(
+  headerCarrierForPartialsConverter: HeaderCarrierForPartialsConverter)(
   implicit val executionContext: ExecutionContext)
     extends ActionTransformer[AuthenticatedRequest, ServiceInfoRequest] {
 
-  import addTaxesHeaderCarrierForPartialsConverter._
-
   override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
     implicit val r: Request[A] = request
+    implicit val hcwc: HeaderCarrierForPartials = headerCarrierForPartialsConverter.headerCarrierEncryptingSessionCookieFromRequest
     serviceInfoPartialConnector.getServiceInfoPartial().map { serviceInfoContent =>
       ServiceInfoRequest(request, serviceInfoContent)
     }

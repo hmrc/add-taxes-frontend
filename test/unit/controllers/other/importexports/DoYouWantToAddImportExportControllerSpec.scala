@@ -16,20 +16,15 @@
 
 package controllers.other.importexports
 
-import config.FrontendAppConfig
-import play.api.data.Form
-import utils.FakeNavigator
 import controllers._
-import play.api.test.Helpers._
 import forms.other.importexports.DoYouWantToAddImportExportFormProvider
 import models.other.importexports.DoYouWantToAddImportExport
-import org.scalatestplus.mockito.MockitoSugar.mock
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.other.importexports.doYouWantToAddImportExport
-
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
 

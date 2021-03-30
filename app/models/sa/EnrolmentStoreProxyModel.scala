@@ -18,8 +18,6 @@ package models.sa
 
 import play.api.libs.json._
 
-import scala.collection.immutable
-
 class EnrolmentStoreProxyModel
 
 case class KnownFacts(postcode: Option[String], nino: Option[String], isAbroad: Option[String]) {

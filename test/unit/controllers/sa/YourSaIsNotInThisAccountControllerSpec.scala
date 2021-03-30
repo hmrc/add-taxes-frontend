@@ -25,7 +25,7 @@ import play.api.mvc.Call
 import play.api.test.Helpers.{contentAsString, redirectLocation, status, _}
 import play.twirl.api.HtmlFormat
 import service.SaService
-import utils.{FakeNavigator, HmrcEnrolmentType}
+import utils.HmrcEnrolmentType
 import views.html.sa.yourSaIsNotInThisAccount
 
 class YourSaIsNotInThisAccountControllerSpec extends ControllerSpecBase with MockitoSugar {

@@ -3,14 +3,13 @@ package service
 import connectors.DataCacheConnector
 import controllers.Assets.SEE_OTHER
 import controllers.ControllerSpecBase
-import controllers.sa.{routes => saRoutes}
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
-import models.sa.{CredIdFound, DoYouHaveSAUTR, GroupIdFound, NoRecordFound, NoSaUtr, SAUTR, SelectSACategory}
+import models.sa._
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.mvc.{AnyContent, Result}
+import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{status, _}
 import play.twirl.api.HtmlFormat

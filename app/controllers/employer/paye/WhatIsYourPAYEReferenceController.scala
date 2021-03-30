@@ -28,7 +28,7 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import service.AuditService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import utils.{Enrolments, Navigator}
+import utils.Navigator
 import views.html.employer.paye.whatIsYourPAYEReference
 
 import scala.concurrent.{ExecutionContext, Future}

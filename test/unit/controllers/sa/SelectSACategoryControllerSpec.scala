@@ -28,11 +28,8 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import service.SelectSaCategoryService
-import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
+import utils.{HmrcEnrolmentType, RadioOption}
 import views.html.sa.selectSACategory
-import controllers.sa.{routes => saRoutes}
-import controllers.sa.partnership.{routes => saPartnerRoutes}
-import controllers.sa.trust.{routes => trustRoutes}
 
 import scala.concurrent.Future
 

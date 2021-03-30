@@ -75,8 +75,7 @@ class KnownFactsFormValidator @Inject()() {
       }
     }
 
-  def stringFormatter(abroadKey: String)
-                   (implicit appConfig: FrontendAppConfig) =
+  def stringFormatter(abroadKey: String)=
     new Formatter[String] {
       override def bind(key: String, data: Map[String, String]) = {
         val value = data.getOrElse(key, "")

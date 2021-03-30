@@ -63,7 +63,7 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
   def saResult(doYouHaveSaUtr: DoYouHaveSAUTR,
                enrolmentStoreResult: EnrolmentCheckResult,
                origin: String)
-                (implicit request: ServiceInfoRequest[AnyContent], ec: ExecutionContext, hc: HeaderCarrier): Result = {
+                (implicit request: ServiceInfoRequest[AnyContent]): Result = {
     (doYouHaveSaUtr, enrolmentStoreResult) match {
       case (DoYouHaveSAUTR.Yes, NoRecordFound) => Redirect(saRoutes.KnownFactsController.onPageLoad(origin))
       case (_, CredIdFound)                    => Redirect(Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials")))
@@ -76,7 +76,7 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
 
   def partnershipResult(doYouHaveSaUtr: DoYouHaveSAUTR,
                         enrolmentStoreResult: EnrolmentCheckResult)
-                       (implicit request: ServiceInfoRequest[AnyContent], ec: ExecutionContext, hc: HeaderCarrier): Result = {
+                       (implicit request: ServiceInfoRequest[AnyContent]): Result = {
     (doYouHaveSaUtr, enrolmentStoreResult) match {
       case (_, CredIdFound)     => Redirect(Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials")))
       case (_, GroupIdFound)    => Redirect(saRoutes.GroupIdFoundController.onPageLoad())
@@ -88,7 +88,7 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
 
   def trustsResult(doYouHaveSaUtr: DoYouHaveSAUTR,
                    enrolmentStoreResult: EnrolmentCheckResult)
-                  (implicit request: ServiceInfoRequest[AnyContent], ec: ExecutionContext, hc: HeaderCarrier): Result = {
+                  (implicit request: ServiceInfoRequest[AnyContent]): Result = {
     (doYouHaveSaUtr, enrolmentStoreResult) match {
       case (_, CredIdFound)    => Redirect(Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials")))
       case (_, GroupIdFound)   => Redirect(saRoutes.GroupIdFoundController.onPageLoad())

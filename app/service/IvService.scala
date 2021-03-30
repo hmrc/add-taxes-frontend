@@ -16,9 +16,7 @@
 
 package service
 
-import java.net.URLEncoder
-
-import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector, IvConnector, TaxEnrolmentsConnector}
+import connectors.{DataCacheConnector, IvConnector, TaxEnrolmentsConnector}
 import controllers.Assets.Redirect
 import controllers.sa.{routes => saRoutes}
 import identifiers.EnterSAUTRId
@@ -26,7 +24,6 @@ import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.sa.{IvLinks, SAUTR, SaEnrolmentDetails}
 import play.api.Logging
-import play.api.libs.json.JsValue
 import play.api.mvc.{AnyContent, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 

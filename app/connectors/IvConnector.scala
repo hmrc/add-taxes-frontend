@@ -19,9 +19,8 @@ package connectors
 import config.FrontendAppConfig
 import javax.inject.Inject
 import models.sa.JourneyLinkResponse
-import play.api.Logging
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 import uk.gov.hmrc.http.HttpReads.Implicits._
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 
 import scala.concurrent.{ExecutionContext, Future}
 

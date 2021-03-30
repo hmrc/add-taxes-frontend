@@ -17,14 +17,13 @@
 package connectors
 
 import base.SpecBase
-import models.sa.{KnownFacts, KnownFactsAndIdentifiers, KnownFactsReturn, SAUTR, SaEnrolment}
+import models.sa.{KnownFacts, KnownFactsAndIdentifiers, KnownFactsReturn, SAUTR}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.http.Status.{CREATED, INTERNAL_SERVER_ERROR, NO_CONTENT, OK}
+import play.api.http.Status.{INTERNAL_SERVER_ERROR, NO_CONTENT, OK}
 import play.api.libs.json.{JsValue, Json}
-import play.api.test.Helpers._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -166,7 +165,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
     "checkExistingUtr is called" should {
 
       "return true when ES0 returns some principal enrolments" in {
-        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(OK, es0ResponsePrincipals, Map("" -> Seq.empty))))
 
         val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingUTR(utr, "IR-SA")
@@ -177,7 +176,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
       }
 
       "return false when ES0 returns only delegated enrolments" in {
-        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(OK, es0ResponseNoPrincipal, Map("" -> Seq.empty))))
 
         val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingUTR(utr, "IR-SA")
@@ -188,7 +187,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
       }
 
       "return false if no utr found (204)" in {
-        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(NO_CONTENT, "body")))
 
         val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingUTR(utr, "IR-SA")
@@ -199,7 +198,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
       }
 
       "return false if internal server error (500)" in {
-        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(INTERNAL_SERVER_ERROR, "body")))
 
         val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingUTR(utr, "IR-SA")
@@ -210,7 +209,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
       }
 
       "return false when an exception occurs" in {
-        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.failed(new Exception))
 
         val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingUTR(utr, "IR-SA")
@@ -224,7 +223,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
 
     "checkSaGroup is called" should {
       "return true when OK is returned from ES3 with SA" in {
-        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(OK, es3ResponseEnrolmentsWithSA,  Map("" -> Seq.empty))))
 
         val response: Future[Boolean] = enrolmentStoreProxyConnector.checkSaGroup(groupId, "IR-SA")
@@ -234,7 +233,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
       }
 
       "return false when OK is returned from ES3 without SA" in {
-        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(OK, es3ResponseEnrolmentsWithOutSa,  Map("" -> Seq.empty))))
 
         val response: Future[Boolean] = enrolmentStoreProxyConnector.checkSaGroup(groupId, "IR-SA")
@@ -244,7 +243,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
       }
 
       "return false when NO_CONTENT is returned from ES3" in {
-        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(NO_CONTENT, "")))
 
         val response: Future[Boolean] = enrolmentStoreProxyConnector.checkSaGroup(groupId, "IR-SA")
@@ -254,7 +253,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
       }
 
       "return false when INTERNAL_SERVER_ERROR is returned from ES3" in {
-        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(INTERNAL_SERVER_ERROR, "body")))
 
         val response: Future[Boolean] = enrolmentStoreProxyConnector.checkSaGroup(groupId, "IR-SA")
@@ -264,7 +263,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
       }
 
       "return false when an exception occurs" in {
-        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.failed(new Exception))
 
         val response: Future[Boolean] = enrolmentStoreProxyConnector.checkSaGroup(groupId, "IR-SA")
@@ -338,7 +337,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
     "checkExistingEmpRef is called" should {
 
       "return true when the call is successful (200)" in {
-        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(OK, "body")))
 
         val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingEmpRef(officeNumber, payeReference)
@@ -349,7 +348,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
       }
 
       "return false if no officeNumber, payeReference found (204)" in {
-        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(NO_CONTENT, "body")))
 
         val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingEmpRef(officeNumber, payeReference)
@@ -360,7 +359,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
       }
 
       "return false if internal server error (500)" in {
-        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse.apply(INTERNAL_SERVER_ERROR, "body")))
 
         val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingEmpRef(officeNumber, payeReference)
@@ -371,7 +370,7 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
       }
 
       "return false when an exception occurs" in {
-        when(mockHttp.GET[HttpResponse](any())(any(), any(), any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.failed(new Exception))
 
         val response: Future[Boolean] = enrolmentStoreProxyConnector.checkExistingEmpRef(officeNumber, payeReference)
