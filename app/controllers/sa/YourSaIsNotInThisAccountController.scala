@@ -18,17 +18,15 @@ package controllers.sa
 
 import config.FrontendAppConfig
 import controllers.actions._
-import controllers.sa.routes.SelectSACategoryController
 import forms.sa.YourSaIsNotInThisAccountFormProvider
-import identifiers.YourSaIsNotInThisAccountId
 import javax.inject.Inject
 import models.sa.YourSaIsNotInThisAccount
 import play.api.data.Form
 import play.api.i18n.I18nSupport
-import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import service.SaService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import utils.{Enumerable, Navigator}
+import utils.Enumerable
 import views.html.sa.yourSaIsNotInThisAccount
 
 import scala.concurrent.Future

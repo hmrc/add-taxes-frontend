@@ -17,15 +17,11 @@
 package controllers.internal
 
 import config.FrontendAppConfig
-import controllers.actions.{AuthAction, ServiceInfoAction}
 import javax.inject.Inject
 import models.sa.SaEnrolmentDetails
-import play.api.Logging
-import play.api.i18n.I18nSupport
-import play.api.libs.json.{JsError, JsSuccess, JsValue, Json}
-import play.api.mvc.{Action, AnyContent, BaseController, ControllerComponents, MessagesControllerComponents}
+import play.api.libs.json.{JsError, JsSuccess, Json}
+import play.api.mvc.{Action, AnyContent, BaseController, MessagesControllerComponents}
 import service.IvService
-import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 
 import scala.concurrent.{ExecutionContext, Future}
 

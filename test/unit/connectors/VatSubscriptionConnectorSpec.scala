@@ -43,7 +43,7 @@ class VatSubscriptionConnectorSpec extends SpecBase with MockitoSugar with Scala
     "mandationStatus is called" should {
 
       "return Right(true) when the call is successful (200)" in {
-        when(mockHttp.GET[HttpResponse](any())(any(),any(),any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(),any(),any()))
           .thenReturn(Future.successful(HttpResponse.apply(OK, "OK")))
 
         val response: Future[Int] = vatSubscriptionConnector.getMandationStatus(vrn)
@@ -54,7 +54,7 @@ class VatSubscriptionConnectorSpec extends SpecBase with MockitoSugar with Scala
       }
 
       "return Right(false) if a VRN is not found in ETMP (404)" in {
-        when(mockHttp.GET[HttpResponse](any())(any(),any(),any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(),any(),any()))
           .thenReturn(Future.successful(HttpResponse.apply(NOT_FOUND, "NOT_FOUND")))
 
         val response: Future[Int] = vatSubscriptionConnector.getMandationStatus(vrn)
@@ -66,7 +66,7 @@ class VatSubscriptionConnectorSpec extends SpecBase with MockitoSugar with Scala
       }
 
       "return Right(false) if a VRN is not found in ETMP (UpstreamErrorResponse(404))" in {
-        when(mockHttp.GET[HttpResponse](any())(any(),any(),any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(),any(),any()))
           .thenReturn(Future.failed(UpstreamErrorResponse("Not found", NOT_FOUND, NOT_FOUND)))
 
         val response: Future[Int] = vatSubscriptionConnector.getMandationStatus(vrn)
@@ -78,7 +78,7 @@ class VatSubscriptionConnectorSpec extends SpecBase with MockitoSugar with Scala
       }
 
       "return Right(false) if a VRN is pre-condition failed in ETMP (UpstreamErrorResponse(412))" in {
-        when(mockHttp.GET[HttpResponse](any())(any(),any(),any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(),any(),any()))
           .thenReturn(Future.failed(UpstreamErrorResponse("Pre-condition failed", PRECONDITION_FAILED, PRECONDITION_FAILED)))
 
         val response: Future[Int] = vatSubscriptionConnector.getMandationStatus(vrn)
@@ -90,7 +90,7 @@ class VatSubscriptionConnectorSpec extends SpecBase with MockitoSugar with Scala
       }
 
       "return Left(true) if a VRN is in migration (412)" in {
-        when(mockHttp.GET[HttpResponse](any())(any(),any(),any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(),any(),any()))
           .thenReturn(Future.successful(HttpResponse.apply(PRECONDITION_FAILED, "NOT_FOUND")))
 
         val response: Future[Int] = vatSubscriptionConnector.getMandationStatus(vrn)
@@ -101,7 +101,7 @@ class VatSubscriptionConnectorSpec extends SpecBase with MockitoSugar with Scala
       }
 
       "return a Left(false) if the response could not be mapped" in {
-        when(mockHttp.GET[HttpResponse](any())(any(),any(),any()))
+        when(mockHttp.GET[HttpResponse](any(), any(), any())(any(),any(),any()))
           .thenReturn(Future.successful(HttpResponse.apply(BAD_REQUEST, "BAD_REQUEST")))
 
         val response: Future[Int] = vatSubscriptionConnector.getMandationStatus(vrn)

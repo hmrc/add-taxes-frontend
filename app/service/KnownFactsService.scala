@@ -18,14 +18,13 @@ package service
 
 import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
 import controllers.Assets.Redirect
-import controllers.sa.{EnrolmentSuccessController, routes => saRoutes}
+import controllers.sa.{routes => saRoutes}
 import identifiers.EnterSAUTRId
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
-import models.sa.{CredIdFound, DoYouHaveSAUTR, EnrolmentCheckResult, GroupIdFound, KnownFacts, KnownFactsReturn, NoRecordFound, NoSaUtr, SAUTR, SelectSACategory}
+import models.sa._
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.{ExecutionContext, Future}
 

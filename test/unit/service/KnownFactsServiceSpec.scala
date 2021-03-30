@@ -19,11 +19,11 @@ package service
 import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
 import controllers.Assets.SEE_OTHER
 import controllers.ControllerSpecBase
-import controllers.sa.{EnrolmentSuccessController, routes => saRoutes}
+import controllers.sa.{routes => saRoutes}
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
-import models.sa.{CredIdFound, DoYouHaveSAUTR, GroupIdFound, KnownFacts, KnownFactsReturn, NoRecordFound, NoSaUtr, SAUTR}
+import models.sa._
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, times, verify, when}
+import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.AnyContent
@@ -31,7 +31,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.{status, _}
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
-import uk.gov.hmrc.auth.core.{ConfidenceLevel, Enrolments}
+import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.http.connector.AuditResult
 

@@ -17,7 +17,6 @@
 package controllers
 
 import base.SpecBase
-import config.AddTaxesHeaderCarrierForPartialsConverter
 import connectors.ServiceInfoPartialConnector
 import controllers.actions.{FakeAuthAction, FakeDataRetrievalAction, FakeServiceInfoAction}
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
@@ -29,6 +28,7 @@ import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.auth.core.{ConfidenceLevel, Enrolment, Enrolments}
 import uk.gov.hmrc.http.cache.client.CacheMap
+import uk.gov.hmrc.play.partials.HeaderCarrierForPartialsConverter
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -44,7 +44,7 @@ trait ControllerSpecBase extends SpecBase {
   val FakeServiceInfoAction: FakeServiceInfoAction = {
     new FakeServiceInfoAction(
       injector.instanceOf[ServiceInfoPartialConnector],
-      injector.instanceOf[AddTaxesHeaderCarrierForPartialsConverter]
+      injector.instanceOf[HeaderCarrierForPartialsConverter]
     )
   }
 

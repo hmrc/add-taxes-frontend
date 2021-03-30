@@ -20,7 +20,7 @@ import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
 import controllers.Assets.Redirect
 import controllers._
 import forms.sa.SAUTRFormProvider
-import models.sa.{CredIdFound, SAUTR}
+import models.sa.SAUTR
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito.{times, verify, when}
 import org.scalatestplus.mockito.MockitoSugar
@@ -28,10 +28,7 @@ import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import playconfig.featuretoggle.FeatureToggleSupport
-import service.{AuditService, KnownFactsService, SelectSaCategoryService}
-import uk.gov.hmrc.play.audit.http.connector.AuditResult
-import utils.FakeNavigator
+import service.{AuditService, SelectSaCategoryService}
 import views.html.sa.enterSAUTR
 
 import scala.concurrent.ExecutionContext.Implicits.global

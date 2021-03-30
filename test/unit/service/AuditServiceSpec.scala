@@ -9,7 +9,7 @@ import org.scalatestplus.play.PlaySpec
 import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.logging.{RequestId, SessionId}
+import uk.gov.hmrc.http.{RequestId, SessionId}
 import uk.gov.hmrc.play.audit.http.connector.{AuditConnector, AuditResult}
 
 import scala.concurrent.ExecutionContext.Implicits.global

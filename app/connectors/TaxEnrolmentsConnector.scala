@@ -23,6 +23,7 @@ import play.api.Logging
 import play.api.http.Status.CREATED
 import uk.gov.hmrc.http.UpstreamErrorResponse.Upstream4xxResponse
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
+import uk.gov.hmrc.http.HttpReads.Implicits._
 
 import scala.concurrent.{ExecutionContext, Future}
 

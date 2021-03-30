@@ -17,20 +17,17 @@
 package controllers.sa
 
 import config.FrontendAppConfig
-import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
-import controllers.Assets.Redirect
+import connectors.DataCacheConnector
 import controllers.actions._
 import forms.sa.SAUTRFormProvider
 import identifiers.EnterSAUTRId
 import javax.inject.Inject
-import models.sa.{DoYouHaveSAUTR, EnrolmentCheckResult, SAUTR, SelectSACategory}
+import models.sa.{DoYouHaveSAUTR, SAUTR, SelectSACategory}
 import play.api.data.Form
 import play.api.i18n.I18nSupport
-import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents, Result}
-import play.libs.F.Tuple
-import service.{AuditService, KnownFactsService, SelectSaCategoryService}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import service.SelectSaCategoryService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import utils.Navigator
 import views.html.sa.enterSAUTR
 
 import scala.concurrent.{ExecutionContext, Future}

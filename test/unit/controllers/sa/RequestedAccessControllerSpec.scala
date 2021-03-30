@@ -1,10 +1,10 @@
 package controllers.sa
 
 
-import controllers.Assets.{OK, SEE_OTHER}
+import controllers.Assets.OK
 import controllers.ControllerSpecBase
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout, redirectLocation, status}
+import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout, status}
 import play.twirl.api.HtmlFormat
 import views.html.sa.requestedAccess
 
