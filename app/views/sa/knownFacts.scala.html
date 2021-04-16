@@ -37,13 +37,12 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("known-facts-heading", "enterKnownFacts.nino.heading")
-
-        @components.input_text_field(
+        @components.input_text(
             field = form("nino"),
             hint  = Some(messages("enterKnownFacts.nino.hintText")),
-            label = Some(messages("enterKnownFacts.nino.heading")),
-            formHintMargin= Some(""))
+            label = messages("enterKnownFacts.nino.heading"),
+            formHintMargin= Some(""),
+            headingId = ("known-facts-heading"))
 
         @components.known_facts(gaEvent = "GaEvent", None, origin)
 
