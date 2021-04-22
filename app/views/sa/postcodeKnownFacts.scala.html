@@ -18,13 +18,15 @@
 @import uk.gov.hmrc.play.views.html.helpers._
 @import models.sa.KnownFacts
 @import controllers.sa.routes._
+@import akka.http.scaladsl.model.headers.LinkParams.title
+@import models.sa.KnownFactsPostcode
 
 @this(
         uiForm: FormWithCSRF,
         main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig, form: Form[KnownFacts], origin: String)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[KnownFactsPostcode], origin: String)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("enterKnownFacts.postcode.title"),
@@ -47,8 +49,8 @@
 
         @components.tick_box(
             field = form("isAbroad"),
-            "isAbroad",
-            messages("enterKnownFacts.postcode.abroadLabel"))
+            id = "isAbroad",
+            message = messages("enterKnownFacts.postcode.abroadLabel"))
 
         @components.submit_button(gaEvent = "GaEvent")
     }

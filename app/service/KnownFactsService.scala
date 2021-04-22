@@ -20,12 +20,12 @@ import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
 import controllers.Assets.Redirect
 import controllers.sa.{routes => saRoutes}
 import identifiers.EnterSAUTRId
-import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.sa._
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class KnownFactsService @Inject()(saService: SaService,

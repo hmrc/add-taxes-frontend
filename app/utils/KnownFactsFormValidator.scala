@@ -18,7 +18,7 @@ package utils
 
 import config.FrontendAppConfig
 import javax.inject.Inject
-import models.sa.KnownFacts
+import models.sa.{KnownFacts, KnownFactsPostcode}
 import play.api.data.FormError
 import play.api.data.format.Formatter
 import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
@@ -30,7 +30,7 @@ class KnownFactsFormValidator @Inject()() {
   protected val ninoRegex = """(?i)(^$|^(?!BG|GB|KN|NK|NT|TN|ZZ)([A-Z]{2})[0-9]{6}[A-D]?$)"""
 
   def validatePostcode(postcodeKey: String, blankPostcodeMessageKey: String,
-                               invalidPostcodeMessageKey: String)(implicit appConfig: FrontendAppConfig)= new Formatter[String] {
+                       invalidPostcodeMessageKey: String)(implicit appConfig: FrontendAppConfig) = new Formatter[String] {
     override def bind(key: String, data: Map[String, String]) = {
       val value = data.getOrElse(key, "")
       value match {
@@ -56,7 +56,7 @@ class KnownFactsFormValidator @Inject()() {
   }
 
   def ninoFormatter(ninoKey: String, blankMessageKey: String, lengthMessageKey: String, formatMessageKey: String)
-                           (implicit appConfig: FrontendAppConfig) =
+                   (implicit appConfig: FrontendAppConfig): Formatter[String] =
     new Formatter[String] {
       override def bind(key: String, data: Map[String, String]) = {
         val value = data.getOrElse(key, "")
@@ -75,7 +75,8 @@ class KnownFactsFormValidator @Inject()() {
       }
     }
 
-  def stringFormatter(abroadKey: String)=
+  def stringFormatter
+  (implicit appConfig: FrontendAppConfig): Formatter[String] =
     new Formatter[String] {
       override def bind(key: String, data: Map[String, String]) = {
         val value = data.getOrElse(key, "")
@@ -88,25 +89,5 @@ class KnownFactsFormValidator @Inject()() {
         Map(key -> value.toString)
       }
     }
-
-  def optionValidator(postcodeView: Boolean) = {
-    Constraint("constraints.knownFacts")({
-      (model: KnownFacts) => model match {
-        case _ if(model.validSize && model.isValid) => Valid
-        case _ if(!model.isValid) =>
-          if(postcodeView) {
-          Invalid(Seq(ValidationError("enterKnownFacts.postcode.error.invalid")))
-        } else {
-          Invalid(Seq(ValidationError("enterKnownFacts.nino.error.required")))
-        }
-        case _ if(!model.validSize) =>
-          if(postcodeView) {
-          Invalid(Seq(ValidationError("enterKnownFacts.postcode.error.required")))
-        } else {
-          Invalid(Seq(ValidationError("enterKnownFacts.nino.error.format")))
-        }
-      }
-    })
-  }
 
 }

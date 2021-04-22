@@ -1,8 +1,8 @@
 package views.sa
 
-import forms.sa.KnownFactsFormProvider
-import models.sa.KnownFacts
-import play.api.data.Form
+import forms.sa.KnownFactsPostcodeFormProvider
+import models.sa.{KnownFacts, KnownFactsPostcode}
+import play.api.data.{Form, FormError}
 import play.twirl.api.HtmlFormat
 import utils.KnownFactsFormValidator
 import views.behaviours.ViewBehaviours
@@ -12,15 +12,15 @@ class PostcodeKnownFactsViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "knownFacts"
   val mockKnownFactsValidator: KnownFactsFormValidator = injector.instanceOf[KnownFactsFormValidator]
-  val formProvider = new KnownFactsFormProvider(mockKnownFactsValidator, frontendAppConfig)
-  val form = formProvider(true)
+  val formProvider = new KnownFactsPostcodeFormProvider(mockKnownFactsValidator, frontendAppConfig)
+  val form = formProvider()
   val serviceInfoContent = HtmlFormat.empty
   val btaOrigin: String = "bta-sa"
 
   def createView: (String) => HtmlFormat.Appendable = (origin: String) =>
     new postcodeKnownFacts(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm: (Form[KnownFacts], String) => HtmlFormat.Appendable = (form: Form[KnownFacts], origin: String) =>
+  def createViewUsingForm: (Form[KnownFactsPostcode], String) => HtmlFormat.Appendable = (form: Form[KnownFactsPostcode], origin: String) =>
     new postcodeKnownFacts(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(serviceInfoContent)(fakeRequest, messages)
 
   "postcodeKnownfacts view" must {
@@ -44,6 +44,7 @@ class PostcodeKnownFactsViewSpec extends ViewBehaviours {
 
     "invalid data is sent" must {
       "prepend title with Error: " in {
+        val form = formProvider().withError(FormError("postcode", "enterKnownFacts.postcode.error.required")).withError(FormError("isAbroad", "enterKnownFacts.postcode.error.required"))
         val doc = asDocument(createViewUsingForm(form.bind(Map("postcode" -> "")), btaOrigin))
         val title = messages("site.service_title", messages(s"enterKnownFacts.postcode.title"))
 
@@ -55,14 +56,18 @@ class PostcodeKnownFactsViewSpec extends ViewBehaviours {
         errorMessageValue(doc) mustBe "Enter a postcode in the right format"
       }
       "show error message when postcode and isAbroad is checked" in {
+        val form = formProvider().withError(FormError("postcode", "enterKnownFacts.postcode.error.required")).withError(FormError("isAbroad", "enterKnownFacts.postcode.error.required"))
+
         val doc = asDocument(createViewUsingForm(form.bind(Map("postcode" -> "zz11zz", "isAbroad" -> "Y")), btaOrigin))
 
-        errorMessageValue(doc) mustBe "Enter a postcode or select if you live abroad"
+        errorMessageValue(doc) mustBe "Enter a postcode or select if you live abroad Enter a postcode or select if you live abroad"
       }
       "show error message when input is blank" in {
+        val form = formProvider().withError(FormError("postcode", "enterKnownFacts.postcode.error.required")).withError(FormError("isAbroad", "enterKnownFacts.postcode.error.required"))
+
         val doc = asDocument(createViewUsingForm(form.bind(Map("postcode" -> "")), btaOrigin))
 
-        errorMessageValue(doc) mustBe "Enter a postcode in the right format"
+        errorMessageValue(doc) mustBe "Enter a postcode or select if you live abroad Enter a postcode or select if you live abroad"
       }
     }
   }

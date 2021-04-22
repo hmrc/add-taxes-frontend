@@ -19,12 +19,12 @@ package controllers.sa
 import controllers.Assets.Redirect
 import controllers._
 import controllers.sa.{routes => saRoutes}
-import forms.sa.KnownFactsFormProvider
-import models.sa.KnownFacts
+import forms.sa.KnownFactsPostcodeFormProvider
+import models.sa.KnownFactsPostcode
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.data.Form
+import play.api.data.{Form, FormError}
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
@@ -43,8 +43,8 @@ class PostCodeControllerSpec extends ControllerSpecBase with MockitoSugar with F
   val knownFactsValidator: KnownFactsFormValidator = injector.instanceOf[KnownFactsFormValidator]
   val mockKnownFactsService: KnownFactsService = mock[KnownFactsService]
 
-  val formProvider = new KnownFactsFormProvider(knownFactsValidator, frontendAppConfig)
-  val form = formProvider(true)
+  val formProvider = new KnownFactsPostcodeFormProvider(knownFactsValidator, frontendAppConfig)
+  val form = formProvider()
   val btaOrigin: String = "bta-sa"
 
   def controller(): PostcodeController = {
@@ -59,7 +59,7 @@ class PostCodeControllerSpec extends ControllerSpecBase with MockitoSugar with F
   }
 
 
-  def viewAsString(form: Form[KnownFacts] = form, origin: String): String = {
+  def viewAsString(form: Form[KnownFactsPostcode] = form, origin: String): String = {
     injector.instanceOf[postcodeKnownFacts].apply(frontendAppConfig, form, origin)(HtmlFormat.empty)(fakeRequest, messages).toString
   }
   def viewAsString(origin: String): String = {
@@ -86,11 +86,10 @@ class PostCodeControllerSpec extends ControllerSpecBase with MockitoSugar with F
 
     "return bad request if postcode and isAbroad provided" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("postcode", "AA1 1AA"), ("isAbroad", "Y"))
-      val boundForm = form.bind(Map("postcode" -> "AA1 1AA", "isAbroad" -> "Y"))
       val result = controller().onSubmit(btaOrigin)(postRequest)
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm, btaOrigin)
+      contentAsString(result) mustBe viewAsString(form.withError(FormError("postcode", "enterKnownFacts.postcode.error.required")).withError(FormError("isAbroad", "enterKnownFacts.postcode.error.required")), btaOrigin)
     }
 
 
