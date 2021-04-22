@@ -16,9 +16,19 @@
 
 @(
  field: Field,
+ label: Option[String] = None,
  id: String,
  message: String
 )(implicit messages: Messages)
+
+<div class="form-group @if(field.hasErrors){ form-group-error}">
+ <label class="form-label bold" for="@{field.id}">
+  <span>@label</span>
+ </label>
+ @field.errors.map { error =>
+  <span class="error-message margin-bottom-small" id="error-message-@{field.id}-input"><span id="visually-hidden-error-prefix" class="visually-hidden">@messages("error.message.prefix")</span> @messages(error.message, error.args: _*)</span>
+ }
+
 <div class="form-group">
  <fieldset>
   <div class="multiple-choice">
@@ -26,6 +36,7 @@
    <label for="@id">@message</label>
   </div>
  </fieldset>
+</div>
 </div>
 
 

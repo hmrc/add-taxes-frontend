@@ -18,9 +18,10 @@ package controllers.sa
 
 import config.FrontendAppConfig
 import controllers.actions._
-import forms.sa.KnownFactsFormProvider
+import forms.sa.KnownFactsNinoFormProvider
+
 import javax.inject.Inject
-import models.sa.KnownFacts
+import models.sa.{KnownFacts, KnownFactsNino, KnownFactsPostcode}
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -36,14 +37,14 @@ class KnownFactsController @Inject()(
                                       mcc: MessagesControllerComponents,
                                       authenticate: AuthAction,
                                       serviceInfoData: ServiceInfoAction,
-                                      formProvider: KnownFactsFormProvider,
+                                      formProvider: KnownFactsNinoFormProvider,
                                       knownFactsPage: knownFacts,
                                       knownFactsService: KnownFactsService
                                     )
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = mcc.executionContext
-  val form: Form[KnownFacts] = formProvider()
+  val form: Form[KnownFactsNino] = formProvider()
 
   def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
@@ -53,10 +54,10 @@ class KnownFactsController @Inject()(
   def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
       form.bindFromRequest().fold(
-        (formWithErrors: Form[KnownFacts]) => {
+        (formWithErrors: Form[KnownFactsNino]) => {
           Future(BadRequest(knownFactsPage(appConfig, formWithErrors, origin)(request.serviceInfoContent)))
         },
-        value => knownFactsService.knownFactsLocation(value, origin)
+        value => knownFactsService.knownFactsLocation(KnownFacts(None, Some(value.kfNino), None), origin)
       )
   }
 

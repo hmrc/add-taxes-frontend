@@ -16,8 +16,8 @@
 
 package views.sa
 
-import forms.sa.KnownFactsFormProvider
-import models.sa.{AreYouSelfEmployed, KnownFacts}
+import forms.sa.KnownFactsNinoFormProvider
+import models.sa.{AreYouSelfEmployed, KnownFacts, KnownFactsNino}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import utils.KnownFactsFormValidator
@@ -30,21 +30,21 @@ class KnownFactsViewSpec extends ViewBehaviours {
   val mockKnownFactsValidator: KnownFactsFormValidator = injector.instanceOf[KnownFactsFormValidator]
   val btaOrigin: String = "bta-sa"
 
-  val formProvider = new KnownFactsFormProvider(mockKnownFactsValidator, frontendAppConfig)
-  val form: Form[KnownFacts] = formProvider()
+  val formProvider = new KnownFactsNinoFormProvider(mockKnownFactsValidator, frontendAppConfig)
+  val form: Form[KnownFactsNino] = formProvider()
   val serviceInfoContent = HtmlFormat.empty
 
 
   def createView: (String) => HtmlFormat.Appendable = (origin: String) =>
     new knownFacts(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(serviceInfoContent)(fakeRequest, messages)
 
-  def createViewUsingForm: (Form[KnownFacts], String) => HtmlFormat.Appendable = (form: Form[KnownFacts], origin: String) =>
+  def createViewUsingForm: (Form[KnownFactsNino], String) => HtmlFormat.Appendable = (form: Form[KnownFactsNino], origin: String) =>
     new knownFacts(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(serviceInfoContent)(fakeRequest, messages)
 
   "knownFacts view" must {
     "contain heading ID" in {
       val doc = asDocument(createView(btaOrigin))
-      doc.getElementsByTag("h1").attr("id") mustBe "known-facts-heading"
+      doc.getElementsByTag("h1").attr("id") mustBe "known-facts-nino-heading"
     }
   }
 

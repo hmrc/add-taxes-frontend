@@ -19,31 +19,23 @@ package forms.sa
 import config.FrontendAppConfig
 import forms.FormErrorHelper
 import forms.mappings.Mappings
-import javax.inject.Inject
-import models.sa.KnownFacts
-import play.api.data.Form
+import models.sa.KnownFactsPostcode
+import play.api.data.{Form, OptionalMapping}
 import play.api.data.Forms._
 import utils.KnownFactsFormValidator
+import javax.inject.Inject
 
-class KnownFactsFormProvider @Inject()(knownFactsFormValidator: KnownFactsFormValidator,
-                                       implicit val appConfig: FrontendAppConfig) extends FormErrorHelper with Mappings {
+class KnownFactsPostcodeFormProvider @Inject()(knownFactsFormValidator: KnownFactsFormValidator,
+                                           implicit val appConfig: FrontendAppConfig) extends FormErrorHelper with Mappings {
 
-  def apply(postcodeView: Boolean = false): Form[KnownFacts] = Form(
-      mapping(
+  def apply(): Form[KnownFactsPostcode] = Form(
+    mapping(
       "postcode" -> optional(of(knownFactsFormValidator.validatePostcode(
         postcodeKey = "postcode",
         blankPostcodeMessageKey = "enterKnownFacts.postcode.error.required",
         invalidPostcodeMessageKey = "enterKnownFacts.postcode.error.invalid"))
       ),
-      "nino" -> optional(of(knownFactsFormValidator.ninoFormatter(
-        ninoKey = "nino",
-        blankMessageKey = "enterKnownFacts.nino.error.required",
-        lengthMessageKey = "enterKnownFacts.nino.error.length",
-        formatMessageKey = "enterKnownFacts.nino.error.format"))
-      ),
-        "isAbroad" -> optional(of(knownFactsFormValidator.stringFormatter(
-          abroadKey = "isAbroad"
-        )))
-  )(KnownFacts.apply)(KnownFacts.unapply)
-        .verifying(knownFactsFormValidator.optionValidator(postcodeView)))
+      "isAbroad" -> optional(of(knownFactsFormValidator.stringFormatter))
+    )(KnownFactsPostcode.apply)(KnownFactsPostcode.unapply)
+  )
 }

@@ -18,10 +18,10 @@ package controllers.sa
 
 import config.FrontendAppConfig
 import controllers.actions.{AuthAction, ServiceInfoAction}
-import forms.sa.KnownFactsFormProvider
+import forms.sa.KnownFactsPostcodeFormProvider
 import javax.inject.Inject
-import models.sa.KnownFacts
-import play.api.data.Form
+import models.sa.{KnownFacts, KnownFactsNino, KnownFactsPostcode}
+import play.api.data.{Form, FormError}
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import service.KnownFactsService
@@ -36,14 +36,14 @@ class PostcodeController@Inject()(
                                    mcc: MessagesControllerComponents,
                                    authenticate: AuthAction,
                                    serviceInfoData: ServiceInfoAction,
-                                   formProvider: KnownFactsFormProvider,
+                                   formProvider: KnownFactsPostcodeFormProvider,
                                    postcodePage: postcodeKnownFacts,
-                                   knownFactsService: KnownFactsService
+                                   knownFactsService: KnownFactsService,
                                  )
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = mcc.executionContext
-  val form: Form[KnownFacts] = formProvider(true)
+  val form: Form[KnownFactsPostcode] = formProvider()
 
   def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
@@ -53,11 +53,15 @@ class PostcodeController@Inject()(
   def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
       form.bindFromRequest().fold(
-        (formWithErrors: Form[KnownFacts]) => {
+        formWithErrors => {
           Future(BadRequest(postcodePage(appConfig, formWithErrors, origin)(request.serviceInfoContent)))
         },
-        value => knownFactsService.knownFactsLocation(value, origin)
+        value =>
+          (value.kfPostcode, value.kfAbroad) match {
+            case (Some(_), Some(_)) => Future(BadRequest(postcodePage(appConfig, form.withError(FormError("postcode", "enterKnownFacts.postcode.error.required")).withError(FormError("isAbroad", "enterKnownFacts.postcode.error.required")), origin)(request.serviceInfoContent)))
+            case (None, None)       => Future(BadRequest(postcodePage(appConfig, form.withError(FormError("postcode", "enterKnownFacts.postcode.error.required")).withError(FormError("isAbroad", "enterKnownFacts.postcode.error.required")), origin)(request.serviceInfoContent)))
+            case _                  => knownFactsService.knownFactsLocation(KnownFacts(value.kfPostcode, None, value.kfAbroad), origin)
+          }
       )
   }
-
 }
