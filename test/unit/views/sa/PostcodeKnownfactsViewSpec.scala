@@ -60,14 +60,14 @@ class PostcodeKnownFactsViewSpec extends ViewBehaviours {
 
         val doc = asDocument(createViewUsingForm(form.bind(Map("postcode" -> "zz11zz", "isAbroad" -> "Y")), btaOrigin))
 
-        errorMessageValue(doc) mustBe "Enter a postcode or select if you live abroad Enter a postcode or select if you live abroad"
+        errorMessageValue(doc) mustBe "Enter a postcode or select I live abroad Enter a postcode or select I live abroad"
       }
       "show error message when input is blank" in {
         val form = formProvider().withError(FormError("postcode", "enterKnownFacts.postcode.error.required")).withError(FormError("isAbroad", "enterKnownFacts.postcode.error.required"))
 
         val doc = asDocument(createViewUsingForm(form.bind(Map("postcode" -> "")), btaOrigin))
 
-        errorMessageValue(doc) mustBe "Enter a postcode or select if you live abroad Enter a postcode or select if you live abroad"
+        errorMessageValue(doc) mustBe "Enter a postcode or select I live abroad Enter a postcode or select I live abroad"
       }
     }
   }

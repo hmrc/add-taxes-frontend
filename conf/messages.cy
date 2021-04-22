@@ -1377,7 +1377,7 @@ enterKnownFacts.nino.error.format = Nodwch rif Yswiriant Gwladol yn y fformat cy
 enterKnownFacts.nino.error.length = Nodwch rif Yswiriant Gwladol yn y fformat cywir, er enghraifft QQ 12 34 56 C
 enterKnownFacts.nino.error.required = Nodwch rif Yswiriant Gwladol yn y fformat cywir, er enghraifft QQ 12 34 56 C
 enterKnownFacts.postcode.error.invalid = Rhowch god post yn y fformat cywir
-enterKnownFacts.postcode.error.required = Rhowch god post neu dewiswch a ydych chi’n byw dramor
+enterKnownFacts.postcode.error.required = Nodwch god post neu dewiswch yr opsiwn ‘rwy’n byw dramor’
 
 #######################################################
 ##  retryKnownFacts
