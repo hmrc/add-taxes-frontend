@@ -38,7 +38,7 @@ class PostcodeController@Inject()(
                                    serviceInfoData: ServiceInfoAction,
                                    formProvider: KnownFactsPostcodeFormProvider,
                                    postcodePage: postcodeKnownFacts,
-                                   knownFactsService: KnownFactsService,
+                                   knownFactsService: KnownFactsService
                                  )
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
