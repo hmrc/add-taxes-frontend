@@ -1374,7 +1374,7 @@ enterKnownFacts.nino.error.format = Enter a National Insurance number in the rig
 enterKnownFacts.nino.error.length = Enter a National Insurance number in the right format, for example QQ 12 34 56 C
 enterKnownFacts.nino.error.required = Enter your National Insurance number
 enterKnownFacts.postcode.error.invalid = Enter a postcode in the right format
-enterKnownFacts.postcode.error.required = Enter a postcode or select if you live abroad
+enterKnownFacts.postcode.error.required = Enter a postcode or select I live abroad
 
 #######################################################
 ##  retryKnownFacts
