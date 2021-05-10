@@ -73,7 +73,7 @@ class ServiceInfoPartialConnectorSpec extends SpecBase with MockitoSugar with Be
   val badRequestResponse: Failure = Failure(Some(Status.BAD_REQUEST))
   val gatewayTimeoutResponse: Failure = Failure(Some(Status.GATEWAY_TIMEOUT))
   val badResponse: HttpResponse = HttpResponse.apply(Status.BAD_REQUEST, "Error Message")
-  implicit val hcwc: HeaderCarrierForPartials = HeaderCarrierForPartials(HeaderCarrier(), "")
+  implicit val hcwc: HeaderCarrierForPartials = HeaderCarrierForPartials(HeaderCarrier())
 
   "The ServiceInfoPartialConnector.getServiceInfoPartial() method" when {
     lazy val btaUrl: String = TestServiceInfoPartialConnector.btaUrl

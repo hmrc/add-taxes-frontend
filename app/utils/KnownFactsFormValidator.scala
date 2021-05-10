@@ -17,12 +17,10 @@
 package utils
 
 import config.FrontendAppConfig
-import javax.inject.Inject
-import models.sa.{KnownFacts, KnownFactsPostcode}
 import play.api.data.FormError
 import play.api.data.format.Formatter
-import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
 import uk.gov.hmrc.play.validators.Validators.isPostcodeLengthValid
+import javax.inject.Inject
 
 class KnownFactsFormValidator @Inject()() {
 

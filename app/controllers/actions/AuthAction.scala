@@ -18,6 +18,7 @@ package controllers.actions
 
 import config.FrontendAppConfig
 import controllers.routes
+
 import javax.inject.Inject
 import models.requests.AuthenticatedRequest
 import play.api.mvc.Results._
@@ -26,7 +27,7 @@ import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.retrieve.v2.Retrievals
 import uk.gov.hmrc.auth.core.retrieve.~
 import uk.gov.hmrc.http.{HeaderCarrier, UnauthorizedException}
-import uk.gov.hmrc.play.HeaderCarrierConverter
+import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -40,7 +41,7 @@ class AuthActionImpl @Inject()(val authConnector: AuthConnector,
 
   override def invokeBlock[A](request: Request[A], block: AuthenticatedRequest[A] => Future[Result]): Future[Result] = {
     implicit val hc: HeaderCarrier =
-      HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+      HeaderCarrierConverter.fromRequestAndSession(request.withHeaders(request.headers), request.session)
 
     authorised().retrieve(Retrievals.externalId and Retrievals.allEnrolments and Retrievals.affinityGroup
       and Retrievals.groupIdentifier and Retrievals.credentials and Retrievals.confidenceLevel) {
