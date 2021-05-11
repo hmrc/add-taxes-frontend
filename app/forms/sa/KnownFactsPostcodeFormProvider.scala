@@ -20,9 +20,10 @@ import config.FrontendAppConfig
 import forms.FormErrorHelper
 import forms.mappings.Mappings
 import models.sa.KnownFactsPostcode
-import play.api.data.{Form, OptionalMapping}
+import play.api.data.Form
 import play.api.data.Forms._
 import utils.KnownFactsFormValidator
+
 import javax.inject.Inject
 
 class KnownFactsPostcodeFormProvider @Inject()(knownFactsFormValidator: KnownFactsFormValidator,

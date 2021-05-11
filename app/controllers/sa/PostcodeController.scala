@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import forms.sa.KnownFactsPostcodeFormProvider
 import javax.inject.Inject
-import models.sa.{KnownFacts, KnownFactsNino, KnownFactsPostcode}
+import models.sa.{KnownFacts, KnownFactsPostcode}
 import play.api.data.{Form, FormError}
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}

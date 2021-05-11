@@ -19,9 +19,8 @@ package controllers.sa
 import config.FrontendAppConfig
 import controllers.actions._
 import forms.sa.KnownFactsNinoFormProvider
-
 import javax.inject.Inject
-import models.sa.{KnownFacts, KnownFactsNino, KnownFactsPostcode}
+import models.sa.{KnownFacts, KnownFactsNino}
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
