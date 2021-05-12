@@ -27,13 +27,14 @@ import scala.concurrent.Future
 
 class DataCacheConnector @Inject()(val sessionRepository: SessionRepository, val cascadeUpsert: CascadeUpsert) {
 
-  def save[A](cacheId: String, key: String, value: A)(implicit fmt: Format[A]): Future[CacheMap] =
+  def save[A](cacheId: String, key: String, value: A)(implicit fmt: Format[A]): Future[CacheMap] = {
     sessionRepository().get(cacheId).flatMap { optionalCacheMap =>
       val updatedCacheMap = cascadeUpsert(key, value, optionalCacheMap.getOrElse(new CacheMap(cacheId, Map())))
       sessionRepository().upsert(updatedCacheMap).map { _ =>
         updatedCacheMap
       }
     }
+  }
 
   def remove(cacheId: String, key: String): Future[Boolean] =
     sessionRepository().get(cacheId).flatMap { optionalCacheMap =>
@@ -46,12 +47,13 @@ class DataCacheConnector @Inject()(val sessionRepository: SessionRepository, val
   def fetch(cacheId: String): Future[Option[CacheMap]] =
     sessionRepository().get(cacheId)
 
-  def getEntry[A](cacheId: String, key: String)(implicit fmt: Format[A]): Future[Option[A]] =
+  def getEntry[A](cacheId: String, key: String)(implicit fmt: Format[A]): Future[Option[A]] = {
     fetch(cacheId).map { optionalCacheMap =>
       optionalCacheMap.flatMap { cacheMap =>
         cacheMap.getEntry(key)
       }
     }
+  }
 
   def addToCollection[A](cacheId: String, collectionKey: String, value: A)(implicit fmt: Format[A]): Future[CacheMap] =
     sessionRepository().get(cacheId).flatMap { optionalCacheMap =>
