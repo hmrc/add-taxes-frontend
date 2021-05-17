@@ -46,8 +46,6 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
               payeRoutes.DoYouHavePAYEReferenceController.onPageLoad()
           case (WhatEmployerTaxDoYouWantToAdd.CIS, _) =>
             cisRoutes.IsYourBusinessInUKController.onPageLoad()
-          case (WhatEmployerTaxDoYouWantToAdd.PS, _) =>
-            pensionRoutes.DoYouHavePractitionerIDController.onPageLoad()
           case (WhatEmployerTaxDoYouWantToAdd.ERS, HmrcEnrolmentType.EPAYE()) =>
             getEnrolERSCall(details)
           case (WhatEmployerTaxDoYouWantToAdd.ERS, _) =>

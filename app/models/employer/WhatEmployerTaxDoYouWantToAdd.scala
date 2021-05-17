@@ -24,14 +24,12 @@ object WhatEmployerTaxDoYouWantToAdd {
 
   case object EPAYE extends WithName("epaye") with WhatEmployerTaxDoYouWantToAdd
   case object CIS extends WithName("cis") with WhatEmployerTaxDoYouWantToAdd
-  case object PS extends WithName("pension") with WhatEmployerTaxDoYouWantToAdd
   case object ERS extends WithName("ers") with WhatEmployerTaxDoYouWantToAdd
   case object EIA extends WithName("intermediaries") with WhatEmployerTaxDoYouWantToAdd
 
   val values: Seq[WhatEmployerTaxDoYouWantToAdd] = Seq(
     EPAYE,
     CIS,
-    PS,
     ERS,
     EIA
   )

@@ -22,7 +22,7 @@ import forms.employer.WhatEmployerTaxDoYouWantToAddFormProvider
 import identifiers.WhatEmployerTaxDoYouWantToAddId
 import javax.inject.Inject
 import models.employer.WhatEmployerTaxDoYouWantToAdd
-import models.employer.WhatEmployerTaxDoYouWantToAdd.{EPAYE, PS}
+import models.employer.WhatEmployerTaxDoYouWantToAdd.EPAYE
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
@@ -55,9 +55,8 @@ class WhatEmployerTaxDoYouWantToAddController @Inject()(appConfig: FrontendAppCo
       )
   }
 
-  private def getOptions(enrolments: Enrolments): Seq[RadioOption] = checkPensionScheme(enrolments).intersect(checkEpayeEnrolment(enrolments))
+  private def getOptions(enrolments: Enrolments): Seq[RadioOption] = checkEpayeEnrolment(enrolments)
 
-  private def checkPensionScheme: Enrolments => Seq[RadioOption] = filterOptions(checkPension, PS)
   private def checkEpayeEnrolment: Enrolments => Seq[RadioOption] = filterOptions(checkEPaye, EPAYE)
 
   private def filterOptions(predicate: Enrolments => Boolean, option: WhatEmployerTaxDoYouWantToAdd): Enrolments => Seq[RadioOption] = {
@@ -69,8 +68,6 @@ class WhatEmployerTaxDoYouWantToAddController @Inject()(appConfig: FrontendAppCo
       }
   }
 
-  private def checkPension: Enrolments => Boolean = e => checkPensionPractitionerScheme(e)
-  private def checkPensionPractitionerScheme: Enrolments => Boolean = _.getEnrolment(utils.Enrolments.PP.toString).isDefined
   private def checkEPaye: Enrolments => Boolean = _.getEnrolment(utils.Enrolments.EPAYE.toString).isDefined
 
 }

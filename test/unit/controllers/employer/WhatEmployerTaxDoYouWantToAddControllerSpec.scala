@@ -115,44 +115,5 @@ class WhatEmployerTaxDoYouWantToAddControllerSpec extends ControllerSpecBase {
         contentAsString(result) mustBe view
       }
     }
-
-    "hide Pension scheme option" when {
-      val radioOptions =
-        WhatEmployerTaxDoYouWantToAdd.options.filterNot(_.value == WhatEmployerTaxDoYouWantToAdd.PS.toString)
-
-      "on page load and enrolled for Pension schemes and Administrators" in {
-        val result = controller()(HmrcEnrolmentType.PSA, HmrcEnrolmentType.PP).onPageLoad()(fakeRequest)
-        val view = viewAsString(radioOptions = radioOptions)
-
-        contentAsString(result) mustBe view
-      }
-
-      "on page load and enrolled for Pension schemes" in {
-        val result = controller()(HmrcEnrolmentType.PP).onPageLoad()(fakeRequest)
-        val view = viewAsString(radioOptions = radioOptions)
-
-        contentAsString(result) mustBe view
-      }
-
-      "on page submit and enrolled for Pension schemes" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-        val boundForm = form.bind(Map("value" -> "invalid value"))
-        val view = viewAsString(boundForm, radioOptions)
-
-        val result = controller()(HmrcEnrolmentType.PP).onSubmit()(postRequest)
-
-        contentAsString(result) mustBe view
-      }
-
-      "on page submit and enrolled for Pension schemes and Administrators" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-        val boundForm = form.bind(Map("value" -> "invalid value"))
-        val view = viewAsString(boundForm, radioOptions)
-
-        val result = controller()(HmrcEnrolmentType.PSA, HmrcEnrolmentType.PP).onSubmit()(postRequest)
-
-        contentAsString(result) mustBe view
-      }
-    }
   }
 }

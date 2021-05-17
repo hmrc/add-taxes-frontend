@@ -55,9 +55,10 @@ class OtherTaxesController @Inject()(appConfig: FrontendAppConfig,
       checkGamblingAndGaming,
       checkOilAndFuel,
       checkFulfilmentHouse,
-      checkChildTrustFund
+      checkChildTrustFund,
+      checkPODS
     )
-    val defaultRadioOptions: Seq[RadioOption] = Seq(HousingAndLand, ImportsExports, PODS).map(_.toRadioOption)
+    val defaultRadioOptions: Seq[RadioOption] = Seq(HousingAndLand, ImportsExports).map(_.toRadioOption)
     val unsortedRadioOptions: Seq[RadioOption] = checks.flatMap(_.apply(r.request.enrolments)) ++ defaultRadioOptions
 
     unsortedRadioOptions.sortBy(_.value)
@@ -119,6 +120,12 @@ class OtherTaxesController @Inject()(appConfig: FrontendAppConfig,
   private val checkChildTrustFund: CoreEnrolments => Option[RadioOption] =
     _.getEnrolment(Enrolments.CTF.toString)
       .fold[Option[RadioOption]](Some(ChildTrustFund.toRadioOption))(_ => None)
+
+  private val checkPODS: CoreEnrolments => Option[RadioOption] = e => {
+    val pod = e.getEnrolment(Enrolments.PODSORG.toString)
+    val podpp = e.getEnrolment(Enrolments.PODSPP.toString)
+    if(pod.isDefined && podpp.isDefined) None else Some(PODS.toRadioOption)
+  }
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     request.request.affinityGroup match {
