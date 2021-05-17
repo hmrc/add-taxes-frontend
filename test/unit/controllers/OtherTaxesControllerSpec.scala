@@ -55,6 +55,19 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
     )
   }
 
+  val listOfAllRadioOptions: Seq[RadioOption] = Seq(
+    RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing"),
+    RadioOption("otherTaxes", "automaticExchangeOfInformation"),
+    RadioOption("otherTaxes", "charities"),
+    RadioOption("otherTaxes", "childTrustFund"),
+    RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration"),
+    RadioOption("otherTaxes", "gamblingAndGaming"),
+    RadioOption("otherTaxes", "housingAndLand"),
+    RadioOption("otherTaxes", "importsExports"),
+    RadioOption("otherTaxes", "oilAndFuel"),
+    RadioOption("otherTaxes", "pods")
+  )
+
   def viewAsString(form: Form[_] = form): String =
     new otherTaxes(formWithCSRF, mainTemplate)(frontendAppConfig, form, removeRadioOptionFromList())(HtmlFormat.empty)(fakeRequest, messages).toString
 
@@ -62,18 +75,6 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
     new organisation_only(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(request, messages).toString()
 
   def removeRadioOptionFromList(radioOptionToRemove: Option[RadioOption] = None): Seq[RadioOption] = {
-    val listOfAllRadioOptions: Seq[RadioOption] = Seq(
-      RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing"),
-      RadioOption("otherTaxes", "automaticExchangeOfInformation"),
-      RadioOption("otherTaxes", "charities"),
-      RadioOption("otherTaxes", "childTrustFund"),
-      RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration"),
-      RadioOption("otherTaxes", "gamblingAndGaming"),
-      RadioOption("otherTaxes", "housingAndLand"),
-      RadioOption("otherTaxes", "importsExports"),
-      RadioOption("otherTaxes", "oilAndFuel"),
-      RadioOption("otherTaxes", "pods")
-    )
     radioOptionToRemove.fold(listOfAllRadioOptions)(radioOptionToRemove =>
       listOfAllRadioOptions.filterNot(currentRadioOption => currentRadioOption.equals(radioOptionToRemove)))
   }
@@ -182,6 +183,27 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
       val result = controller().getOptions(request)
 
       result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "oilAndFuel")))
+    }
+
+    "not display Manage pensions if the user has both HMRC-PODS-ORG and HMRC-PODSPP-ORG" in {
+      val request = requestWithEnrolments("HMRC-PODS-ORG", "HMRC-PODSPP-ORG")
+      val result = controller().getOptions(request)
+
+      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "pods")))
+    }
+
+    "not display Manage pensions if the user has HMRC-PODS-ORG" in {
+      val request = requestWithEnrolments("HMRC-PODS-ORG")
+      val result = controller().getOptions(request)
+
+      result mustBe listOfAllRadioOptions
+    }
+
+    "not display Manage pensions if the user has HMRC-PODSPP-ORG" in {
+      val request = requestWithEnrolments("HMRC-PODSPP-ORG")
+      val result = controller().getOptions(request)
+
+      result mustBe listOfAllRadioOptions
     }
 
     "not display Fulfilment House if the user has HMRC-OBTDS-ORG and an EtmpRegistrationNumber" in {
