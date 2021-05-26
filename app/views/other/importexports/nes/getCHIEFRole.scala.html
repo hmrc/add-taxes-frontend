@@ -26,11 +26,11 @@
 @main_template(
     title = messages("getCHIEFRole.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("get-chief-role-nes", "getCHIEFRole.heading")
 
-    <p>@Html(messages("getCHIEFRole.p1", s"""<a id="mail-chief" href="mailto:${appConfig.chiefOperationsEmail}?Subject=CHIEF%20request">${appConfig.chiefOperationsEmail}</a>"""))</p>
+    <p class="govuk-body">@Html(messages("getCHIEFRole.p1", s"""<a class="govuk-link" id="mail-chief" href="mailto:${appConfig.chiefOperationsEmail}?Subject=CHIEF%20request">${appConfig.chiefOperationsEmail}</a>"""))</p>
 
-    <p>@messages("getCHIEFRole.p2")</p>
+    <p class="govuk-body">@messages("getCHIEFRole.p2")</p>
 }

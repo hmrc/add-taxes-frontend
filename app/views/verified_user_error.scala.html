@@ -27,17 +27,17 @@
     appConfig = appConfig,
     bodyClasses = None) {
 
-    <h1 id="verified-unauthorised-heading" class="heading-xlarge">@messages("noAccessVerified.heading")</h1>
+    <h1 id="verified-unauthorised-heading" class="govuk-heading-xl">@messages("noAccessVerified.heading")</h1>
 
-    <p>@messages("noAccessVerified.youNeedTo") <a id="sign-in-different-user-id" href="@appConfig.getBusinessAccountUrl("signoutBTA")">@messages("sign in with a different Government Gateway user ID.")</a></p>
-    <p>@messages("noAccessVerified.contactHMRC")</p>
-    <p class="no-bottom-margin">@messages("noAccessVerified.telephone")</p>
-    <p class="no-top-margin"><strong class="bold-small">@messages("noAccessVerified.telephoneNumber")</strong></p>
-    <p class="no-bottom-margin">@messages("noAccessVerified.textphone")</p>
-    <p class="no-top-margin"><strong class="bold-small">@messages("noAccessVerified.textphoneNumber")</strong></p>
-    <p class="no-bottom-margin">@messages("noAccessVerified.outsideUK")</p>
-    <p class="no-top-margin"><strong class="bold-small">@messages("noAccessVerified.outsideUKNumber")</strong></p>
-    <p class="no-bottom-margin">@messages("noAccessVerified.openingTimes")</p>
-    <p class="no-top-margin">@messages("noAccessVerified.mondayToFriday")</p>
-    <p>@messages("noAccessVerified.ClosedWeekendsAndBankHolidays")</p>
+    <p class="govuk-body">@messages("noAccessVerified.youNeedTo") <a id="sign-in-different-user-id" href="@appConfig.getBusinessAccountUrl("signoutBTA")">@messages("sign in with a different Government Gateway user ID.")</a></p>
+    <p class="govuk-body">@messages("noAccessVerified.contactHMRC")</p>
+    <p class="govuk-body no-bottom-margin">@messages("noAccessVerified.telephone")</p>
+    <p class="govuk-body no-top-margin"><strong class="bold-small">@messages("noAccessVerified.telephoneNumber")</strong></p>
+    <p class="govuk-body no-bottom-margin">@messages("noAccessVerified.textphone")</p>
+    <p class="govuk-body no-top-margin"><strong class="bold-small">@messages("noAccessVerified.textphoneNumber")</strong></p>
+    <p class="govuk-body no-bottom-margin">@messages("noAccessVerified.outsideUK")</p>
+    <p class="govuk-body no-top-margin"><strong class="bold-small">@messages("noAccessVerified.outsideUKNumber")</strong></p>
+    <p class="govuk-body no-bottom-margin">@messages("noAccessVerified.openingTimes")</p>
+    <p class="govuk-body no-top-margin">@messages("noAccessVerified.mondayToFriday")</p>
+    <p class="govuk-body">@messages("noAccessVerified.ClosedWeekendsAndBankHolidays")</p>
 }

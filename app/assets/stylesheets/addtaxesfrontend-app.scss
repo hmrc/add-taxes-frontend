@@ -1,17 +1,7 @@
-@import 'partials/_palette';
-@import 'partials/_focus';
-
-@import 'partials/_variables';
-@import 'partials/_base';
-
-@import 'partials/_forms';
-@import 'partials/_navigation';
-@import 'partials/_tabular-data';
-@import 'partials/_typography';
-
-@import 'partials/_utilities';
-
-@import 'partials/_shame';
+$govuk-assets-path: "/business-account/add-taxes-frontend/assets/lib/govuk-frontend/govuk/assets/";
+$hmrc-assets-path: "/business-account/add-taxes-frontend/assets/lib/hmrc-frontend/hmrc/";;
+@import "lib/govuk-frontend/govuk/all";
+@import "lib/hmrc-frontend/hmrc/all";
 
 .padding-top-medium {
     padding-top: 15px !important;

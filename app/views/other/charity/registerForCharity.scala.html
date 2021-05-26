@@ -26,21 +26,21 @@
 @main_template(
     title = messages("registerForCharity.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent
+    serviceInfoContent = Some(serviceInfoContent)
 ) {
 
     @components.heading("register-for-charity", "registerForCharity.heading")
 
-    <p>
+    <p class="govuk-body">
         @messages("registerForCharity.p1")
     </p>
 
-    <a id="continue"
+    <button data-module="govuk-button" id="continue"
        href='@appConfig.getGovUKUrl("charity")'
-       class="button"
+       class="govuk-button"
        data-journey-click="RegisterCharities:Click:Continue"
        role="button">
 
         @messages("registerForCharity.continue")
-    </a>
+    </button>
 }

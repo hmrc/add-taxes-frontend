@@ -24,9 +24,10 @@ import play.api.mvc.{Call, Request}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.language.LanguageUtils
 import utils.{Enrolments, ForgottenOptions, PortalUrlBuilder}
-
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, Language}
 
 @Singleton
 class FrontendAppConfig @Inject()(val config: ServicesConfig,
@@ -179,6 +180,13 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
       case "ssttp-sa" => ssttpFailUrl
       case _ => getBusinessAccountUrl("home")
     }
+  }
+
+  def languageLinks: Seq[(Language, String)] = {
+    Seq(
+      (En, routes.LanguageSwitchController.switchToLanguage("english").url),
+      (Cy, routes.LanguageSwitchController.switchToLanguage("cymraeg").url)
+    )
   }
 
   private val dtf: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm")

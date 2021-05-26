@@ -26,19 +26,19 @@
 @main_template(
     title = messages("registerRGD.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("register-rgd", "registerRGD.heading")
 
-    <p>@messages("registerRGD.p1")</p>
+    <p class="govuk-body">@messages("registerRGD.p1")</p>
 
-    <a id="continue"
+    <button data-module="govuk-button" id="continue"
        href='@appConfig.getCustomsUrl("gts")'
-       class="button"
+       class="govuk-button"
        role="button"
        data-journey-click="GamblingRGD:Click:Register"
        data-sso="client">
 
         @messages("registerRGD.continue")
-    </a>
+    </button>
 }

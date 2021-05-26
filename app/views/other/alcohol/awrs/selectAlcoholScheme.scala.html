@@ -30,7 +30,7 @@
     title = messages("selectAlcoholScheme.title"),
     appConfig = appConfig,
     form = Some(form),
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @uiForm(action = SelectAlcoholSchemeController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 

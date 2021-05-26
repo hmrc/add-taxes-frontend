@@ -31,7 +31,7 @@
     appConfig = appConfig,
     bodyClasses = None,
     form = Some(form),
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @uiForm(action = HaveYouRegisteredAEOIController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 

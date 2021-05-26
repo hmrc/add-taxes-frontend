@@ -27,17 +27,17 @@
     title = messages("registerEORI.title"),
     appConfig = appConfig,
     bodyClasses = None,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("register-eori-ics", "registerEORI.heading")
 
-    <p>@messages("registerEORIICS.p1")</p>
+    <p class="govuk-body">@messages("registerEORIICS.p1")</p>
 
-    <a id="register-for-ics"
+    <button data-module="govuk-button" id="register-for-ics"
        href='@appConfig.getGovUKUrl("eori")'
-       class="button"
+       class="govuk-button"
        role="button"
        data-journey-click="RegisterICS:Click:Continue">
         @messages("registerEORI.continue")
-    </a>
+    </button>
 }

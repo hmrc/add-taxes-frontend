@@ -27,7 +27,7 @@
 @main_template(
     title = messages("addVATFirst.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent
+    serviceInfoContent = Some(serviceInfoContent)
 ) {
 
     @components.heading("add-vat-first", "addVATFirst.heading")

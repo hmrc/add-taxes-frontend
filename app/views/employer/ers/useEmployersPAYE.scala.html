@@ -26,29 +26,27 @@
 @main_template(
     title = messages("useEmployersPAYE.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent
+    serviceInfoContent = Some(serviceInfoContent)
 ) {
 
     @components.heading("use-employers-paye", "useEmployersPAYE.heading")
 
-<p> @messages("useEmployersPAYE.subtext") </p>
+<p class="govuk-body"> @messages("useEmployersPAYE.subtext") </p>
 
-    <p>
-        <a id="continue"
+
+        <a data-module="govuk-button" id="continue"
            href='@appConfig.getBusinessAccountUrl("signoutBTA")'
-           class="button"
+           class="govuk-button"
            role="button"
            data-journey-click="AddErsOtherAccount:Click:SignIn">
 
             @messages("useEmployersPAYE.continue")
         </a>
-    </p>
 
-    <p>
-        <a id="not-now"
+
+        <a class="govuk-link" id="not-now"
            href='@appConfig.getBusinessAccountUrl("home")'
            data-journey-click="AddErsOtherAccount:Click:NotNow">
             @messages("useEmployersPAYE.notnow")
         </a>
-    </p>
 }

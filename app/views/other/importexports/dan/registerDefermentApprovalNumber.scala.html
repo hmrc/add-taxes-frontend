@@ -26,17 +26,17 @@
 @main_template(
     title = messages("registerDefermentApprovalNumber.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("register-deferment-approval-number", "registerDefermentApprovalNumber.heading")
 
-    <p>@messages("registerDefermentApprovalNumber.p1")</p>
+    <p class="govuk-body">@messages("registerDefermentApprovalNumber.p1")</p>
 
-    <a id="register-for-ddes"
+    <button data-module="govuk-button" id="register-for-ddes"
        href='@appConfig.getGovUKUrl("ddes")'
-       class="button"
+       class="govuk-button"
        role="button"
        data-journey-click="RegisterDDES:Click:Continue">
       @messages("registerDefermentApprovalNumber.continue")
-    </a>
+    </button>
 }

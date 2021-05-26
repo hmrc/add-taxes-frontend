@@ -32,7 +32,7 @@
     title = messages("enterKnownFacts.postcode.title"),
     appConfig = appConfig,
     form = Some(form),
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @uiForm(action = PostcodeController.onSubmit(origin), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
@@ -45,7 +45,7 @@
             formHintMargin= Some(""),
             headingId = "known-facts-heading")
 
-        <p>@messages("enterKnownFacts.postcode.p1")</p>
+        <p class="govuk-body">@messages("enterKnownFacts.postcode.p1")</p>
 
         @components.tick_box(
             field = form("isAbroad"),

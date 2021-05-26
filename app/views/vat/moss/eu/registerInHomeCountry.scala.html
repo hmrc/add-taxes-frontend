@@ -26,14 +26,14 @@
 @main_template(
     title = messages("registerInHomeCountry.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("register-in-home-country", "registerInHomeCountry.heading")
 
-    <p>@messages("registerInHomeCountry.p1")</p>
-    <p>
+    <p class="govuk-body">@messages("registerInHomeCountry.p1")</p>
+    <p class="govuk-body">
         @messages("registerInHomeCountry.p2")
-        <a id="vat_helpline"
+        <a class="govuk-link" id="vat_helpline"
            href='@appConfig.getGovUKUrl("vatEnquiries")'
            data-journey-click="VatMossEu:Click:CallUs">
 

@@ -27,7 +27,7 @@
 @main_template(
     title = messages("registerForPAYE.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent
+    serviceInfoContent = Some(serviceInfoContent)
 ) {
 
     @components.heading("register-for-paye-cis-uk", "registerForPAYE.heading")
