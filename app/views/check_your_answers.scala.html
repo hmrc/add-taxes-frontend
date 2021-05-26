@@ -29,9 +29,9 @@
     appConfig = appConfig,
     bodyClasses = None) {
 
-    <h1 class="heading-xlarge">@messages("checkYourAnswers.heading")</h1>
+    <h1 class="govuk-heading-xl">@messages("checkYourAnswers.heading")</h1>
 
-    <p>@messages("checkYourAnswers.guidance")</p>
+    <p class="govuk-body">@messages("checkYourAnswers.guidance")</p>
 
     @for(section <- answerSections){
         @{

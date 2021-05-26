@@ -26,16 +26,16 @@
 @main_template(
     title = messages("getEoriAndChiefRole.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("get-eori-and-chief-role", "getEoriAndChiefRole.heading")
 
-    <p>@messages("getEoriAndChiefRole.p1")</p>
+    <p class="govuk-body">@messages("getEoriAndChiefRole.p1")</p>
 
-    <ul class="bullets">
+    <ul class="govuk-list govuk-list--bullet">
 
         <li>
-            <a id="eori-request-form"
+            <a class="govuk-link" id="eori-request-form"
                data-journey-click="GetEoriAndChief:Click:EORIRequestForm"
                href='@appConfig.getGovUKUrl("chiefeori")'>@messages("getEoriAndChiefRole.p1.li1")</a>
         </li>
@@ -43,10 +43,10 @@
         <li>
             @Html(
                 messages("getEoriAndChiefRole.p1.li2",
-                s"""<a id="mail-chief" href="mailto:${appConfig.chiefOperationsEmail}?Subject=CHIEF%20request">${appConfig.chiefOperationsEmail}</a>"""))
+                s"""<a class="govuk-link" id="mail-chief" href="mailto:${appConfig.chiefOperationsEmail}?Subject=CHIEF%20request">${appConfig.chiefOperationsEmail}</a>"""))
         </li>
 
     </ul>
 
-    <p>@messages("getEoriAndChiefRole.p2")</p>
+    <p class="govuk-body">@messages("getEoriAndChiefRole.p2")</p>
 }

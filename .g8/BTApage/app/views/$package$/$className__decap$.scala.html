@@ -5,7 +5,7 @@
 @main_template(
     title = messages("$className;format="decap"$.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("$className;format="decap"$.heading")
 }

@@ -26,7 +26,7 @@
 @main_template(
     title = messages("registerTrust.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("register-trust", "registerTrust.heading")
 

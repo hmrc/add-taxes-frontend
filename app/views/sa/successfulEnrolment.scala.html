@@ -25,18 +25,18 @@
 @main_template(
     title = messages("successfulEnrolment.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
         <div class="govuk-box-highlight">
                 @components.heading("sa-successful-enrolment", "successfulEnrolment.heading", "bold-xlarge")
         </div>
-        <p>@Messages("successfulEnrolment.p1")</p>
+        <p class="govuk-body">@Messages("successfulEnrolment.p1")</p>
 
-    <a id="continue"
+    <button data-module="govuk-button" id="continue"
     href= "@appConfig.originServiceRouterEnrolmentSuccess(origin)"
-    class="button"
+    class="govuk-button"
     role="button"
     data-journey-click="$gaEventPrefix$:Click:Continue">
         @messages("site.continue")
-    </a>
+    </button>
 }

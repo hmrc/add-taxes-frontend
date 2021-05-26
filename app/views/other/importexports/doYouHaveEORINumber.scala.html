@@ -31,7 +31,7 @@
     title = messages("economicOperatorsRegistrationAndIdentification.title"),
     appConfig = appConfig,
     bodyClasses = None,
-    serviceInfoContent = serviceInfoContent,
+    serviceInfoContent = Some(serviceInfoContent),
     form = Some(form)) {
 
     @uiForm(action = viewAction.call, 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {

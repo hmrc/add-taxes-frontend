@@ -27,7 +27,7 @@
 @main_template(
     title = messages("requestActivationToken.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("request-activation-token-employer-pension", "requestActivationToken.heading")
 

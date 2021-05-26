@@ -42,20 +42,20 @@
 @main_template(
     title = messages("registerForVAT.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent
+    serviceInfoContent = Some(serviceInfoContent)
 ) {
 
     @components.heading("register-for-vat", "registerForVAT.heading")
 
-    <p>
+    <p class="govuk-body">
         @messages("registerForVAT.p1")
     </p>
 
-    <p>
+    <p class="govuk-body">
         @messages("registerForVAT.p2")
     </p>
 
-    <p>
+    <p class="govuk-body">
         <a id="continue"
            href='@appConfig.getGovIMUrl("registerVAT")'
            class="button"

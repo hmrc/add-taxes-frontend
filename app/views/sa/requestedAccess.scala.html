@@ -25,7 +25,7 @@
 @main_template(
     title = messages("requestedAccess.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
     <div class="govuk-box-highlight">
         @components.heading("requested-access-heading", "requestedAccess.heading", "bold-xlarge")
     </div>

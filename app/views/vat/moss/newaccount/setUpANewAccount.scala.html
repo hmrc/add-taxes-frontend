@@ -26,7 +26,7 @@
 @main_template(
     title = messages("setUpANewAccount.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("set-up-new-account-vat-moss", "setUpANewAccount.heading")
 

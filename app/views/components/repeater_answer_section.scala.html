@@ -19,7 +19,7 @@
 
 @(answerSection: RepeaterAnswerSection)(implicit messages: Messages)
 
-<h2>@messages(answerSection.headingKey)</h2>
+<h2 class="govuk-heading-m">@messages(answerSection.headingKey)</h2>
 
 <ul role="list" class="tabular-data tabular-data--list">
     @components.answer_row(answerSection.relevanceRow)

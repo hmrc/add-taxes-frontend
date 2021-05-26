@@ -26,31 +26,29 @@
 @main_template(
     title = messages("registerForPAYEIntermediaries.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent
+    serviceInfoContent = Some(serviceInfoContent)
 ) {
 
     @components.heading("register-for-paye-intermediaries", "registerForPAYEIntermediaries.heading")
 
-    <p>
+    <p class="govuk-body">
         @messages("registerForPAYEIntermediaries.p1")
     </p>
 
-    <p>
-        <a id="continue"
+
+        <button data-module="govuk-button" id="continue"
            href='@appConfig.getPortalUrl("businessRegistration")'
-           class="button"
+           class="govuk-button"
            role="button"
            data-journey-click="AddIntermediariesRegisterEpaye:Click:Register">
 
             @messages("registerForPAYEIntermediaries.continue")
-        </a>
-    </p>
+        </button>
 
-    <p>
-        <a id="not-now"
+
+        <a class="govuk-link" id="not-now"
            href='@appConfig.getBusinessAccountUrl("home")'
            data-journey-click="AddIntermediariesRegisterEpaye:Click:NotNow">
             @messages("registerForPAYEIntermediaries.notnow")
         </a>
-    </p>
 }

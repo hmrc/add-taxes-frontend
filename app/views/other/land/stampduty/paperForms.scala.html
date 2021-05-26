@@ -26,24 +26,24 @@
 @main_template(
     title = messages("paperForms.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent
+    serviceInfoContent = Some(serviceInfoContent)
 ) {
 
     @components.heading("paper-forms", "paperForms.heading")
 
-    <p>
+    <p class="govuk-body">
         @messages("paperForms.p1")
     </p>
-    <p>
+    <p class="govuk-body">
         @messages("paperForms.p2")
     </p>
 
-    <a id="continue"
+    <button data-module="govuk-button" id="continue"
        href='@appConfig.getGovUKUrl("stampduty")'
-       class="button"
+       class="govuk-button"
        role="button"
        data-journey-click="RegisterSdltPaperForms:Click:Continue">
 
         @messages("paperForms.continue")
-    </a>
+    </button>
 }

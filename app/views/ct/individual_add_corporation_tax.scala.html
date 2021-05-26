@@ -26,20 +26,20 @@
 @main_template(
   title = messages("individualAddCorporationTax.title"),
   appConfig = appConfig,
-  serviceInfoContent = serviceInfoContent) {
-    <h1 id="individual-add-ct" class="heading-large">@messages("individualAddCorporationTax.heading")</h1>
-    <p>@messages("individualAddCorporationTax.p1")</p>
-    <p>@messages("individualAddCorporationTax.p2")</p>
-    <p>
-      <a id="create-account" class="button" role="button"
+  serviceInfoContent = Some(serviceInfoContent)) {
+    <h1 id="individual-add-ct" class="govuk-heading-l">@messages("individualAddCorporationTax.heading")</h1>
+    <p class="govuk-body">@messages("individualAddCorporationTax.p1")</p>
+    <p class="govuk-body">@messages("individualAddCorporationTax.p2")</p>
+
+      <button data-module="govuk-button" id="create-account" class="govuk-button" role="button"
          data-journey-click="link - click:Individual add corporation tax:Sign out and create Organisation account"
          href="@appConfig.getBusinessAccountUrl("signoutToOrganisationCreation")">
         @messages("individualAddCorporationTax.signOut")
-      </a>
-    </p>
-    <p>
-      <a id="not-now" data-journey-click="link - click:Individual add corporation tax:I don’t want to do this right now" href="@appConfig.getBusinessAccountUrl("home")">
+      </button>
+
+
+      <a class="govuk-link" id="not-now" data-journey-click="link - click:Individual add corporation tax:I don’t want to do this right now" href="@appConfig.getBusinessAccountUrl("home")">
         @messages("individualAddCorporationTax.notNow")
       </a>
-    </p>
+
 }

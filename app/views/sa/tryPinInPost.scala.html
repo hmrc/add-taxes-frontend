@@ -26,33 +26,33 @@
 @main_template(
     title = messages("tryPinInPost.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("tryPinInPost", "tryPinInPost.heading")
 
     @if(status.contains("Failed")){
-        <p>@messages("tryPinInPost.p1")
-            <a id="iv-route-link"
+        <p class="govuk-body">@messages("tryPinInPost.p1")
+            <a class="govuk-link" id="iv-route-link"
             data-journey-click="link - click: try to confirm identify online"
             href="@controllers.sa.routes.TryIvController.onPageLoad(origin)">
             @messages("tryPinInPost.linkText")
             </a> @messages("tryPinInPost.p2")
         </p>
-        <p>@messages("tryPinInPost.p3")</p>
+        <p class="govuk-body">@messages("tryPinInPost.p3")</p>
     }
 
     @if(status.contains("LockedOut")){
-        <p>@messages("tryPinInPost.p4")</p>
-        <p>@messages("tryPinInPost.p3")</p>
+        <p class="govuk-body">@messages("tryPinInPost.p4")</p>
+        <p class="govuk-body">@messages("tryPinInPost.p3")</p>
     }
 
     @if(status.contains("MatchingError")){
-        <p>@messages("tryPinInPost.p4")</p>
+        <p class="govuk-body">@messages("tryPinInPost.p4")</p>
     }
 
     @uiForm(action = TryPinInPostController.onSubmit(origin)) {
         <div class="section">
-            <button id="tryPinInPost-button" class="button margin-top-small" data-journey-click="TryPinInPost:Click:" data-journey-target>@messages("tryPinInPost.button")</button>
+            <button data-module="govuk-button" id="tryPinInPost-button" class="govuk-button margin-top-small" data-journey-click="TryPinInPost:Click:" data-journey-target>@messages("tryPinInPost.button")</button>
         </div>
     }
 

@@ -26,17 +26,17 @@
 @main_template(
     title = messages("registerEORI.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("register-eori-ebti", "registerEORI.heading")
 
-    <p>@messages("registerEORIEBTI.p1")</p>
+    <p class="govuk-body">@messages("registerEORIEBTI.p1")</p>
 
-    <a id="continue"
+    <button data-module="govuk-button" id="continue"
        href='@appConfig.getGovUKUrl("eori")'
-       class="button"
+       class="govuk-button"
        role="button"
        data-journey-click="RegisterEBTIEori:Click:Continue">
         @messages("registerEORI.continue")
-    </a>
+    </button>
 }

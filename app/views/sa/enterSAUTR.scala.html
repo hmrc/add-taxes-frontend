@@ -30,7 +30,7 @@
     title = messages("enterSAUTR.title"),
     appConfig = appConfig,
     form = Some(form),
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @uiForm(action = EnterSAUTRController.onSubmit(origin)) {
 

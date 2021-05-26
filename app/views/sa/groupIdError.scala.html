@@ -29,15 +29,15 @@
 @main_template(
     title = messages("useOtherAccount.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
 
         @components.heading("useOtherAccount-heading", "useOtherAccount.heading")
 
-        <p>@messages("useOtherAccount.p1")</p>
-        <p>@messages("useOtherAccount.p2")</p>
-        <p>@messages("useOtherAccount.p3")</p>
-        <p>@messages("useOtherAccount.p4")</p>
+        <p class="govuk-body">@messages("useOtherAccount.p1")</p>
+        <p class="govuk-body">@messages("useOtherAccount.p2")</p>
+        <p class="govuk-body">@messages("useOtherAccount.p3")</p>
+        <p class="govuk-body">@messages("useOtherAccount.p4")</p>
 
-    <a class="button" id="signOut" href="@appConfig.ssoUrl" data-journey-click="SAUseAnotherAccount:Click:SignOut">@messages("site.signout")</a>
+    <button data-module="govuk-button" class="govuk-button" id="signOut" href="@appConfig.ssoUrl" data-journey-click="SAUseAnotherAccount:Click:SignOut">@messages("site.signout")</button>
 }

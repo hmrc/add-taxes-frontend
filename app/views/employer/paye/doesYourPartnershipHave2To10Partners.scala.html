@@ -30,7 +30,7 @@
     title = messages("doesYourPartnershipHave2To10Partners.title"),
     appConfig = appConfig,
     form = Some(form),
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @uiForm(action = DoesYourPartnershipHave2To10PartnersController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
