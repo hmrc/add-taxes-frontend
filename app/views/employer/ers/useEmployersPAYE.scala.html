@@ -34,19 +34,20 @@
 <p class="govuk-body"> @messages("useEmployersPAYE.subtext") </p>
 
 
-        <a data-module="govuk-button" id="continue"
+        <button data-module="govuk-button" id="continue"
            href='@appConfig.getBusinessAccountUrl("signoutBTA")'
            class="govuk-button"
            role="button"
            data-journey-click="AddErsOtherAccount:Click:SignIn">
 
             @messages("useEmployersPAYE.continue")
-        </a>
+        </button>
 
-
+<p>
         <a class="govuk-link" id="not-now"
            href='@appConfig.getBusinessAccountUrl("home")'
            data-journey-click="AddErsOtherAccount:Click:NotNow">
             @messages("useEmployersPAYE.notnow")
         </a>
+</p>
 }

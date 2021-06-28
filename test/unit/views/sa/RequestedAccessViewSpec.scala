@@ -33,7 +33,7 @@ class RequestedAccessViewSpec extends ViewBehaviours {
       "have a continue link, styled like a button, going to the correct destination" in {
         val button = doc.select("#continue")
         button.text() mustBe "Continue"
-        button.attr("class") mustBe "button"
+        button.attr("class") mustBe "govuk-button"
         button.attr("href") mustBe "http://localhost:9020/business-account"
       }
     }
@@ -43,7 +43,7 @@ class RequestedAccessViewSpec extends ViewBehaviours {
       "have a continue link, styled like a button, going to the correct destination" in {
         val button = doc.select("#continue")
         button.text() mustBe "Continue"
-        button.attr("class") mustBe "button"
+        button.attr("class") mustBe "govuk-button"
         button.attr("href") mustBe "http://localhost:9232/personal-account"
       }
     }

@@ -31,31 +31,32 @@
 
     @components.heading("add-vat-moss", "addVATMOSS.heading")
 
-    <p>
+    <p class="govuk-body">
         @messages("addVATMOSS.p1")
     </p>
 
-    <p>
+    <p class="govuk-body">
         @messages("addVATMOSS.p2")
     </p>
 
-    <p class="panel-indent">
+    <p class="govuk-body panel-indent">
         @messages("addVATMOSS.p3")
     </p>
 
     <p>
-        <a id="continue"
+        <button id="continue"
            href='@appConfig.getBusinessAccountUrl("signoutBTA")'
-           class="button"
+           class="govuk-button"
+                data-module="govuk-button"
            role="button"
            data-journey-click="VatMossUkAddToOtherAccount:Click:SignIn">
 
             @messages("addVATMOSS.continue")
-        </a>
+        </button>
     </p>
 
     <p>
-        <a id="not-now"
+        <a class="govuk-link" id="not-now"
            href='@appConfig.getBusinessAccountUrl("home")'
            data-journey-click="VatMossUkAddToOtherAccount:Click:NotNow">
             @messages("addVATMOSS.notnow")

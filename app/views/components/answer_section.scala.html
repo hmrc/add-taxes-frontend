@@ -23,7 +23,7 @@
     <h2 class="govuk-heading-m">@messages(answerSection.headingKey.get)</h2>
 }
 
-<ul class="tabular-data tabular-data--list">
+<ul class="govuk-list tabular-data tabular-data--list">
     @for(row <- answerSection.rows){
         @components.answer_row(row)
     }

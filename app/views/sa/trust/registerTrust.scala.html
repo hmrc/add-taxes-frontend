@@ -30,24 +30,24 @@
 
     @components.heading("register-trust", "registerTrust.heading")
 
-    <p>@messages("registerTrust.p1")</p>
+    <p class="govuk-body">@messages("registerTrust.p1")</p>
 
-    <p>
-        <a id="continue"
+
+        <button id="continue"
            href='@appConfig.getGovUKUrl("trust")'
-           class="button"
+           class="govuk-button"
+           data-module="govuk-button"
            role="button"
            data-journey-click="SaTrustNotRegistered:Click:Register">
 
             @messages("registerTrust.continue")
-        </a>
-    </p>
-    <p>
+        </button>
+
         <a id="not-now"
            href='@appConfig.getBusinessAccountUrl("home")'
            data-journey-click="SaTrustNotRegistered:Click:NotNow">
            @messages("registerTrust.notnow")
         </a>
-    </p>
+
 
 }

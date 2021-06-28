@@ -57,7 +57,7 @@ class OrganisationOnlyViewSpec extends ViewBehaviours {
           "Add business taxes in that account."
         )
 
-        val bulletList = doc.getElementsByClass("list-number").first().getElementsByTag("li").asScala.toList
+        val bulletList = doc.getElementsByClass("govuk-list--number").first().getElementsByTag("li").asScala.toList
 
         bulletList.zip(expectedText).foreach {
           case (element, string) =>

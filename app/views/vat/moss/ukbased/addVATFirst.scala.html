@@ -32,23 +32,24 @@
 
     @components.heading("add-vat-first", "addVATFirst.heading")
 
-    <p>
+    <p class="govuk-body">
         @messages("addVATFirst.p1")
     </p>
 
     <p>
-        <a id="continue"
+        <button id="continue"
            href='@appConfig.emacEnrollmentsUrl(Enrolments.VAT)'
-           class="button"
+           class="govuk-button"
+                data-module="govuk-button"
            role="button"
            data-journey-click="VatMossUkAddVatToAccount:Click:AddVat">
 
             @messages("addVATFirst.continue")
-        </a>
+        </button>
     </p>
 
     <p>
-        <a id="not-now"
+        <a class="govuk-link" id="not-now"
            href='@appConfig.getBusinessAccountUrl("home")'
            data-journey-click="VatMossUkAddVatToAccount:Click:NotNow">
             @messages("addVATFirst.notnow")

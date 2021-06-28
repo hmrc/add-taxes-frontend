@@ -31,17 +31,17 @@
 
     @components.heading("setup-new-account-sa-partnership", "setUpNewAccountPartnership.heading")
 
-    <p>@messages("setUpNewAccountPartnership.p1")</p>
+    <p class="govuk-body">@messages("setUpNewAccountPartnership.p1")</p>
 
-    <p>@messages("setUpNewAccountPartnership.p2")</p>
+    <p class="govuk-body">@messages("setUpNewAccountPartnership.p2")</p>
 
-    <ol class="list list-number">
+    <ol class="govuk-list govuk-list--number">
         <li>@messages("setUpNewAccountPartnership.li1")</li>
         <li>@messages("setUpNewAccountPartnership.li2")</li>
         <li>@messages("setUpNewAccountPartnership.li3")</li>
     </ol>
 
-    <p class="panel-indent">@messages("setUpNewAccountPartnership.p3")</p>
+    <p class="govuk-body panel-indent">@messages("setUpNewAccountPartnership.p3")</p>
 
 
         <button data-module="govuk-button" id="continue"
@@ -54,11 +54,12 @@
         </button>
 
 
-
+<p>
         <a id="not-now"
            class="govuk-link"
            href='@appConfig.getBusinessAccountUrl("home")'
            data-journey-click="SetUpAccountaSelfAssessmentpartnership:Click:NotNow">
             @messages("setUpNewAccountPartnership.notnow")
         </a>
+</p>
 }

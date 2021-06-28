@@ -55,22 +55,22 @@
         @messages("registerForVAT.p2")
     </p>
 
-    <p class="govuk-body">
-        <a id="continue"
+
+        <button id="continue"
            href='@appConfig.getGovIMUrl("registerVAT")'
-           class="button"
+           class="govuk-button"
            role="button"
            data-journey-click="VatMossUkNotVatRegistered:Click:Register">
 
             @messages("registerForVAT.continue")
-        </a>
-    </p>
+        </button>
 
-    <p>
-        <a id="not-now"
+
+<p>
+        <a class="govuk-link" id="not-now"
            href='@appConfig.getBusinessAccountUrl("home")'
            data-journey-click="VatMossUkNotVatRegistered:Click:NotNow">
             @messages("registerForVAT.notnow")
         </a>
-    </p>
+</p>
 }

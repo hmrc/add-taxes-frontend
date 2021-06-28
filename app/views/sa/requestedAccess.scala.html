@@ -33,10 +33,11 @@
     <p class="govuk-body">@messages("requestedAccess.p1")</p>
     <p class="govuk-body">@messages("requestedAccess.p2")</p>
 
-    <a id="continue"
+    <button id="continue"
     href='@appConfig.originServiceRouterRequestedAccess(origin)'
-    class="button"
+    class="govuk-button"
+            data-module="govuk-button"
     role="button"
     data-journey-click="AccessRequested - Continue:Click:Continue">
-    @messages("site.continue")</a>
+    @messages("site.continue")</button>
 }

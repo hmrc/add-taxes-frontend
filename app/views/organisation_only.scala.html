@@ -41,21 +41,21 @@
    </ol>
 
    <div class="panel-indent">
-    <p>@messages("organisationOnly.panelIndent")</p>
+    <p class="govuk-body">@messages("organisationOnly.panelIndent")</p>
    </div>
 
-   <p class="padding-top-medium">
+
       <button data-module="govuk-button" id="create-account"
         type="submit"
         class="govuk-button"
         role="button"
         data-journey-click="SetUpAccountbusinesstaxes:Click:Register" href="@appConfig.getBusinessAccountUrl("signoutToOrganisationCreation")">
         @messages("organisationOnly.signOut")
-     </a>
-   </p>
+     </button>
 
-
+<p>
     <a class="govuk-link" id="not-now" data-journey-click="SetUpAccountbusinesstaxes:Click:NotNow" href="@appConfig.getBusinessAccountUrl("home")">
       @messages("organisationOnly.notNow")
     </a>
+</p>
 }

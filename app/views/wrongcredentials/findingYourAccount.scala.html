@@ -15,7 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html.helpers._
+
 @import controllers.routes._
 @import controllers.wrongcredentials.routes._
 @import models.wrongcredentials.FindingYourAccount
@@ -39,7 +39,7 @@
 
         @components.heading("finding-your-account", "findingYourAccount.heading")
 
-        <p>@messages("findingYourAccount.guidance.text")</p>
+        <p class="govuk-body">@messages("findingYourAccount.guidance.text")</p>
 
         @components.input_radio(
             field = form("value"),

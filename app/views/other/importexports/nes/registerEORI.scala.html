@@ -32,11 +32,11 @@
 
     <p class="govuk-body">@messages("registerEORINES.p1")</p>
 
-    <a data-module="govuk-button" id="continue"
+    <button data-module="govuk-button" id="continue"
        href='@appConfig.getGovUKUrl("eori")'
        class="govuk-button"
        role="button"
        data-journey-click="RegisterNESEori:Click:Continue">
         @messages("registerEORI.continue")
-    </a>
+    </button>
 }

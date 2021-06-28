@@ -30,24 +30,24 @@
 
     @components.heading("apply-for-practitioner-id", "applyForPractitionerID.heading")
 
-    <p>@messages("applyForPractitionerID.p1")</p>
+    <p class="govuk-body">@messages("applyForPractitionerID.p1")</p>
 
-    <p>
-        <a id="continue"
+
+        <button id="continue"
            href='@appConfig.getPensionsUrl("apply")'
-           class="button"
+           class="govuk-button"
            role="button"
            data-journey-click="ApplyPractitionerID:Click:Continue">
 
             @messages("applyForPractitionerID.continue")
-        </a>
-    </p>
+        </button>
 
-    <p>
-        <a id="not-now"
+
+<p>
+        <a class="govuk-link" id="not-now"
             href='@appConfig.getBusinessAccountUrl("home")'
             data-journey-click="ApplyPractitionerID:Click:NotNow">
             @messages("applyForPractitionerID.notnow")
         </a>
-    </p>
+</p>
 }

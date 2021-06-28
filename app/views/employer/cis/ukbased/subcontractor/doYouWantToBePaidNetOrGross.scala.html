@@ -15,7 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html.helpers._
+
 @import controllers.employer.cis.ukbased.subcontractor.routes._
 @import models.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGross
 @import play.twirl.api.Html
@@ -27,11 +27,11 @@
 
 @(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
-@anchor = {<a id='CISNetOrGross' href='@appConfig.getGovUKUrl("cisGrossPaymentStatus")'
+@anchor = {<a id='CISNetOrGross' class="govuk-link" href='@appConfig.getGovUKUrl("cisGrossPaymentStatus")'
               data-journey-click='CISNetOrGross:Click:CheckQualified'>@messages("doYouWantToBePaidNetOrGross.subtext2.anchorText")</a>}
 
-@hintText = {<p>@messages("doYouWantToBePaidNetOrGross.subtext1")</p>
-              <p>
+@hintText = {<p class="govuk-body">@messages("doYouWantToBePaidNetOrGross.subtext1")</p>
+              <p class="govuk-body">
                 @Html(messages("doYouWantToBePaidNetOrGross.subtext2", anchor))
               </p>
             }

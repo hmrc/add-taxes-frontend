@@ -10,22 +10,23 @@
 
     @components.heading("$className;format="decap"$.heading")
 
-    <p>
-        <a id="continue"
+
+        <button id="continue"
            href='#'
-           class="button"
+           class="govuk-button"
            role="button"
            data-journey-click="$gaEventPrefix$:Click:$gaEventButtonSuffix$">
 
             @messages("$className;format="decap"$.continue")
-        </a>
-    </p>
+        </button>
 
-    <p>
-        <a id="not-now"
+
+
+<p>
+        <a class="govuk-link" id="not-now"
            href='@appConfig.getBusinessAccountUrl("home")'
            data-journey-click="$gaEventPrefix$:Click:NotNow">
             @messages("$className;format="decap"$.notnow")
         </a>
-    </p>
+</p>
 }
