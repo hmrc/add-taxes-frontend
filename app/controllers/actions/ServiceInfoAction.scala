@@ -19,9 +19,12 @@ package controllers.actions
 import controllers.ServiceInfoController
 import javax.inject.Inject
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
+import play.api.http.HeaderNames
 import play.api.mvc._
 import play.twirl.api.Html
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
+import uk.gov.hmrc.play.par
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -30,20 +33,18 @@ class ServiceInfoAction @Inject()(
   implicit val executionContext: ExecutionContext)
     extends ActionTransformer[AuthenticatedRequest, ServiceInfoRequest] with HeaderCarrierConverter {
 
-
-
   override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
-    implicit val r: Request[A] = request
-    implicit val hc = fromRequestAndSession(r, r.session)
+
+    val header: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
+    implicit val hc: HeaderCarrier = header.copy(extraHeaders = header.headers(Seq(HeaderNames.COOKIE)))
 
     for {
-      partial <- serviceInfoController.serviceInfoPartial(request)(hc, executionContext)
+      partial <- serviceInfoController.serviceInfoPartial(request)
     } yield {
 
       val htmlPartial: Html = partial match {
         case Some(html) => html
-        case _ => println("\n\n\n\n\n\n\n" + "HERE")
-          Html("")
+        case _ => Html("")
       }
 
       ServiceInfoRequest(request, htmlPartial)
