@@ -19,7 +19,6 @@ package utils
 import config.FrontendAppConfig
 import play.api.data.FormError
 import play.api.data.format.Formatter
-import uk.gov.hmrc.play.validators.Validators.isPostcodeLengthValid
 import javax.inject.Inject
 
 class KnownFactsFormValidator @Inject()() {

@@ -14,13 +14,16 @@
  * limitations under the License.
  *@
 
-@import play.twirl.api.HtmlFormat
-@import views.html.layouts.GovUkTemplate
-@import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.hmrcfrontend.views.html.deprecated.helpers.{HmrcStandardFooter, HmrcStandardHeader}
-@import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcLanguageSelect, HmrcReportTechnicalIssue}
-@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, LanguageSelect}
-
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukLayout
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukTemplate
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukHeader
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardFooter
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardHeader
+@import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcReportTechnicalIssue
+@import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcLanguageSelect
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.LanguageSelect
+@import uk.gov.hmrc.hmrcfrontend.views.Aliases.Cy
+@import uk.gov.hmrc.hmrcfrontend.views.Aliases.En
 
 @this(
     govukLayout: GovukLayout,
@@ -30,8 +33,8 @@
     hmrcStandardHeader: HmrcStandardHeader,
     hmrcReportTechnicalIssue: HmrcReportTechnicalIssue,
     hmrcLanguageSelect: HmrcLanguageSelect,
-    hmrcGovUkTemplate: GovUkTemplate
 )
+
 
 @(appConfig: config.FrontendAppConfig,
   title: String,
@@ -53,7 +56,6 @@
 serviceName = Some(messages("site.service_name")),
 serviceUrl = Some(appConfig.getBusinessAccountUrl("home")),
 signOutUrl = Some(appConfig.getBusinessAccountUrl("signout"))
-
 )
 </nav>
 
@@ -122,12 +124,8 @@ appConfig.languageLinks: _*
 <main id="wrapper" class="site-wrapper" role="main" @mainClass.map { mainClassVal => class="@mainClass" } @mainDataAttributes>
 
   <div id="content">
-
     @components.article(headerAndMainContent, false, articleClass)
-
     @sidebar
-
-
   </div>
 </main>
 }

@@ -86,11 +86,6 @@ lazy val microservice = Project(appName, file("."))
     Resolver.bintrayRepo("emueller", "maven")
   ))
   .settings(
-    TwirlKeys.templateImports ++= Seq(
-      "uk.gov.hmrc.play.views.html.helpers._"
-    )
-  )
-  .settings(
     // concatenate js
     Concat.groups := Seq(
       "javascripts/addtaxesfrontend-app.js" -> group(Seq("javascripts/show-hide-content.js", "javascripts/addtaxesfrontend.js"))
