@@ -20,13 +20,14 @@ import config.FrontendAppConfig
 import controllers.actions._
 import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
 import forms.sa.SelectSACategoryFormProvider
+
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.sa.{DoYouHaveSAUTR, SelectSACategory}
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc._
-import service.SelectSaCategoryService
+import service.{CredFinderService, SelectSaCategoryService}
 import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils._
@@ -40,7 +41,9 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
                                            serviceInfoData: ServiceInfoAction,
                                            formProvider: SelectSACategoryFormProvider,
                                            selectSACategory: selectSACategory,
-                                           selectSaCategoryService: SelectSaCategoryService)
+                                           selectSaCategoryService: SelectSaCategoryService,
+                                           credFinderService: CredFinderService
+                                          )
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = mcc.executionContext
@@ -50,6 +53,7 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
   private def onPageLoad(action: Call,
                          origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
+      println("\n\n\n" +  credFinderService.utrCheck(request.request.enrolments.enrolments))
       redirectWhenHasSAAndRT {
         Future.successful(Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments))(request.serviceInfoContent)))
       }
