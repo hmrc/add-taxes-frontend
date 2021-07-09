@@ -27,46 +27,32 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConnector, getBusinessDetailsConnector: GetBusinessDetailsConnector) {
 
-  def utrCheck(enrolments: Set[Enrolment])(implicit hc: HeaderCarrier, ec: ExecutionContext) ={
-    enrolments.map{
-      enrolment => enrolment.key match {
-        case "IR-SA" => val utr = enrolment.getIdentifier("utr")
-          utr match {
-            case Some(value) => utrStuff(value)
-            case _ => None
+  def utrCheck(enrolments: Option[Set[Enrolment]])(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] = {
+    enrolments match {
+      case Some(enrolment) => {enrolment.map {
+        enrolment =>
+          enrolment.key match {
+            case "IR-SA" => val utr = enrolment.getIdentifier("utr")
+              utr match {
+                case Some(value) => mtdITSASignupBool(value)
+                case _ => Future.successful(false)
+              }
+            case _ => Future.successful(false)
           }
-
-        case "HMRC-MTD-IT" => val mtdId = enrolment.getIdentifier("MTDITID").map(_.value).getOrElse("")
-          mtdId
-        }
-      }
-
+      }.head}
+      case _ => Future.successful(false)
     }
-
-
-  def utrStuff(utr: EnrolmentIdentifier)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] = {
-    for {
-      designatoryDetails <- citizensDetailsConnector.getDesignatoryDetails(utr.key, utr.value)
-
-    } yield {
-        designatoryDetailsStuff(designatoryDetails).map(x => x)
-        }
-      }
-
-
-  def mtdIdStuff(mtdId: EnrolmentIdentifier) = {
 
   }
 
-  def designatoryDetailsStuff(designatoryDetails: Option[DesignatoryDetails])(implicit hc: HeaderCarrier, ec: ExecutionContext) = {
-    designatoryDetails match {
-      case Some (details) => for(
-        test <- getBusinessDetailsConnector.getBusinessDetails("nino", details.nino)
-
-      ) yield {
-        test.isDefined
-        }
+  def mtdITSASignupBool(utr: EnrolmentIdentifier)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] = {
+    citizensDetailsConnector.getDesignatoryDetails(utr.key, utr.value).flatMap {
+      case Some(details) => getBusinessDetailsConnector.getBusinessDetails("nino", details.nino).map {
+        case Some(_) => true
+        case _ => false
       }
-     }
-   }
+      case _ => Future.successful(false)
+    }
+  }
+}
 

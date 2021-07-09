@@ -29,6 +29,7 @@ import play.api.i18n.I18nSupport
 import play.api.mvc._
 import service.{CredFinderService, SelectSaCategoryService}
 import uk.gov.hmrc.auth.core.Enrolments
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils._
 import views.html.sa.selectSACategory
@@ -42,7 +43,8 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
                                            formProvider: SelectSACategoryFormProvider,
                                            selectSACategory: selectSACategory,
                                            selectSaCategoryService: SelectSaCategoryService,
-                                           credFinderService: CredFinderService
+                                           credFinderService: CredFinderService,
+
                                           )
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
@@ -53,7 +55,6 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
   private def onPageLoad(action: Call,
                          origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
-      println("\n\n\n" +  credFinderService.utrCheck(request.request.enrolments.enrolments))
       redirectWhenHasSAAndRT {
         Future.successful(Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments))(request.serviceInfoContent)))
       }
@@ -90,18 +91,26 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
 
 
   private def redirectWhenHasSAAndRT[A](noRedirect: => Future[Result])(implicit request: ServiceInfoRequest[A]): Future[Result] = {
-    request.request.enrolments match {
-      case HmrcEnrolmentType.SA() && HmrcEnrolmentType.RegisterTrusts() =>
+    val mtdBool = credFinderService.utrCheck(Some(request.request.enrolments.enrolments))
+    mtdBool.flatMap {
+      case true => {
+        println("\n\n\n\n CHANGE THIS")
         Future.successful(Redirect(DoYouWantToAddPartnerController.onPageLoad()))
-      case _ =>  noRedirect
+      }
+      case false => request.request.enrolments match {
+        case HmrcEnrolmentType.SA() && HmrcEnrolmentType.RegisterTrusts() =>
+          Future.successful(Redirect(DoYouWantToAddPartnerController.onPageLoad()))
+        case _ => noRedirect
+      }
     }
   }
 
-  private def getRadioOptions(enrolments: Enrolments): Set[RadioOption] = {
+  private def getRadioOptions(enrolments: Enrolments)(implicit hc: HeaderCarrier, ec: ExecutionContext) = {
+
     enrolments match {
+      case HmrcEnrolmentType.MTDVAT() => SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
       case HmrcEnrolmentType.SA() => SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
-      case HmrcEnrolmentType.RegisterTrusts() =>
-        SelectSACategory.options.filterNot(_.value == SelectSACategory.Trust.toString)
+      case HmrcEnrolmentType.RegisterTrusts() => SelectSACategory.options.filterNot(_.value == SelectSACategory.Trust.toString)
       case _ => SelectSACategory.options
     }
   }
