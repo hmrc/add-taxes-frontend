@@ -16,15 +16,16 @@
 
 package service
 
-import connectors.CitizensDetailsConnector
+import connectors.{CitizensDetailsConnector, GetBusinessDetailsConnector}
+
 import javax.inject.Inject
 import models.DesignatoryDetails
 import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier}
 import uk.gov.hmrc.http.HeaderCarrier
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
-class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConnector) {
+class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConnector, getBusinessDetailsConnector: GetBusinessDetailsConnector) {
 
   def utrCheck(enrolments: Set[Enrolment])(implicit hc: HeaderCarrier, ec: ExecutionContext) ={
     enrolments.map{
@@ -43,26 +44,29 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
     }
 
 
-  def utrStuff(utr: EnrolmentIdentifier)(implicit hc: HeaderCarrier, ec: ExecutionContext) = {
-    for (
+  def utrStuff(utr: EnrolmentIdentifier)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] = {
+    for {
       designatoryDetails <- citizensDetailsConnector.getDesignatoryDetails(utr.key, utr.value)
 
-    ) yield {
-
+    } yield {
+        designatoryDetailsStuff(designatoryDetails).map(x => x)
+        }
       }
-    }
+
 
   def mtdIdStuff(mtdId: EnrolmentIdentifier) = {
 
   }
 
-  def designatoryDetailsStuff(designatoryDetails: Option[DesignatoryDetails]) = {
+  def designatoryDetailsStuff(designatoryDetails: Option[DesignatoryDetails])(implicit hc: HeaderCarrier, ec: ExecutionContext) = {
     designatoryDetails match {
       case Some (details) => for(
+        test <- getBusinessDetailsConnector.getBusinessDetails("nino", details.nino)
 
       ) yield {
-
+        test.isDefined
+        }
       }
      }
    }
-}
+
