@@ -16,15 +16,53 @@
 
 package service
 
-import uk.gov.hmrc.auth.core.Enrolment
+import connectors.CitizensDetailsConnector
+import javax.inject.Inject
+import models.DesignatoryDetails
+import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier}
+import uk.gov.hmrc.http.HeaderCarrier
 
-class CredFinderService {
+import scala.concurrent.ExecutionContext
 
-  def utrCheck(enrolments: Seq[Enrolment]): String ={
-    enrolments.flatMap{
+class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConnector) {
+
+  def utrCheck(enrolments: Set[Enrolment])(implicit hc: HeaderCarrier, ec: ExecutionContext) ={
+    enrolments.map{
       enrolment => enrolment.key match {
-        case "IR-SA" => enrolment.identifiers.map(x => x.value)
+        case "IR-SA" => val utr = enrolment.getIdentifier("utr")
+          utr match {
+            case Some(value) => utrStuff(value)
+            case _ => None
+          }
+
+        case "HMRC-MTD-IT" => val mtdId = enrolment.getIdentifier("MTDITID").map(_.value).getOrElse("")
+          mtdId
         }
       }
+
     }
+
+
+  def utrStuff(utr: EnrolmentIdentifier)(implicit hc: HeaderCarrier, ec: ExecutionContext) = {
+    for (
+      designatoryDetails <- citizensDetailsConnector.getDesignatoryDetails(utr.key, utr.value)
+
+    ) yield {
+
+      }
+    }
+
+  def mtdIdStuff(mtdId: EnrolmentIdentifier) = {
+
+  }
+
+  def designatoryDetailsStuff(designatoryDetails: Option[DesignatoryDetails]) = {
+    designatoryDetails match {
+      case Some (details) => for(
+
+      ) yield {
+
+      }
+     }
+   }
 }

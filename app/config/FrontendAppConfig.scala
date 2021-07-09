@@ -184,6 +184,24 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   private val dtf: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm")
   def now(): LocalDateTime = LocalDateTime.now()
 
+  def citizensDetailsUrl: String = config.baseUrl("citizen-details")
+  def designatoryDetailsUrl(identifier: String, value: String): String = {
+    if(identifier == "IR-SA") {
+      s"$citizensDetailsUrl/citizen-details/saUtr/$value"
+    } else {
+      s"$citizensDetailsUrl/citizen-details/nino/$value"
+    }
+  }
+
+  def desUrl: String = config.baseUrl("des")
+  def businessDetailsUrl(identifier: String, value: String): String = {
+    if(identifier == "nino") {
+      s"${desUrl}/registration/business-details/nino/$value"
+    } else {
+      s"${desUrl}/registration/business-details/mtdbsa/${value}"
+    }
+  }
+
 }
 
 trait FeatureToggles {
