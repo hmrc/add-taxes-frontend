@@ -95,12 +95,16 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
     mtdBool.flatMap {
       case true => {
         println("\n\n\n\n CHANGE THIS")
+        println("**** Mtd subscription found ****")
         Future.successful(Redirect(DoYouWantToAddPartnerController.onPageLoad()))
       }
-      case false => request.request.enrolments match {
-        case HmrcEnrolmentType.SA() && HmrcEnrolmentType.RegisterTrusts() =>
-          Future.successful(Redirect(DoYouWantToAddPartnerController.onPageLoad()))
-        case _ => noRedirect
+      case false => {
+        println("**** Mtd subscription not found ****")
+        request.request.enrolments match {
+          case HmrcEnrolmentType.SA() && HmrcEnrolmentType.RegisterTrusts() =>
+            Future.successful(Redirect(DoYouWantToAddPartnerController.onPageLoad()))
+          case _ => noRedirect
+        }
       }
     }
   }

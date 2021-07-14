@@ -187,7 +187,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   def citizensDetailsUrl: String = config.baseUrl("citizen-details")
   def designatoryDetailsUrl(identifier: String, value: String): String = {
     if(identifier == "IR-SA") {
-      s"$citizensDetailsUrl/citizen-details/saUtr/$value"
+      s"$citizensDetailsUrl/citizen-details/sautr/$value"
     } else {
       s"$citizensDetailsUrl/citizen-details/nino/$value"
     }

@@ -34,7 +34,7 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
           enrolment.key match {
             case "IR-SA" => val utr = enrolment.getIdentifier("utr")
               utr match {
-                case Some(value) => mtdITSASignupBool(value)
+                case Some(value) => mtdITSASignupBool(enrolment.key, value)
                 case _ => Future.successful(false)
               }
             case _ => Future.successful(false)
@@ -45,8 +45,8 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
 
   }
 
-  def mtdITSASignupBool(utr: EnrolmentIdentifier)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] = {
-    citizensDetailsConnector.getDesignatoryDetails(utr.key, utr.value).flatMap {
+  def mtdITSASignupBool(key: String, utr: EnrolmentIdentifier)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] = {
+    citizensDetailsConnector.getDesignatoryDetails(key, utr.value).flatMap {
       case Some(details) => getBusinessDetailsConnector.getBusinessDetails("nino", details.nino).map {
         case Some(_) => true
         case _ => false
