@@ -20,6 +20,7 @@ import config.FrontendAppConfig
 import controllers.actions._
 import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
 import forms.sa.SelectSACategoryFormProvider
+import controllers.sa.PostcodeController
 
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
@@ -96,7 +97,7 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
       case true => {
         println("\n\n\n\n CHANGE THIS")
         println("**** Mtd subscription found ****")
-        Future.successful(Redirect(DoYouWantToAddPartnerController.onPageLoad()))
+        Future.successful(Redirect(Call(method = "GET", url = "www.google.com")))
       }
       case false => {
         println("**** Mtd subscription not found ****")
@@ -113,7 +114,7 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
 
     enrolments match {
       case HmrcEnrolmentType.MTDVAT() => SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
-      case HmrcEnrolmentType.SA() => SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
+      case HmrcEnrolmentType.SA() && HmrcEnrolmentType.MTDIT() => SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
       case HmrcEnrolmentType.RegisterTrusts() => SelectSACategory.options.filterNot(_.value == SelectSACategory.Trust.toString)
       case _ => SelectSACategory.options
     }

@@ -173,6 +173,8 @@ object HmrcEnrolmentType {
 
   case object MTDVAT extends WithName("HMRC-MTD-VAT") with HmrcEnrolmentType
 
+  case object MTDIT extends WithName("HMRC-MTD-IT") with HmrcEnrolmentType
+
   case object RegisterTrusts extends WithName("IR-SA-TRUST-ORG") with HmrcEnrolmentType
 
   case object SDLT extends WithName("IR-SDLT-ORG") with HmrcEnrolmentType

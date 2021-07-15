@@ -16,18 +16,21 @@
 
 package service
 
-import connectors.{CitizensDetailsConnector, GetBusinessDetailsConnector}
+import connectors.{CitizensDetailsConnector, DataCacheConnector, GetBusinessDetailsConnector}
+import identifiers.EnterSAUTRId
+import models.requests.ServiceInfoRequest
+import models.sa.SAUTR
+import play.api.mvc.AnyContent
 
 import javax.inject.Inject
-import models.DesignatoryDetails
 import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier}
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConnector, getBusinessDetailsConnector: GetBusinessDetailsConnector) {
+class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConnector, getBusinessDetailsConnector: GetBusinessDetailsConnector, dataCacheConnector: DataCacheConnector) {
 
-  def utrCheck(enrolments: Option[Set[Enrolment]])(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] = {
+  def utrCheck(enrolments: Option[Set[Enrolment]])(implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Boolean] = {
     enrolments match {
       case Some(enrolment) => {enrolment.map {
         enrolment =>
@@ -37,7 +40,12 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
                 case Some(value) => mtdITSASignupBool(enrolment.key, value)
                 case _ => Future.successful(false)
               }
-            case _ => Future.successful(false)
+            case _ => val utr: Option[EnrolmentIdentifier] = dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString).map(_.getOrElse(SAUTR("")))
+              utr match {
+                case Some(value) => mtdITSASignupBool(enrolment.key, value)
+                case _ => Future.successful(false)
+              }
+
           }
       }.head}
       case _ => Future.successful(false)
