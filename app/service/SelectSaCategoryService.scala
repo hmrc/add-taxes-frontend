@@ -24,10 +24,12 @@ import controllers.sa.trust.{routes => trustRoutes}
 import controllers.sa.{routes => saRoutes}
 import identifiers.EnterSAUTRId
 import models.requests.ServiceInfoRequest
+import models.sa.DoYouHaveSAUTR.Yes
 import models.sa._
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
+
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -38,29 +40,24 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
   def saCategoryResult(saType: SelectSACategory,
                        doYouHaveSaUtr: DoYouHaveSAUTR,
                        origin: String)(implicit request: ServiceInfoRequest[AnyContent],
-                                                                          ec: ExecutionContext,
-                                                                          hc: HeaderCarrier): Future[Result] = {
+                                       ec: ExecutionContext,
+                                       hc: HeaderCarrier): Future[Result] = {
     val saEnrolment: String = saType match {
       case SelectSACategory.Sa => "IR-SA"
       case SelectSACategory.Partnership => "IR-SA-PART-ORG"
       case SelectSACategory.Trust => "IR-SA-TRUST-ORG"
     }
 
-    val enrolments = request.request.enrolments
 
-    for {utr <-
-           if (enrolments.getEnrolment("IR-SA").isDefined) {
-             dataCacheConnector.save[SAUTR](request.request.credId, EnterSAUTRId.toString, SAUTR(enrolments.getEnrolment("IR-SA").get.key))
-             Future.successful(Some(enrolments.getEnrolment("IR-SA").get.key))
-           } else {
-             dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString).map(_.getOrElse(SAUTR("")))
-           }
-         enrolmentStoreResult <- knownFactsService.enrolmentCheck(request.request.credId, utr, request.request.groupId, saEnrolment, doYouHaveSaUtr)
-         } yield {
+    for {
+      utr <- dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString).map(_.getOrElse(SAUTR("")))
+      enrolmentStoreResult <- knownFactsService.enrolmentCheck(request.request.credId, utr, request.request.groupId, saEnrolment, doYouHaveSaUtr)
+    } yield {
       saType match {
-        case SelectSACategory.Sa => saResult(doYouHaveSaUtr, enrolmentStoreResult, origin)
+        case SelectSACategory.MtdIT       => Future.successful(Redirect(Call(method = "GET", url = "www.google.com")))
+        case SelectSACategory.Sa          => saResult(doYouHaveSaUtr, enrolmentStoreResult, origin)
         case SelectSACategory.Partnership => partnershipResult(doYouHaveSaUtr, enrolmentStoreResult)
-        case SelectSACategory.Trust => trustsResult(doYouHaveSaUtr, enrolmentStoreResult)
+        case SelectSACategory.Trust       => trustsResult(doYouHaveSaUtr, enrolmentStoreResult)
       }
     }
   }

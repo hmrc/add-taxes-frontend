@@ -45,7 +45,6 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
                                            selectSACategory: selectSACategory,
                                            selectSaCategoryService: SelectSaCategoryService,
                                            credFinderService: CredFinderService,
-
                                           )
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
@@ -55,10 +54,7 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
 
   private def onPageLoad(action: Call,
                          origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
-    implicit request =>
-      redirectWhenHasSAAndRT {
-        Future.successful(Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments))(request.serviceInfoContent)))
-      }
+    implicit request => credFinderService.redirectSACategory(form, action, origin)
   }
 
   def onPageLoadHasUTR(origin: Option[String]): Action[AnyContent] = {
@@ -74,49 +70,18 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
                        answer: DoYouHaveSAUTR,
                        origin: String): Action[AnyContent] = {
     (authenticate andThen serviceInfoData).async { implicit request =>
-      redirectWhenHasSAAndRT {
         form.bindFromRequest()
           .fold(
             formWithErrors =>
-              Future(BadRequest(selectSACategory(appConfig, formWithErrors, action, origin, getRadioOptions(request.request.enrolments))(request.serviceInfoContent))),
+              Future(BadRequest(selectSACategory(appConfig, formWithErrors, action, origin, credFinderService.getRadioOptions(request.request.enrolments))(request.serviceInfoContent))),
             value => selectSaCategoryService.saCategoryResult(value, answer, origin)
           )
       }
     }
-  }
 
   def onSubmitHasUTR(origin: String): Action[AnyContent] =
     onSubmit(routes.SelectSACategoryController.onSubmitHasUTR(origin), DoYouHaveSAUTR.Yes, origin)
   def onSubmitNoUTR(): Action[AnyContent] =
     onSubmit(routes.SelectSACategoryController.onSubmitNoUTR(), DoYouHaveSAUTR.No, "bta-sa")
 
-
-  private def redirectWhenHasSAAndRT[A](noRedirect: => Future[Result])(implicit request: ServiceInfoRequest[A]): Future[Result] = {
-    val mtdBool = credFinderService.utrCheck(Some(request.request.enrolments.enrolments))
-    mtdBool.flatMap {
-      case true => {
-        println("\n\n\n\n CHANGE THIS")
-        println("**** Mtd subscription found ****")
-        Future.successful(Redirect(Call(method = "GET", url = "www.google.com")))
-      }
-      case false => {
-        println("**** Mtd subscription not found ****")
-        request.request.enrolments match {
-          case HmrcEnrolmentType.SA() && HmrcEnrolmentType.RegisterTrusts() =>
-            Future.successful(Redirect(DoYouWantToAddPartnerController.onPageLoad()))
-          case _ => noRedirect
-        }
-      }
-    }
-  }
-
-  private def getRadioOptions(enrolments: Enrolments)(implicit hc: HeaderCarrier, ec: ExecutionContext) = {
-
-    enrolments match {
-      case HmrcEnrolmentType.MTDVAT() => SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
-      case HmrcEnrolmentType.SA() && HmrcEnrolmentType.MTDIT() => SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
-      case HmrcEnrolmentType.RegisterTrusts() => SelectSACategory.options.filterNot(_.value == SelectSACategory.Trust.toString)
-      case _ => SelectSACategory.options
-    }
-  }
 }
