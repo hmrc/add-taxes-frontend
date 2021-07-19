@@ -17,6 +17,7 @@
 package controllers.sa
 
 import config.FrontendAppConfig
+import connectors.DataCacheConnector
 import controllers.actions._
 import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
 import forms.sa.SelectSACategoryFormProvider
@@ -45,6 +46,7 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
                                            selectSACategory: selectSACategory,
                                            selectSaCategoryService: SelectSaCategoryService,
                                            credFinderService: CredFinderService,
+                                           dataCacheConnector: DataCacheConnector
                                           )
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
@@ -70,12 +72,21 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
                        answer: DoYouHaveSAUTR,
                        origin: String): Action[AnyContent] = {
     (authenticate andThen serviceInfoData).async { implicit request =>
-        form.bindFromRequest()
-          .fold(
-            formWithErrors =>
-              Future(BadRequest(selectSACategory(appConfig, formWithErrors, action, origin, credFinderService.getRadioOptions(request.request.enrolments))(request.serviceInfoContent))),
-            value => selectSaCategoryService.saCategoryResult(value, answer, origin)
-          )
+      val maybeMtdItBool = for {
+        subscribedForMtdItBool <- dataCacheConnector.getEntry[Boolean](request.request.credId, "mtdItSignupBoolean").map {_.getOrElse(false)}
+      } yield {
+          subscribedForMtdItBool
+      }
+      maybeMtdItBool.flatMap{
+        subscribedForMtdItBool => {
+          form.bindFromRequest()
+            .fold(
+              formWithErrors =>
+                Future(BadRequest(selectSACategory(appConfig, formWithErrors, action, origin, credFinderService.getRadioOptions(request.request.enrolments, subscribedForMtdItBool))(request.serviceInfoContent))),
+              value => selectSaCategoryService.saCategoryResult(value, answer, origin)
+            )
+        }
+      }
       }
     }
 
