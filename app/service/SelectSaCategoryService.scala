@@ -54,7 +54,7 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
       enrolmentStoreResult <- knownFactsService.enrolmentCheck(request.request.credId, utr, request.request.groupId, saEnrolment, doYouHaveSaUtr)
     } yield {
       saType match {
-        case SelectSACategory.MtdIT       => Future.successful(Redirect(Call(method = "GET", url = "www.google.com")))
+        case SelectSACategory.MtdIT       => Redirect(Call(method = "GET", url = "www.google.com"))
         case SelectSACategory.Sa          => saResult(doYouHaveSaUtr, enrolmentStoreResult, origin)
         case SelectSACategory.Partnership => partnershipResult(doYouHaveSaUtr, enrolmentStoreResult)
         case SelectSACategory.Trust       => trustsResult(doYouHaveSaUtr, enrolmentStoreResult)

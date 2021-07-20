@@ -72,8 +72,13 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
     (authenticate andThen serviceInfoData).async { implicit request =>
         form.bindFromRequest()
           .fold(
-            formWithErrors =>
-              Future(BadRequest(selectSACategory(appConfig, formWithErrors, action, origin, credFinderService.getRadioOptions(request.request.enrolments))(request.serviceInfoContent))),
+            formWithErrors => {
+              val enrolments = request.request.enrolments.enrolments
+              credFinderService.mtdItsaSubscribedCheck(enrolments).map {
+                mtdBool => BadRequest(
+                  selectSACategory(appConfig, formWithErrors, action, origin, credFinderService.getRadioOptions(request.request.enrolments, mtdBool))(request.serviceInfoContent))
+              }
+            },
             value => selectSaCategoryService.saCategoryResult(value, answer, origin)
           )
       }

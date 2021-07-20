@@ -177,6 +177,8 @@ object HmrcEnrolmentType {
 
   case object RegisterTrusts extends WithName("IR-SA-TRUST-ORG") with HmrcEnrolmentType
 
+  case object Partnerships extends WithName("IR-SA-PART-ORG") with HmrcEnrolmentType
+
   case object SDLT extends WithName("IR-SDLT-ORG") with HmrcEnrolmentType
 
   case object PSA extends WithName("HMRC-PSA-ORG") with HmrcEnrolmentType

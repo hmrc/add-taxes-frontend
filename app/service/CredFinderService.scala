@@ -19,6 +19,8 @@ package service
 import config.FrontendAppConfig
 import connectors.{CitizensDetailsConnector, DataCacheConnector, GetBusinessDetailsConnector}
 import controllers.Assets.Redirect
+import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
+import controllers.sa.trust.routes.HaveYouRegisteredTrustController
 import identifiers.EnterSAUTRId
 import models.requests.ServiceInfoRequest
 import models.sa.{SAUTR, SelectSACategory}
@@ -26,11 +28,12 @@ import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.{AnyContent, Call, Result}
 import play.api.mvc._
+import play.api.mvc.Results._
 
 import javax.inject.Inject
 import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier, Enrolments}
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.{HmrcEnrolmentType, RadioOption}
+import utils.{&&, HmrcEnrolmentType, RadioOption}
 import views.html.sa.selectSACategory
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -64,30 +67,43 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
   }
 
   def getRadioOptions(enrolments: Enrolments, mtdBool: Boolean): Set[RadioOption] = {
-    enrolments match {
-      case HmrcEnrolmentType.SA() if mtdBool => SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
-      case HmrcEnrolmentType.SA() => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Sa.toString || option.value == SelectSACategory.MtdIT.toString)
-      case HmrcEnrolmentType.RegisterTrusts() =>
-        SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Trust.toString || option.value == SelectSACategory.MtdIT.toString)
-      case _ => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.MtdIT.toString)
+
+    enrolmentTuple(enrolments) match {
+      case (true, _, _, true) => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Sa.toString || option.value == SelectSACategory.MtdIT.toString)
+      case (true, _, _, false) => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Sa.toString)
+      case (_, true, _, _) => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Trust.toString || option.value == SelectSACategory.Sa.toString)
+      case (_, _, true, _) => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Partnership.toString || option.value == SelectSACategory.Sa.toString)
+      case _ if mtdBool => SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
+      case _ => SelectSACategory.options.filterNot(_.value == SelectSACategory.MtdIT.toString)
     }
   }
 
   def redirectSACategory(form: Form[SelectSACategory],
                     action: Call,
                     origin: String)(implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent], messages: Messages): Future[Result] = {
-    val enrolments = request.request.enrolments.enrolments
-    for { mtdBoolCheck <- mtdItsaSubscribedCheck(enrolments)
-    } yield {
-    enrolments.map {
-      enrolment =>
-        enrolment.key match {
-          case "IR-SA" if mtdBoolCheck => Future.successful(Redirect(DoYouWantToAddPartnerController.onPageLoad()))
-          case "IR-SA" && "IR-SA-TRUST-ORG" => Future.successful(Redirect(DoYouWantToAddPartnerController.onPageLoad()))
-          case _ => Future.successful(Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments))(request.serviceInfoContent)))
-        }
+
+    val enrolments = request.request.enrolments
+
+    enrolmentTuple(enrolments) match {
+      case (true, true, false, true) => Future.successful(Redirect(DoYouWantToAddPartnerController.onPageLoad()))
+      case (true, false, true, true) => Future.successful(Redirect(HaveYouRegisteredTrustController.onPageLoad()))
+      case (true, _, _, true) => Future.successful(Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, false))(request.serviceInfoContent)))
+      case (_, _, _, true) => Future.successful(Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, false))(request.serviceInfoContent)))
+      case (_, _, _, _) =>
+        for {mtdBoolCheck <- mtdItsaSubscribedCheck(enrolments.enrolments)
+             } yield {
+          Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, mtdBoolCheck))(request.serviceInfoContent))
         }
     }
+  }
+
+  private def enrolmentTuple(enrolments: Enrolments):(Boolean, Boolean, Boolean, Boolean) = {
+    val saEnrolment: Boolean = enrolments.getEnrolment(HmrcEnrolmentType.SA.toString).isDefined
+    val saRegisterTrustsEnrolment: Boolean = enrolments.getEnrolment(HmrcEnrolmentType.RegisterTrusts.toString).isDefined
+    val saPartnershipsEnrolment: Boolean = enrolments.getEnrolment(HmrcEnrolmentType.Partnerships.toString).isDefined
+    val mtdEnrolment: Boolean = enrolments.getEnrolment(HmrcEnrolmentType.MTDIT.toString).isDefined
+
+    (saEnrolment, saRegisterTrustsEnrolment, saPartnershipsEnrolment, mtdEnrolment)
   }
 }
 
