@@ -42,25 +42,38 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
                        origin: String)(implicit request: ServiceInfoRequest[AnyContent],
                                        ec: ExecutionContext,
                                        hc: HeaderCarrier): Future[Result] = {
-    val saEnrolment: String = saType match {
-      case SelectSACategory.Sa => "IR-SA"
-      case SelectSACategory.Partnership => "IR-SA-PART-ORG"
-      case SelectSACategory.Trust => "IR-SA-TRUST-ORG"
-    }
 
+    def saOnlyCategoryCheck(saType: SelectSACategory,
+                         doYouHaveSaUtr: DoYouHaveSAUTR,
+                         origin: String)(implicit request: ServiceInfoRequest[AnyContent],
+                                         ec: ExecutionContext,
+                                         hc: HeaderCarrier): Future[Result] = {
 
-    for {
-      utr <- dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString).map(_.getOrElse(SAUTR("")))
-      enrolmentStoreResult <- knownFactsService.enrolmentCheck(request.request.credId, utr, request.request.groupId, saEnrolment, doYouHaveSaUtr)
-    } yield {
-      saType match {
-        case SelectSACategory.MtdIT       => Future.successful(Redirect(Call(method = "GET", url = "www.google.com")))
-        case SelectSACategory.Sa          => saResult(doYouHaveSaUtr, enrolmentStoreResult, origin)
-        case SelectSACategory.Partnership => partnershipResult(doYouHaveSaUtr, enrolmentStoreResult)
-        case SelectSACategory.Trust       => trustsResult(doYouHaveSaUtr, enrolmentStoreResult)
+      val saEnrolment: String = saType match {
+        case SelectSACategory.Sa => "IR-SA"
+        case SelectSACategory.Partnership => "IR-SA-PART-ORG"
+        case SelectSACategory.Trust => "IR-SA-TRUST-ORG"
+      }
+
+      for {
+        utr <- dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString).map(_.getOrElse(SAUTR("")))
+        enrolmentStoreResult <- knownFactsService.enrolmentCheck(request.request.credId, utr, request.request.groupId, saEnrolment, doYouHaveSaUtr)
+
+      } yield {
+        saType match {
+          case SelectSACategory.Sa => saResult(doYouHaveSaUtr, enrolmentStoreResult, origin)
+          case SelectSACategory.Partnership => partnershipResult(doYouHaveSaUtr, enrolmentStoreResult)
+          case SelectSACategory.Trust => trustsResult(doYouHaveSaUtr, enrolmentStoreResult)
+        }
       }
     }
+  saType match {
+    case SelectSACategory.MtdIT => Future.successful(Redirect(Call(method = "GET", url = "www.google.com")))
+    case _ => saOnlyCategoryCheck(saType, doYouHaveSaUtr, origin)
+    }
   }
+
+
 
   def saResult(doYouHaveSaUtr: DoYouHaveSAUTR,
                enrolmentStoreResult: EnrolmentCheckResult,
