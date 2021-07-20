@@ -125,11 +125,14 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
   }
 
   private def getRadioOptions(enrolments: Enrolments): Set[RadioOption] = {
+
+    val filteredOptions: Set[RadioOption] = SelectSACategory.options.filterNot(_.value == SelectSACategory.MtdIT.toString)
+
     enrolments match {
-      case HmrcEnrolmentType.SA() => SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
+      case HmrcEnrolmentType.SA() => filteredOptions.filterNot(_.value == SelectSACategory.Sa.toString)
       case HmrcEnrolmentType.RegisterTrusts() =>
-        SelectSACategory.options.filterNot(_.value == SelectSACategory.Trust.toString)
-      case _ => SelectSACategory.options
+        filteredOptions.filterNot(_.value == SelectSACategory.Trust.toString)
+      case _ => filteredOptions
     }
   }
 
