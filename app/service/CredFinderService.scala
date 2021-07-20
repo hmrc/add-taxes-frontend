@@ -18,30 +18,27 @@ package service
 
 import config.FrontendAppConfig
 import connectors.{CitizensDetailsConnector, DataCacheConnector, GetBusinessDetailsConnector}
-import controllers.Assets.Redirect
-import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
 import controllers.sa.trust.routes.HaveYouRegisteredTrustController
-import identifiers.EnterSAUTRId
+import controllers.Assets.{Ok, Redirect}
+import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
 import models.requests.ServiceInfoRequest
-import models.sa.{SAUTR, SelectSACategory}
+import models.sa.SelectSACategory
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.{AnyContent, Call, Result}
-import play.api.mvc._
-import play.api.mvc.Results._
-
-import javax.inject.Inject
 import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier, Enrolments}
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.{&&, HmrcEnrolmentType, RadioOption}
+import utils.{HmrcEnrolmentType, RadioOption}
 import views.html.sa.selectSACategory
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConnector,
                                   getBusinessDetailsConnector: GetBusinessDetailsConnector,
                                   appConfig: FrontendAppConfig,
-                                  selectSACategory: selectSACategory) {
+                                  selectSACategory: selectSACategory,
+                                  dataCacheConnector: DataCacheConnector) {
 
   def mtdItsaSubscribedCheck(enrolments: Set[Enrolment])(implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Boolean] = {
     enrolments.map {
@@ -56,11 +53,16 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
     }.head
   }
 
-  def mtdITSASignupBool(key: String, utr: EnrolmentIdentifier)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] = {
+  def mtdITSASignupBool(key: String, utr: EnrolmentIdentifier)(implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Boolean] = {
     citizensDetailsConnector.getDesignatoryDetails(key, utr.value).flatMap {
       case Some(details) => getBusinessDetailsConnector.getBusinessDetails("nino", details.nino).map {
-        case Some(_) => true
-        case _ => false
+        case Some(_) => {
+          dataCacheConnector.save[Boolean](request.request.credId, "mtdItSignupBoolean", true)
+          true
+        }
+        case _ => {
+          false
+        }
       }
       case _ => Future.successful(false)
     }
@@ -94,8 +96,8 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
              } yield {
           Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, mtdBoolCheck))(request.serviceInfoContent))
         }
+      }
     }
-  }
 
   private def enrolmentTuple(enrolments: Enrolments):(Boolean, Boolean, Boolean, Boolean) = {
     val saEnrolment: Boolean = enrolments.getEnrolment(HmrcEnrolmentType.SA.toString).isDefined
@@ -105,5 +107,6 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
 
     (saEnrolment, saRegisterTrustsEnrolment, saPartnershipsEnrolment, mtdEnrolment)
   }
+
 }
 
