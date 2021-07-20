@@ -58,13 +58,13 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
       for {
         utr <- dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString).map(_.getOrElse(SAUTR("")))
         enrolmentStoreResult <- knownFactsService.enrolmentCheck(request.request.credId, utr, request.request.groupId, saEnrolment, doYouHaveSaUtr)
-
       } yield {
         saType match {
           case SelectSACategory.Sa => saResult(doYouHaveSaUtr, enrolmentStoreResult, origin)
           case SelectSACategory.Partnership => partnershipResult(doYouHaveSaUtr, enrolmentStoreResult)
           case SelectSACategory.Trust => trustsResult(doYouHaveSaUtr, enrolmentStoreResult)
         }
+
       }
     }
   saType match {

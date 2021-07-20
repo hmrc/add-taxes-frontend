@@ -19,19 +19,13 @@ package controllers.sa
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
 import forms.sa.SelectSACategoryFormProvider
-import controllers.sa.PostcodeController
-
 import javax.inject.Inject
-import models.requests.ServiceInfoRequest
 import models.sa.{DoYouHaveSAUTR, SelectSACategory}
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc._
 import service.{CredFinderService, SelectSaCategoryService}
-import uk.gov.hmrc.auth.core.Enrolments
-import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils._
 import views.html.sa.selectSACategory
@@ -77,18 +71,21 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
       } yield {
           subscribedForMtdItBool
       }
-      maybeMtdItBool.flatMap{
+      maybeMtdItBool.flatMap {
         subscribedForMtdItBool => {
           form.bindFromRequest()
             .fold(
               formWithErrors =>
-                Future(BadRequest(selectSACategory(appConfig, formWithErrors, action, origin, credFinderService.getRadioOptions(request.request.enrolments, subscribedForMtdItBool))(request.serviceInfoContent))),
+                Future(
+                  BadRequest(
+                    selectSACategory(appConfig, formWithErrors, action, origin, credFinderService.getRadioOptions(request.request.enrolments, subscribedForMtdItBool))(request.serviceInfoContent))
+                ),
               value => selectSaCategoryService.saCategoryResult(value, answer, origin)
             )
         }
       }
-      }
     }
+  }
 
   def onSubmitHasUTR(origin: String): Action[AnyContent] =
     onSubmit(routes.SelectSACategoryController.onSubmitHasUTR(origin), DoYouHaveSAUTR.Yes, origin)
