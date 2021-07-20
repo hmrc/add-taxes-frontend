@@ -202,6 +202,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
     }
   }
 
+  val accessMtdFeatureSwitch: Boolean = config.getBoolean("feature-toggles.accessMTD")
 }
 
 trait FeatureToggles {

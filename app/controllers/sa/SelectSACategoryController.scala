@@ -19,13 +19,16 @@ package controllers.sa
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
+import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
 import forms.sa.SelectSACategoryFormProvider
 import javax.inject.Inject
+import models.requests.ServiceInfoRequest
 import models.sa.{DoYouHaveSAUTR, SelectSACategory}
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc._
 import service.{CredFinderService, SelectSaCategoryService}
+import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils._
 import views.html.sa.selectSACategory
@@ -50,7 +53,14 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
 
   private def onPageLoad(action: Call,
                          origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
-    implicit request => credFinderService.redirectSACategory(form, action, origin)
+    implicit request =>
+      if(appConfig.accessMtdFeatureSwitch) {
+        credFinderService.redirectSACategory(form, action, origin)
+      } else {
+        redirectWhenHasSAAndRT {
+          Future.successful(Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments))(request.serviceInfoContent)))
+        }
+      }
   }
 
   def onPageLoadHasUTR(origin: Option[String]): Action[AnyContent] = {
@@ -66,20 +76,34 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
                        answer: DoYouHaveSAUTR,
                        origin: String): Action[AnyContent] = {
     (authenticate andThen serviceInfoData).async { implicit request =>
-      val maybeMtdItBool = for {
-        subscribedForMtdItBool <- dataCacheConnector.getEntry[Boolean](request.request.credId, "mtdItSignupBoolean").map {_.getOrElse(false)}
-      } yield {
+
+      if(appConfig.accessMtdFeatureSwitch) {
+        val maybeMtdItBool = for {
+          subscribedForMtdItBool <- dataCacheConnector.getEntry[Boolean](request.request.credId, "mtdItSignupBoolean").map {
+            _.getOrElse(false)
+          }
+        } yield {
           subscribedForMtdItBool
-      }
-      maybeMtdItBool.flatMap {
-        subscribedForMtdItBool => {
+        }
+        maybeMtdItBool.flatMap {
+          subscribedForMtdItBool => {
+            form.bindFromRequest()
+              .fold(
+                formWithErrors =>
+                  Future(
+                    BadRequest(
+                      selectSACategory(appConfig, formWithErrors, action, origin, credFinderService.getRadioOptions(request.request.enrolments, subscribedForMtdItBool))(request.serviceInfoContent))
+                  ),
+                value => selectSaCategoryService.saCategoryResult(value, answer, origin)
+              )
+          }
+        }
+      } else {
+        redirectWhenHasSAAndRT {
           form.bindFromRequest()
             .fold(
               formWithErrors =>
-                Future(
-                  BadRequest(
-                    selectSACategory(appConfig, formWithErrors, action, origin, credFinderService.getRadioOptions(request.request.enrolments, subscribedForMtdItBool))(request.serviceInfoContent))
-                ),
+                Future(BadRequest(selectSACategory(appConfig, formWithErrors, action, origin, getRadioOptions(request.request.enrolments))(request.serviceInfoContent))),
               value => selectSaCategoryService.saCategoryResult(value, answer, origin)
             )
         }
@@ -91,5 +115,22 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
     onSubmit(routes.SelectSACategoryController.onSubmitHasUTR(origin), DoYouHaveSAUTR.Yes, origin)
   def onSubmitNoUTR(): Action[AnyContent] =
     onSubmit(routes.SelectSACategoryController.onSubmitNoUTR(), DoYouHaveSAUTR.No, "bta-sa")
+
+  private def redirectWhenHasSAAndRT[A](noRedirect: => Future[Result])(implicit request: ServiceInfoRequest[A]): Future[Result] = {
+    request.request.enrolments match {
+      case HmrcEnrolmentType.SA() && HmrcEnrolmentType.RegisterTrusts() =>
+        Future.successful(Redirect(DoYouWantToAddPartnerController.onPageLoad()))
+      case _ =>  noRedirect
+    }
+  }
+
+  private def getRadioOptions(enrolments: Enrolments): Set[RadioOption] = {
+    enrolments match {
+      case HmrcEnrolmentType.SA() => SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
+      case HmrcEnrolmentType.RegisterTrusts() =>
+        SelectSACategory.options.filterNot(_.value == SelectSACategory.Trust.toString)
+      case _ => SelectSACategory.options
+    }
+  }
 
 }

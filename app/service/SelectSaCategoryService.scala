@@ -24,7 +24,6 @@ import controllers.sa.trust.{routes => trustRoutes}
 import controllers.sa.{routes => saRoutes}
 import identifiers.EnterSAUTRId
 import models.requests.ServiceInfoRequest
-import models.sa.DoYouHaveSAUTR.Yes
 import models.sa._
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.auth.core.AffinityGroup
@@ -43,11 +42,11 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
                                        ec: ExecutionContext,
                                        hc: HeaderCarrier): Future[Result] = {
 
-    def saOnlyCategoryCheck(saType: SelectSACategory,
-                         doYouHaveSaUtr: DoYouHaveSAUTR,
-                         origin: String)(implicit request: ServiceInfoRequest[AnyContent],
-                                         ec: ExecutionContext,
-                                         hc: HeaderCarrier): Future[Result] = {
+    def saCategoryCheck(saType: SelectSACategory,
+                        doYouHaveSaUtr: DoYouHaveSAUTR,
+                        origin: String)(implicit request: ServiceInfoRequest[AnyContent],
+                                        ec: ExecutionContext,
+                                        hc: HeaderCarrier): Future[Result] = {
 
       val saEnrolment: String = saType match {
         case SelectSACategory.Sa => "IR-SA"
@@ -67,13 +66,16 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
 
       }
     }
-  saType match {
-    case SelectSACategory.MtdIT => Future.successful(Redirect(Call(method = "GET", url = "www.google.com")))
-    case _ => saOnlyCategoryCheck(saType, doYouHaveSaUtr, origin)
+
+    if(appConfig.accessMtdFeatureSwitch) {
+      saType match {
+        case SelectSACategory.MtdIT => Future.successful(Redirect(Call(method = "GET", url = "http://www.google.com")))
+        case _ => saCategoryCheck(saType, doYouHaveSaUtr, origin)
+      }
+    } else {
+      saCategoryCheck(saType, doYouHaveSaUtr, origin)
     }
   }
-
-
 
   def saResult(doYouHaveSaUtr: DoYouHaveSAUTR,
                enrolmentStoreResult: EnrolmentCheckResult,

@@ -49,6 +49,7 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
               case Some(id) => mtdITSASignupBool(enrolment.key, id)
               case _ => Future.successful(false)
             }
+          case _ => Future.successful(false)
         }
     }.head
   }
@@ -72,9 +73,13 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
 
     enrolmentTuple(enrolments) match {
       case (true, _, _, true) => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Sa.toString || option.value == SelectSACategory.MtdIT.toString)
-      case (true, _, _, false) => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Sa.toString)
-      case (_, true, _, _) => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Trust.toString || option.value == SelectSACategory.Sa.toString)
-      case (_, _, true, _) => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Partnership.toString || option.value == SelectSACategory.Sa.toString)
+      case (true, _, _, false) if !mtdBool => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Sa.toString || option.value == SelectSACategory.MtdIT.toString)
+      case(_, true, true, _) if mtdBool => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Partnership.toString || option.value == SelectSACategory.Trust.toString)
+      case (_, true, true, _) => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Partnership.toString || option.value == SelectSACategory.Trust.toString || option.value == SelectSACategory.MtdIT.toString)
+      case (_, true, _, _) if mtdBool => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Trust.toString || option.value == SelectSACategory.Sa.toString)
+      case (_, true, _, _) => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Trust.toString || option.value == SelectSACategory.MtdIT.toString)
+      case (_, _, true, _) if mtdBool => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Partnership.toString || option.value == SelectSACategory.Sa.toString)
+      case (_, _, true, _) => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Partnership.toString || option.value == SelectSACategory.MtdIT.toString)
       case _ if mtdBool => SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
       case _ => SelectSACategory.options.filterNot(_.value == SelectSACategory.MtdIT.toString)
     }

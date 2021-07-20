@@ -29,9 +29,9 @@ object SelectSACategory {
 
   val values: Set[SelectSACategory] = Set(
     Sa,
+    MtdIT,
     Partnership,
-    Trust,
-    MtdIT
+    Trust
   )
 
   val options: Set[RadioOption] = values.map { value =>
