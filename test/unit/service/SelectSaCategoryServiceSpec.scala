@@ -22,22 +22,25 @@ import scala.concurrent.Future
 
 class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach {
 
-
   implicit val hc: HeaderCarrier = HeaderCarrier()
+
   def test(affinityGroup: AffinityGroup) = ServiceInfoRequest[AnyContent](
     AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(affinityGroup), groupId, providerId, confidenceLevel),
     HtmlFormat.empty)
+
   val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
   val mockKnownFactsService: KnownFactsService = mock[KnownFactsService]
   val btaOrigin: String = "bta-sa"
 
   class Setup {
+
     implicit val request = test(Organisation)
+
     val testService: SelectSaCategoryService = new SelectSaCategoryService(
       mockDataCacheConnector,
       mockKnownFactsService,
       frontendAppConfig
-    )
+    ){override val accessMtdFeatureSwitch: Boolean = false}
   }
 
   override def beforeEach(): Unit = {

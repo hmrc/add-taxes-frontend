@@ -49,12 +49,14 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
 
   implicit val ec: ExecutionContext = mcc.executionContext
 
+  val accessMtdFeatureSwitch: Boolean = appConfig.accessMtdFeatureSwitch
+
   val form: Form[SelectSACategory] = formProvider()
 
   private def onPageLoad(action: Call,
                          origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
-      if(appConfig.accessMtdFeatureSwitch) {
+      if(accessMtdFeatureSwitch) {
         credFinderService.redirectSACategory(form, action, origin)
       } else {
         redirectWhenHasSAAndRT {
@@ -77,7 +79,7 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
                        origin: String): Action[AnyContent] = {
     (authenticate andThen serviceInfoData).async { implicit request =>
 
-      if(appConfig.accessMtdFeatureSwitch) {
+      if(accessMtdFeatureSwitch) {
         val maybeMtdItBool = for {
           subscribedForMtdItBool <- dataCacheConnector.getEntry[Boolean](request.request.credId, "mtdItSignupBoolean").map {
             _.getOrElse(false)

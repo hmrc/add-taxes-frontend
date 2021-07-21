@@ -36,6 +36,8 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
                                         knownFactsService: KnownFactsService,
                                         appConfig: FrontendAppConfig) {
 
+  val accessMtdFeatureSwitch: Boolean = appConfig.accessMtdFeatureSwitch
+
   def saCategoryResult(saType: SelectSACategory,
                        doYouHaveSaUtr: DoYouHaveSAUTR,
                        origin: String)(implicit request: ServiceInfoRequest[AnyContent],
@@ -67,7 +69,7 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
       }
     }
 
-    if(appConfig.accessMtdFeatureSwitch) {
+    if(accessMtdFeatureSwitch) {
       saType match {
         case SelectSACategory.MtdIT => Future.successful(Redirect(Call(method = "GET", url = "http://www.google.com")))
         case _ => saCategoryCheck(saType, doYouHaveSaUtr, origin)
