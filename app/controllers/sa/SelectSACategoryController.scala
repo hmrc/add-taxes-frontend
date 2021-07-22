@@ -89,6 +89,7 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
         }
         maybeMtdItBool.flatMap {
           subscribedForMtdItBool => {
+            dataCacheConnector.remove(request.request.credId, "mtdItSignupBoolean")
             form.bindFromRequest()
               .fold(
                 formWithErrors =>

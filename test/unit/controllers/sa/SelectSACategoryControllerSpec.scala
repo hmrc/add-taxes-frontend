@@ -16,7 +16,6 @@
 
 package controllers.sa
 
-import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.Assets.Redirect
 import controllers._

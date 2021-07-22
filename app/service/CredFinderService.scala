@@ -40,30 +40,27 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
                                   selectSACategory: selectSACategory,
                                   dataCacheConnector: DataCacheConnector) {
 
-  def mtdItsaSubscribedCheck(enrolments: Set[Enrolment])(implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Boolean] = {
-    enrolments.map {
-      enrolment =>
-        enrolment.key match {
-          case "IR-SA" => val utr = enrolment.getIdentifier("utr")
-            utr match {
-              case Some(id) => mtdITSASignupBool(enrolment.key, id)
-              case _ => Future.successful(false)
-            }
+  def mtdItsaSubscribedCheck(enrolments: Set[Enrolment])
+                            (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Boolean] = {
+    enrolments.collectFirst{case enrolment: Enrolment if enrolment.key == "IR-SA" => enrolment} match {
+      case Some(saEnrolment) =>
+        saEnrolment.getIdentifier("utr") match {
+          case Some(id) => mtdITSASignupBool(saEnrolment.key, id)
           case _ => Future.successful(false)
         }
-    }.head
+      case None => Future.successful(false)
+    }
   }
 
-  def mtdITSASignupBool(key: String, utr: EnrolmentIdentifier)(implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Boolean] = {
+  def mtdITSASignupBool(key: String, utr: EnrolmentIdentifier)
+                       (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Boolean] = {
     citizensDetailsConnector.getDesignatoryDetails(key, utr.value).flatMap {
       case Some(details) => getBusinessDetailsConnector.getBusinessDetails("nino", details.nino).map {
         case Some(_) => {
           dataCacheConnector.save[Boolean](request.request.credId, "mtdItSignupBoolean", true)
           true
         }
-        case _ => {
-          false
-        }
+        case _ => false
       }
       case _ => Future.successful(false)
     }
@@ -96,12 +93,13 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
       case (true, false, true, true) => Future.successful(Redirect(HaveYouRegisteredTrustController.onPageLoad()))
       case (true, _, _, true) => Future.successful(Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, false))(request.serviceInfoContent)))
       case (_, _, _, true) => Future.successful(Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, false))(request.serviceInfoContent)))
-      case (_, _, _, _) =>
+      case (_, _, _, _) => {
         for {mtdBoolCheck <- mtdItsaSubscribedCheck(enrolments.enrolments)
              } yield {
           Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, mtdBoolCheck))(request.serviceInfoContent))
         }
       }
+    }
     }
 
   private def enrolmentTuple(enrolments: Enrolments):(Boolean, Boolean, Boolean, Boolean) = {
