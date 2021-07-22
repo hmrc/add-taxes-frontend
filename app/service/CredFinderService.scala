@@ -68,18 +68,18 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
 
   def getRadioOptions(enrolments: Enrolments, mtdBool: Boolean): Set[RadioOption] = {
 
-    enrolmentTuple(enrolments) match {
-      case (true, _, _, true) => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Sa.toString || option.value == SelectSACategory.MtdIT.toString)
-      case (true, _, _, false) if !mtdBool => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Sa.toString || option.value == SelectSACategory.MtdIT.toString)
-      case(_, true, true, _) if mtdBool => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Partnership.toString || option.value == SelectSACategory.Trust.toString)
-      case (_, true, true, _) => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Partnership.toString || option.value == SelectSACategory.Trust.toString || option.value == SelectSACategory.MtdIT.toString)
-      case (_, true, _, _) if mtdBool => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Trust.toString || option.value == SelectSACategory.Sa.toString)
-      case (_, true, _, _) => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Trust.toString || option.value == SelectSACategory.MtdIT.toString)
-      case (_, _, true, _) if mtdBool => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Partnership.toString || option.value == SelectSACategory.Sa.toString)
-      case (_, _, true, _) => SelectSACategory.options.filterNot(option => option.value == SelectSACategory.Partnership.toString || option.value == SelectSACategory.MtdIT.toString)
-      case _ if mtdBool => SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
-      case _ => SelectSACategory.options.filterNot(_.value == SelectSACategory.MtdIT.toString)
+    val categories: Set[String] = transformNonITSAEnrolmentsToSelectSACategories(enrolments)
+
+    val activeRadioButtons: Set[RadioOption] = SelectSACategory.options.filterNot(option => categories.contains(option.value))
+
+    val saEnrolment: Boolean = enrolments.getEnrolment(HmrcEnrolmentType.SA.toString).isDefined
+    val mtdEnrolment: Boolean = enrolments.getEnrolment(HmrcEnrolmentType.MTDIT.toString).isDefined
+
+    (mtdEnrolment, saEnrolment, mtdBool) match {
+      case (false, true, true) => activeRadioButtons
+      case _ => activeRadioButtons.filterNot(option => option.value == SelectSACategory.MtdIT.toString)
     }
+
   }
 
   def redirectSACategory(form: Form[SelectSACategory],
@@ -109,6 +109,17 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
     val mtdEnrolment: Boolean = enrolments.getEnrolment(HmrcEnrolmentType.MTDIT.toString).isDefined
 
     (saEnrolment, saRegisterTrustsEnrolment, saPartnershipsEnrolment, mtdEnrolment)
+  }
+
+  private def transformNonITSAEnrolmentsToSelectSACategories(enrolments: Enrolments): Set[String] = {
+
+    enrolments.enrolments.flatMap {
+      case e: Enrolment if e.key == HmrcEnrolmentType.SA.toString => Some(SelectSACategory.Sa.toString)
+      case e: Enrolment if e.key == HmrcEnrolmentType.Partnerships.toString => Some(SelectSACategory.Partnership.toString)
+      case e: Enrolment if e.key == HmrcEnrolmentType.RegisterTrusts.toString => Some(SelectSACategory.Trust.toString)
+      case _ => None
+    }
+
   }
 
 }
