@@ -80,14 +80,7 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
     (authenticate andThen serviceInfoData).async { implicit request =>
 
       if(accessMtdFeatureSwitch) {
-        val maybeMtdItBool = for {
-          subscribedForMtdItBool <- dataCacheConnector.getEntry[Boolean](request.request.credId, "mtdItSignupBoolean").map {
-            _.getOrElse(false)
-          }
-        } yield {
-          subscribedForMtdItBool
-        }
-        maybeMtdItBool.flatMap {
+        retrieveSubscribeForMtdBool(request.request.credId).flatMap {
           subscribedForMtdItBool => {
             dataCacheConnector.remove(request.request.credId, "mtdItSignupBoolean")
             form.bindFromRequest()
@@ -95,7 +88,8 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
                 formWithErrors =>
                   Future(
                     BadRequest(
-                      selectSACategory(appConfig, formWithErrors, action, origin, credFinderService.getRadioOptions(request.request.enrolments, subscribedForMtdItBool))(request.serviceInfoContent))
+                      selectSACategory(appConfig, formWithErrors, action, origin, credFinderService.getRadioOptions(request.request.enrolments, subscribedForMtdItBool))
+                      (request.serviceInfoContent))
                   ),
                 value => selectSaCategoryService.saCategoryResult(value, answer, origin)
               )
@@ -138,5 +132,8 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
       case _ => filteredOptions
     }
   }
+
+  private def retrieveSubscribeForMtdBool(credId: String): Future[Boolean] =
+    dataCacheConnector.getEntry[Boolean](credId, "mtdItSignupBoolean").map{_.getOrElse(false)}
 
 }
