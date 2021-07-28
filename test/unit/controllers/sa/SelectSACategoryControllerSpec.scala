@@ -16,6 +16,7 @@
 
 package controllers.sa
 
+import connectors.DataCacheConnector
 import controllers.Assets.Redirect
 import controllers._
 import forms.sa.SelectSACategoryFormProvider
@@ -27,7 +28,7 @@ import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import service.SelectSaCategoryService
+import service.{CredFinderService, SelectSaCategoryService}
 import utils.{HmrcEnrolmentType, RadioOption}
 import views.html.sa.selectSACategory
 
@@ -39,9 +40,13 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
 
   val formProvider = new SelectSACategoryFormProvider()
   val form: Form[SelectSACategory] = formProvider()
+  val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
   val mockSaCategoryService: SelectSaCategoryService = mock[SelectSaCategoryService]
+  val mockCredFinderService: CredFinderService = mock[CredFinderService]
   val view: selectSACategory = injector.instanceOf[selectSACategory]
   val btaOrigin: String = "bta-sa"
+
+  val radioButtonOptions: Set[RadioOption] = SelectSACategory.options.filterNot(_.value == SelectSACategory.MtdIT.toString)
 
   def controller()(enrolmentTypes: HmrcEnrolmentType*): SelectSACategoryController = {
     new SelectSACategoryController(
@@ -51,16 +56,18 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
       FakeServiceInfoAction(enrolmentTypes: _*),
       formProvider,
       view,
-      mockSaCategoryService
-    )
+      mockSaCategoryService,
+      mockCredFinderService,
+      mockDataCacheConnector
+    ) {override val accessMtdFeatureSwitch: Boolean = false}
   }
 
-  def viewAsString(form: Form[_] = form, radioOptions: Set[RadioOption] = SelectSACategory.options, origin: String): String =
+  def viewAsString(form: Form[_] = form, radioOptions: Set[RadioOption] = radioButtonOptions, origin: String): String =
     new selectSACategory(
       formWithCSRF, mainTemplate
     )(frontendAppConfig, form, routes.SelectSACategoryController.onSubmitHasUTR(origin), origin, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  def viewAsStringNoUTR(form: Form[_] = form, radioOptions: Set[RadioOption] = SelectSACategory.options, origin: String): String =
+  def viewAsStringNoUTR(form: Form[_] = form, radioOptions: Set[RadioOption] = radioButtonOptions, origin: String): String =
     new selectSACategory(
       formWithCSRF, mainTemplate
     )(frontendAppConfig, form, routes.SelectSACategoryController.onSubmitNoUTR(), origin, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
@@ -85,7 +92,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", SelectSACategory.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", radioButtonOptions.head.value))
       val result = controller()().onSubmitHasUTR(btaOrigin)(postRequest)
 
       status(result) mustBe SEE_OTHER
@@ -108,7 +115,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
       status(result) mustBe OK
     }
 
-    for (option <- SelectSACategory.options) {
+    for (option <- radioButtonOptions) {
       s"redirect to next page when '${option.value}' is submitted" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller()().onSubmitHasUTR(btaOrigin)(postRequest)
@@ -119,7 +126,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
     }
 
     "show all options" when {
-      val radioOptions: Set[RadioOption] = SelectSACategory.options
+      val radioOptions: Set[RadioOption] = radioButtonOptions
 
       "on page load and not enrolled for SA or Trust" in {
         val result = controller()().onPageLoadHasUTR(Some(btaOrigin))(fakeRequest)
@@ -141,7 +148,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
 
     "hide 'Individual or sole trader' option" when {
       val radioOptions: Set[RadioOption] =
-        SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
+        radioButtonOptions.filterNot(_.value == SelectSACategory.Sa.toString)
 
       "on page load and enrolled for SA" in {
         val result = controller()(HmrcEnrolmentType.SA).onPageLoadHasUTR(Some(btaOrigin))(fakeRequest)
@@ -163,7 +170,7 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
 
     "hide 'Trust' option" when {
       val radioOptions: Set[RadioOption] =
-        SelectSACategory.options.filterNot(_.value == SelectSACategory.Trust.toString)
+        radioButtonOptions.filterNot(_.value == SelectSACategory.Trust.toString)
 
       "on page load and enrolled for Trust" in {
         val result = controller()(HmrcEnrolmentType.RegisterTrusts).onPageLoadHasUTR(Some(btaOrigin))(fakeRequest)

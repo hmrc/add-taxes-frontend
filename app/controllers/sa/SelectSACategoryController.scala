@@ -17,6 +17,7 @@
 package controllers.sa
 
 import config.FrontendAppConfig
+import connectors.DataCacheConnector
 import controllers.actions._
 import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
 import forms.sa.SelectSACategoryFormProvider
@@ -26,7 +27,7 @@ import models.sa.{DoYouHaveSAUTR, SelectSACategory}
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc._
-import service.SelectSaCategoryService
+import service.{CredFinderService, SelectSaCategoryService}
 import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils._
@@ -40,18 +41,27 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
                                            serviceInfoData: ServiceInfoAction,
                                            formProvider: SelectSACategoryFormProvider,
                                            selectSACategory: selectSACategory,
-                                           selectSaCategoryService: SelectSaCategoryService)
+                                           selectSaCategoryService: SelectSaCategoryService,
+                                           credFinderService: CredFinderService,
+                                           dataCacheConnector: DataCacheConnector
+                                          )
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = mcc.executionContext
+
+  val accessMtdFeatureSwitch: Boolean = appConfig.accessMtdFeatureSwitch
 
   val form: Form[SelectSACategory] = formProvider()
 
   private def onPageLoad(action: Call,
                          origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
-      redirectWhenHasSAAndRT {
-        Future.successful(Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments))(request.serviceInfoContent)))
+      if(accessMtdFeatureSwitch) {
+        credFinderService.redirectSACategory(form, action, origin)
+      } else {
+        redirectWhenHasSAAndRT {
+          Future.successful(Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments))(request.serviceInfoContent)))
+        }
       }
   }
 
@@ -68,13 +78,32 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
                        answer: DoYouHaveSAUTR,
                        origin: String): Action[AnyContent] = {
     (authenticate andThen serviceInfoData).async { implicit request =>
-      redirectWhenHasSAAndRT {
-        form.bindFromRequest()
-          .fold(
-            formWithErrors =>
-              Future(BadRequest(selectSACategory(appConfig, formWithErrors, action, origin, getRadioOptions(request.request.enrolments))(request.serviceInfoContent))),
-            value => selectSaCategoryService.saCategoryResult(value, answer, origin)
-          )
+
+      if(accessMtdFeatureSwitch) {
+        retrieveSubscribeForMtdBool(request.request.credId).flatMap {
+          subscribedForMtdItBool => {
+            dataCacheConnector.remove(request.request.credId, "mtdItSignupBoolean")
+            form.bindFromRequest()
+              .fold(
+                formWithErrors =>
+                  Future(
+                    BadRequest(
+                      selectSACategory(appConfig, formWithErrors, action, origin, credFinderService.getRadioOptions(request.request.enrolments, subscribedForMtdItBool))
+                      (request.serviceInfoContent))
+                  ),
+                value => selectSaCategoryService.saCategoryResult(value, answer, origin)
+              )
+          }
+        }
+      } else {
+        redirectWhenHasSAAndRT {
+          form.bindFromRequest()
+            .fold(
+              formWithErrors =>
+                Future(BadRequest(selectSACategory(appConfig, formWithErrors, action, origin, getRadioOptions(request.request.enrolments))(request.serviceInfoContent))),
+              value => selectSaCategoryService.saCategoryResult(value, answer, origin)
+            )
+        }
       }
     }
   }
@@ -83,7 +112,6 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
     onSubmit(routes.SelectSACategoryController.onSubmitHasUTR(origin), DoYouHaveSAUTR.Yes, origin)
   def onSubmitNoUTR(): Action[AnyContent] =
     onSubmit(routes.SelectSACategoryController.onSubmitNoUTR(), DoYouHaveSAUTR.No, "bta-sa")
-
 
   private def redirectWhenHasSAAndRT[A](noRedirect: => Future[Result])(implicit request: ServiceInfoRequest[A]): Future[Result] = {
     request.request.enrolments match {
@@ -94,11 +122,18 @@ class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
   }
 
   private def getRadioOptions(enrolments: Enrolments): Set[RadioOption] = {
+
+    val filteredOptions: Set[RadioOption] = SelectSACategory.options.filterNot(_.value == SelectSACategory.MtdIT.toString)
+
     enrolments match {
-      case HmrcEnrolmentType.SA() => SelectSACategory.options.filterNot(_.value == SelectSACategory.Sa.toString)
+      case HmrcEnrolmentType.SA() => filteredOptions.filterNot(_.value == SelectSACategory.Sa.toString)
       case HmrcEnrolmentType.RegisterTrusts() =>
-        SelectSACategory.options.filterNot(_.value == SelectSACategory.Trust.toString)
-      case _ => SelectSACategory.options
+        filteredOptions.filterNot(_.value == SelectSACategory.Trust.toString)
+      case _ => filteredOptions
     }
   }
+
+  private def retrieveSubscribeForMtdBool(credId: String): Future[Boolean] =
+    dataCacheConnector.getEntry[Boolean](credId, "mtdItSignupBoolean").map{_.getOrElse(false)}
+
 }
