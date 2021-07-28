@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,8 +12,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(headingId: String, headingKey: String, headingSize: String = "govuk-heading-l")(implicit messages: Messages)
+package models.vat
 
-<h1 id="@headingId" class="@headingSize">@messages(headingKey)</h1>
+import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
+
+object StopOnFirstFail {
+  def apply[T](constraints: Constraint[T]*) = Constraint { field: T =>
+    constraints.toList dropWhile (_(field) == Valid) match {
+      case Nil             => Valid
+      case constraint :: _ => constraint(field)
+    }
+  }
+  def constraint[T](message: String, validator: (T) => Boolean) =
+    Constraint((data: T) => if (validator(data)) Valid else Invalid(Seq(ValidationError(message))))
+}

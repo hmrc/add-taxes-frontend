@@ -53,6 +53,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   lazy val betaFeedbackUrl = s"$contactHost/contact/beta-feedback"
   lazy val betaFeedbackUnauthenticatedUrl = s"$contactHost/contact/beta-feedback-unauthenticated"
   lazy val chiefOperationsEmail: String = config.getString("chief.operations.email")
+  lazy val appName: String = config.getString("appName")
 
   lazy val authUrl: String = config.baseUrl("auth")
 

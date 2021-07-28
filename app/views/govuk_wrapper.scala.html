@@ -120,14 +120,26 @@ appConfig.languageLinks: _*
 <div class="centered-content soft--ends">
   @serviceInfo
 </div>
-
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
 <main id="wrapper" class="site-wrapper" role="main" @mainClass.map { mainClassVal => class="@mainClass" } @mainDataAttributes>
 
   <div id="content">
     @components.article(headerAndMainContent, false, articleClass)
     @sidebar
+
+      @hmrcReportTechnicalIssue(
+      uk.gov.hmrc.hmrcfrontend.views.html.components.ReportTechnicalIssue(
+      appConfig.appName,
+      language = if (messages.lang.code == "cy") Cy else En
+      )
+      )
   </div>
 </main>
+
+</div>
+</div>
+
 }
 
 

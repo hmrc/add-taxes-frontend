@@ -45,6 +45,14 @@ class KnownFactsFormValidator @Inject()() {
     }
   }
 
+  def isValidMaxLength(maxLength: Int)(value: String): Boolean = value.length <= maxLength
+  def isValidMinLength(minLength: Int)(value: String): Boolean = value.length >= minLength
+
+  def isPostcodeLengthValid(value: String) = {
+    val trimmedVal = value.replaceAll(" ", "")
+    isValidMinLength(5)(trimmedVal) && isValidMaxLength(7)(trimmedVal)
+  }
+
   def containsValidPostCodeCharacters(value: String): Boolean =
     postCodeFormat.r.findFirstIn(value).isDefined
 

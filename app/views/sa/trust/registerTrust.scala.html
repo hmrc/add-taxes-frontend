@@ -31,7 +31,7 @@
 
     @components.heading("register-trust", "registerTrust.heading")
 
-    <p class="govuk-body">@messages("registerTrust.p1")</p>
+    <p class="govuk-details">@messages("registerTrust.p1")</p>
 
 
         <button id="continue"
@@ -43,12 +43,12 @@
 
             @messages("registerTrust.continue")
         </button>
-
+<p>
         <a id="not-now"
            href='@appConfig.getBusinessAccountUrl("home")'
            data-journey-click="SaTrustNotRegistered:Click:NotNow">
            @messages("registerTrust.notnow")
         </a>
-
+</p>
 
 }

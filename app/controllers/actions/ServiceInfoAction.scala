@@ -24,7 +24,6 @@ import play.api.mvc._
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
-import uk.gov.hmrc.play.par
 
 import scala.concurrent.{ExecutionContext, Future}
 

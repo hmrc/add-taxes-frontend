@@ -25,11 +25,10 @@ import utils.HmrcEnrolmentType
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class FakeServiceInfoAction(sipc: ServiceInfoController,
-                            hcfpc: HeaderCarrierForPartialsConverter) extends ServiceInfoAction(sipc, hcfpc) {
+class FakeServiceInfoAction(sipc: ServiceInfoController) extends ServiceInfoAction(sipc) {
 
   def apply(enrolments: HmrcEnrolmentType*): FakeServiceInfoActionWithEnrolments =
-    new FakeServiceInfoActionWithEnrolments(enrolments: _*)(sipc, hcfpc)
+    new FakeServiceInfoActionWithEnrolments(enrolments: _*)(sipc)
 
   override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
     Future.successful(ServiceInfoRequest(request, HtmlFormat.empty))
@@ -37,8 +36,7 @@ class FakeServiceInfoAction(sipc: ServiceInfoController,
 }
 
 class FakeServiceInfoActionWithEnrolments(enrolmentTypes: HmrcEnrolmentType*)
-                                         (sipc: ServiceInfoController,
-                                          hcfpc: HeaderCarrierForPartialsConverter) extends ServiceInfoAction(sipc, hcfpc) {
+                                         (sipc: ServiceInfoController) extends ServiceInfoAction(sipc) {
   override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
     val enrolments = Enrolments(enrolmentTypes.map(e => Enrolment(e.toString)).toSet)
     val requestWithEnrolments =

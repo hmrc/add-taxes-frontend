@@ -20,8 +20,8 @@ import javax.inject.Inject
 import forms.FormErrorHelper
 import forms.mappings.Mappings
 import play.api.data.Form
-import uk.gov.hmrc.play.mappers.StopOnFirstFail
 import controllers.vat.VatReferenceChecker
+import models.vat.StopOnFirstFail
 
 class WhatIsYourVATRegNumberFormProvider @Inject() extends FormErrorHelper with Mappings {
 
