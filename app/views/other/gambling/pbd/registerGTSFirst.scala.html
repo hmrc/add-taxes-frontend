@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -26,19 +27,19 @@
 @main_template(
     title = messages("registerGTSFirst.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("register-gts-first", "registerGTSFirst.heading")
 
-    <p>@messages("registerGTSFirst.detail")</p>
+    <p class="govuk-body">@messages("registerGTSFirst.detail")</p>
 
-    <a  id="continue"
+    <button  data-module="govuk-button" id="continue"
         href='@appConfig.getCustomsUrl("gts")'
-        class="button"
+        class="govuk-button"
         role="button"
         data-journey-click="GamblingPBD:Click:Register"
         data-sso="client">
 
         @messages("registerGTSFirst.continue")
-    </a>
+    </button>
 }

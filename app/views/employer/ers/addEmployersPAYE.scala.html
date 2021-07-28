@@ -16,6 +16,7 @@
 
 @import config.FrontendAppConfig
 @import utils.Enrolments._
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -27,29 +28,30 @@
 @main_template(
     title = messages("addEmployersPAYE.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent
+    serviceInfoContent = Some(serviceInfoContent)
 ) {
 
     @components.heading("add-employers-paye", "addEmployersPAYE.heading")
 
-    <p> @messages("addEmployersPAYE.subtext") </p>
+    <p class="govuk-body"> @messages("addEmployersPAYE.subtext") </p>
 
-    <p>
-        <a id="continue"
+
+        <button id="continue"
            href='@appConfig.emacEnrollmentsUrl(EPAYE)'
-           class="button"
+           class="govuk-button"
+                data-module="govuk-button"
            role="button"
            data-journey-click="AddErsNotEnrolledEpaye:Click:Register">
 
             @messages("addEmployersPAYE.continue")
-        </a>
-    </p>
+        </button>
 
-    <p>
-        <a id="not-now"
+
+<p>
+        <a class="govuk-link" id="not-now"
            href='@appConfig.getBusinessAccountUrl("home")'
            data-journey-click="AddErsNotEnrolledEpaye:Click:NotNow">
             @messages("addEmployersPAYE.notnow")
         </a>
-    </p>
+</p>
 }

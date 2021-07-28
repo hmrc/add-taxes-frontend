@@ -81,11 +81,6 @@ lazy val microservice = Project(appName, file("."))
     parallelExecution in IntegrationTest := false
   )
   .settings(
-    TwirlKeys.templateImports ++= Seq(
-      "uk.gov.hmrc.play.views.html.helpers._"
-    )
-  )
-  .settings(
     // concatenate js
     Concat.groups := Seq(
       "javascripts/addtaxesfrontend-app.js" -> group(Seq("javascripts/show-hide-content.js", "javascripts/addtaxesfrontend.js"))

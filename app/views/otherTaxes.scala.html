@@ -15,10 +15,11 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html.helpers._
+
 @import controllers.routes._
-@import models.OtherTaxes
-@import utils.RadioOption
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
+@import play.twirl.api.utils.RadioOption
+
 
 @this(
     uiForm: FormWithCSRF,
@@ -31,7 +32,7 @@
     title = messages("otherTaxes.title"),
     appConfig = appConfig,
     form = Some(form),
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @uiForm(action = OtherTaxesController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 

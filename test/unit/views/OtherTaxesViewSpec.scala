@@ -68,7 +68,7 @@ class OtherTaxesViewSpec extends ViewBehaviours {
         )
 
         val listOfElements =
-          doc.getElementsByClass("form-group").first().getElementsByClass("multiple-choice").asScala.toList
+          doc.getElementsByClass("govuk-form-group").first().getElementsByClass("multiple-choice").asScala.toList
 
         listOfElements.zip(listOfOptions).foreach {
           case (element, answer) => element.text mustBe answer

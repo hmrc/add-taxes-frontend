@@ -15,9 +15,10 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html.helpers._
+
 @import controllers.sa.routes._
 @import models.sa.YourSaIsNotInThisAccount
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -30,7 +31,7 @@
     title = messages("yourSaIsNotInThisAccount.title"),
     appConfig = appConfig,
     form = Some(form),
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @uiForm(action = YourSaIsNotInThisAccountController.onSubmit(origin), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 

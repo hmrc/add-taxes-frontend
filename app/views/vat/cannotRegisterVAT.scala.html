@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -28,22 +29,22 @@
 @main_template(
     title = messages("cannotRegisterVAT.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent,
+    serviceInfoContent = Some(serviceInfoContent),
     articleClass= Some("article-body-width"),
     mainDataAttributes = Some(dataPageId)) {
 
     @components.heading("cannot-register-vat", "cannotRegisterVAT.heading")
 
-    <p class="margin-top-small-medium">@messages("cannotRegisterVAT.p1")</p>
+    <p class="govuk-body margin-top-small-medium">@messages("cannotRegisterVAT.p1")</p>
 
-    <p>@messages("registerForVatByPost.p1")</p>
+    <p class="govuk-body">@messages("registerForVatByPost.p1")</p>
 
-    <a id="continue"
+    <button data-module="govuk-button" id="continue"
        role="button"
        href='@appConfig.getGovUKUrl("VATRegistration")'
-       class="button margin-top-small"
+       class="govuk-button margin-top-small"
        data-journey-click="CannotRegisterVAT:Click:Continue">
 
         @messages("cannotRegisterVAT.continue")
-    </a>
+    </button>
 }

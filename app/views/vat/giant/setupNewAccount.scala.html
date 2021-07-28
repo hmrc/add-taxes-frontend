@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -26,30 +27,30 @@
 @main_template(
     title = messages("setupNewAccount.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent
+    serviceInfoContent = Some(serviceInfoContent)
 ) {
 
     @components.heading("setup-new-account-vat-giant", "setupNewAccount.heading")
 
-    <p>@messages("setupNewAccount.p1")</p>
-    <p>@messages("setupNewAccount.p2")</p>
+    <p class="govuk-body">@messages("setupNewAccount.p1")</p>
+    <p class="govuk-body">@messages("setupNewAccount.p2")</p>
 
-    <p>
-        <a id="continue"
+    <p class="govuk-body">
+        <button data-module="govuk-button" id="continue"
            href='@appConfig.getGGRegistrationUrl("registerOrg")'
-           class="button"
+           class="govuk-button"
            role="button"
            data-journey-click="VatGiant:Click:SignOut">
 
             @messages("setupNewAccount.continue")
-        </a>
+        </button>
     </p>
 
-    <p>
-        <a id="not-now"
+<p>
+        <a class="govuk-link" id="not-now"
            href='@appConfig.getBusinessAccountUrl("home")'
            data-journey-click="VatGiant:Click:NotNow">
             @messages("setupNewAccount.notnow")
         </a>
-    </p>
+</p>
 }

@@ -29,7 +29,7 @@ class SuccessfulEnrolmentViewSpec extends ViewBehaviours {
       "have a continue link" which {
         val continue = doc.getElementById("continue")
         "is styled like a button" in {
-          continue.className() mustBe "button"
+          continue.className() mustBe "govuk-button"
         }
         "has the correct text" in {
           continue.text mustBe "Continue"
@@ -45,7 +45,7 @@ class SuccessfulEnrolmentViewSpec extends ViewBehaviours {
     "have a continue link" which {
       val continue = doc.getElementById("continue")
       "is styled like a button" in {
-        continue.className() mustBe "button"
+        continue.className() mustBe "govuk-button"
       }
       "has the correct text" in {
         continue.text mustBe "Continue"

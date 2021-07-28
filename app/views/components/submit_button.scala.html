@@ -16,6 +16,6 @@
 
 @(gaEvent: String, marginClass: Option[String] = None)(implicit messages: Messages)
 
-<div class="section">
-    <button id="continue-button" class="button @{marginClass}" data-journey-click="@gaEvent:Click:" data-journey-target>@messages("site.continue")</button>
+<div class="govuk-section govuk-!-padding-top-5">
+    <button id="continue-button" data-module="govuk-button" class="govuk-button" data-journey-click="@gaEvent:Click:" data-journey-target>@messages("site.continue")</button>
 </div>

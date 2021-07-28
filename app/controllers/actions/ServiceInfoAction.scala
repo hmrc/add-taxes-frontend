@@ -16,26 +16,38 @@
 
 package controllers.actions
 
-import connectors.ServiceInfoPartialConnector
+import controllers.ServiceInfoController
 import javax.inject.Inject
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
+import play.api.http.HeaderNames
 import play.api.mvc._
-import uk.gov.hmrc.play.partials.{HeaderCarrierForPartials, HeaderCarrierForPartialsConverter}
+import play.twirl.api.Html
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.http.HeaderCarrierConverter
+import uk.gov.hmrc.play.par
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class ServiceInfoAction @Inject()(
-  serviceInfoPartialConnector: ServiceInfoPartialConnector,
-  headerCarrierForPartialsConverter: HeaderCarrierForPartialsConverter)(
+                                  serviceInfoController: ServiceInfoController)(
   implicit val executionContext: ExecutionContext)
-    extends ActionTransformer[AuthenticatedRequest, ServiceInfoRequest] {
+    extends ActionTransformer[AuthenticatedRequest, ServiceInfoRequest] with HeaderCarrierConverter {
 
   override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
-    implicit val r: Request[A] = request
-    implicit val hcwc: HeaderCarrierForPartials = headerCarrierForPartialsConverter.headerCarrierEncryptingSessionCookieFromRequest
-    serviceInfoPartialConnector.getServiceInfoPartial().map { serviceInfoContent =>
-      ServiceInfoRequest(request, serviceInfoContent)
+
+    val header: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
+    implicit val hc: HeaderCarrier = header.copy(extraHeaders = header.headers(Seq(HeaderNames.COOKIE)))
+
+    for {
+      partial <- serviceInfoController.serviceInfoPartial(request)
+    } yield {
+
+      val htmlPartial: Html = partial match {
+        case Some(html) => html
+        case _ => Html("")
+      }
+
+      ServiceInfoRequest(request, htmlPartial)
     }
   }
-
 }

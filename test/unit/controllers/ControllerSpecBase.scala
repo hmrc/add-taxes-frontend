@@ -43,7 +43,7 @@ trait ControllerSpecBase extends SpecBase {
   val FakeAuthAction = new FakeAuthAction(parser)
   val FakeServiceInfoAction: FakeServiceInfoAction = {
     new FakeServiceInfoAction(
-      injector.instanceOf[ServiceInfoPartialConnector],
+      injector.instanceOf[ServiceInfoController],
       injector.instanceOf[HeaderCarrierForPartialsConverter]
     )
   }

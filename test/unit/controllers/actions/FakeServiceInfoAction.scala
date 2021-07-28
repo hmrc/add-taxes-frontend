@@ -16,17 +16,16 @@
 
 package controllers.actions
 
-import connectors.ServiceInfoPartialConnector
+import controllers.ServiceInfoController
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
-import uk.gov.hmrc.play.partials.HeaderCarrierForPartialsConverter
 import utils.HmrcEnrolmentType
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class FakeServiceInfoAction(sipc: ServiceInfoPartialConnector,
+class FakeServiceInfoAction(sipc: ServiceInfoController,
                             hcfpc: HeaderCarrierForPartialsConverter) extends ServiceInfoAction(sipc, hcfpc) {
 
   def apply(enrolments: HmrcEnrolmentType*): FakeServiceInfoActionWithEnrolments =
@@ -38,7 +37,7 @@ class FakeServiceInfoAction(sipc: ServiceInfoPartialConnector,
 }
 
 class FakeServiceInfoActionWithEnrolments(enrolmentTypes: HmrcEnrolmentType*)
-                                         (sipc: ServiceInfoPartialConnector,
+                                         (sipc: ServiceInfoController,
                                           hcfpc: HeaderCarrierForPartialsConverter) extends ServiceInfoAction(sipc, hcfpc) {
   override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
     val enrolments = Enrolments(enrolmentTypes.map(e => Enrolment(e.toString)).toSet)

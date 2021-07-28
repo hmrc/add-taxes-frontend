@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -26,31 +27,31 @@
 @main_template(
     title = messages("registerForVatByPost.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent
+    serviceInfoContent = Some(serviceInfoContent)
 ) {
 
     @components.heading("register-for-vat-by-post", "registerForVatByPost.heading")
 
-    <p>
+    <p class="govuk-body">
         @messages("registerForVatByPost.p1")
     </p>
 
-    <p>
-        <a id="continue"
+
+        <button data-module="govuk-button" id="continue"
            href='@appConfig.getGovUKUrl("VATRegistration")'
-           class="button"
+           class="govuk-button"
            role="button"
            data-journey-click="VatByPost:Click:Register">
 
             @messages("registerForVatByPost.continue")
-        </a>
-    </p>
+        </button>
 
-    <p>
-        <a id="not-now"
+
+<p>
+        <a class="govuk-link" id="not-now"
            href='@appConfig.getBusinessAccountUrl("home")'
            data-journey-click="VatByPost:Click:NotNow">
             @messages("registerForVatByPost.notnow")
         </a>
-    </p>
+</p>
 }

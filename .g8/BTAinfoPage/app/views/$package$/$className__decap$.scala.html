@@ -5,16 +5,16 @@
 @main_template(
     title = messages("$className;format="decap"$.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("$className;format="decap"$.heading")
 
-    <a id="continue"
+    <button data-module="govuk-button" id="continue"
        href='#'
-       class="button"
+       class="govuk-button"
        role="button"
        data-journey-click="$gaEventPrefix$:Click:Continue">
 
         @messages("$className;format="decap"$.continue")
-    </a>
+    </button>
 }
