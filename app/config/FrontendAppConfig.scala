@@ -194,6 +194,8 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   }
 
   def desUrl: String = config.baseUrl("des")
+  def desConfig(key: String) = config.getString(s"microservice.services.des.$key")
+
   def businessDetailsUrl(identifier: String, value: String): String = {
     if(identifier == "nino") {
       s"${desUrl}/registration/business-details/nino/$value"

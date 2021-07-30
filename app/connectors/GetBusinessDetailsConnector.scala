@@ -17,25 +17,28 @@
 package connectors
 
 import config.FrontendAppConfig
-import controllers.Assets.OK
 
 import javax.inject.Inject
 import models.BusinessDetails
 import play.api.Logging
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
+import uk.gov.hmrc.http.{HeaderCarrier, HeaderNames, HttpClient}
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class GetBusinessDetailsConnector @Inject()(val http: HttpClient, appConfig: FrontendAppConfig) extends Logging{
 
-
-  def serviceUrl(identifier: String, value: String) = {
+  def serviceUrl(identifier: String, value: String): String = {
       appConfig.businessDetailsUrl(identifier, value)
   }
 
   def getBusinessDetails(identifier: String, value: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[BusinessDetails]] = {
-    //TODO we need http headers Environment and Bearer Token passed in I think? we need to check
-    http.GET[BusinessDetails](serviceUrl(identifier, value)).map(
+
+    val desAuthHeaders: Seq[(String, String)] = Seq(
+      HeaderNames.authorisation -> s"Bearer ${appConfig.desConfig("authorization-token")}",
+      "Environment" -> appConfig.desConfig("environment")
+    )
+
+    http.GET[BusinessDetails](serviceUrl(identifier, value), headers = desAuthHeaders).map(
       Some(_)
     ).recover {
       case e: Exception =>

@@ -18,6 +18,7 @@ package support
 
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock
+import com.github.tomakehurst.wiremock.common.ConsoleNotifier
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, TestSuite}
@@ -67,13 +68,17 @@ trait AddTaxesIntegrationTest
     "auth",
     "identity-verification-frontend",
     "self-service-time-to-pay-frontend",
-    "tax-enrolments"
+    "tax-enrolments",
+    "des",
+    "citizen-details"
   )
 
   protected def resetAllFeatures(): Unit =
     Feature.allTogglableFeatures.foreach(removeOverride)
 
-  lazy val wmConfig: WireMockConfiguration = wireMockConfig() port stubPort
+  lazy val wmConfig: WireMockConfiguration = wireMockConfig()
+    .port(stubPort)
+    .notifier(new ConsoleNotifier(false)) // Set ConsoleNotifier constructor argument to "true" for additional logging data
 
   lazy val wireMockServer: WireMockServer = new WireMockServer(wmConfig)
 
