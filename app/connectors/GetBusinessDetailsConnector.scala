@@ -34,8 +34,8 @@ class GetBusinessDetailsConnector @Inject()(val http: HttpClient, appConfig: Fro
   def getBusinessDetails(identifier: String, value: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[BusinessDetails]] = {
 
     val desAuthHeaders: Seq[(String, String)] = Seq(
-      HeaderNames.authorisation -> s"Bearer ${appConfig.desConfig("authorization-token")}",
-      "Environment" -> appConfig.desConfig("environment")
+      HeaderNames.authorisation -> s"Bearer ${appConfig.desConfig("token")}",
+      "Environment" -> appConfig.desConfig("env")
     )
 
     http.GET[BusinessDetails](serviceUrl(identifier, value), headers = desAuthHeaders).map(
