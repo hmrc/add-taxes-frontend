@@ -25,9 +25,11 @@ object SelectSACategory {
   case object Sa extends WithName("Sa") with SelectSACategory
   case object Partnership extends WithName("Partnership") with SelectSACategory
   case object Trust extends WithName("Trust") with SelectSACategory
+  case object MtdIT extends WithName("MtdIT") with SelectSACategory
 
   val values: Set[SelectSACategory] = Set(
     Sa,
+    MtdIT,
     Partnership,
     Trust
   )

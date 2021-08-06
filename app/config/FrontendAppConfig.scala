@@ -184,6 +184,29 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   private val dtf: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm")
   def now(): LocalDateTime = LocalDateTime.now()
 
+  def citizensDetailsUrl: String = config.baseUrl("citizen-details")
+  def designatoryDetailsUrl(identifier: String, value: String): String = {
+    if(identifier == "IR-SA") {
+      s"$citizensDetailsUrl/citizen-details/sautr/$value"
+    } else {
+      s"$citizensDetailsUrl/citizen-details/nino/$value"
+    }
+  }
+
+  def desUrl: String = config.baseUrl("des")
+  def desConfig(key: String) = config.getString(s"microservice.services.des.$key")
+
+  def businessDetailsUrl(identifier: String, value: String): String = {
+    if(identifier == "nino") {
+      s"${desUrl}/registration/business-details/nino/$value"
+    } else {
+      s"${desUrl}/registration/business-details/mtdbsa/${value}"
+    }
+  }
+
+  lazy val mtdItUrl: String = config.baseUrl("mtd-it")
+
+  val accessMtdFeatureSwitch: Boolean = config.getBoolean("feature-toggles.accessMTD")
 }
 
 trait FeatureToggles {

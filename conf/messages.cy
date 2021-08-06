@@ -486,6 +486,7 @@ selectSACategory.heading = Pa rai o’r rhain sy’n eich disgrifio orau?
 selectSACategory.Sa = Unigolyn neu unig fasnachwr
 selectSACategory.Partnership = Partneriaeth
 selectSACategory.Trust = Ymddiriedolaeth
+selectSACategory.MtdIT = Unigolyn neu unig fasnachwr
 selectSACategory.error.required = Dewiswch pa rai o’r rhain sy’n eich disgrifio orau
 
 #######################################################
