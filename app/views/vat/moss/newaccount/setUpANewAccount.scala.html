@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -26,18 +27,18 @@
 @main_template(
     title = messages("setUpANewAccount.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("set-up-new-account-vat-moss", "setUpANewAccount.heading")
 
-    <p>
+    <p class="govuk-body">
         @messages("setUpANewAccount.subtext1")
     </p>
-    <p>
+    <p class="govuk-body">
         @messages("setUpANewAccount.subtext2")
     </p>
-    <p>
-        <a href=@appConfig.getGovUKUrl("contactUs")>@messages("setUpANewAccount.anchor")</a>
+    <p class="govuk-body">
+        <a class="govuk-link" href=@appConfig.getGovUKUrl("contactUs")>@messages("setUpANewAccount.anchor")</a>
         @messages("setUpANewAccount.subtext3")
     </p>
 }

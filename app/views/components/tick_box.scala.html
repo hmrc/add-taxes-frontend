@@ -21,21 +21,21 @@
  message: String
 )(implicit messages: Messages)
 
-<div class="form-group @if(field.hasErrors){ form-group-error}">
+<div class="govuk-form-group @if(field.hasErrors){ form-group-error}">
  <label class="form-label bold" for="@{field.id}">
   <span>@label</span>
  </label>
  @field.errors.map { error =>
-  <span class="error-message margin-bottom-small" id="error-message-@{field.id}-input"><span id="visually-hidden-error-prefix" class="visually-hidden">@messages("error.message.prefix")</span> @messages(error.message, error.args: _*)</span>
+  <span class="govuk-error-message margin-bottom-small" id="error-message-@{field.id}-input"><span id="visually-hidden-error-prefix" class="visually-hidden">@messages("error.message.prefix")</span> @messages(error.message, error.args: _*)</span>
  }
 
-<div class="form-group">
- <fieldset>
-  <div class="multiple-choice">
-   <input id="@id" name="@id" type="checkbox" value="Y">
-   <label for="@id">@message</label>
+<div class="govuk-form-group">
+  <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+  <div class="govuk-checkboxes__item">
+   <input class="govuk-checkboxes__input" id="@id" name="@id" type="checkbox" value="Y">
+   <label class="govuk-label govuk-checkboxes__label" for="@id">@message</label>
   </div>
- </fieldset>
+  </div>
 </div>
 </div>
 

@@ -15,10 +15,11 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html.helpers._
+
 @import controllers.other.importexports.ics.routes._
 @import models.other.importexports.DoYouHaveEORINumber
 @import viewmodels.ViewAction
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -31,7 +32,7 @@
     title = messages("economicOperatorsRegistrationAndIdentification.title"),
     appConfig = appConfig,
     bodyClasses = None,
-    serviceInfoContent = serviceInfoContent,
+    serviceInfoContent = Some(serviceInfoContent),
     form = Some(form)) {
 
     @uiForm(action = viewAction.call, 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {

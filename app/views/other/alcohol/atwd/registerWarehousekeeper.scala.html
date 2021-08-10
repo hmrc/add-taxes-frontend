@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -26,16 +27,16 @@
 @main_template(
     title = messages("registerWarehousekeeper.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("register-warehousekeeper", "registerWarehousekeeper.heading")
 
-    <p>@messages("registerWarehousekeeper.p1")</p>
+    <p class="govuk-body">@messages("registerWarehousekeeper.p1")</p>
 
-    <a id="continue"
+    <a data-module="govuk-button" id="continue"
        role="button"
        href='@appConfig.getGovUKUrl("warehousing")'
-       class="button"
+       class="govuk-button"
        data-journey-click="RegisterAtwd:Click:Continue">
 
         @messages("registerWarehousekeeper.continue")

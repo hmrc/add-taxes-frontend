@@ -19,7 +19,6 @@ package utils
 import config.FrontendAppConfig
 import play.api.data.FormError
 import play.api.data.format.Formatter
-import uk.gov.hmrc.play.validators.Validators.isPostcodeLengthValid
 import javax.inject.Inject
 
 class KnownFactsFormValidator @Inject()() {
@@ -44,6 +43,14 @@ class KnownFactsFormValidator @Inject()() {
     override def unbind(key: String, value: String): Map[String, String] = {
       Map(key -> value.toString)
     }
+  }
+
+  def isValidMaxLength(maxLength: Int)(value: String): Boolean = value.length <= maxLength
+  def isValidMinLength(minLength: Int)(value: String): Boolean = value.length >= minLength
+
+  def isPostcodeLengthValid(value: String) = {
+    val trimmedVal = value.replaceAll(" ", "")
+    isValidMinLength(5)(trimmedVal) && isValidMaxLength(7)(trimmedVal)
   }
 
   def containsValidPostCodeCharacters(value: String): Boolean =

@@ -16,6 +16,7 @@
 
 @import config.FrontendAppConfig
 @import utils.Enrolments
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -27,20 +28,21 @@
 @main_template(
     title = messages("requestActivationToken.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("request-activation-token-employer-pension", "requestActivationToken.heading")
 
-    <p>@messages("requestActivationToken.p1")</p>
+    <p class="govuk-body">@messages("requestActivationToken.p1")</p>
 
-    <p>@messages("requestActivationToken.p2")</p>
+    <p class="govuk-body">@messages("requestActivationToken.p2")</p>
 
-    <a id="continue"
+    <button id="continue"
        href='@appConfig.emacEnrollmentsUrl(Enrolments.PP)'
-       class="button"
+       class="govuk-button"
+            data-module="govuk-button"
        role="button"
        data-journey-click="RequestActivationToken:Click:Continue">
 
         @messages("requestActivationToken.continue")
-    </a>
+    </button>
 }

@@ -16,21 +16,19 @@
 
 package controllers.actions
 
-import connectors.ServiceInfoPartialConnector
+import controllers.ServiceInfoController
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
-import uk.gov.hmrc.play.partials.HeaderCarrierForPartialsConverter
 import utils.HmrcEnrolmentType
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class FakeServiceInfoAction(sipc: ServiceInfoPartialConnector,
-                            hcfpc: HeaderCarrierForPartialsConverter) extends ServiceInfoAction(sipc, hcfpc) {
+class FakeServiceInfoAction(sipc: ServiceInfoController) extends ServiceInfoAction(sipc) {
 
   def apply(enrolments: HmrcEnrolmentType*): FakeServiceInfoActionWithEnrolments =
-    new FakeServiceInfoActionWithEnrolments(enrolments: _*)(sipc, hcfpc)
+    new FakeServiceInfoActionWithEnrolments(enrolments: _*)(sipc)
 
   override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
     Future.successful(ServiceInfoRequest(request, HtmlFormat.empty))
@@ -38,8 +36,7 @@ class FakeServiceInfoAction(sipc: ServiceInfoPartialConnector,
 }
 
 class FakeServiceInfoActionWithEnrolments(enrolmentTypes: HmrcEnrolmentType*)
-                                         (sipc: ServiceInfoPartialConnector,
-                                          hcfpc: HeaderCarrierForPartialsConverter) extends ServiceInfoAction(sipc, hcfpc) {
+                                         (sipc: ServiceInfoController) extends ServiceInfoAction(sipc) {
   override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
     val enrolments = Enrolments(enrolmentTypes.map(e => Enrolment(e.toString)).toSet)
     val requestWithEnrolments =

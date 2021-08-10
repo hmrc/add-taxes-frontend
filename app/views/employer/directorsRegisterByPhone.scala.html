@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -24,21 +25,21 @@
 @(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @link(key: String, url: String, id:String = "") = {
-    <a href="@url" id="@id">@messages(s"directorsRegisterByPhone.$key")</a>
+    <a class="govuk-link" href="@url" id="@id">@messages(s"directorsRegisterByPhone.$key")</a>
 }
 
 @main_template(
     title = messages("directorsRegisterByPhone.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("directors-register-by-phone", "directorsRegisterByPhone.heading")
 
-    <p>@Html(messages("directorsRegisterByPhone.p1", link("p1.linkText", appConfig.getGovUKUrl("contact"))))</p>
-    <h2>@messages("directorsRegisterByPhone.heading2")</h2>
+    <p class="govuk-body">@Html(messages("directorsRegisterByPhone.p1", link("p1.linkText", appConfig.getGovUKUrl("contact"))))</p>
+    <h2 class="govuk-heading-m">@messages("directorsRegisterByPhone.heading2")</h2>
 
-    <p>@messages("directorsRegisterByPhone.list1heading")</p>
-    <ul class="list list-bullet">
+    <p class="govuk-body">@messages("directorsRegisterByPhone.list1heading")</p>
+    <ul class="govuk-list govuk-list--bullet">
         <li>@messages("directorsRegisterByPhone.list1item1")</li>
         <li>@messages("directorsRegisterByPhone.list1item2")</li>
         <li>@messages("directorsRegisterByPhone.list1item3")</li>
@@ -47,14 +48,14 @@
         <li>@messages("directorsRegisterByPhone.list1item6")</li>
     </ul>
 
-    <p>@messages("directorsRegisterByPhone.list2heading")</p>
-    <ul class="list list-bullet">
+    <p class="govuk-body">@messages("directorsRegisterByPhone.list2heading")</p>
+    <ul class="govuk-list govuk-list--bullet">
         <li>@messages("directorsRegisterByPhone.list2item1")</li>
         <li>@messages("directorsRegisterByPhone.list2item2")</li>
     </ul>
 
-    <p>@messages("directorsRegisterByPhone.list3heading")</p>
-    <ul class="list list-bullet">
+    <p class="govuk-body">@messages("directorsRegisterByPhone.list3heading")</p>
+    <ul class="govuk-list govuk-list--bullet">
         <li>
             @Html(messages("directorsRegisterByPhone.list3item1", link("list3item1.linkText", appConfig.getGovUKUrl("expensesOrBenefits"))))
         </li>
@@ -65,7 +66,7 @@
         <li>@messages("directorsRegisterByPhone.list3item4")</li>
     </ul>
 
-    <h2>@messages("directorsRegisterByPhone.heading3")</h2>
-    <p>@messages("directorsRegisterByPhone.p2")</p>
-    <p>@Html(messages("directorsRegisterByPhone.p3", link("p3.linkText", appConfig.getGovUKUrl("paye"))))</p>
+    <h2 class="govuk-heading-m">@messages("directorsRegisterByPhone.heading3")</h2>
+    <p class="govuk-body">@messages("directorsRegisterByPhone.p2")</p>
+    <p class="govuk-body">@Html(messages("directorsRegisterByPhone.p3", link("p3.linkText", appConfig.getGovUKUrl("paye"))))</p>
 }

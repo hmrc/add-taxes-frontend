@@ -15,9 +15,10 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html.helpers._
+
 @import controllers.employer.paye.routes._
 @import models.employer.paye.PAYEReference
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -30,7 +31,7 @@
     title = messages("whatIsYourPAYEReference.title"),
     appConfig = appConfig,
     form = Some(form),
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @uiForm(action = WhatIsYourPAYEReferenceController.onSubmit()) {
 

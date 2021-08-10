@@ -56,10 +56,10 @@ class InputRadioSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite
     "not include error markups when form does not have errors" in {
       val doc: Document = Jsoup.parse(inputRadio(testField).toString)
 
-      val forms = doc.select("div.form-group")
+      val forms = doc.select("div.govuk-form-group")
       forms.size mustBe 1
 
-      forms.get(0).className().split(" ").filter(_.nonEmpty) mustBe Array("form-group", "margin-top-medium")
+      forms.get(0).className().split(" ").filter(_.nonEmpty) mustBe Array("govuk-form-group")
     }
 
     "include hint text as aria-describedby for fieldset when hint is present" in {
@@ -85,13 +85,10 @@ class InputRadioSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite
 
       val doc: Document = Jsoup.parse(inputRadio(erroredField).toString)
 
-      val forms = doc.select("div.form-group")
+      val forms = doc.select("div.govuk-form-group")
       forms.size mustBe 1
 
-      forms.get(0).className().split(" ").filter(_.nonEmpty) mustBe Array(
-        "form-group",
-        "form-group-error",
-        "margin-top-medium")
+      forms.get(0).className()  mustBe "govuk-form-group"
 
       doc.getElementById("error-message-value-input").hasClass("error-message")
       doc.getElementById("visually-hidden-error-prefix").text() mustBe "Error:"

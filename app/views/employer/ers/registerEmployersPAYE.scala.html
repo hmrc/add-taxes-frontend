@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -26,29 +27,29 @@
 @main_template(
     title = messages("registerEmployersPAYE.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent
+    serviceInfoContent = Some(serviceInfoContent)
 ) {
 
     @components.heading("register-employers-paye", "registerEmployersPAYE.heading")
 
-    <p>@messages("registerEmployersPAYE.subtext")</p>
+    <p class="govuk-body">@messages("registerEmployersPAYE.subtext")</p>
 
-    <p>
-        <a id="continue"
+
+        <a data-module="govuk-button" id="continue"
            href='@appConfig.getPortalUrl("businessRegistration")'
-           class="button"
+           class="govuk-button"
            role="button"
            data-journey-click="AddErsRegisterEpaye:Click:Register">
 
             @messages("registerEmployersPAYE.continue")
         </a>
-    </p>
 
-    <p>
-        <a id="not-now"
+
+<div>
+        <a class="govuk-link" id="not-now"
            href='@appConfig.getBusinessAccountUrl("home")'
            data-journey-click="AddErsRegisterEpaye:Click:NotNow">
             @messages("registerEmployersPAYE.notnow")
         </a>
-    </p>
+</div>
 }

@@ -17,7 +17,8 @@
 @import config.FrontendAppConfig
 @import controllers.vat.routes._
 @import models.vat.DistanceSelling
-@import uk.gov.hmrc.play.views.html.helpers._
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
+
 
 @this(
     uiForm: FormWithCSRF,
@@ -32,7 +33,7 @@
     title = messages("distanceSelling.title"),
     appConfig = appConfig,
     form = Some(form),
-    serviceInfoContent = serviceInfoContent,
+    serviceInfoContent = Some(serviceInfoContent),
     mainDataAttributes = Some(dataPageId)) {
 
     @uiForm(action = DistanceSellingController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {

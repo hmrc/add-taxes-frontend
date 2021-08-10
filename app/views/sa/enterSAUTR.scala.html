@@ -15,9 +15,10 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html.helpers._
+
 @import controllers.sa.routes._
 @import models.sa.SAUTR
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -30,7 +31,7 @@
     title = messages("enterSAUTR.title"),
     appConfig = appConfig,
     form = Some(form),
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @uiForm(action = EnterSAUTRController.onSubmit(origin)) {
 
@@ -45,5 +46,7 @@
             )
 
         @components.submit_button(gaEvent = "checkSaUtr")
+
+
     }
 }

@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -26,17 +27,17 @@
 @main_template(
     title = messages("youNeedToBeApprovedCTF.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("you-need-to-be-approved-ctf", "youNeedToBeApprovedCTF.heading")
 
-    <p>
+    <p class="govuk-body">
         @messages("youNeedToBeApprovedCTF.para")
     </p>
 
-    <a id="continue"
+    <a data-module="govuk-button" id="continue"
        href='@appConfig.getGovUKUrl("ctfProviderApply")'
-       class="button"
+       class="govuk-button"
        role="button"
        data-journey-click="CtfApply:Click:Continue">
 

@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -26,15 +27,15 @@
 @main_template(
     title = messages("registerMGD.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("register-mgd", "registerMGD.heading")
 
-    <p>@messages("registerMGD.detail")</p>
+    <p class="govuk-body">@messages("registerMGD.detail")</p>
 
-    <a id="continue"
+    <a data-module="govuk-button" id="continue"
        href='@appConfig.getPortalUrl("register.machineGamesDuty")'
-       class="button"
+       class="govuk-button"
        role="button"
        data-journey-click="RegisterMgd:Click:Continue"
        data-sso="client">

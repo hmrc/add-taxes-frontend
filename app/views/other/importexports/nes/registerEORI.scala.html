@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -26,15 +27,15 @@
 @main_template(
     title = messages("registerEORI.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("register-eori-nes", "registerEORI.heading")
 
-    <p>@messages("registerEORINES.p1")</p>
+    <p class="govuk-body">@messages("registerEORINES.p1")</p>
 
-    <a id="continue"
+    <a data-module="govuk-button" id="continue"
        href='@appConfig.getGovUKUrl("eori")'
-       class="button"
+       class="govuk-button"
        role="button"
        data-journey-click="RegisterNESEori:Click:Continue">
         @messages("registerEORI.continue")

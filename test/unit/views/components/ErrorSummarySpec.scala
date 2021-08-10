@@ -37,7 +37,7 @@ class ErrorSummarySpec extends WordSpec with MustMatchers with GuiceOneAppPerSui
     "summary div must have role=alert and aria-labelledby" in {
       val doc: Document = Jsoup.parse(view.toString)
 
-      val summaryDiv = doc.select("div.error-summary")
+      val summaryDiv = doc.select("div.govuk-error-summary")
 
       summaryDiv.attr("role") mustBe "alert"
     }
@@ -46,7 +46,7 @@ class ErrorSummarySpec extends WordSpec with MustMatchers with GuiceOneAppPerSui
       val doc: Document = Jsoup.parse(view.toString)
 
       val heading = doc.select("h2")
-      val errorList = doc.select("ul.error-summary-list > li")
+      val errorList = doc.select("ul.govuk-error-summary__list > li")
 
       heading.text() mustBe "There is a problem"
       errorList.text() mustBe "test"

@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -26,15 +27,15 @@
 @main_template(
     title = messages("registerAEOI.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("register-aeoi", "registerAEOI.heading")
 
-    <p>@messages("registerAEOI.detail")</p>
+    <p class="govuk-body">@messages("registerAEOI.detail")</p>
 
-    <a id="continue"
+    <a data-module="govuk-button" id="continue"
        href='@appConfig.getPortalUrl("register.aeoi")'
-       class="button"
+       class="govuk-button"
        data-journey-click="RegisterAeoi:Click:Continue",
        role="button">
 

@@ -15,9 +15,10 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html.helpers._
+
 @import controllers.other.importexports.emcs.routes._
 @import models.other.importexports.emcs.DoYouHaveASEEDNumber
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -30,7 +31,7 @@
     title = messages("doYouHaveASEEDNumber.title"),
     appConfig = appConfig,
     bodyClasses = None,
-    serviceInfoContent = serviceInfoContent,
+    serviceInfoContent = Some(serviceInfoContent),
     form = Some(form)) {
 
     @uiForm(action = DoYouHaveASEEDNumberController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
