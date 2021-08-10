@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -26,16 +27,16 @@
 @main_template(
     title = messages("youDoNotNeedVAT.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("do-not-need-vat-giant", "youDoNotNeedVAT.heading")
 
-    <p>
+    <p class="govuk-body">
         @messages("youDoNotNeedVAT.body")
     </p>
 
     <p>
-        <a id="not-now"
+        <a class="govuk-link" id="not-now"
            href='@appConfig.getBusinessAccountUrl("home")'
            data-journey-click="VatGiant:Click:NotNow">
             @messages("youDoNotNeedVAT.home")

@@ -17,5 +17,5 @@
 @(gaEvent: String, marginClass: Option[String] = None, origin: String)(implicit messages: Messages)
 
 <div class="section">
-    <a id="postcode-button" href="@controllers.sa.routes.PostcodeController.onPageLoad(origin)" data-journey-click="@gaEvent:Click:PostcodeLink" data-journey-target>@messages("enterKnownFacts.nino.linkText")</a>
+    <a class="govuk-link" id="postcode-button" href="@controllers.sa.routes.PostcodeController.onPageLoad(origin)" data-journey-click="@gaEvent:Click:PostcodeLink" data-journey-target>@messages("enterKnownFacts.nino.linkText")</a>
 </div>

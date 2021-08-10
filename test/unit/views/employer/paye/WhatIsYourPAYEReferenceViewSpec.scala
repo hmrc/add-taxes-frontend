@@ -88,7 +88,7 @@ class WhatIsYourPAYEReferenceViewSpec extends ViewBehaviours {
       }
 
       "Display an error summary" in {
-        doc.select("div.error-summary").size mustBe 1
+        doc.select("div.govuk-error-summary").size mustBe 1
       }
 
       "Have the 'There is a problem' heading" in {
@@ -96,7 +96,7 @@ class WhatIsYourPAYEReferenceViewSpec extends ViewBehaviours {
       }
 
       "Contain error messages in the error summary" in {
-        val error = doc.select("ul.error-summary-list > li > a")
+        val error = doc.select("ul.govuk-error-summary__list > li > a")
         error.attr("href") mustBe "#empRef"
         error.text mustBe "Enter your employer PAYE reference"
       }
@@ -116,7 +116,7 @@ class WhatIsYourPAYEReferenceViewSpec extends ViewBehaviours {
       }
 
       "Display an error summary" in {
-        doc.select("div.error-summary").size mustBe 1
+        doc.select("div.govuk-error-summary").size mustBe 1
       }
 
       "Have the 'There is a problem' heading" in {
@@ -124,7 +124,7 @@ class WhatIsYourPAYEReferenceViewSpec extends ViewBehaviours {
       }
 
       "Contain error messages in the error summary" in {
-        val error = doc.select("ul.error-summary-list > li > a")
+        val error = doc.select("ul.govuk-error-summary__list > li > a")
         error.attr("href") mustBe "#empRef"
         error.text mustBe "Enter your employer PAYE reference in the correct format"
       }

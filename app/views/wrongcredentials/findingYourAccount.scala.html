@@ -15,10 +15,11 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html.helpers._
+
 @import controllers.routes._
 @import controllers.wrongcredentials.routes._
 @import models.wrongcredentials.FindingYourAccount
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -31,7 +32,7 @@
     title = messages("findingYourAccount.title"),
     appConfig = appConfig,
     form = Some(form),
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @uiForm(action = FindingYourAccountController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
@@ -39,7 +40,7 @@
 
         @components.heading("finding-your-account", "findingYourAccount.heading")
 
-        <p>@messages("findingYourAccount.guidance.text")</p>
+        <p class="govuk-body">@messages("findingYourAccount.guidance.text")</p>
 
         @components.input_radio(
             field = form("value"),

@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -27,15 +28,15 @@
     title = messages("registerExciseMovementControlSystem.title"),
     appConfig = appConfig,
     bodyClasses = None,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("register-excise-movement-control-system", "registerExciseMovementControlSystem.heading")
 
-    <p>@messages("registerExciseMovementControlSystem.youNeedToRegister")</p>
+    <p class="govuk-body">@messages("registerExciseMovementControlSystem.youNeedToRegister")</p>
 
-    <a id="register-for-emcs"
+    <a data-module="govuk-button" id="register-for-emcs"
        href='@appConfig.getGovUKUrl("emcs")'
-       class="button"
+       class="govuk-button"
        role="button"
        data-journey-click="RegisterEMCS:Click:Continue">
         @messages("registerExciseMovementControlSystem.button")

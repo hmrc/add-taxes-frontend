@@ -1,57 +1,57 @@
 # microservice specific routes
 
-GET        /                                            controllers.IndexController.onPageLoad
+GET        /                                            @controllers.IndexController.onPageLoad
 
-GET        /assets/*file                                controllers.Assets.versioned(path="/public", file: Asset)
+GET        /assets/*file                                @controllers.Assets.versioned(path="/public", file: Asset)
 
-GET        /language/:lang                              controllers.LanguageSwitchController.switchToLanguage(lang: String)
+GET        /language/:lang                              @controllers.LanguageSwitchController.switchToLanguage(lang: String)
 
-GET        /this-service-has-been-reset                 controllers.SessionExpiredController.onPageLoad
+GET        /this-service-has-been-reset                 @controllers.SessionExpiredController.onPageLoad
 
-GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
+GET        /check-your-answers                          @controllers.CheckYourAnswersController.onPageLoad
 
-GET        /unauthorised                                controllers.UnauthorisedController.onPageLoad
+GET        /unauthorised                                @controllers.UnauthorisedController.onPageLoad
 
-GET        /verified-user-error                         controllers.VerifiedUserController.onPageLoad
+GET        /verified-user-error                         @controllers.VerifiedUserController.onPageLoad
 
-GET        /other                                       controllers.OtherTaxesController.onPageLoad()
-POST       /other                                       controllers.OtherTaxesController.onSubmit()
+GET        /other                                       @controllers.OtherTaxesController.onPageLoad()
+POST       /other                                       @controllers.OtherTaxesController.onSubmit()
 
-GET        /other/oil                                   controllers.other.oil.SelectAnOilServiceController.onPageLoad()
-POST       /other/oil                                   controllers.other.oil.SelectAnOilServiceController.onSubmit()
+GET        /other/oil                                   @controllers.other.oil.SelectAnOilServiceController.onPageLoad()
+POST       /other/oil                                   @controllers.other.oil.SelectAnOilServiceController.onSubmit()
 
-GET        /other/oil/tied                              controllers.other.oil.HaveYouRegisteredForTiedOilsController.onPageLoad()
-POST       /other/oil/tied                              controllers.other.oil.HaveYouRegisteredForTiedOilsController.onSubmit()
+GET        /other/oil/tied                              @controllers.other.oil.HaveYouRegisteredForTiedOilsController.onPageLoad()
+POST       /other/oil/tied                              @controllers.other.oil.HaveYouRegisteredForTiedOilsController.onSubmit()
 
-GET        /other/oil/tied/register                     controllers.other.oil.RegisterTiedOilsController.onPageLoad()
+GET        /other/oil/tied/register                     @controllers.other.oil.RegisterTiedOilsController.onPageLoad()
 
-GET        /other/oil/rebated                           controllers.other.oil.HaveYouRegisteredForRebatedOilsController.onPageLoad()
-POST       /other/oil/rebated                           controllers.other.oil.HaveYouRegisteredForRebatedOilsController.onSubmit()
+GET        /other/oil/rebated                           @controllers.other.oil.HaveYouRegisteredForRebatedOilsController.onPageLoad()
+POST       /other/oil/rebated                           @controllers.other.oil.HaveYouRegisteredForRebatedOilsController.onSubmit()
 
-GET        /other/oil/rebated/register                  controllers.other.oil.RegisterRebatedOilsController.onPageLoad()
+GET        /other/oil/rebated/register                  @controllers.other.oil.RegisterRebatedOilsController.onPageLoad()
 
-GET        /wrong-credentials/finding-your-account      controllers.wrongcredentials.FindingYourAccountController.onPageLoad()
-POST       /wrong-credentials/finding-your-account      controllers.wrongcredentials.FindingYourAccountController.onSubmit()
+GET        /wrong-credentials/finding-your-account      @controllers.wrongcredentials.FindingYourAccountController.onPageLoad()
+POST       /wrong-credentials/finding-your-account      @controllers.wrongcredentials.FindingYourAccountController.onSubmit()
 
-GET        /other/import-export/emcs/register           controllers.other.importexports.emcs.RegisterExciseMovementControlSystemController.onPageLoad()
+GET        /other/import-export/emcs/register           @controllers.other.importexports.emcs.RegisterExciseMovementControlSystemController.onPageLoad()
 
-GET        /other/import-export/emcs                    controllers.other.importexports.emcs.DoYouHaveASEEDNumberController.onPageLoad()
-POST       /other/import-export/emcs                    controllers.other.importexports.emcs.DoYouHaveASEEDNumberController.onSubmit()
+GET        /other/import-export/emcs                    @controllers.other.importexports.emcs.DoYouHaveASEEDNumberController.onPageLoad()
+POST       /other/import-export/emcs                    @controllers.other.importexports.emcs.DoYouHaveASEEDNumberController.onSubmit()
 
-GET        /other/import-export/ics                     controllers.other.importexports.ics.DoYouHaveEORINumberController.onPageLoad()
-POST       /other/import-export/ics                     controllers.other.importexports.ics.DoYouHaveEORINumberController.onSubmit()
+GET        /other/import-export/ics                     @controllers.other.importexports.ics.DoYouHaveEORINumberController.onPageLoad()
+POST       /other/import-export/ics                     @controllers.other.importexports.ics.DoYouHaveEORINumberController.onSubmit()
 
-GET        /other/import-export/ics/register            controllers.other.importexports.ics.RegisterEORIController.onPageLoad()
+GET        /other/import-export/ics/register            @controllers.other.importexports.ics.RegisterEORIController.onPageLoad()
 
-GET        /other/import-export/ddes/register           controllers.other.importexports.dan.RegisterDefermentApprovalNumberController.onPageLoad()
+GET        /other/import-export/ddes/register           @controllers.other.importexports.dan.RegisterDefermentApprovalNumberController.onPageLoad()
 
-GET        /other/import-export/ddes                    controllers.other.importexports.dan.DoYouHaveDANController.onPageLoad()
-POST       /other/import-export/ddes                    controllers.other.importexports.dan.DoYouHaveDANController.onSubmit()
+GET        /other/import-export/ddes                    @controllers.other.importexports.dan.DoYouHaveDANController.onPageLoad()
+POST       /other/import-export/ddes                    @controllers.other.importexports.dan.DoYouHaveDANController.onSubmit()
 
-GET        /other/import-export/ebti/register           controllers.other.importexports.ebti.RegisterEORIController.onPageLoad()
+GET        /other/import-export/ebti/register           @controllers.other.importexports.ebti.RegisterEORIController.onPageLoad()
 
-GET        /other/import-export/ebti                    controllers.other.importexports.ebti.DoYouHaveEORINumberController.onPageLoad()
-POST       /other/import-export/ebti                    controllers.other.importexports.ebti.DoYouHaveEORINumberController.onSubmit()
+GET        /other/import-export/ebti                    @controllers.other.importexports.ebti.DoYouHaveEORINumberController.onPageLoad()
+POST       /other/import-export/ebti                    @controllers.other.importexports.ebti.DoYouHaveEORINumberController.onSubmit()
 
 GET        /other/import-export/ncts/register           controllers.other.importexports.ncts.RegisterEORIController.onPageLoad()
 

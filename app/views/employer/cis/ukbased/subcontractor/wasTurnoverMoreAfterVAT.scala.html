@@ -15,9 +15,10 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html.helpers._
+
 @import controllers.employer.cis.ukbased.subcontractor.routes._
 @import models.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVAT
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -30,7 +31,7 @@
     title = messages("wasTurnoverMoreAfterVAT.title"),
     appConfig = appConfig,
     form = Some(form),
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @uiForm(action = WasTurnoverMoreAfterVATController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 

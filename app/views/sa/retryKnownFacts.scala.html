@@ -17,6 +17,8 @@
 @import config.FrontendAppConfig
 @import utils.Enrolments._
 @import controllers.sa.routes._
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
+
 @this(
         uiForm: FormWithCSRF,
         main_template: main_template
@@ -27,13 +29,13 @@
 @main_template(
     title = messages("retryKnownFacts.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("retry-knownFacts-header", "retryKnownFacts.heading")
 
-    <p>@messages("retryKnownFacts.p1")</p>
-    <p>@messages("retryKnownFacts.p2")
-        <a id="online-services-helpdesk-link" target="_blank"
+    <p class="govuk-body">@messages("retryKnownFacts.p1")</p>
+    <p class="govuk-body">@messages("retryKnownFacts.p2")
+        <a  class="govuk-link" id="online-services-helpdesk-link" target="_blank"
         data-journey-click="link - click: Retry Knownfacts Gov Uk Online Services Help Desk"
         href="@appConfig.getGovUKUrl("onlineServicesHelpdesk")">
         @messages("retryKnownFacts.linkText")
@@ -42,7 +44,7 @@
 
     @uiForm(action = RetryKnownFactsController.onSubmit(origin)) {
         <div class="section">
-            <button id="continue-button" class="button" data-journey-click="TryAgain:Click:" data-journey-target>@messages("retryKnownFacts.button")</button>
+            <button data-module="govuk-button" id="continue-button" class="govuk-button" data-journey-click="TryAgain:Click:" data-journey-target>@messages("retryKnownFacts.button")</button>
         </div>
     }
 

@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -26,37 +27,36 @@
 @main_template(
   title = messages("organisationOnly.title"),
   appConfig = appConfig,
-  serviceInfoContent = serviceInfoContent) {
+  serviceInfoContent = Some(serviceInfoContent)) {
 
-   <h1 id="org-only" class="heading-large">@messages("organisationOnly.heading")</h1>
+   <h1 id="org-only" class="govuk-heading-xl">@messages("organisationOnly.heading")</h1>
 
-   <p>@messages("organisationOnly.p1")</p>
+   <p class="govuk-body">@messages("organisationOnly.p1")</p>
 
-   <p class="flush--bottom">@messages("organisationOnly.bulletTitle")</p>
+   <p class="govuk-body flush--bottom">@messages("organisationOnly.bulletTitle")</p>
 
-   <ol class="list list-number">
+   <ol class="govuk-list govuk-list--number">
     <li>@messages("organisationOnly.bullet1")</li>
     <li>@messages("organisationOnly.bullet2")</li>
     <li>@messages("organisationOnly.bullet3")</li>
    </ol>
 
    <div class="panel-indent">
-    <p>@messages("organisationOnly.panelIndent")</p>
+    <p class="govuk-body">@messages("organisationOnly.panelIndent")</p>
    </div>
 
-   <p class="padding-top-medium">
-      <a id="create-account"
+
+      <a data-module="govuk-button" id="create-account"
         type="submit"
-        class="button"
+        class="govuk-button"
         role="button"
         data-journey-click="SetUpAccountbusinesstaxes:Click:Register" href="@appConfig.getBusinessAccountUrl("signoutToOrganisationCreation")">
         @messages("organisationOnly.signOut")
-     </a>
-   </p>
+     </button>
 
-   <p>
-    <a id="not-now" data-journey-click="SetUpAccountbusinesstaxes:Click:NotNow" href="@appConfig.getBusinessAccountUrl("home")">
+<p>
+    <a class="govuk-link" id="not-now" data-journey-click="SetUpAccountbusinesstaxes:Click:NotNow" href="@appConfig.getBusinessAccountUrl("home")">
       @messages("organisationOnly.notNow")
     </a>
-   </p>
+</p>
 }

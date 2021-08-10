@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -27,20 +28,20 @@
     title = messages("registerTiedOils.title"),
     appConfig = appConfig,
     bodyClasses = None,
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @components.heading("register-tied-oils", "registerTiedOils.heading")
 
-    <p>@messages("registerTiedOils.message1")</p>
+    <p class="govuk-body">@messages("registerTiedOils.message1")</p>
 
-    <p>
-        <a id="register-for-tiedoils"
+
+        <a data-module="govuk-button" id="register-for-tiedoils"
            type="submit"
-           class="button"
+           class="govuk-button"
            role="button"
            data-journey-click="RegisterTiedOils:Click:Continue"
            href="https://www.gov.uk/government/publications/fuel-duty-registered-dealers-in-controlled-oil-application-form-for-approval-ho4">
            @messages("registerTiedOils.button.text")
         </a>
-    </p>
+
 }

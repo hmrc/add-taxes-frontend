@@ -55,7 +55,7 @@ class WhatIsYourVATRegNumberViewSpec extends ViewBehaviours {
     "rendered" must {
       "contain a text box for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        assertRenderedByCssSelector(doc, ".form-control")
+        assertRenderedByCssSelector(doc, ".form-control-wrapper")
       }
     }
 

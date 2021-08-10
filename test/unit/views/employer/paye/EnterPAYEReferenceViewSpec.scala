@@ -106,7 +106,7 @@ class EnterPAYEReferenceViewSpec extends ViewBehaviours {
       }
 
       "Display an error summary" in {
-        doc.select("div.error-summary").size mustBe 1
+        doc.select("div.govuk-error-summary").size mustBe 1
       }
 
       "Have the 'There is a problem' heading" in {
@@ -114,7 +114,7 @@ class EnterPAYEReferenceViewSpec extends ViewBehaviours {
       }
 
       "Contain error messages in the error summary" in {
-        val errors = doc.select("ul.error-summary-list > li > a")
+        val errors = doc.select("ul.govuk-error-summary__list > li > a")
         errors.get(0).attr("href") mustBe "#officeNumber"
         errors.get(1).attr("href") mustBe "#payeReference"
         errors.get(0).text mustBe "Enter your HMRC office number"
@@ -137,7 +137,7 @@ class EnterPAYEReferenceViewSpec extends ViewBehaviours {
       }
 
       "Display an error summary" in {
-        doc.select("div.error-summary").size mustBe 1
+        doc.select("div.govuk-error-summary").size mustBe 1
       }
 
       "Have the 'There is a problem' heading" in {
@@ -145,7 +145,7 @@ class EnterPAYEReferenceViewSpec extends ViewBehaviours {
       }
 
       "Contain error messages in the error summary" in {
-        val errors = doc.select("ul.error-summary-list > li > a")
+        val errors = doc.select("ul.govuk-error-summary__list > li > a")
         errors.get(0).attr("href") mustBe "#officeNumber"
         errors.get(1).attr("href") mustBe "#payeReference"
         errors.get(0).text mustBe "Enter your HMRC office number in the correct format"

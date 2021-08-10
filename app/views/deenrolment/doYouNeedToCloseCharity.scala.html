@@ -15,9 +15,10 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html.helpers._
+
 @import controllers.deenrolment.routes._
 @import models.deenrolment.DoYouNeedToCloseCharity
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -30,7 +31,7 @@
     title = messages("doYouNeedToCloseCharity.title"),
     appConfig = appConfig,
     form = Some(form),
-    serviceInfoContent = serviceInfoContent) {
+    serviceInfoContent = Some(serviceInfoContent)) {
 
     @uiForm(action = DoYouNeedToCloseCharityController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 

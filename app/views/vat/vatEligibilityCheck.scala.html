@@ -16,6 +16,7 @@
 
 @import config.FrontendAppConfig
 @import controllers.vat.routes._
+@import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
     uiForm: FormWithCSRF,
@@ -29,20 +30,20 @@
 @main_template(
     title = messages("vatEligibilityCheck.title"),
     appConfig = appConfig,
-    serviceInfoContent = serviceInfoContent,
+    serviceInfoContent = Some(serviceInfoContent),
     articleClass= Some("article-body-width"),
     mainDataAttributes = Some(dataPageId)) {
 
     @components.heading("vat-eligibility-check", "vatEligibilityCheck.heading")
 
-    <p class="margin-top-bottom">
+    <p class="govuk-body margin-top-bottom">
       @messages("vatEligibilityCheck.p1")
     </p>
 
-    <a id="continue"
+    <a data-module="govuk-button" id="continue"
        role="button"
        href='@VatRegistrationExceptionController.onPageLoad()'
-       class="button"
+       class="govuk-button"
        data-journey-click="VatEligibilityCheck:Click:Continue">
 
         @messages("vatEligibilityCheck.continue")

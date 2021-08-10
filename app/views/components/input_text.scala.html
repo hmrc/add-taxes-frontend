@@ -24,20 +24,20 @@
 )(implicit messages: Messages)
 
 <div class="form-group @if(field.hasErrors){ form-group-error}">
-  <h1 class="no-top-margin" id="@headingId">
+  <h1 class="govuk-heading-l no-top-margin" id="@headingId">
     <label class="form-label" for="@{field.id}">
         <span class="bold heading-large no-bottom-margin">@label</span>
     </label>
   </h1>
   @field.errors.map { error =>
-  <span class="error-message margin-bottom-small" id="error-message-@{field.id}-input"><span id="visually-hidden-error-prefix" class="visually-hidden">@messages("error.message.prefix")</span> @messages(error.message, error.args: _*)</span>
+  <span class="govuk-error-message margin-bottom-small" id="error-message-@{field.id}-input"><span id="visually-hidden-error-prefix" class="visually-hidden">@messages("error.message.prefix")</span> @messages(error.message, error.args: _*)</span>
   }
     @if(hint.nonEmpty){
-    <span class="form-hint @{formHintMargin}" id="hint-text">@hint</span>
+    <span class="govuk-hint form-hint @{formHintMargin}" id="hint-text">@hint</span>
     }
     <div class="form-control-wrapper">
         <input
-        class="form-control @inputClass"
+        class="govuk-input @inputClass govuk-input--width-10"
         type="text"
         id="@{field.id}"
         name="@{field.name}"

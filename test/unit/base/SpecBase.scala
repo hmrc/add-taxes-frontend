@@ -24,7 +24,7 @@ import play.api.inject.Injector
 import play.api.mvc.{AnyContent, MessagesControllerComponents}
 import play.api.test.FakeRequest
 import playconfig.featuretoggle.FeatureConfig
-import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
+import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 import views.html.main_template
 
 trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
