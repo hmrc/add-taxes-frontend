@@ -16,6 +16,6 @@
 
 @(gaEvent: String, marginClass: Option[String] = None, origin: String)(implicit messages: Messages)
 
-<div class="section">
+<div class="section govuk-!-margin-top-6">
     <a class="govuk-link" id="postcode-button" href="@controllers.sa.routes.PostcodeController.onPageLoad(origin)" data-journey-click="@gaEvent:Click:PostcodeLink" data-journey-target>@messages("enterKnownFacts.nino.linkText")</a>
 </div>
