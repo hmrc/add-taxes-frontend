@@ -22,19 +22,19 @@
         formHintMargin: Option[String] = None,
 )(implicit messages: Messages)
 
-<div class="form-group @if(field.hasErrors){ form-group-error}">
+<div class="govuk-form-group @if(field.hasErrors){ form-group-error govuk-form-group--error}">
         <label class="form-label bold" for="@{field.id}">
-            <span>@label</span>
+            <h2 class="govuk-heading-m no-bottom-margin">@label</h2>
         </label>
   @field.errors.map { error =>
-  <span class="error-message margin-bottom-small" id="error-message-@{field.id}-input"><span id="visually-hidden-error-prefix" class="visually-hidden">@messages("error.message.prefix")</span> @messages(error.message, error.args: _*)</span>
+  <span class="govuk-error-message margin-bottom-small" id="error-message-@{field.id}-input"><span id="visually-hidden-error-prefix" class="govuk-visually-hidden">@messages("error.message.prefix")</span> @messages(error.message, error.args: _*)</span>
   }
     @if(hint.nonEmpty){
-    <span class="form-hint @{formHintMargin}" id="hint-text-@{field.id}">@hint</span>
+    <span class="govuk-hint form-hint @{formHintMargin}" id="hint-text-@{field.id}">@hint</span>
     }
     <div class="form-control-wrapper">
         <input
-        class="form-control @inputClass"
+        class="govuk-input @inputClass govuk-input--width-10 margin-bottom-small"
         type="text"
         id="@{field.id}"
         name="@{field.name}"

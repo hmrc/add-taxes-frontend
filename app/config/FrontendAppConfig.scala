@@ -222,6 +222,6 @@ trait FeatureToggles {
   val config: ServicesConfig
 
   private def featureEnabled(key: String): Boolean = config.getBoolean(s"feature-toggles.$key")
-  final val sessionTimeoutInSeconds: Long = 900
+  final val sessionTimeoutInSeconds: Int = 900
   final val sessionCountdownInSeconds: Int = 60
 }

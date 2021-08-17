@@ -47,10 +47,10 @@ class InputTextAreaSpec extends WordSpec with MustMatchers with GuiceOneAppPerSu
     "not include error markups when form doesnot have errors" in {
       val doc: Document = Jsoup.parse(inputTextArea(testField).toString)
 
-      val forms = doc.select("div.form-group")
+      val forms = doc.select("div.govuk-form-group")
       forms.size mustBe 1
 
-      forms.get(0).className() mustBe "form-group"
+      forms.get(0).className() mustBe "govuk-form-group"
     }
 
     "include error markups when there is an form error" in {
@@ -58,14 +58,14 @@ class InputTextAreaSpec extends WordSpec with MustMatchers with GuiceOneAppPerSu
 
       val doc: Document = Jsoup.parse(inputTextArea(erroredField).toString)
 
-      val forms = doc.select("div.form-group")
+      val forms = doc.select("div.govuk-form-group")
       forms.size mustBe 1
 
-      forms.get(0).className().split(" ").filter(_.nonEmpty) mustBe Array("form-group", "form-group-error")
+      forms.get(0).className().split(" ").filter(_.nonEmpty) mustBe Array("govuk-form-group", "form-group-error", "govuk-form-group--error")
 
       doc.getElementById("error-message-value-input").hasClass("error-message")
       doc.getElementById("visually-hidden-error-prefix").text() mustBe "Error:"
-      doc.getElementById("visually-hidden-error-prefix").hasClass("visually-hidden")
+      doc.getElementById("visually-hidden-error-prefix").hasClass("govuk-visually-hidden")
     }
   }
 }
