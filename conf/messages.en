@@ -6,6 +6,11 @@ date.day = Day
 date.month = Month
 date.year = Year
 
+#timeout dialog
+timeout.title= Your application will time out soon
+timeout.message= We will sign you out if you do not respond in
+timeout.keep-alive-button= Continue application
+
 #######################################################
 ##  Common Error Messages
 #######################################################
@@ -21,7 +26,7 @@ error.integer = Give an answer in whole numbers
 error.non_numeric = Give a value using only numbers
 error.number = Please enter a valid number
 error.required = Please enter a value
-error.summary.title = There is a problem
+error.summary.title1 = There is a problem
 error.summary.text = Check the following
 error.browser.title = Error: {0}
 error.message.prefix = Error:

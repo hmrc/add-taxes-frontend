@@ -21,20 +21,21 @@
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.LanguageSelect
 @import uk.gov.hmrc.hmrcfrontend.views.Aliases.Cy
 @import uk.gov.hmrc.hmrcfrontend.views.Aliases.En
+@import config.FrontendAppConfig
 
 @this(
-    govukLayout: GovukLayout,
     govukTemplate: GovukTemplate,
     govukHeader: GovukHeader,
     hmrcHead: HmrcHead,
+    hmrcScripts: HmrcScripts,
     govukFooter: HmrcStandardFooter,
     hmrcStandardHeader: HmrcStandardHeader,
     hmrcReportTechnicalIssue: HmrcReportTechnicalIssue,
     hmrcLanguageSelect: HmrcLanguageSelect,
+    hmrcTimeoutDialogHelper: HmrcTimeoutDialogHelper
 )
 
-
-@(appConfig: config.FrontendAppConfig,
+@(appConfig: FrontendAppConfig,
   title: String,
   mainClass: Option[String] = None,
   mainDataAttributes: Option[Html] = None,
@@ -49,13 +50,15 @@
 
 
 @head = {
-<nav id="proposition-menu">
-@hmrcStandardHeader(
-serviceName = Some(messages("site.service_name")),
-serviceUrl = Some(appConfig.getBusinessAccountUrl("home")),
-signOutUrl = Some(appConfig.getBusinessAccountUrl("signout"))
+@hmrcTimeoutDialogHelper(
+    signOutUrl = "/business-account/timeout",
+    keepAliveUrl = Some("/business-account/keep-alive"),
+    timeout = Some(appConfig.sessionTimeoutInSeconds),
+    countdown = Some(appConfig.sessionCountdownInSeconds),
+    title = Some(messages("timeout.title")),
+    message = Some(messages("timeout.message")),
+    keepAliveButtonText = Some(messages("timeout.keep-alive-button"))
 )
-</nav>
 
 <!--[if lte IE 8]><link href='@controllers.routes.Assets.versioned("stylesheets/application-ie-8.css")' rel="stylesheet" type="text/css" /><![endif]-->
 <!--[if gt IE 8]><!--><link href='@controllers.routes.Assets.versioned("stylesheets/application.css")' media="all" rel="stylesheet" type="text/css" /><!--<![endif]-->
@@ -65,14 +68,12 @@ signOutUrl = Some(appConfig.getBusinessAccountUrl("signout"))
 }
 
 
-@insideHeader = {
-
-}
+@insideHeader = {}
 
 @afterHeader = {}
 
 @bodyEnd = {
-    @scriptElem
+    @hmrcScripts(scriptElem)
 }
 
 @footerDefault = {
@@ -99,12 +100,9 @@ appConfig.languageLinks: _*
 }
 }
 
-@footerLinks = {
-}
+@footerLinks = {}
 
-@serviceInfo = {
-
-}
+@serviceInfo = {}
 
 
 @headerAndMainContent = {
@@ -140,12 +138,15 @@ appConfig.languageLinks: _*
 
 }
 
-
 @govukTemplate(pageTitle = Some(title),
-headerBlock = hmrcHead(headBlock = Some(head), nonce = None),
-bodyEndBlock = Some(bodyEnd),
-footerBlock = footerDefault,
-headBlock = headBlock,
-beforeContentBlock = Some(beforeContentBlock)
+    headBlock = Some(hmrcHead(Some(head))),
+    headerBlock = hmrcStandardHeader(
+    serviceName = Some(messages("site.service_name")),
+    serviceUrl = Some(appConfig.getBusinessAccountUrl("home")),
+    signOutUrl = Some(appConfig.getBusinessAccountUrl("signout"))
+),
+    bodyEndBlock = Some(bodyEnd),
+    footerBlock = footerDefault,
+    beforeContentBlock = Some(beforeContentBlock)
 )(content)
 

@@ -88,11 +88,11 @@ class InputRadioSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite
       val forms = doc.select("div.govuk-form-group")
       forms.size mustBe 1
 
-      forms.get(0).className()  mustBe "govuk-form-group"
+      forms.get(0).className()  mustBe "govuk-form-group form-group-error govuk-form-group--error"
 
       doc.getElementById("error-message-value-input").hasClass("error-message")
       doc.getElementById("visually-hidden-error-prefix").text() mustBe "Error:"
-      doc.getElementById("visually-hidden-error-prefix").hasClass("visually-hidden")
+      doc.getElementById("visually-hidden-error-prefix").hasClass("govuk-visually-hidden")
     }
   }
 }
