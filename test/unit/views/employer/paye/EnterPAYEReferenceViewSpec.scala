@@ -60,7 +60,7 @@ class EnterPAYEReferenceViewSpec extends ViewBehaviours {
         }
 
         "has an associated label" in {
-          val label = doc.select("div.form-group > label").get(0)
+          val label = doc.select("div.govuk-form-group > label").get(0)
           label.attr("for") mustBe "officeNumber"
           label.text mustBe "HMRC office number"
         }
@@ -78,7 +78,7 @@ class EnterPAYEReferenceViewSpec extends ViewBehaviours {
         }
 
         "has an associated label" in {
-          val label = doc.select("div.form-group > label").get(1)
+          val label = doc.select("div.govuk-form-group > label").get(1)
           label.attr("for") mustBe "payeReference"
           label.text mustBe "Employer PAYE reference"
         }

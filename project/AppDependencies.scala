@@ -11,8 +11,8 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "logback-json-logger"           % "5.1.0",
     "uk.gov.hmrc" %% "http-caching-client"           % "9.3.0-play-27",
     "uk.gov.hmrc" %% "play-language"                 % "5.0.0-play-27",
-    "uk.gov.hmrc" %% "play-frontend-hmrc" % "0.77.0-play-27",
-    "uk.gov.hmrc" %% "play-frontend-govuk" % "0.79.0-play-27"
+    "uk.gov.hmrc" %% "play-frontend-hmrc" % "0.94.0-play-27",
+    "uk.gov.hmrc" %% "play-frontend-govuk" % "0.84.0-play-27"
   )
 
   abstract class TestDependencies(scope: String) {

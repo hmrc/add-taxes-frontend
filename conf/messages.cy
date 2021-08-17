@@ -2,6 +2,11 @@ checkYourAnswers.title = Check Your Answers
 checkYourAnswers.heading = Check Your Answers
 checkYourAnswers.guidance = Guidance for check your answers
 
+#timeout dialog
+timeout.keep-alive-button = Yn eich blaen â’r cais
+timeout.message = Byddwn yn eich allgofnodi os na fyddwch yn ymateb ymhen
+timeout.title = Bydd eich cais yn dod i ben cyn hir
+
 date.day = Day
 date.month = Month
 date.year = Year
@@ -21,7 +26,7 @@ error.integer = Give an answer in whole numbers
 error.non_numeric = Give a value using only numbers
 error.number = Please enter a valid number
 error.required = Please enter a value
-error.summary.title = Mae problem wedi codi
+error.summary.title1 = Mae problem wedi codi
 error.summary.text = Check the following
 error.browser.title = Gwall: {0}
 error.message.prefix = Gwall:

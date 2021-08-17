@@ -23,14 +23,14 @@
         headingId : String
 )(implicit messages: Messages)
 
-<div class="form-group @if(field.hasErrors){ form-group-error}">
+<div class="govuk-form-group @if(field.hasErrors){ form-group-error govuk-form-group--error}">
   <h1 class="govuk-heading-l no-top-margin govuk-!-margin-bottom-3" id="@headingId">
     <label class="form-label" for="@{field.id}">
         <span class="bold heading-large no-bottom-margin">@label</span>
     </label>
   </h1>
   @field.errors.map { error =>
-  <span class="govuk-error-message margin-bottom-small" id="error-message-@{field.id}-input"><span id="visually-hidden-error-prefix" class="visually-hidden">@messages("error.message.prefix")</span> @messages(error.message, error.args: _*)</span>
+  <span class="govuk-error-message margin-bottom-small" id="error-message-@{field.id}-input"><span id="visually-hidden-error-prefix" class="govuk-visually-hidden">@messages("error.message.prefix")</span> @messages(error.message, error.args: _*)</span>
   }
     @if(hint.nonEmpty){
     <span class="govuk-hint form-hint @{formHintMargin}" id="hint-text">@hint</span>
