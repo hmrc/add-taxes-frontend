@@ -17,7 +17,7 @@
 package service
 
 import javax.inject.Inject
-import models.sa.{CredIdFound, EnrolmentCheckResult, GroupIdFound, NoRecordFound, NoSaUtr}
+import models.sa.{CredIdFound, EnrolmentCheckResult, GroupIdFound, KnownFacts, KnownFactsReturn, NoRecordFound, NoSaUtr}
 import uk.gov.hmrc.play.audit.http.connector.{AuditConnector, AuditResult}
 import uk.gov.hmrc.play.audit.model.DataEvent
 import play.api.mvc.Request
@@ -30,6 +30,8 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
   final private val enrolmentChecker: String = "business-tax-account-check"
   final private val utrEvent: String = "UTR-check"
   final private val payeEvent: String = "PAYE-check"
+  final private val saKnownFactsEvent: String = "SA-knownfacts-result-check"
+
 
   def auditSA(credId: String, saUtr: String, enrolmentCheckResult: EnrolmentCheckResult)
              (implicit ec: ExecutionContext, hc: HeaderCarrier, request: Request[_]): Future[AuditResult] = {
@@ -50,6 +52,37 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
     val data = DataEvent(
       enrolmentChecker,
       utrEvent,
+      tags = buildTags(),
+      detail = detail
+    )
+    auditConnector.sendEvent(data)
+  }
+
+  def auditSAKnownFacts(credId: String,
+                        saUtr: String,
+                        knownfacts: KnownFacts,
+                        knownfactsResult: Boolean
+                       )
+             (implicit ec: ExecutionContext, hc: HeaderCarrier, request: Request[_]): Future[AuditResult] = {
+
+    val knownFactsIdentifier = knownfacts match {
+      case KnownFacts(Some(postcode),_, _) => postcode
+      case KnownFacts(_,Some(nino), _) => nino
+      case KnownFacts(_,_, Some(isAbroad)) => isAbroad
+    }
+
+    val knownFactsPassOrFail = if(knownfactsResult) {"pass"} else {"fail"}
+
+    val detail = Map[String,String](elems =
+      "credId" -> credId,
+      "utr" -> saUtr,
+      "knownFactsIdentifier" -> knownFactsIdentifier,
+      "knownFactsResult" -> knownFactsPassOrFail
+    )
+
+    val data = DataEvent(
+      enrolmentChecker,
+      saKnownFactsEvent,
       tags = buildTags(),
       detail = detail
     )

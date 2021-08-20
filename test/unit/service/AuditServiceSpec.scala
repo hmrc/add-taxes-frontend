@@ -1,6 +1,6 @@
 package service
 
-import models.sa.CredIdFound
+import models.sa.{CredIdFound, KnownFacts}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.concurrent.ScalaFutures.whenReady
@@ -37,6 +37,28 @@ class AuditServiceSpec extends PlaySpec with MockitoSugar {
         .thenReturn(Future.successful(expected))
 
       val result = testService.auditSA("credId123", "utr321", enrolmentCheckResult = CredIdFound)
+
+      whenReady(result){ _ mustBe expected }
+    }
+  }
+
+  "auditSAKnownfacts" should {
+
+    implicit val hc: HeaderCarrier = HeaderCarrier(
+      requestId = Some(RequestId("testId")),
+      sessionId = Some(SessionId("testId2")),
+      trueClientIp = Some("testIp"),
+      trueClientPort = Some("testPort")
+    )
+    implicit val request: FakeRequest[AnyContent] = FakeRequest()
+
+    "successfully audit" in {
+      val knownFacts = new KnownFacts(Some("AB112233D"), None, None)
+
+      when(mockAuditConnector.sendEvent(any())(any(), any()))
+        .thenReturn(Future.successful(expected))
+
+      val result = testService.auditSAKnownFacts("credId123", "utr321", knownFacts, knownfactsResult = true)
 
       whenReady(result){ _ mustBe expected }
     }

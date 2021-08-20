@@ -49,8 +49,11 @@ class KnownFactsService @Inject()(saService: SaService,
 
     queryKnownFactsResult.flatMap {
       case result@KnownFactsReturn(_, true) =>
+        auditService.auditSAKnownFacts(request.request.credId, result.utr, knownFacts, knownfactsResult = true)
         saService.getIvRedirectLink(result.utr, origin).map(link => Redirect(Call("GET", link)))
-      case _ => Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(origin)))
+      case result =>
+        auditService.auditSAKnownFacts(request.request.credId, result.utr, knownFacts, knownfactsResult = false)
+        Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(origin)))
     }
   }
 
