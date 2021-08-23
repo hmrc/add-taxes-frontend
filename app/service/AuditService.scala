@@ -68,7 +68,7 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
     val knownFactsIdentifier = knownfacts match {
       case KnownFacts(Some(postcode),_, _) => postcode
       case KnownFacts(_,Some(nino), _) => nino
-      case KnownFacts(_,_, Some(isAbroad)) => isAbroad
+      case KnownFacts(_,_, Some(isAbroad)) => "isAbroad" + isAbroad
     }
 
     val knownFactsPassOrFail = if(knownfactsResult) {"pass"} else {"fail"}
