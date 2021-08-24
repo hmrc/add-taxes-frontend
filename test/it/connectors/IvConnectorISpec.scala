@@ -52,5 +52,16 @@ class IvConnectorISpec extends WordSpec with MustMatchers with AddTaxesIntegrati
         StubIvConnector.verifyCheckJourneyLink(1)
       }
     }
+
+    "checkJourneyLinkUplift" should {
+      "return a valid JourneyLinkResponse" in {
+        StubIvConnector.withResponseCheckJourneyLinkUplift()(OK, checkJourneyLinkJson, "12345")
+
+        val result: Future[JourneyLinkResponse] = connector.checkJourneyLinkUplift("12345")
+
+        await(result) mustBe JourneyLinkResponse("Success", "token")
+        StubIvConnector.verifyCheckJourneyLinkUplift(1, "12345")
+      }
+    }
   }
 }

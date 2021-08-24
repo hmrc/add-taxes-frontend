@@ -19,25 +19,36 @@ package controllers.sa
 import config.FrontendAppConfig
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import javax.inject.Inject
+import play.api.Logging
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import service.IvService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
+import controllers.sa.{routes => saRoutes}
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 class IvJourneyController @Inject()(ivService: IvService,
                                     mcc: MessagesControllerComponents,
                                     authenticate: AuthAction,
                                     serviceInfoData: ServiceInfoAction,
-                                    appConfig: FrontendAppConfig)
-  extends FrontendController(mcc) with I18nSupport {
+                                   appConfig: FrontendAppConfig)
+  extends FrontendController(mcc) with I18nSupport with Logging {
 
   implicit val ec: ExecutionContext = mcc.executionContext
 
-  def ivRouter(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
+  def ivRouter(origin: String, journeyId: Option[String] = None): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
-        ivService.ivCheckAndEnrol(origin)
+        if(appConfig.ivUpliftFeatureSwitch) {
+          journeyId match {
+            case Some(id) => ivService.ivCheckAndEnrolUplift(origin, id)
+            case _ =>
+              logger.error("[IvJourneyController][ivRouter] Error there is no JounreyId provided on call")
+              Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"), origin)))
+          }
+        } else {
+          ivService.ivCheckAndEnrol(origin)
+        }
   }
 
 }

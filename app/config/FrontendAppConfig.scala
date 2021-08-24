@@ -154,6 +154,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   lazy val vatRegHost: String = config.getString("urls.vat-registration-frontend.host")
   lazy val vatRegHandoff: String = vatRegHost + config.getString("urls.vat-registration-frontend.handoff")
   lazy val identityVerificationFrontendBaseUrl: String = config.baseUrl("identity-verification-frontend")
+  lazy val addTaxesHost: String = config.getString("add-taxes-frontend.host")
   lazy val identityVerificationHost: String = config.getString("identity-verification-frontend.host")
   lazy val taxEnrolmentsBaseUrl: String = config.baseUrl("tax-enrolments")
 
@@ -216,6 +217,15 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   lazy val mtdItUrl: String = config.baseUrl("mtd-it")
 
   val accessMtdFeatureSwitch: Boolean = config.getBoolean("feature-toggles.accessMTD")
+  val ivUpliftFeatureSwitch: Boolean = config.getBoolean("feature-toggles.ivUpliftSwitch")
+
+  def ivUpliftUrl(origin: String): String = {
+    val completionUrl = s"$addTaxesHost/business-account/add-tax/self-assessment/sa-iv-router?origin=$origin"
+    val failureUrl = s"$addTaxesHost/business-account/add-tax/self-assessment/sa-iv-router?origin=$origin"
+    val url = s"$identityVerificationFrontendBaseUrl/mdtp/uplift?origin=${origin}&confidenceLevel=200&completionURL=${completionUrl}&failureURL=${failureUrl}"
+    url
+  }
+
 }
 
 trait FeatureToggles {

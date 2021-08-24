@@ -16,6 +16,7 @@
 
 package service
 
+import config.FrontendAppConfig
 import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
 import controllers.Assets.SEE_OTHER
 import controllers.ControllerSpecBase
@@ -50,6 +51,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
   val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
   val mockEnrolmentStoreProxyConnector: EnrolmentStoreProxyConnector = mock[EnrolmentStoreProxyConnector]
   val mockAuditService: AuditService = mock[AuditService]
+  val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
   val testKnownFacts: KnownFacts = KnownFacts(Some("AA00000A"), Some("AA1 1AA"), None)
   val utr: SAUTR = SAUTR("1234567890")
 
@@ -57,7 +59,8 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
     mockSaService,
     mockDataCacheConnector,
     mockEnrolmentStoreProxyConnector,
-    mockAuditService
+    mockAuditService,
+    mockAppConfig
   )
 
   override def beforeEach(): Unit = {

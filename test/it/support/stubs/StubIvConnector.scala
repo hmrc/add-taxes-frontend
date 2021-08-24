@@ -23,8 +23,16 @@ object StubIvConnector extends StubHelper {
   def withResponseCheckJourneyLink()(status: Int, optBody: Option[String]): Unit =
     stubGet("/mdtp/journey/journeyId/iv-stub-data", status, optBody)
 
+  def withResponseCheckJourneyLinkUplift()(status: Int, optBody: Option[String], journeyId: String): Unit =
+    stubGet(s"/mdtp/journey/journeyId/$journeyId", status, optBody)
+
   def verifyCheckJourneyLink(count: Int): Unit =
     verify(count, getRequestedFor(urlMatching(s"/mdtp/journey/journeyId/iv-stub-data")))
+
+
+  def verifyCheckJourneyLinkUplift(count: Int, journeyId: String): Unit =
+    verify(count, getRequestedFor(urlMatching(s"/mdtp/journey/journeyId/$journeyId")))
+
 
   def withResponseSsttpJourney(status: Int): Unit =
     stubPostEmpty("/internal/enrolled-for-sa", status)

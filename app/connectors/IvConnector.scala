@@ -19,15 +19,22 @@ package connectors
 import config.FrontendAppConfig
 import javax.inject.Inject
 import models.sa.JourneyLinkResponse
+import play.api.Logging
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class IvConnector @Inject()(appConfig: FrontendAppConfig,
-                            http: HttpClient) {
+                            http: HttpClient) extends Logging {
 
   val serviceUrl: String = appConfig.identityVerificationFrontendBaseUrl
+  val addTaxesHost: String = appConfig.addTaxesHost
+
+  def checkJourneyLinkUplift(journeyId: String)
+                      (implicit ec: ExecutionContext, hc: HeaderCarrier): Future[JourneyLinkResponse] = {
+    http.GET[JourneyLinkResponse](s"$serviceUrl/mdtp/journey/journeyId/$journeyId")
+  }
 
   def checkJourneyLink(journeyLinkUrl: String)
                       (implicit ec: ExecutionContext, hc: HeaderCarrier): Future[JourneyLinkResponse] = {

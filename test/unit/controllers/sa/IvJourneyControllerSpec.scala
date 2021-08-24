@@ -16,6 +16,7 @@
 
 package controllers.sa
 
+import config.FrontendAppConfig
 import controllers.Assets.{Redirect, SEE_OTHER}
 import controllers.ControllerSpecBase
 import controllers.sa.{routes => saRoutes}
@@ -32,6 +33,8 @@ class IvJourneyControllerSpec extends ControllerSpecBase with MockitoSugar with 
 
   val mockIvService: IvService = mock[IvService]
   val btaOrigin: String = "bta-sa"
+  val journeyId: String = "12345"
+  val mockAppConfig = mock[FrontendAppConfig]
 
   def controller(): IvJourneyController = {
     new IvJourneyController(
@@ -39,7 +42,7 @@ class IvJourneyControllerSpec extends ControllerSpecBase with MockitoSugar with 
       mcc,
       FakeAuthAction,
       FakeServiceInfoAction,
-      frontendAppConfig
+      mockAppConfig
     )
   }
 
@@ -62,6 +65,37 @@ class IvJourneyControllerSpec extends ControllerSpecBase with MockitoSugar with 
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).get mustBe saRoutes.RetryKnownFactsController.onPageLoad(btaOrigin).url
+    }
+
+    "redirect to enrolment success page when checkAndEnrol returns redirect to enrolment success with journeyid and feature is true" in {
+      when(mockAppConfig.ivUpliftFeatureSwitch).thenReturn(true)
+      when(mockIvService.ivCheckAndEnrolUplift(any(),any())(any(), any(), any()))
+        .thenReturn(Future.successful(Redirect(saRoutes.EnrolmentSuccessController.onPageLoad(btaOrigin))))
+
+      val result = controller().ivRouter(btaOrigin, Some(journeyId))(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result).get mustBe saRoutes.EnrolmentSuccessController.onPageLoad(btaOrigin).url
+    }
+
+    "redirect to try pin and post page when checkAndEnrol returns redirect to try pin and post page with journeyid and feature is true" in {
+      when(mockAppConfig.ivUpliftFeatureSwitch).thenReturn(true)
+      when(mockIvService.ivCheckAndEnrolUplift(any(),any())(any(), any(), any()))
+        .thenReturn(Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(btaOrigin))))
+
+      val result = controller().ivRouter(btaOrigin, Some(journeyId))(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result).get mustBe saRoutes.RetryKnownFactsController.onPageLoad(btaOrigin).url
+    }
+
+    "redirect to try pin and post page when checkAndEnrol returns redirect to try pin and post page without journeyid and feature is true" in {
+      when(mockAppConfig.ivUpliftFeatureSwitch).thenReturn(true)
+
+      val result = controller().ivRouter(btaOrigin, None)(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result).get mustBe saRoutes.TryPinInPostController.onPageLoad(Some("Failed"), btaOrigin).toString
     }
   }
 
