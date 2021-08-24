@@ -121,7 +121,7 @@ POST       /self-assessment/have-sa-utr                 controllers.sa.DoYouHave
 
 
 # This route will be the completion url we send to IV (Pin in Post)
-GET        /self-assessment/sa-iv-router                controllers.sa.IvJourneyController.ivRouter(origin: String)
+GET        /self-assessment/sa-iv-router                controllers.sa.IvJourneyController.ivRouter(origin: String, journeyId: Option[String])
 GET        /self-assessment/try-iv                      controllers.sa.TryIvController.onPageLoad(origin: String)
 
 GET        /self-assessment/enrolment-successful        controllers.sa.EnrolmentSuccessController.onPageLoad(origin: String)

@@ -16,7 +16,8 @@
 
 package service
 
-import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
+import config.FrontendAppConfig
+import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector, IvConnector}
 import controllers.Assets.Redirect
 import controllers.sa.{routes => saRoutes}
 import identifiers.EnterSAUTRId
@@ -24,14 +25,15 @@ import models.requests.ServiceInfoRequest
 import models.sa._
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.http.HeaderCarrier
-
 import javax.inject.Inject
+
 import scala.concurrent.{ExecutionContext, Future}
 
 class KnownFactsService @Inject()(saService: SaService,
                                   dataCacheConnector: DataCacheConnector,
                                   enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
-                                  auditService: AuditService){
+                                  auditService: AuditService,
+                                  appConfig: FrontendAppConfig){
 
   def knownFactsLocation(knownFacts: KnownFacts,
                          origin: String)
@@ -48,6 +50,9 @@ class KnownFactsService @Inject()(saService: SaService,
       }
 
     queryKnownFactsResult.flatMap {
+      case result@KnownFactsReturn(_, true) if(appConfig.ivUpliftFeatureSwitch) =>
+        auditService.auditSAKnownFacts(request.request.credId, result.utr, knownFacts, knownfactsResult = true)
+        Future.successful(Redirect(Call("GET", appConfig.ivUpliftUrl(origin))))
       case result@KnownFactsReturn(_, true) =>
         auditService.auditSAKnownFacts(request.request.credId, result.utr, knownFacts, knownfactsResult = true)
         saService.getIvRedirectLink(result.utr, origin).map(link => Redirect(Call("GET", link)))
