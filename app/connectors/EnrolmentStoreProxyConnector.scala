@@ -80,9 +80,7 @@ class EnrolmentStoreProxyConnector @Inject()(appConfig: FrontendAppConfig, http:
 
     http.POST[KnownFactsAndIdentifiers, HttpResponse](appConfig.queryKnownFactsUrl, knownFactsCombined).map { response =>
       response.status match {
-        case OK =>
-
-          KnownFactsReturn(utr.value, knownFactsResult = true)
+        case OK => KnownFactsReturn(utr.value, knownFactsResult = true)
         case _ => KnownFactsReturn(utr.value, knownFactsResult = false)
       }
     }.recover {

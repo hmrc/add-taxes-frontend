@@ -218,11 +218,12 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   val accessMtdFeatureSwitch: Boolean = config.getBoolean("feature-toggles.accessMTD")
   val ivUpliftFeatureSwitch: Boolean = config.getBoolean("feature-toggles.ivUpliftSwitch")
+  val ivLocationForEnvironments: String = config.getString("ivLocation")
 
   def ivUpliftUrl(origin: String): String = {
     val completionUrl = s"$addTaxesHost/business-account/add-tax/self-assessment/sa-iv-router?origin=$origin"
     val failureUrl = s"$addTaxesHost/business-account/add-tax/self-assessment/sa-iv-router?origin=$origin"
-    val url = s"$identityVerificationFrontendBaseUrl/mdtp/uplift?origin=${origin}&confidenceLevel=200&completionURL=${completionUrl}&failureURL=${failureUrl}"
+    val url = s"$identityVerificationFrontendBaseUrl/$ivLocationForEnvironments/uplift?origin=${origin}&confidenceLevel=200&completionURL=${completionUrl}&failureURL=${failureUrl}"
     url
   }
 
