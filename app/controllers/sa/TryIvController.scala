@@ -18,6 +18,7 @@ package controllers.sa
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
+import controllers.Assets.Redirect
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import identifiers.EnterSAUTRId
 import javax.inject.Inject
@@ -43,7 +44,12 @@ class TryIvController @Inject()(authenticate: AuthAction,
     implicit request =>
         val utr = dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
         val urlString: Future[String] = utr.flatMap {
-          case Some(utr) => saService.getIvRedirectLink(utr.value, origin)
+          case Some(utr) =>
+            if(appConfig.ivUpliftFeatureSwitch) {
+              Future.successful(appConfig.ivUpliftUrl(origin))
+            } else {
+              saService.getIvRedirectLink(utr.value, origin)
+            }
           case _ =>
             logger.warn("[TryIvController][onPageLoad] Failed to get UTR from DataCache")
             Future.successful(routes.TryPinInPostController.onPageLoad(Some("MatchingError"), origin).url)
