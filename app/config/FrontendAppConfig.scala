@@ -219,6 +219,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   val accessMtdFeatureSwitch: Boolean = config.getBoolean("feature-toggles.accessMTD")
   val ivUpliftFeatureSwitch: Boolean = config.getBoolean("feature-toggles.ivUpliftSwitch")
   val ivLocationForEnvironments: String = config.getString("ivLocation")
+  val identityVerificationFrontendHost: String = config.getString("identity-verification-frontend.host")
 
   def ivUpliftUrl(origin: String): String = {
     val completionUrl = s"$addTaxesHost/business-account/add-tax/self-assessment/sa-iv-router?origin=$origin"
