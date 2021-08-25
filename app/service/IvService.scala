@@ -38,7 +38,7 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
                          hc: HeaderCarrier): Future[String] = {
         ivConnector.checkJourneyLinkUplift(journeyId).map(_.result).recover {
         case exception =>
-          logger.error("[IvService][journeyLinkCheck] Check journey link failed with", exception)
+          logger.error(s"[IvService][journeyLinkCheckUplift] Check journey link failed with ${exception.getMessage}")
           "Failed"
       }
   }
@@ -54,7 +54,7 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
         result.result
       }.recover {
         case exception =>
-          logger.error("[IvService][journeyLinkCheck] Check journey link failed with", exception)
+          logger.error(s"[IvService][journeyLinkCheck] Check journey link failed with ${exception.getMessage}")
           "Failed"
       }
       case _ =>

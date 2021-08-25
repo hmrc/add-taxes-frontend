@@ -1,4 +1,5 @@
 package controllers.sa
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.ControllerSpecBase
 import models.sa.SAUTR
@@ -15,13 +16,14 @@ class TryIvControllerSpec extends ControllerSpecBase with MockitoSugar with Feat
 
   val mockSaService = mock[SaService]
   val mockDataCacheConnector = mock[DataCacheConnector]
+  val mockAppConfig = mock[FrontendAppConfig]
   val btaOrigin: String = "bta-sa"
 
   def controller(): TryIvController =
     new TryIvController(
       FakeAuthAction,
       FakeServiceInfoAction,
-      frontendAppConfig,
+      mockAppConfig,
       mcc,
       mockSaService,
       mockDataCacheConnector
@@ -42,5 +44,14 @@ class TryIvControllerSpec extends ControllerSpecBase with MockitoSugar with Feat
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/iv-link")
       }
+
+    "redirect back to the IV link returned from the connector when UTR is found and feature is true" in {
+      when(mockAppConfig.ivUpliftFeatureSwitch).thenReturn(true)
+      when(mockAppConfig.ivUpliftUrl(any())).thenReturn("testLink")
+      when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(Some(SAUTR("1234567890")))
+      val result = controller().onPageLoad(btaOrigin)(fakeRequest)
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some("testLink")
+    }
   }
 }
