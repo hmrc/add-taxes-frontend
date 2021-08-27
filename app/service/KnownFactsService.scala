@@ -52,7 +52,7 @@ class KnownFactsService @Inject()(saService: SaService,
     queryKnownFactsResult.flatMap {
       case result@KnownFactsReturn(_, true) if(appConfig.ivUpliftFeatureSwitch) =>
         auditService.auditSAKnownFacts(request.request.credId, result.utr, knownFacts, knownfactsResult = true)
-        Future.successful(Redirect(Call("GET", appConfig.ivUpliftUrl(origin))))
+        Future.successful(Redirect(appConfig.ivUpliftUrl(origin)))
       case result@KnownFactsReturn(_, true) =>
         auditService.auditSAKnownFacts(request.request.credId, result.utr, knownFacts, knownfactsResult = true)
         saService.getIvRedirectLink(result.utr, origin).map(link => Redirect(Call("GET", link)))
