@@ -256,6 +256,9 @@ class SelectSaCategoryServiceITSASpec extends ControllerSpecBase with MockitoSug
 
       "redirect user to Mtd It enrolment page" in new Setup {
 
+        when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
+        when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(NoSaUtr))
+
         val result: Future[Result] = testService.saCategoryResult(SelectSACategory.MtdIT, DoYouHaveSAUTR.Yes, btaOrigin)
 
         status(result) mustBe SEE_OTHER

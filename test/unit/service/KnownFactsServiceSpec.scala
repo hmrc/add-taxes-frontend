@@ -109,7 +109,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           .thenReturn(Future.successful(AuditResult.Success))
         when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any(), any())(any(), any())).thenReturn(Future.successful(true))
 
-        await(service().enrolmentCheck("234", utr, "37219-dsjjd", "IR-SA", DoYouHaveSAUTR.Yes)) mustBe CredIdFound
+        await(service().enrolmentCheck("234", utr, "37219-dsjjd", Some("IR-SA"), DoYouHaveSAUTR.Yes)) mustBe CredIdFound
 //        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
       }
 
@@ -119,7 +119,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
         when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any(), any())(any(), any())).thenReturn(Future.successful(false))
         when(mockEnrolmentStoreProxyConnector.checkSaGroup(any(), any())(any(), any())).thenReturn(Future.successful(false))
 
-        await(service().enrolmentCheck("234", utr, "37219-dsjjd", "IR-SA", DoYouHaveSAUTR.Yes)) mustBe NoRecordFound
+        await(service().enrolmentCheck("234", utr, "37219-dsjjd", Some("IR-SA"), DoYouHaveSAUTR.Yes)) mustBe NoRecordFound
 //        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
       }
 
@@ -130,7 +130,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
         when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any(), any())(any(), any())).thenReturn(Future.successful(false))
         when(mockEnrolmentStoreProxyConnector.checkSaGroup(any(), any())(any(), any())).thenReturn(Future.successful(true))
 
-        await(service().enrolmentCheck("234", utr, "37219-dsjjd", "IR-SA", DoYouHaveSAUTR.Yes)) mustBe GroupIdFound
+        await(service().enrolmentCheck("234", utr, "37219-dsjjd", Some("IR-SA"), DoYouHaveSAUTR.Yes)) mustBe GroupIdFound
 //        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
       }
 
@@ -140,7 +140,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
         when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any(), any())(any(), any())).thenReturn(Future.successful(false))
         when(mockEnrolmentStoreProxyConnector.checkSaGroup(any(), any())(any(), any())).thenReturn(Future.successful(true))
 
-        await(service().enrolmentCheck("234", utr, "37219-dsjjd", "IR-SA", DoYouHaveSAUTR.No)) mustBe NoSaUtr
+        await(service().enrolmentCheck("234", utr, "37219-dsjjd", Some("IR-SA"), DoYouHaveSAUTR.No)) mustBe NoSaUtr
         //        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
       }
 

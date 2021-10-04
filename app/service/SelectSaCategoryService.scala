@@ -45,50 +45,50 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
                                        ec: ExecutionContext,
                                        hc: HeaderCarrier): Future[Result] = {
 
-    def saCategoryCheck(saType: SelectSACategory,
-                        doYouHaveSaUtr: DoYouHaveSAUTR,
-                        origin: String)(implicit request: ServiceInfoRequest[AnyContent],
-                                        ec: ExecutionContext,
-                                        hc: HeaderCarrier): Future[Result] = {
+    val saEnrolment: Option[String] = saType match {
+      case SelectSACategory.Sa => Some("IR-SA")
+      case SelectSACategory.Partnership => Some("IR-SA-PART-ORG")
+      case SelectSACategory.Trust => Some("IR-SA-TRUST-ORG")
+      case _ => None
+    }
 
-      val saEnrolment: String = saType match {
-        case SelectSACategory.Sa => "IR-SA"
-        case SelectSACategory.Partnership => "IR-SA-PART-ORG"
-        case SelectSACategory.Trust => "IR-SA-TRUST-ORG"
-      }
-
-      for {
-        utr <- dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString).map(_.getOrElse(SAUTR("")))
-        enrolmentStoreResult <- knownFactsService.enrolmentCheck(request.request.credId, utr, request.request.groupId, saEnrolment, doYouHaveSaUtr)
-      } yield {
+    for {
+      utr <- dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString).map(_.getOrElse(SAUTR("")))
+      enrolmentStoreResult <- knownFactsService.enrolmentCheck(request.request.credId, utr, request.request.groupId, saEnrolment, doYouHaveSaUtr)
+    } yield {
+      if (accessMtdFeatureSwitch) {
+        auditService.auditSelectSACategory(saType, doYouHaveSaUtr, utr.value, request.request.credId, request.request.groupId)
         saType match {
           case SelectSACategory.Sa => {
-           // auditService.auditSelectSACategory(saType, doYouHaveSaUtr, utr.value, request.request.credId, request.request.groupId)
             saResult(doYouHaveSaUtr, enrolmentStoreResult, origin)
           }
           case SelectSACategory.Partnership => {
-         //   auditService.auditSelectSACategory(saType, doYouHaveSaUtr, utr.value, request.request.credId, request.request.groupId)
             partnershipResult(doYouHaveSaUtr, enrolmentStoreResult)
           }
           case SelectSACategory.Trust => {
-          //  auditService.auditSelectSACategory(saType, doYouHaveSaUtr, utr.value, request.request.credId, request.request.groupId)
+            trustsResult(doYouHaveSaUtr, enrolmentStoreResult)
+          }
+          case SelectSACategory.MtdIT => {
+            auditService.auditSelectSACategory(saType, doYouHaveSaUtr, "", request.request.credId, request.request.groupId)
+            Redirect(Call(method = "GET", url = appConfig.mtdItUrl))
+          }
+        }
+      }
+      else {
+        saType match {
+          case SelectSACategory.Sa => {
+            saResult(doYouHaveSaUtr, enrolmentStoreResult, origin)
+          }
+          case SelectSACategory.Partnership => {
+            partnershipResult(doYouHaveSaUtr, enrolmentStoreResult)
+          }
+          case SelectSACategory.Trust => {
             trustsResult(doYouHaveSaUtr, enrolmentStoreResult)
           }
         }
-
       }
-    }
 
-    if (accessMtdFeatureSwitch) {
-      saType match {
-        case SelectSACategory.MtdIT => {
-         // auditService.auditSelectSACategory(saType, doYouHaveSaUtr, "", request.request.credId, request.request.groupId)
-          Future.successful(Redirect(Call(method = "GET", url = appConfig.mtdItUrl)))
-        }
-        case _ => saCategoryCheck(saType, doYouHaveSaUtr, origin)
-      }
-    } else {
-      saCategoryCheck(saType, doYouHaveSaUtr, origin)
+
     }
   }
 

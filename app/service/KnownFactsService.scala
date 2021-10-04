@@ -65,16 +65,17 @@ class KnownFactsService @Inject()(saService: SaService,
   def enrolmentCheck(credId: String,
                      saUTR: SAUTR,
                      groupId: String,
-                     saEnrolment: String,
+                     saEnrolment: Option[String],
                      doYouHaveSaUtr: DoYouHaveSAUTR)(implicit request: ServiceInfoRequest[AnyContent],
                                                    ec: ExecutionContext,
                                                    hc: HeaderCarrier): Future[EnrolmentCheckResult] = {
 
    val enrolmentCheck: Future[EnrolmentCheckResult] = {
-     if(doYouHaveSaUtr.equals(DoYouHaveSAUTR.Yes)) {
-       enrolmentStoreProxyConnector.checkExistingUTR(saUTR.value, saEnrolment).flatMap { enrolmentStoreResult =>
+     if(doYouHaveSaUtr.equals(DoYouHaveSAUTR.Yes) && saEnrolment.nonEmpty) {
+       val saEnrolmentString = saEnrolment.getOrElse("")
+       enrolmentStoreProxyConnector.checkExistingUTR(saUTR.value, saEnrolmentString).flatMap { enrolmentStoreResult =>
          if (!enrolmentStoreResult) {
-           enrolmentStoreProxyConnector.checkSaGroup(groupId, saEnrolment).map(
+           enrolmentStoreProxyConnector.checkSaGroup(groupId, saEnrolmentString).map(
              res => if (res) GroupIdFound else NoRecordFound
            )
          } else { Future.successful(CredIdFound) }
