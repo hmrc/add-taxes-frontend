@@ -34,7 +34,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
                                         knownFactsService: KnownFactsService,
-                                        appConfig: FrontendAppConfig) {
+                                        appConfig: FrontendAppConfig,
+                                        auditService: AuditService) {
 
   val accessMtdFeatureSwitch: Boolean = appConfig.accessMtdFeatureSwitch
 
@@ -61,17 +62,29 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
         enrolmentStoreResult <- knownFactsService.enrolmentCheck(request.request.credId, utr, request.request.groupId, saEnrolment, doYouHaveSaUtr)
       } yield {
         saType match {
-          case SelectSACategory.Sa => saResult(doYouHaveSaUtr, enrolmentStoreResult, origin)
-          case SelectSACategory.Partnership => partnershipResult(doYouHaveSaUtr, enrolmentStoreResult)
-          case SelectSACategory.Trust => trustsResult(doYouHaveSaUtr, enrolmentStoreResult)
+          case SelectSACategory.Sa => {
+           // auditService.auditSelectSACategory(saType, doYouHaveSaUtr, utr.value, request.request.credId, request.request.groupId)
+            saResult(doYouHaveSaUtr, enrolmentStoreResult, origin)
+          }
+          case SelectSACategory.Partnership => {
+         //   auditService.auditSelectSACategory(saType, doYouHaveSaUtr, utr.value, request.request.credId, request.request.groupId)
+            partnershipResult(doYouHaveSaUtr, enrolmentStoreResult)
+          }
+          case SelectSACategory.Trust => {
+          //  auditService.auditSelectSACategory(saType, doYouHaveSaUtr, utr.value, request.request.credId, request.request.groupId)
+            trustsResult(doYouHaveSaUtr, enrolmentStoreResult)
+          }
         }
 
       }
     }
 
-    if(accessMtdFeatureSwitch) {
+    if (accessMtdFeatureSwitch) {
       saType match {
-        case SelectSACategory.MtdIT => Future.successful(Redirect(Call(method = "GET", url = appConfig.mtdItUrl)))
+        case SelectSACategory.MtdIT => {
+         // auditService.auditSelectSACategory(saType, doYouHaveSaUtr, "", request.request.credId, request.request.groupId)
+          Future.successful(Redirect(Call(method = "GET", url = appConfig.mtdItUrl)))
+        }
         case _ => saCategoryCheck(saType, doYouHaveSaUtr, origin)
       }
     } else {

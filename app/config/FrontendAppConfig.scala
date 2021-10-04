@@ -214,7 +214,9 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
     }
   }
 
-  lazy val mtdItUrl: String = config.baseUrl("mtd-it")
+  lazy val mtdItHost: String = config.getString("income-tax-subscription-frontend.host")
+  lazy val mtdItSignup: String = config.getString("income-tax-subscription-frontend.claim-enrolment")
+  lazy val mtdItUrl = mtdItHost + mtdItSignup
 
   val accessMtdFeatureSwitch: Boolean = config.getBoolean("feature-toggles.accessMTD")
   val ivUpliftFeatureSwitch: Boolean = config.getBoolean("feature-toggles.ivUpliftSwitch")
