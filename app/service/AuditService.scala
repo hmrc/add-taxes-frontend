@@ -17,7 +17,7 @@
 package service
 
 import javax.inject.Inject
-import models.sa.{CredIdFound, EnrolmentCheckResult, GroupIdFound, KnownFacts, KnownFactsReturn, NoRecordFound, NoSaUtr}
+import models.sa.{CredIdFound, DoYouHaveSAUTR, EnrolmentCheckResult, GroupIdFound, KnownFacts, KnownFactsReturn, NoRecordFound, NoSaUtr, SelectSACategory}
 import uk.gov.hmrc.play.audit.http.connector.{AuditConnector, AuditResult}
 import uk.gov.hmrc.play.audit.model.DataEvent
 import play.api.mvc.Request
@@ -31,6 +31,7 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
   final private val utrEvent: String = "UTR-check"
   final private val payeEvent: String = "PAYE-check"
   final private val saKnownFactsEvent: String = "SA-knownfacts-result-check"
+  final private val selectSACategoryEvent: String = "select-SA-Category-check"
 
 
   def auditSA(credId: String, saUtr: String, enrolmentCheckResult: EnrolmentCheckResult)
@@ -116,6 +117,25 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
       "clientPort" -> hc.trueClientPort.getOrElse(""),
       "type" -> "Audit"
     )
+  }
+
+  def auditSelectSACategory(saType: SelectSACategory, doYouHaveSaUtr: DoYouHaveSAUTR, utr: String, credId: String, groupId: String)
+                           (implicit ec: ExecutionContext, hc: HeaderCarrier, request: Request[_]): Future[AuditResult] ={
+
+    val detail = Map[String,String](elems =
+      "saType" -> saType.toString,
+      "credId" -> credId,
+      "doYouHaveSaUtr" -> doYouHaveSaUtr.toString,
+      "utr" -> utr,
+      "groupID" -> groupId,
+    )
+    val data = DataEvent(
+      enrolmentChecker,
+      selectSACategoryEvent,
+      tags = buildTags(),
+      detail = detail
+    )
+    auditConnector.sendEvent(data)
   }
 
 }

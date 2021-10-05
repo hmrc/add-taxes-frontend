@@ -30,6 +30,7 @@ class SelectSaCategoryServiceITSASpec extends ControllerSpecBase with MockitoSug
 
   val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
   val mockKnownFactsService: KnownFactsService = mock[KnownFactsService]
+  val mockAuditService: AuditService = mock[AuditService]
 
   val btaOrigin: String = "bta-sa"
 
@@ -40,8 +41,8 @@ class SelectSaCategoryServiceITSASpec extends ControllerSpecBase with MockitoSug
     val testService: SelectSaCategoryService = new SelectSaCategoryService(
       mockDataCacheConnector,
       mockKnownFactsService,
-      frontendAppConfig
-    ){override val accessMtdFeatureSwitch: Boolean = true}
+      frontendAppConfig,
+      mockAuditService){override val accessMtdFeatureSwitch: Boolean = true}
   }
 
   override def beforeEach(): Unit = {
@@ -254,6 +255,9 @@ class SelectSaCategoryServiceITSASpec extends ControllerSpecBase with MockitoSug
     "Category MtdIT is selected" must {
 
       "redirect user to Mtd It enrolment page" in new Setup {
+
+        when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
+        when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(NoSaUtr))
 
         val result: Future[Result] = testService.saCategoryResult(SelectSACategory.MtdIT, DoYouHaveSAUTR.Yes, btaOrigin)
 
