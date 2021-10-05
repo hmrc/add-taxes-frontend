@@ -120,14 +120,14 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
   }
 
   def auditSelectSACategory(saType: SelectSACategory, doYouHaveSaUtr: DoYouHaveSAUTR, utr: String, credId: String, groupId: String)
-                           (implicit ec: ExecutionContext, hc: HeaderCarrier, request: Request[_]): Future[AuditResult] ={
+                           (implicit ec: ExecutionContext, hc: HeaderCarrier, request: Request[_]): Future[AuditResult] = {
 
     val detail = Map[String,String](elems =
       "saType" -> saType.toString,
       "credId" -> credId,
       "doYouHaveSaUtr" -> doYouHaveSaUtr.toString,
       "utr" -> utr,
-      "groupID" -> groupId,
+      "groupID" -> groupId
     )
     val data = DataEvent(
       enrolmentChecker,
