@@ -20,8 +20,9 @@ import config.FrontendAppConfig
 import connectors.{CitizensDetailsConnector, DataCacheConnector, GetBusinessDetailsConnector}
 import controllers.Assets.{Ok, Redirect}
 import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
+import identifiers.EnterSAUTRId
 import models.requests.ServiceInfoRequest
-import models.sa.SelectSACategory
+import models.sa.{SAUTR, SelectSACategory}
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.{AnyContent, Call, Result}
@@ -44,16 +45,16 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
     enrolments.collectFirst{case enrolment: Enrolment if enrolment.key == "IR-SA" => enrolment} match {
       case Some(saEnrolment) =>
         saEnrolment.getIdentifier("utr") match {
-          case Some(id) => mtdITSASignupBool(saEnrolment.key, id)
+          case Some(utr) => mtdITSASignupBool(saEnrolment.key, utr.value)
           case _ => Future.successful(false)
         }
       case None => Future.successful(false)
     }
   }
 
-  def mtdITSASignupBool(key: String, utr: EnrolmentIdentifier)
+  def mtdITSASignupBool(key: String, utr: String)
                        (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Boolean] = {
-    citizensDetailsConnector.getDesignatoryDetails(key, utr.value).flatMap {
+    citizensDetailsConnector.getDesignatoryDetails(key, utr).flatMap {
       case Some(details) => getBusinessDetailsConnector.getBusinessDetails("nino", details.nino).map {
         case Some(_) =>
           dataCacheConnector.save[Boolean](request.request.credId, "mtdItSignupBoolean", true)
@@ -105,7 +106,8 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
         Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, mtdBool = false))(request.serviceInfoContent))
       )
       case (_, _, _, _) =>
-        for {mtdBoolCheck <- mtdItsaSubscribedCheck(enrolments.enrolments)
+        for {maybeSAUTR <- dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
+             mtdBoolCheck <- mtdITSASignupBool("IR-SA", maybeSAUTR.getOrElse(SAUTR("").value).toString)
              } yield {
             Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, mtdBoolCheck))(request.serviceInfoContent))
         }
