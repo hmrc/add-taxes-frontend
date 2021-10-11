@@ -75,8 +75,10 @@ class SaService @Inject()(saConnector: SaConnector,
               enrolForSaBoolean <- taxEnrolmentsConnector.enrolForSa(utr, request.request.credId, request.request.groupId, "enrolAndActivate")
             } yield {
               if (enrolForSaBoolean) {
+                logger.info("[SaService][checkCIDNinoComparison] Success through CID checks and enrolled")
                 Some(saRoutes.EnrolmentSuccessController.onPageLoad(origin).url)
               } else {
+                logger.info("[SaService][checkCIDNinoComparison] Success through CID checks and try pin")
                 Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"), origin).url)
               }
             }
