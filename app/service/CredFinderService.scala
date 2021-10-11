@@ -44,8 +44,7 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
     enrolments.collectFirst{case enrolment: Enrolment if enrolment.key == "IR-SA" => enrolment} match {
       case Some(saEnrolment) =>
         saEnrolment.getIdentifier("utr") match {
-          case Some(id) =>
-            mtdITSASignupBool(saEnrolment.key, id)
+          case Some(id) => mtdITSASignupBool(saEnrolment.key, id)
           case _ => Future.successful(false)
         }
       case None => Future.successful(false)

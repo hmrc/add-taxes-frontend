@@ -26,5 +26,6 @@ case class AuthenticatedRequest[A](
   affinityGroup: Option[AffinityGroup],
   groupId: String,
   credId: String,
-  confidenceLevel: ConfidenceLevel)
+  confidenceLevel: ConfidenceLevel,
+  nino: Option[String])
     extends WrappedRequest[A](request)

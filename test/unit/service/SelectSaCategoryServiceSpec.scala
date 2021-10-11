@@ -3,6 +3,7 @@ package service
 import connectors.DataCacheConnector
 import controllers.Assets.SEE_OTHER
 import controllers.ControllerSpecBase
+import handlers.ErrorHandler
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.sa._
 import org.mockito.ArgumentMatchers.any
@@ -25,12 +26,14 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
   implicit val hc: HeaderCarrier = HeaderCarrier()
 
   def test(affinityGroup: AffinityGroup) = ServiceInfoRequest[AnyContent](
-    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(affinityGroup), groupId, providerId, confidenceLevel),
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(affinityGroup), groupId, providerId, confidenceLevel, None),
     HtmlFormat.empty)
 
   val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
   val mockKnownFactsService: KnownFactsService = mock[KnownFactsService]
   val mockAuditService: AuditService = mock[AuditService]
+  val mockSaService: SaService = mock[SaService]
+  val errorHandler: ErrorHandler = injector.instanceOf[ErrorHandler]
 
   val btaOrigin: String = "bta-sa"
 
@@ -41,7 +44,9 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
     val testService: SelectSaCategoryService = new SelectSaCategoryService(
       mockDataCacheConnector,
       mockKnownFactsService,
+      mockSaService,
       frontendAppConfig,
+      errorHandler,
       mockAuditService) {override val accessMtdFeatureSwitch: Boolean = false}
   }
 
@@ -55,6 +60,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(NoRecordFound))
+        when(mockSaService.checkCIDNinoComparison(any(), any())(any(), any(), any())).thenReturn(Future.successful(None))
         override implicit val request: ServiceInfoRequest[AnyContent] = test(Individual)
 
         val result = testService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.No, btaOrigin)
@@ -68,6 +74,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(Some(SAUTR("")))
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(NoSaUtr))
+        when(mockSaService.checkCIDNinoComparison(any(), any())(any(), any(), any())).thenReturn(Future.successful(None))
         val result = testService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.No, btaOrigin)
 
         status(result) mustBe SEE_OTHER
@@ -87,10 +94,36 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
 
       }
 
+      "return redirect to result location when checkCIDNinoComparison returns a result" in new Setup {
+        when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(Some(SAUTR("1234567800")))
+        when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
+          .thenReturn(Future.successful(NoRecordFound))
+        when(mockSaService.checkCIDNinoComparison(any(), any())(any(), any(), any())).thenReturn(Future.successful(Some("/redirectUrl")))
+
+
+        val result = testService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.Yes, btaOrigin)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some("/redirectUrl")
+      }
+
+      "return Internal Server Error when checkCIDNinoComp returns CidError" in new Setup {
+        when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(Some(SAUTR("1234567800")))
+        when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
+          .thenReturn(Future.successful(NoRecordFound))
+        when(mockSaService.checkCIDNinoComparison(any(), any())(any(), any(), any())).thenReturn(Future.successful(Some("CidError")))
+
+
+        val result = testService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.Yes, btaOrigin)
+
+        status(result) mustBe INTERNAL_SERVER_ERROR
+      }
+
       "return redirect to wrong credentials page when credId is found" in new Setup {
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(Some(SAUTR("1234567800")))
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(CredIdFound))
+        when(mockSaService.checkCIDNinoComparison(any(), any())(any(), any(), any())).thenReturn(Future.successful(None))
 
         val result = testService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.Yes, btaOrigin)
 
@@ -103,6 +136,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(Some(SAUTR("1234567800")))
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(GroupIdFound))
+        when(mockSaService.checkCIDNinoComparison(any(), any())(any(), any(), any())).thenReturn(Future.successful(None))
 
         val result = testService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.Yes, btaOrigin)
 
@@ -117,6 +151,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(CredIdFound))
+        when(mockSaService.checkCIDNinoComparison(any(), any())(any(), any(), any())).thenReturn(Future.successful(None))
         val result = testService.saCategoryResult(SelectSACategory.Partnership, DoYouHaveSAUTR.Yes, btaOrigin)
 
         status(result) mustBe SEE_OTHER
@@ -128,6 +163,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(GroupIdFound))
+        when(mockSaService.checkCIDNinoComparison(any(), any())(any(), any(), any())).thenReturn(Future.successful(None))
         val result = testService.saCategoryResult(SelectSACategory.Partnership, DoYouHaveSAUTR.No, btaOrigin)
 
         status(result) mustBe SEE_OTHER
@@ -139,6 +175,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(NoRecordFound))
+        when(mockSaService.checkCIDNinoComparison(any(), any())(any(), any(), any())).thenReturn(Future.successful(None))
         val result = testService.saCategoryResult(SelectSACategory.Partnership, DoYouHaveSAUTR.No, btaOrigin)
 
         status(result) mustBe SEE_OTHER
@@ -150,6 +187,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(NoRecordFound))
+        when(mockSaService.checkCIDNinoComparison(any(), any())(any(), any(), any())).thenReturn(Future.successful(None))
         override implicit val request: ServiceInfoRequest[AnyContent] = test(Individual)
         val result = testService.saCategoryResult(SelectSACategory.Partnership, DoYouHaveSAUTR.No, btaOrigin)
 
@@ -164,6 +202,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(CredIdFound))
+        when(mockSaService.checkCIDNinoComparison(any(), any())(any(), any(), any())).thenReturn(Future.successful(None))
         val result = testService.saCategoryResult(SelectSACategory.Trust, DoYouHaveSAUTR.Yes, btaOrigin)
 
         status(result) mustBe SEE_OTHER
@@ -175,6 +214,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(GroupIdFound))
+        when(mockSaService.checkCIDNinoComparison(any(), any())(any(), any(), any())).thenReturn(Future.successful(None))
         val result = testService.saCategoryResult(SelectSACategory.Trust, DoYouHaveSAUTR.No, btaOrigin)
 
         status(result) mustBe SEE_OTHER
@@ -186,6 +226,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(NoRecordFound))
+        when(mockSaService.checkCIDNinoComparison(any(), any())(any(), any(), any())).thenReturn(Future.successful(None))
         val result = testService.saCategoryResult(SelectSACategory.Trust, DoYouHaveSAUTR.No, btaOrigin)
 
         status(result) mustBe SEE_OTHER
@@ -197,6 +238,7 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(None)
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(NoRecordFound))
+        when(mockSaService.checkCIDNinoComparison(any(), any())(any(), any(), any())).thenReturn(Future.successful(None))
         override implicit val request: ServiceInfoRequest[AnyContent] = test(Individual)
         val result = testService.saCategoryResult(SelectSACategory.Trust, DoYouHaveSAUTR.No, btaOrigin)
 

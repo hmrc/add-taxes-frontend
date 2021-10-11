@@ -27,7 +27,7 @@ class TryPinInPostControllerSpec extends ControllerSpecBase with MockitoSugar wi
   val view: tryPinInPost = injector.instanceOf[tryPinInPost]
   val errorHandler: ErrorHandler = injector.instanceOf[ErrorHandler]
   implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
-    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel),
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
     HtmlFormat.empty)
   val btaOrigin: String = "bta-sa"
 

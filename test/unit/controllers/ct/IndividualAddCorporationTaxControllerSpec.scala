@@ -81,7 +81,7 @@ class FakeAuthActionAuthenticated @Inject()(bodyParsers: PlayBodyParsers)(implic
 
   override val parser: BodyParser[AnyContent] = bodyParsers.default
   override def invokeBlock[A](request: Request[A], block: AuthenticatedRequest[A] => Future[Result]): Future[Result] =
-    block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Organisation), groupId, providerId, confidenceLevel))
+    block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Organisation), groupId, providerId, confidenceLevel, None))
 }
 
 //class FakeServiceInfoActionEmpty(bodyParsers: PlayBodyParsers)(implicit val executionContext: ExecutionContext) extends AuthAction {

@@ -18,23 +18,26 @@ package service
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.Assets.Redirect
+import controllers.Assets.{InternalServerError, Redirect}
 import controllers.sa.partnership.{routes => saPartnerRoutes}
 import controllers.sa.trust.{routes => trustRoutes}
 import controllers.sa.{routes => saRoutes}
+import handlers.ErrorHandler
 import identifiers.EnterSAUTRId
 import models.requests.ServiceInfoRequest
 import models.sa._
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
-
 import javax.inject.Inject
+
 import scala.concurrent.{ExecutionContext, Future}
 
 class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
                                         knownFactsService: KnownFactsService,
+                                        saService: SaService,
                                         appConfig: FrontendAppConfig,
+                                        errorHandler: ErrorHandler,
                                         auditService: AuditService) {
 
   val accessMtdFeatureSwitch: Boolean = appConfig.accessMtdFeatureSwitch
@@ -55,54 +58,37 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
     for {
       utr <- dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString).map(_.getOrElse(SAUTR("")))
       enrolmentStoreResult <- knownFactsService.enrolmentCheck(request.request.credId, utr, request.request.groupId, saEnrolment, doYouHaveSaUtr)
+      checkNinoResult <- saService.checkCIDNinoComparison(origin, utr.value)
     } yield {
       if (accessMtdFeatureSwitch) {
         auditService.auditSelectSACategory(saType, doYouHaveSaUtr, utr.value, request.request.credId, request.request.groupId)
+      }
         saType match {
-          case SelectSACategory.Sa => {
-            saResult(doYouHaveSaUtr, enrolmentStoreResult, origin)
-          }
-          case SelectSACategory.Partnership => {
-            partnershipResult(doYouHaveSaUtr, enrolmentStoreResult)
-          }
-          case SelectSACategory.Trust => {
-            trustsResult(doYouHaveSaUtr, enrolmentStoreResult)
-          }
+          case SelectSACategory.Sa => saResult(doYouHaveSaUtr, enrolmentStoreResult, origin, checkNinoResult)
+          case SelectSACategory.Partnership => partnershipResult(doYouHaveSaUtr, enrolmentStoreResult)
+          case SelectSACategory.Trust => trustsResult(doYouHaveSaUtr, enrolmentStoreResult)
           case SelectSACategory.MtdIT => {
-            auditService.auditSelectSACategory(saType, doYouHaveSaUtr, "", request.request.credId, request.request.groupId)
             Redirect(Call(method = "GET", url = appConfig.mtdItUrl))
           }
         }
       }
-      else {
-        saType match {
-          case SelectSACategory.Sa => {
-            saResult(doYouHaveSaUtr, enrolmentStoreResult, origin)
-          }
-          case SelectSACategory.Partnership => {
-            partnershipResult(doYouHaveSaUtr, enrolmentStoreResult)
-          }
-          case SelectSACategory.Trust => {
-            trustsResult(doYouHaveSaUtr, enrolmentStoreResult)
-          }
-        }
-      }
-
-
     }
-  }
 
   private def saResult(doYouHaveSaUtr: DoYouHaveSAUTR,
                        enrolmentStoreResult: EnrolmentCheckResult,
-                       origin: String)
+                       origin: String,
+                       ninoCheckResult: Option[String])
                        (implicit request: ServiceInfoRequest[AnyContent]): Result = {
-    (doYouHaveSaUtr, enrolmentStoreResult) match {
-      case (DoYouHaveSAUTR.Yes, NoRecordFound) => Redirect(saRoutes.KnownFactsController.onPageLoad(origin))
-      case (_, CredIdFound)                    => Redirect(Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials")))
-      case (_, GroupIdFound)                   => Redirect(saRoutes.GroupIdFoundController.onPageLoad())
-      case (_, _) if (request.request.affinityGroup.contains(AffinityGroup.Individual)) =>
+    (doYouHaveSaUtr, enrolmentStoreResult, ninoCheckResult) match {
+      case (_, _, Some(result)) => if(result.contains("CidError")) {
+        InternalServerError(errorHandler.internalServerErrorTemplate)
+      } else { Redirect(Call("GET", result))}
+      case (DoYouHaveSAUTR.Yes, NoRecordFound, _) => Redirect(saRoutes.KnownFactsController.onPageLoad(origin))
+      case (_, CredIdFound, _)                    => Redirect(Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials")))
+      case (_, GroupIdFound, _)                   => Redirect(saRoutes.GroupIdFoundController.onPageLoad())
+      case (_, _, _) if (request.request.affinityGroup.contains(AffinityGroup.Individual)) =>
         Redirect(saRoutes.AreYouSelfEmployedController.onPageLoad())
-      case (_, _)                              => Redirect(Call("GET", appConfig.getPortalUrl("selectTaxes")))
+      case (_, _, _)                              => Redirect(Call("GET", appConfig.getPortalUrl("selectTaxes")))
     }
   }
 

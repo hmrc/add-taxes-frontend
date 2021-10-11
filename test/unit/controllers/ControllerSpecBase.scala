@@ -56,7 +56,7 @@ trait ControllerSpecBase extends SpecBase {
   def requestWithEnrolments(keys: String*): ServiceInfoRequest[AnyContent] = {
     val enrolments = Enrolments(keys.map(Enrolment(_)).toSet)
     ServiceInfoRequest[AnyContent](
-      AuthenticatedRequest(FakeRequest(), "", enrolments, Some(Organisation), groupId, providerId, confidenceLevel),
+      AuthenticatedRequest(FakeRequest(), "", enrolments, Some(Organisation), groupId, providerId, confidenceLevel, None),
       HtmlFormat.empty)
   }
 }

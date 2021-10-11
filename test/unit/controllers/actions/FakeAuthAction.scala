@@ -30,7 +30,7 @@ class FakeAuthAction(bodyParsers: PlayBodyParsers)(implicit val executionContext
   val parser: BodyParser[AnyContent] = bodyParsers.default
 
   override def invokeBlock[A](request: Request[A], block: AuthenticatedRequest[A] => Future[Result]): Future[Result] =
-    block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Organisation), groupId, providerId, confidenceLevel))
+    block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Organisation), groupId, providerId, confidenceLevel, None))
 }
 
 class FakeAuthActionIndividual(bodyParsers: PlayBodyParsers)(implicit val executionContext: ExecutionContext) extends AuthAction {
@@ -40,7 +40,7 @@ class FakeAuthActionIndividual(bodyParsers: PlayBodyParsers)(implicit val execut
   val confidenceLevel = ConfidenceLevel.L50
 
   override def invokeBlock[A](request: Request[A], block: AuthenticatedRequest[A] => Future[Result]): Future[Result] =
-    block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel))
+    block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None))
 }
 
 class FakeAuthActionAgent(bodyParsers: PlayBodyParsers)(implicit val executionContext: ExecutionContext) extends AuthAction {
@@ -50,5 +50,5 @@ class FakeAuthActionAgent(bodyParsers: PlayBodyParsers)(implicit val executionCo
   val confidenceLevel = ConfidenceLevel.L50
 
   override def invokeBlock[A](request: Request[A], block: AuthenticatedRequest[A] => Future[Result]): Future[Result] =
-    block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Agent), groupId, providerId, confidenceLevel))
+    block(AuthenticatedRequest(request, "id", Enrolments(Set()), Some(Agent), groupId, providerId, confidenceLevel, None))
 }

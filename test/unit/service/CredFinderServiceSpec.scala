@@ -34,7 +34,7 @@ class CredFinderServiceSpec extends ControllerSpecBase with MockitoSugar with Be
     val mtdITEnrolment: Enrolment = Enrolment(key = HmrcEnrolmentType.MTDIT.toString, identifiers = Seq(), state = "Activated")
 
     def test(affinityGroup: AffinityGroup, enrolments: Enrolments): ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
-      AuthenticatedRequest(FakeRequest(), "", enrolments, Some(affinityGroup), groupId, providerId, confidenceLevel),
+      AuthenticatedRequest(FakeRequest(), "", enrolments, Some(affinityGroup), groupId, providerId, confidenceLevel, None),
       HtmlFormat.empty)
 
     val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]

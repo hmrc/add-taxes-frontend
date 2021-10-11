@@ -44,8 +44,8 @@ class AuthActionImpl @Inject()(val authConnector: AuthConnector,
       HeaderCarrierConverter.fromRequestAndSession(request.withHeaders(request.headers), request.session)
 
     authorised().retrieve(Retrievals.externalId and Retrievals.allEnrolments and Retrievals.affinityGroup
-      and Retrievals.groupIdentifier and Retrievals.credentials and Retrievals.confidenceLevel) {
-      case externalId ~ enrolments ~ affinityGroup ~ Some(groupId) ~ Some(creds) ~ confidenceLevel =>
+      and Retrievals.groupIdentifier and Retrievals.credentials and Retrievals.confidenceLevel and Retrievals.nino) {
+      case externalId ~ enrolments ~ affinityGroup ~ Some(groupId) ~ Some(creds) ~ confidenceLevel ~ nino =>
         externalId
           .map { externalId =>
             block(AuthenticatedRequest(request,
@@ -54,10 +54,11 @@ class AuthActionImpl @Inject()(val authConnector: AuthConnector,
               affinityGroup,
               groupId,
               creds.providerId,
-              confidenceLevel))
+              confidenceLevel,
+              nino))
           }
           .getOrElse(throw new UnauthorizedException("Unable to retrieve external Id"))
-      case externalId ~ enrolments ~ affinityGroup ~ None ~ Some(creds) ~ confidenceLevel =>
+      case externalId ~ enrolments ~ affinityGroup ~ None ~ Some(creds) ~ confidenceLevel ~ nino =>
         Future.successful(Redirect(routes.VerifiedUserController.onPageLoad()))
     } recover {
       case _: NoActiveSession             => Redirect(config.loginUrl, Map("continue" -> Seq(config.loginContinueUrl)))
