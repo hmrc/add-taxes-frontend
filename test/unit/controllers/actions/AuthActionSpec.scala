@@ -50,17 +50,18 @@ class AuthActionSpec extends SpecBase with MockitoSugar {
     def onPageLoad(): Action[AnyContent] = authAction { _ => Ok }
   }
 
-  type RetrievalType = Option[String] ~ Enrolments ~ Option[AffinityGroup] ~ Option[String] ~ Option[Credentials] ~ ConfidenceLevel
+  type RetrievalType = Option[String] ~ Enrolments ~ Option[AffinityGroup] ~ Option[String] ~ Option[Credentials] ~ ConfidenceLevel ~ Option[String]
 
   def retrievals(externaId: Option[String] = Some("externalId"),
                  enrolments: Enrolments = Enrolments(Set.empty),
                  affinityGroup: Option[AffinityGroup] = Some(Organisation),
                  groupId: Option[String] = Some("groupId"),
                  creds: Option[Credentials] = Some(Credentials("foo", "bar")),
-                 confidenceLevel: ConfidenceLevel = ConfidenceLevel.L50): Harness = {
+                 confidenceLevel: ConfidenceLevel = ConfidenceLevel.L50,
+                 nino: Option[String] = None): Harness = {
 
     when(mockAuthConnector.authorise[RetrievalType](any(), any())(any(), any())).thenReturn(
-      Future.successful(externaId ~ enrolments ~ affinityGroup ~ groupId ~ creds ~ confidenceLevel)
+      Future.successful(externaId ~ enrolments ~ affinityGroup ~ groupId ~ creds ~ confidenceLevel ~ nino)
     )
 
     val authAction =

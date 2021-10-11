@@ -50,11 +50,11 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
   implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
-    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel),
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
     HtmlFormat.empty)
 
   implicit val requestWithJson: ServiceInfoRequest[JsValue] = ServiceInfoRequest[JsValue](
-    AuthenticatedRequest(FakeRequest().withBody(Json.parse(s"""{}""")), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel),
+    AuthenticatedRequest(FakeRequest().withBody(Json.parse(s"""{}""")), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
     HtmlFormat.empty)
 
   def verifyDataCacheSave(expectedTimes: Int): Unit =

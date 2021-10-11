@@ -40,7 +40,7 @@ class FakeServiceInfoActionWithEnrolments(enrolmentTypes: HmrcEnrolmentType*)
   override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
     val enrolments = Enrolments(enrolmentTypes.map(e => Enrolment(e.toString)).toSet)
     val requestWithEnrolments =
-      AuthenticatedRequest(request.request, request.externalId, enrolments, request.affinityGroup, request.groupId, request.credId, request.confidenceLevel)
+      AuthenticatedRequest(request.request, request.externalId, enrolments, request.affinityGroup, request.groupId, request.credId, request.confidenceLevel, request.nino)
 
     Future.successful(ServiceInfoRequest(requestWithEnrolments, HtmlFormat.empty))
   }

@@ -17,9 +17,10 @@
 package service
 
 import config.FrontendAppConfig
-import connectors.{DataCacheConnector, SaConnector}
-import controllers.Assets.Redirect
+import connectors.{CitizensDetailsConnector, DataCacheConnector, SaConnector, TaxEnrolmentsConnector}
+import controllers.Assets.{InternalServerError, Redirect}
 import controllers.sa.{routes => saRoutes}
+import handlers.ErrorHandler
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.sa.{IvLinks, YourSaIsNotInThisAccount}
@@ -31,6 +32,9 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class SaService @Inject()(saConnector: SaConnector,
                           dataCacheConnector: DataCacheConnector,
+                          citizensDetailsConnector: CitizensDetailsConnector,
+                          taxEnrolmentsConnector: TaxEnrolmentsConnector,
+                          errorHandler: ErrorHandler,
                           appConfig: FrontendAppConfig) extends Logging {
 
   val serviceUrl: String = appConfig.identityVerificationHost
@@ -56,4 +60,36 @@ class SaService @Inject()(saConnector: SaConnector,
         Future.successful(Redirect(saRoutes.SelectSACategoryController.onPageLoadHasUTR(Some(origin))))
     }
   }
+
+  def checkCIDNinoComparison(origin: String, utr: String)
+                            (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Option[String]] = {
+    if(request.request.confidenceLevel.level >= 200) {
+      val accountNino: String = request.request.nino match {
+        case Some(nino) => nino
+        case _           => ""
+      }
+      citizensDetailsConnector.getDesignatoryDetails("IR-SA", utr).flatMap {
+        case Some(cidDetails) =>
+          if (cidDetails.nino == accountNino) {
+            for {
+              enrolForSaBoolean <- taxEnrolmentsConnector.enrolForSa(utr, request.request.credId, request.request.groupId, "enrolAndActivate")
+            } yield {
+              if (enrolForSaBoolean) {
+                Some(saRoutes.EnrolmentSuccessController.onPageLoad(origin).url)
+              } else {
+                Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"), origin).url)
+              }
+            }
+          } else {
+            Future.successful(Some(saRoutes.RetryKnownFactsController.onPageLoad(origin).url))
+          }
+        case _ =>
+          logger.warn("[SaService][checkCIDNinoComparison] Error Retrieving CID details")
+          Future.successful(Some("CidError"))
+      }
+    } else {
+      Future.successful(None)
+    }
+  }
+
 }

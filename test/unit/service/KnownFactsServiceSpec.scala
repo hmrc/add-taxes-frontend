@@ -43,7 +43,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
   implicit val request = ServiceInfoRequest[AnyContent](
-    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel),
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
     HtmlFormat.empty)
   val btaOrigin: String = "bta-sa"
 
