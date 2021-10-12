@@ -67,7 +67,7 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
           case SelectSACategory.Sa => saResult(doYouHaveSaUtr, enrolmentStoreResult, origin, checkNinoResult)
           case SelectSACategory.Partnership => partnershipResult(doYouHaveSaUtr, enrolmentStoreResult)
           case SelectSACategory.Trust => trustsResult(doYouHaveSaUtr, enrolmentStoreResult)
-          case SelectSACategory.MtdIT => {
+          case SelectSACategory.MtdIT if(accessMtdFeatureSwitch) => {
             Redirect(Call(method = "GET", url = appConfig.mtdItUrl))
           }
         }
