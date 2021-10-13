@@ -33,7 +33,6 @@ import uk.gov.hmrc.auth.core.{ConfidenceLevel, Enrolments}
 import uk.gov.hmrc.http.HeaderCarrier
 import controllers.sa.{routes => saRoutes}
 import handlers.ErrorHandler
-import models.DesignatoryDetails
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -43,8 +42,6 @@ class SaServiceSpec extends ControllerSpecBase with MockitoSugar {
 
   val mockSaConnector: SaConnector = mock[SaConnector]
   val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
-  val mockCIDConnector: CitizensDetailsConnector = mock[CitizensDetailsConnector]
-  val mockTaxEnrolConnector: TaxEnrolmentsConnector = mock[TaxEnrolmentsConnector]
   val testIvLinks: IvLinks = IvLinks("/iv-link", "/journeyLink")
   val btaOrigin: String = "bta-sa"
   val errorHandler: ErrorHandler = injector.instanceOf[ErrorHandler]
@@ -58,9 +55,6 @@ class SaServiceSpec extends ControllerSpecBase with MockitoSugar {
   def service() = new SaService(
     mockSaConnector,
     mockDataCacheConnector,
-    mockCIDConnector,
-    mockTaxEnrolConnector,
-    errorHandler,
     frontendAppConfig
   )
 
@@ -103,72 +97,6 @@ class SaServiceSpec extends ControllerSpecBase with MockitoSugar {
           val result = service().yourSaIsNotInThisAccount(YourSaIsNotInThisAccount.AddToThisAccount, "bta-sa")
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment?origin=bta-sa")
-        }
-      }
-    }
-
-    "checkCIDNinoComparison is called" must {
-      "redirect to the correct location" when {
-        "user has 200 confidence level and utr has the same nino as the account and enrol successfully" in {
-          implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
-            AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, Some("AA00000A")),
-            HtmlFormat.empty)
-          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any()))
-            .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000A", "test"))))
-          when(mockTaxEnrolConnector.enrolForSa(any(), any(), any(), any())(any(), any()))
-            .thenReturn(Future.successful(true))
-
-          val result = service().checkCIDNinoComparison("bta-sa", "1234567891")
-
-          await(result) mustBe Some("/business-account/add-tax/self-assessment/enrolment-successful?origin=bta-sa")
-        }
-
-        "user has 200 confidence level and utr has the same nino as the account and enrol fails" in {
-          implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
-            AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, Some("AA00000A")),
-            HtmlFormat.empty)
-          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any()))
-            .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000A", "test"))))
-          when(mockTaxEnrolConnector.enrolForSa(any(), any(), any(), any())(any(), any()))
-            .thenReturn(Future.successful(false))
-
-          val result = service().checkCIDNinoComparison("bta-sa", "1234567891")
-
-          await(result) mustBe Some("/business-account/add-tax/self-assessment/try-pin-in-post?status=Failed&origin=bta-sa")
-        }
-
-        "user has 200 confidence level and utr does not have the same nino as the account" in {
-          implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
-            AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, Some("AA00000A")),
-            HtmlFormat.empty)
-          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any()))
-            .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000B", "test"))))
-
-          val result = service().checkCIDNinoComparison("bta-sa", "1234567891")
-
-          await(result) mustBe Some("/business-account/add-tax/self-assessment/retry-known-facts?origin=bta-sa")
-        }
-
-        "user has 50 confidence level" in {
-          implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
-            AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L50, None),
-            HtmlFormat.empty)
-
-          val result = service().checkCIDNinoComparison("bta-sa", "1234567891")
-
-          await(result) mustBe None
-        }
-
-        "user has 200 confidence level call to CID fails" in {
-          implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
-            AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, None),
-            HtmlFormat.empty)
-          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any()))
-            .thenReturn(Future.successful(None))
-
-          val result = service().checkCIDNinoComparison("bta-sa", "1234567891")
-
-          await(result) mustBe Some("CidError")
         }
       }
     }

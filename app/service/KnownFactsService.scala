@@ -17,15 +17,17 @@
 package service
 
 import config.FrontendAppConfig
-import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector, IvConnector}
-import controllers.Assets.Redirect
+import connectors.{CitizensDetailsConnector, DataCacheConnector, EnrolmentStoreProxyConnector, IvConnector}
+import controllers.Assets.{InternalServerError, Redirect}
 import controllers.sa.{routes => saRoutes}
+import handlers.ErrorHandler
 import identifiers.EnterSAUTRId
 import models.requests.ServiceInfoRequest
 import models.sa._
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 import javax.inject.Inject
+import play.api.Logging
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -33,7 +35,9 @@ class KnownFactsService @Inject()(saService: SaService,
                                   dataCacheConnector: DataCacheConnector,
                                   enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
                                   auditService: AuditService,
-                                  appConfig: FrontendAppConfig){
+                                  appConfig: FrontendAppConfig,
+                                  errorHandler: ErrorHandler,
+                                  citizensDetailsConnector: CitizensDetailsConnector) extends Logging {
 
   def knownFactsLocation(knownFacts: KnownFacts,
                          origin: String)
@@ -50,6 +54,10 @@ class KnownFactsService @Inject()(saService: SaService,
       }
 
     queryKnownFactsResult.flatMap {
+      case result@KnownFactsReturn(utr, true) if(request.request.nino.isDefined) => {
+        auditService.auditSAKnownFacts(request.request.credId, result.utr, knownFacts, knownfactsResult = true)
+        checkCIDNinoComparison(origin, utr, knownFacts.nino.getOrElse(""))
+      }
       case result@KnownFactsReturn(_, true) if(appConfig.ivUpliftFeatureSwitch) =>
         auditService.auditSAKnownFacts(request.request.credId, result.utr, knownFacts, knownfactsResult = true)
         Future.successful(Redirect(appConfig.ivUpliftUrl(origin)))
@@ -89,4 +97,21 @@ class KnownFactsService @Inject()(saService: SaService,
 
     enrolmentCheck
   }
+
+  def checkCIDNinoComparison(origin: String, utr: String, knownFactsNino: String)
+  (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Result] = {
+      val accountNino: String = request.request.nino.getOrElse("")
+      citizensDetailsConnector.getDesignatoryDetails("IR-SA", utr).flatMap {
+        case Some(cidDetails) =>
+          if (cidDetails.nino == accountNino && accountNino == knownFactsNino) {
+            Future.successful(Redirect(appConfig.ivUpliftUrl(origin)))
+          } else {
+            Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(origin)))
+          }
+        case _ =>
+          logger.warn("[KnownFactsService][checkCIDNinoComparison] Error Retrieving CID details")
+          Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+      }
+    }
+
 }
