@@ -35,9 +35,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
                                         knownFactsService: KnownFactsService,
-                                        saService: SaService,
                                         appConfig: FrontendAppConfig,
-                                        errorHandler: ErrorHandler,
                                         auditService: AuditService) {
 
   val accessMtdFeatureSwitch: Boolean = appConfig.accessMtdFeatureSwitch
@@ -58,13 +56,12 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
     for {
       utr <- dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString).map(_.getOrElse(SAUTR("")))
       enrolmentStoreResult <- knownFactsService.enrolmentCheck(request.request.credId, utr, request.request.groupId, saEnrolment, doYouHaveSaUtr)
-      checkNinoResult <- saService.checkCIDNinoComparison(origin, utr.value)
     } yield {
       if (accessMtdFeatureSwitch) {
         auditService.auditSelectSACategory(saType, doYouHaveSaUtr, utr.value, request.request.credId, request.request.groupId)
       }
         saType match {
-          case SelectSACategory.Sa => saResult(doYouHaveSaUtr, enrolmentStoreResult, origin, checkNinoResult)
+          case SelectSACategory.Sa => saResult(doYouHaveSaUtr, enrolmentStoreResult, origin)
           case SelectSACategory.Partnership => partnershipResult(doYouHaveSaUtr, enrolmentStoreResult)
           case SelectSACategory.Trust => trustsResult(doYouHaveSaUtr, enrolmentStoreResult)
           case SelectSACategory.MtdIT if(accessMtdFeatureSwitch) => {
@@ -76,19 +73,15 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
 
   private def saResult(doYouHaveSaUtr: DoYouHaveSAUTR,
                        enrolmentStoreResult: EnrolmentCheckResult,
-                       origin: String,
-                       ninoCheckResult: Option[String])
+                       origin: String)
                        (implicit request: ServiceInfoRequest[AnyContent]): Result = {
-    (doYouHaveSaUtr, enrolmentStoreResult, ninoCheckResult) match {
-      case (_, _, Some(result)) => if(result.contains("CidError")) {
-        InternalServerError(errorHandler.internalServerErrorTemplate)
-      } else { Redirect(Call("GET", result))}
-      case (DoYouHaveSAUTR.Yes, NoRecordFound, _) => Redirect(saRoutes.KnownFactsController.onPageLoad(origin))
-      case (_, CredIdFound, _)                    => Redirect(Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials")))
-      case (_, GroupIdFound, _)                   => Redirect(saRoutes.GroupIdFoundController.onPageLoad())
-      case (_, _, _) if (request.request.affinityGroup.contains(AffinityGroup.Individual)) =>
+    (doYouHaveSaUtr, enrolmentStoreResult) match {
+      case (DoYouHaveSAUTR.Yes, NoRecordFound) => Redirect(saRoutes.KnownFactsController.onPageLoad(origin))
+      case (_, CredIdFound)                    => Redirect(Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials")))
+      case (_, GroupIdFound)                   => Redirect(saRoutes.GroupIdFoundController.onPageLoad())
+      case (_, _) if (request.request.affinityGroup.contains(AffinityGroup.Individual)) =>
         Redirect(saRoutes.AreYouSelfEmployedController.onPageLoad())
-      case (_, _, _)                              => Redirect(Call("GET", appConfig.getPortalUrl("selectTaxes")))
+      case (_, _)                              => Redirect(Call("GET", appConfig.getPortalUrl("selectTaxes")))
     }
   }
 

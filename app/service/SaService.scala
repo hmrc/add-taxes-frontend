@@ -32,9 +32,6 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class SaService @Inject()(saConnector: SaConnector,
                           dataCacheConnector: DataCacheConnector,
-                          citizensDetailsConnector: CitizensDetailsConnector,
-                          taxEnrolmentsConnector: TaxEnrolmentsConnector,
-                          errorHandler: ErrorHandler,
                           appConfig: FrontendAppConfig) extends Logging {
 
   val serviceUrl: String = appConfig.identityVerificationHost
@@ -58,39 +55,6 @@ class SaService @Inject()(saConnector: SaConnector,
         Future.successful(Redirect(Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials"))))
       case YourSaIsNotInThisAccount.AddToThisAccount   =>
         Future.successful(Redirect(saRoutes.SelectSACategoryController.onPageLoadHasUTR(Some(origin))))
-    }
-  }
-
-  def checkCIDNinoComparison(origin: String, utr: String)
-                            (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Option[String]] = {
-    if(request.request.confidenceLevel.level >= 200) {
-      val accountNino: String = request.request.nino match {
-        case Some(nino) => nino
-        case _           => ""
-      }
-      citizensDetailsConnector.getDesignatoryDetails("IR-SA", utr).flatMap {
-        case Some(cidDetails) =>
-          if (cidDetails.nino == accountNino) {
-            for {
-              enrolForSaBoolean <- taxEnrolmentsConnector.enrolForSa(utr, request.request.credId, request.request.groupId, "enrolAndActivate")
-            } yield {
-              if (enrolForSaBoolean) {
-                logger.info("[SaService][checkCIDNinoComparison] Success through CID checks and enrolled")
-                Some(saRoutes.EnrolmentSuccessController.onPageLoad(origin).url)
-              } else {
-                logger.info("[SaService][checkCIDNinoComparison] Success through CID checks and try pin")
-                Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"), origin).url)
-              }
-            }
-          } else {
-            Future.successful(Some(saRoutes.RetryKnownFactsController.onPageLoad(origin).url))
-          }
-        case _ =>
-          logger.warn("[SaService][checkCIDNinoComparison] Error Retrieving CID details")
-          Future.successful(Some("CidError"))
-      }
-    } else {
-      Future.successful(None)
     }
   }
 

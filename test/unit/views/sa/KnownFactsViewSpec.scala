@@ -36,10 +36,10 @@ class KnownFactsViewSpec extends ViewBehaviours {
 
 
   def createView: (String) => HtmlFormat.Appendable = (origin: String) =>
-    new knownFacts(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(serviceInfoContent)(fakeRequest, messages)
+    new knownFacts(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin, false)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm: (Form[KnownFactsNino], String) => HtmlFormat.Appendable = (form: Form[KnownFactsNino], origin: String) =>
-    new knownFacts(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(serviceInfoContent)(fakeRequest, messages)
+    new knownFacts(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin, false)(serviceInfoContent)(fakeRequest, messages)
 
   "knownFacts view" must {
     "contain heading ID" in {

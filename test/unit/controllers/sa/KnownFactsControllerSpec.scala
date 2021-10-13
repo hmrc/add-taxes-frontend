@@ -59,10 +59,10 @@ class KnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar with
 
 
   def viewAsString(form: Form[KnownFactsNino] = form, origin: String): String = {
-    injector.instanceOf[knownFacts].apply(frontendAppConfig, form, origin)(HtmlFormat.empty)(fakeRequest, messages).toString
+    injector.instanceOf[knownFacts].apply(frontendAppConfig, form, origin, false)(HtmlFormat.empty)(fakeRequest, messages).toString
   }
   def viewAsString(origin: String): String = {
-     injector.instanceOf[knownFacts].apply(frontendAppConfig, form, origin)(HtmlFormat.empty)(fakeRequest, messages).toString
+     injector.instanceOf[knownFacts].apply(frontendAppConfig, form, origin, false)(HtmlFormat.empty)(fakeRequest, messages).toString
   }
 
   "KnownFacts Controller" must {

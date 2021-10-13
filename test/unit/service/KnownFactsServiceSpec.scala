@@ -17,10 +17,12 @@
 package service
 
 import config.FrontendAppConfig
-import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
+import connectors.{CitizensDetailsConnector, DataCacheConnector, EnrolmentStoreProxyConnector}
 import controllers.Assets.SEE_OTHER
 import controllers.ControllerSpecBase
 import controllers.sa.{routes => saRoutes}
+import handlers.ErrorHandler
+import models.DesignatoryDetails
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.sa._
 import org.mockito.ArgumentMatchers.any
@@ -32,7 +34,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.{status, _}
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
-import uk.gov.hmrc.auth.core.Enrolments
+import uk.gov.hmrc.auth.core.{ConfidenceLevel, Enrolments}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.http.connector.AuditResult
 
@@ -52,7 +54,10 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
   val mockEnrolmentStoreProxyConnector: EnrolmentStoreProxyConnector = mock[EnrolmentStoreProxyConnector]
   val mockAuditService: AuditService = mock[AuditService]
   val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
+  val mockCIDConnector: CitizensDetailsConnector = mock[CitizensDetailsConnector]
+  val errorHandler: ErrorHandler = injector.instanceOf[ErrorHandler]
   val testKnownFacts: KnownFacts = KnownFacts(Some("AA00000A"), Some("AA1 1AA"), None)
+  val testKnownFactsNinoOnly: KnownFacts = KnownFacts(None, Some("AA00000A"), None)
   val utr: SAUTR = SAUTR("1234567890")
 
   def service(): KnownFactsService = new KnownFactsService(
@@ -60,7 +65,9 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
     mockDataCacheConnector,
     mockEnrolmentStoreProxyConnector,
     mockAuditService,
-    mockAppConfig
+    mockAppConfig,
+    errorHandler,
+    mockCIDConnector
   )
 
   override def beforeEach(): Unit = {
@@ -101,6 +108,22 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/iv-redirect")
       }
+
+      "return redirect to Iv when user passes queryKnownFacts and all ninos match" in {
+        implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+          AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L50, Some("AA00000A")),
+          HtmlFormat.empty)
+        when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())).thenReturn(Future.successful(Some(utr)))
+        when(mockEnrolmentStoreProxyConnector.queryKnownFacts(any(), any())(any(), any()))
+          .thenReturn(Future.successful(KnownFactsReturn(utr.value, knownFactsResult = true)))
+        when(mockCIDConnector.getDesignatoryDetails(any(), any())(any()))
+          .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000A", "test"))))
+        when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
+
+        val result = service().knownFactsLocation(testKnownFactsNinoOnly, btaOrigin)
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some("/IvLink")
+      }
     }
 
     "enrolmentCheck is called" must {
@@ -110,7 +133,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
         when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any(), any())(any(), any())).thenReturn(Future.successful(true))
 
         await(service().enrolmentCheck("234", utr, "37219-dsjjd", Some("IR-SA"), DoYouHaveSAUTR.Yes)) mustBe CredIdFound
-//        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
+        //        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
       }
 
       "return NoRecordFound and send and audit event when the ES0 and ES3 connectors returns false" in {
@@ -120,7 +143,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
         when(mockEnrolmentStoreProxyConnector.checkSaGroup(any(), any())(any(), any())).thenReturn(Future.successful(false))
 
         await(service().enrolmentCheck("234", utr, "37219-dsjjd", Some("IR-SA"), DoYouHaveSAUTR.Yes)) mustBe NoRecordFound
-//        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
+        //        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
       }
 
 
@@ -131,7 +154,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
         when(mockEnrolmentStoreProxyConnector.checkSaGroup(any(), any())(any(), any())).thenReturn(Future.successful(true))
 
         await(service().enrolmentCheck("234", utr, "37219-dsjjd", Some("IR-SA"), DoYouHaveSAUTR.Yes)) mustBe GroupIdFound
-//        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
+        //        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
       }
 
       "return NOSAUTR and send and audit event when the ES0 connector returns false and ES3 connectors returns true" in {
@@ -143,7 +166,74 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
         await(service().enrolmentCheck("234", utr, "37219-dsjjd", Some("IR-SA"), DoYouHaveSAUTR.No)) mustBe NoSaUtr
         //        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
       }
+    }
+    "checkCIDNinoComparison is called" must {
+      "redirect to the correct location" when {
+        "user has auth nino, details nino and knownfact nino are all the same" in {
+          implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+            AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, Some("AA00000A")),
+            HtmlFormat.empty)
+          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any()))
+            .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000A", "test"))))
+          when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
 
+          val result = service().checkCIDNinoComparison("bta-sa", "1234567891", "AA00000A")
+
+          redirectLocation(result) mustBe Some("/IvLink")
+        }
+
+        "user has 50 confidence level and utr has the same nino as the account and enrol fails" in {
+          implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+            AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L50, Some("AA00000A")),
+            HtmlFormat.empty)
+          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any()))
+            .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000A", "test"))))
+          when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
+
+          val result = service().checkCIDNinoComparison("bta-sa", "1234567891", "AA00000A")
+
+          redirectLocation(result) mustBe Some("/IvLink")
+        }
+
+        "user has 200 confidence level and utr does not have the same nino as the account" in {
+          implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+            AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, Some("AA00000A")),
+            HtmlFormat.empty)
+          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any()))
+            .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000B", "test"))))
+          when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
+
+          val result = service().checkCIDNinoComparison("bta-sa", "1234567891", "AA00000A")
+
+          redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/retry-known-facts?origin=bta-sa")
+        }
+
+        "user has 200 confidence level and nino input does not have the same nino as the account and the utr" in {
+          implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+            AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, Some("AA00000A")),
+            HtmlFormat.empty)
+          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any()))
+            .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000A", "test"))))
+          when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
+
+          val result = service().checkCIDNinoComparison("bta-sa", "1234567891", "AA00000B")
+
+          redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/retry-known-facts?origin=bta-sa")
+        }
+
+
+        "user has 200 confidence level call to CID fails" in {
+          implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+            AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, None),
+            HtmlFormat.empty)
+          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any()))
+            .thenReturn(Future.successful(None))
+
+          val result = service().checkCIDNinoComparison("bta-sa", "1234567891", "AA00000A")
+
+          status(result) mustBe INTERNAL_SERVER_ERROR
+        }
+      }
     }
   }
 }
