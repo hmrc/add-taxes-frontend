@@ -38,4 +38,25 @@ object StubSaConnector extends StubHelper {
   def verifyGetIvLinks(count: Int, utr: String, origin: String): Unit =
     verify(count, getRequestedFor(urlMatching(s"/sa/individual/$utr/details-for-iv\\?origin=${origin}")))
 
+
+  def withResponseForGetBusinessDetails(value: String, identifier: String)(status: Int, optBody: Option[String]): Unit =
+    stubGet(s"/sa/business-details/$value/$identifier", status, optBody)
+
+  def successfulDetailsRetrieval(value: String, identifier: String) = withResponseForGetBusinessDetails(value, identifier)(OK,
+    Some(
+      s"""
+         |{
+         | "safeId": "XE00001234567890",
+         | "nino": "$value",
+         | "mtdbsa": "1234567"
+         |
+         |}""".stripMargin
+    ))
+
+  def unSuccessfulDetailsRetrieval(value: String, identifier: String) = withResponseForGetBusinessDetails(value, identifier)(NOT_FOUND,
+    None)
+
+  def verifyDetailsRetrieval(count: Int, value: String, identifier: String): Unit =
+    verify(count, getRequestedFor(urlMatching(s"/sa/business-details/$value/$identifier")))
+
 }

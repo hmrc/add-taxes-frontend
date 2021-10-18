@@ -17,25 +17,25 @@
 package service
 
 import config.FrontendAppConfig
-import connectors.{CitizensDetailsConnector, DataCacheConnector, GetBusinessDetailsConnector}
+import connectors.{CitizensDetailsConnector, DataCacheConnector, SaConnector}
 import controllers.Assets.{Ok, Redirect}
-import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
 import identifiers.EnterSAUTRId
+import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
+import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.sa.{SAUTR, SelectSACategory}
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.{AnyContent, Call, Result}
-import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier, Enrolments}
+import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HmrcEnrolmentType, RadioOption}
 import views.html.sa.selectSACategory
-import javax.inject.Inject
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConnector,
-                                  getBusinessDetailsConnector: GetBusinessDetailsConnector,
+                                  saConnector: SaConnector,
                                   appConfig: FrontendAppConfig,
                                   selectSACategory: selectSACategory,
                                   dataCacheConnector: DataCacheConnector) {
@@ -54,14 +54,18 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
 
   def mtdITSASignupBool(key: String, utr: SAUTR)
                        (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Boolean] = {
-    citizensDetailsConnector.getDesignatoryDetails(key, utr.value).flatMap {
-      case Some(details) => getBusinessDetailsConnector.getBusinessDetails("nino", details.nino).map {
-        case Some(_) =>
-          dataCacheConnector.save[Boolean](request.request.credId, "mtdItSignupBoolean", true)
-          true
-        case _ => false
+    if(utr.value.isEmpty) {
+      Future.successful(false)
+    } else {
+      citizensDetailsConnector.getDesignatoryDetails(key, utr.value).flatMap {
+        case Some(details) => saConnector.getBusinessDetails(details.nino, "nino").map {
+          case Some(_) =>
+            dataCacheConnector.save[Boolean](request.request.credId, "mtdItSignupBoolean", true)
+            true
+          case _ => false
+        }
+        case _ => Future.successful(false)
       }
-      case _ => Future.successful(false)
     }
   }
 
