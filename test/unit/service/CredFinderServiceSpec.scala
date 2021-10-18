@@ -1,6 +1,6 @@
 package service
 
-import connectors.{CitizensDetailsConnector, DataCacheConnector, GetBusinessDetailsConnector}
+import connectors.{CitizensDetailsConnector, DataCacheConnector, SaConnector}
 import controllers.ControllerSpecBase
 import controllers.sa.SelectSACategoryController
 import forms.sa.SelectSACategoryFormProvider
@@ -19,6 +19,7 @@ import uk.gov.hmrc.auth.core.{AffinityGroup, Enrolment, Enrolments}
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HmrcEnrolmentType, RadioOption}
 import views.html.sa.selectSACategory
+
 import scala.concurrent.ExecutionContext
 
 class CredFinderServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach{
@@ -39,7 +40,7 @@ class CredFinderServiceSpec extends ControllerSpecBase with MockitoSugar with Be
 
     val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
     val mockCitizensDetailsConnector: CitizensDetailsConnector = mock[CitizensDetailsConnector]
-    val mockGetBusinessDetailsConnector: GetBusinessDetailsConnector = mock[GetBusinessDetailsConnector]
+    val mockSaConnector: SaConnector = mock[SaConnector]
     val mockSelectSACategory: selectSACategory = mock[selectSACategory]
     val mockCall: Call = controllers.sa.routes.SelectSACategoryController.onPageLoadHasUTR(Some("bta"))
     val mockSaCatController: SelectSACategoryController = mock[SelectSACategoryController]
@@ -51,7 +52,7 @@ class CredFinderServiceSpec extends ControllerSpecBase with MockitoSugar with Be
 
     def testService: CredFinderService = new CredFinderService(
         mockCitizensDetailsConnector,
-        mockGetBusinessDetailsConnector,
+        mockSaConnector,
         frontendAppConfig,
         mockSelectSACategory,
         mockDataCacheConnector
