@@ -103,7 +103,7 @@ class KnownFactsService @Inject()(saService: SaService,
       val accountNino: String = request.request.nino.getOrElse("")
       citizensDetailsConnector.getDesignatoryDetails("IR-SA", utr).flatMap {
         case Some(cidDetails) =>
-          if (cidDetails.nino == accountNino && accountNino == knownFactsNino) {
+          if (cidDetails.nino == accountNino && accountNino == knownFactsNino.replaceAll("\\s+","")) {
             Future.successful(Redirect(appConfig.ivUpliftUrl(origin)))
           } else {
             Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(origin)))
