@@ -100,10 +100,10 @@ class KnownFactsService @Inject()(saService: SaService,
 
   def checkCIDNinoComparison(origin: String, utr: String, knownFactsNino: String)
   (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Result] = {
-      val accountNino: String = request.request.nino.getOrElse("")
+      val accountNino: String = request.request.nino.getOrElse("").toLowerCase
       citizensDetailsConnector.getDesignatoryDetails("IR-SA", utr).flatMap {
         case Some(cidDetails) =>
-          if (cidDetails.nino == accountNino && accountNino == knownFactsNino.replaceAll("\\s+","")) {
+          if (cidDetails.nino.toLowerCase == accountNino && accountNino == knownFactsNino.replaceAll("\\s+","").toLowerCase) {
             Future.successful(Redirect(appConfig.ivUpliftUrl(origin)))
           } else {
             Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(origin)))
