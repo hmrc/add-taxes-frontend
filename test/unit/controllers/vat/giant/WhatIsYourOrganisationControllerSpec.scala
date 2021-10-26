@@ -28,7 +28,7 @@ import views.html.vat.giant.whatIsYourOrganisation
 
 class WhatIsYourOrganisationControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new WhatIsYourOrganisationFormProvider()
   val form: Form[WhatIsYourOrganisation] = formProvider()

@@ -1,7 +1,6 @@
 package service
 
 import connectors.DataCacheConnector
-import controllers.Assets.SEE_OTHER
 import controllers.ControllerSpecBase
 import handlers.ErrorHandler
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}

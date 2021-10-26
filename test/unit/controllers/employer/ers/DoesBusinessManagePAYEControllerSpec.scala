@@ -29,7 +29,7 @@ import views.html.employer.doesBusinessManagePAYE
 
 class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoesBusinessManagePAYEFormProvider()
   val form: Form[DoesBusinessManagePAYE] = formProvider()

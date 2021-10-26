@@ -1,17 +1,18 @@
 package connectors
 
 import org.scalatest.concurrent.ScalaFutures.convertScalaFuture
-import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, MustMatchers, WordSpec}
+import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
+import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.libs.json.{JsString, JsValue, Json}
+import play.api.libs.json.JsString
 import play.api.test.Helpers.{await, defaultAwaitTimeout}
 import play.api.{Application, Configuration}
 import repositories.SessionRepository
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.mongo.MongoComponent
 
-class SessionRepositoryISpec extends WordSpec with MustMatchers with BeforeAndAfterEach with GuiceOneAppPerSuite with BeforeAndAfterAll {
+class SessionRepositoryISpec extends PlaySpec with BeforeAndAfterEach with GuiceOneAppPerSuite with BeforeAndAfterAll {
 
   override lazy val app: Application =
     GuiceApplicationBuilder()

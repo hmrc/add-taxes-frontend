@@ -28,7 +28,7 @@ import views.html.other.alcohol.awrs.selectAlcoholScheme
 
 class SelectAlcoholSchemeControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new SelectAlcoholSchemeFormProvider()
   val form: Form[SelectAlcoholScheme] = formProvider()

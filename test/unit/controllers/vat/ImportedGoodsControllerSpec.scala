@@ -30,7 +30,7 @@ import views.html.vat.importedGoods
 
 class ImportedGoodsControllerSpec extends ControllerSpecBase with BeforeAndAfterEach with FeatureToggleSupport {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new ImportedGoodsFormProvider()
   val form: Form[ImportedGoods] = formProvider()

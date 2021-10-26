@@ -28,7 +28,7 @@ import views.html.wrongcredentials.findingYourAccount
 
 class FindingYourAccountControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new FindingYourAccountFormProvider()
   val form: Form[FindingYourAccount] = formProvider()

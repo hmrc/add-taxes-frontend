@@ -17,14 +17,13 @@
 package service
 
 import config.FrontendAppConfig
-import connectors.{CitizensDetailsConnector, DataCacheConnector, SaConnector, TaxEnrolmentsConnector}
-import controllers.Assets.{InternalServerError, Redirect}
+import connectors.{DataCacheConnector, SaConnector}
 import controllers.sa.{routes => saRoutes}
-import handlers.ErrorHandler
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.sa.{IvLinks, YourSaIsNotInThisAccount}
 import play.api.Logging
+import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 

@@ -16,7 +16,6 @@
 
 package controllers.sa
 
-import controllers.Assets.Redirect
 import controllers._
 import controllers.sa.{routes => saRoutes}
 import forms.sa.KnownFactsNinoFormProvider
@@ -26,17 +25,19 @@ import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.data.Form
 import play.api.mvc.Call
+import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import playconfig.featuretoggle.FeatureToggleSupport
 import service.KnownFactsService
 import utils.KnownFactsFormValidator
 import views.html.sa.knownFacts
+
 import scala.concurrent.Future
 
 class KnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar with FeatureToggleSupport {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val view: knownFacts = injector.instanceOf[knownFacts]
   val knownFactsValidator: KnownFactsFormValidator = injector.instanceOf[KnownFactsFormValidator]

@@ -28,7 +28,7 @@ import views.html.vat.doYouHaveVATRegNumber
 
 class DoYouHaveVATRegNumberControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouHaveVATRegNumberFormProvider()
   val form: Form[DoYouHaveVATRegNumber] = formProvider()

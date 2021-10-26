@@ -17,17 +17,17 @@
 package service
 
 import config.FrontendAppConfig
-import connectors.{CitizensDetailsConnector, DataCacheConnector, EnrolmentStoreProxyConnector, IvConnector}
-import controllers.Assets.{InternalServerError, Redirect}
+import connectors.{CitizensDetailsConnector, DataCacheConnector, EnrolmentStoreProxyConnector}
 import controllers.sa.{routes => saRoutes}
 import handlers.ErrorHandler
 import identifiers.EnterSAUTRId
+import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.sa._
+import play.api.Logging
+import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.http.HeaderCarrier
-import javax.inject.Inject
-import play.api.Logging
 
 import scala.concurrent.{ExecutionContext, Future}
 

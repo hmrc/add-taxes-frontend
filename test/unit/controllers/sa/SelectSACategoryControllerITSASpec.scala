@@ -1,7 +1,6 @@
 package controllers.sa
 
 import connectors.DataCacheConnector
-import controllers.Assets.Redirect
 import controllers._
 import forms.sa.SelectSACategoryFormProvider
 import models.sa.SelectSACategory
@@ -11,6 +10,7 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.data.Form
 import play.api.mvc.Call
+import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import service.{CredFinderService, SelectSaCategoryService}
@@ -21,7 +21,7 @@ import scala.concurrent.Future
 
 class SelectSACategoryControllerITSASpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new SelectSACategoryFormProvider()
   val form: Form[SelectSACategory] = formProvider()

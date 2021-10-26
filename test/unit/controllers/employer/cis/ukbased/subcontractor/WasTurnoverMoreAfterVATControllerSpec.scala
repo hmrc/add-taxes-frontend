@@ -28,7 +28,7 @@ import views.html.employer.cis.ukbased.subcontractor.wasTurnoverMoreAfterVAT
 
 class WasTurnoverMoreAfterVATControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new WasTurnoverMoreAfterVATFormProvider()
   val form: Form[WasTurnoverMoreAfterVAT] = formProvider()

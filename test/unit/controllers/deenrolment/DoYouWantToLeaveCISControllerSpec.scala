@@ -28,7 +28,7 @@ import views.html.deenrolment.doYouWantToLeaveCIS
 
 class DoYouWantToLeaveCISControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouWantToLeaveCISFormProvider()
   val form: Form[DoYouWantToLeaveCIS] = formProvider()

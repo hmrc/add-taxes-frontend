@@ -28,7 +28,7 @@ import views.html.vat.moss.ukbased.onlineVATAccount
 
 class OnlineVATAccountControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new OnlineVATAccountFormProvider()
   val form: Form[OnlineVATAccount] = formProvider()

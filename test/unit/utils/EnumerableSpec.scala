@@ -16,7 +16,8 @@
 
 package utils
 
-import org.scalatest.{EitherValues, MustMatchers, OptionValues, WordSpec}
+import org.scalatest.{EitherValues, OptionValues}
+import org.scalatestplus.play.PlaySpec
 import play.api.libs.json._
 
 object EnumerableSpec {
@@ -37,7 +38,7 @@ object EnumerableSpec {
 
 }
 
-class EnumerableSpec extends WordSpec with MustMatchers with EitherValues with OptionValues with Enumerable.Implicits {
+class EnumerableSpec extends PlaySpec with EitherValues with OptionValues with Enumerable.Implicits {
 
   import EnumerableSpec._
 

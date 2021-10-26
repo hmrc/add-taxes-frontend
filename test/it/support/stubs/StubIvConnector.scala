@@ -24,14 +24,14 @@ object StubIvConnector extends StubHelper {
     stubGet("/mdtp/journey/journeyId/iv-stub-data", status, optBody)
 
   def withResponseCheckJourneyLinkUplift()(status: Int, optBody: Option[String], journeyId: String): Unit =
-    stubGet(s"/mdtp/journey/journeyId/$journeyId", status, optBody)
+    stubGet(s"/iv-stub/mdtp/journey/journeyId/$journeyId", status, optBody)
 
   def verifyCheckJourneyLink(count: Int): Unit =
     verify(count, getRequestedFor(urlMatching(s"/mdtp/journey/journeyId/iv-stub-data")))
 
 
   def verifyCheckJourneyLinkUplift(count: Int, journeyId: String): Unit =
-    verify(count, getRequestedFor(urlMatching(s"/mdtp/journey/journeyId/$journeyId")))
+    verify(count, getRequestedFor(urlMatching(s"/iv-stub/mdtp/journey/journeyId/$journeyId")))
 
 
   def withResponseSsttpJourney(status: Int): Unit =

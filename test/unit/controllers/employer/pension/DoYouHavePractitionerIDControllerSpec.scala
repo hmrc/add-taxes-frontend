@@ -28,7 +28,7 @@ import views.html.employer.pension.doYouHavePractitionerID
 
 class DoYouHavePractitionerIDControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouHavePractitionerIDFormProvider()
   val form: Form[DoYouHavePractitionerID] = formProvider()

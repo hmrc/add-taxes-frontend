@@ -18,7 +18,6 @@ package service
 
 import config.FrontendAppConfig
 import connectors.{CitizensDetailsConnector, DataCacheConnector, SaConnector}
-import controllers.Assets.{Ok, Redirect}
 import identifiers.EnterSAUTRId
 import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
 import javax.inject.Inject
@@ -26,6 +25,7 @@ import models.requests.ServiceInfoRequest
 import models.sa.{SAUTR, SelectSACategory}
 import play.api.data.Form
 import play.api.i18n.Messages
+import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
 import uk.gov.hmrc.http.HeaderCarrier

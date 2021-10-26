@@ -28,7 +28,7 @@ import views.html.deenrolment.stopFilingSelfAssessment
 
 class StopFilingSelfAssessmentControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new StopFilingSelfAssessmentFormProvider()
   val form: Form[StopFilingSelfAssessment] = formProvider()

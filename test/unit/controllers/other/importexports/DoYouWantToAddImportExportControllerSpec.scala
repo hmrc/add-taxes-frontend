@@ -28,7 +28,7 @@ import views.html.other.importexports.doYouWantToAddImportExport
 
 class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouWantToAddImportExportFormProvider()
   val form: Form[DoYouWantToAddImportExport] = formProvider()

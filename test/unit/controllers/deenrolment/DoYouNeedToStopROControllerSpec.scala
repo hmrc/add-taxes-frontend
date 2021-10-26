@@ -28,7 +28,7 @@ import views.html.deenrolment.doYouNeedToStopRO
 
 class DoYouNeedToStopROControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouNeedToStopROFormProvider()
   val form: Form[DoYouNeedToStopRO] = formProvider()

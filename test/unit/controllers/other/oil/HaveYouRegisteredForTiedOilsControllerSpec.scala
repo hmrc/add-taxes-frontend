@@ -28,7 +28,7 @@ import views.html.other.oil.haveYouRegisteredForTiedOils
 
 class HaveYouRegisteredForTiedOilsControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new HaveYouRegisteredForTiedOilsFormProvider()
   val form: Form[HaveYouRegisteredForTiedOils] = formProvider()

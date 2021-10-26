@@ -27,8 +27,8 @@ class KnownFactsFormValidator @Inject()() {
   protected val ninoRegex = """(?i)(^$|^(?!BG|GB|KN|NK|NT|TN|ZZ)([A-Z]{2})[0-9]{6}[A-D]?$)"""
 
   def validatePostcode(postcodeKey: String, blankPostcodeMessageKey: String,
-                       invalidPostcodeMessageKey: String)(implicit appConfig: FrontendAppConfig) = new Formatter[String] {
-    override def bind(key: String, data: Map[String, String]) = {
+                       invalidPostcodeMessageKey: String)(implicit appConfig: FrontendAppConfig): Formatter[String] = new Formatter[String] {
+    override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], String] = {
       val value = data.getOrElse(key, "")
       value match {
         case a if a.length == 0 => Left(Seq(FormError(postcodeKey, blankPostcodeMessageKey)))
@@ -41,16 +41,18 @@ class KnownFactsFormValidator @Inject()() {
     }
 
     override def unbind(key: String, value: String): Map[String, String] = {
-      Map(key -> value.toString)
+      Map(key -> value)
     }
   }
 
   def isValidMaxLength(maxLength: Int)(value: String): Boolean = value.length <= maxLength
   def isValidMinLength(minLength: Int)(value: String): Boolean = value.length >= minLength
 
-  def isPostcodeLengthValid(value: String) = {
+  def isPostcodeLengthValid(value: String): Boolean = {
+    val minLength: Int = 5
+    val maxLength: Int = 7
     val trimmedVal = value.replaceAll(" ", "")
-    isValidMinLength(5)(trimmedVal) && isValidMaxLength(7)(trimmedVal)
+    isValidMinLength(minLength)(trimmedVal) && isValidMaxLength(maxLength)(trimmedVal)
   }
 
   def containsValidPostCodeCharacters(value: String): Boolean =
@@ -63,7 +65,7 @@ class KnownFactsFormValidator @Inject()() {
   def ninoFormatter(ninoKey: String, blankMessageKey: String, lengthMessageKey: String, formatMessageKey: String)
                    (implicit appConfig: FrontendAppConfig): Formatter[String] =
     new Formatter[String] {
-      override def bind(key: String, data: Map[String, String]) = {
+      override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], String] = {
         val value = data.getOrElse(key, "")
         lazy val valueMinusSpaces = value.replaceAll("\\s", "")
         value match {
@@ -76,14 +78,13 @@ class KnownFactsFormValidator @Inject()() {
       }
 
       override def unbind(key: String, value: String): Map[String, String] = {
-        Map(key -> value.toString)
+        Map(key -> value)
       }
     }
 
-  def stringFormatter
-  (implicit appConfig: FrontendAppConfig): Formatter[String] =
+  def stringFormatter(): Formatter[String] =
     new Formatter[String] {
-      override def bind(key: String, data: Map[String, String]) = {
+      override def bind(key: String, data: Map[String, String]): Right[Nothing, String] = {
         val value = data.getOrElse(key, "")
         value match {
           case "Y" => Right("Y")
@@ -91,7 +92,7 @@ class KnownFactsFormValidator @Inject()() {
       }
 
       override def unbind(key: String, value: String): Map[String, String] = {
-        Map(key -> value.toString)
+        Map(key -> value)
       }
     }
 

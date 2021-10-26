@@ -28,7 +28,7 @@ import views.html.employer.whatEmployerTaxDoYouWantToAdd
 
 class WhatEmployerTaxDoYouWantToAddControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new WhatEmployerTaxDoYouWantToAddFormProvider()
   val form: Form[WhatEmployerTaxDoYouWantToAdd] = formProvider()

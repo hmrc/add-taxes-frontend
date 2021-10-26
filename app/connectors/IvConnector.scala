@@ -29,11 +29,13 @@ class IvConnector @Inject()(appConfig: FrontendAppConfig,
                             http: HttpClient) extends Logging {
 
   val serviceUrl: String = appConfig.identityVerificationFrontendBaseUrl
+  val environment: String = appConfig.identityVerificationEnv
   val addTaxesHost: String = appConfig.addTaxesHost
 
   def checkJourneyLinkUplift(journeyId: String)
                       (implicit ec: ExecutionContext, hc: HeaderCarrier): Future[JourneyLinkResponse] = {
-    http.GET[JourneyLinkResponse](s"$serviceUrl/mdtp/journey/journeyId/$journeyId")
+    val url = serviceUrl + environment
+    http.GET[JourneyLinkResponse](s"$url/mdtp/journey/journeyId/$journeyId")
   }
 
   def checkJourneyLink(journeyLinkUrl: String)

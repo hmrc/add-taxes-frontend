@@ -28,7 +28,7 @@ import views.html.other.charity.doYouHaveCharityReference
 
 class DoYouHaveCharityReferenceControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouHaveCharityReferenceFormProvider()
   val form: Form[DoYouHaveCharityReference] = formProvider()

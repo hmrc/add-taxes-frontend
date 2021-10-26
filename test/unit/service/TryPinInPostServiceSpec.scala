@@ -1,7 +1,6 @@
 package service
 
 import connectors.{DataCacheConnector, TaxEnrolmentsConnector}
-import controllers.Assets.SEE_OTHER
 import controllers.ControllerSpecBase
 import handlers.ErrorHandler
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
@@ -11,7 +10,7 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.http.Status.INTERNAL_SERVER_ERROR
+import play.api.http.Status.{INTERNAL_SERVER_ERROR, SEE_OTHER}
 import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{defaultAwaitTimeout, redirectLocation, status}

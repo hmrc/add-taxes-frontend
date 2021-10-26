@@ -28,7 +28,7 @@ import views.html.employer.cis.ukbased.areYouContractorOrSubcontractor
 
 class AreYouContractorOrSubcontractorControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new AreYouContractorOrSubcontractorFormProvider()
   val form: Form[AreYouContractorOrSubcontractor] = formProvider()

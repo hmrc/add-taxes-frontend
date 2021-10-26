@@ -18,7 +18,7 @@ package views.components
 
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import org.scalatest.{MustMatchers, WordSpec}
+import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.data.Forms._
 import play.api.data.{Field, Form, _}
@@ -26,7 +26,7 @@ import play.api.i18n.{Messages, MessagesApi}
 import play.twirl.api.Html
 import views.html.components.input_yes_no
 
-class InputYesNoSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite {
+class InputYesNoSpec extends PlaySpec with GuiceOneAppPerSuite {
 
   implicit lazy val messages: Messages = app.injector.instanceOf[MessagesApi].preferred(Seq.empty)
 

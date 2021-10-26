@@ -28,7 +28,7 @@ import views.html.employer.paye.doesBusinessHave1To9Directors
 
 class DoesBusinessHave1To9DirectorsControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoesBusinessHave1To9DirectorsFormProvider()
   val form: Form[DoesBusinessHave1To9Directors] = formProvider()

@@ -28,7 +28,7 @@ import views.html.other.land.selectATax
 
 class SelectATaxControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new SelectATaxFormProvider()
   val form: Form[SelectATax] = formProvider()

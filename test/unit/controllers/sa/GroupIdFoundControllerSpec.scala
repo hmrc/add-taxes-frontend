@@ -1,8 +1,8 @@
 package controllers.sa
 
-import controllers.Assets.OK
 import controllers.ControllerSpecBase
 import org.scalatestplus.mockito.MockitoSugar
+import play.api.http.Status.OK
 import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout, status}
 import play.twirl.api.HtmlFormat
 import views.html.sa.groupIdError

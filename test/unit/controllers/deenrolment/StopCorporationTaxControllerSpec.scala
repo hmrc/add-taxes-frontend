@@ -28,7 +28,7 @@ import views.html.deenrolment.stopCorporationTax
 
 class StopCorporationTaxControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new StopCorporationTaxFormProvider()
   val form: Form[StopCorporationTax] = formProvider()

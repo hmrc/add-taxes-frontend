@@ -30,7 +30,7 @@ import play.api.mvc.Call
 
 class DoYouHaveCHIEFRoleHasEORIControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouHaveCHIEFRoleFormProvider()
   val form: Form[DoYouHaveCHIEFRole] = formProvider()

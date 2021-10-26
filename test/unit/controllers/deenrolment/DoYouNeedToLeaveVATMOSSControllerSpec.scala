@@ -31,7 +31,7 @@ import views.html.deenrolment.doYouNeedToLeaveVATMOSS
 class DoYouNeedToLeaveVATMOSSControllerSpec extends ControllerSpecBase {
 
   implicit val messageAPI: MessagesApi = mcc.messagesApi
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouNeedToLeaveVATMOSSFormProvider()
   val form: Form[DoYouNeedToLeaveVATMOSS] = formProvider()

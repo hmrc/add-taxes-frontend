@@ -31,7 +31,7 @@ import views.html.vat.agriculturalFlatRateScheme
 
 class AgriculturalFlatRateSchemeControllerSpec extends ControllerSpecBase with BeforeAndAfterEach with FeatureToggleSupport {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new AgriculturalFlatRateSchemeFormProvider()
   val form: Form[AgriculturalFlatRateScheme] = formProvider()

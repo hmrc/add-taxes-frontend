@@ -28,7 +28,7 @@ import views.html.vat.whichVATServicesToAdd
 
 class WhichVATServicesToAddControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new WhichVATServicesToAddFormProvider()
   val form: Form[WhichVATServicesToAdd] = formProvider()

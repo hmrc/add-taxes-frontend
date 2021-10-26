@@ -17,13 +17,13 @@
 package service
 
 import connectors.{DataCacheConnector, IvConnector, TaxEnrolmentsConnector}
-import controllers.Assets.Redirect
 import controllers.sa.{routes => saRoutes}
 import identifiers.EnterSAUTRId
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.sa.{IvLinks, SAUTR, SaEnrolmentDetails}
 import play.api.Logging
+import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -33,9 +33,7 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
                          ivConnector: IvConnector,
                          taxEnrolmentsConnector: TaxEnrolmentsConnector) extends Logging {
 
-  def journeyLinkCheckUplift(journeyId: String)(implicit request: ServiceInfoRequest[AnyContent],
-                         ec: ExecutionContext,
-                         hc: HeaderCarrier): Future[String] = {
+  def journeyLinkCheckUplift(journeyId: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[String] = {
         ivConnector.checkJourneyLinkUplift(journeyId).map(_.result).recover {
         case exception =>
           logger.error(s"[IvService][journeyLinkCheckUplift] Check journey link failed with ${exception.getMessage}")

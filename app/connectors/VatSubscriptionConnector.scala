@@ -18,7 +18,7 @@ package connectors
 
 import config.FrontendAppConfig
 import javax.inject.{Inject, Singleton}
-import play.api.Logger.logger
+import play.api.Logging
 import play.api.http.Status._
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.UpstreamErrorResponse.Upstream4xxResponse
@@ -27,7 +27,7 @@ import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class VatSubscriptionConnector @Inject()(val http: HttpClient, val appConfig: FrontendAppConfig) {
+class VatSubscriptionConnector @Inject()(val http: HttpClient, val appConfig: FrontendAppConfig) extends Logging {
 
   lazy val vatSubscriptionUrl: String = appConfig.vatSubscriptionUrl
 

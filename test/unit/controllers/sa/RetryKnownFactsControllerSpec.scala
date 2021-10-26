@@ -17,7 +17,6 @@
 package controllers.sa
 
 import connectors.DataCacheConnector
-import controllers.Assets.{OK, SEE_OTHER}
 import controllers.ControllerSpecBase
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.test.Helpers._

@@ -29,7 +29,7 @@ import views.html.employer.isBusinessRegisteredForPAYE
 
 class IsBusinessRegisteredForPAYEControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new IsBusinessRegisteredForPAYEFormProvider()
   val form: Form[IsBusinessRegisteredForPAYE] = formProvider()

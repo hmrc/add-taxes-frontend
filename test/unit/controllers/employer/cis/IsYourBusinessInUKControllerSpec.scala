@@ -28,7 +28,7 @@ import views.html.employer.cis.isYourBusinessInUK
 
 class IsYourBusinessInUKControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new IsYourBusinessInUKFormProvider()
   val form: Form[IsYourBusinessInUK] = formProvider()

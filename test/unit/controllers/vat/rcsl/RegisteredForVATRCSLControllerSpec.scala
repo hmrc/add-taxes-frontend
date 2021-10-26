@@ -29,7 +29,7 @@ import views.html.vat.registeredForVAT
 
 class RegisteredForVATRCSLControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new RegisteredForVATFormProvider()
   val form: Form[RegisteredForVAT] = formProvider()

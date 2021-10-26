@@ -28,7 +28,7 @@ import views.html.vat.moss.whereIsYourBusinessBased
 
 class WhereIsYourBusinessBasedControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new WhereIsYourBusinessBasedFormProvider()
   val form: Form[WhereIsYourBusinessBased] = formProvider()

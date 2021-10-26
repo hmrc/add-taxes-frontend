@@ -29,7 +29,7 @@ import views.html.other.gambling.areYouRegisteredGTS
 
 class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new AreYouRegisteredGTSFormProvider()
   val form: Form[AreYouRegisteredGTS] = formProvider()

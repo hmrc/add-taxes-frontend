@@ -34,7 +34,7 @@ class VatRegistrationExceptionControllerSpec
     with BeforeAndAfterEach
     with FeatureToggleSupport {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new VatRegistrationExceptionFormProvider()
   val form: Form[VatRegistrationException] = formProvider()
