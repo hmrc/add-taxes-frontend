@@ -31,7 +31,7 @@ import views.html.vat.claimRefund
 
 class ClaimRefundControllerSpec extends ControllerSpecBase with BeforeAndAfterEach with FeatureToggleSupport {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new ClaimRefundFormProvider()
   val form: Form[ClaimRefund] = formProvider()

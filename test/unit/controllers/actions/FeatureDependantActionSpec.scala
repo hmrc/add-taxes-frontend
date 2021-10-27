@@ -16,7 +16,7 @@
 
 package controllers.actions
 
-import org.scalatest.{MustMatchers, WordSpec}
+import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Request, Result}
@@ -26,7 +26,7 @@ import playconfig.featuretoggle._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class FeatureDependantActionSpec extends WordSpec with MustMatchers with FeatureToggleSupport with GuiceOneAppPerSuite {
+class FeatureDependantActionSpec extends PlaySpec with FeatureToggleSupport with GuiceOneAppPerSuite {
 
   val testFeatureDependantAction: FeatureDependantAction = new FeatureDependantAction(app.injector.instanceOf[FeatureConfig], global)
 

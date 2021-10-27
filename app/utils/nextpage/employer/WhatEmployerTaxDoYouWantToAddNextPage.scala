@@ -17,18 +17,17 @@
 package utils.nextpage.employer
 
 import config.FrontendAppConfig
+import controllers.employer.cis.{routes => cisRoutes}
 import controllers.employer.ers.{routes => ersRoutes}
 import controllers.employer.intermediaries.{routes => intRoutes}
-import controllers.employer.cis.{routes => cisRoutes}
-import controllers.employer.pension.{routes => pensionRoutes}
+import controllers.employer.paye.{routes => payeRoutes}
+import controllers.routes
 import identifiers.WhatEmployerTaxDoYouWantToAddId
 import models.employer.WhatEmployerTaxDoYouWantToAdd
 import play.api.mvc.{Call, Request}
+import playconfig.featuretoggle.FeatureConfig
 import uk.gov.hmrc.auth.core.Enrolments
 import utils.{HmrcEnrolmentType, NextPage}
-import controllers.employer.paye.{routes => payeRoutes}
-import controllers.routes
-import playconfig.featuretoggle.FeatureConfig
 
 trait WhatEmployerTaxDoYouWantToAddNextPage {
 
@@ -58,8 +57,8 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
     }
   }
 
-  def getEnrolERSCall(
-    details: WhatEmployerTaxDoYouWantToAddWithEnrolment)(implicit appConfig: FrontendAppConfig, request: Request[_]) = {
+  def getEnrolERSCall(details: WhatEmployerTaxDoYouWantToAddWithEnrolment)
+                     (implicit appConfig: FrontendAppConfig, request: Request[_]): Call = {
 
     def taxOfficeNumber: Option[String] =
       details._2
@@ -84,10 +83,10 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
               .value)
 
     (taxOfficeReference, taxOfficeNumber) match {
-      case (Some(ref), Some(num)) => {
+      case (Some(ref), Some(num)) =>
         val fullRef: String = num + "/" + ref
         Call("GET", appConfig.getPortalUrl("enrolERS", fullRef))
-      }
+
       case _ => routes.UnauthorisedController.onPageLoad
     }
   }

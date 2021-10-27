@@ -19,10 +19,9 @@ package forms.employer.paye
 import forms.behaviours.FormBehaviours
 import models.employer.paye.PAYEReference
 import models.{Field, Required}
-import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import play.api.data.Form
 
-class WhatIsYourPAYEReferenceFormProviderSpec extends FormBehaviours with ScalaCheckDrivenPropertyChecks {
+class WhatIsYourPAYEReferenceFormProviderSpec extends FormBehaviours {
 
   override val validData: Map[String, String] = Map("empRef" -> "123/AB123")
   override val form: Form[PAYEReference] = new WhatIsYourPAYEReferenceFormProvider()()
@@ -38,7 +37,7 @@ class WhatIsYourPAYEReferenceFormProviderSpec extends FormBehaviours with ScalaC
         .bind(Map("empRef" -> "A%G£][sd%"))
         .fold(
           formWithErrors =>
-            formWithErrors.errors.flatMap(_.messages) shouldBe List("whatIsYourPAYEReference.error.format"),
+            formWithErrors.errors.flatMap(_.messages) mustBe List("whatIsYourPAYEReference.error.format"),
           _ => fail("This form should not succeed")
         )
     }
@@ -48,7 +47,7 @@ class WhatIsYourPAYEReferenceFormProviderSpec extends FormBehaviours with ScalaC
         .bind(Map("empRef" -> "123/AB123"))
         .fold(
           formWithErrors => fail(s"This form should be valid, Error = ${formWithErrors.errors.map(_.message)}"),
-          empRef => empRef shouldBe PAYEReference("123", "AB123")
+          empRef => empRef mustBe PAYEReference("123", "AB123")
         )
     }
 

@@ -31,7 +31,7 @@ import views.html.deenrolment.doYouNeedToStopVatMossNU
 
 class DoYouNeedToStopVatMossNUControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
   val serverErrorTemplate = "An error has occurred"
 
   implicit val messagesAPI: MessagesApi = mcc.messagesApi

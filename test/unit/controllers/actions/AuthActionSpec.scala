@@ -106,7 +106,7 @@ class AuthActionSpec extends SpecBase with MockitoSugar {
         val controller = new Harness(authAction)
         val result = controller.onPageLoad()(fakeRequest)
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(routes.UnauthorisedController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(routes.UnauthorisedController.onPageLoad.url)
       }
     }
 
@@ -118,7 +118,7 @@ class AuthActionSpec extends SpecBase with MockitoSugar {
         val controller = new Harness(authAction)
         val result = controller.onPageLoad()(fakeRequest)
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(routes.UnauthorisedController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(routes.UnauthorisedController.onPageLoad.url)
       }
     }
 
@@ -130,7 +130,7 @@ class AuthActionSpec extends SpecBase with MockitoSugar {
         val controller = new Harness(authAction)
         val result = controller.onPageLoad()(fakeRequest)
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(routes.UnauthorisedController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(routes.UnauthorisedController.onPageLoad.url)
       }
     }
 
@@ -143,7 +143,7 @@ class AuthActionSpec extends SpecBase with MockitoSugar {
         val controller = new Harness(authAction)
         val result = controller.onPageLoad()(fakeRequest)
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(routes.UnauthorisedController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(routes.UnauthorisedController.onPageLoad.url)
       }
     }
 
@@ -155,7 +155,7 @@ class AuthActionSpec extends SpecBase with MockitoSugar {
         val controller = new Harness(authAction)
         val result = controller.onPageLoad()(fakeRequest)
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(routes.UnauthorisedController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(routes.UnauthorisedController.onPageLoad.url)
       }
     }
 
@@ -165,7 +165,7 @@ class AuthActionSpec extends SpecBase with MockitoSugar {
         val controller = retrievals(groupId = None)
         val result = controller.onPageLoad()(fakeRequest)
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(routes.VerifiedUserController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(routes.VerifiedUserController.onPageLoad.url)
       }
     }
 

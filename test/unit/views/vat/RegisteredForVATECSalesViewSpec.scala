@@ -29,7 +29,7 @@ class RegisteredForVATECSalesViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "registeredForVATECSales"
 
   val form = new RegisteredForVATFormProvider()()
-  lazy val viewAction: ViewAction = ViewAction(controllers.routes.IndexController.onPageLoad(), "")
+  lazy val viewAction: ViewAction = ViewAction(controllers.routes.IndexController.onPageLoad, "")
 
   val serviceInfoContent: Html = HtmlFormat.empty
 

@@ -26,7 +26,7 @@ import views.html.sa.selectSACategory
 
 class SelectSACategoryViewSpec extends ViewBehaviours {
 
-  lazy val onSubmit: Call = controllers.routes.IndexController.onPageLoad()
+  lazy val onSubmit: Call = controllers.routes.IndexController.onPageLoad
 
   val messageKeyPrefix = "selectSACategory"
 

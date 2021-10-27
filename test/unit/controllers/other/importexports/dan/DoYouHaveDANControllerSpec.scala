@@ -28,7 +28,7 @@ import views.html.other.importexports.dan.doYouHaveDAN
 
 class DoYouHaveDANControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouHaveDANFormProvider()
   val form: Form[DoYouHaveDAN] = formProvider()

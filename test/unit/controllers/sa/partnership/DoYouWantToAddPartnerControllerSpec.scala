@@ -28,7 +28,7 @@ import views.html.sa.partnership.doYouWantToAddPartner
 
 class DoYouWantToAddPartnerControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouWantToAddPartnerFormProvider()
   val form: Form[DoYouWantToAddPartner] = formProvider()

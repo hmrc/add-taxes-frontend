@@ -18,11 +18,9 @@ package service
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.Assets.{InternalServerError, Redirect}
 import controllers.sa.partnership.{routes => saPartnerRoutes}
 import controllers.sa.trust.{routes => trustRoutes}
 import controllers.sa.{routes => saRoutes}
-import handlers.ErrorHandler
 import identifiers.EnterSAUTRId
 import models.requests.ServiceInfoRequest
 import models.sa._
@@ -30,6 +28,7 @@ import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
 import javax.inject.Inject
+import play.api.mvc.Results._
 
 import scala.concurrent.{ExecutionContext, Future}
 

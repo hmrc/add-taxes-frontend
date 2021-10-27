@@ -36,7 +36,7 @@ import scala.concurrent.Future
 
 class DoYouHaveSAUTRControllerSpec extends ControllerSpecBase with BeforeAndAfterEach {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouHaveSAUTRFormProvider()
   val form: Form[DoYouHaveSAUTR] = formProvider()

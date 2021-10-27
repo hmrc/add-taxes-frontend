@@ -28,7 +28,7 @@ import views.html.employer.pension.doYouHaveActivationToken
 
 class DoYouHaveActivationTokenControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouHaveActivationTokenFormProvider()
   val form: Form[DoYouHaveActivationToken] = formProvider()

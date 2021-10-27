@@ -31,7 +31,7 @@ import views.html.vat.distanceSelling
 
 class DistanceSellingControllerSpec extends ControllerSpecBase with FeatureToggleSupport with BeforeAndAfterEach {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DistanceSellingFormProvider()
   val form: Form[DistanceSelling] = formProvider()

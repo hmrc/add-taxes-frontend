@@ -17,7 +17,6 @@
 package controllers.sa
 
 import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
-import controllers.Assets.Redirect
 import controllers._
 import forms.sa.SAUTRFormProvider
 import models.sa.SAUTR
@@ -26,6 +25,7 @@ import org.mockito.Mockito.{times, verify, when}
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.data.Form
 import play.api.mvc.Call
+import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import service.{AuditService, SelectSaCategoryService}
@@ -36,7 +36,7 @@ import scala.concurrent.Future
 
 class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new SAUTRFormProvider()
   val form: Form[SAUTR] = formProvider()

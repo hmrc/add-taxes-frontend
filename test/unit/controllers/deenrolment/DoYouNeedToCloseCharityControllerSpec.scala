@@ -28,7 +28,7 @@ import views.html.deenrolment.doYouNeedToCloseCharity
 
 class DoYouNeedToCloseCharityControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouNeedToCloseCharityFormProvider()
   val form: Form[DoYouNeedToCloseCharity] = formProvider()

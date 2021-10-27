@@ -30,7 +30,7 @@ import views.html.other.importexports.doYouHaveEORINumber
 
 class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = IndexController.onPageLoad()
+  def onwardRoute: Call = IndexController.onPageLoad
 
   val formProvider = new DoYouHaveEORINumberFormProvider()
   val form: Form[DoYouHaveEORINumber] = formProvider()

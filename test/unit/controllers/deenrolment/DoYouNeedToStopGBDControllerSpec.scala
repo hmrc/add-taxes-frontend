@@ -28,7 +28,7 @@ import views.html.deenrolment.doYouNeedToStopGBD
 
 class DoYouNeedToStopGBDControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouNeedToStopGBDFormProvider()
   val form: Form[DoYouNeedToStopGBD] = formProvider()

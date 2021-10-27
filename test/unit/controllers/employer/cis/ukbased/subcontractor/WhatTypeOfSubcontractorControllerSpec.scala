@@ -28,7 +28,7 @@ import views.html.employer.cis.ukbased.subcontractor.whatTypeOfSubcontractor
 
 class WhatTypeOfSubcontractorControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new WhatTypeOfSubcontractorFormProvider()
   val form: Form[WhatTypeOfSubcontractor] = formProvider()

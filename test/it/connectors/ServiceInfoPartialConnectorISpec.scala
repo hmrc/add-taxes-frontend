@@ -1,7 +1,7 @@
 package connectors
 
 import models.requests.{NavContent, NavLinks}
-import org.scalatest.{MustMatchers, WordSpec}
+import org.scalatestplus.play.PlaySpec
 import play.api.test.Helpers.{await, defaultAwaitTimeout}
 import support.AddTaxesIntegrationTest
 import support.stubs.StubServiceInfoPartialConnector
@@ -10,7 +10,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ServiceInfoPartialConnectorISpec extends WordSpec with MustMatchers with AddTaxesIntegrationTest {
+class ServiceInfoPartialConnectorISpec extends PlaySpec with AddTaxesIntegrationTest {
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
 

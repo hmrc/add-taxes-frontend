@@ -33,7 +33,7 @@ class IsBusinessRegisteredForPAYEViewSpec extends ViewBehaviours {
 
   val serviceInfoContent: Html = HtmlFormat.empty
 
-  val viewAction: ViewAction = ViewAction(controllers.routes.IndexController.onPageLoad(), "")
+  val viewAction: ViewAction = ViewAction(controllers.routes.IndexController.onPageLoad, "")
 
   def createView: () => HtmlFormat.Appendable = () =>
     new isBusinessRegisteredForPAYE(

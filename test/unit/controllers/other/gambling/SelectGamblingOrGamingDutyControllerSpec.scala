@@ -28,7 +28,7 @@ import views.html.other.gambling.selectGamblingOrGamingDuty
 
 class SelectGamblingOrGamingDutyControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new SelectGamblingOrGamingDutyFormProvider()
   val form: Form[SelectGamblingOrGamingDuty] = formProvider()

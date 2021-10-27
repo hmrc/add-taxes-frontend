@@ -17,36 +17,20 @@
 package forms.sa
 
 import forms.behaviours.FormBehaviours
-import generators.ModelGenerators
 import models.sa.SAUTR
 import models.{Field, Required}
 import org.scalacheck.Gen._
-import org.scalacheck.{Gen, Shrink}
-import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import play.api.data.Form
 
-class SAUTRFormProviderSpec extends FormBehaviours with ScalaCheckDrivenPropertyChecks with ModelGenerators {
-
-  implicit val noShrink: Shrink[String] = Shrink.shrinkAny
+class SAUTRFormProviderSpec extends FormBehaviours {
 
   override val validData: Map[String, String] = Map("value" -> "0987654321")
   override val form: Form[SAUTR] = new SAUTRFormProvider()()
 
-  private val utrLength = 10
-  private val utrLengthExtended = 13
-  private val min = 0
-  private val max = 9
-
-  val validGen: Gen[String] = saUtrGen(listOfN(utrLength, choose(min, max)))
-
-  val validGenExtended: Gen[String] = saUtrGen(listOfN(utrLengthExtended, choose(min, max)))
-
-  val invalidLengthGen: Gen[String] =
-    saUtrGen(
-      listOf(choose(min, max)),
-      (p: List[_]) => p.length != utrLength && p.length != utrLengthExtended && p.nonEmpty)
-
-  val invalidCharGen: Gen[String] = saUtrGen(listOfN(utrLength, asciiChar), (p: List[Any]) => !p.contains(' '))
+  val validUtr: String = "1 2 3 4 5 6 7 8 0 0"
+  val validUtrExtended: String = validUtr + "123"
+  val invalidLengthUtr = "12345678009"
+  val invalidCharUtr: String = s"123456@£%^"
 
   "SAUTRFormProver" must {
 
@@ -55,49 +39,40 @@ class SAUTRFormProviderSpec extends FormBehaviours with ScalaCheckDrivenProperty
     )
 
     "fail for invalid lengths" in {
-      forAll(invalidLengthGen) { value =>
         form
-          .bind(Map("value" -> value))
+          .bind(Map("value" -> invalidLengthUtr))
           .fold(
-            formWithErrors => formWithErrors.error("value").map(_.message) shouldBe Some("enterSAUTR.error.length"),
+            formWithErrors => formWithErrors.error("value").map(_.message) mustBe Some("enterSAUTR.error.length"),
             _ => fail("This form should not succeed")
           )
       }
     }
 
     "fail for invalid characters" in {
-      forAll(invalidCharGen) { value =>
         form
-          .bind(Map("value" -> value))
+          .bind(Map("value" -> invalidCharUtr))
           .fold(
             formWithErrors =>
-              formWithErrors.errors("value").map(_.message) shouldBe List("enterSAUTR.error.characters"),
+              formWithErrors.errors("value").map(_.message) mustBe List("enterSAUTR.error.characters"),
             _ => fail("This form should not succeed")
           )
-      }
     }
 
     "pass for valid entries of digits and spaces" in {
-      forAll(validGen) { value =>
         form
-          .bind(Map("value" -> value))
+          .bind(Map("value" -> validUtr))
           .fold(
             formWithErrors => fail(s"This form should be valid, Error = ${formWithErrors.errors.map(_.message)}"),
-            sautr => sautr.value shouldBe SAUTR(value).value
+            sautr => sautr.value mustBe SAUTR(validUtr).value
           )
-      }
     }
 
     "pass for valid entries with extra 3 digits at the start and spaces" in {
-      forAll(validGenExtended) { value =>
         form
-          .bind(Map("value" -> value))
+          .bind(Map("value" -> validUtrExtended))
           .fold(
             formWithErrors => fail(s"This form should be valid, Error = ${formWithErrors.errors.map(_.message)}"),
-            sautr => sautr.value shouldBe SAUTR(value).value
+            sautr => sautr.value mustBe SAUTR(validUtrExtended).value
           )
       }
-    }
-
-  }
 }

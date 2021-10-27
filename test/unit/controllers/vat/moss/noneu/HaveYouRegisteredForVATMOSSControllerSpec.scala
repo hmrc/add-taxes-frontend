@@ -28,7 +28,7 @@ import views.html.vat.moss.noneu.haveYouRegisteredForVATMOSS
 
 class HaveYouRegisteredForVATMOSSControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new HaveYouRegisteredForVATMOSSFormProvider()
   val form: Form[HaveYouRegisteredForVATMOSS] = formProvider()

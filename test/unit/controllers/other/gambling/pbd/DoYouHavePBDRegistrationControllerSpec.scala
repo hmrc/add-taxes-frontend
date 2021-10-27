@@ -28,7 +28,7 @@ import views.html.other.gambling.pbd.doYouHavePBDRegistration
 
 class DoYouHavePBDRegistrationControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouHavePBDRegistrationFormProvider()
   val form: Form[DoYouHavePBDRegistration] = formProvider()

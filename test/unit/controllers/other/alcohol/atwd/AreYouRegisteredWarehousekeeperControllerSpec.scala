@@ -28,7 +28,7 @@ import views.html.other.alcohol.atwd.areYouRegisteredWarehousekeeper
 
 class AreYouRegisteredWarehousekeeperControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new AreYouRegisteredWarehousekeeperFormProvider()
   val form: Form[AreYouRegisteredWarehousekeeper] = formProvider()

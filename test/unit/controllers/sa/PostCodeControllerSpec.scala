@@ -16,7 +16,6 @@
 
 package controllers.sa
 
-import controllers.Assets.Redirect
 import controllers._
 import controllers.sa.{routes => saRoutes}
 import forms.sa.KnownFactsPostcodeFormProvider
@@ -26,6 +25,7 @@ import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.data.{Form, FormError}
 import play.api.mvc.Call
+import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import playconfig.featuretoggle.FeatureToggleSupport
@@ -37,7 +37,7 @@ import scala.concurrent.Future
 
 class PostCodeControllerSpec extends ControllerSpecBase with MockitoSugar with FeatureToggleSupport {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val view: postcodeKnownFacts = injector.instanceOf[postcodeKnownFacts]
   val knownFactsValidator: KnownFactsFormValidator = injector.instanceOf[KnownFactsFormValidator]

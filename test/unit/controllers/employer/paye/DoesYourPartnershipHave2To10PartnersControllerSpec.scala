@@ -28,7 +28,7 @@ import views.html.employer.paye.doesYourPartnershipHave2To10Partners
 
 class DoesYourPartnershipHave2To10PartnersControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoesYourPartnershipHave2To10PartnersFormProvider()
   val form: Form[DoesYourPartnershipHave2To10Partners] = formProvider()

@@ -29,7 +29,7 @@ class EnrolmentProxyController @Inject()(appConfig: FrontendAppConfig,
                                          serviceInfo: ServiceInfoAction)
   extends FrontendController(mcc) with I18nSupport {
 
-  def onPageLoad(service: utils.Enrolments): Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
+  def onPageLoad(service: utils.Enrolments): Action[AnyContent] = (authenticate andThen serviceInfo) {
       Redirect(appConfig.emacEnrollmentsUrl(service))
   }
 }

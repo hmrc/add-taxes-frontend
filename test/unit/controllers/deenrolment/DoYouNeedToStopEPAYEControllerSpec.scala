@@ -28,7 +28,7 @@ import views.html.deenrolment.doYouNeedToStopEPAYE
 
 class DoYouNeedToStopEPAYEControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouNeedToStopEPAYEFormProvider()
   val form: Form[DoYouNeedToStopEPAYE] = formProvider()

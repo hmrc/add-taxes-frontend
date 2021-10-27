@@ -16,11 +16,11 @@
 
 package playconfig.featuretoggle
 
-import org.scalatest.{MustMatchers, WordSpec}
+import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
-class FeatureObjectSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite {
+class FeatureObjectSpec extends PlaySpec with GuiceOneAppPerSuite {
 
   "Feature.allTogglableFeatures" should {
     "contain all members of Feature" in {

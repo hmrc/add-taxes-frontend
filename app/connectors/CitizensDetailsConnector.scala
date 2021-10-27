@@ -17,16 +17,16 @@
 package connectors
 
 import config.FrontendAppConfig
-import identifiers.Identifier
 import javax.inject.Inject
 import models.DesignatoryDetails
 import play.api.Logging
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpReadsInstances}
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class CitizensDetailsConnector @Inject()(val http: HttpClient,
-                                         appConfig: FrontendAppConfig)(implicit ec: ExecutionContext) extends Logging {
+                                         appConfig: FrontendAppConfig)(implicit ec: ExecutionContext)
+  extends Logging with HttpReadsInstances {
 
 
   def url(identifier: String, value: String): String = appConfig.designatoryDetailsUrl(identifier, value)

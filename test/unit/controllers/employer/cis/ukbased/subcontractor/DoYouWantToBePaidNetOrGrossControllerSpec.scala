@@ -28,7 +28,7 @@ import views.html.employer.cis.ukbased.subcontractor.doYouWantToBePaidNetOrGross
 
 class DoYouWantToBePaidNetOrGrossControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouWantToBePaidNetOrGrossFormProvider()
   val form: Form[DoYouWantToBePaidNetOrGross] = formProvider()

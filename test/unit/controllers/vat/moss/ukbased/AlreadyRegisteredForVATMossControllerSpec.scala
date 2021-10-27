@@ -29,7 +29,7 @@ import views.html.vat.moss.alreadyRegisteredForVATMoss
 
 class AlreadyRegisteredForVATMossControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new AlreadyRegisteredForVATMossFormProvider()
   val form: Form[AlreadyRegisteredForVATMoss] = formProvider()

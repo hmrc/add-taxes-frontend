@@ -1,15 +1,15 @@
 package connectors
 
 import models.DesignatoryDetails
-import org.scalatest.{MustMatchers, WordSpec}
-import uk.gov.hmrc.http.HeaderCarrier
+import org.scalatestplus.play.PlaySpec
+import play.api.test.Helpers._
 import support.AddTaxesIntegrationTest
 import support.stubs.StubCitizenDetailsConnector
-import play.api.test.Helpers._
+import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-class CitizenDetailsConnectorISpec extends WordSpec with MustMatchers with AddTaxesIntegrationTest {
+class CitizenDetailsConnectorISpec extends PlaySpec with AddTaxesIntegrationTest {
 
   val connector: CitizensDetailsConnector = inject[CitizensDetailsConnector]
 

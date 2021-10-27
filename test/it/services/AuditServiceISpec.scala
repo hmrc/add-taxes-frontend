@@ -2,7 +2,7 @@ package services
 
 import models.sa.CredIdFound
 import org.scalatest.concurrent.ScalaFutures.whenReady
-import org.scalatest.{MustMatchers, WordSpec}
+import org.scalatestplus.play.PlaySpec
 import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
 import service.AuditService
@@ -12,7 +12,7 @@ import uk.gov.hmrc.play.audit.http.connector.AuditResult
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class AuditServiceISpec extends WordSpec with MustMatchers with AddTaxesIntegrationTest  {
+class AuditServiceISpec extends PlaySpec with AddTaxesIntegrationTest  {
 
   override protected def config: Map[String, Any] = Map("auditing.enabled" -> "true")
 

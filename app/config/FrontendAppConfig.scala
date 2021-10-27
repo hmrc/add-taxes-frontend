@@ -25,7 +25,6 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.language.LanguageUtils
 import utils.{Enrolments, ForgottenOptions, PortalUrlBuilder}
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, Language}
 
@@ -154,6 +153,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   lazy val vatRegHost: String = config.getString("urls.vat-registration-frontend.host")
   lazy val vatRegHandoff: String = vatRegHost + config.getString("urls.vat-registration-frontend.handoff")
   lazy val identityVerificationFrontendBaseUrl: String = config.baseUrl("identity-verification-frontend")
+  lazy val identityVerificationEnv: String = config.getString("identity-verification-frontend.env")
   lazy val addTaxesHost: String = config.getString("add-taxes-frontend.host")
   lazy val identityVerificationHost: String = config.getString("identity-verification-frontend.host")
   lazy val taxEnrolmentsBaseUrl: String = config.baseUrl("tax-enrolments")
@@ -191,7 +191,6 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
     )
   }
 
-  private val dtf: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm")
   def now(): LocalDateTime = LocalDateTime.now()
 
   def citizensDetailsUrl: String = config.baseUrl("citizen-details")
@@ -226,7 +225,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   def ivUpliftUrl(origin: String): String = {
     val completionUrl = s"$addTaxesHost/business-account/add-tax/self-assessment/sa-iv-router?origin=$origin"
     val failureUrl = s"$addTaxesHost/business-account/add-tax/self-assessment/sa-iv-router?origin=$origin"
-    val url = s"$identityVerificationFrontendHost/$ivLocationForEnvironments/uplift?origin=${origin}&confidenceLevel=200&completionURL=${completionUrl}&failureURL=${failureUrl}"
+    val url = s"$identityVerificationFrontendHost/$ivLocationForEnvironments/uplift?origin=${origin}&confidenceLevel=250&completionURL=${completionUrl}&failureURL=${failureUrl}"
     url
   }
 
@@ -234,8 +233,6 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
 trait FeatureToggles {
   val config: ServicesConfig
-
-  private def featureEnabled(key: String): Boolean = config.getBoolean(s"feature-toggles.$key")
   final val sessionTimeoutInSeconds: Int = 900
   final val sessionCountdownInSeconds: Int = 60
 }

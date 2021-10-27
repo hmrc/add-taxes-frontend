@@ -28,7 +28,7 @@ import views.html.employer.paye.doYouHavePAYEReference
 
 class DoYouHavePAYEReferenceControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouHavePAYEReferenceFormProvider()
   val form: Form[DoYouHavePAYEReference] = formProvider()

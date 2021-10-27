@@ -28,7 +28,7 @@ import views.html.vat.moss.ukbased.registeredForVATUk
 
 class RegisteredForVATUkControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new RegisteredForVATUkFormProvider()
   val form: Form[RegisteredForVATUk] = formProvider()

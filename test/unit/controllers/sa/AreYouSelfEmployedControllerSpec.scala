@@ -28,7 +28,7 @@ import views.html.sa.areYouSelfEmployed
 
 class AreYouSelfEmployedControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new AreYouSelfEmployedFormProvider()
   val form: Form[AreYouSelfEmployed] = formProvider()

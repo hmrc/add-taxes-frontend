@@ -1,6 +1,5 @@
 package controllers.sa
 
-import controllers.Assets.{InternalServerError, Redirect}
 import controllers.ControllerSpecBase
 import handlers.ErrorHandler
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
@@ -9,6 +8,7 @@ import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.http.Status.INTERNAL_SERVER_ERROR
 import play.api.mvc.AnyContent
+import play.api.mvc.Results._
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, status, _}
 import play.twirl.api.HtmlFormat

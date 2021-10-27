@@ -28,7 +28,7 @@ import views.html.deenrolment.doYouNeedToCancelVAT
 
 class DoYouNeedToCancelVATControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouNeedToCancelVATFormProvider()
   val form: Form[DoYouNeedToCancelVAT] = formProvider()

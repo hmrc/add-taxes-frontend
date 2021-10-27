@@ -30,7 +30,7 @@ import views.html.deenrolment.haveYouStoppedSelfEmployment
 
 class HaveYouStoppedSelfEmploymentControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new HaveYouStoppedSelfEmploymentFormProvider()
   val form: Form[HaveYouStoppedSelfEmployment] = formProvider()

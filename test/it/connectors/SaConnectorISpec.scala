@@ -2,7 +2,7 @@ package connectors
 
 import models.BusinessDetails
 import models.sa.IvLinks
-import org.scalatest.{MustMatchers, WordSpec}
+import org.scalatestplus.play.PlaySpec
 import play.api.test.Helpers.{await, _}
 import support.AddTaxesIntegrationTest
 import support.stubs.StubSaConnector
@@ -11,7 +11,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class SaConnectorISpec extends WordSpec with MustMatchers with AddTaxesIntegrationTest {
+class SaConnectorISpec extends PlaySpec with AddTaxesIntegrationTest {
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
   lazy val connector: SaConnector = inject[SaConnector]

@@ -28,7 +28,7 @@ import views.html.sa.trust.haveYouRegisteredTrust
 
 class HaveYouRegisteredTrustControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new HaveYouRegisteredTrustFormProvider()
   val form: Form[HaveYouRegisteredTrust] = formProvider()

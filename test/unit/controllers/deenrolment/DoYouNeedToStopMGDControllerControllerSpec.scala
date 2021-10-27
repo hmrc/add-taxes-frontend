@@ -29,7 +29,7 @@ import views.html.deenrolment.doYouNeedToStopMGD
 
 class DoYouNeedToStopMGDControllerControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
   val serverErrorTemplate = "An error has occurred"
 
   val formProvider = new DoYouNeedToStopMGDFormProvider()

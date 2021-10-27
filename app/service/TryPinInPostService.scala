@@ -18,13 +18,13 @@ package service
 
 import config.FrontendAppConfig
 import connectors.{DataCacheConnector, TaxEnrolmentsConnector}
-import controllers.Assets.{InternalServerError, Redirect}
 import handlers.ErrorHandler
 import identifiers.EnterSAUTRId
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.sa.SAUTR
 import play.api.Logging
+import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 

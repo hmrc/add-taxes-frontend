@@ -32,7 +32,7 @@ class DeenrolmentProxyController @Inject()(appConfig: FrontendAppConfig,
                                            serviceInfo: ServiceInfoAction)
   extends FrontendController(mcc) with I18nSupport {
 
-  def onPageLoad(service: Enrolments): Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
+  def onPageLoad(service: Enrolments): Action[AnyContent] = (authenticate andThen serviceInfo) {
     val enrolmentRoutes: Map[Enrolments, Call] = Map(
       VATMOSS           -> DoYouNeedToLeaveVATMOSSController.onPageLoad(),
       VATMOSSNonUnion   -> DoYouNeedToStopVatMossNUController.onPageLoad(),

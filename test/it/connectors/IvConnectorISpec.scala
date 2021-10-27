@@ -16,9 +16,8 @@
 
 package connectors
 
-import controllers.Assets.OK
 import models.sa.JourneyLinkResponse
-import org.scalatest.{MustMatchers, WordSpec}
+import org.scalatestplus.play.PlaySpec
 import play.api.test.Helpers._
 import support.AddTaxesIntegrationTest
 import support.stubs.StubIvConnector
@@ -27,7 +26,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class IvConnectorISpec extends WordSpec with MustMatchers with AddTaxesIntegrationTest {
+class IvConnectorISpec extends PlaySpec with AddTaxesIntegrationTest {
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
 

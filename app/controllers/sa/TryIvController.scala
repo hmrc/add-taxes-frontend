@@ -18,12 +18,11 @@ package controllers.sa
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.Assets.Redirect
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import identifiers.EnterSAUTRId
 import javax.inject.Inject
 import models.sa.SAUTR
-import play.api.Logger.logger
+import play.api.Logging
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import service.SaService
@@ -36,7 +35,8 @@ class TryIvController @Inject()(authenticate: AuthAction,
                                 appConfig: FrontendAppConfig,
                                 mcc: MessagesControllerComponents,
                                 saService: SaService,
-                                dataCacheConnector: DataCacheConnector) extends FrontendController(mcc) with I18nSupport {
+                                dataCacheConnector: DataCacheConnector)
+  extends FrontendController(mcc) with I18nSupport with Logging {
 
   implicit val ec: ExecutionContext = mcc.executionContext
 

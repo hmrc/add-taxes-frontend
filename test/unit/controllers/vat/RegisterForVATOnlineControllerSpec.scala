@@ -28,7 +28,7 @@ import views.html.vat.registerForVATOnline
 
 class RegisterForVATOnlineControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new RegisterForVATOnlineFormProvider()
   val form: Form[RegisterForVATOnline] = formProvider()

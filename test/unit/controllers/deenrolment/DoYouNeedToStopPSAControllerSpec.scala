@@ -28,7 +28,7 @@ import views.html.deenrolment.doYouNeedToStopPSA
 
 class DoYouNeedToStopPSAControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouNeedToStopPSAFormProvider()
   val form: Form[DoYouNeedToStopPSA] = formProvider()

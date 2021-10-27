@@ -31,7 +31,7 @@ import views.html.vat.companyDivision
 
 class CompanyDivisionControllerSpec extends ControllerSpecBase with BeforeAndAfterEach with FeatureToggleSupport {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new CompanyDivisionFormProvider()
   val form: Form[CompanyDivision] = formProvider()

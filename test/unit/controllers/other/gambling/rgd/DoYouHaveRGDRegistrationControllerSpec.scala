@@ -28,7 +28,7 @@ import views.html.other.gambling.rgd.doYouHaveRGDRegistration
 
 class DoYouHaveRGDRegistrationControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouHaveRGDRegistrationFormProvider()
   val form: Form[DoYouHaveRGDRegistration] = formProvider()

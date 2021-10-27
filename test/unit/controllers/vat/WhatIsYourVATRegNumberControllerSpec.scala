@@ -35,7 +35,7 @@ import scala.concurrent.Future
 
 class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with MockitoSugar {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
   def vatAccountUnavailableRoute: Call = routes.WhatIsYourVATRegNumberController.onPageLoadVatUnanavailable()
 
   val formProvider = new WhatIsYourVATRegNumberFormProvider()

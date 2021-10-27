@@ -18,7 +18,6 @@ package service
 
 import config.FrontendAppConfig
 import connectors.{CitizensDetailsConnector, DataCacheConnector, EnrolmentStoreProxyConnector}
-import controllers.Assets.SEE_OTHER
 import controllers.ControllerSpecBase
 import controllers.sa.{routes => saRoutes}
 import handlers.ErrorHandler

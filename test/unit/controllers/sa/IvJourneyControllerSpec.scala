@@ -17,12 +17,13 @@
 package controllers.sa
 
 import config.FrontendAppConfig
-import controllers.Assets.{Redirect, SEE_OTHER}
+import play.api.http.Status.SEE_OTHER
 import controllers.ControllerSpecBase
 import controllers.sa.{routes => saRoutes}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
+import play.api.mvc.Results._
 import play.api.test.Helpers.{defaultAwaitTimeout, redirectLocation, status}
 import playconfig.featuretoggle.FeatureToggleSupport
 import service.IvService

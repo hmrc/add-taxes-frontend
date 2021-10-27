@@ -28,7 +28,7 @@ import views.html.other.importexports.emcs.doYouHaveASEEDNumber
 
 class DoYouHaveASEEDNumberControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new DoYouHaveASEEDNumberFormProvider()
   val form: Form[DoYouHaveASEEDNumber] = formProvider()

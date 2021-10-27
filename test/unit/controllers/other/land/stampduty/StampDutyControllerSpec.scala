@@ -28,7 +28,7 @@ import views.html.other.land.stampduty.stampDuty
 
 class StampDutyControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad()
+  def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new StampDutyFormProvider()
   val form: Form[StampDuty] = formProvider()
