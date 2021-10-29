@@ -20,7 +20,8 @@ import config.FrontendAppConfig
 import javax.inject.Inject
 import models.DesignatoryDetails
 import play.api.Logging
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpReadsInstances}
+import play.api.http.Status.NOT_FOUND
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpReadsInstances, UpstreamErrorResponse}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -35,6 +36,9 @@ class CitizensDetailsConnector @Inject()(val http: HttpClient,
     http.GET[DesignatoryDetails](url(identifier, value)).map(
       Some(_)
     ).recover {
+      case UpstreamErrorResponse.WithStatusCode(NOT_FOUND) =>
+        logger.warn(s"Warn: Not Found returned from Citizen Details")
+        None
       case e: Exception =>
         logger.error(s"Error: ${e.getMessage} returned from Citizen Details")
         None
