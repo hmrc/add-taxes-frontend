@@ -24,7 +24,7 @@
         main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig, origin: String)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, origin: String, ninoBoolean: Boolean)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("retryKnownFacts.title"),
@@ -33,15 +33,23 @@
 
     @components.heading("retry-knownFacts-header", "retryKnownFacts.heading")
 
-    <p class="govuk-body">@messages("retryKnownFacts.p1")</p>
-    <p class="govuk-body">@messages("retryKnownFacts.p2")
-        <a  class="govuk-link" id="online-services-helpdesk-link" target="_blank"
-        data-journey-click="link - click: Retry Knownfacts Gov Uk Online Services Help Desk"
-        href="@appConfig.getGovUKUrl("onlineServicesHelpdesk")">
-        @messages("retryKnownFacts.linkText")
-        </a> @messages("retryKnownFacts.p3")
-    </p>
 
+@if(ninoBoolean) {
+<p class="govuk-body">@messages("retryKnownFacts.p1")</p>
+<p class="govuk-body">@messages("retryKnownFacts.p2")
+    <a  class="govuk-link" id="sign-in-different-link"
+        data-journey-click="link - click: Sign in with different account"
+        href="@SignInDifferentController.onPageLoad(origin)">
+        @messages("retryKnownFacts.linkText2")</a>.
+</p>
+} else {
+<p class="govuk-body">@messages("retryKnownFacts.p1")</p>
+<p class="govuk-body">@messages("retryKnownFacts.p2")
+    <a  class="govuk-link" id="online-services-helpdesk-link" target="_blank"
+        data-journey-click="link - click: Retry Knownfacts Gov Uk Online Services Help Desk"
+        href="@appConfig.getGovUKUrl("onlineServicesHelpdesk")">@messages("retryKnownFacts.linkText")</a> @messages("retryKnownFacts.p3")
+</p>
+}
     @uiForm(action = RetryKnownFactsController.onSubmit(origin)) {
         <div class="section">
             <button data-module="govuk-button" id="continue-button" class="govuk-button" data-journey-click="TryAgain:Click:" data-journey-target>@messages("retryKnownFacts.button")</button>
