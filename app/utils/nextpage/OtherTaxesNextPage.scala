@@ -25,6 +25,7 @@ import controllers.other.gambling.{routes => gamblingRoutes}
 import controllers.other.importexports.{routes => importexportsRoutes}
 import controllers.other.alcohol.awrs.{routes => alcoholRoutes}
 import controllers.other.ctf.{routes => ctfRoutes}
+import controllers.other.ppt.{routes => pptRoutes}
 import identifiers.OtherTaxesId
 import models.OtherTaxes
 import play.api.mvc.{Call, Request}
@@ -48,6 +49,7 @@ trait OtherTaxesNextPage {
           case OtherTaxes.OilAndFuel                                   => oilRoutes.SelectAnOilServiceController.onPageLoad()
           case OtherTaxes.FulfilmentHouseDueDiligenceSchemeIntegration => Call("GET", appConfig.fulfilmentHouse)
           case OtherTaxes.PODS                                         => Call("GET", appConfig.pods)
+          case OtherTaxes.PPT                                          => pptRoutes.DoYouHaveAPPTRefController.onPageLoad()
         }
     }
   }

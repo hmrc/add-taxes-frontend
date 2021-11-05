@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(gaEvent: String, marginClass: Option[String] = None)(implicit messages: Messages)
+package identifiers
 
-<div class="govuk-section">
-    <button id="continue-button" data-module="govuk-button" class="govuk-button" data-journey-click="@gaEvent:Click:" data-journey-target>@messages("site.continue")</button>
-</div>
+case object DoYouHaveAPptRegId extends Identifier {
+    override def toString: String = "doYouHaveAPptRef"
+}

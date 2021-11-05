@@ -140,6 +140,7 @@ otherTaxes.fulfilmentHouseDueDiligenceSchemeIntegration = Fulfilment House Due D
 otherTaxes.error.required = Select a tax or scheme type
 otherTaxes.legend = Select a tax or scheme type
 otherTaxes.pods = Manage and register pension schemes
+otherTaxes.ppt = Plastic Packaging Tax (PPT)
 
 
 #######################################################
@@ -1454,3 +1455,29 @@ incorrectNinoSignOut.heading = Are you sure you want to sign out?
 incorrectNinoSignOut.cancel = Cancel
 incorrectNinoSignOut.signout = Sign out
 
+
+
+
+#######################################################
+##  Do you have a ppt reference
+#######################################################
+
+doYouHaveAPptRef.title = Do you have a Plastic Packaging Tax (PPT) reference number?
+doYouHaveAPptRef.heading = Do you have a Plastic Packaging Tax (PPT) reference number?
+doYouHaveAPptRef.hintText = This is 5 letters and 10 numbers, for example XMPPT1234567890. It will be on your PPT registration letter.
+doYouHaveAPptRef.Yes = Yes
+doYouHaveAPptRef.No  = No
+doYouHaveAPptRef.error.required = Select yes if you have PPT Ref?????
+
+#######################################################
+##  You need a ppt reference
+#######################################################
+
+needPpt.title = You need a Plastic Packaging Tax (PPT) reference number to add this tax
+needPpt.heading = You need a Plastic Packaging Tax (PPT) reference number to add this tax
+needPpt.linkText1 = Register for the Plastic Packaging Tax (PPT)
+needPpt.p1 = to get a reference number.
+needPpt.p2 = Then add PPT to your business tax account.
+needPpt.p3 = If you have lost your PPT reference number or need help,
+needPpt.linkText2 = contact HMRC (opens in new tab)
+needPpt.p4 = Back to home

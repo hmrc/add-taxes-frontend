@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,28 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(gaEvent: String, marginClass: Option[String] = None)(implicit messages: Messages)
+package models.other.ppt
 
-<div class="govuk-section">
-    <button id="continue-button" data-module="govuk-button" class="govuk-button" data-journey-click="@gaEvent:Click:" data-journey-target>@messages("site.continue")</button>
-</div>
+import utils.{Enumerable, RadioOption, WithName}
+
+sealed trait DoYouHaveAPptReference
+
+object DoYouHaveAPptReference {
+
+  case object Yes extends WithName("Yes") with DoYouHaveAPptReference
+  case object No extends WithName("No") with DoYouHaveAPptReference
+
+  val values: Set[DoYouHaveAPptReference] = Set(
+    Yes,
+    No
+  )
+
+  val options: Set[RadioOption] = values.map { value =>
+    RadioOption("doYouHaveAPptRef", value.toString)
+  }
+
+  implicit val enumerable: Enumerable[DoYouHaveAPptReference] =
+    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+}
