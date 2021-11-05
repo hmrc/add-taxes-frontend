@@ -21,19 +21,19 @@ import controllers.ControllerSpecBase
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import views.html.sa.retryKnownFacts
+import views.html.sa.signInDifferent
+
 import scala.concurrent.ExecutionContext.Implicits.global
 
 
-class RetryKnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar {
+class SignInDifferentControllerSpec extends ControllerSpecBase with MockitoSugar {
 
-  val view: retryKnownFacts = injector.instanceOf[retryKnownFacts]
+  val view: signInDifferent = injector.instanceOf[signInDifferent]
   val mockDataCacheConnector = mock[DataCacheConnector]
   val btaOrigin: String = "bta-sa"
-  val ninoExists: Boolean = true
 
-  def controller(): RetryKnownFactsController = {
-    new RetryKnownFactsController(
+  def controller(): SignInDifferentController = {
+    new SignInDifferentController(
       frontendAppConfig,
       FakeAuthAction,
       FakeServiceInfoAction,
@@ -44,19 +44,9 @@ class RetryKnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar
   }
 
   def viewAsString(origin: String): String =
-    new retryKnownFacts(formWithCSRF, mainTemplate)(frontendAppConfig, origin, ninoExists)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new signInDifferent(mainTemplate)(frontendAppConfig, origin)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  if(ninoExists) {
 
-    "TryPinInPost Controller" must {
-      "return OK and the correct view for a GET when feature toggle is set to true with nino" in {
-        val result = controller().onPageLoad(btaOrigin)(fakeRequest)
-
-        status(result) mustBe OK
-      }
-    }
-
-  } else {
 
   "TryPinInPost Controller" must {
     "return OK and the correct view for a GET when feature toggle is set to true" in {
@@ -66,14 +56,7 @@ class RetryKnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar
       contentAsString(result) mustBe viewAsString(btaOrigin)
     }
 
-  }
 
-    "redirect to enter SaUTR page" in {
-      val result = controller().onSubmit(btaOrigin)(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result).get mustBe routes.EnterSAUTRController.onPageLoad(Some(btaOrigin)).url
-    }
   }
 
 }

@@ -15,32 +15,29 @@
  */
 
 package controllers.sa
+
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions.{AuthAction, ServiceInfoAction}
-import forms.sa.KnownFactsNinoFormProvider
 import javax.inject.Inject
-import models.sa.KnownFactsNino
-import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import views.html.sa.retryKnownFacts
+import views.html.sa.signInDifferent
 
 import scala.concurrent.ExecutionContext
 
-class RetryKnownFactsController @Inject()(appConfig: FrontendAppConfig,
+class SignInDifferentController @Inject()(appConfig: FrontendAppConfig,
                                           authenticate: AuthAction,
                                           serviceInfoData: ServiceInfoAction,
                                           dataCacheConnector: DataCacheConnector,
                                           mcc: MessagesControllerComponents,
-                                          retryKnownFacts: retryKnownFacts)(implicit val ec: ExecutionContext)
+                                          signInDifferent: signInDifferent)(implicit val ec: ExecutionContext)
 extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
-      val ninoExistsBoolean = request.request.nino.isDefined
-        Ok(retryKnownFacts(appConfig, origin, ninoExistsBoolean)(request.serviceInfoContent))
+        Ok(signInDifferent(appConfig, origin)(request.serviceInfoContent))
   }
 
   def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {

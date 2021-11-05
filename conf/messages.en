@@ -1373,6 +1373,7 @@ enterKnownFacts.nino.heading = What National Insurance number did you use to reg
 enterKnownFacts.postcode.heading = What postcode is registered to your Self Assessment?
 enterKnownFacts.nino.hintText = For example, 'QQ 12 34 56 C'.
 enterKnownFacts.nino.linkText = I do not know my National Insurance number.
+enterKnownFacts.nino.linkText2 = I cannot find my National Insurance number (opens in new tab)
 enterKnownFacts.postcode.hintText = For example SW1A 2AA
 enterKnownFacts.postcode.p1 = or
 enterKnownFacts.postcode.abroadLabel = I live abroad
@@ -1390,6 +1391,7 @@ retryKnownFacts.heading = The information you gave does not match an HMRC record
 retryKnownFacts.p1 = This might mean that some of the details you entered were incorrect.
 retryKnownFacts.p2 = You can try entering the details again, or
 retryKnownFacts.linkText = contact HMRC (opens in new tab)
+retryKnownFacts.linkText2 = sign in with a different account
 retryKnownFacts.p3 = to get help.
 retryKnownFacts.button = Try again
 
@@ -1441,3 +1443,14 @@ noAccessVerified.outsideUKNumber = +44 161 931 9070
 noAccessVerified.openingTimes = Opening times:
 noAccessVerified.mondayToFriday = Monday to Friday: 8am to 6pm
 noAccessVerified.ClosedWeekendsAndBankHolidays = Closed weekends and bank holidays
+
+
+#######################################################
+##  SA- sign out page
+#######################################################
+
+incorrectNinoSignOut.title = Are you sure you want to sign out?
+incorrectNinoSignOut.heading = Are you sure you want to sign out?
+incorrectNinoSignOut.cancel = Cancel
+incorrectNinoSignOut.signout = Sign out
+

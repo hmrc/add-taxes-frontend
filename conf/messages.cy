@@ -1376,6 +1376,7 @@ enterKnownFacts.nino.heading = Pa rif Yswiriant Gwladol a ddefnyddioch i gofrest
 enterKnownFacts.postcode.heading = Pa god post sydd wedi ei gofrestru i’ch cyfrif Hunanasesiad?
 enterKnownFacts.nino.hintText = Er enghraifft, ‘QQ 12 34 56 C’.
 enterKnownFacts.nino.linkText = Nid wyf yn gwybod beth yw’r rhif Yswiriant Gwladol
+enterKnownFacts.nino.linkText2 = Ni allaf ddod o hyd i’m rhif Yswiriant Gwladol (yn agor tab newydd)
 enterKnownFacts.postcode.hintText = Er enghraifft, SW1A 1AA
 enterKnownFacts.postcode.p1 = neu
 enterKnownFacts.postcode.abroadLabel = Rwy’n byw dramor
@@ -1393,6 +1394,7 @@ retryKnownFacts.heading = Nid yw’r wybodaeth a roesoch yn cyd-fynd â chofnod 
 retryKnownFacts.p1 = Gallai hyn olygu bod rhai o’r manylion a nodwyd gennych yn anghywir.
 retryKnownFacts.p2 = Gallwch geisio nodi’ch manylion eto, neu gysylltu â CThEM i gael help.
 retryKnownFacts.linkText = gysylltu â CThEM (yn agor tab newydd)
+retryKnownFacts.linkText2 = fewngofnodi â chyfrif gwahanol
 retryKnownFacts.p3 = i gael help.
 retryKnownFacts.button = Rhoi cynnig arall arni
 
@@ -1444,3 +1446,13 @@ noAccessVerified.outsideUKNumber = +44 300 200 1900
 noAccessVerified.openingTimes = Oriau agor:
 noAccessVerified.mondayToFriday = Dydd Llun i ddydd Gwener: 08:30 – 17:00
 noAccessVerified.ClosedWeekendsAndBankHolidays = Ar gau dros y penwythnos ac ar wyliau banc
+
+
+#######################################################
+##  SA- sign out page
+#######################################################
+
+incorrectNinoSignOut.title = A ydych yn siŵr eich bod am allgofnodi?
+incorrectNinoSignOut.heading = A ydych yn siŵr eich bod am allgofnodi?
+incorrectNinoSignOut.cancel = Canslo
+incorrectNinoSignOut.signout = Allgofnodi

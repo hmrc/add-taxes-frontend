@@ -45,7 +45,10 @@
             formHintMargin= Some(""),
             headingId = ("known-facts-nino-heading"))
 
-        @if(!ninoBoolean) {
+        @if(ninoBoolean) {
+            @components.known_facts_nino(gaEvent = "GaEvent", None, origin)
+        } else {
+
             @components.known_facts(gaEvent = "GaEvent", None, origin)
         }
 

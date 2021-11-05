@@ -127,6 +127,9 @@ GET        /self-assessment/enrolment-successful        controllers.sa.Enrolment
 GET        /self-assessment/retry-known-facts           controllers.sa.RetryKnownFactsController.onPageLoad(origin: String)
 POST       /self-assessment/retry-known-facts           controllers.sa.RetryKnownFactsController.onSubmit(origin: String)
 
+GET        /self-assessment/nino-sign-out               controllers.sa.SignInDifferentController.onPageLoad(origin: String)
+POST       /self-assessment/nino-sign-out               controllers.sa.SignInDifferentController.onSubmit(origin: String)
+
 GET        /self-assessment/try-pin-in-post             controllers.sa.TryPinInPostController.onPageLoad(status: Option[String], origin: String)
 POST       /self-assessment/try-pin-in-post             controllers.sa.TryPinInPostController.onSubmit(origin: String)
 
