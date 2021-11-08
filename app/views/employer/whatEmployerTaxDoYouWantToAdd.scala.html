@@ -59,7 +59,7 @@
         @components.input_radio(
             field = form("value"),
             legend = components.heading("what-employer-tax-do-you-want-to-add", "whatEmployerTaxDoYouWantToAdd.heading").body,
-            inputs = radioOptions
+            inputs = radioOptions.toSeq.sortWith((x1, x2) => messages(x1.messageKey) < messages(x2.messageKey))
         )
 
         @components.submit_button(gaEvent = "AddEmployerTax")

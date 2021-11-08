@@ -37,11 +37,10 @@
     @uiForm(action = OtherTaxesController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors)
-
         @components.input_radio(
             field = form("value"),
             legend = components.heading("other-taxes", "otherTaxes.heading").body,
-            inputs = options
+            inputs = options.sortWith((x1, x2) => messages(x1.messageKey) < messages(x2.messageKey))
         )
 
         @components.submit_button(gaEvent = "OtherTaxes")
