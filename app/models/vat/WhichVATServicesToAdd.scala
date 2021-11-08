@@ -18,6 +18,8 @@ package models.vat
 
 import utils.{Enumerable, RadioOption, WithName}
 
+import scala.:+
+
 sealed trait WhichVATServicesToAdd
 
 object WhichVATServicesToAdd {
@@ -40,8 +42,12 @@ object WhichVATServicesToAdd {
     NOVA
   )
 
-  val options: Seq[RadioOption] = values.map { value =>
-    RadioOption("whichVATServicesToAdd", value.toString)
+  def options: Seq[RadioOption] = {
+    val valuesSeq = values.map { value =>
+      RadioOption("whichVATServicesToAdd", value.toString)
+    }
+   RadioOption("whichVATServicesToAdd", VAT.toString) +: valuesSeq.filter(x => x.value != VAT.toString).sortBy(_.value)
+
   }
 
   implicit val enumerable: Enumerable[WhichVATServicesToAdd] =

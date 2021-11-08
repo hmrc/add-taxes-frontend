@@ -40,7 +40,7 @@
         @components.input_radio(
             field = form("value"),
             legend = components.heading("select-gambling-or-gaming-duty", "selectGamblingOrGamingDuty.heading").body,
-            inputs = SelectGamblingOrGamingDuty.options.toSeq
+            inputs = SelectGamblingOrGamingDuty.options.toSeq.sortWith((x1, x2) => messages(x1.messageKey) < messages(x2.messageKey))
         )
 
         @components.submit_button(gaEvent = "AddGamblingTax")
