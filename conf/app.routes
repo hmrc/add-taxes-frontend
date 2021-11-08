@@ -81,6 +81,11 @@ GET        /other/import-export/nes/has-eori/register-chief     controllers.othe
 
 GET        /other/gambling/gbd/register                 controllers.other.gambling.gbd.RegisterGBDController.onPageLoad()
 
+GET        /other/ppt                                   controllers.other.ppt.DoYouHaveAPPTRefController.onPageLoad()
+POST       /other/ppt                                   controllers.other.ppt.DoYouHaveAPPTRefController.onSubmit()
+
+GET        /other/ppt-no-ref                            controllers.other.ppt.YouNeedAPptRefController.onPageLoad()
+
 GET        /other/gambling/gbd                          controllers.other.gambling.gbd.AreYouRegisteredGTSController.onPageLoad()
 POST       /other/gambling/gbd                          controllers.other.gambling.gbd.AreYouRegisteredGTSController.onSubmit()
 

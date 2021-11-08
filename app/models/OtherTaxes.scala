@@ -33,6 +33,7 @@ object OtherTaxes {
   case object ImportsExports extends WithName("importsExports") with OtherTaxes
   case object OilAndFuel extends WithName("oilAndFuel") with OtherTaxes
   case object PODS extends WithName("pods") with OtherTaxes
+  case object PPT extends WithName("ppt") with OtherTaxes
   case object FulfilmentHouseDueDiligenceSchemeIntegration
       extends WithName("fulfilmentHouseDueDiligenceSchemeIntegration")
       with OtherTaxes
@@ -47,7 +48,8 @@ object OtherTaxes {
     ImportsExports,
     OilAndFuel,
     FulfilmentHouseDueDiligenceSchemeIntegration,
-    PODS
+    PODS,
+    PPT
   )
 
   val options: Seq[RadioOption] = values.map {

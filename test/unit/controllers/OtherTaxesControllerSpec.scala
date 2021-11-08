@@ -55,18 +55,37 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
     )
   }
 
-  val listOfAllRadioOptions: Seq[RadioOption] = Seq(
-    RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing"),
-    RadioOption("otherTaxes", "automaticExchangeOfInformation"),
-    RadioOption("otherTaxes", "charities"),
-    RadioOption("otherTaxes", "childTrustFund"),
-    RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration"),
-    RadioOption("otherTaxes", "gamblingAndGaming"),
-    RadioOption("otherTaxes", "housingAndLand"),
-    RadioOption("otherTaxes", "importsExports"),
-    RadioOption("otherTaxes", "oilAndFuel"),
-    RadioOption("otherTaxes", "pods")
-  )
+
+  def listOfAllRadioOptions: Seq[RadioOption] = {
+    if(frontendAppConfig.pptFeatureSwitch) {
+      Seq(
+        RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing"),
+        RadioOption("otherTaxes", "automaticExchangeOfInformation"),
+        RadioOption("otherTaxes", "charities"),
+        RadioOption("otherTaxes", "childTrustFund"),
+        RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration"),
+        RadioOption("otherTaxes", "gamblingAndGaming"),
+        RadioOption("otherTaxes", "housingAndLand"),
+        RadioOption("otherTaxes", "importsExports"),
+        RadioOption("otherTaxes", "oilAndFuel"),
+        RadioOption("otherTaxes", "pods"),
+        RadioOption("otherTaxes", "ppt")
+      )
+    } else {
+      Seq(
+        RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing"),
+        RadioOption("otherTaxes", "automaticExchangeOfInformation"),
+        RadioOption("otherTaxes", "charities"),
+        RadioOption("otherTaxes", "childTrustFund"),
+        RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration"),
+        RadioOption("otherTaxes", "gamblingAndGaming"),
+        RadioOption("otherTaxes", "housingAndLand"),
+        RadioOption("otherTaxes", "importsExports"),
+        RadioOption("otherTaxes", "oilAndFuel"),
+        RadioOption("otherTaxes", "pods")
+      )
+    }
+  }
 
   def viewAsString(form: Form[_] = form): String =
     new otherTaxes(formWithCSRF, mainTemplate)(frontendAppConfig, form, removeRadioOptionFromList())(HtmlFormat.empty)(fakeRequest, messages).toString
@@ -204,6 +223,13 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
       val result = controller().getOptions(request)
 
       result mustBe listOfAllRadioOptions
+    }
+
+    "not display Manage pensions if the user has HMRC-PPT-ORG" in {
+      val request = requestWithEnrolments("HMRC-PPT-ORG")
+      val result = controller().getOptions(request)
+
+      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "ppt")))
     }
 
     "not display Fulfilment House if the user has HMRC-OBTDS-ORG and an EtmpRegistrationNumber" in {

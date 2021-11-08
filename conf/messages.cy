@@ -141,7 +141,7 @@ otherTaxes.fulfilmentHouseDueDiligenceSchemeIntegration = Cynllun Diwydrwydd Dyl
 otherTaxes.error.required = Dewis treth neu fath o gynllun
 otherTaxes.legend = Dewis treth neu fath o gynllun
 otherTaxes.pods = Rheoli a chofrestru cynlluniau pensiwn
-
+otherTaxes.ppt = Treth Deunydd Pacio Plastig (PPT)
 
 #######################################################
 ##  OrganisationOnly
@@ -1456,3 +1456,28 @@ incorrectNinoSignOut.title = A ydych yn siŵr eich bod am allgofnodi?
 incorrectNinoSignOut.heading = A ydych yn siŵr eich bod am allgofnodi?
 incorrectNinoSignOut.cancel = Canslo
 incorrectNinoSignOut.signout = Allgofnodi
+
+
+#######################################################
+##  Do you have a ppt reference
+#######################################################
+doYouHaveAPptRef.title = A oes gennych gyfeirnod Treth Deunydd Pacio Plastig (PPT)?
+doYouHaveAPptRef.heading = A oes gennych gyfeirnod Treth Deunydd Pacio Plastig (PPT)?
+doYouHaveAPptRef.hintText = Mae hwn yn cynnwys 5 llythyren a 10 rhif, er enghraifft XMPPT1234567890. Bydd i’w weld ar eich llythyr cofrestru ar gyfer y Dreth Deunydd Pacio Plastig.
+doYouHaveAPptRef.Yes = Yawn
+doYouHaveAPptRef.No  = Na
+doYouHaveAPptRef.error.required = Place Holder Replace error message
+
+#######################################################
+##  You need a ppt reference
+#######################################################
+
+needPpt.title = Mae angen cyfeirnod Treth Deunydd Pacio Plastig (PPT) arnoch i ychwanegu’r dreth hon
+needPpt.heading = Mae angen cyfeirnod Treth Deunydd Pacio Plastig (PPT) arnoch i ychwanegu’r dreth hon
+needPpt.linkText1 = Cofrestrwch ar gyfer y Dreth Deunydd Pacio Plastig (PPT)
+needPpt.p1 = i gael cyfeirnod.
+needPpt.p2 = Yna, ychwanegwch y Dreth Deunydd Pacio Plastig at eich cyfrif treth busnes.
+needPpt.p3 = Os ydych wedi colli’ch cyfeirnod Treth Deunydd Pacio Plastig, neu os oes angen help arnoch,
+needPpt.linkText2 =  cysylltwch â CThEM (yn agor tab newydd)
+needPpt.p4 = Yn ôl i’r hafan
+

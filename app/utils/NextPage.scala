@@ -43,6 +43,7 @@ import utils.nextpage.other.importexports.{DoYouHaveEORINumberNextPage, DoYouWan
 import utils.nextpage.other.land.SelectATaxNextPage
 import utils.nextpage.other.land.stampduty.StampDutyNextPage
 import utils.nextpage.other.oil._
+import utils.nextpage.other.ppt.DoYouHaveAPptReferenceNextPage
 import utils.nextpage.sa._
 import utils.nextpage.sa.partnership._
 import utils.nextpage.sa.trust.HaveYouRegisteredTrustNextPage
@@ -67,6 +68,7 @@ trait NextPage[A, B, C] {
 
 object NextPage
     extends HaveYouRegisteredAEOINextPage
+    with DoYouHaveAPptReferenceNextPage
     with DoYouHaveCharityReferenceNextPage
     with DoYouHaveMGDRegistrationNextPage
     with AreYouRegisteredWarehousekeeperNextPage

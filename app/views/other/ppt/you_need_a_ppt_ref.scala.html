@@ -1,0 +1,39 @@
+@import config.FrontendAppConfig
+
+@this(main_template: main_template)
+
+@(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+
+@main_template(
+    title = messages("needPpt.title"),
+    appConfig = appConfig,
+    serviceInfoContent = Some(serviceInfoContent)) {
+
+    @components.heading("you-need-ppt-ref", "needPpt.heading")
+
+    <p class="govuk-body">
+        <a id="ppt-register" href='#' class="govuk-body govuk-link"
+        data-journey-click="RegisterForPPT:Click:Register">
+        @messages("needPpt.linkText1")
+        </a> @messages("needPpt.p1")
+    </p>
+
+    <p class="govuk-body">@messages("needPpt.p2")</p>
+
+    <p class="govuk-body govuk-!-margin-bottom-7">
+        @messages("needPpt.p3")
+        <a id="contact-hmrc" href="@appConfig.getGovUKUrl("onlineServicesHelpdesk")" class="govuk-body govuk-link" target="_blank"
+        data-journey-click="ContactHmrc:Click:ContactHmrc">
+        @messages("needPpt.linkText2")
+        </a>.
+    </p>
+
+    <p class="govuk-body">
+        <a id="back-home-button" href="@appConfig.getBusinessAccountUrl("home")" class="govuk-body govuk-link govuk-button govuk-button--secondary"
+        data-journey-click="BackHome:Click:BackHome">
+        @messages("needPpt.p4")
+        </a>
+    </p>
+
+
+}

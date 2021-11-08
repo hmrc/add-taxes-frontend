@@ -221,6 +221,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   val ivUpliftFeatureSwitch: Boolean = config.getBoolean("feature-toggles.ivUpliftSwitch")
   val ivLocationForEnvironments: String = config.getString("ivLocation")
   val identityVerificationFrontendHost: String = config.getString("identity-verification-frontend.host")
+  val pptFeatureSwitch: Boolean = config.getBoolean("feature-toggles.pptSwitch")
 
   def ivUpliftUrl(origin: String): String = {
     val completionUrl = s"$addTaxesHost/business-account/add-tax/self-assessment/sa-iv-router?origin=$origin"
@@ -228,6 +229,9 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
     val url = s"$identityVerificationFrontendHost/$ivLocationForEnvironments/uplift?origin=${origin}&confidenceLevel=250&completionURL=${completionUrl}&failureURL=${failureUrl}"
     url
   }
+
+  val pptFEHost = config.getString("plastic-packaging-tax-returns-frontend.host")
+  def pptEnrolmentUrl() = s"$pptFEHost${config.getString("plastic-packaging-tax-returns-frontend.enrolmentPptUrl")}"
 
 }
 

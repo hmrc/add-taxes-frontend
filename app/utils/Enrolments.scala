@@ -106,6 +106,8 @@ object Enrolments {
 
   case object PODSPP extends WithName("HMRC-PODSPP-ORG") with Enrolments
 
+  case object PPT extends WithName("HMRC-PPT-ORG") with Enrolments
+
   val values: Set[Enrolments] = Set(
     RebatedOils,
     TiedOils,
@@ -148,7 +150,8 @@ object Enrolments {
     ECW,
     SDLT,
     PODSORG,
-    PODSPP
+    PODSPP,
+    PPT
   )
 }
 

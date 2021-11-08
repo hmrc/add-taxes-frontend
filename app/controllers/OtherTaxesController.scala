@@ -28,7 +28,7 @@ import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
-import uk.gov.hmrc.auth.core.{Enrolments => CoreEnrolments}
+import uk.gov.hmrc.auth.core.{Enrolment, Enrolments => CoreEnrolments}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enrolments, Enumerable, Navigator, RadioOption}
 import views.html.{organisation_only, otherTaxes}
@@ -56,7 +56,8 @@ class OtherTaxesController @Inject()(appConfig: FrontendAppConfig,
       checkOilAndFuel,
       checkFulfilmentHouse,
       checkChildTrustFund,
-      checkPODS
+      checkPODS,
+      checkPPT
     )
     val defaultRadioOptions: Seq[RadioOption] = Seq(HousingAndLand, ImportsExports).map(_.toRadioOption)
     val unsortedRadioOptions: Seq[RadioOption] = checks.flatMap(_.apply(r.request.enrolments)) ++ defaultRadioOptions
@@ -125,6 +126,11 @@ class OtherTaxesController @Inject()(appConfig: FrontendAppConfig,
     val pod = e.getEnrolment(Enrolments.PODSORG.toString)
     val podpp = e.getEnrolment(Enrolments.PODSPP.toString)
     if(pod.isDefined && podpp.isDefined) None else Some(PODS.toRadioOption)
+  }
+
+  private val checkPPT: CoreEnrolments => Option[RadioOption] = e => {
+    val ppt: Option[Enrolment] = e.getEnrolment(Enrolments.PPT.toString)
+    if(appConfig.pptFeatureSwitch && ppt.isEmpty) Some(PPT.toRadioOption) else None
   }
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
