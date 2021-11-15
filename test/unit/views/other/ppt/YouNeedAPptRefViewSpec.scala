@@ -23,13 +23,13 @@ class YouNeedAPptRefViewSpec extends ViewBehaviours {
 
     "contain 'Register for the Plastic Packaging Tax (PPT)' for the link text and the right href" in {
       val doc = asDocument(createView())
-      doc.getElementById("ppt-register").attr("href") mustBe "#"
+      doc.getElementById("ppt-register").attr("href") mustBe "http://localhost:8505/register-for-plastic-packaging-tax/public-body-need-ppt-number"
       doc.getElementById("ppt-register").text mustBe "Register for the Plastic Packaging Tax (PPT)"
     }
 
     "contain 'contact HMRC (opens in new tab)' for the link text and the right href" in {
       val doc = asDocument(createView())
-      doc.getElementById("contact-hmrc").attr("href") mustBe "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/online-services-helpdesk"
+      doc.getElementById("contact-hmrc").attr("href") mustBe "https://www.tax.service.gov.uk/contact/report-technical-problem?newTab=true&service=GForm"
       doc.getElementById("contact-hmrc").text mustBe "contact HMRC (opens in new tab)"
     }
 

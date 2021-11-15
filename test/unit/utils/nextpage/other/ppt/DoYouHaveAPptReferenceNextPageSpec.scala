@@ -11,7 +11,7 @@ class DoYouHaveAPptReferenceNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.doYouHaveAPptReference,
       DoYouHaveAPptReference.Yes,
-      "http://localhost:8505/plastic-packaging-tax/enrolment-ppt-reference"
+      "http://localhost:8505/register-for-plastic-packaging-tax/enrolment-ppt-reference"
     )
 
     behave like nextPage(

@@ -78,6 +78,8 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   def getGovUKUrl(key: String): String = govUKHost + config.getString(s"urls.govuk.$key")
 
+  val reportTechProb = config.getString("urls.reportTechProb")
+
   private lazy val ggRegistrationHost = config.getString("government-gateway-registration-frontend.host")
 
   def getGGRegistrationUrl(key: String): String = ggRegistrationHost + config.getString(s"government-gateway-registration-frontend.$key")
@@ -232,6 +234,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   val pptFEHost = config.getString("plastic-packaging-tax-returns-frontend.host")
   def pptEnrolmentUrl() = s"$pptFEHost${config.getString("plastic-packaging-tax-returns-frontend.enrolmentPptUrl")}"
+  def pptRegisterUrl() = s"$pptFEHost${config.getString("plastic-packaging-tax-returns-frontend.registerPpt")}"
 
 }
 

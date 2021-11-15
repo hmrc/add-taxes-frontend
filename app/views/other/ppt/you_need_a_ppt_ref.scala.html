@@ -12,20 +12,16 @@
     @components.heading("you-need-ppt-ref", "needPpt.heading")
 
     <p class="govuk-body">
-        <a id="ppt-register" href='#' class="govuk-body govuk-link"
-        data-journey-click="RegisterForPPT:Click:Register">
-        @messages("needPpt.linkText1")
-        </a> @messages("needPpt.p1")
+        <a id="ppt-register" href="@appConfig.pptRegisterUrl()" class="govuk-body govuk-link"
+        data-journey-click="RegisterForPPT:Click:Register">@messages("needPpt.linkText1")</a> @messages("needPpt.p1")
     </p>
 
     <p class="govuk-body">@messages("needPpt.p2")</p>
 
     <p class="govuk-body govuk-!-margin-bottom-7">
         @messages("needPpt.p3")
-        <a id="contact-hmrc" href="@appConfig.getGovUKUrl("onlineServicesHelpdesk")" class="govuk-body govuk-link" target="_blank"
-        data-journey-click="ContactHmrc:Click:ContactHmrc">
-        @messages("needPpt.linkText2")
-        </a>.
+        <a id="contact-hmrc" href="@appConfig.reportTechProb" class="govuk-body govuk-link" target="_blank"
+        data-journey-click="ContactHmrc:Click:ContactHmrc">@messages("needPpt.linkText2")</a>.
     </p>
 
     <p class="govuk-body">
@@ -34,6 +30,5 @@
         @messages("needPpt.p4")
         </a>
     </p>
-
 
 }
