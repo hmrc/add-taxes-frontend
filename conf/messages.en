@@ -381,7 +381,7 @@ addVATMOSS.p1 = You need to manage VAT MOSS in the account where you manage VAT.
 addVATMOSS.p2 = Sign in to your VAT account and add VAT MOSS there.
 addVATMOSS.p3 = If that doesn’t work, call us and we’ll do it for you manually.
 addVATMOSS.continue = Sign in to your VAT account
-addVATMOSS.notnow = I do not want to do this now
+addVATMOSS.notnow = I do not want to add VAT MOSS now
 
 #######################################################
 ##  AddVATFirst
@@ -390,7 +390,7 @@ addVATFirst.title = Add VAT first
 addVATFirst.heading = Add VAT first
 addVATFirst.p1 = You need to manage VAT online before you can add VAT MOSS to your account.
 addVATFirst.continue = Add VAT to this account
-addVATFirst.notnow = I do not want to do this now
+addVATFirst.notnow = I do not want to add VAT to this account now
 
 #######################################################
 ##  RegisterForVAT
