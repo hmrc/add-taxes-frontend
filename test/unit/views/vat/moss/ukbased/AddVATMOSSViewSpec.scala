@@ -51,7 +51,7 @@ class AddVATMOSSViewSpec extends ViewBehaviours {
       assertLinkById(
         doc,
         "not-now",
-        "I do not want to do this now",
+        "I do not want to add VAT MOSS now",
         "http://localhost:9020/business-account",
         "VatMossUkAddToOtherAccount:Click:NotNow"
       )
