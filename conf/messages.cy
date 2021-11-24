@@ -1466,7 +1466,7 @@ doYouHaveAPptRef.heading = A oes gennych gyfeirnod Treth Deunydd Pacio Plastig (
 doYouHaveAPptRef.hintText = Mae hwn yn cynnwys 5 llythyren a 10 rhif, er enghraifft XMPPT1234567890. Bydd i’w weld ar eich llythyr cofrestru ar gyfer y Dreth Deunydd Pacio Plastig.
 doYouHaveAPptRef.Yes = Yawn
 doYouHaveAPptRef.No  = Na
-doYouHaveAPptRef.error.required = Place Holder Replace error message
+doYouHaveAPptRef.error.required = Dewiswch ‘Iawn’ os oes gennych rif cofrestru ar gyfer y Dreth Deunydd Pacio Plastig (PPT)
 
 #######################################################
 ##  You need a ppt reference
