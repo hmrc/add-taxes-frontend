@@ -1467,7 +1467,7 @@ doYouHaveAPptRef.heading = Do you have a Plastic Packaging Tax (PPT) reference n
 doYouHaveAPptRef.hintText = This is 5 letters and 10 numbers, for example XMPPT1234567890. It will be on your PPT registration letter.
 doYouHaveAPptRef.Yes = Yes
 doYouHaveAPptRef.No  = No
-doYouHaveAPptRef.error.required = Select yes if you have PPT Ref?????
+doYouHaveAPptRef.error.required = Select yes if you have a Plastic Packaging Tax (PPT) registration number
 
 #######################################################
 ##  You need a ppt reference
