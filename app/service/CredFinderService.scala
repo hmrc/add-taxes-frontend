@@ -27,7 +27,7 @@ import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Call, Result}
-import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
+import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier, Enrolments}
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HmrcEnrolmentType, RadioOption}
 import views.html.sa.selectSACategory
@@ -39,35 +39,23 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
                                   appConfig: FrontendAppConfig,
                                   selectSACategory: selectSACategory,
                                   dataCacheConnector: DataCacheConnector) {
-
-  def mtdItsaSubscribedCheck(enrolments: Set[Enrolment])
+  def mtdItsaSubscribedCheck(enrolmentIdentifier: Option[EnrolmentIdentifier])
                             (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Boolean] = {
-    enrolments.collectFirst{case enrolment: Enrolment if enrolment.key == "IR-SA" => enrolment} match {
-      case Some(saEnrolment) =>
-        saEnrolment.getIdentifier("utr") match {
-          case Some(utr) => mtdITSASignupBool(saEnrolment.key, SAUTR(utr.value))
+    enrolmentIdentifier match {
+      case Some(utr) =>
+        citizensDetailsConnector.getDesignatoryDetails("IR-SA", utr.value).flatMap {
+          case Some(details) => saConnector.getBusinessDetails(details.nino, "nino").map {
+            case Some(_) =>
+              dataCacheConnector.save[Boolean](request.request.credId, "mtdItSignupBoolean", true)
+              true
+            case _ => false
+          }
           case _ => Future.successful(false)
         }
-      case None => Future.successful(false)
+      case _ => Future.successful(false)
     }
   }
 
-  def mtdITSASignupBool(key: String, utr: SAUTR)
-                       (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Boolean] = {
-    if(utr.value.isEmpty) {
-      Future.successful(false)
-    } else {
-      citizensDetailsConnector.getDesignatoryDetails(key, utr.value).flatMap {
-        case Some(details) => saConnector.getBusinessDetails(details.nino, "nino").map {
-          case Some(_) =>
-            dataCacheConnector.save[Boolean](request.request.credId, "mtdItSignupBoolean", true)
-            true
-          case _ => false
-        }
-        case _ => Future.successful(false)
-      }
-    }
-  }
 
   def getRadioOptions(enrolments: Enrolments, mtdBool: Boolean): Set[RadioOption] = {
 
@@ -86,6 +74,13 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
 
   }
 
+  def getEnrolmentIdentifier(enrolments: Enrolments): Option[EnrolmentIdentifier] = {
+    enrolments.enrolments.collectFirst{case enrolment: Enrolment if enrolment.key == "IR-SA" => enrolment} match {
+      case Some(enrolment) => enrolment.getIdentifier("utr")
+      case _ => None
+    }
+  }
+
   def redirectSACategory(form: Form[SelectSACategory], action: Call, origin: String)
                         (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent], messages: Messages): Future[Result] = {
 
@@ -98,7 +93,7 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
         Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, false))(request.serviceInfoContent))
       )
       case (true, true, true, false) =>
-        for {mtdBoolCheck <- mtdItsaSubscribedCheck(enrolments.enrolments)
+        for {mtdBoolCheck <- mtdItsaSubscribedCheck(getEnrolmentIdentifier(enrolments))
              } yield {
           if(mtdBoolCheck){
             Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, mtdBoolCheck))(request.serviceInfoContent))
@@ -109,10 +104,15 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
       case (_, _, _, true) => Future.successful(
         Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, mtdBool = false))(request.serviceInfoContent))
       )
+      case (true, _, _, _) =>
+        for {mtdBoolCheck <- mtdItsaSubscribedCheck(getEnrolmentIdentifier(enrolments))
+             } yield {
+            Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, mtdBoolCheck))(request.serviceInfoContent))
+        }
       case (_, _, _, _) =>
         for {
           utr <- dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
-          mtdBoolCheck <- mtdITSASignupBool("IR-SA", utr.getOrElse(SAUTR("")) )
+          mtdBoolCheck <- mtdItsaSubscribedCheck(Some(EnrolmentIdentifier("IR-SA", utr.getOrElse(SAUTR("")).value)))
              } yield {
             Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, mtdBoolCheck))(request.serviceInfoContent))
         }
