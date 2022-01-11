@@ -9,7 +9,7 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "bootstrap-frontend-play-28"    % "5.16.0",
     "uk.gov.hmrc.mongo" %% "hmrc-mongo-play-28"      % "0.50.0",
     "uk.gov.hmrc" %% "http-caching-client"           % "9.3.0-play-28",
-    "uk.gov.hmrc" %% "play-frontend-hmrc" % "1.22.0-play-28"
+    "uk.gov.hmrc" %% "play-frontend-hmrc" % "1.31.0-play-28"
   )
 
   abstract class TestDependencies(scope: String) {
