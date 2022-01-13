@@ -1461,8 +1461,8 @@ incorrectNinoSignOut.signout = Allgofnodi
 #######################################################
 ##  Do you have a ppt reference
 #######################################################
-doYouHaveAPptRef.title = A oes gennych gyfeirnod Treth Deunydd Pacio Plastig (PPT)?
-doYouHaveAPptRef.heading = A oes gennych gyfeirnod Treth Deunydd Pacio Plastig (PPT)?
+doYouHaveAPptRef.title = A oes gennych rif cofrestru Treth Deunydd Pacio Plastig (PPT)?
+doYouHaveAPptRef.heading = A oes gennych rif cofrestru Treth Deunydd Pacio Plastig (PPT)?
 doYouHaveAPptRef.hintText = Mae hwn yn cynnwys 5 llythyren a 10 rhif, er enghraifft XMPPT1234567890. Bydd i’w weld ar eich llythyr cofrestru ar gyfer y Dreth Deunydd Pacio Plastig.
 doYouHaveAPptRef.Yes = Yawn
 doYouHaveAPptRef.No  = Na
@@ -1472,8 +1472,8 @@ doYouHaveAPptRef.error.required = Dewiswch ‘Iawn’ os oes gennych rif cofrest
 ##  You need a ppt reference
 #######################################################
 
-needPpt.title = Mae angen cyfeirnod Treth Deunydd Pacio Plastig (PPT) arnoch i ychwanegu’r dreth hon
-needPpt.heading = Mae angen cyfeirnod Treth Deunydd Pacio Plastig (PPT) arnoch i ychwanegu’r dreth hon
+needPpt.title = Mae angen rhif cofrestru Treth Deunydd Pacio Plastig (PPT) arnoch i ychwanegu’r dreth hon
+needPpt.heading = Mae angen rhif cofrestru Treth Deunydd Pacio Plastig (PPT) arnoch i ychwanegu’r dreth hon
 needPpt.linkText1 = Cofrestrwch ar gyfer y Dreth Deunydd Pacio Plastig (PPT)
 needPpt.p1 = i gael cyfeirnod.
 needPpt.p2 = Yna, ychwanegwch y Dreth Deunydd Pacio Plastig at eich cyfrif treth busnes.
