@@ -62,6 +62,17 @@ class AuditServiceSpec extends PlaySpec with MockitoSugar {
 
       whenReady(result){ _ mustBe expected }
     }
+
+    "successfully audit with None Knownfacts" in {
+      val knownFacts = new KnownFacts(None, None, None)
+
+      when(mockAuditConnector.sendEvent(any())(any(), any()))
+        .thenReturn(Future.successful(expected))
+
+      val result = testService.auditSAKnownFacts("credId123", "utr321", knownFacts, knownfactsResult = true)
+
+      whenReady(result){ _ mustBe expected }
+    }
   }
 
   "auditEPAYE" should {

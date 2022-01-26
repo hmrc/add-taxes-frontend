@@ -2,17 +2,13 @@ package controllers.other.ppt
 
 import config.FrontendAppConfig
 import controllers.ControllerSpecBase
-import forms.other.ppt.PptReferenceFormProvider
 import handlers.ErrorHandler
-import models.other.ppt.DoYouHaveAPptReference
-import play.api.data.Form
-import play.api.http.Status.{INTERNAL_SERVER_ERROR, OK, SEE_OTHER}
+import play.api.http.Status.{INTERNAL_SERVER_ERROR, OK}
 import play.api.i18n.MessagesApi
 import play.api.mvc.Call
-import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout, redirectLocation, status}
+import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout, status}
 import play.twirl.api.HtmlFormat
-import utils.FakeNavigator
-import views.html.other.ppt.{do_you_have_a_ppt_reference, you_need_a_ppt_ref}
+import views.html.other.ppt.you_need_a_ppt_ref
 
 class YouNeedAPptRefControllerSpec extends ControllerSpecBase {
 

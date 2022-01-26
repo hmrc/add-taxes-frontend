@@ -18,8 +18,6 @@ package models.vat
 
 import utils.{Enumerable, RadioOption, WithName}
 
-import scala.:+
-
 sealed trait WhichVATServicesToAdd
 
 object WhichVATServicesToAdd {
