@@ -36,7 +36,7 @@ class CitizensDetailsConnector @Inject()(val http: HttpClient,
     http.GET[DesignatoryDetails](url(identifier, value)).map(
       Some(_)
     ).recover {
-      case UpstreamErrorResponse.WithStatusCode(NOT_FOUND) =>
+      case UpstreamErrorResponse(_, 404, _, _) =>
         logger.warn(s"Warn: Not Found returned from Citizen Details")
         None
       case e: Exception =>
