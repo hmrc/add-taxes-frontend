@@ -19,7 +19,6 @@ package forms.sa
 import forms.behaviours.FormBehaviours
 import models.sa.SAUTR
 import models.{Field, Required}
-import org.scalacheck.Gen._
 import play.api.data.Form
 
 class SAUTRFormProviderSpec extends FormBehaviours {

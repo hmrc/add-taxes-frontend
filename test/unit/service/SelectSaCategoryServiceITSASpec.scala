@@ -2,7 +2,6 @@ package service
 
 import connectors.DataCacheConnector
 import controllers.ControllerSpecBase
-import handlers.ErrorHandler
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.sa._
 import org.mockito.ArgumentMatchers.any

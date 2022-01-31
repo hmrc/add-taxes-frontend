@@ -86,7 +86,7 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
     mockTaxEnrolmentsConnector
   ) {
 
-    override def journeyLinkCheckUplift(journeyId: String = journeyId)
+    override def journeyLinkCheckUplift(journeyId: String)
                                        (implicit ec: ExecutionContext,
                                         hc: HeaderCarrier): Future[String] = {
       Future.successful(journeyLinkCheckResult)

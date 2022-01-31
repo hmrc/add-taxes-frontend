@@ -4,10 +4,12 @@ import connectors.{CitizensDetailsConnector, DataCacheConnector, SaConnector}
 import controllers.ControllerSpecBase
 import controllers.sa.SelectSACategoryController
 import forms.sa.SelectSACategoryFormProvider
-import models.{BusinessDetails, DesignatoryDetails}
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
-import models.sa.{SAUTR, SelectSACategory}
 import models.sa.SelectSACategory.{MtdIT, Partnership, Sa, Trust}
+import models.sa.{SAUTR, SelectSACategory}
+import models.{BusinessDetails, DesignatoryDetails}
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.data.Form
@@ -15,18 +17,14 @@ import play.api.mvc.{AnyContent, Call}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, when}
-import org.scalatest.concurrent.ScalaFutures.whenReady
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.auth.core.{AffinityGroup, Enrolment, EnrolmentIdentifier, Enrolments}
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{HmrcEnrolmentType, RadioOption}
 import views.html.sa.selectSACategory
 
-import scala.concurrent.{ExecutionContext, Future, future}
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{ExecutionContext, Future}
 
 class CredFinderServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach {
 

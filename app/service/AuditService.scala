@@ -70,6 +70,7 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
       case KnownFacts(Some(postcode),_, _) => postcode
       case KnownFacts(_,Some(nino), _) => nino
       case KnownFacts(_,_, Some(isAbroad)) => "isAbroad" + isAbroad
+      case _ => ""
     }
 
     val knownFactsPassOrFail = if(knownfactsResult) {"pass"} else {"fail"}

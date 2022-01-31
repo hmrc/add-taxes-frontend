@@ -51,9 +51,7 @@ lazy val microservice = Project(appName, file("."))
       "com.github.ghik" % "silencer-lib" % silencerVersion % Provided cross CrossVersion.full
     ),
     libraryDependencies ++= AppDependencies(),
-    retrieveManaged := true,
-    evictionWarningOptions in update := EvictionWarningOptions.default.withWarnScalaVersionEviction(false),
-    PlayKeys.playDefaultPort := 9730,
+    retrieveManaged := true, PlayKeys.playDefaultPort := 9730,
     scalaVersion := "2.12.12",
     isPublicArtefact := true
   )

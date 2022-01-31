@@ -16,8 +16,10 @@
 
 package service
 
-import connectors.{CitizensDetailsConnector, DataCacheConnector, SaConnector, TaxEnrolmentsConnector}
+import connectors.{DataCacheConnector, SaConnector}
 import controllers.ControllerSpecBase
+import controllers.sa.{routes => saRoutes}
+import handlers.ErrorHandler
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.sa.{IvLinks, YourSaIsNotInThisAccount}
 import org.mockito.ArgumentMatchers.any
@@ -29,10 +31,8 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
-import uk.gov.hmrc.auth.core.{ConfidenceLevel, Enrolments}
+import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.http.HeaderCarrier
-import controllers.sa.{routes => saRoutes}
-import handlers.ErrorHandler
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
