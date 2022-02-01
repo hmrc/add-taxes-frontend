@@ -31,7 +31,7 @@
 
     @uiForm(action = HaveYouRegisteredTrustController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-        @components.error_summary(form.errors)
+        @components.error_summary(form.errors, Some("haveYouRegisteredTrust.Yes"))
 
         @components.input_radio(
             field = form("value"),

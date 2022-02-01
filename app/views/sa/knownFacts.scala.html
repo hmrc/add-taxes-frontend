@@ -36,7 +36,7 @@
 
     @uiForm(action = KnownFactsController.onSubmit(origin), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-        @components.error_summary(form.errors)
+        @components.error_summary(form.errors, Some("nino"))
 
         @components.input_text(
             field = form("nino"),

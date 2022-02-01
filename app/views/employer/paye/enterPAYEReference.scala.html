@@ -39,7 +39,24 @@
 
     @uiForm(action = EnterYourPAYEReferenceController.onSubmit()) {
 
-        @components.error_summary(form.errors)
+        @if(form.hasErrors) {
+            <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+                <h2 class="govuk-error-summary__title" id="error-summary-heading">
+                    @messages("error.summary.title1")
+                </h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list">
+                        @for(error <- form.errors) {
+                            @if(error.key == "officeNumber") {
+                                <li><a class="govuk-link govuk-body" href="#officeNumber">@messages(error.message, error.args:_*)</a></li>
+                            } else {
+                                <li><a class="govuk-link govuk-body" href="#payeReference">@messages(error.message, error.args:_*)</a></li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
 
         @components.input_text_field(
             field = form("officeNumber"),

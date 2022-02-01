@@ -54,7 +54,7 @@
 
     @uiForm(action = WhatEmployerTaxDoYouWantToAddController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-        @components.error_summary(form.errors)
+        @components.error_summary(form.errors, Some("whatEmployerTaxDoYouWantToAdd.cis"))
 
         @components.input_radio(
             field = form("value"),

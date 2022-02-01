@@ -35,7 +35,7 @@
 
     @uiForm(action = DoesYourPartnershipHave2To10PartnersController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-        @components.error_summary(form.errors)
+        @components.error_summary(form.errors, Some("doesYourPartnershipHave2To10Partners.Yes"))
 
         @components.input_radio(
             field = form("value"),

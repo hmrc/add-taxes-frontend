@@ -36,7 +36,7 @@
 
     @uiForm(action = action, 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-        @components.error_summary(form.errors)
+        @components.error_summary(form.errors, Some("selectSACategory.Partnership"))
 
         @components.input_radio(
             field = form("value"),

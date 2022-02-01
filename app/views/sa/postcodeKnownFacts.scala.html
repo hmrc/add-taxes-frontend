@@ -37,7 +37,7 @@
 
     @uiForm(action = PostcodeController.onSubmit(origin), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-        @components.error_summary(form.errors)
+        @components.error_summary(form.errors, Some("isAbroad"))
 
         @components.input_text(
             field = form("postcode"),

@@ -34,7 +34,7 @@
 
  @uiForm(action = DoYouHaveAPPTRefController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-  @components.error_summary(form.errors)
+  @components.error_summary(form.errors, Some("doYouHaveAPptRef.Yes"))
 
   @components.input_radio_inline(
    field = form("value"),

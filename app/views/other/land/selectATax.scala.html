@@ -36,7 +36,7 @@
 
     @uiForm(action = SelectATaxController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-        @components.error_summary(form.errors)
+        @components.error_summary(form.errors, Some("selectATax.ATED"))
 
         @components.input_radio(
             field = form("value"),
