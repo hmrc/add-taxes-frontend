@@ -35,7 +35,7 @@
 
     @uiForm(action = DoYouWantToAddImportExportController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-        @components.error_summary(form.errors)
+        @components.error_summary(form.errors, Some("doYouWantToAddImportExport.DDES"))
 
         @components.input_radio(
             field = form("value"),

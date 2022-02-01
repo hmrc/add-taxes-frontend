@@ -36,7 +36,7 @@
 
     @uiForm(action = FindingYourAccountController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-        @components.error_summary(form.errors)
+        @components.error_summary(form.errors, Some("findingYourAccount.dontKnowPassword"))
 
         @components.heading("finding-your-account", "findingYourAccount.heading")
 

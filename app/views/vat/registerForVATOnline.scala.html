@@ -47,7 +47,7 @@
             <li>@messages("registerForVATOnline.listitem6")</li>
         </ul>
 
-        @components.error_summary(form.errors)
+        @components.error_summary(form.errors, Some("registerForVATOnline.Yes"))
 
         @components.input_radio(
             field = form("value"),

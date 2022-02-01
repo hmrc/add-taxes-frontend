@@ -40,7 +40,7 @@
 
     @uiForm(action = ClaimRefundController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-        @components.error_summary(form.errors)
+        @components.error_summary(form.errors, Some("radio.Yes"))
 
         @components.input_radio(
             field = form("value"),

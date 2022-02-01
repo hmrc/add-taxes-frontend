@@ -36,7 +36,7 @@
 
     @uiForm(action = OtherTaxesController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-        @components.error_summary(form.errors)
+        @components.error_summary(form.errors, Some("otherTaxes.alcoholAndTobaccoWholesalingAndWarehousing"))
         @components.input_radio(
             field = form("value"),
             legend = components.heading("other-taxes", "otherTaxes.heading").body,
