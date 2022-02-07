@@ -22,10 +22,10 @@
 )(implicit messages: Messages)
 
 <div class="govuk-form-group @if(field.hasErrors){ form-group-error govuk-form-group--error}">
- <label class="form-label bold" for="@{field.id}">
-  <span>@label</span>
- </label>
  @field.errors.map { error =>
+  <label class="form-label bold" for="@{field.id}">
+   <span>@label</span>
+  </label>
   <span class="govuk-error-message margin-bottom-small" id="error-message-@{field.id}-input"><span id="visually-hidden-error-prefix" class="govuk-visually-hidden">@messages("error.message.prefix")</span> @messages(error.message, error.args: _*)</span>
  }
 
