@@ -18,7 +18,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("$className;format="decap"$.heading").body,
+            headingKey = Some("$className;format="decap"$.heading"),
+            headingId = Some("$className;format="decap"$.heading"),
             inputs = $className$.options.toSeq
         )
 

@@ -40,7 +40,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("online-vat-account", "onlineVATAccount.heading").body,
+            headingKey = Some("onlineVATAccount.heading"),
+            headingId = Some("online-vat-account"),
             inputs = OnlineVATAccount.options.toSeq,
             hint = Some(messages("onlineVATAccount.p1")),
             hintTextSpacing = Some("padding-bottom-small")

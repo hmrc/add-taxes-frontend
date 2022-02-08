@@ -45,8 +45,8 @@ class InputRadioSpec extends PlaySpec with GuiceOneAppPerSuite {
 
   def inputRadio(field: Field, hint: Option[String] = None): Html = input_radio(
     field,
-    testLegend,
-    testRadios,
+    legendText = Some(testLegend),
+    inputs = testRadios,
     hint = hint
   )
 

@@ -51,8 +51,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = messages("registerForVATOnline.subheading"),
-            legendClass = Some("margin-bottom-small"),
+            legendText = Some(messages("registerForVATOnline.subheading")),
+            legendClass = Some("govuk-heading-l"),
             inputs = RegisterForVATOnline.options.toSeq
         )
 

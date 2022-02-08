@@ -27,10 +27,6 @@
 
 @(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
-@legendContent = {
-  @components.heading("do-you-have-vat-reg-number", "doYouHaveVATRegNumber.heading")
-}
-
 @main_template(
     title = messages("doYouHaveVATRegNumber.title"),
     appConfig = appConfig,
@@ -43,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = legendContent.body,
+            headingKey = Some("doYouHaveVATRegNumber.heading"),
+            headingId = Some("do-you-have-vat-reg-number"),
             hint   = Some(messages("doYouHaveVATRegNumber.explanation")),
             hintTextSpacing = Some("padding-bottom-small"),
             inputs = DoYouHaveVATRegNumber.options.toSeq

@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("do-you-need-to-close-charity", "doYouNeedToCloseCharity.heading").body,
+            headingKey = Some("doYouNeedToCloseCharity.heading"),
+            headingId = Some("do-you-need-to-close-charity"),
             inputs = DoYouNeedToCloseCharity.options.toSeq
         )
 

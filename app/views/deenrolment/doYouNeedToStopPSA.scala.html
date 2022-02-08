@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("do-you-need-to-stop-psa", "doYouNeedToStopPSA.heading").body,
+            headingKey = Some("doYouNeedToStopPSA.heading"),
+            headingId = Some("do-you-need-to-stop-psa"),
             inputs = DoYouNeedToStopPSA.options.toSeq
         )
 

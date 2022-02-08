@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("do-you-have-sa-utr", "doYouHaveSAUTR.heading").body,
+            headingKey = Some("doYouHaveSAUTR.heading"),
+            headingId = Some("do-you-have-sa-utr"),
             inputs = DoYouHaveSAUTR.options.toSeq
         )
 

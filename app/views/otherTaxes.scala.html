@@ -39,7 +39,8 @@
         @components.error_summary(form.errors, Some("otherTaxes.alcoholAndTobaccoWholesalingAndWarehousing"))
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("other-taxes", "otherTaxes.heading").body,
+            headingId = Some("other-taxes"),
+            headingKey = Some("otherTaxes.heading"),
             inputs = options.sortWith((x1, x2) => messages(x1.messageKey) < messages(x2.messageKey))
         )
 

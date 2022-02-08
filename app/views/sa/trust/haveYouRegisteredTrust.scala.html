@@ -35,7 +35,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("have-you-registered-trust", "haveYouRegisteredTrust.heading").body,
+            headingKey = Some("haveYouRegisteredTrust.heading"),
+            headingId = Some("have-you-registered-trust"),
             inputs = HaveYouRegisteredTrust.options.toSeq,
             hint = Some(messages("haveYouRegisteredTrust.hintText")),
             hintTextSpacing = Some("padding-bottom-small")

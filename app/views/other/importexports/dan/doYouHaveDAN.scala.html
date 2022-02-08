@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("do-you-have-dan", "doYouHaveDAN.heading").body,
+            headingKey = Some("doYouHaveDAN.heading"),
+            headingId = Some("do-you-have-dan"),
             inputs = DoYouHaveDAN.options.toSeq
         )
 

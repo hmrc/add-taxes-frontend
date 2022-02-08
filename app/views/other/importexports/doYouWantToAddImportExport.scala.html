@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("do-you-want-to-add-import-export", "doYouWantToAddImportExport.heading").body,
+            headingKey = Some("doYouWantToAddImportExport.heading"),
+            headingId = Some("do-you-want-to-add-import-export"),
             inputs = DoYouWantToAddImportExport.options().toSeq.sortWith((x1, x2) => messages(x1.messageKey) < messages(x2.messageKey))
         )
 

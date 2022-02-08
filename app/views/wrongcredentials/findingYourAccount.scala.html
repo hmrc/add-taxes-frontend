@@ -44,8 +44,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = messages("findingYourAccount.legend"),
-            legendClass = Some("heading-medium body-text"),
+            legendText = Some(messages("findingYourAccount.legend")),
+            legendClass = Some("govuk-heading-l"),
             inputs = FindingYourAccount.options.toSeq
         )
 

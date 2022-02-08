@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("does-business-have-directors-or-partners", "doesBusinessHaveDirectorsOrPartners.heading").body,
+            headingKey = Some("doesBusinessHaveDirectorsOrPartners.heading"),
+            headingId = Some("does-business-have-directors-or-partners"),
             inputs = DoesBusinessHaveDirectorsOrPartners.options.toSeq
         )
 

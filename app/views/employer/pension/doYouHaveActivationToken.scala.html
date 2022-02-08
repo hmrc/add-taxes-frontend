@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("do-you-have-activation-token-employer-pension", "doYouHaveActivationToken.heading").body,
+            headingKey = Some("doYouHaveActivationToken.heading"),
+            headingId = Some("do-you-have-activation-token-employer-pension"),
             inputs = DoYouHaveActivationToken.options.toSeq
         )
 

@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("do-you-need-to-stop-ro", "doYouNeedToStopRO.heading").body,
+            headingKey = Some("doYouNeedToStopRO.heading"),
+            headingId = Some("do-you-need-to-stop-ro"),
             inputs = DoYouNeedToStopRO.options.toSeq
         )
 

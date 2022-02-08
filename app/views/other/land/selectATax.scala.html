@@ -40,7 +40,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("select-a-tax", "selectATax.heading").body,
+            headingKey = Some("selectATax.heading"),
+            headingId = Some("select-a-tax"),
             inputs = radioOptions.toSeq
         )
 

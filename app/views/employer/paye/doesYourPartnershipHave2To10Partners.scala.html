@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("does-partnership-have-2to10-partners", "doesYourPartnershipHave2To10Partners.heading").body,
+            headingKey = Some("doesYourPartnershipHave2To10Partners.heading"),
+            headingId = Some("does-partnership-have-2to10-partners"),
             inputs = DoesYourPartnershipHave2To10Partners.options.toSeq
         )
 

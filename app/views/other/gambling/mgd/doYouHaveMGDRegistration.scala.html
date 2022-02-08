@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("do-you-have-mgd-registration", "doYouHaveMGDRegistration.heading").body,
+            headingKey = Some("doYouHaveMGDRegistration.heading"),
+            headingId = Some("do-you-have-mgd-registration"),
             inputs = DoYouHaveMGDRegistration.options.toSeq
         )
 

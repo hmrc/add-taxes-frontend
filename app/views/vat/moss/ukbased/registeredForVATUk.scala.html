@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("registered-for-vat-uk", "registeredForVATUk.heading").body,
+            headingKey = Some("registeredForVATUk.heading"),
+            headingId = Some("registered-for-vat-uk"),
             inputs = RegisteredForVATUk.options.toSeq,
             hint = Some(messages("registeredForVATUk.p1")),
             hintTextSpacing = Some("padding-bottom-small")

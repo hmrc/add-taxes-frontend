@@ -49,7 +49,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend =  components.heading("paid-net-or-gross", "doYouWantToBePaidNetOrGross.heading").body,
+            headingKey = Some("doYouWantToBePaidNetOrGross.heading"),
+            headingId = Some("paid-net-or-gross"),
             inputs = DoYouWantToBePaidNetOrGross.options.toSeq,
             hint = Some(hintText.body),
             hintTextSpacing = Some("padding-bottom-small")

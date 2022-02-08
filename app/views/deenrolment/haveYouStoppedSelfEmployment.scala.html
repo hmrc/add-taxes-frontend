@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("have-you-stopped-self-employment", "haveYouStoppedSelfEmployment.heading").body,
+            headingKey = Some("haveYouStoppedSelfEmployment.heading"),
+            headingId = Some("have-you-stopped-self-employment"),
             inputs = HaveYouStoppedSelfEmployment.options.toSeq
         )
 
