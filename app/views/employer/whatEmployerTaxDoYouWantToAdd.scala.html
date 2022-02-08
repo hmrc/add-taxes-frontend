@@ -58,7 +58,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("what-employer-tax-do-you-want-to-add", "whatEmployerTaxDoYouWantToAdd.heading").body,
+            headingId = Some("what-employer-tax-do-you-want-to-add"),
+            headingKey = Some("whatEmployerTaxDoYouWantToAdd.heading"),
             inputs = radioOptions.toSeq.sortWith((x1, x2) => messages(x1.messageKey) < messages(x2.messageKey))
         )
 

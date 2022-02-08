@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("select-alcohol-scheme", "selectAlcoholScheme.heading").body,
+            headingKey = Some("selectAlcoholScheme.heading"),
+            headingId = Some("select-alcohol-scheme"),
             inputs = SelectAlcoholScheme.options.toSeq
         )
 

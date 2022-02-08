@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("do-you-need-to-stop-vat-moss-nu", "doYouNeedToStopVatMossNU.heading").body,
+            headingKey = Some("doYouNeedToStopVatMossNU.heading"),
+            headingId = Some("do-you-need-to-stop-vat-moss-nu"),
             inputs = DoYouNeedToStopVatMossNU.options.toSeq
         )
 

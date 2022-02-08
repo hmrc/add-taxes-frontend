@@ -42,7 +42,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("is-business-registration-for-paye", "isBusinessRegisteredForPAYE.heading").body,
+            headingKey = Some("isBusinessRegisteredForPAYE.heading"),
+            headingId = Some("is-business-registration-for-paye"),
             inputs = IsBusinessRegisteredForPAYE.options.toSeq
         )
 

@@ -40,7 +40,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("do-you-want-to-add-partner", "doYouWantToAddPartner.heading").body,
+            headingKey = Some("doYouWantToAddPartner.heading"),
+            headingId = Some("do-you-want-to-add-partner"),
             inputs = DoYouWantToAddPartner.options.toSeq
         )
 

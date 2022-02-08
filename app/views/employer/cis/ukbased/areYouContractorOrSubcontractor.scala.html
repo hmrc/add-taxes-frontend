@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("contractor-or-subcontractor", "areYouContractorOrSubcontractor.heading").body,
+            headingKey = Some("areYouContractorOrSubcontractor.heading"),
+            headingId = Some("contractor-or-subcontractor"),
             inputs = AreYouContractorOrSubcontractor.options.toSeq,
             hint = Some(messages("areYouContractorOrSubcontractor.p1")),
             hintTextSpacing = Some("padding-bottom-small")

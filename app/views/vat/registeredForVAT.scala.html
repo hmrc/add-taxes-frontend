@@ -40,7 +40,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("registered-for-vat-ecsales", "registeredForVATECSales.heading").body,
+            headingKey = Some("registeredForVATECSales.heading"),
+            headingId = Some("registered-for-vat-ecsales"),
             inputs = RegisteredForVAT.options.toSeq
         )
 

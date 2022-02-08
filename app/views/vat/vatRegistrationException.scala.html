@@ -42,7 +42,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("vat-registration-exception", "vatRegistrationException.heading").body,
+            headingKey = Some("vatRegistrationException.heading"),
+            headingId = Some("vat-registration-exception"),
             inputs = VatRegistrationException.options.toSeq,
             hint   = Some(messages("vatRegistrationException.p1")),
             noMarginClass = Some("no-bottom-margin"),

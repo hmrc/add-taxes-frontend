@@ -40,7 +40,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend =  components.heading("already-registered-for-vat-moss", "alreadyRegisteredForVATMoss.heading").body,
+            headingKey = Some("alreadyRegisteredForVATMoss.heading"),
+            headingId = Some("already-registered-for-vat-moss"),
             inputs = AlreadyRegisteredForVATMoss.options.toSeq,
             hint = Some(messages("alreadyRegisteredForVATMoss.p1")),
             hintTextSpacing = Some("padding-bottom-small")

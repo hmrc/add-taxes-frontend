@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("stop-filing-sa", "stopFilingSelfAssessment.heading").body,
+            headingKey = Some("stopFilingSelfAssessment.heading"),
+            headingId = Some("stop-filing-sa"),
             inputs = StopFilingSelfAssessment.options.toSeq
         )
 

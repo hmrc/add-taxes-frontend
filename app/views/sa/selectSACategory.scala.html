@@ -40,7 +40,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("select-sa-category", "selectSACategory.heading").body,
+            headingKey = Some("selectSACategory.heading"),
+            headingId = Some("select-sa-category"),
             inputs = radioOptions.toSeq
         )
 

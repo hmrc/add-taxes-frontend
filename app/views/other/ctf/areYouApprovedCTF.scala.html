@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("are-you-approved-ctf", "areYouApprovedCTF.heading").body,
+            headingKey = Some("areYouApprovedCTF.heading"),
+            headingId = Some("are-you-approved-ctf"),
             inputs = AreYouApprovedCTF.options.toSeq
         )
 

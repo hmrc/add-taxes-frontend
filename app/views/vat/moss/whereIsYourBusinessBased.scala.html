@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("where-is-your-business-based", "whereIsYourBusinessBased.heading").body,
+            headingKey = Some("whereIsYourBusinessBased.heading"),
+            headingId = Some("where-is-your-business-based"),
             inputs = WhereIsYourBusinessBased.options.toSeq
         )
 

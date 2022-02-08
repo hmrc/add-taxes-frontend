@@ -40,7 +40,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("are-you-registered-gts", "areYouRegisteredGTS.heading").body,
+            headingKey = Some("areYouRegisteredGTS.heading"),
+            headingId = Some("are-you-registered-gts"),
             inputs = AreYouRegisteredGTS.options.toSeq
         )
 

@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("have-you-registered-partnership", "haveYouRegisteredPartnership.heading").body,
+            headingKey = Some("haveYouRegisteredPartnership.heading"),
+            headingId = Some("have-you-registered-partnership"),
             inputs = HaveYouRegisteredPartnership.options.toSeq,
             hint = Some(messages("haveYouRegisteredPartnership.hintText")),
             hintTextSpacing = Some("padding-bottom-small")

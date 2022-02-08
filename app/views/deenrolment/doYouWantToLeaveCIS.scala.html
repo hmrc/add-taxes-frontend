@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("do-you-want-to-leave-cis", "doYouWantToLeaveCIS.heading").body,
+            headingKey = Some("doYouWantToLeaveCIS.heading"),
+            headingId = Some("do-you-want-to-leave-cis"),
             inputs = DoYouWantToLeaveCIS.options.toSeq
         )
 

@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("select-gambling-or-gaming-duty", "selectGamblingOrGamingDuty.heading").body,
+            headingKey = Some("selectGamblingOrGamingDuty.heading"),
+            headingId = Some("select-gambling-or-gaming-duty"),
             inputs = SelectGamblingOrGamingDuty.options.toSeq.sortWith((x1, x2) => messages(x1.messageKey) < messages(x2.messageKey))
         )
 

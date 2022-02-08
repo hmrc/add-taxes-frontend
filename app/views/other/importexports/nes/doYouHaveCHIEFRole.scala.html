@@ -40,7 +40,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("do-you-have-chief-role", "doYouHaveCHIEFRole.heading").body,
+            headingKey = Some("doYouHaveCHIEFRole.heading"),
+            headingId = Some("do-you-have-chief-role"),
             inputs = DoYouHaveCHIEFRole.options.toSeq,
             hint = Some(messages("doYouHaveCHIEFRole.p1")),
             hintTextSpacing = Some("padding-bottom-small")

@@ -41,7 +41,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("do-you-have-eori-number", "economicOperatorsRegistrationAndIdentification.heading").body,
+            headingKey = Some("economicOperatorsRegistrationAndIdentification.heading"),
+            headingId = Some("do-you-have-eori-number"),
             inputs = DoYouHaveEORINumber.options.toSeq
         )
 

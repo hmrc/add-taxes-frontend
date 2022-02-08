@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("do-you-have-paye-reference", "doYouHavePAYEReference.heading").body,
+            headingKey = Some("doYouHavePAYEReference.heading"),
+            headingId = Some("do-you-have-paye-reference"),
             inputs = DoYouHavePAYEReference.options.toSeq
         )
 

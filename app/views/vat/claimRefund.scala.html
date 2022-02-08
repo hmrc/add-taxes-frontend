@@ -44,7 +44,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("claim-refund", "claimRefund.heading").body,
+            headingKey = Some("claimRefund.heading"),
+            headingId = Some("claim-refund"),
             inputs = ClaimRefund.options.toSeq,
             hint = Some(hintText.body),
             noMarginClass = Some("no-bottom-margin"),

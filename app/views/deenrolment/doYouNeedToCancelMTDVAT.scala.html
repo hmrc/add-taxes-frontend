@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("do-you-need-to-cancel-mtd-vat", "doYouNeedToCancelMTDVAT.heading").body,
+            headingKey = Some("doYouNeedToCancelMTDVAT.heading"),
+            headingId = Some("do-you-need-to-cancel-mtd-vat"),
             inputs = DoYouNeedToCancelMTDVAT.options.toSeq
         )
 

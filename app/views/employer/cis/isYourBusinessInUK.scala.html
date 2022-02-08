@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("is-your-business-in-uk-cis", "isYourBusinessInUK.heading").body,
+            headingKey = Some("isYourBusinessInUK.heading"),
+            headingId = Some("is-your-business-in-uk-cis"),
             inputs = IsYourBusinessInUK.options.toSeq
         )
 

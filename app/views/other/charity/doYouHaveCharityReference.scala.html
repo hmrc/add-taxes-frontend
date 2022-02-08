@@ -39,7 +39,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("do-you-have-charity-reference", "doYouHaveCharityReference.heading").body,
+            headingKey = Some("doYouHaveCharityReference.heading"),
+            headingId = Some("do-you-have-charity-reference"),
             inputs = DoYouHaveCharityReference.options.toSeq
         )
 
