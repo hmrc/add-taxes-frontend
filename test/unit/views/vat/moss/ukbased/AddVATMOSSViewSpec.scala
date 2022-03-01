@@ -44,7 +44,6 @@ class AddVATMOSSViewSpec extends ViewBehaviours {
         "continue",
         "Sign in to your VAT account",
         "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fbusiness-account",
-        "VatMossUkAddToOtherAccount:Click:SignIn",
         expectedRole = Some("button")
       )
 
@@ -52,8 +51,7 @@ class AddVATMOSSViewSpec extends ViewBehaviours {
         doc,
         "not-now",
         "I do not want to add VAT MOSS now",
-        "http://localhost:9020/business-account",
-        "VatMossUkAddToOtherAccount:Click:NotNow"
+        "http://localhost:9020/business-account"
       )
 
       view must include("You need to manage VAT MOSS in the account where you manage VAT.")

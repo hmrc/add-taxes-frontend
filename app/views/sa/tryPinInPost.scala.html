@@ -35,7 +35,6 @@
     @if(status.contains("Failed")){
         <p class="govuk-body">@messages("tryPinInPost.p1")
             <a class="govuk-link" id="iv-route-link"
-            data-journey-click="link - click: try to confirm identify online"
             href="@controllers.sa.routes.TryIvController.onPageLoad(origin)">
             @messages("tryPinInPost.linkText")
             </a> @messages("tryPinInPost.p2")
@@ -54,7 +53,7 @@
 
     @uiForm(action = TryPinInPostController.onSubmit(origin)) {
         <div class="section">
-            <button id="tryPinInPost-button" class="govuk-button margin-top-small" data-module="govuk-button" data-journey-click="TryPinInPost:Click:" data-journey-target>@messages("tryPinInPost.button")</button>
+            <button id="tryPinInPost-button" class="govuk-button margin-top-small" data-module="govuk-button">@messages("tryPinInPost.button")</button>
         </div>
     }
 

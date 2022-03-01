@@ -47,7 +47,6 @@ class RegisterWarehousekeeperViewSpec extends ViewBehaviours {
         "continue",
         "Apply to be an excise warehousekeeper",
         "https://www.gov.uk/government/publications/excise-warehousing-application-to-be-an-excise-warehousekeeper-ex61",
-        "RegisterAtwd:Click:Continue",
         expectedRole = Some("button")
       )
     }

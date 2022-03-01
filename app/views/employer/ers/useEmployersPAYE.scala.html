@@ -38,16 +38,14 @@
         <a data-module="govuk-button" id="continue"
            href='@appConfig.getBusinessAccountUrl("signoutBTA")'
            class="govuk-button"
-           role="button"
-           data-journey-click="AddErsOtherAccount:Click:SignIn">
+           role="button">
 
             @messages("useEmployersPAYE.continue")
         </a>
 
 <p>
         <a class="govuk-link" id="not-now"
-           href='@appConfig.getBusinessAccountUrl("home")'
-           data-journey-click="AddErsOtherAccount:Click:NotNow">
+           href='@appConfig.getBusinessAccountUrl("home")'>
             @messages("useEmployersPAYE.notnow")
         </a>
 </p>

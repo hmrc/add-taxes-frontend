@@ -48,7 +48,6 @@ class UsePAYEEmployerAccountViewSpec extends ViewBehaviours {
         "continue",
         "Sign in to your other account",
         "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fbusiness-account",
-        "AddIntermediariesOtherAccount:Click:SignIn",
         expectedRole = Some("button")
       )
 
@@ -56,8 +55,7 @@ class UsePAYEEmployerAccountViewSpec extends ViewBehaviours {
         doc,
         "sign-in",
         "I want to add intermediaries to this account",
-        "/employment-intermediary-report/not-enrolled",
-        "AddIntermediariesOtherAccount:Click:AddToAccount"
+        "/employment-intermediary-report/not-enrolled"
       )
     }
   }

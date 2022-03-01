@@ -28,8 +28,7 @@ if(ninoBoolean) {
       doc,
       linkId = "sign-in-different-link",
       expectedText = "sign in with a different account",
-      expectedUrl = "/business-account/add-tax/self-assessment/nino-sign-out?origin=bta-sa",
-      expectedGAEvent = "link - click: Sign in with different account"
+      expectedUrl = "/business-account/add-tax/self-assessment/nino-sign-out?origin=bta-sa"
     )
   }
 
@@ -42,7 +41,6 @@ if(ninoBoolean) {
       linkId = "online-services-helpdesk-link",
       expectedText = "contact HMRC(opens in new tab)",
       expectedUrl = "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/online-services-helpdesk",
-      expectedGAEvent = "link - click: Retry Knownfacts Gov Uk Online Services Help Desk",
       expectedOpensInNewTab = true
     )
   }

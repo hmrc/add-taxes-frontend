@@ -45,8 +45,7 @@
            href='@appConfig.getPortalUrl("businessRegistration")'
            class="govuk-button"
            data-module="govuk-button"
-           role="button"
-           data-journey-click="VatMossUkNotVatRegistered:Click:Register">
+           role="button">
 
             @messages("registerForVAT.continue")
         </a>
@@ -54,8 +53,7 @@
 
     <p>
         <a class="govuk-link" id="not-now"
-           href='@appConfig.getBusinessAccountUrl("home")'
-           data-journey-click="VatMossUkNotVatRegistered:Click:NotNow">
+           href='@appConfig.getBusinessAccountUrl("home")'>
             @messages("registerForVAT.notnow")
         </a>
     </p>

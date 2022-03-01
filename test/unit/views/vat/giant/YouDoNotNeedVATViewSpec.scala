@@ -46,7 +46,7 @@ class YouDoNotNeedVATViewSpec extends ViewBehaviours {
         "not-now",
         "Go to business tax home",
         "http://localhost:9020/business-account",
-        "VatGiant:Click:NotNow"
+
       )
     }
   }

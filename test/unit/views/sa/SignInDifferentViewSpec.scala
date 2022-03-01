@@ -27,8 +27,7 @@ class SignInDifferentViewSpec extends ViewBehaviours {
       doc,
       linkId = "cancel-button",
       expectedText = "Cancel",
-      expectedUrl = "/business-account/add-tax/self-assessment/retry-known-facts?origin=bta-sa",
-      expectedGAEvent = "Link:Click: Cancel"
+      expectedUrl = "/business-account/add-tax/self-assessment/retry-known-facts?origin=bta-sa"
     )
   }
 
@@ -39,8 +38,7 @@ class SignInDifferentViewSpec extends ViewBehaviours {
       doc,
       linkId = "signout-button",
       expectedText = "Sign out",
-      expectedUrl = "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fbusiness-account",
-      expectedGAEvent = "Link:Click: Sign out"
+      expectedUrl = "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fbusiness-account"
     )
   }
 

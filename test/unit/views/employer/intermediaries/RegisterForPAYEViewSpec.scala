@@ -46,7 +46,6 @@ class RegisterForPAYEViewSpec extends ViewBehaviours {
         "continue",
         "Register for PAYE for employers",
         "http://localhost:8080/portal/business-registration/introduction?lang=eng",
-        "AddIntermediariesRegisterEpaye:Click:Register",
         expectedRole = Some("button")
       )
 
@@ -54,8 +53,7 @@ class RegisterForPAYEViewSpec extends ViewBehaviours {
         doc,
         "not-now",
         "I do not want to do this now",
-        "http://localhost:9020/business-account",
-        "AddIntermediariesRegisterEpaye:Click:NotNow"
+        "http://localhost:9020/business-account"
       )
     }
   }

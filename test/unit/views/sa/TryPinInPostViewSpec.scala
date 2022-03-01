@@ -23,8 +23,7 @@ class TryPinInPostViewSpec extends ViewBehaviours {
         doc,
         linkId = "iv-route-link",
         expectedText = "confirm your identity online",
-        expectedUrl = "/business-account/add-tax/self-assessment/try-iv?origin=bta-sa",
-        expectedGAEvent = "link - click: try to confirm identify online"
+        expectedUrl = "/business-account/add-tax/self-assessment/try-iv?origin=bta-sa"
       )
     }
 

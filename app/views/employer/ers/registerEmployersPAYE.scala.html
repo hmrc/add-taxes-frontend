@@ -38,8 +38,7 @@
         <a data-module="govuk-button" id="continue"
            href='@appConfig.getPortalUrl("businessRegistration")'
            class="govuk-button"
-           role="button"
-           data-journey-click="AddErsRegisterEpaye:Click:Register">
+           role="button">
 
             @messages("registerEmployersPAYE.continue")
         </a>
@@ -47,8 +46,7 @@
 
 <div>
         <a class="govuk-link" id="not-now"
-           href='@appConfig.getBusinessAccountUrl("home")'
-           data-journey-click="AddErsRegisterEpaye:Click:NotNow">
+           href='@appConfig.getBusinessAccountUrl("home")'>
             @messages("registerEmployersPAYE.notnow")
         </a>
 </div>

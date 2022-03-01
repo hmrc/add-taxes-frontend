@@ -47,7 +47,6 @@ class ApplyForPractitionerIDViewSpec extends ViewBehaviours {
         "continue",
         "Apply for a Scheme Practitioner ID",
         "https://pensionschemes.hmrc.gov.uk/pso/reg/registeruserinitialquestions.aspx",
-        "ApplyPractitionerID:Click:Continue",
         expectedRole = Some("button")
       )
 
@@ -55,8 +54,7 @@ class ApplyForPractitionerIDViewSpec extends ViewBehaviours {
         doc,
         "not-now",
         "I do not want to do this now",
-        "http://localhost:9020/business-account",
-        "ApplyPractitionerID:Click:NotNow"
+        "http://localhost:9020/business-account"
       )
     }
   }

@@ -44,7 +44,6 @@ class RegisterForVATViewSpec extends ViewBehaviours {
         "continue",
         "Register for VAT",
         "http://localhost:8080/portal/business-registration/introduction?lang=eng",
-        "VatMossUkNotVatRegistered:Click:Register",
         expectedRole = Some("button")
       )
 
@@ -52,8 +51,7 @@ class RegisterForVATViewSpec extends ViewBehaviours {
         doc,
         "not-now",
         "I do not want to register for VAT now",
-        "http://localhost:9020/business-account",
-        "VatMossUkNotVatRegistered:Click:NotNow"
+        "http://localhost:9020/business-account"
       )
 
       view must include("You must be VAT registered before you can register for VAT MOSS.")

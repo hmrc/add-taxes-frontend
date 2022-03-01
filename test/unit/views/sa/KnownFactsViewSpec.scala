@@ -60,8 +60,7 @@ class KnownFactsViewSpec extends ViewBehaviours {
           doc,
           linkId = "postcode-button",
           expectedText = "I do not know my National Insurance number.",
-          expectedUrl = "/business-account/add-tax/self-assessment/postcode?origin=bta-sa",
-          expectedGAEvent = "GaEvent:Click:PostcodeLink"
+          expectedUrl = "/business-account/add-tax/self-assessment/postcode?origin=bta-sa"
         )
       }
     }

@@ -14,8 +14,7 @@
         <a id="continue"
            href='#'
            class="govuk-button"
-           role="button"
-           data-journey-click="$gaEventPrefix$:Click:$gaEventButtonSuffix$">
+           role="button">
 
             @messages("$className;format="decap"$.continue")
         </a>
@@ -24,8 +23,7 @@
 
 <p>
         <a class="govuk-link" id="not-now"
-           href='@appConfig.getBusinessAccountUrl("home")'
-           data-journey-click="$gaEventPrefix$:Click:NotNow">
+           href='@appConfig.getBusinessAccountUrl("home")'>
             @messages("$className;format="decap"$.notnow")
         </a>
 </p>

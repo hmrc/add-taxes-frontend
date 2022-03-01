@@ -46,7 +46,6 @@ class UseEmployersPAYEViewSpec extends ViewBehaviours {
         "continue",
         "Sign in to your other account",
         "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fbusiness-account",
-        "AddErsOtherAccount:Click:SignIn",
         expectedRole = Some("button")
       )
 
@@ -54,8 +53,7 @@ class UseEmployersPAYEViewSpec extends ViewBehaviours {
         doc,
         "not-now",
         "I do not want to do this now",
-        "http://localhost:9020/business-account",
-        "AddErsOtherAccount:Click:NotNow"
+        "http://localhost:9020/business-account"
       )
     }
   }

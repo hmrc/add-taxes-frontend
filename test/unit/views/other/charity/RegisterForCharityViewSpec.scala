@@ -47,7 +47,6 @@ class RegisterForCharityViewSpec extends ViewBehaviours {
         "continue",
         "Register with HMRC as a charity",
         "https://www.gov.uk/charity-recognition-hmrc",
-        "RegisterCharities:Click:Continue",
         expectedRole = Some("button")
       )
     }

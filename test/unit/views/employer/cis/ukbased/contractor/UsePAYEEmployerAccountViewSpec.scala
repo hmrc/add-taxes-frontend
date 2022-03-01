@@ -49,7 +49,6 @@ class UsePAYEEmployerAccountViewSpec extends ViewBehaviours {
         "continue",
         "Sign in to your other account",
         "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fbusiness-account",
-        "CisUkContractorEpayeOtherAccount:Click:SignIn",
         expectedRole = Some("button")
       )
 
@@ -57,8 +56,7 @@ class UsePAYEEmployerAccountViewSpec extends ViewBehaviours {
         doc,
         "add-to-this-account",
         "I want to add CIS to this account",
-        "http://localhost:9555/enrolment-management-frontend/HMRC-CIS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account",
-        "CisUkContractorEpayeOtherAccount:Click:AddToAccount"
+        "http://localhost:9555/enrolment-management-frontend/HMRC-CIS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
       )
     }
   }
