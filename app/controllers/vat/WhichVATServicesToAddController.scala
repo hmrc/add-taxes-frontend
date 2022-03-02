@@ -45,7 +45,7 @@ class WhichVATServicesToAddController @Inject()(appConfig: FrontendAppConfig,
 
   private def radioOptions(implicit request: ServiceInfoRequest[AnyContent]): Seq[RadioOption] =
     request.request.enrolments match {
-      case HmrcEnrolmentType.VAT() => optionsWithoutVAT
+      case HmrcEnrolmentType.VAT() | HmrcEnrolmentType.MTDVAT() => optionsWithoutVAT
       case _                       => WhichVATServicesToAdd.options
     }
 

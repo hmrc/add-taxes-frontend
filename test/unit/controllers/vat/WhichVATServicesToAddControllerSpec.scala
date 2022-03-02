@@ -102,6 +102,12 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase {
         contentAsString(result) mustBe viewAsString(radioOptions = radioOptions)
       }
 
+      "page is loaded and MTDVAT is enrolled" in {
+        val result = controller()(HmrcEnrolmentType.MTDVAT).onPageLoad()(fakeRequest)
+
+        contentAsString(result) mustBe viewAsString(radioOptions = radioOptions)
+      }
+
       "page errors and vat is enrolled" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
         val boundForm = form.bind(Map("value" -> "invalid value"))
