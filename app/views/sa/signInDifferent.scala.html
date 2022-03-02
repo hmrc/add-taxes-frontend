@@ -32,9 +32,9 @@
     @components.heading("sign-in-different-header", "incorrectNinoSignOut.heading")
 
 <div class="govuk-button-group govuk-!-margin-top-6">
-<a href="@RetryKnownFactsController.onPageLoad(origin)" data-module="govuk-button" id="cancel-button" class="govuk-button govuk-button--secondary" data-journey-click="Link:Click: Cancel" data-journey-target>@messages("incorrectNinoSignOut.cancel")</a>
+<a href="@RetryKnownFactsController.onPageLoad(origin)" data-module="govuk-button" id="cancel-button" class="govuk-button govuk-button--secondary">@messages("incorrectNinoSignOut.cancel")</a>
 
-<a href='@appConfig.getBusinessAccountUrl("signoutBTA")' data-module="govuk-button" id="signout-button" class="govuk-button" data-journey-click="Link:Click: Sign out">@messages("incorrectNinoSignOut.signout")</a>
+<a href='@appConfig.getBusinessAccountUrl("signoutBTA")' data-module="govuk-button" id="signout-button" class="govuk-button">@messages("incorrectNinoSignOut.signout")</a>
 </div>
 
 

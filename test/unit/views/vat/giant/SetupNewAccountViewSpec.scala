@@ -47,7 +47,6 @@ class SetupNewAccountViewSpec extends ViewBehaviours {
         "continue",
         "Sign out and create ‘Organisation’ account",
         "http://localhost:8571/government-gateway-registration-frontend?accountType=organisation&continue=%2Fbusiness-account%2Fadd-tax",
-        "VatGiant:Click:SignOut",
         expectedRole = Some("button")
       )
 
@@ -55,8 +54,7 @@ class SetupNewAccountViewSpec extends ViewBehaviours {
         doc,
         "not-now",
         "I do not want to do this now",
-        "http://localhost:9020/business-account",
-        "VatGiant:Click:NotNow"
+        "http://localhost:9020/business-account"
       )
     }
   }

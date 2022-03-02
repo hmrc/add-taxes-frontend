@@ -49,8 +49,7 @@
            href='@appConfig.getBusinessAccountUrl("signoutBTA")'
            class="govuk-button"
                 data-module="govuk-button"
-           role="button"
-           data-journey-click="VatMossUkAddToOtherAccount:Click:SignIn">
+           role="button">
 
             @messages("addVATMOSS.continue")
         </a>
@@ -58,8 +57,7 @@
 
     <p>
         <a class="govuk-body govuk-link" id="not-now"
-           href='@appConfig.getBusinessAccountUrl("home")'
-           data-journey-click="VatMossUkAddToOtherAccount:Click:NotNow">
+           href='@appConfig.getBusinessAccountUrl("home")'>
             @messages("addVATMOSS.notnow")
         </a>
     </p>

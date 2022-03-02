@@ -38,15 +38,13 @@
            href='@appConfig.getGovUKUrl("trust")'
            class="govuk-button"
            data-module="govuk-button"
-           role="button"
-           data-journey-click="SaTrustNotRegistered:Click:Register">
+           role="button">
 
             @messages("registerTrust.continue")
         </a>
 <p>
         <a id="not-now"
-           href='@appConfig.getBusinessAccountUrl("home")'
-           data-journey-click="SaTrustNotRegistered:Click:NotNow">
+           href='@appConfig.getBusinessAccountUrl("home")'>
            @messages("registerTrust.notnow")
         </a>
 </p>

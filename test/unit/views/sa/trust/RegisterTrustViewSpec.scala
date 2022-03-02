@@ -48,7 +48,6 @@ class RegisterTrustViewSpec extends ViewBehaviours {
         "continue",
         "Register your trust",
         "https://www.gov.uk/government/publications/trusts-and-estates-trust-details-41g-trust",
-        "SaTrustNotRegistered:Click:Register",
         expectedRole = Some("button")
       )
 
@@ -56,8 +55,7 @@ class RegisterTrustViewSpec extends ViewBehaviours {
         doc,
         "not-now",
         "I do not want to do this now",
-        "http://localhost:9020/business-account",
-        "SaTrustNotRegistered:Click:NotNow"
+        "http://localhost:9020/business-account"
       )
 
     }

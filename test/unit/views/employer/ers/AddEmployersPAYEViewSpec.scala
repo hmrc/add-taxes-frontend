@@ -46,7 +46,6 @@ class AddEmployersPAYEViewSpec extends ViewBehaviours {
         "continue",
         "Add PAYE for employers",
         "http://localhost:9555/enrolment-management-frontend/IR-PAYE/request-access-tax-scheme?continue=%2Fbusiness-account",
-        "AddErsNotEnrolledEpaye:Click:Register",
         expectedRole = Some("button")
       )
 
@@ -54,8 +53,7 @@ class AddEmployersPAYEViewSpec extends ViewBehaviours {
         doc,
         "not-now",
         "I do not want to do this now",
-        "http://localhost:9020/business-account",
-        "AddErsNotEnrolledEpaye:Click:NotNow"
+        "http://localhost:9020/business-account"
       )
     }
   }

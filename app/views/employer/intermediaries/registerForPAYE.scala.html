@@ -40,16 +40,14 @@
         <a data-module="govuk-button" id="continue"
            href='@appConfig.getPortalUrl("businessRegistration")'
            class="govuk-button"
-           role="button"
-           data-journey-click="AddIntermediariesRegisterEpaye:Click:Register">
+           role="button">
 
             @messages("registerForPAYEIntermediaries.continue")
         </a>
 </p>
 <p>
         <a class="govuk-link" id="not-now"
-           href='@appConfig.getBusinessAccountUrl("home")'
-           data-journey-click="AddIntermediariesRegisterEpaye:Click:NotNow">
+           href='@appConfig.getBusinessAccountUrl("home")'>
             @messages("registerForPAYEIntermediaries.notnow")
         </a>
 </p>

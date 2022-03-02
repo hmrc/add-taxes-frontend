@@ -40,8 +40,7 @@
            href='@appConfig.emacEnrollmentsUrl(EPAYE)'
            class="govuk-button"
                 data-module="govuk-button"
-           role="button"
-           data-journey-click="AddErsNotEnrolledEpaye:Click:Register">
+           role="button">
 
             @messages("addEmployersPAYE.continue")
         </a>
@@ -49,8 +48,7 @@
 
 <p>
         <a class="govuk-link" id="not-now"
-           href='@appConfig.getBusinessAccountUrl("home")'
-           data-journey-click="AddErsNotEnrolledEpaye:Click:NotNow">
+           href='@appConfig.getBusinessAccountUrl("home")'>
             @messages("addEmployersPAYE.notnow")
         </a>
 </p>

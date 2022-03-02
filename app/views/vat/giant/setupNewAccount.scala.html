@@ -39,8 +39,7 @@
         <a data-module="govuk-button" id="continue"
            href='@appConfig.getGGRegistrationUrl("registerOrg")'
            class="govuk-button"
-           role="button"
-           data-journey-click="VatGiant:Click:SignOut">
+           role="button">
 
             @messages("setupNewAccount.continue")
         </a>
@@ -48,8 +47,7 @@
 
 <p>
         <a class="govuk-link" id="not-now"
-           href='@appConfig.getBusinessAccountUrl("home")'
-           data-journey-click="VatGiant:Click:NotNow">
+           href='@appConfig.getBusinessAccountUrl("home")'>
             @messages("setupNewAccount.notnow")
         </a>
 </p>

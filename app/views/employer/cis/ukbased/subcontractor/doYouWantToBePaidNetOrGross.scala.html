@@ -28,8 +28,7 @@
 
 @(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
-@anchor = {<a id='CISNetOrGross' class="govuk-link" href='@appConfig.getGovUKUrl("cisGrossPaymentStatus")'
-              data-journey-click='CISNetOrGross:Click:CheckQualified'>@messages("doYouWantToBePaidNetOrGross.subtext2.anchorText")</a>}
+@anchor = {<a id='CISNetOrGross' class="govuk-link" href='@appConfig.getGovUKUrl("cisGrossPaymentStatus")'>@messages("doYouWantToBePaidNetOrGross.subtext2.anchorText")</a>}
 
 @hintText = {<p class="govuk-body">@messages("doYouWantToBePaidNetOrGross.subtext1")</p>
               <p class="govuk-body">

@@ -48,8 +48,7 @@
         <a data-module="govuk-button" id="continue"
            href='@appConfig.getBusinessAccountUrl("signoutToOrganisationCreation")'
            class="govuk-button"
-           role="button"
-           data-journey-click="SetUpAccountaSelfAssessmentpartnership:Click:Register">
+           role="button">
 
             @messages("setUpNewAccountPartnership.continue")
         </a>
@@ -58,8 +57,7 @@
 <p>
         <a id="not-now"
            class="govuk-link"
-           href='@appConfig.getBusinessAccountUrl("home")'
-           data-journey-click="SetUpAccountaSelfAssessmentpartnership:Click:NotNow">
+           href='@appConfig.getBusinessAccountUrl("home")'>
             @messages("setUpNewAccountPartnership.notnow")
         </a>
 </p>

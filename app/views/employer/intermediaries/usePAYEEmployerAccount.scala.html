@@ -40,16 +40,14 @@
         <a data-module="govuk-button" id="continue"
            href='@appConfig.getBusinessAccountUrl("signoutBTA")'
            class="govuk-button"
-           role="button"
-           data-journey-click="AddIntermediariesOtherAccount:Click:SignIn">
+           role="button">
 
             @messages("usePAYEEmployerIntermediariesAccount.continue")
         </a>
 
 <p>
         <a class="govuk-link" id="sign-in"
-           href='@appConfig.eiUrl'
-           data-journey-click="AddIntermediariesOtherAccount:Click:AddToAccount">
+           href='@appConfig.eiUrl'>
             @messages("usePAYEEmployerIntermediariesAccount.addAccount")
         </a>
 </p>

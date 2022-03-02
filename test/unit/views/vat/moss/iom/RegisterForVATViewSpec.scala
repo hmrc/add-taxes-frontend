@@ -48,7 +48,6 @@ class RegisterForVATViewSpec extends ViewBehaviours {
         "continue",
         "Register for VAT",
         "https://www.gov.im/categories/tax-vat-and-your-money/customs-and-excise/registering-for-vat/",
-        "VatMossUkNotVatRegistered:Click:Register",
         expectedRole = Some("button")
       )
 
@@ -56,8 +55,7 @@ class RegisterForVATViewSpec extends ViewBehaviours {
         doc,
         "not-now",
         "I do not want to register for VAT now",
-        "http://localhost:9020/business-account",
-        "VatMossUkNotVatRegistered:Click:NotNow"
+        "http://localhost:9020/business-account"
       )
     }
   }

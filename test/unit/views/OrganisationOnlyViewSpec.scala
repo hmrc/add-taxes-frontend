@@ -72,7 +72,6 @@ class OrganisationOnlyViewSpec extends ViewBehaviours {
           "Sign out and create ‘Organisation’ account",
           "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fcoafe%2Fgovernment-gateway%2" +
             "Fregister%3FaccountType%3Dorganisation%2526continue%3D%2Fbusiness-account%2Fadd-tax%2526origin%3Dunknown",
-          "SetUpAccountbusinesstaxes:Click:Register",
           expectedRole = Some("button")
         )
 
@@ -80,8 +79,7 @@ class OrganisationOnlyViewSpec extends ViewBehaviours {
           doc,
           "not-now",
           "I do not want to do this now",
-          "http://localhost:9020/business-account",
-          "SetUpAccountbusinesstaxes:Click:NotNow")
+          "http://localhost:9020/business-account")
       }
     }
   }

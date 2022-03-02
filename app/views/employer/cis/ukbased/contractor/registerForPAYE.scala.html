@@ -42,8 +42,7 @@
            href='@appConfig.getPortalUrl("businessRegistration")'
            class="govuk-button"
                 data-module="govuk-button"
-           role="button"
-           data-journey-click="CisUkContractorRegisterEpaye:Click:Register">
+           role="button">
 
             @messages("registerForPAYE.continue")
         </a>
@@ -51,8 +50,7 @@
 
 <p>
         <a class="govuk-link" id="not-now"
-           href='@appConfig.getBusinessAccountUrl("home")'
-           data-journey-click="CisUkContractorRegisterEpaye:Click:NotNow">
+           href='@appConfig.getBusinessAccountUrl("home")'>
             @messages("registerForPAYE.notnow")
         </a>
 </p>

@@ -52,7 +52,6 @@ class RequestActivationTokenViewSpec extends ViewBehaviours {
         "continue",
         "Continue",
         "http://localhost:9555/enrolment-management-frontend/HMRC-PP-ORG/request-access-tax-scheme?continue=%2Fbusiness-account",
-        "RequestActivationToken:Click:Continue",
         expectedRole = Some("button")
       )
     }

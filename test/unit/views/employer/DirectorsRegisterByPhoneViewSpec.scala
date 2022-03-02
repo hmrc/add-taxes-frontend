@@ -104,8 +104,7 @@ class DirectorsRegisterByPhoneViewSpec extends ViewBehaviours {
         doc,
         "construction_industry_link",
         "construction industry scheme(CIS)",
-        "https://www.gov.uk/what-is-the-construction-industry-scheme",
-        "")
+        "https://www.gov.uk/what-is-the-construction-industry-scheme")
     }
 
     "include link 4" in {

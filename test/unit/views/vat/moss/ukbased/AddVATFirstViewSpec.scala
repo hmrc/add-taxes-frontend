@@ -47,7 +47,6 @@ class AddVATFirstViewSpec extends ViewBehaviours with MockitoSugar with BeforeAn
         "continue",
         "Add VAT to this account",
         "http://localhost:9555/enrolment-management-frontend/HMCE-VATDEC-ORG/request-access-tax-scheme?continue=%2Fbusiness-account",
-        "VatMossUkAddVatToAccount:Click:AddVat",
         expectedRole = Some("button")
       )
 
@@ -55,8 +54,7 @@ class AddVATFirstViewSpec extends ViewBehaviours with MockitoSugar with BeforeAn
         doc,
         "not-now",
         "I do not want to add VAT to this account now",
-        "http://localhost:9020/business-account",
-        "VatMossUkAddVatToAccount:Click:NotNow"
+        "http://localhost:9020/business-account"
       )
       view must include("You need to manage VAT online before you can add VAT MOSS to your account.")
     }

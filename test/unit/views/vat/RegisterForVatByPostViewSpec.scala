@@ -46,7 +46,6 @@ class RegisterForVatByPostViewSpec extends ViewBehaviours {
         "continue",
         "Register for VAT by post",
         "https://www.gov.uk/vat-registration/how-to-register#when-you-cannot-register-online",
-        "VatByPost:Click:Register",
         expectedRole = Some("button")
       )
 
@@ -54,8 +53,7 @@ class RegisterForVatByPostViewSpec extends ViewBehaviours {
         doc,
         "not-now",
         "I do not want to do this now",
-        "http://localhost:9020/business-account",
-        "VatByPost:Click:NotNow"
+        "http://localhost:9020/business-account"
       )
     }
   }

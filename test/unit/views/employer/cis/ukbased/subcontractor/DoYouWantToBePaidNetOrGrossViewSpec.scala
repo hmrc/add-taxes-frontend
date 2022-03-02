@@ -66,8 +66,7 @@ class DoYouWantToBePaidNetOrGrossViewSpec extends ViewBehaviours {
         doc,
         "CISNetOrGross",
         "check if you qualify for gross payments",
-        "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/gross-payment-status",
-        "CISNetOrGross:Click:CheckQualified"
+        "https://www.gov.uk/what-you-must-do-as-a-cis-subcontractor/gross-payment-status"
       )
     }
   }
