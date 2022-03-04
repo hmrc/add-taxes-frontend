@@ -46,8 +46,7 @@ class EnterSAUTRViewSpec extends ViewBehaviours {
 
         assertContainsText(
           doc,
-          "You can find this on your tax return, statement of account or any other self-assessment calculations." +
-            " It is 10 numbers. For example, 1234567890"
+          "This 10-digit number is on your tax return or other self assessment documents. For example, 1234567890."
         )
       }
 

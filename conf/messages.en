@@ -1026,7 +1026,7 @@ enterSAUTR.heading = What is your Self Assessment Unique Taxpayer Reference (UTR
 enterSAUTR.error.required = Enter your Self Assessment Unique Taxpayer Reference (UTR)
 enterSAUTR.error.length = Enter a Self Assessment Unique Taxpayer Reference (UTR) that is 10 characters long
 enterSAUTR.error.characters = Enter your Self Assessment Unique Taxpayer Reference (UTR) that only includes characters 0-9
-enterSAUTR.p1 = You can find this on your tax return, statement of account or any other self-assessment calculations. It is 10 numbers. For example, 1234567890
+enterSAUTR.p1 = This 10-digit number is on your tax return or other self assessment documents. For example, 1234567890.
 
 #######################################################
 ##  DoYouHaveSAUTR
