@@ -1051,7 +1051,7 @@ enterSAUTR.heading = Beth yw’ch Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer 
 enterSAUTR.error.required = Nodwch eich Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Hunanasesiad
 enterSAUTR.error.length = Nodwch Gyfeirnod Unigryw y Trethdalwr (UTR) Hunanasesiad sy’n 10 cymeriad o hyd
 enterSAUTR.error.characters = Nodwch eich Cyfeirnod Unigryw y Trethdalwr (UTR) Hunanasesiad sydd ond yn cynnwys y cymeriadau 0-9
-enterSAUTR.p1 = Gallwch ddod o hyd i hwn ar eich Ffurflen Dreth, datganiad o gyfrif, neu unrhyw gyfrifiad Hunanasesiad arall. Mae’n 10 rhif. Er enghraifft, 1234567890
+enterSAUTR.p1 = Mae’r rhif 10 digid hwn ar eich Ffurflen Dreth neu ar ddogfennau hunanasesiad eraill. Er enghraifft, 1234567890.
 
 #######################################################
 ##  DoYouHaveSAUTR

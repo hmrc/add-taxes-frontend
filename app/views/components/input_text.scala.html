@@ -24,7 +24,7 @@
 )(implicit messages: Messages)
 
 <div class="govuk-form-group @if(field.hasErrors){ form-group-error govuk-form-group--error}">
-  <h1 class="govuk-heading-l no-top-margin govuk-!-margin-bottom-3" id="@headingId">
+  <h1 class="govuk-heading-l no-top-margin govuk-!-margin-bottom-7" id="@headingId">
     <label class="form-label" for="@{field.id}">
         <span class="bold heading-large no-bottom-margin">@label</span>
     </label>
@@ -35,7 +35,7 @@
     @if(hint.nonEmpty){
     <span class="govuk-hint form-hint @{formHintMargin}" id="hint-text">@hint</span>
     }
-    <div class="form-control-wrapper">
+    <div class="form-control-wrapper govuk-!-padding-top-3" >
         <input
         class="govuk-input @inputClass govuk-input--width-10"
         type="text"
