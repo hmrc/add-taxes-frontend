@@ -111,6 +111,10 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   def getCustomsUrl(key: String): String = customsHost + config.getString(s"urls.external.customs.$key")
 
+  lazy val eoriCommonComponentFrontendHost: String = config.getString(s"eori-common-component-frontend.host")
+
+  def getEoriCommonComponentURL(key: String): String = eoriCommonComponentFrontendHost + config.getString(s"eori-common-component-frontend.$key")
+
   lazy val publishedAssets: String = config.getString(s"urls.external.assets.host")
 
   def getPublishedAssetsUrl(key: String): String = publishedAssets + config.getString(s"urls.external.assets.$key")

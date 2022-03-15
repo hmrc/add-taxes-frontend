@@ -39,6 +39,7 @@ trait DoYouWantToAddImportExportNextPage {
         featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
+          case DoYouWantToAddImportExport.ATaR => Call("GET", appConfig.getEoriCommonComponentURL("atar"))
           case DoYouWantToAddImportExport.EMCS => emcsRoutes.DoYouHaveASEEDNumberController.onPageLoad()
           case DoYouWantToAddImportExport.ICS  => icsRoutes.DoYouHaveEORINumberController.onPageLoad()
           case DoYouWantToAddImportExport.DDES => danRoutes.DoYouHaveDANController.onPageLoad()
