@@ -149,7 +149,7 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
     val detail = Map[String,String](elems =
       "credId" -> credId,
       "enrolments" -> enrolments.toString,
-      "IOType" -> doYouWantToAddImportExport.toString,
+      "IOType" -> doYouWantToAddImportExport.toString
     )
     val data = DataEvent(
       enrolmentChecker,
