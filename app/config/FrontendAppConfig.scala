@@ -111,6 +111,10 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   def getCustomsUrl(key: String): String = customsHost + config.getString(s"urls.external.customs.$key")
 
+  lazy val eoriCommonComponentFrontendHost: String = config.getString(s"eori-common-component-frontend.host")
+
+  def getEoriCommonComponentURL(key: String): String = eoriCommonComponentFrontendHost + config.getString(s"eori-common-component-frontend.$key")
+
   lazy val publishedAssets: String = config.getString(s"urls.external.assets.host")
 
   def getPublishedAssetsUrl(key: String): String = publishedAssets + config.getString(s"urls.external.assets.$key")
@@ -224,6 +228,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   val ivLocationForEnvironments: String = config.getString("ivLocation")
   val identityVerificationFrontendHost: String = config.getString("identity-verification-frontend.host")
   val pptFeatureSwitch: Boolean = config.getBoolean("feature-toggles.pptSwitch")
+  val atarAddTaxSwitch: Boolean = config.getBoolean("feature-toggles.atarSwitch")
 
   def ivUpliftUrl(origin: String): String = {
     val completionUrl = s"$addTaxesHost/business-account/add-tax/self-assessment/sa-iv-router?origin=$origin"

@@ -25,6 +25,12 @@ class DoYouWantToAddImportExportNextPageSpec extends NextPageSpecBase {
   "DoYouWantToAddImportExport" when {
     behave like nextPage(
       NextPage.doYouWantToAddImportExport,
+      DoYouWantToAddImportExport.ATaR,
+      "http://localhost:6750/customs-enrolment-services/atar/subscribe"
+    )
+
+    behave like nextPage(
+      NextPage.doYouWantToAddImportExport,
       DoYouWantToAddImportExport.EMCS,
       "/business-account/add-tax/other/import-export/emcs"
     )

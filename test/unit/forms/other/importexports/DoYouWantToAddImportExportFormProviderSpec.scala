@@ -24,7 +24,7 @@ import models.other.importexports._
 class DoYouWantToAddImportExportFormProviderSpec (appConfig: FrontendAppConfig) extends FormBehaviours {
 
   val validData: Map[String, String] = Map(
-    "value" -> DoYouWantToAddImportExport.options().head.value
+    "value" -> DoYouWantToAddImportExport.options(appConfig.atarAddTaxSwitch).head.value
   )
 
   val form = new DoYouWantToAddImportExportFormProvider()()
@@ -35,7 +35,7 @@ class DoYouWantToAddImportExportFormProviderSpec (appConfig: FrontendAppConfig) 
 
     behave like formWithOptionField(
       Field("value", Required -> "doYouWantToAddImportExport.error.required", Invalid -> "error.invalid"),
-      DoYouWantToAddImportExport.options().toSeq.map(_.value): _*
+      DoYouWantToAddImportExport.options(appConfig.atarAddTaxSwitch).toSeq.map(_.value): _*
     )
   }
 }

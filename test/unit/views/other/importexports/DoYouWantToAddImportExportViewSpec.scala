@@ -72,19 +72,19 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- DoYouWantToAddImportExport.options()) {
+        for (option <- DoYouWantToAddImportExport.options(mockConfig.atarAddTaxSwitch)) {
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
 
-    for (option <- DoYouWantToAddImportExport.options()) {
+    for (option <- DoYouWantToAddImportExport.options(mockConfig.atarAddTaxSwitch)) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
-          for (unselectedOption <- DoYouWantToAddImportExport.options().filterNot(o => o == option)) {
+          for (unselectedOption <- DoYouWantToAddImportExport.options(mockConfig.atarAddTaxSwitch).filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
@@ -104,7 +104,7 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
     "rendered" must {
       "not display the eBTI option" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- DoYouWantToAddImportExport.options()) {
+        for (option <- DoYouWantToAddImportExport.options(mockConfig.atarAddTaxSwitch)) {
           assertNotRenderedById(doc, "doYouWantToAddImportExport.eBTI")
         }
       }

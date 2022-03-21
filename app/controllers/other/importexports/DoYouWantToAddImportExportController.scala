@@ -25,11 +25,12 @@ import models.other.importexports.DoYouWantToAddImportExport
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import service.AuditService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import views.html.other.importexports.doYouWantToAddImportExport
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class DoYouWantToAddImportExportController @Inject()(appConfig: FrontendAppConfig,
                                                      mcc: MessagesControllerComponents,
@@ -37,7 +38,9 @@ class DoYouWantToAddImportExportController @Inject()(appConfig: FrontendAppConfi
                                                      authenticate: AuthAction,
                                                      serviceInfoData: ServiceInfoAction,
                                                      formProvider: DoYouWantToAddImportExportFormProvider,
-                                                     doYouWantToAddImportExport: doYouWantToAddImportExport)
+                                                     doYouWantToAddImportExport: doYouWantToAddImportExport,
+                                                     auditService: AuditService)
+                                                    (implicit val ec: ExecutionContext)
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
   val form: Form[DoYouWantToAddImportExport] = formProvider()
@@ -51,7 +54,8 @@ class DoYouWantToAddImportExportController @Inject()(appConfig: FrontendAppConfi
       .fold(
         formWithErrors =>
           Future.successful(BadRequest(doYouWantToAddImportExport(appConfig, formWithErrors)(request.serviceInfoContent))),
-        value => Future.successful(Redirect(navigator.nextPage(DoYouWantToAddImportExportId, value)))
+        value => {auditService.auditSelectIOCategory(request.request.credId, value, request.request.enrolments)
+          Future.successful(Redirect(navigator.nextPage(DoYouWantToAddImportExportId, value)))}
       )
   }
 }
