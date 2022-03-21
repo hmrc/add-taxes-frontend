@@ -1,6 +1,7 @@
 package service
 
-import models.sa.{CredIdFound, DoYouHaveSAUTR, KnownFacts, SelectSACategory}
+import models.other.importexports.DoYouWantToAddImportExport
+import models.sa._
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.concurrent.ScalaFutures.whenReady
@@ -8,10 +9,10 @@ import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.PlaySpec
 import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.{RequestId, SessionId}
+import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
+import uk.gov.hmrc.http.{HeaderCarrier, RequestId, SessionId}
 import uk.gov.hmrc.play.audit.http.connector.{AuditConnector, AuditResult}
-
+import utils.HmrcEnrolmentType
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
@@ -21,6 +22,7 @@ class AuditServiceSpec extends PlaySpec with MockitoSugar {
 
   val testService = new AuditService(mockAuditConnector)
   val expected: AuditResult = AuditResult.Success
+  val saEnrolment: Enrolment = Enrolment(key = HmrcEnrolmentType.SA.toString, identifiers = Seq(), state = "Activated")
 
   "auditSA" should {
 
@@ -108,6 +110,26 @@ class AuditServiceSpec extends PlaySpec with MockitoSugar {
         .thenReturn(Future.successful(expected))
 
       val result = testService.auditSelectSACategory(saType = SelectSACategory.Sa, doYouHaveSaUtr = DoYouHaveSAUTR.Yes, "utr123", "credId123", "groupId123")
+
+      whenReady(result){ _ mustBe expected }
+    }
+  }
+
+  "auditSelectIOCategory" should {
+    implicit val hc: HeaderCarrier = HeaderCarrier(
+      requestId = Some(RequestId("testId")),
+      sessionId = Some(SessionId("testId2")),
+      trueClientIp = Some("testIp"),
+      trueClientPort = Some("testPort")
+    )
+    implicit val request: FakeRequest[AnyContent] = FakeRequest()
+
+    "successfully audit" in {
+      when(mockAuditConnector.sendEvent(any())(any(), any()))
+        .thenReturn(Future.successful(expected))
+      val enrolments: Enrolments = Enrolments(Set(saEnrolment))
+
+      val result = testService.auditSelectIOCategory("credId123", DoYouWantToAddImportExport.ATaR, enrolments)
 
       whenReady(result){ _ mustBe expected }
     }

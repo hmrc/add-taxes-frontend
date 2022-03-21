@@ -16,9 +16,12 @@
 
 package service
 
+import models.other.importexports.DoYouWantToAddImportExport
+
 import javax.inject.Inject
 import models.sa._
 import play.api.mvc.Request
+import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.http.connector.{AuditConnector, AuditResult}
 import uk.gov.hmrc.play.audit.model.DataEvent
@@ -32,6 +35,7 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
   final private val payeEvent: String = "PAYE-check"
   final private val saKnownFactsEvent: String = "SA-knownfacts-result-check"
   final private val selectSACategoryEvent: String = "select-SA-Category-check"
+  final private val selectIOCategoryEvent: String = "select-import-output-category-check"
 
 
   def auditSA(credId: String, saUtr: String, enrolmentCheckResult: EnrolmentCheckResult)
@@ -133,6 +137,23 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
     val data = DataEvent(
       enrolmentChecker,
       selectSACategoryEvent,
+      tags = buildTags(),
+      detail = detail
+    )
+    auditConnector.sendEvent(data)
+  }
+
+  def auditSelectIOCategory(credId: String, doYouWantToAddImportExport: DoYouWantToAddImportExport, enrolments: Enrolments)
+                           (implicit ec: ExecutionContext, hc: HeaderCarrier, request: Request[_]): Future[AuditResult] = {
+
+    val detail = Map[String,String](elems =
+      "credId" -> credId,
+      "enrolments" -> enrolments.toString,
+      "IOType" -> doYouWantToAddImportExport.toString,
+    )
+    val data = DataEvent(
+      enrolmentChecker,
+      selectIOCategoryEvent,
       tags = buildTags(),
       detail = detail
     )

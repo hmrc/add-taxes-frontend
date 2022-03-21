@@ -16,15 +16,20 @@
 
 package controllers.other.importexports
 
+import config.FrontendAppConfig
 import controllers._
 import forms.other.importexports.DoYouWantToAddImportExportFormProvider
 import models.other.importexports.DoYouWantToAddImportExport
+import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import service.AuditService
 import utils.FakeNavigator
 import views.html.other.importexports.doYouWantToAddImportExport
+
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
 
@@ -32,8 +37,10 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
 
   val formProvider = new DoYouWantToAddImportExportFormProvider()
   val form: Form[DoYouWantToAddImportExport] = formProvider()
+  val mockConfig: FrontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
 
   val view: doYouWantToAddImportExport = injector.instanceOf[doYouWantToAddImportExport]
+  val mockAuditService: AuditService = mock[AuditService]
 
   def controller() =
     new DoYouWantToAddImportExportController(
@@ -43,7 +50,8 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider,
-      view
+      view,
+      mockAuditService
     )
 
   def viewAsString(form: Form[_] = form): String =
@@ -59,7 +67,7 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouWantToAddImportExport.options().head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouWantToAddImportExport.options(mockConfig.atarAddTaxSwitch).head.value))
 
       val result = controller().onSubmit()(postRequest)
 
@@ -83,7 +91,7 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
     }
 
-    for (option <- DoYouWantToAddImportExport.options()) {
+    for (option <- DoYouWantToAddImportExport.options(mockConfig.atarAddTaxSwitch)) {
       s"redirect to next page when '${option.value}' is submitted" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)

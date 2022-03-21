@@ -248,6 +248,7 @@ registerEORINCTS.p1 = Pan gewch chi hwn, mewngofnodwch ac ychwanegwch y System G
 #######################################################
 doYouWantToAddImportExport.title = Beth ydych am ei ychwanegu?
 doYouWantToAddImportExport.heading = Beth ydych am ei ychwanegu?
+doYouWantToAddImportExport.ATaR = Dyfarniadau Tariffau Uwch (ATaR)
 doYouWantToAddImportExport.EMCS = System Symudiadau a Rheolaeth Ecseis (EMCS)
 doYouWantToAddImportExport.ICS= System Rheoli Mewnforion (ICS)
 doYouWantToAddImportExport.DDES = Datganiadau Electronig i Ohirio Tollau (DDES)

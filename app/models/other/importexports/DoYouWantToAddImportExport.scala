@@ -21,7 +21,7 @@ import utils.{Enumerable, RadioOption, WithName}
 sealed trait DoYouWantToAddImportExport
 
 object DoYouWantToAddImportExport {
-
+  case object ATaR extends WithName("ATaR") with DoYouWantToAddImportExport
   case object EMCS extends WithName("EMCS") with DoYouWantToAddImportExport
   case object ICS extends WithName("ICS") with DoYouWantToAddImportExport
   case object DDES extends WithName("DDES") with DoYouWantToAddImportExport
@@ -32,6 +32,7 @@ object DoYouWantToAddImportExport {
   case object ISD extends WithName("ISD") with DoYouWantToAddImportExport
 
   val values: List[DoYouWantToAddImportExport] = List(
+    ATaR,
     EMCS,
     ICS,
     DDES,
@@ -42,8 +43,8 @@ object DoYouWantToAddImportExport {
     ISD
   )
 
-  def options() = values.collect {
-    case value if !(value == eBTI) =>
+  def options(atarAddTaxSwitch: Boolean) = values.collect {
+    case value if (!(value == eBTI) && !(value == ATaR && !atarAddTaxSwitch)) =>
       RadioOption("doYouWantToAddImportExport", value.toString)
   }
 
