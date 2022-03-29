@@ -35,23 +35,23 @@ class PortalUrlBuilderSpec extends SpecBase with MockitoSugar {
 
     "the user is in english" should {
       "append ?lang=eng to given url" in {
-        frontendAppConfig.getPortalUrl("novaEnrolment")(fakeRequest) mustBe "http://localhost:8080/portal/nova/normal?lang=eng"
+        frontendAppConfig.getPortalUrl("novaEnrolment")(fakeRequest) mustBe "http://localhost:8081/portal/nova/normal?lang=eng"
       }
     }
 
     "the user is in welsh" should {
       "append ?lang=cym to given url" in {
-        frontendAppConfig.getPortalUrl("novaEnrolment")(fakeRequestWithWelsh) mustBe "http://localhost:8080/portal/nova/normal?lang=cym"
+        frontendAppConfig.getPortalUrl("novaEnrolment")(fakeRequestWithWelsh) mustBe "http://localhost:8081/portal/nova/normal?lang=cym"
       }
     }
 
     "formats the url correctly" should {
       "remove trailing ?" in {
-        frontendAppConfig.getPortalUrl("trailing-question-character")(fakeRequestWithWelsh) mustBe "http://localhost:8080/portal/test?lang=cym"
+        frontendAppConfig.getPortalUrl("trailing-question-character")(fakeRequestWithWelsh) mustBe "http://localhost:8081/portal/test?lang=cym"
       }
 
       "handle additional name/value pairs" in {
-        frontendAppConfig.getPortalUrl("ampersand")(fakeRequestWithWelsh) mustBe "http://localhost:8080/portal/?test=1&lang=cym"
+        frontendAppConfig.getPortalUrl("ampersand")(fakeRequestWithWelsh) mustBe "http://localhost:8081/portal/?test=1&lang=cym"
       }
     }
   }

@@ -50,7 +50,7 @@ class DoYouWantToAddImportExportNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.doYouWantToAddImportExport,
       DoYouWantToAddImportExport.NOVA,
-      "http://localhost:8080/portal/nova/normal?lang=eng"
+      "http://localhost:8081/portal/nova/normal?lang=eng"
     )
 
     behave like nextPage(
@@ -74,7 +74,7 @@ class DoYouWantToAddImportExportNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.doYouWantToAddImportExport,
       DoYouWantToAddImportExport.ISD,
-      "http://localhost:8080/hmce/ecom/is2/static/is2.html"
+      "http://localhost:8081/hmce/ecom/is2/static/is2.html"
     )
   }
 }

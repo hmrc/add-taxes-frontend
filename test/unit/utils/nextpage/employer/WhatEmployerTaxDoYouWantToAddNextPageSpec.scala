@@ -66,7 +66,7 @@ class WhatEmployerTaxDoYouWantToAddNextPageSpec extends NextPageSpecBase {
     NextPage.whatEmployerTaxDoYouWantToAdd,
     nextPageERSWithEnrolment,
     WhatEmployerTaxDoYouWantToAdd.ERS.toString,
-    "http://localhost:8080/portal/ers/org/" + fullRef + "/add-scheme?lang=eng",
+    "http://localhost:8081/portal/ers/org/" + fullRef + "/add-scheme?lang=eng",
     "EPAYE enrolments"
   )
 

@@ -43,7 +43,7 @@ class RegisterMGDViewSpec extends ViewBehaviours {
         doc,
         "continue",
         "Register for Machine Games Duty",
-        "http://localhost:8080/portal/business-registration/mgd/type-of-business?lang=eng",
+        "http://localhost:8081/portal/business-registration/mgd/type-of-business?lang=eng",
         expectedRole = Some("button")
       )
 
