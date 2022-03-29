@@ -26,7 +26,7 @@ class DoesBusinessHave1To9DirectorsNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.doesBusinessHave1To9Directors,
       DoesBusinessHave1To9Directors.Yes,
-      "http://localhost:8080/portal/business-registration/select-taxes?lang=eng"
+      "http://localhost:8081/portal/business-registration/select-taxes?lang=eng"
     )
 
     behave like nextPage(

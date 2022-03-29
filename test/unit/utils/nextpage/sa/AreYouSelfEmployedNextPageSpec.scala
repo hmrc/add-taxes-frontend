@@ -26,13 +26,13 @@ class AreYouSelfEmployedNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.areYouSelfEmployed,
       AreYouSelfEmployed.Yes,
-      "http://localhost:8080/portal/business-registration/select-taxes?lang=eng"
+      "http://localhost:8081/portal/business-registration/select-taxes?lang=eng"
     )
 
     behave like nextPage(
       NextPage.areYouSelfEmployed,
       AreYouSelfEmployed.No,
-      "http://localhost:8080/portal/shortforms/form/SA1?lang=eng"
+      "http://localhost:8081/portal/shortforms/form/SA1?lang=eng"
     )
   }
 }

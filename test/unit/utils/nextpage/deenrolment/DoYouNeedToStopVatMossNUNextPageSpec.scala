@@ -29,7 +29,7 @@ class DoYouNeedToStopVatMossNUNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.doYouNeedToStopVatMossNU,
       (DoYouNeedToStopVatMossNU.Yes, Some(enrolment)),
-      Right("http://localhost:8080/portal/moss-variations/org/1234567890/change-reg-details?lang=eng")
+      Right("http://localhost:8081/portal/moss-variations/org/1234567890/change-reg-details?lang=eng")
     )
 
     behave like nextPage(

@@ -52,7 +52,7 @@ class RegisterForPAYEViewSpec extends ViewBehaviours {
         doc,
         "continue",
         "Register for PAYE for employers",
-        "http://localhost:8080/portal/business-registration/introduction?lang=eng",
+        "http://localhost:8081/portal/business-registration/introduction?lang=eng",
         expectedRole = Some("button")
       )
 

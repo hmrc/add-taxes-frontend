@@ -36,7 +36,7 @@ class DoYouNeedToStopMGDNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.doYouNeedToStopMGD,
       (DoYouNeedToStopMGD.No, Some(enrolment)),
-      Right("http://localhost:8080/portal/machine-games-duty-vars/org/1234567890?lang=eng")
+      Right("http://localhost:8081/portal/machine-games-duty-vars/org/1234567890?lang=eng")
     )
 
     behave like nextPage(

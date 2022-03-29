@@ -25,7 +25,7 @@ class AlreadyRegisteredForVATMossNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.alreadyRegisteredForVATMossIOM,
       AlreadyRegisteredForVATMoss.No,
-      "http://localhost:8080/portal/moss-registration/org/provide-vat-details?lang=eng"
+      "http://localhost:8081/portal/moss-registration/org/provide-vat-details?lang=eng"
     )
 
     behave like nextPage(

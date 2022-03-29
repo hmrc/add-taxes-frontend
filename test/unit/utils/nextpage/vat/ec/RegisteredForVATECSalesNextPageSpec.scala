@@ -32,7 +32,7 @@ class RegisteredForVATECSalesNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.registeredForVATECSales,
       RegisteredForVAT.No,
-      "http://localhost:8080/portal/business-registration/introduction?lang=eng"
+      "http://localhost:8081/portal/business-registration/introduction?lang=eng"
     )
   }
 }

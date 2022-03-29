@@ -48,7 +48,7 @@ class CanRegisterForVATViewSpec extends ViewBehaviours {
         doc,
         "continue",
         "Continue to VAT registration",
-        "http://localhost:8080/portal/business-registration/select-taxes?lang=eng",
+        "http://localhost:8081/portal/business-registration/select-taxes?lang=eng",
         expectedRole = Some("button")
       )
     }
