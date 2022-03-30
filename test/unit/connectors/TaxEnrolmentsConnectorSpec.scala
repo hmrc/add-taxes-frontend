@@ -17,14 +17,21 @@
 package connectors
 
 import base.SpecBase
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.sa._
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.http.Status.{CREATED, INTERNAL_SERVER_ERROR, NO_CONTENT}
+import play.api.mvc.AnyContent
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.auth.core.AffinityGroup.Individual
+import uk.gov.hmrc.auth.core.{ConfidenceLevel, Enrolment, Enrolments}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
+import utils.HmrcEnrolmentType
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -47,15 +54,20 @@ class TaxEnrolmentsConnectorSpec extends SpecBase with MockitoSugar with ScalaFu
   "TaxEnrolmentsConnector" when {
 
     "enrolForSa is called" should {
-      val userId: String = "1212121212121"
       val utr: String = "1234"
       val groupId: String = "12121212"
       val enrolActivate: String = "enrolAndActivate"
+      val providerId = "provider-id"
+      val confidenceLevel = ConfidenceLevel.L50
+
+      implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+        AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+        HtmlFormat.empty)
 
       "return created when the call is successful (201)" in {
         when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse(CREATED, "")))
-        val response = taxEnrolmentsConnector.enrolForSa(utr, userId, groupId, enrolActivate)
+        val response = taxEnrolmentsConnector.enrolForSa(utr, enrolActivate)
 
         whenReady(response) { result =>
           result mustBe true
@@ -65,7 +77,7 @@ class TaxEnrolmentsConnectorSpec extends SpecBase with MockitoSugar with ScalaFu
       "return no content if no utr found (204)" in {
         when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse(NO_CONTENT, "")))
-        val response = taxEnrolmentsConnector.enrolForSa(utr, userId, groupId, enrolActivate)
+        val response = taxEnrolmentsConnector.enrolForSa(utr, enrolActivate)
 
         whenReady(response) { result =>
           result mustBe false
@@ -75,7 +87,7 @@ class TaxEnrolmentsConnectorSpec extends SpecBase with MockitoSugar with ScalaFu
       "return forbidden  if no utr found (403)" in {
         when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse(FORBIDDEN, "")))
-        val response = taxEnrolmentsConnector.enrolForSa(utr, userId, groupId, enrolActivate)
+        val response = taxEnrolmentsConnector.enrolForSa(utr, enrolActivate)
 
         whenReady(response) { result =>
           result mustBe false
@@ -85,7 +97,7 @@ class TaxEnrolmentsConnectorSpec extends SpecBase with MockitoSugar with ScalaFu
       "return bad request  if no utr found (400)" in {
         when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse(BAD_REQUEST, "")))
-        val response = taxEnrolmentsConnector.enrolForSa(utr, userId, groupId, enrolActivate)
+        val response = taxEnrolmentsConnector.enrolForSa(utr, enrolActivate)
 
         whenReady(response) { result =>
           result mustBe false
@@ -96,7 +108,42 @@ class TaxEnrolmentsConnectorSpec extends SpecBase with MockitoSugar with ScalaFu
         when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
           .thenReturn(Future.successful(HttpResponse(INTERNAL_SERVER_ERROR, "")))
 
-        val response = taxEnrolmentsConnector.enrolForSa(utr, userId, groupId, enrolActivate)
+        val response = taxEnrolmentsConnector.enrolForSa(utr, enrolActivate)
+
+        whenReady(response) { result =>
+          result mustBe false
+        }
+      }
+
+      "return true when the response is 409 but the user has the IR-SA enrolment" in {
+
+        val saEnrolment: Enrolment = Enrolment(key = HmrcEnrolmentType.SA.toString, identifiers = Seq(), state = "Activated")
+
+        implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+          AuthenticatedRequest(FakeRequest(), "", Enrolments(Set(saEnrolment)), Some(Individual), groupId, providerId, confidenceLevel, None),
+          HtmlFormat.empty
+        )
+
+        when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
+          .thenReturn(Future.successful(HttpResponse(CONFLICT, "")))
+        val response = taxEnrolmentsConnector.enrolForSa(utr, enrolActivate)
+
+        whenReady(response) { result =>
+          result mustBe true
+        }
+      }
+
+
+      "return false when the response is 409 but the user does not have the IR-SA enrolment" in {
+
+        implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+          AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+          HtmlFormat.empty
+        )
+
+        when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
+          .thenReturn(Future.successful(HttpResponse(CONFLICT, "")))
+        val response = taxEnrolmentsConnector.enrolForSa(utr, enrolActivate)
 
         whenReady(response) { result =>
           result mustBe false

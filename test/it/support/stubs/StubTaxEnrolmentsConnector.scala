@@ -18,6 +18,10 @@ object StubTaxEnrolmentsConnector extends StubHelper {
     BAD_REQUEST, None
   )
 
+  def conflictEnrolForSa(saEnrolment: SaEnrolment, utr: String, groupId: String) = withResponseForEnrolForSa(saEnrolment, utr, groupId)(
+    CONFLICT, None
+  )
+
   def verifyEnrolForSa(count: Int, groupId: String, utr: String): Unit =
     verify(count, postRequestedFor(urlEqualTo(s"/tax-enrolments/groups/$groupId/enrolments/IR-SA~UTR~$utr")))
 }

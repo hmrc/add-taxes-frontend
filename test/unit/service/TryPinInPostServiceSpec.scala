@@ -48,7 +48,7 @@ class TryPinInPostServiceSpec extends ControllerSpecBase with MockitoSugar with 
           .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
         when(mockDataCacheConnector.getEntry[String](any(), ArgumentMatchers.eq("returnUrl"))(any()))
           .thenReturn(Future.successful(None))
-        when(mockTaxEnrolmentsConnector.enrolForSa(any(), any(), any(), any())(any(), any()))
+        when(mockTaxEnrolmentsConnector.enrolForSa(any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(false))
 
         val result = service.checkEnrol(btaOrigin)
@@ -59,7 +59,7 @@ class TryPinInPostServiceSpec extends ControllerSpecBase with MockitoSugar with 
       "return a redirect to the unsuccessful page when enrolForSa returns false and origin is not ssttp-sa" in {
         when(mockDataCacheConnector.getEntry[SAUTR](any(), ArgumentMatchers.eq("enterSAUTR"))(any()))
           .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
-        when(mockTaxEnrolmentsConnector.enrolForSa(any(), any(), any(), any())(any(), any()))
+        when(mockTaxEnrolmentsConnector.enrolForSa(any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(false))
 
         val result = service.checkEnrol(btaOrigin)
@@ -70,7 +70,7 @@ class TryPinInPostServiceSpec extends ControllerSpecBase with MockitoSugar with 
       "return a redirect to the ssttp failure url when enrolForSa returns false and origin is ssttp-sa" in {
         when(mockDataCacheConnector.getEntry[SAUTR](any(), ArgumentMatchers.eq("enterSAUTR"))(any()))
           .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
-        when(mockTaxEnrolmentsConnector.enrolForSa(any(), any(), any(), any())(any(), any()))
+        when(mockTaxEnrolmentsConnector.enrolForSa(any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(false))
 
         val result = service.checkEnrol("ssttp-sa")
@@ -84,7 +84,7 @@ class TryPinInPostServiceSpec extends ControllerSpecBase with MockitoSugar with 
           .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
         when(mockDataCacheConnector.getEntry[String](any(), ArgumentMatchers.eq("returnUrl"))(any()))
           .thenReturn(Future.successful(None))
-        when(mockTaxEnrolmentsConnector.enrolForSa(any(), any(), any(), any())(any(), any()))
+        when(mockTaxEnrolmentsConnector.enrolForSa(any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(true))
 
         val result = service.checkEnrol(btaOrigin)

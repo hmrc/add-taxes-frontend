@@ -46,7 +46,7 @@ class TryPinInPostService @Inject()(dataCacheConnector: DataCacheConnector,
         (
           for {
             utr <- maybeSAUTR
-          } yield taxEnrolmentsConnector.enrolForSa(utr.value, request.request.credId, request.request.groupId, "enrolOnly")
+          } yield taxEnrolmentsConnector.enrolForSa(utr.value, "enrolOnly")
           ).getOrElse(Future.successful(false))
     }
 
