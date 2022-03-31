@@ -190,7 +190,7 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
         "enrol for sa returns false" in {
           when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
             .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
-          when(mockTaxEnrolmentsConnector.enrolForSa(any(), any(), any(), any())(any(), any()))
+          when(mockTaxEnrolmentsConnector.enrolForSa(any(), any())(any(), any(), any()))
             .thenReturn(Future.successful(false))
 
           val result = serviceWithStubbedLinkCheck("Success").ivCheckAndEnrol(btaOrigin)
@@ -248,7 +248,7 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
         "journeyLink returns true and enrol for sa returns true" in {
           when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
             .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
-          when(mockTaxEnrolmentsConnector.enrolForSa(any(), any(), any(), any())(any(), any()))
+          when(mockTaxEnrolmentsConnector.enrolForSa(any(), any())(any(), any(), any()))
             .thenReturn(Future.successful(true))
 
           val result = serviceWithStubbedLinkCheck("Success").ivCheckAndEnrol(btaOrigin)
@@ -280,7 +280,7 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
         "enrol for sa returns false" in {
           when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
             .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
-          when(mockTaxEnrolmentsConnector.enrolForSa(any(), any(), any(), any())(any(), any()))
+          when(mockTaxEnrolmentsConnector.enrolForSa(any(), any())(any(), any(), any()))
             .thenReturn(Future.successful(false))
 
           val result = serviceWithStubbedLinkCheckUplift("Success", journeyId).ivCheckAndEnrolUplift(btaOrigin, journeyId)
@@ -338,7 +338,7 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
         "journeyLink returns true and enrol for sa returns true" in {
           when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
             .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
-          when(mockTaxEnrolmentsConnector.enrolForSa(any(), any(), any(), any())(any(), any()))
+          when(mockTaxEnrolmentsConnector.enrolForSa(any(), any())(any(), any(), any()))
             .thenReturn(Future.successful(true))
 
           val result = serviceWithStubbedLinkCheckUplift("Success", journeyId).ivCheckAndEnrolUplift(btaOrigin, journeyId)

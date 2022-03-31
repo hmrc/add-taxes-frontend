@@ -44,6 +44,7 @@ extends FrontendController(mcc) with I18nSupport {
 
   def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
+
       tryPinInPostService.checkEnrol(origin)
   }
 }

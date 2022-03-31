@@ -70,7 +70,7 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
           maybeSAUTR <- dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
           enrolForSaBoolean <- {
             maybeSAUTR.map { utr =>
-              taxEnrolmentsConnector.enrolForSa(utr.value, request.request.credId, request.request.groupId, "enrolAndActivate")
+              taxEnrolmentsConnector.enrolForSa(utr.value, "enrolAndActivate")
             }.getOrElse(Future.successful(false))
           }
         } yield {
@@ -98,7 +98,7 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
           maybeSAUTR <- dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
           enrolForSaBoolean <- {
             maybeSAUTR.map { utr =>
-              taxEnrolmentsConnector.enrolForSa(utr.value, request.request.credId, request.request.groupId, "enrolAndActivate")
+              taxEnrolmentsConnector.enrolForSa(utr.value, "enrolAndActivate")
             }.getOrElse(Future.successful(false))
           }
           } yield {
