@@ -23,7 +23,7 @@ class YouNeedAPptRefViewSpec extends ViewBehaviours {
 
     "contain 'Register for the Plastic Packaging Tax (PPT)' for the link text and the right href" in {
       val doc = asDocument(createView())
-      doc.getElementById("ppt-register").attr("href") mustBe "http://localhost:8505/register-for-plastic-packaging-tax/public-body-need-ppt-number"
+      doc.getElementById("ppt-register").attr("href") mustBe "http://localhost:8505/register-for-plastic-packaging-tax/start-registration"
       doc.getElementById("ppt-register").text mustBe "Register for the Plastic Packaging Tax (PPT)"
     }
 
