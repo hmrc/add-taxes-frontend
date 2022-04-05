@@ -36,17 +36,17 @@
     <p class="govuk-body">@messages("usePAYEEmployerAccount.p1")</p>
 
 
-        <button id="continue"
+        <a id="continue"
            href='@appConfig.getBusinessAccountUrl("signoutBTA")'
            class="govuk-button"
                 data-module="govuk-button"
            role="button">
 
             @messages("usePAYEEmployerAccount.continue")
-        </button>
+        </a>
 
 
-<p>
+<p class="govuk-body">
         <a class="govuk-link" id="add-to-this-account"
            href='@appConfig.emacEnrollmentsUrl(Enrolments.AddCis)'>
             @messages("usePAYEEmployerAccount.addAccount")

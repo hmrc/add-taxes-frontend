@@ -34,19 +34,19 @@
     <p class="govuk-body">@messages("applyForPractitionerID.p1")</p>
 
 
-        <button id="continue"
+        <a id="continue"
            href='@appConfig.getPensionsUrl("apply")'
            class="govuk-button"
            role="button">
 
             @messages("applyForPractitionerID.continue")
-        </button>
+        </a>
 
 
-<p>
+    <p class="govuk-body">
         <a class="govuk-link" id="not-now"
             href='@appConfig.getBusinessAccountUrl("home")'>
             @messages("applyForPractitionerID.notnow")
         </a>
-</p>
+    </p>
 }
