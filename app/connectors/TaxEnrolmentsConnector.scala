@@ -35,7 +35,7 @@ class TaxEnrolmentsConnector @Inject()(appConfig: FrontendAppConfig, http: HttpC
   val serviceUrl: String = appConfig.enrolForSaUrl
 
   def enrolForSa(utr: String, action: String)
-                (implicit headerCarrier: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Boolean]= {
+                (implicit headerCarrier: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Boolean] = {
 
     val saEnrolment: SaEnrolment = new SaEnrolment(request.request.credId, action)
     http.POST[SaEnrolment, HttpResponse](s"$serviceUrl${request.request.groupId}/enrolments/IR-SA~UTR~$utr", saEnrolment).map { response =>
@@ -45,7 +45,12 @@ class TaxEnrolmentsConnector @Inject()(appConfig: FrontendAppConfig, http: HttpC
           logger.info(s"[TaxEnrolmentsConnector][enrolForSa] Enrolment already created. Likely double click")
           true
         case _ =>
-          logger.error(s"[EnrolForSaController][enrolForSa] failed with status ${response.status}, body: ${response.body}")
+          logger.error(
+            s"[TaxEnrolmentsConnector][enrolForSa] failed with status ${response.status}," +
+              s"\n body: ${response.body}" +
+              s"\n affinityGroup: ${request.request.affinityGroup}" +
+              s"\n enrolments: ${request.request.enrolments.enrolments.map(_.key)}"
+          )
           false
       }
     }.recover {
