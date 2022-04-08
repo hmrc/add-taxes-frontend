@@ -40,7 +40,12 @@ class TaxEnrolmentsConnector @Inject()(appConfig: FrontendAppConfig, http: HttpC
     val saEnrolment: SaEnrolment = new SaEnrolment(request.request.credId, action)
     http.POST[SaEnrolment, HttpResponse](s"$serviceUrl${request.request.groupId}/enrolments/IR-SA~UTR~$utr", saEnrolment).map { response =>
       response.status match {
-        case CREATED => true
+        case CREATED =>
+          logger.info(s"[TaxEnrolmentsConnector][enrolForSa] Enrolment created." +
+            s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)} " +
+            s"\n confidenceLevel ${request.request.confidenceLevel}"
+          )
+          true
         case CONFLICT if request.request.enrolments.getEnrolment("IR-SA").isDefined =>
           logger.info(s"[TaxEnrolmentsConnector][enrolForSa] Enrolment already created. Likely double click")
           true

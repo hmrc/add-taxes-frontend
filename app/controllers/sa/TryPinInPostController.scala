@@ -18,6 +18,8 @@ package controllers.sa
 
 import config.FrontendAppConfig
 import controllers.actions.{AuthAction, ServiceInfoAction}
+import play.api.Logging
+
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -44,7 +46,6 @@ extends FrontendController(mcc) with I18nSupport {
 
   def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
-
       tryPinInPostService.checkEnrol(origin)
   }
 }

@@ -43,6 +43,10 @@ class TryPinInPostService @Inject()(dataCacheConnector: DataCacheConnector,
 
     val enrolForSaBoolean: Future[Boolean] = utr.flatMap {
       maybeSAUTR =>
+        logger.info(s"[TryPinInPostService][checkEnrol] attempting to enrol for SA pin in post" +
+          s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)} " +
+          s"\n confidenceLevel ${request.request.confidenceLevel}"
+        )
         (
           for {
             utr <- maybeSAUTR
@@ -51,7 +55,12 @@ class TryPinInPostService @Inject()(dataCacheConnector: DataCacheConnector,
     }
 
     enrolForSaBoolean.map {
-      case true  => Redirect(controllers.sa.routes.RequestedAccessController.onPageLoad(origin))
+      case true  =>
+        logger.info(s"[TryPinInPostService][checkEnrol] successfully enrolled for SA pin in post" +
+          s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)} " +
+          s"\n confidenceLevel ${request.request.confidenceLevel}"
+        )
+        Redirect(controllers.sa.routes.RequestedAccessController.onPageLoad(origin))
       case false => if(origin == "ssttp-sa") {
         Redirect(Call("GET", appConfig.ssttpFailUrl))
       } else {
