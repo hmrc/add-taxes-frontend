@@ -36,7 +36,8 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
   def journeyLinkCheckUplift(journeyId: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[String] = {
     ivConnector.checkJourneyLinkUplift(journeyId).map(_.result).recover {
       case exception =>
-        logger.error(s"[IvService][journeyLinkCheckUplift] Check journey link failed with ${exception.getMessage}")
+        logger.error(s"[IvService][journeyLinkCheckUplift] journeyId: $journeyId" +
+          s"\n Check journey link failed with ${exception.getMessage}")
         "Failed"
     }
   }
@@ -66,26 +67,41 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
                                                                hc: HeaderCarrier): Future[Result] = {
     journeyLinkCheckUplift(journeyId).flatMap {
       case "Success" =>
+        logger.info(s"[IvService][ivCheckAndEnrolUplift] success response received from journeyLinkCheckUplift" +
+          s"\n journeyId: $journeyId" +
+          s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)} " +
+          s"\n confidenceLevel ${request.request.confidenceLevel}"
+        )
         for {
-          maybeSAUTR <- dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
+          maybeSAUTR: Option[SAUTR] <- dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
           enrolForSaBoolean <- {
             maybeSAUTR.map { utr =>
               logger.info(s"[IvService][ivCheckAndEnrolUplift] attempting to enrol for SA" +
+                s"\n journeyId: $journeyId" +
                 s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)} " +
                 s"\n confidenceLevel ${request.request.confidenceLevel}"
               )
               taxEnrolmentsConnector.enrolForSa(utr.value, "enrolAndActivate")
-            }.getOrElse(Future.successful(false))
+            }.getOrElse {
+              logger.info(s"[IvService][ivCheckAndEnrolUplift] could not retrieve SAUTR from data cache" +
+                s"\n journeyId: $journeyId" +
+                s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)} " +
+                s"\n confidenceLevel ${request.request.confidenceLevel}"
+              )
+              Future.successful(false)
+            }
           }
         } yield {
           if (enrolForSaBoolean) {
             logger.info(s"[IvService][ivCheckAndEnrolUplift] successfully enrolled for SA" +
+              s"\n journeyId: $journeyId" +
               s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)} " +
               s"\n confidenceLevel ${request.request.confidenceLevel}"
             )
             Redirect(saRoutes.EnrolmentSuccessController.onPageLoad(origin))
           } else {
             logger.info(s"[IvService][ivCheckAndEnrolUplift] enrolment unsuccessful. Redirecting to TryPinInPost" +
+              s"\n journeyId: $journeyId" +
               s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)} " +
               s"\n confidenceLevel ${request.request.confidenceLevel}"
             )
@@ -93,13 +109,13 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
           }
         }
       case "LockedOut" =>
-        logger.warn(s"[IvService][ivCheckAndEnrol] LockedOut")
+        logger.warn(s"[IvService][ivCheckAndEnrol] journeyId: $journeyId LockedOut")
         Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("LockedOut"), origin)))
       case x if x == "InsufficientEvidence" || x == "PreconditionFailed" || x == "FailedMatching" || x == "FailedIV" =>
-        logger.warn(s"[IvService][ivCheckAndEnrol] $x")
+        logger.warn(s"[IvService][ivCheckAndEnrol]journeyId: $journeyId $x")
         Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError"), origin)))
       case result =>
-        logger.warn(s"[IvService][ivCheckAndEnrol] Failed Iv for ${result}")
+        logger.warn(s"[IvService][ivCheckAndEnrol] journeyId: $journeyId Failed Iv for $result")
         Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"), origin)))
     }
   }
