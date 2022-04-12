@@ -42,30 +42,40 @@ class TryPinInPostService @Inject()(dataCacheConnector: DataCacheConnector,
     val utr: Future[Option[SAUTR]] = dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
 
     val enrolForSaBoolean: Future[Boolean] = utr.flatMap {
-      maybeSAUTR =>
+      maybeSAUTR: Option[SAUTR] =>
         logger.info(s"[TryPinInPostService][checkEnrol] attempting to enrol for SA pin in post" +
-          s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)} " +
+          s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)}" +
           s"\n confidenceLevel ${request.request.confidenceLevel}"
         )
         (
           for {
             utr <- maybeSAUTR
           } yield taxEnrolmentsConnector.enrolForSa(utr.value, "enrolOnly")
-          ).getOrElse(Future.successful(false))
+          ).getOrElse {
+          logger.info(s"[TryPinInPostService][checkEnrol] unable to retrieve SAUTR from data cache" +
+            s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)}" +
+            s"\n confidenceLevel ${request.request.confidenceLevel}"
+          )
+          Future.successful(false)
+        }
     }
-
     enrolForSaBoolean.map {
-      case true  =>
+      case true =>
         logger.info(s"[TryPinInPostService][checkEnrol] successfully enrolled for SA pin in post" +
           s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)} " +
           s"\n confidenceLevel ${request.request.confidenceLevel}"
         )
         Redirect(controllers.sa.routes.RequestedAccessController.onPageLoad(origin))
-      case false => if(origin == "ssttp-sa") {
-        Redirect(Call("GET", appConfig.ssttpFailUrl))
-      } else {
-        InternalServerError(errorHandler.internalServerErrorTemplate)
-      }
+      case false =>
+        logger.info(s"[TryPinInPostService][checkEnrol] enrolForSaBoolean is false" +
+          s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)}" +
+          s"\n confidenceLevel ${request.request.confidenceLevel}"
+        )
+        if (origin == "ssttp-sa") {
+          Redirect(Call("GET", appConfig.ssttpFailUrl))
+        } else {
+          InternalServerError(errorHandler.internalServerErrorTemplate)
+        }
 
     }
   }

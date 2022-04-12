@@ -35,6 +35,7 @@ class IvConnector @Inject()(appConfig: FrontendAppConfig,
   def checkJourneyLinkUplift(journeyId: String)
                       (implicit ec: ExecutionContext, hc: HeaderCarrier): Future[JourneyLinkResponse] = {
     val url = serviceUrl + environment
+    logger.info(s"[IvConnector][checkJourneyLinkUplift] journeyId: $journeyId attempted")
     http.GET[JourneyLinkResponse](s"$url/mdtp/journey/journeyId/$journeyId")
   }
 
