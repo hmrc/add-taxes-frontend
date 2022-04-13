@@ -302,6 +302,7 @@ haveYouRegisteredTrust.Yes = Iawn
 haveYouRegisteredTrust.No = Na
 haveYouRegisteredTrust.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi cofrestru’ch ymddiriedolaeth
 haveYouRegisteredTrust.hintText = Byddwn wedi anfon Cyfeirnod Unigryw y Trethdalwr (UTR) atoch ar gyfer eich ymddiriedolaeth, os ydych eisoes wedi’i chofrestru.
+conditionalHint = Bydd ffurflen PDF yn agor mewn tab newydd a bydd angen i chi ei llenwi a’i dychwelyd atom cyn y gallwch ychwanegu’r dreth hon at eich cyfrif.
 
 #######################################################
 ##  RegisterGBD

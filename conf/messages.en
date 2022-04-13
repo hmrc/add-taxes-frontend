@@ -345,6 +345,7 @@ haveYouRegisteredPartnership.Yes = Yes
 haveYouRegisteredPartnership.No = No
 haveYouRegisteredPartnership.error.required = Select yes if you have already registered your partnership and have the UTR
 haveYouRegisteredPartnership.hintText = We will have sent you a Unique Taxpayer Reference (UTR) for your partnership, if you have already registered it.
+conditionalHint = A PDF form will open in a new tab that you will need to fill in and send back to us before you can add this tax to your account.
 
 #######################################################
 ##  DoYouWantToAddPartner

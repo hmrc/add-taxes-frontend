@@ -25,7 +25,7 @@
     main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, saBoolean: Boolean, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("haveYouRegisteredPartnership.title"),
@@ -37,14 +37,26 @@
 
         @components.error_summary(form.errors, Some("haveYouRegisteredPartnership.Yes"))
 
-        @components.input_radio(
-            field = form("value"),
-            headingKey = Some("haveYouRegisteredPartnership.heading"),
-            headingId = Some("have-you-registered-partnership"),
-            inputs = HaveYouRegisteredPartnership.options.toSeq,
-            hint = Some(messages("haveYouRegisteredPartnership.hintText")),
-            hintTextSpacing = Some("padding-bottom-small")
-        )
+        @if(!saBoolean){
+            @components.conditional_input_radio(
+                field = form("value"),
+                headingKey = Some("haveYouRegisteredPartnership.heading"),
+                headingId = Some("have-you-registered-partnership"),
+                inputs = HaveYouRegisteredPartnership.options.toSeq,
+                hint = Some(messages("haveYouRegisteredPartnership.hintText")),
+                hintTextSpacing = Some("padding-bottom-small"),
+                conditionalHint = Some(messages("conditionalHint"))
+            )
+        } else {
+            @components.input_radio(
+                field = form("value"),
+                headingKey = Some("haveYouRegisteredPartnership.heading"),
+                headingId = Some("have-you-registered-partnership"),
+                inputs = HaveYouRegisteredPartnership.options.toSeq,
+                hint = Some(messages("haveYouRegisteredPartnership.hintText")),
+                hintTextSpacing = Some("padding-bottom-small")
+                )
+        }
 
         @components.submit_button(gaEvent = "AddSaPartnershipOther")
     }
