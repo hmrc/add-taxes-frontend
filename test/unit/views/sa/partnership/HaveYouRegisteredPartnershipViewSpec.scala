@@ -31,11 +31,13 @@ class HaveYouRegisteredPartnershipViewSpec extends ViewBehaviours {
 
   val serviceInfoContent: Html = HtmlFormat.empty
 
+  val saBoolean: Boolean = false
+
   def createView: () => HtmlFormat.Appendable = () =>
-    new haveYouRegisteredPartnership(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    new haveYouRegisteredPartnership(formWithCSRF,  mainTemplate)(frontendAppConfig, saBoolean, form)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
-    new haveYouRegisteredPartnership(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    new haveYouRegisteredPartnership(formWithCSRF, mainTemplate)(frontendAppConfig, saBoolean, form)(serviceInfoContent)(fakeRequest, messages)
 
   "HaveYouRegisteredPartnership view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -54,6 +56,23 @@ class HaveYouRegisteredPartnershipViewSpec extends ViewBehaviours {
       view must include(
         "We will have sent you a Unique Taxpayer Reference (UTR) for your partnership, if you have already registered it.")
     }
+
+    "Render the correct content if saBoolean is false" in {
+      val doc = asDocument(createView())
+      val view = doc.getElementById("conditionalHintText").text()
+      view mustBe "A PDF form will open in a new tab that you will need to fill in and send back to us before you can add this tax to your account."
+    }
+
+    "Render the correct content if saBoolean is true" in {
+      val saBoolean:Boolean = true
+      def createView: () => HtmlFormat.Appendable = () =>
+        new haveYouRegisteredPartnership(formWithCSRF,  mainTemplate)(frontendAppConfig, saBoolean, form)(serviceInfoContent)(fakeRequest, messages)
+
+      val doc = asDocument(createView())
+      val view = doc.getElementById("conditionalHintText")
+      view mustBe null
+    }
+
   }
 
   "HaveYouRegisteredPartnership view" when {

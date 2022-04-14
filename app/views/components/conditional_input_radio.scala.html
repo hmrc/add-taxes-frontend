@@ -25,7 +25,8 @@
     legendClass: Option[String] = None,
     hint: Option[String] = None,
     noMarginClass: Option[String] = None,
-    hintTextSpacing: Option[String] = None
+    hintTextSpacing: Option[String] = None,
+        conditionalHint: Option[String] = None
 )(implicit messages: Messages)
 
 <div class="govuk-form-group @if(field.hasErrors){form-group-error govuk-form-group--error}">
@@ -46,23 +47,29 @@
                             <span class="govuk-error-message margin-bottom-small" id="error-message-@{field.id}-input"><span id="visually-hidden-error-prefix" class="govuk-visually-hidden">@messages("error.message.prefix")</span> @messages(error.message, error.args: _*)</span>
                 }
             </div>
+    <div class="govuk-radios" data-module="govuk-radios">
             @for(input <- inputs) {
                 <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="@{input.id}" type="radio" name="@{field.id}" value="@{input.value}"
+                    <input class="govuk-radios__input" id="@{input.id}" type="radio" name="@{field.id}" value="@{input.value}" aria-controls="conditional-@{input.id}" aria-expanded="true"
                            @if(field.value == Some(input.value)){checked="checked"}
-                           data-journey-val="@{input.value}"/>
+                           data-journey-val="@{input.value}" data-aria-controls="conditional-@{input.id}"/>
 
                     <label class="govuk-label govuk-radios__label" for="@{input.id}">
                         @messages(input.messageKey)
                     </label>
                 </div>
 
+                @if({input.value} == "No"){
+                    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-@{input.id}">
+                        <div class="govuk-form-group">
+                            <label id="conditionalHintText" class="govuk-label">@Html(conditionalHint.getOrElse(""))</label>
+                        </div>
+
+                    </div>
+                }
+
             }
-
-
-
-
-
+    </div>
 
     </fieldset>
 </div>

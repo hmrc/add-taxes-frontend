@@ -35,6 +35,8 @@ class HaveYouRegisteredPartnershipControllerSpec extends ControllerSpecBase {
 
   val view: haveYouRegisteredPartnership = injector.instanceOf[haveYouRegisteredPartnership]
 
+  val saBoolean: Boolean = false
+
   def controller(): HaveYouRegisteredPartnershipController = {
     new HaveYouRegisteredPartnershipController(
       frontendAppConfig,
@@ -48,7 +50,7 @@ class HaveYouRegisteredPartnershipControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new haveYouRegisteredPartnership(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new haveYouRegisteredPartnership(formWithCSRF, mainTemplate)(frontendAppConfig, saBoolean, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "HaveYouRegisteredPartnership Controller" must {
 
