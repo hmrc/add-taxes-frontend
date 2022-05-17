@@ -1,5 +1,6 @@
 package controllers.sa
 
+import config.featureToggles.FeatureToggleSupport
 import controllers.ControllerSpecBase
 import handlers.ErrorHandler
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
@@ -12,7 +13,6 @@ import play.api.mvc.Results._
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, status, _}
 import play.twirl.api.HtmlFormat
-import playconfig.featuretoggle.FeatureToggleSupport
 import service.TryPinInPostService
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.auth.core.Enrolments

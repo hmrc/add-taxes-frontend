@@ -22,7 +22,6 @@ import play.api.mvc.{Call, Request}
 import utils.{Enrolments, NextPage}
 import controllers.other.charity.{routes => charityRoutes}
 import models.other.charity.DoYouHaveCharityReference
-import playconfig.featuretoggle.FeatureConfig
 
 trait DoYouHaveCharityReferenceNextPage {
 
@@ -31,7 +30,6 @@ trait DoYouHaveCharityReferenceNextPage {
     new NextPage[DoYouHaveCharityReferenceId.type, DoYouHaveCharityReference, Call] {
       override def get(b: DoYouHaveCharityReference)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoYouHaveCharityReference.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.Charities))

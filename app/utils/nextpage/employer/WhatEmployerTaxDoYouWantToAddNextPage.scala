@@ -25,7 +25,6 @@ import controllers.routes
 import identifiers.WhatEmployerTaxDoYouWantToAddId
 import models.employer.WhatEmployerTaxDoYouWantToAdd
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
 import uk.gov.hmrc.auth.core.Enrolments
 import utils.{HmrcEnrolmentType, NextPage}
 
@@ -38,7 +37,6 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
     new NextPage[WhatEmployerTaxDoYouWantToAddId.type, WhatEmployerTaxDoYouWantToAddWithEnrolment, Call] {
       override def get(details: WhatEmployerTaxDoYouWantToAddWithEnrolment)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         details match {
           case (WhatEmployerTaxDoYouWantToAdd.EPAYE, _) =>

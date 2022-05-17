@@ -17,6 +17,8 @@
 package controllers.other.importexports
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.AtarSwitch
+import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers._
 import forms.other.importexports.DoYouWantToAddImportExportFormProvider
 import models.other.importexports.DoYouWantToAddImportExport
@@ -37,14 +39,13 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
 
   val formProvider = new DoYouWantToAddImportExportFormProvider()
   val form: Form[DoYouWantToAddImportExport] = formProvider()
-  val mockConfig: FrontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
+  implicit val mockConfig: FrontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
 
   val view: doYouWantToAddImportExport = injector.instanceOf[doYouWantToAddImportExport]
   val mockAuditService: AuditService = mock[AuditService]
 
   def controller() =
     new DoYouWantToAddImportExportController(
-      frontendAppConfig,
       mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       FakeAuthAction,
@@ -55,7 +56,7 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
     )
 
   def viewAsString(form: Form[_] = form): String =
-    new doYouWantToAddImportExport(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new doYouWantToAddImportExport(formWithCSRF, mainTemplate)(frontendAppConfig, form, isEnabled(AtarSwitch))(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "DoYouWantToAddImportExport Controller" must {
 
@@ -67,7 +68,8 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouWantToAddImportExport.options(mockConfig.atarAddTaxSwitch).head.value))
+      val atarBool = isEnabled(AtarSwitch)
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouWantToAddImportExport.options(atarBool).head.value))
 
       val result = controller().onSubmit()(postRequest)
 
@@ -90,8 +92,8 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe OK
     }
-
-    for (option <- DoYouWantToAddImportExport.options(mockConfig.atarAddTaxSwitch)) {
+    val atarBool = isEnabled(AtarSwitch)
+    for (option <- DoYouWantToAddImportExport.options(atarBool)) {
       s"redirect to next page when '${option.value}' is submitted" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
         val result = controller().onSubmit()(postRequest)

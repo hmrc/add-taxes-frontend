@@ -21,7 +21,6 @@ import controllers.other.importexports.emcs.{routes => emcsRoutes}
 import identifiers.DoYouHaveASEEDNumberId
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait DoYouHaveASEEDNumberNextPage {
@@ -30,7 +29,6 @@ trait DoYouHaveASEEDNumberNextPage {
     new NextPage[DoYouHaveASEEDNumberId.type, DoYouHaveASEEDNumber, Call] {
       override def get(b: DoYouHaveASEEDNumber)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoYouHaveASEEDNumber.Yes =>

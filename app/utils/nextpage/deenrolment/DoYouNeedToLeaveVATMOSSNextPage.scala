@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import identifiers.DoYouNeedToLeaveVATMOSSId
 import models.deenrolment.DoYouNeedToLeaveVATMOSS
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
 import uk.gov.hmrc.auth.core.Enrolment
 import utils.{Enrolments, NextPage}
 
@@ -33,7 +32,6 @@ trait DoYouNeedToLeaveVATMOSSNextPage {
     new NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSSWithEnrolment, Either[String, Call]] {
       override def get(b: DoYouNeedToLeaveVATMOSSWithEnrolment)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Either[String, Call] =
         b match {
           case (DoYouNeedToLeaveVATMOSS.Yes, Some(enrolment)) =>

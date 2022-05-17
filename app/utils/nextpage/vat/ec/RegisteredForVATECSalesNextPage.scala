@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import identifiers.RegisteredForVATECSalesId
 import models.vat.RegisteredForVAT
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait RegisteredForVATECSalesNextPage {
@@ -29,7 +28,6 @@ trait RegisteredForVATECSalesNextPage {
     new NextPage[RegisteredForVATECSalesId.type, RegisteredForVAT, Call] {
       override def get(b: RegisteredForVAT)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case RegisteredForVAT.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.ECSales))

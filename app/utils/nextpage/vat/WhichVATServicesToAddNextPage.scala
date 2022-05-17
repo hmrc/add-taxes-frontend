@@ -17,6 +17,8 @@
 package utils.nextpage.vat
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.VatOssSwitch
+import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.vat.ec.{routes => ecRoutes}
 import controllers.vat.eurefunds.{routes => euRoutes}
 import controllers.vat.giant.{routes => giantRoutes}
@@ -28,23 +30,21 @@ import controllers.vat.{routes => vatRoutes}
 import identifiers.WhichVATServicesToAddId
 import models.vat.WhichVATServicesToAdd
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
 import uk.gov.hmrc.auth.core.{AffinityGroup, Enrolments}
 import utils.{HmrcEnrolmentType, NextPage}
 
 trait WhichVATServicesToAddNextPage {
 
-  type WhichVATServicesToAddWithRequests = (WhichVATServicesToAdd, Option[AffinityGroup], Enrolments)
+  type WhichVATServicesToAddWithRequests = (WhichVATServicesToAdd, Option[AffinityGroup], Enrolments, String)
 
   implicit val whichVATServicesToAdd
     : NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithRequests, Call] = {
     new NextPage[WhichVATServicesToAddId.type, WhichVATServicesToAddWithRequests, Call] {
       override def get(b: WhichVATServicesToAddWithRequests)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call = {
 
-        val (serviceToAdd, affinity, enrolments) = b
+        val (serviceToAdd, affinity, enrolments, vatOssRedirectUrl) = b
 
         serviceToAdd match {
           case WhichVATServicesToAdd.VAT       => vatRoutes.DoYouHaveVATRegNumberController.onPageLoad()
@@ -54,6 +54,7 @@ trait WhichVATServicesToAddNextPage {
           case WhichVATServicesToAdd.RCSL      => getRCSLCall(enrolments)
           case WhichVATServicesToAdd.MOSS      => getVATMOSSCall(affinity, enrolments)
           case WhichVATServicesToAdd.NOVA      => Call("GET", appConfig.getPortalUrl("novaEnrolment"))
+          case WhichVATServicesToAdd.VATOSS if(isEnabled(VatOssSwitch)) => Call("GET", vatOssRedirectUrl)
         }
       }
     }

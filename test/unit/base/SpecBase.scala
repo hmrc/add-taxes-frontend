@@ -23,7 +23,6 @@ import play.api.i18n.Messages
 import play.api.inject.Injector
 import play.api.mvc.{AnyContent, MessagesControllerComponents}
 import play.api.test.FakeRequest
-import playconfig.featuretoggle.FeatureConfig
 import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 import views.html.main_template
 
@@ -35,8 +34,6 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
   val mainTemplate: main_template = injector.instanceOf[main_template]
 
   implicit def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
-
-  implicit def featureConfig: FeatureConfig = injector.instanceOf[FeatureConfig]
 
   implicit def mcc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
 

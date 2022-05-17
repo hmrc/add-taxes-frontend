@@ -19,7 +19,6 @@ package utils.nextpage.employer.paye
 import config.FrontendAppConfig
 import identifiers.EnterPAYEReferenceId
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait EnterPAYEReferenceNextPage {
@@ -31,7 +30,6 @@ trait EnterPAYEReferenceNextPage {
     new NextPage[EnterPAYEReferenceId.type, EmpRefExists, Call] {
       override def get(b: EmpRefExists)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case false => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.EPAYE))

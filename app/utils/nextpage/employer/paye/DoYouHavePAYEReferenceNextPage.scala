@@ -22,7 +22,6 @@ import play.api.mvc.{Call, Request}
 import models.employer.paye.DoYouHavePAYEReference
 import utils.{Enrolments, NextPage}
 import controllers.employer.paye.{routes => employerRoutes}
-import playconfig.featuretoggle.FeatureConfig
 
 trait DoYouHavePAYEReferenceNextPage {
 
@@ -30,7 +29,6 @@ trait DoYouHavePAYEReferenceNextPage {
     new NextPage[DoYouHavePAYEReferenceId.type, DoYouHavePAYEReference, Call] {
       override def get(b: DoYouHavePAYEReference)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoYouHavePAYEReference.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.EPAYE))

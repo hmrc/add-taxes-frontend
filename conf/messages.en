@@ -616,6 +616,7 @@ whichVATServicesToAdd.eurefunds = EU Refunds, reclaim VAT you paid in the EU
 whichVATServicesToAdd.rcsl = Reverse Charge Sales List (RCSL), report sales which have reverse charge VAT
 whichVATServicesToAdd.moss = Mini One Stop Shop (MOSS), VAT on digital services sold to EU customers
 whichVATServicesToAdd.nova = Notification of Vehicle Arrivals (NOVA)
+whichVATServicesToAdd.vatoss = One Stop Shop (OSS), pay VAT on goods from Northern Ireland to EU customers
 whichVATServicesToAdd.error.required = Select a VAT service
 
 #######################################################

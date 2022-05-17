@@ -24,7 +24,6 @@ import controllers.vat.moss.eu.{routes => euRoutes}
 import identifiers.WhereIsYourBusinessBasedId
 import models.vat.moss.WhereIsYourBusinessBased
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
 import utils.NextPage
 
 trait WhereIsYourBusinessBasedNextPage {
@@ -33,7 +32,6 @@ trait WhereIsYourBusinessBasedNextPage {
     new NextPage[WhereIsYourBusinessBasedId.type, WhereIsYourBusinessBased, Call] {
       override def get(b: WhereIsYourBusinessBased)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case WhereIsYourBusinessBased.UK    => ukBasedRoutes.RegisteredForVATUkController.onPageLoad()

@@ -28,6 +28,8 @@ import views.html.other.importexports.doYouWantToAddImportExport
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
+import config.featureToggles.FeatureSwitch.AtarSwitch
+import config.featureToggles.FeatureToggleSupport.isEnabled
 import org.scalatest.BeforeAndAfterEach
 import play.api.Configuration
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
@@ -48,10 +50,10 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
   val mockConfig: FrontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
 
     def createView: () => HtmlFormat.Appendable = () =>
-      new doYouWantToAddImportExport(formWithCSRF, mainTemplate)(mockConfig, form)(serviceInfoContent)(fakeRequest, messages)
+      new doYouWantToAddImportExport(formWithCSRF, mainTemplate)(mockConfig, form, isEnabled(AtarSwitch))(serviceInfoContent)(fakeRequest, messages)
 
     def createViewUsingForm: (Form[_]) => HtmlFormat.Appendable = (form: Form[_]) =>
-      new doYouWantToAddImportExport(formWithCSRF, mainTemplate)(mockConfig, form)(serviceInfoContent)(fakeRequest, messages)
+      new doYouWantToAddImportExport(formWithCSRF, mainTemplate)(mockConfig, form, isEnabled(AtarSwitch))(serviceInfoContent)(fakeRequest, messages)
 
   override def beforeEach(): Unit = {
     reset(mockConfiguration)
@@ -69,22 +71,24 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
   }
 
   "DoYouWantToAddImportExport view" when {
+    val atarBool: Boolean = isEnabled(AtarSwitch)
+
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- DoYouWantToAddImportExport.options(mockConfig.atarAddTaxSwitch)) {
+        for (option <- DoYouWantToAddImportExport.options(atarBool)) {
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
 
-    for (option <- DoYouWantToAddImportExport.options(mockConfig.atarAddTaxSwitch)) {
+    for (option <- DoYouWantToAddImportExport.options(atarBool)) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
-          for (unselectedOption <- DoYouWantToAddImportExport.options(mockConfig.atarAddTaxSwitch).filterNot(o => o == option)) {
+          for (unselectedOption <- DoYouWantToAddImportExport.options(atarBool).filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
@@ -103,8 +107,9 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
   "eBTI" should {
     "rendered" must {
       "not display the eBTI option" in {
+        val atarBool: Boolean = isEnabled(AtarSwitch)
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- DoYouWantToAddImportExport.options(mockConfig.atarAddTaxSwitch)) {
+        for (option <- DoYouWantToAddImportExport.options(atarBool)) {
           assertNotRenderedById(doc, "doYouWantToAddImportExport.eBTI")
         }
       }

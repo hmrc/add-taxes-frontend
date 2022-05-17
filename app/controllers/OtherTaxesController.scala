@@ -17,6 +17,8 @@
 package controllers
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.PptSwitch
+import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions._
 import forms.OtherTaxesFormProvider
 import identifiers.OtherTaxesId
@@ -35,14 +37,14 @@ import views.html.{organisation_only, otherTaxes}
 
 import scala.concurrent.Future
 
-class OtherTaxesController @Inject()(appConfig: FrontendAppConfig,
-                                     mcc: MessagesControllerComponents,
+class OtherTaxesController @Inject()(mcc: MessagesControllerComponents,
                                      navigator: Navigator[Call],
                                      authenticate: AuthAction,
                                      serviceInfoData: ServiceInfoAction,
                                      formProvider: OtherTaxesFormProvider,
                                      otherTaxes: otherTaxes,
-                                     organisation_only: organisation_only)
+                                     organisation_only: organisation_only,
+                                     implicit val appConfig: FrontendAppConfig)
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
   val form: Form[OtherTaxes] = formProvider()
@@ -130,7 +132,7 @@ class OtherTaxesController @Inject()(appConfig: FrontendAppConfig,
 
   private val checkPPT: CoreEnrolments => Option[RadioOption] = e => {
     val ppt: Option[Enrolment] = e.getEnrolment(Enrolments.PPT.toString)
-    if(appConfig.pptFeatureSwitch && ppt.isEmpty) Some(PPT.toRadioOption) else None
+    if(isEnabled(PptSwitch) && ppt.isEmpty) Some(PPT.toRadioOption) else None
   }
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>

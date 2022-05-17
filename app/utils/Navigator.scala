@@ -19,12 +19,11 @@ package utils
 import javax.inject.{Inject, Singleton}
 import config.FrontendAppConfig
 import play.api.mvc.Request
-import playconfig.featuretoggle.FeatureConfig
 
 @Singleton
-class Navigator[C] @Inject()(frontendAppConfig: FrontendAppConfig, config: FeatureConfig) {
+class Navigator[C] @Inject()(frontendAppConfig: FrontendAppConfig) {
 
   def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B, C], request: Request[_]): C =
-    ev.get(b)(frontendAppConfig, config, request)
+    ev.get(b)(frontendAppConfig, request)
 
 }

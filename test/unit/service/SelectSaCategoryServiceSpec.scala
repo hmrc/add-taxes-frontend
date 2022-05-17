@@ -40,8 +40,8 @@ class SelectSaCategoryServiceSpec extends ControllerSpecBase with MockitoSugar w
     val testService: SelectSaCategoryService = new SelectSaCategoryService(
       mockDataCacheConnector,
       mockKnownFactsService,
-      frontendAppConfig,
-      mockAuditService) {override val accessMtdFeatureSwitch: Boolean = false}
+      mockAuditService,
+      frontendAppConfig) {override val accessMtdFeatureSwitch: Boolean = false}
   }
 
   override def beforeEach(): Unit = {

@@ -24,7 +24,6 @@ import controllers.other.importexports.nes.{routes => nesRoutes}
 import identifiers.DoYouHaveEORINumberId
 import models.other.importexports.DoYouHaveEORINumber
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait DoYouHaveEORINumberNextPage {
@@ -33,7 +32,6 @@ trait DoYouHaveEORINumberNextPage {
     new NextPage[DoYouHaveEORINumberId.ICS.type, DoYouHaveEORINumber, Call] {
       override def get(b: DoYouHaveEORINumber)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoYouHaveEORINumber.Yes =>
@@ -47,7 +45,6 @@ trait DoYouHaveEORINumberNextPage {
     new NextPage[DoYouHaveEORINumberId.EBTI.type, DoYouHaveEORINumber, Call] {
       override def get(b: DoYouHaveEORINumber)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoYouHaveEORINumber.Yes =>
@@ -61,7 +58,6 @@ trait DoYouHaveEORINumberNextPage {
     new NextPage[DoYouHaveEORINumberId.NCTS.type, DoYouHaveEORINumber, Call] {
       override def get(b: DoYouHaveEORINumber)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoYouHaveEORINumber.Yes =>
@@ -75,7 +71,6 @@ trait DoYouHaveEORINumberNextPage {
     new NextPage[DoYouHaveEORINumberId.NES.type, DoYouHaveEORINumber, Call] {
       override def get(b: DoYouHaveEORINumber)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoYouHaveEORINumber.Yes => nesRoutes.DoYouHaveCHIEFRoleHasEORIController.onPageLoad()

@@ -22,7 +22,6 @@ import play.api.mvc.{Call, Request}
 import models.employer.pension.DoYouHavePractitionerID
 import utils.NextPage
 import controllers.employer.pension.routes._
-import playconfig.featuretoggle.FeatureConfig
 
 trait DoYouHavePractitionerIDNextPage {
 
@@ -30,7 +29,6 @@ trait DoYouHavePractitionerIDNextPage {
     new NextPage[DoYouHavePractitionerIDId.type, DoYouHavePractitionerID, Call] {
       override def get(b: DoYouHavePractitionerID)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoYouHavePractitionerID.Yes => DoYouHaveActivationTokenController.onPageLoad()

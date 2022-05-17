@@ -17,6 +17,8 @@
 package controllers.sa
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.IvUpliftSwitch
+import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import javax.inject.Inject
 import play.api.Logging
@@ -32,14 +34,14 @@ class IvJourneyController @Inject()(ivService: IvService,
                                     mcc: MessagesControllerComponents,
                                     authenticate: AuthAction,
                                     serviceInfoData: ServiceInfoAction,
-                                   appConfig: FrontendAppConfig)
+                                    implicit val appConfig: FrontendAppConfig)
   extends FrontendController(mcc) with I18nSupport with Logging {
 
   implicit val ec: ExecutionContext = mcc.executionContext
 
   def ivRouter(origin: String, journeyId: Option[String] = None): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
-        if(appConfig.ivUpliftFeatureSwitch) {
+        if(isEnabled(IvUpliftSwitch)) {
           journeyId match {
             case Some(id) => ivService.ivCheckAndEnrolUplift(origin, id)
             case _ =>

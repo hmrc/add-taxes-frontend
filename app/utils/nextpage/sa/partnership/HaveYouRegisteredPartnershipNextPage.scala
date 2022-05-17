@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import identifiers.HaveYouRegisteredPartnershipId
 import models.sa.partnership.HaveYouRegisteredPartnership
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
 import utils.{HmrcEnrolmentType, NextPage}
 import uk.gov.hmrc.auth.core.Enrolments
 
@@ -35,7 +34,6 @@ trait HaveYouRegisteredPartnershipNextPage {
 
       override def get(enrolmentDetails: HaveYouRegisteredPartnershipWithRequest)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         enrolmentDetails match {
           case (HaveYouRegisteredPartnership.Yes, _) =>

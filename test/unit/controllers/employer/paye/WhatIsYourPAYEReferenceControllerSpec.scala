@@ -16,6 +16,7 @@
 
 package controllers.employer.paye
 
+import config.featureToggles.FeatureToggleSupport
 import connectors.EnrolmentStoreProxyConnector
 import controllers._
 import forms.employer.paye.WhatIsYourPAYEReferenceFormProvider
@@ -27,7 +28,6 @@ import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import playconfig.featuretoggle.FeatureToggleSupport
 import service.AuditService
 import uk.gov.hmrc.play.audit.http.connector.AuditResult
 import utils.{Enrolments, FakeNavigator}

@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import identifiers.StopCorporationTaxId
 import models.deenrolment.StopCorporationTax
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
+
 import utils.Enrolments.CT
 import utils.NextPage
 
@@ -30,7 +30,6 @@ trait StopCorporationTaxNextPage {
     new NextPage[StopCorporationTaxId.type, StopCorporationTax, Call] {
       override def get(b: StopCorporationTax)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case StopCorporationTax.Stop    => Call("GET", appConfig.emacDeenrolmentsUrl(CT))

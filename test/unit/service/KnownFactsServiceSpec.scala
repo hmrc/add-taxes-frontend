@@ -17,6 +17,8 @@
 package service
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.IvUpliftSwitch
+import config.featureToggles.FeatureToggleSupport
 import connectors.{CitizensDetailsConnector, DataCacheConnector, EnrolmentStoreProxyConnector}
 import controllers.ControllerSpecBase
 import controllers.sa.{routes => saRoutes}
@@ -40,7 +42,7 @@ import uk.gov.hmrc.play.audit.http.connector.AuditResult
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach {
+class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach with FeatureToggleSupport {
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
   implicit val request = ServiceInfoRequest[AnyContent](
@@ -64,9 +66,9 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
     mockDataCacheConnector,
     mockEnrolmentStoreProxyConnector,
     mockAuditService,
-    mockAppConfig,
     errorHandler,
-    mockCIDConnector
+    mockCIDConnector,
+    mockAppConfig
   )
 
   override def beforeEach(): Unit = {
@@ -98,6 +100,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
       }
 
       "return redirect to Iv when user passes queryKnownFacts" in {
+        disable(IvUpliftSwitch)
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())).thenReturn(Future.successful(Some(utr)))
         when(mockEnrolmentStoreProxyConnector.queryKnownFacts(any(), any())(any(), any()))
           .thenReturn(Future.successful(KnownFactsReturn(utr.value, knownFactsResult = true)))
@@ -109,6 +112,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
       }
 
       "return redirect to Iv when user passes queryKnownFacts and all ninos match" in {
+        enable(IvUpliftSwitch)
         implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
           AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L50, Some("AA00000A")),
           HtmlFormat.empty)

@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import identifiers.DoYouNeedToStopRGDId
 import play.api.mvc.{Call, Request}
 import models.deenrolment.DoYouNeedToStopRGD
-import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait DoYouNeedToStopRGDNextPage {
@@ -29,7 +28,6 @@ trait DoYouNeedToStopRGDNextPage {
     new NextPage[DoYouNeedToStopRGDId.type, DoYouNeedToStopRGD, Call] {
       override def get(b: DoYouNeedToStopRGD)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoYouNeedToStopRGD.Yes => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.RemoteGaming))

@@ -29,6 +29,7 @@ object WhichVATServicesToAdd {
   case object RCSL extends WithName("rcsl") with WhichVATServicesToAdd
   case object MOSS extends WithName("moss") with WhichVATServicesToAdd
   case object NOVA extends WithName("nova") with WhichVATServicesToAdd
+  case object VATOSS extends WithName("vatoss") with WhichVATServicesToAdd
 
   val values: Seq[WhichVATServicesToAdd] = Seq(
     VAT,
@@ -37,15 +38,24 @@ object WhichVATServicesToAdd {
     EURefunds,
     RCSL,
     MOSS,
-    NOVA
+    NOVA,
+    VATOSS
   )
 
-  def options: Seq[RadioOption] = {
-    val valuesSeq = values.map { value =>
-      RadioOption("whichVATServicesToAdd", value.toString)
+  def options(ossFeatureSwitch: Boolean = false): Seq[RadioOption] = {
+    val valuesSeq = {
+      if (ossFeatureSwitch) {
+        values.map { value =>
+          RadioOption("whichVATServicesToAdd", value.toString)
+        }
+      } else {
+        values.filterNot(x => x.equals(VATOSS)).map { value =>
+          RadioOption("whichVATServicesToAdd", value.toString)
+        }
+      }
     }
-   RadioOption("whichVATServicesToAdd", VAT.toString) +: valuesSeq.filter(x => x.value != VAT.toString).sortBy(_.value)
 
+    RadioOption("whichVATServicesToAdd", VAT.toString) +: valuesSeq.filter(x => x.value != VAT.toString).sortBy(_.value)
   }
 
   implicit val enumerable: Enumerable[WhichVATServicesToAdd] =

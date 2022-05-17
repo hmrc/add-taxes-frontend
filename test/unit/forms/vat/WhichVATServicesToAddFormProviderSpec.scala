@@ -23,7 +23,7 @@ import models.vat._
 class WhichVATServicesToAddFormProviderSpec extends FormBehaviours {
 
   val validData: Map[String, String] = Map(
-    "value" -> WhichVATServicesToAdd.options.head.value
+    "value" -> WhichVATServicesToAdd.options().head.value
   )
 
   val form = new WhichVATServicesToAddFormProvider()()
@@ -34,6 +34,6 @@ class WhichVATServicesToAddFormProviderSpec extends FormBehaviours {
 
     behave like formWithOptionField(
       Field("value", Required -> "whichVATServicesToAdd.error.required", Invalid -> "error.invalid"),
-      WhichVATServicesToAdd.options.map(_.value): _*)
+      WhichVATServicesToAdd.options().map(_.value): _*)
   }
 }

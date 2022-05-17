@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import identifiers.DoYouHaveAPptRegId
 import models.other.ppt.DoYouHaveAPptReference
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
 import utils.NextPage
 import controllers.other.ppt.{routes => pptRoutes}
 
@@ -31,7 +30,6 @@ trait DoYouHaveAPptReferenceNextPage {
       new NextPage[DoYouHaveAPptRegId.type, DoYouHaveAPptReference, Call] {
         override def get(b: DoYouHaveAPptReference)(
           implicit appConfig: FrontendAppConfig,
-          featureConfig: FeatureConfig,
           request: Request[_]): Call =
           b match {
             case DoYouHaveAPptReference.Yes => Call("GET", appConfig.pptEnrolmentUrl())

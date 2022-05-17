@@ -21,13 +21,13 @@ import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
-import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, TestSuite}
+import config.featureToggles.{FeatureSwitch, FeatureToggleSupport}
 import org.scalatest.concurrent.{Eventually, IntegrationPatience}
+import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, TestSuite}
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Injecting
 import play.api.{Application, Environment, Mode}
-import playconfig.featuretoggle.{Feature, FeatureToggleSupport}
 import support.AddTaxesIntegrationTest.{stubHost, stubPort}
 
 trait AddTaxesIntegrationTest
@@ -70,11 +70,12 @@ trait AddTaxesIntegrationTest
     "self-service-time-to-pay-frontend",
     "tax-enrolments",
     "des",
-    "citizen-details"
+    "citizen-details",
+    "vat-oss-registration-frontend"
   )
 
   protected def resetAllFeatures(): Unit =
-    Feature.allTogglableFeatures.foreach(removeOverride)
+    FeatureSwitch.featureSwitches.foreach(resetValue)
 
   lazy val wmConfig: WireMockConfiguration = wireMockConfig()
     .port(stubPort)

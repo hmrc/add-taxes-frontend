@@ -22,7 +22,6 @@ import play.api.mvc.{Call, Request}
 import models.other.ctf.AreYouApprovedCTF
 import utils.{Enrolments, NextPage}
 import controllers.other.ctf.{routes => ctfRoutes}
-import playconfig.featuretoggle.FeatureConfig
 
 trait AreYouApprovedCTFNextPage {
 
@@ -30,7 +29,6 @@ trait AreYouApprovedCTFNextPage {
     new NextPage[AreYouApprovedCTFId.type, AreYouApprovedCTF, Call] {
       override def get(b: AreYouApprovedCTF)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case AreYouApprovedCTF.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.CTF))

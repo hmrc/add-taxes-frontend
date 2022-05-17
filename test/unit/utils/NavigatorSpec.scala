@@ -21,7 +21,7 @@ import org.scalatestplus.mockito.MockitoSugar
 
 class NavigatorSpec extends SpecBase with MockitoSugar {
 
-  val navigator = new Navigator(frontendAppConfig, featureConfig)
+  val navigator = new Navigator(frontendAppConfig)
 
   "Navigator" when {
 

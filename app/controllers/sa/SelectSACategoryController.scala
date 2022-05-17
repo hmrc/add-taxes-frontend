@@ -17,6 +17,8 @@
 package controllers.sa
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.AccessMTD
+import config.featureToggles.FeatureToggleSupport.isEnabled
 import connectors.DataCacheConnector
 import controllers.actions._
 import controllers.sa.partnership.routes.DoYouWantToAddPartnerController
@@ -35,21 +37,21 @@ import views.html.sa.selectSACategory
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class SelectSACategoryController @Inject()(appConfig: FrontendAppConfig,
-                                           mcc: MessagesControllerComponents,
+class SelectSACategoryController @Inject()(mcc: MessagesControllerComponents,
                                            authenticate: AuthAction,
                                            serviceInfoData: ServiceInfoAction,
                                            formProvider: SelectSACategoryFormProvider,
                                            selectSACategory: selectSACategory,
                                            selectSaCategoryService: SelectSaCategoryService,
                                            credFinderService: CredFinderService,
-                                           dataCacheConnector: DataCacheConnector
+                                           dataCacheConnector: DataCacheConnector,
+                                           implicit val appConfig: FrontendAppConfig
                                           )
-  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits  {
 
   implicit val ec: ExecutionContext = mcc.executionContext
 
-  val accessMtdFeatureSwitch: Boolean = appConfig.accessMtdFeatureSwitch
+  val accessMtdFeatureSwitch: Boolean = isEnabled(AccessMTD)
 
   val form: Form[SelectSACategory] = formProvider()
 

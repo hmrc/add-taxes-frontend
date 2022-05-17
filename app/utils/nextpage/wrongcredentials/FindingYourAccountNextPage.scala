@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import identifiers.FindingYourAccountId
 import models.wrongcredentials.FindingYourAccount
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
 import utils.{ForgottenOptions, NextPage}
 
 trait FindingYourAccountNextPage {
@@ -29,7 +28,6 @@ trait FindingYourAccountNextPage {
     new NextPage[FindingYourAccountId.type, FindingYourAccount, Call] {
       override def get(b: FindingYourAccount)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case FindingYourAccount.DontKnowPassword =>

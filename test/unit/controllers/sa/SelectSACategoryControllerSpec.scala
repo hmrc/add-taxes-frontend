@@ -50,7 +50,6 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
 
   def controller()(enrolmentTypes: HmrcEnrolmentType*): SelectSACategoryController = {
     new SelectSACategoryController(
-      frontendAppConfig,
       mcc,
       FakeAuthAction,
       FakeServiceInfoAction(enrolmentTypes: _*),
@@ -58,7 +57,8 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
       view,
       mockSaCategoryService,
       mockCredFinderService,
-      mockDataCacheConnector
+      mockDataCacheConnector,
+      frontendAppConfig
     ) {override val accessMtdFeatureSwitch: Boolean = false}
   }
 

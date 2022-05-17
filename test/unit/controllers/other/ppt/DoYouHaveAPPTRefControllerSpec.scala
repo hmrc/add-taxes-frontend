@@ -32,14 +32,14 @@ class DoYouHaveAPPTRefControllerSpec extends ControllerSpecBase {
 
   def controller(desiredRoute: Call = onwardRoute, pptSwitch: Boolean = true) =
     new DoYouHaveAPPTRefController(
-      frontendAppConfig,
       mcc,
       new FakeNavigator[Call](desiredRoute = desiredRoute),
       errorHandler,
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider,
-      view
+      view,
+      frontendAppConfig
     ) {
       override val pptFeatureSwitch: Boolean = pptSwitch
     }

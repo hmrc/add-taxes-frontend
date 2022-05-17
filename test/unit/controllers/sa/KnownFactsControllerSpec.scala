@@ -16,6 +16,7 @@
 
 package controllers.sa
 
+import config.featureToggles.FeatureToggleSupport
 import controllers._
 import controllers.sa.{routes => saRoutes}
 import forms.sa.KnownFactsNinoFormProvider
@@ -28,7 +29,6 @@ import play.api.mvc.Call
 import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import playconfig.featuretoggle.FeatureToggleSupport
 import service.KnownFactsService
 import utils.KnownFactsFormValidator
 import views.html.sa.knownFacts
@@ -45,7 +45,7 @@ class KnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar with
   val btaOrigin: String = "bta-sa"
 
   val formProvider = new KnownFactsNinoFormProvider(knownFactsValidator, frontendAppConfig)
-  val form = formProvider()
+  val form: Form[KnownFactsNino] = formProvider()
 
   def controller(): KnownFactsController = {
     new KnownFactsController(

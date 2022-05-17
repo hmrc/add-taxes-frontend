@@ -21,7 +21,6 @@ import controllers.vat.{routes => vatRoutes}
 import identifiers.DoYouHaveVATRegNumberId
 import models.vat.DoYouHaveVATRegNumber
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
 import uk.gov.hmrc.auth.core.AffinityGroup
 import utils.NextPage
 
@@ -34,7 +33,6 @@ trait DoYouHaveVATRegNumberNextPage {
     new NextPage[DoYouHaveVATRegNumberId.type, DoYouHaveVATRegNumberWithRequests, Call] {
       override def get(b: DoYouHaveVATRegNumberWithRequests)(
         implicit appConfig: FrontendAppConfig,
-        config: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case (DoYouHaveVATRegNumber.Yes, _) => vatRoutes.WhatIsYourVATRegNumberController.onPageLoad()

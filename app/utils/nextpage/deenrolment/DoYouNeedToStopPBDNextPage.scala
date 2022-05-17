@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import identifiers.DoYouNeedToStopPBDId
 import play.api.mvc.{Call, Request}
 import models.deenrolment.DoYouNeedToStopPBD
-import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait DoYouNeedToStopPBDNextPage {
@@ -29,7 +28,6 @@ trait DoYouNeedToStopPBDNextPage {
     new NextPage[DoYouNeedToStopPBDId.type, DoYouNeedToStopPBD, Call] {
       override def get(b: DoYouNeedToStopPBD)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoYouNeedToStopPBD.Yes => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.PoolBetting))

@@ -16,6 +16,7 @@
 
 package playconfig.featuretoggle
 
+import config.featureToggles.FeatureSwitch
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
@@ -23,33 +24,11 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 class FeatureObjectSpec extends PlaySpec with GuiceOneAppPerSuite {
 
   "Feature.allTogglableFeatures" should {
-    "contain all members of Feature" in {
-      import scala.reflect.runtime.universe
-      val mirror = universe.runtimeMirror(getClass.getClassLoader)
-
-      import scala.reflect.runtime.universe._
-
-      def sealedDescendants[Root: TypeTag]: Set[Symbol] = {
-        val symbol = typeOf[Root].typeSymbol
-        val internal = symbol.asInstanceOf[scala.reflect.internal.Symbols#Symbol]
-        if (internal.isSealed) { internal.sealedDescendants.map(_.asInstanceOf[Symbol]) - symbol } else { Set.empty }
-      }
-
-      val descendants = sealedDescendants[Feature]
-
-      val features: Set[Feature] = descendants.collect {
-        case desc if desc.isModuleClass =>
-          val module = mirror.staticModule(desc.asClass.fullName)
-          mirror.reflectModule(module).instance.asInstanceOf[Feature]
-      }
-      Feature.allTogglableFeatures mustBe features
-    }
-
     "have an associated config value under feature-toggles" in {
       val config = app.injector.instanceOf[ServicesConfig]
-      Feature.allTogglableFeatures foreach { feature =>
-        withClue(s"feature: $feature\n") {
-          Option(config.getBoolean(feature.toString)).isDefined mustBe true
+      FeatureSwitch.featureSwitches foreach { feature =>
+        withClue(s"feature: ${feature.name}\n") {
+          Option(config.getBoolean(feature.name.toString)).isDefined mustBe true
         }
       }
     }

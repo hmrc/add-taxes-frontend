@@ -22,7 +22,6 @@ import play.api.mvc.{Call, Request}
 import models.employer.paye.DoesYourPartnershipHave2To10Partners
 import utils.NextPage
 import controllers.employer.{routes => employerPayeRoutes}
-import playconfig.featuretoggle.FeatureConfig
 
 trait DoesYourPartnershipHave2To10PartnersNextPage {
 
@@ -31,7 +30,6 @@ trait DoesYourPartnershipHave2To10PartnersNextPage {
     new NextPage[DoesYourPartnershipHave2To10PartnersId.type, DoesYourPartnershipHave2To10Partners, Call] {
       override def get(b: DoesYourPartnershipHave2To10Partners)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoesYourPartnershipHave2To10Partners.Yes => Call("GET", appConfig.getPortalUrl("selectTaxes"))
