@@ -30,7 +30,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class AuditService @Inject()(auditConnector: AuditConnector) {
 
-  final private val enrolmentChecker: String = "business-tax-account-check"
+  final private val auditSource: String = "add-taxes-frontend"
   final private val utrEvent: String = "UTR-check"
   final private val payeEvent: String = "PAYE-check"
   final private val saKnownFactsEvent: String = "SA-knownfacts-result-check"
@@ -55,7 +55,7 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
     )
 
     val data = DataEvent(
-      enrolmentChecker,
+      auditSource,
       utrEvent,
       tags = buildTags(),
       detail = detail
@@ -87,7 +87,7 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
     )
 
     val data = DataEvent(
-      enrolmentChecker,
+      auditSource,
       saKnownFactsEvent,
       tags = buildTags(),
       detail = detail
@@ -104,7 +104,7 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
     )
 
     val data = DataEvent(
-      enrolmentChecker,
+      auditSource,
       payeEvent,
       tags = buildTags(),
       detail = detail
@@ -135,7 +135,7 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
       "groupID" -> groupId
     )
     val data = DataEvent(
-      enrolmentChecker,
+      auditSource,
       selectSACategoryEvent,
       tags = buildTags(),
       detail = detail
@@ -152,7 +152,7 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
       "IOType" -> doYouWantToAddImportExport.toString
     )
     val data = DataEvent(
-      enrolmentChecker,
+      auditSource,
       selectIOCategoryEvent,
       tags = buildTags(),
       detail = detail
