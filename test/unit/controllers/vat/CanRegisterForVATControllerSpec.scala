@@ -16,11 +16,11 @@
 
 package controllers.vat
 
+import config.featureToggles.FeatureToggleSupport
 import controllers._
 import org.scalatest.BeforeAndAfterEach
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import playconfig.featuretoggle.FeatureToggleSupport
 import views.html.vat.canRegisterForVAT
 
 class CanRegisterForVATControllerSpec extends ControllerSpecBase with BeforeAndAfterEach with FeatureToggleSupport {

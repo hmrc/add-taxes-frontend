@@ -17,12 +17,18 @@
 package controllers.vat
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.VatOssSwitch
+import config.featureToggles.FeatureToggleSupport
+import config.featureToggles.FeatureToggleSupport.isEnabled
+import connectors.OssConnector
 import controllers.actions._
 import forms.vat.WhichVATServicesToAddFormProvider
+import handlers.ErrorHandler
 import identifiers.WhichVATServicesToAddId
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.vat.WhichVATServicesToAdd
+import play.api.Logging
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
@@ -30,34 +36,58 @@ import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enumerable, HmrcEnrolmentType, Navigator, RadioOption}
 import views.html.vat.whichVATServicesToAdd
 
-class WhichVATServicesToAddController @Inject()(appConfig: FrontendAppConfig,
-                                                mcc: MessagesControllerComponents,
+import scala.concurrent.{ExecutionContext, Future}
+
+class WhichVATServicesToAddController @Inject()(mcc: MessagesControllerComponents,
                                                 navigator: Navigator[Call],
                                                 authenticate: AuthAction,
                                                 serviceInfoData: ServiceInfoAction,
                                                 formProvider: WhichVATServicesToAddFormProvider,
-                                                whichVATServicesToAdd: whichVATServicesToAdd)
-  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
+                                                ossConnector: OssConnector,
+                                                errorHandler: ErrorHandler,
+                                                whichVATServicesToAdd: whichVATServicesToAdd,
+                                                implicit val appConfig: FrontendAppConfig)
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits with Logging with FeatureToggleSupport {
+
+  implicit val ec: ExecutionContext = mcc.executionContext
 
   val form: Form[WhichVATServicesToAdd] = formProvider()
   val optionsWithoutVAT: Seq[RadioOption] =
-    WhichVATServicesToAdd.options.filterNot(_.value == WhichVATServicesToAdd.VAT.toString)
+    WhichVATServicesToAdd.options(ossFeatureSwitch = isEnabled(VatOssSwitch)).filterNot(_.value == WhichVATServicesToAdd.VAT.toString)
 
   private def radioOptions(implicit request: ServiceInfoRequest[AnyContent]): Seq[RadioOption] =
     request.request.enrolments match {
       case HmrcEnrolmentType.VAT() | HmrcEnrolmentType.MTDVAT() => optionsWithoutVAT
-      case _                       => WhichVATServicesToAdd.options
+      case _                       => WhichVATServicesToAdd.options(ossFeatureSwitch = isEnabled(VatOssSwitch))
     }
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(whichVATServicesToAdd(appConfig, form, radioOptions)(request.serviceInfoContent))
   }
 
-  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(whichVATServicesToAdd(appConfig, formWithErrors, radioOptions)(request.serviceInfoContent)),
-        value => Redirect(navigator.nextPage(WhichVATServicesToAddId, (value, request.request.affinityGroup, request.request.enrolments)))
+        formWithErrors => Future.successful(BadRequest(whichVATServicesToAdd(appConfig, formWithErrors, radioOptions)(request.serviceInfoContent))),
+        value =>
+          value match {
+            case WhichVATServicesToAdd.VATOSS if (isEnabled(VatOssSwitch)) => {
+              for (
+                redirectString <- ossConnector.ossRegistrationJourneyLink()
+              ) yield {
+                redirectString.redirectUrl match {
+                  case Some(url) => Redirect(navigator.nextPage(WhichVATServicesToAddId,
+                      (value, request.request.affinityGroup,
+                        request.request.enrolments,
+                        appConfig.vatOssRedirectUrl(url))))
+                  case _ =>
+                    logger.warn("[WhichVATServicesToAddController][onSubmit] No URL passed from OSS Call")
+                    InternalServerError(errorHandler.internalServerErrorTemplate)
+                }
+              }
+            }
+            case _ => Future.successful(Redirect(navigator.nextPage(WhichVATServicesToAddId, (value, request.request.affinityGroup, request.request.enrolments, ""))))
+          }
       )
   }
 }

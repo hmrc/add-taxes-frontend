@@ -16,6 +16,8 @@
 
 package controllers
 
+import config.featureToggles.FeatureSwitch.PptSwitch
+import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions._
 import forms.OtherTaxesFormProvider
 import models.OtherTaxes
@@ -44,20 +46,20 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
 
   def controller(fakeAuthAction: AuthAction = FakeAuthAction): OtherTaxesController = {
     new OtherTaxesController(
-      frontendAppConfig,
       mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       fakeAuthAction,
       FakeServiceInfoAction,
       formProvider,
       view,
-      orgOnly
+      orgOnly,
+      frontendAppConfig
     )
   }
 
 
   def listOfAllRadioOptions: Seq[RadioOption] = {
-    if(frontendAppConfig.pptFeatureSwitch) {
+    if(isEnabled(PptSwitch)) {
       Seq(
         RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing"),
         RadioOption("otherTaxes", "automaticExchangeOfInformation"),

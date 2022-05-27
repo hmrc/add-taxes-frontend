@@ -17,6 +17,8 @@
 package controllers.sa
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.IvUpliftSwitch
+import config.featureToggles.FeatureToggleSupport.isEnabled
 import connectors.DataCacheConnector
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import identifiers.EnterSAUTRId
@@ -32,10 +34,10 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class TryIvController @Inject()(authenticate: AuthAction,
                                 serviceInfoData: ServiceInfoAction,
-                                appConfig: FrontendAppConfig,
                                 mcc: MessagesControllerComponents,
                                 saService: SaService,
-                                dataCacheConnector: DataCacheConnector)
+                                dataCacheConnector: DataCacheConnector,
+                                implicit val appConfig: FrontendAppConfig)
   extends FrontendController(mcc) with I18nSupport with Logging {
 
   implicit val ec: ExecutionContext = mcc.executionContext
@@ -45,7 +47,7 @@ class TryIvController @Inject()(authenticate: AuthAction,
         val utr = dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
         val urlString: Future[String] = utr.flatMap {
           case Some(utr) =>
-            if(appConfig.ivUpliftFeatureSwitch) {
+            if(isEnabled(IvUpliftSwitch)) {
               Future.successful(appConfig.ivUpliftUrl(origin))
             } else {
               saService.getIvRedirectLink(utr.value, origin)

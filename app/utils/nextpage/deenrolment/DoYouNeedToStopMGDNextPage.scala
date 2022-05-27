@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import identifiers.DoYouNeedToStopMGDId
 import play.api.mvc.{Call, Request}
 import models.deenrolment.DoYouNeedToStopMGD
-import playconfig.featuretoggle.FeatureConfig
 import uk.gov.hmrc.auth.core.Enrolment
 import utils.{Enrolments, NextPage}
 
@@ -33,13 +32,10 @@ trait DoYouNeedToStopMGDNextPage {
     new NextPage[DoYouNeedToStopMGDId.type, DoYouNeedToStopMGDWithEnrolment, Either[String, Call]] {
       override def get(b: DoYouNeedToStopMGDWithEnrolment)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Either[String, Call] =
         b match {
-
           case (DoYouNeedToStopMGD.Yes, _) =>
             Right(Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.MachineGamesDuty)))
-
           case (DoYouNeedToStopMGD.No, Some(enrolment)) =>
             enrolment.identifiers.toList match {
               case Nil    => Left(s"unable to find identifier for ${enrolment.key}")

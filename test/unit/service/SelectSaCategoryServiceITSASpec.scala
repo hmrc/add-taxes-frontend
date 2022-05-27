@@ -40,8 +40,8 @@ class SelectSaCategoryServiceITSASpec extends ControllerSpecBase with MockitoSug
     val testService: SelectSaCategoryService = new SelectSaCategoryService(
       mockDataCacheConnector,
       mockKnownFactsService,
-      frontendAppConfig,
-      mockAuditService){override val accessMtdFeatureSwitch: Boolean = true}
+      mockAuditService,
+      frontendAppConfig){override val accessMtdFeatureSwitch: Boolean = true}
   }
 
   override def beforeEach(): Unit = {

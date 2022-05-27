@@ -16,6 +16,7 @@
 
 package playconfig.featuretoggle
 
+import config.featureToggles.{FeatureSwitch, FeatureToggleSupport}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
@@ -31,10 +32,9 @@ class FeatureConfigSpec extends PlaySpec with GuiceOneAppPerSuite with FeatureTo
     .build()
 
   val appConf: ServicesConfig = app.injector.instanceOf[ServicesConfig]
-  val config: FeatureConfig = app.injector.instanceOf[FeatureConfig]
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    Feature.allTogglableFeatures.foreach(removeOverride)
+    FeatureSwitch.featureSwitches.foreach(resetValue)
   }
 }

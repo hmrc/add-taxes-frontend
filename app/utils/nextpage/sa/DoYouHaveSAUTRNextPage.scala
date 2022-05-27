@@ -21,7 +21,6 @@ import identifiers.DoYouHaveSAUTRId
 import controllers.sa.routes._
 import play.api.mvc.{Call, Request}
 import models.sa.DoYouHaveSAUTR
-import playconfig.featuretoggle.FeatureConfig
 import utils.NextPage
 
 trait DoYouHaveSAUTRNextPage {
@@ -30,7 +29,6 @@ trait DoYouHaveSAUTRNextPage {
     new NextPage[DoYouHaveSAUTRId.type, DoYouHaveSAUTR, Call] {
       override def get(b: DoYouHaveSAUTR)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoYouHaveSAUTR.Yes => EnterSAUTRController.onPageLoad(Some("bta-sa"))

@@ -22,7 +22,6 @@ import models.other.alcohol.awrs.SelectAlcoholScheme
 import play.api.mvc.{Call, Request}
 import utils.NextPage
 import controllers.other.alcohol.atwd.{routes => atwdRoutes}
-import playconfig.featuretoggle.FeatureConfig
 
 trait SelectAlcoholSchemeNextPage {
 
@@ -30,7 +29,6 @@ trait SelectAlcoholSchemeNextPage {
     new NextPage[SelectAlcoholSchemeId.type, SelectAlcoholScheme, Call] {
       override def get(b: SelectAlcoholScheme)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case SelectAlcoholScheme.ATWD => atwdRoutes.AreYouRegisteredWarehousekeeperController.onPageLoad()

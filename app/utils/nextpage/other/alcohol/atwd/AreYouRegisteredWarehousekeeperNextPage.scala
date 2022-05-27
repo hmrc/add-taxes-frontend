@@ -22,7 +22,6 @@ import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
 import play.api.mvc.{Call, Request}
 import utils.{Enrolments, NextPage}
 import controllers.other.alcohol.atwd.{routes => atwdRoutes}
-import playconfig.featuretoggle.FeatureConfig
 
 trait AreYouRegisteredWarehousekeeperNextPage {
 
@@ -31,7 +30,6 @@ trait AreYouRegisteredWarehousekeeperNextPage {
     new NextPage[AreYouRegisteredWarehousekeeperId.type, AreYouRegisteredWarehousekeeper, Call] {
       override def get(b: AreYouRegisteredWarehousekeeper)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case AreYouRegisteredWarehousekeeper.Yes =>

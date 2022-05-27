@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import identifiers.HaveYouStoppedSelfEmploymentId
 import play.api.mvc.{Call, Request}
 import models.deenrolment.HaveYouStoppedSelfEmployment
-import playconfig.featuretoggle.FeatureConfig
+
 import utils.{Enrolments, NextPage}
 
 trait HaveYouStoppedSelfEmploymentNextPage {
@@ -30,7 +30,6 @@ trait HaveYouStoppedSelfEmploymentNextPage {
     new NextPage[HaveYouStoppedSelfEmploymentId.type, HaveYouStoppedSelfEmployment, Call] {
       override def get(b: HaveYouStoppedSelfEmployment)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case HaveYouStoppedSelfEmployment.Yes => Call("GET", appConfig.getBusinessAccountUrl("howToStopSA"))

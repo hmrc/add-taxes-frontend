@@ -17,11 +17,11 @@
 package utils.nextpage.vat
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureToggleSupport
 import models.vat.DoYouHaveVATRegNumber
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.Call
-import playconfig.featuretoggle.FeatureToggleSupport
 import uk.gov.hmrc.auth.core.AffinityGroup
 import utils.nextpage.NextPageSpecBase
 import utils.NextPage

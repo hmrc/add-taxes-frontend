@@ -17,6 +17,8 @@
 package controllers.sa
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.IvUpliftSwitch
+import config.featureToggles.FeatureToggleSupport
 import play.api.http.Status.SEE_OTHER
 import controllers.ControllerSpecBase
 import controllers.sa.{routes => saRoutes}
@@ -25,7 +27,6 @@ import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.Results._
 import play.api.test.Helpers.{defaultAwaitTimeout, redirectLocation, status}
-import playconfig.featuretoggle.FeatureToggleSupport
 import service.IvService
 
 import scala.concurrent.Future
@@ -35,7 +36,7 @@ class IvJourneyControllerSpec extends ControllerSpecBase with MockitoSugar with 
   val mockIvService: IvService = mock[IvService]
   val btaOrigin: String = "bta-sa"
   val journeyId: String = "12345"
-  val mockAppConfig = mock[FrontendAppConfig]
+  val mockAppConfig: FrontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
 
   def controller(): IvJourneyController = {
     new IvJourneyController(
@@ -49,6 +50,7 @@ class IvJourneyControllerSpec extends ControllerSpecBase with MockitoSugar with 
 
   "IvJourney Controller" must {
     "redirect to enrolment success page when checkAndEnrol returns redirect to enrolment success" in {
+      disable(IvUpliftSwitch)
       when(mockIvService.ivCheckAndEnrol(any())(any(), any(), any()))
         .thenReturn(Future.successful(Redirect(saRoutes.EnrolmentSuccessController.onPageLoad(btaOrigin))))
 
@@ -59,6 +61,7 @@ class IvJourneyControllerSpec extends ControllerSpecBase with MockitoSugar with 
     }
 
     "redirect to try pin and post page when checkAndEnrol returns redirect to try pin and post page" in {
+      disable(IvUpliftSwitch)
       when(mockIvService.ivCheckAndEnrol(any())(any(), any(), any()))
         .thenReturn(Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(btaOrigin))))
 
@@ -69,7 +72,7 @@ class IvJourneyControllerSpec extends ControllerSpecBase with MockitoSugar with 
     }
 
     "redirect to enrolment success page when checkAndEnrol returns redirect to enrolment success with journeyid and feature is true" in {
-      when(mockAppConfig.ivUpliftFeatureSwitch).thenReturn(true)
+      enable(IvUpliftSwitch)
       when(mockIvService.ivCheckAndEnrolUplift(any(),any())(any(), any(), any()))
         .thenReturn(Future.successful(Redirect(saRoutes.EnrolmentSuccessController.onPageLoad(btaOrigin))))
 
@@ -80,7 +83,7 @@ class IvJourneyControllerSpec extends ControllerSpecBase with MockitoSugar with 
     }
 
     "redirect to try pin and post page when checkAndEnrol returns redirect to try pin and post page with journeyid and feature is true" in {
-      when(mockAppConfig.ivUpliftFeatureSwitch).thenReturn(true)
+      enable(IvUpliftSwitch)
       when(mockIvService.ivCheckAndEnrolUplift(any(),any())(any(), any(), any()))
         .thenReturn(Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(btaOrigin))))
 
@@ -91,7 +94,7 @@ class IvJourneyControllerSpec extends ControllerSpecBase with MockitoSugar with 
     }
 
     "redirect to try pin and post page when checkAndEnrol returns redirect to try pin and post page without journeyid and feature is true" in {
-      when(mockAppConfig.ivUpliftFeatureSwitch).thenReturn(true)
+      enable(IvUpliftSwitch)
 
       val result = controller().ivRouter(btaOrigin, None)(fakeRequest)
 

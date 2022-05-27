@@ -17,6 +17,8 @@
 package controllers.other.ppt
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.PptSwitch
+import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import handlers.ErrorHandler
 import javax.inject.Inject
@@ -25,15 +27,15 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import views.html.other.ppt.you_need_a_ppt_ref
 
-class YouNeedAPptRefController @Inject()(appConfig: FrontendAppConfig,
-                                         mcc: MessagesControllerComponents,
+class YouNeedAPptRefController @Inject()(mcc: MessagesControllerComponents,
                                          errorHandler: ErrorHandler,
                                          authenticate: AuthAction,
                                          serviceInfoData: ServiceInfoAction,
-                                         youNeedAPptRefView: you_need_a_ppt_ref)
+                                         youNeedAPptRefView: you_need_a_ppt_ref,
+                                         implicit val appConfig: FrontendAppConfig)
   extends FrontendController(mcc) with I18nSupport {
 
-  val pptFeatureSwitch: Boolean = appConfig.pptFeatureSwitch
+  val pptFeatureSwitch: Boolean = isEnabled(PptSwitch)
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     if(pptFeatureSwitch) {

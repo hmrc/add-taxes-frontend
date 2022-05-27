@@ -29,7 +29,6 @@ import controllers.other.ppt.{routes => pptRoutes}
 import identifiers.OtherTaxesId
 import models.OtherTaxes
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
 import utils.NextPage
 
 trait OtherTaxesNextPage {
@@ -37,7 +36,7 @@ trait OtherTaxesNextPage {
   implicit val otherTaxes: NextPage[OtherTaxesId.type, OtherTaxes, Call] = {
     new NextPage[OtherTaxesId.type, OtherTaxes, Call] {
       override def get(
-        b: OtherTaxes)(implicit appConfig: FrontendAppConfig, featureConfig: FeatureConfig, request: Request[_]): Call =
+        b: OtherTaxes)(implicit appConfig: FrontendAppConfig, request: Request[_]): Call =
         b match {
           case OtherTaxes.AlcoholAndTobacco                            => alcoholRoutes.SelectAlcoholSchemeController.onPageLoad()
           case OtherTaxes.AutomaticExchangeOfInformation               => aeoiRoutes.HaveYouRegisteredAEOIController.onPageLoad()

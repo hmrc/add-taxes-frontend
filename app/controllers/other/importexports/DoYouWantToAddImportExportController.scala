@@ -17,6 +17,8 @@
 package controllers.other.importexports
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.AtarSwitch
+import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions._
 import forms.other.importexports.DoYouWantToAddImportExportFormProvider
 import identifiers.DoYouWantToAddImportExportId
@@ -32,28 +34,27 @@ import views.html.other.importexports.doYouWantToAddImportExport
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class DoYouWantToAddImportExportController @Inject()(appConfig: FrontendAppConfig,
-                                                     mcc: MessagesControllerComponents,
+class DoYouWantToAddImportExportController @Inject()(mcc: MessagesControllerComponents,
                                                      navigator: Navigator[Call],
                                                      authenticate: AuthAction,
                                                      serviceInfoData: ServiceInfoAction,
                                                      formProvider: DoYouWantToAddImportExportFormProvider,
                                                      doYouWantToAddImportExport: doYouWantToAddImportExport,
                                                      auditService: AuditService)
-                                                    (implicit val ec: ExecutionContext)
+                                                    (implicit val ec: ExecutionContext, appConfig: FrontendAppConfig)
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
   val form: Form[DoYouWantToAddImportExport] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouWantToAddImportExport(appConfig, form)(request.serviceInfoContent))
+    Ok(doYouWantToAddImportExport(appConfig, form, isEnabled(AtarSwitch))(request.serviceInfoContent))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(doYouWantToAddImportExport(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(doYouWantToAddImportExport(appConfig, formWithErrors, isEnabled(AtarSwitch))(request.serviceInfoContent))),
         value => {auditService.auditSelectIOCategory(request.request.credId, value, request.request.enrolments)
           Future.successful(Redirect(navigator.nextPage(DoYouWantToAddImportExportId, value)))}
       )

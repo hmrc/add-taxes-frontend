@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import identifiers.DoYouNeedToStopPSAId
 import play.api.mvc.{Call, Request}
 import models.deenrolment.DoYouNeedToStopPSA
-import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait DoYouNeedToStopPSANextPage {
@@ -29,7 +28,6 @@ trait DoYouNeedToStopPSANextPage {
     new NextPage[DoYouNeedToStopPSAId.type, DoYouNeedToStopPSA, Call] {
       override def get(b: DoYouNeedToStopPSA)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoYouNeedToStopPSA.Yes => Call("GET", appConfig.getGovUKUrl("stopPsa"))

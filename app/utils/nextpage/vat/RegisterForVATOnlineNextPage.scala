@@ -21,7 +21,6 @@ import controllers.vat.{routes => vatRoutes}
 import identifiers.RegisterForVATOnlineId
 import models.vat.RegisterForVATOnline
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
 import utils.NextPage
 
 trait RegisterForVATOnlineNextPage {
@@ -30,7 +29,6 @@ trait RegisterForVATOnlineNextPage {
     new NextPage[RegisterForVATOnlineId.type, RegisterForVATOnline, Call] {
       override def get(b: RegisterForVATOnline)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case RegisterForVATOnline.Yes => Call("GET", appConfig.getPortalUrl("selectTaxes"))

@@ -12,6 +12,7 @@
 # Add all the application routes to the prod.routes file
 ->         /                          prod.Routes
 
-GET        /business-account/add-tax/test-only/set-features                 @testonly.SetFeaturesController.set(features: List[(Feature, Boolean)])
-GET        /business-account/add-tax/test-only/get-features                 @testonly.GetFeaturesController.getAllFeatures()
-GET        /business-account/add-tax/test-only/reset-features               @testonly.ResetFeaturesController.reset()
+GET        /business-account/add-tax/test-only/feature-switch                                       testonly.FeatureSwitchController.onPageLoad()
+POST       /business-account/add-tax/test-only/feature-switch/submit                                testonly.FeatureSwitchController.onSubmit()
+GET        /business-account/add-tax/test-only/feature-switch/reset                                 testonly.FeatureSwitchController.reset()
+POST       /business-account/add-tax/test-only/feature-switch/reset                                 testonly.FeatureSwitchController.reset()

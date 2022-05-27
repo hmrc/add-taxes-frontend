@@ -22,7 +22,6 @@ import play.api.mvc.{Call, Request}
 import models.employer.paye.DoesBusinessHaveDirectorsOrPartners
 import utils.NextPage
 import controllers.employer.paye.{routes => employerPayeRoutes}
-import playconfig.featuretoggle.FeatureConfig
 
 trait DoesBusinessHaveDirectorsOrPartnersNextPage {
 
@@ -31,7 +30,6 @@ trait DoesBusinessHaveDirectorsOrPartnersNextPage {
     new NextPage[DoesBusinessHaveDirectorsOrPartnersId.type, DoesBusinessHaveDirectorsOrPartners, Call] {
       override def get(b: DoesBusinessHaveDirectorsOrPartners)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoesBusinessHaveDirectorsOrPartners.Yes =>

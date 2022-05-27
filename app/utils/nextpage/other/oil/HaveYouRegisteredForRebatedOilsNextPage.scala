@@ -21,7 +21,6 @@ import controllers.other.oil.routes
 import identifiers.HaveYouRegisteredForRebatedOilsId
 import models.other.oil.HaveYouRegisteredForRebatedOils
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait HaveYouRegisteredForRebatedOilsNextPage {
@@ -31,7 +30,6 @@ trait HaveYouRegisteredForRebatedOilsNextPage {
     new NextPage[HaveYouRegisteredForRebatedOilsId.type, HaveYouRegisteredForRebatedOils, Call] {
       override def get(b: HaveYouRegisteredForRebatedOils)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case HaveYouRegisteredForRebatedOils.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.RebatedOils))

@@ -17,6 +17,8 @@
 package service
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.AccessMTD
+import config.featureToggles.FeatureToggleSupport.isEnabled
 import connectors.DataCacheConnector
 import controllers.sa.partnership.{routes => saPartnerRoutes}
 import controllers.sa.trust.{routes => trustRoutes}
@@ -34,10 +36,10 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
                                         knownFactsService: KnownFactsService,
-                                        appConfig: FrontendAppConfig,
-                                        auditService: AuditService) {
+                                        auditService: AuditService,
+                                        implicit val appConfig: FrontendAppConfig) {
 
-  val accessMtdFeatureSwitch: Boolean = appConfig.accessMtdFeatureSwitch
+  val accessMtdFeatureSwitch: Boolean = isEnabled(AccessMTD)
 
   def saCategoryResult(saType: SelectSACategory,
                        doYouHaveSaUtr: DoYouHaveSAUTR,

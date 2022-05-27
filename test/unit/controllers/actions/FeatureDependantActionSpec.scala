@@ -16,19 +16,21 @@
 
 package controllers.actions
 
+import config.FrontendAppConfig
+import config.featureToggles.FeatureToggleSupport
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Request, Result}
 import play.api.test.FakeRequest
-import playconfig.featuretoggle._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class FeatureDependantActionSpec extends PlaySpec with FeatureToggleSupport with GuiceOneAppPerSuite {
 
-  val testFeatureDependantAction: FeatureDependantAction = new FeatureDependantAction(app.injector.instanceOf[FeatureConfig], global)
+  implicit val appConfig: FrontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
+  val testFeatureDependantAction: FeatureDependantAction = new FeatureDependantAction()
 
   val testRequest: Request[AnyContent] = FakeRequest()
   val testResultBody = "testBody"

@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import identifiers.AreYouSelfEmployedId
 import play.api.mvc.{Call, Request}
 import models.sa.AreYouSelfEmployed
-import playconfig.featuretoggle.FeatureConfig
 import utils.NextPage
 
 trait AreYouSelfEmployedNextPage {
@@ -29,7 +28,6 @@ trait AreYouSelfEmployedNextPage {
     new NextPage[AreYouSelfEmployedId.type, AreYouSelfEmployed, Call] {
       override def get(b: AreYouSelfEmployed)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case AreYouSelfEmployed.Yes => Call("GET", appConfig.getPortalUrl("selectTaxes"))

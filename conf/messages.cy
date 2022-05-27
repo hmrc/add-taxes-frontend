@@ -641,6 +641,7 @@ whichVATServicesToAdd.eurefunds = Ad-daliadau yn yr UE, gwneud cais i gael TAW y
 whichVATServicesToAdd.rcsl = Rhestr Gwerthiannau Tâl Gwrthdro (RCSL), rhoi gwybod am werthiannau sydd â TAW Tâl Gwrthdro
 whichVATServicesToAdd.moss = Gwasanaeth Un Cam (GUC), TAW ar gyfer gwasanaethau digidol a werthwyd yn yr UE
 whichVATServicesToAdd.nova = Hysbysiad o Gerbydau’n Cyrraedd (NOVA)
+whichVATServicesToAdd.vatoss = Y Gwasanaeth Un Cam (GUC), talu TAW ar nwyddau o Ogledd Iwerddon i gwsmeriaid yr UE
 whichVATServicesToAdd.error.required = Dewis gwasanaeth TAW
 
 #######################################################

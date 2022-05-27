@@ -19,12 +19,10 @@ package utils
 import config.FrontendAppConfig
 import models.{Mode, NormalMode}
 import play.api.mvc.Request
-import playconfig.featuretoggle.FeatureConfig
 
 class FakeNavigator[C](desiredRoute: C, mode: Mode = NormalMode)(
-  implicit config: FrontendAppConfig,
-  featureConfig: FeatureConfig)
-    extends Navigator[C](config, featureConfig) {
+  implicit config: FrontendAppConfig)
+    extends Navigator[C](config) {
 
   override def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B, C], request: Request[_]): C = desiredRoute
 }

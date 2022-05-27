@@ -27,13 +27,12 @@ lazy val microservice = Project(appName, file("."))
   .settings(RoutesKeys.routesImport ++= Seq(
     "models._",
     "config.Binders._",
-    "playconfig.featuretoggle.Feature",
     "testonly.FeatureQueryBinder._"
   ))
   .settings(
     ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*filters.*;.*handlers.*;.*components.*;.*models.*;.*identifiers.*;.*repositories.*;" +
       ".*BuildInfo.*;.*javascript.*;.*FrontendAuditConnector.*;.*Routes.*;.*GuiceInjector;.*DataCacheConnector;" +
-      ".*ControllerConfiguration;.*LanguageSwitchController;.*testonly.*",
+      ".*ControllerConfiguration;.*LanguageSwitchController;.*FeatureQueryBinder;.*featureToggles;.*feature_switch;.*FeatureSwitchController.*",
     ScoverageKeys.coverageMinimum := 92.98,
     ScoverageKeys.coverageFailOnMinimum := true,
     ScoverageKeys.coverageHighlighting := true,

@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import identifiers.DoYouWantToBePaidNetOrGrossId
 import models.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGross
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
 import utils.NextPage
 
 trait DoYouWantToBePaidNetOrGrossNextPage {
@@ -30,7 +29,6 @@ trait DoYouWantToBePaidNetOrGrossNextPage {
     new NextPage[DoYouWantToBePaidNetOrGrossId.type, DoYouWantToBePaidNetOrGross, Call] {
       override def get(b: DoYouWantToBePaidNetOrGross)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoYouWantToBePaidNetOrGross.PaidNet => Call("GET", appConfig.getGovUKUrl("cisRegisterPaidNet"))

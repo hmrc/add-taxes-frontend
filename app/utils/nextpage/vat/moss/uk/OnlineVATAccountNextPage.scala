@@ -22,7 +22,6 @@ import models.vat.moss.uk.OnlineVATAccount
 import play.api.mvc.{Call, Request}
 import utils.NextPage
 import controllers.vat.moss.ukbased.{routes => vatMossUkRoutes}
-import playconfig.featuretoggle.FeatureConfig
 
 trait OnlineVATAccountNextPage {
 
@@ -30,7 +29,6 @@ trait OnlineVATAccountNextPage {
     new NextPage[OnlineVATAccountId.type, OnlineVATAccount, Call] {
       override def get(b: OnlineVATAccount)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case OnlineVATAccount.Yes => vatMossUkRoutes.AddVATMOSSController.onPageLoad()

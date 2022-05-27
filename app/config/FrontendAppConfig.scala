@@ -137,6 +137,9 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
     s"$enrolmentManagementFrontendHost/enrolment-management-frontend/$enrolment/remove-access-tax-scheme?continue=%2Fbusiness-account"
   }
 
+  lazy val vatOssHost: String = config.baseUrl("vat-oss-registration-frontend")
+  def vatOssRedirectUrl(url: String): String = vatOssHost + url
+
   lazy val atwdDeenrolmentUrl = s"$enrolmentManagementFrontendHost/enrolment-management-frontend/HMCE-ATWD-ORG/remove-warehouse?continue=/account"
 
   def lostCredentials(forgottenOption: ForgottenOptions): String = s"$basGatewayFrontendHost$basGatewayCredRecovery?continue_url=/account&recovery=$forgottenOption"
@@ -199,7 +202,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   def now(): LocalDateTime = LocalDateTime.now()
 
-  def citizensDetailsUrl: String = config.baseUrl("citizen-details")
+  lazy val citizensDetailsUrl: String = config.baseUrl("citizen-details")
   def designatoryDetailsUrl(identifier: String, value: String): String = {
     if(identifier == "IR-SA") {
       s"$citizensDetailsUrl/citizen-details/sautr/$value"
@@ -208,7 +211,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
     }
   }
 
-  def desUrl: String = config.baseUrl("des")
+  lazy val desUrl: String = config.baseUrl("des")
   def desConfig(key: String) = config.getString(s"microservice.services.des.$key")
 
   def businessDetailsUrl(identifier: String, value: String): String = {
@@ -223,12 +226,8 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   lazy val mtdItSignup: String = config.getString("income-tax-subscription-frontend.claim-enrolment")
   lazy val mtdItUrl = mtdItHost + mtdItSignup
 
-  val accessMtdFeatureSwitch: Boolean = config.getBoolean("feature-toggles.accessMTD")
-  val ivUpliftFeatureSwitch: Boolean = config.getBoolean("feature-toggles.ivUpliftSwitch")
   val ivLocationForEnvironments: String = config.getString("ivLocation")
   val identityVerificationFrontendHost: String = config.getString("identity-verification-frontend.host")
-  val pptFeatureSwitch: Boolean = config.getBoolean("feature-toggles.pptSwitch")
-  val atarAddTaxSwitch: Boolean = config.getBoolean("feature-toggles.atarSwitch")
 
   def ivUpliftUrl(origin: String): String = {
     val completionUrl = s"$addTaxesHost/business-account/add-tax/self-assessment/sa-iv-router?origin=$origin"

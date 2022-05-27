@@ -23,7 +23,6 @@ import controllers.employer.intermediaries.{routes => eiAccountRoutes}
 import identifiers.DoesBusinessManagePAYEId
 import models.employer.DoesBusinessManagePAYE
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
 import utils.{Enrolments, NextPage}
 
 trait DoesBusinessManagePAYENextPage {
@@ -33,7 +32,6 @@ trait DoesBusinessManagePAYENextPage {
     new NextPage[DoesBusinessManagePAYEId.EPaye.type, DoesBusinessManagePAYE, Call] {
       override def get(b: DoesBusinessManagePAYE)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoesBusinessManagePAYE.Yes => payeAccountRoutes.UsePAYEEmployerAccountController.onPageLoad()
@@ -46,7 +44,6 @@ trait DoesBusinessManagePAYENextPage {
     new NextPage[DoesBusinessManagePAYEId.EI.type, DoesBusinessManagePAYE, Call] {
       override def get(b: DoesBusinessManagePAYE)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoesBusinessManagePAYE.Yes => eiAccountRoutes.UsePAYEEmployerAccountController.onPageLoad()
@@ -59,7 +56,6 @@ trait DoesBusinessManagePAYENextPage {
     new NextPage[DoesBusinessManagePAYEId.ERS.type, DoesBusinessManagePAYE, Call] {
       override def get(b: DoesBusinessManagePAYE)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoesBusinessManagePAYE.Yes => ersRoutes.UseEmployersPAYEController.onPageLoad()

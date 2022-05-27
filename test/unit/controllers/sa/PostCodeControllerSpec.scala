@@ -16,6 +16,7 @@
 
 package controllers.sa
 
+import config.featureToggles.FeatureToggleSupport
 import controllers._
 import controllers.sa.{routes => saRoutes}
 import forms.sa.KnownFactsPostcodeFormProvider
@@ -28,7 +29,6 @@ import play.api.mvc.Call
 import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import playconfig.featuretoggle.FeatureToggleSupport
 import service.KnownFactsService
 import utils.KnownFactsFormValidator
 import views.html.sa.postcodeKnownFacts
@@ -44,7 +44,7 @@ class PostCodeControllerSpec extends ControllerSpecBase with MockitoSugar with F
   val mockKnownFactsService: KnownFactsService = mock[KnownFactsService]
 
   val formProvider = new KnownFactsPostcodeFormProvider(knownFactsValidator, frontendAppConfig)
-  val form = formProvider()
+  val form: Form[KnownFactsPostcode] = formProvider()
   val btaOrigin: String = "bta-sa"
 
   def controller(): PostcodeController = {

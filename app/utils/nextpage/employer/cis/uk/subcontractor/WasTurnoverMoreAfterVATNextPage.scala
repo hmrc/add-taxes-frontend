@@ -22,7 +22,7 @@ import play.api.mvc.{Call, Request}
 import models.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVAT
 import utils.NextPage
 import controllers.employer.cis.ukbased.subcontractor.routes._
-import playconfig.featuretoggle.FeatureConfig
+
 
 trait WasTurnoverMoreAfterVATNextPage {
 
@@ -30,7 +30,6 @@ trait WasTurnoverMoreAfterVATNextPage {
     new NextPage[WasTurnoverMoreAfterVATId.type, WasTurnoverMoreAfterVAT, Call] {
       override def get(b: WasTurnoverMoreAfterVAT)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case WasTurnoverMoreAfterVAT.Yes => DoYouWantToBePaidNetOrGrossController.onPageLoad()

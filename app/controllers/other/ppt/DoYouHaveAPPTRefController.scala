@@ -17,6 +17,8 @@
 package controllers.other.ppt
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.PptSwitch
+import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import forms.other.ppt.PptReferenceFormProvider
 import handlers.ErrorHandler
@@ -32,17 +34,17 @@ import views.html.other.ppt.do_you_have_a_ppt_reference
 
 import scala.concurrent.Future
 
-class DoYouHaveAPPTRefController @Inject()(appConfig: FrontendAppConfig,
-                                           mcc: MessagesControllerComponents,
+class DoYouHaveAPPTRefController @Inject()(mcc: MessagesControllerComponents,
                                            navigator: Navigator[Call],
                                            errorHandler: ErrorHandler,
                                            authenticate: AuthAction,
                                            serviceInfoData: ServiceInfoAction,
                                            formProvider: PptReferenceFormProvider,
-                                           doYouHaveAPPTRefView: do_you_have_a_ppt_reference)
+                                           doYouHaveAPPTRefView: do_you_have_a_ppt_reference,
+                                           implicit val appConfig: FrontendAppConfig)
   extends FrontendController(mcc) with I18nSupport {
 
-  val pptFeatureSwitch: Boolean = appConfig.pptFeatureSwitch
+  val pptFeatureSwitch: Boolean = isEnabled(PptSwitch)
 
   val form: Form[DoYouHaveAPptReference] = formProvider()
 

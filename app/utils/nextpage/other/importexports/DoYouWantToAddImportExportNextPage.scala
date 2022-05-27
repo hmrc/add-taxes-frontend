@@ -26,7 +26,6 @@ import controllers.other.importexports.ebti.{routes => ebtiRoutes}
 import identifiers.DoYouWantToAddImportExportId
 import models.other.importexports.DoYouWantToAddImportExport
 import play.api.mvc.{Call, Request}
-import playconfig.featuretoggle.FeatureConfig
 import utils.NextPage
 
 trait DoYouWantToAddImportExportNextPage {
@@ -36,7 +35,6 @@ trait DoYouWantToAddImportExportNextPage {
     new NextPage[DoYouWantToAddImportExportId.type, models.other.importexports.DoYouWantToAddImportExport, Call] {
       override def get(b: models.other.importexports.DoYouWantToAddImportExport)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case DoYouWantToAddImportExport.ATaR => Call("GET", appConfig.getEoriCommonComponentURL("atar"))

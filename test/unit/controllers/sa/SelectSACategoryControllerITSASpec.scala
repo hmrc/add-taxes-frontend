@@ -36,7 +36,6 @@ class SelectSACategoryControllerITSASpec extends ControllerSpecBase with Mockito
 
   def controller()(enrolmentTypes: HmrcEnrolmentType*): SelectSACategoryController = {
     new SelectSACategoryController(
-      frontendAppConfig,
       mcc,
       FakeAuthAction,
       FakeServiceInfoAction(enrolmentTypes: _*),
@@ -44,7 +43,8 @@ class SelectSACategoryControllerITSASpec extends ControllerSpecBase with Mockito
       view,
       mockSaCategoryService,
       mockCredFinderService,
-      mockDataCacheConnector
+      mockDataCacheConnector,
+      frontendAppConfig
     ) {override val accessMtdFeatureSwitch: Boolean = true}
   }
 

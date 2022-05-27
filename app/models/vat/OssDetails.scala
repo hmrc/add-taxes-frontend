@@ -14,24 +14,19 @@
  * limitations under the License.
  */
 
-package playconfig.featuretoggle
+package models.vat
 
-sealed abstract class Feature(val key: String) {
-  require(key.nonEmpty)
+import play.api.libs.json.{Json, OFormat}
 
-  override val toString = s"${Feature.prefix}.$key"
+
+case class OssRequestDetails(origin: String, returnUrl: String)
+
+object OssRequestDetails {
+  implicit val format: OFormat[OssRequestDetails] = Json.format[OssRequestDetails]
 }
 
-object Feature {
+case class OssRecievedDetails(redirectUrl: Option[String])
 
-  val prefix = "feature-toggles"
-
-  def allTogglableFeatures: Set[Feature] = Set()
-
-  def fromQuery(key: String): Option[Feature] =
-    allTogglableFeatures.collectFirst {
-      case feature if feature.key.toLowerCase == key.toLowerCase => feature
-    }
-
+object OssRecievedDetails {
+  implicit val format: OFormat[OssRecievedDetails] = Json.format[OssRecievedDetails]
 }
-

@@ -16,6 +16,7 @@
 
 package controllers.vat
 
+import config.featureToggles.FeatureToggleSupport
 import controllers._
 import forms.vat.ImportedGoodsFormProvider
 import models.vat.ImportedGoods
@@ -24,7 +25,6 @@ import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import playconfig.featuretoggle.FeatureToggleSupport
 import utils.FakeNavigator
 import views.html.vat.importedGoods
 

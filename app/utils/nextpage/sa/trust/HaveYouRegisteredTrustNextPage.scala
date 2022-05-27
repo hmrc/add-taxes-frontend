@@ -22,7 +22,6 @@ import models.sa.trust.HaveYouRegisteredTrust
 import play.api.mvc.{Call, Request}
 import utils.{Enrolments, NextPage}
 import controllers.sa.trust.{routes => trustRoutes}
-import playconfig.featuretoggle.FeatureConfig
 
 trait HaveYouRegisteredTrustNextPage {
 
@@ -30,7 +29,6 @@ trait HaveYouRegisteredTrustNextPage {
     new NextPage[HaveYouRegisteredTrustId.type, HaveYouRegisteredTrust, Call] {
       override def get(b: HaveYouRegisteredTrust)(
         implicit appConfig: FrontendAppConfig,
-        featureConfig: FeatureConfig,
         request: Request[_]): Call =
         b match {
           case HaveYouRegisteredTrust.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.RegisterTrusts))

@@ -17,6 +17,8 @@
 package service
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.IvUpliftSwitch
+import config.featureToggles.FeatureToggleSupport.isEnabled
 import connectors.{CitizensDetailsConnector, DataCacheConnector, EnrolmentStoreProxyConnector}
 import controllers.sa.{routes => saRoutes}
 import handlers.ErrorHandler
@@ -35,9 +37,9 @@ class KnownFactsService @Inject()(saService: SaService,
                                   dataCacheConnector: DataCacheConnector,
                                   enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
                                   auditService: AuditService,
-                                  appConfig: FrontendAppConfig,
                                   errorHandler: ErrorHandler,
-                                  citizensDetailsConnector: CitizensDetailsConnector) extends Logging {
+                                  citizensDetailsConnector: CitizensDetailsConnector,
+                                  implicit val appConfig: FrontendAppConfig) extends Logging {
 
   def knownFactsLocation(knownFacts: KnownFacts,
                          origin: String)
@@ -58,7 +60,7 @@ class KnownFactsService @Inject()(saService: SaService,
         auditService.auditSAKnownFacts(request.request.credId, result.utr, knownFacts, knownfactsResult = true)
         checkCIDNinoComparison(origin, utr, knownFacts.nino.getOrElse(""))
       }
-      case result@KnownFactsReturn(_, true) if(appConfig.ivUpliftFeatureSwitch) =>
+      case result@KnownFactsReturn(_, true) if(isEnabled(IvUpliftSwitch)) =>
         auditService.auditSAKnownFacts(request.request.credId, result.utr, knownFacts, knownfactsResult = true)
         Future.successful(Redirect(appConfig.ivUpliftUrl(origin)))
       case result@KnownFactsReturn(_, true) =>
