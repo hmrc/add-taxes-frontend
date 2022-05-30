@@ -34,7 +34,7 @@ import views.html.feature_switch
 import scala.collection.immutable.ListMap
 
 class FeatureSwitchController @Inject()(val cc: MessagesControllerComponents,
-                                        view: feature_switch,
+                                        view: feature_switch
                                        )(implicit appConfig: FrontendAppConfig) extends FrontendController(cc) with I18nSupport with FeatureToggleSupport with Logging {
 
   def onPageLoad(): Action[AnyContent] = Action { implicit request =>
