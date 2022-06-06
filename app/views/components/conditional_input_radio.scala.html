@@ -53,21 +53,16 @@
     <div class="govuk-radios" data-module="govuk-radios">
             @for(input <- inputs) {
                 <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="@{input.id}" type="radio" name="@{field.id}" value="@{input.value}" data-aria-controls="conditional-@{input.id}">
+                    <input class="govuk-radios__input" id="@{input.id}" type="radio" name="@{field.id}" value="@{input.value}" data-aria-controls="conditional-@{input.id}" aria-expanded="true">
                     <label class="govuk-label govuk-radios__label" for="@{input.id}">
                         @messages(input.messageKey)
                     </label>
                 </div>
-
-                @if({input.value} == "No"){
-                    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-@{input.id}">
-                        <div class="govuk-form-group">
-                            <label id="conditionalHintText" class="govuk-label" for="contact-by-text">@Html(conditionalHint.getOrElse(""))</label>
-                        </div>
-
+                <div class="govuk-radios__conditional if(!aria-expanded)(govuk-radios__conditional--hidden)" id="conditional-@{input.id}">
+                    <div class="govuk-form-group">
+                        <label id="conditionalHintText" class="govuk-label" for="contact-by-text">@Html(conditionalHint.getOrElse(""))</label>
                     </div>
-                }
-
+                </div>
             }
     </div>
 
