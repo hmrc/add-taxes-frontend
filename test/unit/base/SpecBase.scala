@@ -25,6 +25,7 @@ import play.api.mvc.{AnyContent, MessagesControllerComponents}
 import play.api.test.FakeRequest
 import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 import views.html.main_template
+import views.html.components.conditional_radio
 
 trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
 
@@ -32,6 +33,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
 
   val formWithCSRF: FormWithCSRF = injector.instanceOf[FormWithCSRF]
   val mainTemplate: main_template = injector.instanceOf[main_template]
+  val conditionalRadio: conditional_radio = injector.instanceOf[conditional_radio]
 
   implicit def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
 

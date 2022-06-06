@@ -50,7 +50,7 @@ class HaveYouRegisteredPartnershipControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new haveYouRegisteredPartnership(formWithCSRF, mainTemplate)(frontendAppConfig, saBoolean, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new haveYouRegisteredPartnership(formWithCSRF, mainTemplate, conditionalRadio)(frontendAppConfig, saBoolean, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "HaveYouRegisteredPartnership Controller" must {
 

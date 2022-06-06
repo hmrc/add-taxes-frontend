@@ -22,7 +22,8 @@
 
 @this(
     uiForm: FormWithCSRF,
-    main_template: main_template
+    main_template: main_template,
+        conditional_radio: components.conditional_radio
 )
 
 @(appConfig: FrontendAppConfig, saBoolean: Boolean, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
@@ -38,15 +39,17 @@
         @components.error_summary(form.errors, Some("haveYouRegisteredPartnership.Yes"))
 
         @if(!saBoolean){
-            @components.conditional_input_radio(
-                field = form("value"),
-                headingKey = Some("haveYouRegisteredPartnership.heading"),
-                headingId = Some("have-you-registered-partnership"),
-                inputs = HaveYouRegisteredPartnership.options.toSeq,
-                hint = Some(messages("haveYouRegisteredPartnership.hintText")),
-                hintTextSpacing = Some("padding-bottom-small"),
-                conditionalHint = Some(messages("conditionalHint"))
+
+
+            @conditional_radio(
+                form = form,
+                headingKey = "haveYouRegisteredPartnership.heading",
+                id = "haveYouRegisteredPartnership",
+                hint = Some(Html(messages("haveYouRegisteredPartnership.hintText"))),
+                dropDownContent = Some(Html(messages("conditionalHint")))
             )
+
+
         } else {
             @components.input_radio(
                 field = form("value"),

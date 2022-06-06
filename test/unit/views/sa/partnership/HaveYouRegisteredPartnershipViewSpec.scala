@@ -34,17 +34,17 @@ class HaveYouRegisteredPartnershipViewSpec extends ViewBehaviours {
   val saBoolean: Boolean = false
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new haveYouRegisteredPartnership(formWithCSRF,  mainTemplate)(frontendAppConfig, saBoolean, form)(serviceInfoContent)(fakeRequest, messages)
+    new haveYouRegisteredPartnership(formWithCSRF,  mainTemplate, conditionalRadio)(frontendAppConfig, saBoolean, form)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
-    new haveYouRegisteredPartnership(formWithCSRF, mainTemplate)(frontendAppConfig, saBoolean, form)(serviceInfoContent)(fakeRequest, messages)
+    new haveYouRegisteredPartnership(formWithCSRF, mainTemplate, conditionalRadio)(frontendAppConfig, saBoolean, form)(serviceInfoContent)(fakeRequest, messages)
 
   "HaveYouRegisteredPartnership view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
-    "contain heading ID" in {
+    "contain correct heading text" in {
       val doc = asDocument(createView())
-      doc.getElementsByTag("h1").attr("id") mustBe "have-you-registered-partnership"
+      doc.getElementsByTag("h1").text mustBe "Have you already registered your partnership?"
     }
 
     "Render the correct content" in {
@@ -59,17 +59,17 @@ class HaveYouRegisteredPartnershipViewSpec extends ViewBehaviours {
 
     "Render the correct content if saBoolean is false" in {
       val doc = asDocument(createView())
-      val view = doc.getElementById("conditionalHintText").text()
-      view mustBe "A PDF form will open in a new tab that you will need to fill in and send back to us before you can add this tax to your account."
+      val view = doc.getElementById("conditional-haveYouRegisteredPartnership.No").text()
+      view mustBe "A pdf form will open that you will need to fill in and send back to us before you can add this tax to your account."
     }
 
     "Render the correct content if saBoolean is true" in {
       val saBoolean:Boolean = true
       def createView: () => HtmlFormat.Appendable = () =>
-        new haveYouRegisteredPartnership(formWithCSRF,  mainTemplate)(frontendAppConfig, saBoolean, form)(serviceInfoContent)(fakeRequest, messages)
+        new haveYouRegisteredPartnership(formWithCSRF,  mainTemplate, conditionalRadio)(frontendAppConfig, saBoolean, form)(serviceInfoContent)(fakeRequest, messages)
 
       val doc = asDocument(createView())
-      val view = doc.getElementById("conditionalHintText")
+      val view = doc.getElementById("conditional-haveYouRegisteredPartnership.No")
       view mustBe null
     }
 
@@ -89,11 +89,7 @@ class HaveYouRegisteredPartnershipViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
-
-          for (unselectedOption <- HaveYouRegisteredPartnership.options.filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
-          }
+          assertContainsRadioButtonWithoutChecked(doc, option.id, "value", option.value)
         }
       }
     }
