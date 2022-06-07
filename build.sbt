@@ -11,7 +11,10 @@ lazy val appName: String = "add-taxes-frontend"
 lazy val plugins: Seq[Plugins] = Seq.empty
 lazy val playSettings: Seq[Setting[_]] = Seq(
   RoutesKeys.routesImport ++= Seq(),
-  TwirlKeys.templateImports ++= Seq()
+  TwirlKeys.templateImports ++= Seq(
+    "uk.gov.hmrc.govukfrontend.views.html.components._",
+    "uk.gov.hmrc.hmrcfrontend.views.html.{components => hmrcComponents}"
+  )
 )
 val silencerVersion = "1.7.1"
 

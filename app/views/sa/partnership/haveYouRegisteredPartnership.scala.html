@@ -23,7 +23,8 @@
 @this(
     uiForm: FormWithCSRF,
     main_template: main_template,
-        conditional_radio: components.conditional_radio
+    conditionalRadio: components.conditionalYesNoRadio,
+    p: components.p
 )
 
 @(appConfig: FrontendAppConfig, saBoolean: Boolean, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
@@ -34,19 +35,18 @@
     form = Some(form),
     serviceInfoContent = Some(serviceInfoContent)) {
 
-    @uiForm(action = HaveYouRegisteredPartnershipController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+    @uiForm(action = HaveYouRegisteredPartnershipController.onSubmit(), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors, Some("haveYouRegisteredPartnership.Yes"))
 
         @if(!saBoolean){
 
-
-            @conditional_radio(
+            @conditionalRadio(
                 form = form,
-                headingKey = "haveYouRegisteredPartnership.heading",
                 id = "haveYouRegisteredPartnership",
-                hint = Some(Html(messages("haveYouRegisteredPartnership.hintText"))),
-                dropDownContent = Some(Html(messages("conditionalHint")))
+                headingKey = "haveYouRegisteredPartnership.heading",
+                hint = Some((Html(messages("haveYouRegisteredPartnership.hintText")))),
+                dropDownContentNo = Some((p(Html(messages("conditionalHint")), id=Some("conditional-message"))))
             )
 
 

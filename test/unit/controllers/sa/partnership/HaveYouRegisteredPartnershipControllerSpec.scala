@@ -22,7 +22,7 @@ import models.sa.partnership.HaveYouRegisteredPartnership
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
 import utils.FakeNavigator
 import views.html.sa.partnership.haveYouRegisteredPartnership
 
@@ -34,6 +34,11 @@ class HaveYouRegisteredPartnershipControllerSpec extends ControllerSpecBase {
   val form: Form[HaveYouRegisteredPartnership] = formProvider()
 
   val view: haveYouRegisteredPartnership = injector.instanceOf[haveYouRegisteredPartnership]
+  val serviceInfoContent: Html = HtmlFormat.empty
+  
+  def applyView(form: Form[HaveYouRegisteredPartnership] = form,
+                saBoolean: Boolean = false): HtmlFormat.Appendable =
+    view.apply(frontendAppConfig, saBoolean, form)(serviceInfoContent)(fakeRequest, messages)
 
   val saBoolean: Boolean = false
 
@@ -49,16 +54,13 @@ class HaveYouRegisteredPartnershipControllerSpec extends ControllerSpecBase {
     )
   }
 
-  def viewAsString(form: Form[_] = form): String =
-    new haveYouRegisteredPartnership(formWithCSRF, mainTemplate, conditionalRadio)(frontendAppConfig, saBoolean, form)(HtmlFormat.empty)(fakeRequest, messages).toString
-
   "HaveYouRegisteredPartnership Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe applyView().toString
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -77,7 +79,7 @@ class HaveYouRegisteredPartnershipControllerSpec extends ControllerSpecBase {
       val result = controller().onSubmit()(postRequest)
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm)
+      contentAsString(result) mustBe applyView(boundForm).toString()
     }
 
     "return OK" in {
