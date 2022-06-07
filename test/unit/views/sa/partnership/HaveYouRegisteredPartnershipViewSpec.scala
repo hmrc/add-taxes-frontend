@@ -18,7 +18,10 @@ package views.sa.partnership
 
 import forms.sa.partnership.HaveYouRegisteredPartnershipFormProvider
 import models.sa.partnership.HaveYouRegisteredPartnership
-import play.api.data.Form
+import org.jsoup.nodes.{Document, Element}
+import play.api.data.{DefaultFormBinding, Form, FormBinding}
+import play.api.mvc.AnyContentAsFormUrlEncoded
+import play.api.test.FakeRequest
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.sa.partnership.haveYouRegisteredPartnership
@@ -27,28 +30,28 @@ class HaveYouRegisteredPartnershipViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "haveYouRegisteredPartnership"
 
-  val form = new HaveYouRegisteredPartnershipFormProvider()()
-
   val serviceInfoContent: Html = HtmlFormat.empty
+  val form: Form[HaveYouRegisteredPartnership] = new HaveYouRegisteredPartnershipFormProvider()()
+
+  val view: haveYouRegisteredPartnership = app.injector.instanceOf[haveYouRegisteredPartnership]
+
+  def applyView(form: Form[HaveYouRegisteredPartnership],
+                saBoolean: Boolean = false): HtmlFormat.Appendable =
+    view.apply(frontendAppConfig, saBoolean, form)(serviceInfoContent)(fakeRequest, messages)
+
 
   val saBoolean: Boolean = false
 
-  def createView: () => HtmlFormat.Appendable = () =>
-    new haveYouRegisteredPartnership(formWithCSRF,  mainTemplate, conditionalRadio)(frontendAppConfig, saBoolean, form)(serviceInfoContent)(fakeRequest, messages)
-
-  def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
-    new haveYouRegisteredPartnership(formWithCSRF, mainTemplate, conditionalRadio)(frontendAppConfig, saBoolean, form)(serviceInfoContent)(fakeRequest, messages)
+  val doc: Document = asDocument(applyView(form))
 
   "HaveYouRegisteredPartnership view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(() => applyView(form), messageKeyPrefix)
 
     "contain correct heading text" in {
-      val doc = asDocument(createView())
       doc.getElementsByTag("h1").text mustBe "Have you already registered your partnership?"
     }
 
     "Render the correct content" in {
-      val doc = asDocument(createView())
       val view = doc.text()
 
       view must include("Have you already registered your partnership?")
@@ -57,50 +60,43 @@ class HaveYouRegisteredPartnershipViewSpec extends ViewBehaviours {
         "We will have sent you a Unique Taxpayer Reference (UTR) for your partnership, if you have already registered it.")
     }
 
-    "Render the correct content if saBoolean is false" in {
-      val doc = asDocument(createView())
-      val view = doc.getElementById("conditional-haveYouRegisteredPartnership.No").text()
+    "Render the correct conditional content if saBoolean is false" in {
+      val view = doc.getElementById("conditional-message").text()
       view mustBe "A pdf form will open that you will need to fill in and send back to us before you can add this tax to your account."
     }
 
-    "Render the correct content if saBoolean is true" in {
-      val saBoolean:Boolean = true
-      def createView: () => HtmlFormat.Appendable = () =>
-        new haveYouRegisteredPartnership(formWithCSRF,  mainTemplate, conditionalRadio)(frontendAppConfig, saBoolean, form)(serviceInfoContent)(fakeRequest, messages)
-
-      val doc = asDocument(createView())
-      val view = doc.getElementById("conditional-haveYouRegisteredPartnership.No")
+    "Do not render the conditional content if saBoolean is true" in {
+      val doc = asDocument(applyView(form, saBoolean = true))
+      val view = doc.getElementById("conditional-message")
       view mustBe null
     }
 
   }
 
-  "HaveYouRegisteredPartnership view" when {
-    "rendered" must {
-      "contain radio buttons for the value" in {
-        val doc = asDocument(createViewUsingForm(form))
-        for (option <- HaveYouRegisteredPartnership.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
-        }
-      }
-    }
-
+  "render radio buttons for the value" in {
+    val doc = asDocument(applyView(form))
     for (option <- HaveYouRegisteredPartnership.options) {
-      s"rendered with a value of '${option.value}'" must {
-        s"have the '${option.value}' radio button selected" in {
-          val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButtonWithoutChecked(doc, option.id, "value", option.value)
-        }
+      assertContainsRadioButton(doc = doc, id = option.id, name = "value", value = option.value, isChecked = false)
+    }
+  }
+
+
+  for (option <- HaveYouRegisteredPartnership.options) {
+    s"rendered with a value of '${option.value}'" must {
+      s"have the '${option.value}' radio button selected" in {
+
+        val doc = asDocument(applyView(form.bind(Map("value" -> s"${option.value}"))))
+        assertContainsRadioButtonWithoutChecked(doc, option.id, "value", option.value)
       }
     }
+  }
 
-    "invalid data is sent" must {
-      "prepend title with Error: " in {
-        val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> ""))))
-        val title = messages("site.service_title", messages(s"$messageKeyPrefix.title"))
+  "invalid data is sent" must {
+    "prepend title with Error: " in {
+      val doc = asDocument(applyView(form.bind(Map("value" -> ""))))
+      val title = messages("site.service_title", messages(s"$messageKeyPrefix.title"))
 
-        assertEqualsMessage(doc, "title", "error.browser.title", title)
-      }
+      assertEqualsMessage(doc, "title", "error.browser.title", title)
     }
   }
 }

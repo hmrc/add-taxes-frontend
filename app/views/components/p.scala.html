@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,16 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package utils
+@this()
 
-case class RadioOption(id: String, value: String, messageKey: String)
+@(content: Html, classes: String = "govuk-body", id: Option[String] = None)(implicit messages: Messages)
 
-object RadioOption {
-  def apply(keyPrefix: String, option: String): RadioOption = RadioOption(
-    id = s"$keyPrefix.$option",
-    value = option,
-    messageKey = s"$keyPrefix.$option"
-  )
-}
+<p class="@classes"@id.map{i =>, id=@i}>@content</p>
