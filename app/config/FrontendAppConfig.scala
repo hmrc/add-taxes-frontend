@@ -175,7 +175,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   lazy val ssttpSuccessUrl: String = s"${ssttpHost}/pay-what-you-owe-in-instalments/arrangement/determine-eligibility"
   lazy val ssttpFailUrl: String = s"${ssttpHost}/pay-what-you-owe-in-instalments/eligibility/not-enrolled"
 
-  lazy val validOrigins: Seq[String] = Seq("pta-sa", "ssttp-sa")
+  lazy val validOrigins: Seq[String] = Seq("pta-sa", "ssttp-sa", "bta-sa")
 
   def originServiceRouterEnrolmentSuccess(origin: String): String = {
     origin.toLowerCase match {
