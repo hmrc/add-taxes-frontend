@@ -58,14 +58,14 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
   "EBTI EORI Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
+      val result = controller().onPageLoad()(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveEORINumber.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveEORINumber.options.head.value)).withMethod("POST")
 
       val result = controller().onSubmit()(postRequest)
 
@@ -74,7 +74,7 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
       val result = controller().onSubmit()(postRequest)
@@ -84,13 +84,13 @@ class DoYouHaveEORINumberControllerSpec extends ControllerSpecBase {
     }
 
     "return OK" in {
-      val result = controller().onPageLoad()(fakeRequest)
+      val result = controller().onPageLoad()(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
     }
 
     "redirect to next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveEORINumber.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouHaveEORINumber.options.head.value)).withMethod("POST")
       val result = controller().onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER

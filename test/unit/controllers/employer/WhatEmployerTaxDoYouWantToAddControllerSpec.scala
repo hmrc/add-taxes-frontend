@@ -53,14 +53,14 @@ class WhatEmployerTaxDoYouWantToAddControllerSpec extends ControllerSpecBase {
   "WhatEmployerTaxDoYouWantToAdd Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller()().onPageLoad()(fakeRequest)
+      val result = controller()().onPageLoad()(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhatEmployerTaxDoYouWantToAdd.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhatEmployerTaxDoYouWantToAdd.options.head.value)).withMethod("POST")
 
       val result = controller()().onSubmit()(postRequest)
 
@@ -69,7 +69,7 @@ class WhatEmployerTaxDoYouWantToAddControllerSpec extends ControllerSpecBase {
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
       val result = controller()().onSubmit()(postRequest)
@@ -79,14 +79,14 @@ class WhatEmployerTaxDoYouWantToAddControllerSpec extends ControllerSpecBase {
     }
 
     "return OK" in {
-      val result = controller()().onPageLoad()(fakeRequest)
+      val result = controller()().onPageLoad()(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
     }
 
     for (option <- WhatEmployerTaxDoYouWantToAdd.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value)).withMethod("POST")
         val result = controller()().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
@@ -99,14 +99,14 @@ class WhatEmployerTaxDoYouWantToAddControllerSpec extends ControllerSpecBase {
         WhatEmployerTaxDoYouWantToAdd.options.filterNot(_.value == WhatEmployerTaxDoYouWantToAdd.EPAYE.toString)
 
       "on page load and enrolled for EPAYE" in {
-        val result = controller()(HmrcEnrolmentType.EPAYE).onPageLoad()(fakeRequest)
+        val result = controller()(HmrcEnrolmentType.EPAYE).onPageLoad()(fakeRequest.withMethod("GET"))
         val view = viewAsString(radioOptions = radioOptions)
 
         contentAsString(result) mustBe view
       }
 
       "on page submit and enrolled for EPAYE" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
         val boundForm = form.bind(Map("value" -> "invalid value"))
         val view = viewAsString(boundForm, radioOptions)
 

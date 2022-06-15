@@ -103,7 +103,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
   "OtherTaxes Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
+      val result = controller().onPageLoad()(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
@@ -111,7 +111,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
 
     "When a user is an individual, render the you can't add this business account view" in {
       val request = ServiceInfoRequest[AnyContent](
-        AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+        AuthenticatedRequest(FakeRequest().withMethod("GET"), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
         HtmlFormat.empty)
 
       val result = controller(new FakeAuthActionIndividual(parser)).onPageLoad()(request)
@@ -123,7 +123,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
 
     "When a user is an agent, render the you can't add this business account view" in {
       val request = ServiceInfoRequest[AnyContent](
-        AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Agent), groupId, providerId, confidenceLevel, None),
+        AuthenticatedRequest(FakeRequest().withMethod("GET"), "", Enrolments(Set()), Some(Agent), groupId, providerId, confidenceLevel, None),
         HtmlFormat.empty)
 
       val result = controller(fakeAuthAction = new FakeAuthActionAgent(parser)).onPageLoad()(request)
@@ -134,7 +134,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", OtherTaxes.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", OtherTaxes.options.head.value)).withMethod("POST")
 
       val result = controller().onSubmit()(postRequest)
 
@@ -143,7 +143,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
       val result = controller().onSubmit()(postRequest)
@@ -153,7 +153,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", OtherTaxes.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", OtherTaxes.options.head.value)).withMethod("POST")
       val result = controller().onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
@@ -238,7 +238,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
       val enrolment =
         Enrolment("HMRC-OBTDS-ORG", Seq(EnrolmentIdentifier("EtmpRegistrationNumber", "123")), "Activated")
       val request = ServiceInfoRequest[AnyContent](
-        AuthenticatedRequest(FakeRequest(), "", Enrolments(Set(enrolment)), Some(Organisation), groupId, providerId, confidenceLevel, None),
+        AuthenticatedRequest(FakeRequest().withMethod("GET"), "", Enrolments(Set(enrolment)), Some(Organisation), groupId, providerId, confidenceLevel, None),
         HtmlFormat.empty)
       val result = controller().getOptions(request)
 

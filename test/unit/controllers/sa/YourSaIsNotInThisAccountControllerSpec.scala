@@ -54,20 +54,20 @@ class YourSaIsNotInThisAccountControllerSpec extends ControllerSpecBase with Moc
 
   "Not in this account controller" must {
     "return OK and the correct view for a GET" in {
-      val result = controller()().onPageLoad(btaOrigin)(fakeRequest.withSession(("tryingToAccessSa", "true")))
+      val result = controller()().onPageLoad(btaOrigin)(fakeRequest.withMethod("GET").withSession(("tryingToAccessSa", "true")))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString(origin = btaOrigin)
     }
 
     "redirect to the BTA homepage when the expected session flag is missing" in {
-      val result = controller()().onPageLoad(btaOrigin)(fakeRequest)
+      val result = controller()().onPageLoad(btaOrigin)(fakeRequest.withMethod("GET"))
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some("http://localhost:9020/business-account")
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", YourSaIsNotInThisAccount.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", YourSaIsNotInThisAccount.options.head.value)).withMethod("POST")
 
       val result = controller()().onSubmit(btaOrigin)(postRequest)
 
@@ -76,7 +76,7 @@ class YourSaIsNotInThisAccountControllerSpec extends ControllerSpecBase with Moc
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
       val result = controller()().onSubmit(btaOrigin)(postRequest)

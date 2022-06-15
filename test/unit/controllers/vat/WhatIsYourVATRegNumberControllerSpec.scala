@@ -71,7 +71,7 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
   "WhatIsYourVATRegNumber Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
+      val result = controller().onPageLoad()(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
@@ -82,7 +82,7 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
       when(mockVatSubscriptionConnector.getMandationStatus(any())(any(), any()))
         .thenReturn(Future.successful(OK))
 
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST")
 
       val result = controller().onSubmit()(postRequest)
 
@@ -96,7 +96,7 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
       when(mockVatSubscriptionConnector.getMandationStatus(any())(any(), any()))
         .thenReturn(Future.successful(PRECONDITION_FAILED))
 
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST")
 
       val result = controller().onSubmit()(postRequest)
 
@@ -105,7 +105,7 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ""))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "")).withMethod("GET")
       val boundForm = form.bind(Map("value" -> ""))
 
       val result = controller().onSubmit()(postRequest)

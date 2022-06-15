@@ -69,14 +69,14 @@ class PostCodeControllerSpec extends ControllerSpecBase with MockitoSugar with F
   "Postcode  Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(btaOrigin)(fakeRequest)
+      val result = controller().onPageLoad(btaOrigin)(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString(btaOrigin)
     }
 
     "return bad request with a invalid postcode" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("postcode", "zzzzzzzzzzzzz"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("postcode", "zzzzzzzzzzzzz")).withMethod("POST")
       val boundForm = form.bind(Map("postcode" -> "zzzzzzzzzzzzz"))
       val result = controller().onSubmit(btaOrigin)(postRequest)
 
@@ -85,7 +85,7 @@ class PostCodeControllerSpec extends ControllerSpecBase with MockitoSugar with F
     }
 
     "return bad request if postcode and isAbroad provided" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("postcode", "AA1 1AA"), ("isAbroad", "Y"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("postcode", "AA1 1AA"), ("isAbroad", "Y")).withMethod("POST")
       val result = controller().onSubmit(btaOrigin)(postRequest)
 
       status(result) mustBe BAD_REQUEST
@@ -94,7 +94,7 @@ class PostCodeControllerSpec extends ControllerSpecBase with MockitoSugar with F
 
 
     "return bad request with a no data" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody()
+      val postRequest = fakeRequest.withFormUrlEncodedBody().withMethod("POST")
       val result = controller().onSubmit(btaOrigin)(postRequest)
 
       status(result) mustBe BAD_REQUEST
@@ -103,7 +103,7 @@ class PostCodeControllerSpec extends ControllerSpecBase with MockitoSugar with F
     "redirect to Try Pin and Post when that redirect is returned from service" in {
       when(mockKnownFactsService.knownFactsLocation(any(), any())(any(), any(), any()))
         .thenReturn(Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(btaOrigin))))
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("postcode", "AA1 1AA"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("postcode", "AA1 1AA")).withMethod("POST")
       val result = controller().onSubmit(btaOrigin)(postRequest)
 
       status(result) mustBe SEE_OTHER
@@ -114,7 +114,7 @@ class PostCodeControllerSpec extends ControllerSpecBase with MockitoSugar with F
       when(mockKnownFactsService.knownFactsLocation(any(), any())(any(), any(), any()))
         .thenReturn(Future.successful(Redirect(saRoutes.EnrolmentSuccessController.onPageLoad(btaOrigin))))
 
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("postcode", "AA1 1AA"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("postcode", "AA1 1AA")).withMethod("POST")
       val result = controller().onSubmit(btaOrigin)(postRequest)
 
       status(result) mustBe SEE_OTHER
@@ -125,7 +125,7 @@ class PostCodeControllerSpec extends ControllerSpecBase with MockitoSugar with F
       when(mockKnownFactsService.knownFactsLocation(any(), any())(any(), any(), any()))
         .thenReturn(Future.successful(Redirect(saRoutes.EnrolmentSuccessController.onPageLoad(btaOrigin))))
 
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("isAbroad", "Y"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("isAbroad", "Y")).withMethod("POST")
       val result = controller().onSubmit(btaOrigin)(postRequest)
 
       status(result) mustBe SEE_OTHER

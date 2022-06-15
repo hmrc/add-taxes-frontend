@@ -73,21 +73,21 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
   "EnterSAUTR Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(Some(btaOrigin))(fakeRequest)
+      val result = controller().onPageLoad(Some(btaOrigin))(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString(btaOrigin)
     }
 
     "return OK and the correct view for a GET with a default" in {
-      val result = controller().onPageLoad(None)(fakeRequest)
+      val result = controller().onPageLoad(None)(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString(btaOrigin)
     }
 
     "return bad request when invalid sa utr is provided" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid sa utr"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid sa utr")).withMethod("POST")
       val boundForm = form.bind(Map("value" -> "invalid sa utr"))
 
       val result = controller().onSubmit(btaOrigin)(postRequest)
@@ -100,7 +100,7 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
     "redirect to the describes you page when try again is false" in {
       when(mockDataCacheConnector.getEntry[Boolean](any(), any())(any())).thenReturn(Future.successful(Some(false)))
       when(mockDataCacheConnector.save[SAUTR](any(), any(), any())(any())).thenReturn(Future.successful(emptyCacheMap))
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789")).withMethod("POST")
 
       val result = controller().onSubmit(btaOrigin)(postRequest)
 
@@ -114,7 +114,7 @@ class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
       when(mockDataCacheConnector.getEntry[Boolean](any(),any())(any())).thenReturn(Future.successful(Some(true)))
       when(mockSaCategoryService.saCategoryResult(any(), any(), any())(any(), any(), any()))
         .thenReturn(Future.successful(Redirect(onwardRoute.url)))
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "0123456789")).withMethod("POST")
 
       val result = controller().onSubmit(btaOrigin)(postRequest)
 
