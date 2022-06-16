@@ -71,7 +71,7 @@ class SelectSACategoryControllerITSASpec extends ControllerSpecBase with Mockito
       when(mockCredFinderService.redirectSACategory(any(), any(), any())(any(), any(), any(), any()))
         .thenReturn(Future.successful(Redirect(onwardRoute.url)))
 
-      val result = controller()().onPageLoadHasUTR(Some(btaOrigin))(fakeRequest)
+      val result = controller()().onPageLoadHasUTR(Some(btaOrigin))(fakeRequest.withMethod("GET"))
 
       status(result) mustBe SEE_OTHER
 
@@ -86,7 +86,7 @@ class SelectSACategoryControllerITSASpec extends ControllerSpecBase with Mockito
       when(mockCredFinderService.redirectSACategory(any(), any(), any())(any(), any(), any(), any()))
         .thenReturn(Future.successful(Redirect(onwardRoute.url)))
 
-      val result = controller()().onPageLoadHasUTR(None)(fakeRequest)
+      val result = controller()().onPageLoadHasUTR(None)(fakeRequest.withMethod("GET"))
 
       status(result) mustBe SEE_OTHER
 
@@ -101,7 +101,7 @@ class SelectSACategoryControllerITSASpec extends ControllerSpecBase with Mockito
       when(mockCredFinderService.redirectSACategory(any(), any(), any())(any(), any(), any(), any()))
         .thenReturn(Future.successful(Redirect(onwardRoute.url)))
 
-      val result = controller()().onPageLoadNoUTR()(fakeRequest)
+      val result = controller()().onPageLoadNoUTR()(fakeRequest.withMethod("GET"))
 
       status(result) mustBe SEE_OTHER
 
@@ -118,7 +118,7 @@ class SelectSACategoryControllerITSASpec extends ControllerSpecBase with Mockito
       when(mockSaCategoryService.saCategoryResult(any(), any(), any())(any(), any(), any()))
         .thenReturn(Future.successful(Redirect(onwardRoute.url)))
 
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", radioButtonOptions.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", radioButtonOptions.head.value)).withMethod("POST")
       val result = controller()().onSubmitHasUTR(btaOrigin)(postRequest)
 
       status(result) mustBe SEE_OTHER
@@ -137,7 +137,7 @@ class SelectSACategoryControllerITSASpec extends ControllerSpecBase with Mockito
 
       when(mockCredFinderService.getRadioOptions(any(), any())).thenReturn(radioButtonOptions)
 
-      val postRequest = fakeRequest.withFormUrlEncodedBody("value" -> invalidValue)
+      val postRequest = fakeRequest.withFormUrlEncodedBody("value" -> invalidValue).withMethod("POST")
 
       val result = controller()().onSubmitHasUTR(btaOrigin)(postRequest)
 
@@ -160,7 +160,7 @@ class SelectSACategoryControllerITSASpec extends ControllerSpecBase with Mockito
         when(mockSaCategoryService.saCategoryResult(any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(Redirect(onwardRoute.url)))
 
-        val postRequest = fakeRequest.withFormUrlEncodedBody("value" -> option.value)
+        val postRequest = fakeRequest.withFormUrlEncodedBody("value" -> option.value).withMethod("POST")
         val result = controller()().onSubmitHasUTR(btaOrigin)(postRequest)
 
         status(result) mustBe SEE_OTHER

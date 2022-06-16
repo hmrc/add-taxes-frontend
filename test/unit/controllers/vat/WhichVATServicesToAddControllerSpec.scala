@@ -67,7 +67,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
   "WhichVATServicesToAdd Controller" must {
     "return OK and the correct view for a GET" in {
       disable(VatOssSwitch)
-      val result = controller()().onPageLoad()(fakeRequest)
+      val result = controller()().onPageLoad()(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
@@ -75,7 +75,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
 
     "redirect to the next page when valid data is submitted" in {
       disable(VatOssSwitch)
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhichVATServicesToAdd.options().head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhichVATServicesToAdd.options().head.value)).withMethod("POST")
 
       val result = controller()().onSubmit()(postRequest)
 
@@ -85,7 +85,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
 
     "return a Bad Request and errors when invalid data is submitted" in {
       disable(VatOssSwitch)
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
       val result = controller()().onSubmit()(postRequest)
@@ -96,7 +96,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
 
     "return OK" in {
       disable(VatOssSwitch)
-      val result = controller()().onPageLoad()(fakeRequest)
+      val result = controller()().onPageLoad()(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
     }
@@ -104,7 +104,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
     for (option <- WhichVATServicesToAdd.options()) {
       s"redirect to next page when '${option.value}' is submitted" in {
         disable(VatOssSwitch)
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value)).withMethod("POST")
         val result = controller()().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
@@ -114,7 +114,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
 
     "return OK and the correct view for a GET when switch is enabled" in {
       enable(VatOssSwitch)
-      val result = controller()().onPageLoad()(fakeRequest)
+      val result = controller()().onPageLoad()(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString(radioOptions = WhichVATServicesToAdd.options(ossFeatureSwitch = true))
@@ -122,7 +122,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
 
     "redirect to the next page when valid data is submitted when switch is enabled" in {
       enable(VatOssSwitch)
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhichVATServicesToAdd.options(ossFeatureSwitch = true).head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhichVATServicesToAdd.options(ossFeatureSwitch = true).head.value)).withMethod("POST")
 
       val result = controller()().onSubmit()(postRequest)
 
@@ -132,7 +132,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
 
     "return a Bad Request and errors when invalid data is submitted when switch is enabled" in {
       enable(VatOssSwitch)
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
       val result = controller()().onSubmit()(postRequest)
@@ -143,7 +143,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
 
     "return OK when switch is enabled" in {
       enable(VatOssSwitch)
-      val result = controller()().onPageLoad()(fakeRequest)
+      val result = controller()().onPageLoad()(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
     }
@@ -153,7 +153,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
         enable(VatOssSwitch)
         when(mockOssConnector.ossRegistrationJourneyLink()(any(), any()))
           .thenReturn(Future.successful(OssRecievedDetails(Some(" /test-url"))))
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value)).withMethod("POST")
         val result = controller()().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
@@ -164,7 +164,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
           enable(VatOssSwitch)
           when(mockOssConnector.ossRegistrationJourneyLink()(any(), any()))
             .thenReturn(Future.successful(OssRecievedDetails(None)))
-          val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
+          val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value)).withMethod("POST")
           val result = controller()().onSubmit()(postRequest)
 
           status(result) mustBe INTERNAL_SERVER_ERROR
@@ -177,21 +177,21 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
 
       "page is loaded and vat is enrolled" in {
         disable(VatOssSwitch)
-        val result = controller()(HmrcEnrolmentType.VAT).onPageLoad()(fakeRequest)
+        val result = controller()(HmrcEnrolmentType.VAT).onPageLoad()(fakeRequest.withMethod("GET"))
 
         contentAsString(result) mustBe viewAsString(radioOptions = radioOptions)
       }
 
       "page is loaded and MTDVAT is enrolled" in {
         disable(VatOssSwitch)
-        val result = controller()(HmrcEnrolmentType.MTDVAT).onPageLoad()(fakeRequest)
+        val result = controller()(HmrcEnrolmentType.MTDVAT).onPageLoad()(fakeRequest.withMethod("GET"))
 
         contentAsString(result) mustBe viewAsString(radioOptions = radioOptions)
       }
 
       "page errors and vat is enrolled " in {
         disable(VatOssSwitch)
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
         val boundForm = form.bind(Map("value" -> "invalid value"))
         val result = controller()(HmrcEnrolmentType.VAT).onSubmit()(postRequest)
 
@@ -200,7 +200,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
 
       "page is loaded and vat is enrolled and switch is enabled" in {
         enable(VatOssSwitch)
-        val result = controller()(HmrcEnrolmentType.VAT).onPageLoad()(fakeRequest)
+        val result = controller()(HmrcEnrolmentType.VAT).onPageLoad()(fakeRequest.withMethod("GET"))
 
         contentAsString(result) mustBe viewAsString(
           radioOptions = WhichVATServicesToAdd.options(ossFeatureSwitch = true).filterNot(_.value == "vat"))
@@ -208,7 +208,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
 
       "page is loaded and MTDVAT is enrolled and switch is enabled" in {
         enable(VatOssSwitch)
-        val result = controller()(HmrcEnrolmentType.MTDVAT).onPageLoad()(fakeRequest)
+        val result = controller()(HmrcEnrolmentType.MTDVAT).onPageLoad()(fakeRequest.withMethod("GET"))
 
         contentAsString(result) mustBe viewAsString(
           radioOptions = WhichVATServicesToAdd.options(ossFeatureSwitch = true).filterNot(_.value == "vat"))
@@ -216,7 +216,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
 
       "page errors and vat is enrolled and switch is enabled" in {
         enable(VatOssSwitch)
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
         val boundForm = form.bind(Map("value" -> "invalid value"))
         val result = controller()(HmrcEnrolmentType.VAT).onSubmit()(postRequest)
 

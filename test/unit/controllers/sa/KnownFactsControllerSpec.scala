@@ -69,14 +69,14 @@ class KnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar with
   "KnownFacts Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(btaOrigin)(fakeRequest)
+      val result = controller().onPageLoad(btaOrigin)(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString(btaOrigin)
     }
 
     "return bad request with a invalid nino" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("nino", "zzzzzzzzzzzzz"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("nino", "zzzzzzzzzzzzz")).withMethod("POST")
       val boundForm = form.bind(Map("nino" -> "zzzzzzzzzzzzz"))
       val result = controller().onSubmit(btaOrigin)(postRequest)
 
@@ -85,7 +85,7 @@ class KnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar with
     }
 
     "return bad request with a no data" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody()
+      val postRequest = fakeRequest.withFormUrlEncodedBody().withMethod("POST")
       val result = controller().onSubmit(btaOrigin)(postRequest)
 
       status(result) mustBe BAD_REQUEST
@@ -94,7 +94,7 @@ class KnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar with
     "redirect to Try Pin and Post when that redirect is returned from service" in {
       when(mockKnownFactsService.knownFactsLocation(any(), any())(any(), any(), any()))
         .thenReturn(Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(btaOrigin))))
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("nino", "AA000000A"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("nino", "AA000000A")).withMethod("POST")
       val result = controller().onSubmit(btaOrigin)(postRequest)
 
       status(result) mustBe SEE_OTHER
@@ -105,7 +105,7 @@ class KnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar with
       when(mockKnownFactsService.knownFactsLocation(any(), any())(any(), any(), any()))
         .thenReturn(Future.successful(Redirect(saRoutes.EnrolmentSuccessController.onPageLoad(btaOrigin))))
 
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("nino", "AA000000A"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("nino", "AA000000A")).withMethod("POST")
       val result = controller().onSubmit(btaOrigin)(postRequest)
 
       status(result) mustBe SEE_OTHER

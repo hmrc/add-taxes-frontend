@@ -80,7 +80,7 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
     "return OK and the correct view for a GET" when {
 
       "onPageload" in {
-        val result = controller(empRefExists = false).onPageLoad()(fakeRequest)
+        val result = controller(empRefExists = false).onPageLoad()(fakeRequest.withMethod("GET"))
 
         status(result) mustBe OK
         contentAsString(result) mustBe viewAsString()
@@ -88,7 +88,7 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
     }
 
     "return bad request when invalid officeNumber and payeReference are provided" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("officeNumber", "ads"),("payeReference", ":_£("))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("officeNumber", "ads"),("payeReference", ":_£(")).withMethod("POST")
       val boundForm = form.bind(Map("officeNumber" -> "ads", "payeReference" -> ":_£("))
 
       val result = controller(empRefExists = false).onSubmit()(postRequest)
@@ -99,7 +99,7 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
 
     "redirect when valid officeNumber and payeReference are submitted and are in the enrolment store" in {
       when(mockEnrolmentStoreProxyConnector.checkExistingEmpRef(any(), any())(any(), any())).thenReturn(Future.successful(true))
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("officeNumber", "123"),("payeReference", "AB123"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("officeNumber", "123"),("payeReference", "AB123")).withMethod("POST")
 
       val result = controller(empRefExists = true).onSubmit()(postRequest)
 
@@ -109,7 +109,7 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
 
     "redirect when valid officeNumber and payeReference is submitted and are not in the enrolment store" in {
       when(mockEnrolmentStoreProxyConnector.checkExistingEmpRef(any(), any())(any(), any())).thenReturn(Future.successful(false))
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("officeNumber", "123"),("payeReference", "AB123"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("officeNumber", "123"),("payeReference", "AB123")).withMethod("POST")
 
       val result = controller(false).onSubmit()(postRequest)
 

@@ -76,7 +76,7 @@ class WhatIsYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mock
 
     "return OK and the correct view for a GET" when {
       "onPageLoad()" in {
-        val result = controller(empRefExists = false).onPageLoad()(fakeRequest)
+        val result = controller(empRefExists = false).onPageLoad()(fakeRequest.withMethod("GET"))
 
         status(result) mustBe OK
         contentAsString(result) mustBe viewAsString()
@@ -84,7 +84,7 @@ class WhatIsYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mock
     }
 
     "return bad request when invalid empRef is provided" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("empRef", "A1@S/D$^G*"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("empRef", "A1@S/D$^G*")).withMethod("POST")
       val boundForm = form.bind(Map("empRef"-> "A1@S/D$^G*"))
 
       val result = controller(empRefExists = false).onSubmit()(postRequest)
@@ -95,7 +95,7 @@ class WhatIsYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mock
 
     "redirect when valid empRef is submitted and are in the enrolment store" in {
       when(mockEnrolmentStoreProxyConnector.checkExistingEmpRef(any(), any())(any(), any())).thenReturn(Future.successful(true))
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("empRef", "123/AB123"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("empRef", "123/AB123")).withMethod("POST")
 
       val result = controller(empRefExists = true).onSubmit()(postRequest)
 
@@ -105,7 +105,7 @@ class WhatIsYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mock
 
     "redirect when valid empRef is submitted and are not in the enrolment store" in {
       when(mockEnrolmentStoreProxyConnector.checkExistingEmpRef(any(), any())(any(), any())).thenReturn(Future.successful(false))
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("empRef", "123/AB123"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("empRef", "123/AB123")).withMethod("POST")
 
       val result = controller(empRefExists = false).onSubmit()(postRequest)
 

@@ -52,14 +52,14 @@ class SelectATaxControllerSpec extends ControllerSpecBase {
   "SelectATax Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller()().onPageLoad()(fakeRequest)
+      val result = controller()().onPageLoad()(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", SelectATax.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", SelectATax.options.head.value)).withMethod("POST")
 
       val result = controller()().onSubmit()(postRequest)
 
@@ -68,7 +68,7 @@ class SelectATaxControllerSpec extends ControllerSpecBase {
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
       val result = controller()().onSubmit()(postRequest)
@@ -78,14 +78,14 @@ class SelectATaxControllerSpec extends ControllerSpecBase {
     }
 
     "return OK" in {
-      val result = controller()().onPageLoad()(fakeRequest)
+      val result = controller()().onPageLoad()(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
     }
 
     for (option <- SelectATax.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value)).withMethod("POST")
         val result = controller()().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
@@ -97,13 +97,13 @@ class SelectATaxControllerSpec extends ControllerSpecBase {
       val radioOptions = SelectATax.options.filterNot(_.value == "SDLT")
 
       "page is loaded and sdlt is enrolled" in {
-        val result = controller()(HmrcEnrolmentType.SDLT).onPageLoad()(fakeRequest)
+        val result = controller()(HmrcEnrolmentType.SDLT).onPageLoad()(fakeRequest.withMethod("GET"))
 
         contentAsString(result) mustBe viewAsString(radioOptions = radioOptions)
       }
 
       "page errors and sdlt is enrolled" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
         val boundForm = form.bind(Map("value" -> "invalid value"))
         val result = controller()(HmrcEnrolmentType.SDLT).onSubmit()(postRequest)
 

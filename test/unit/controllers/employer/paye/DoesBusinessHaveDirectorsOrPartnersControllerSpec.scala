@@ -53,7 +53,7 @@ class DoesBusinessHaveDirectorsOrPartnersControllerSpec extends ControllerSpecBa
   "DoesBusinessHaveDirectorsOrPartners Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
+      val result = controller().onPageLoad()(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
@@ -61,7 +61,7 @@ class DoesBusinessHaveDirectorsOrPartnersControllerSpec extends ControllerSpecBa
 
     "redirect to the next page when valid data is submitted" in {
       val postRequest =
-        fakeRequest.withFormUrlEncodedBody(("value", DoesBusinessHaveDirectorsOrPartners.options.head.value))
+        fakeRequest.withFormUrlEncodedBody(("value", DoesBusinessHaveDirectorsOrPartners.options.head.value)).withMethod("POST")
 
       val result = controller().onSubmit()(postRequest)
 
@@ -70,7 +70,7 @@ class DoesBusinessHaveDirectorsOrPartnersControllerSpec extends ControllerSpecBa
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
       val result = controller().onSubmit()(postRequest)
@@ -80,14 +80,14 @@ class DoesBusinessHaveDirectorsOrPartnersControllerSpec extends ControllerSpecBa
     }
 
     "return OK" in {
-      val result = controller().onPageLoad()(fakeRequest)
+      val result = controller().onPageLoad()(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
     }
 
     for (option <- DoesBusinessHaveDirectorsOrPartners.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value)).withMethod("POST")
         val result = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
