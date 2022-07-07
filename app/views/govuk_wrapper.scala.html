@@ -137,7 +137,7 @@ appConfig.languageLinks: _*
     headBlock = Some(hmrcHead(Some(head))),
     headerBlock = hmrcStandardHeader(
     serviceName = Some(messages("site.service_name")),
-    serviceUrl = Some(appConfig.getBusinessAccountUrl("tar")),
+    serviceUrl = Some(appConfig.getTarUrl),
     signOutUrl = Some(appConfig.getBusinessAccountUrl("signout"))
 ),
     bodyEndBlock = Some(bodyEnd),

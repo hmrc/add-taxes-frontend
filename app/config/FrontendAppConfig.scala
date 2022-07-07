@@ -70,7 +70,11 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   private lazy val businessAccountHost = config.getString("urls.business-account.host")
 
+  private lazy val tarHost = config.getString("urls.tar.host")
+
   def getBusinessAccountUrl(key: String): String = businessAccountHost + config.getString(s"urls.business-account.$key")
+
+  def getTarUrl: String = tarHost + config.getString(s"urls.tar.url")
 
   def getIFormUrl(key: String): String = config.getString(s"urls.iForms-url.$key")
 
