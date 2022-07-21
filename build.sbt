@@ -1,7 +1,7 @@
 import com.typesafe.sbt.web.Import.WebKeys.assets
 import play.sbt.routes.RoutesKeys
 import scoverage.ScoverageKeys
-import uk.gov.hmrc.DefaultBuildSettings.{addTestReportOption, defaultSettings, scalaSettings}
+import uk.gov.hmrc.DefaultBuildSettings.{addTestReportOption, defaultSettings, scalaSettings, targetJvm}
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin.publishingSettings
 import uk.gov.hmrc.sbtsettingkeys.Keys.isPublicArtefact
@@ -16,7 +16,7 @@ lazy val playSettings: Seq[Setting[_]] = Seq(
     "uk.gov.hmrc.hmrcfrontend.views.html.{components => hmrcComponents}"
   )
 )
-val silencerVersion = "1.7.1"
+val silencerVersion = "1.7.9"
 
 def unitFilter(name: String): Boolean = name startsWith "unit"
 
@@ -54,7 +54,7 @@ lazy val microservice = Project(appName, file("."))
     ),
     libraryDependencies ++= AppDependencies(),
     retrieveManaged := true, PlayKeys.playDefaultPort := 9730,
-    scalaVersion := "2.12.12",
+    scalaVersion := "2.12.15",
     isPublicArtefact := true
   )
   .settings(inConfig(Test)(Defaults.testSettings): _*)
