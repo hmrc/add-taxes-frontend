@@ -17,8 +17,8 @@
 package forms.sa
 
 import forms.behaviours.FormBehaviours
-import models.{Field, Invalid, Required}
 import models.sa.YourSaIsNotInThisAccount
+import models.{Field, Invalid, Required}
 
 class YourSaIsNotInThisAccountFormProviderSpec extends FormBehaviours {
   val validData: Map[String, String] = Map(

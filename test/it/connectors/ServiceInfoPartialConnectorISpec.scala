@@ -1,10 +1,14 @@
 package connectors
 
-import models.requests.{NavContent, NavLinks}
+import models.requests.{AuthenticatedRequest, NavContent, NavLinks}
 import org.scalatestplus.play.PlaySpec
+import play.api.mvc.AnyContentAsEmpty
+import play.api.test.FakeRequest
 import play.api.test.Helpers.{await, defaultAwaitTimeout}
 import support.AddTaxesIntegrationTest
 import support.stubs.StubServiceInfoPartialConnector
+import uk.gov.hmrc.auth.core.AffinityGroup.Individual
+import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -15,6 +19,9 @@ class ServiceInfoPartialConnectorISpec extends PlaySpec with AddTaxesIntegration
   implicit val hc: HeaderCarrier = HeaderCarrier()
 
   lazy val connector: ServiceInfoPartialConnector = inject[ServiceInfoPartialConnector]
+
+  implicit val request: AuthenticatedRequest[AnyContentAsEmpty.type] =
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None)
 
   val testNavLinkJson: String =
     """

@@ -16,9 +16,9 @@
 
 package views.employer.paye
 
-import play.api.data.Form
 import forms.employer.paye.DoYouHavePAYEReferenceFormProvider
 import models.employer.paye.DoYouHavePAYEReference
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.employer.paye.doYouHavePAYEReference

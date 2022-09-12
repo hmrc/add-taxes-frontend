@@ -24,7 +24,7 @@ import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import utils.{FakeLoggingHelper, FakeNavigator}
+import utils.FakeNavigator
 import views.html.deenrolment.doYouNeedToStopMGD
 
 class DoYouNeedToStopMGDControllerControllerSpec extends ControllerSpecBase {
@@ -48,7 +48,6 @@ class DoYouNeedToStopMGDControllerControllerSpec extends ControllerSpecBase {
       FakeServiceInfoAction,
       formProvider,
       errorHandler,
-      new FakeLoggingHelper,
       view
     )
   }

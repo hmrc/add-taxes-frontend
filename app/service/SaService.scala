@@ -22,7 +22,7 @@ import controllers.sa.{routes => saRoutes}
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.sa.{IvLinks, YourSaIsNotInThisAccount}
-import play.api.Logging
+import utils.LoggingUtil
 import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.http.HeaderCarrier
@@ -31,7 +31,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class SaService @Inject()(saConnector: SaConnector,
                           dataCacheConnector: DataCacheConnector,
-                          appConfig: FrontendAppConfig) extends Logging {
+                          appConfig: FrontendAppConfig) extends LoggingUtil {
 
   val serviceUrl: String = appConfig.identityVerificationHost
 
@@ -43,7 +43,7 @@ class SaService @Inject()(saConnector: SaConnector,
         dataCacheConnector.save[IvLinks](request.request.credId, "IvLinksId", ivLinks)
         s"${serviceUrl}${ivLinks.link}"
       case _ =>
-        logger.error("[SaService][getIvRedirectLink] Failed retrieving IV link from SA")
+        errorLog("[SaService][getIvRedirectLink] Failed retrieving IV link from SA")
         saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError"), origin).url
     }
   }

@@ -17,24 +17,22 @@
 package views.other.importexports
 
 import config.FrontendAppConfig
-import forms.other.importexports.DoYouWantToAddImportExportFormProvider
-import models.other.importexports.DoYouWantToAddImportExport
-import org.mockito.Mockito.{reset, when}
-import org.scalatestplus.mockito.MockitoSugar.mock
-import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
-import views.behaviours.ViewBehaviours
-import views.html.other.importexports.doYouWantToAddImportExport
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-
 import config.featureToggles.FeatureSwitch.AtarSwitch
 import config.featureToggles.FeatureToggleSupport.isEnabled
+import forms.other.importexports.DoYouWantToAddImportExportFormProvider
+import models.other.importexports.DoYouWantToAddImportExport
+import org.mockito.Mockito.reset
 import org.scalatest.BeforeAndAfterEach
+import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.Configuration
+import play.api.data.Form
+import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.language.LanguageUtils
-import utils.DateUtil
+import views.behaviours.ViewBehaviours
+import views.html.other.importexports.doYouWantToAddImportExport
+
+import java.time.format.DateTimeFormatter
 
 class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAfterEach {
 

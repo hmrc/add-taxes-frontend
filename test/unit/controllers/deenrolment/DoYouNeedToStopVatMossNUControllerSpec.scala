@@ -26,7 +26,7 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import utils.{FakeLoggingHelper, FakeNavigator}
+import utils.FakeNavigator
 import views.html.deenrolment.doYouNeedToStopVatMossNU
 
 class DoYouNeedToStopVatMossNUControllerSpec extends ControllerSpecBase {
@@ -53,7 +53,6 @@ class DoYouNeedToStopVatMossNUControllerSpec extends ControllerSpecBase {
       FakeServiceInfoAction,
       formProvider,
       errorHandler,
-      new FakeLoggingHelper,
       view
     )
 

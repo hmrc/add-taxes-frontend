@@ -21,7 +21,6 @@ import controllers.actions._
 import forms.deenrolment.DoYouNeedToStopVatMossNUFormProvider
 import handlers.ErrorHandler
 import identifiers.DoYouNeedToStopVatMossNUId
-import javax.inject.Inject
 import models.deenrolment.DoYouNeedToStopVatMossNU
 import models.requests.ServiceInfoRequest
 import play.api.data.Form
@@ -29,8 +28,10 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.auth.core.Enrolment
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import utils.{Enrolments, Enumerable, LoggingHelper, Navigator}
+import utils.{Enrolments, Enumerable, LoggingUtil, Navigator}
 import views.html.deenrolment.doYouNeedToStopVatMossNU
+
+import javax.inject.Inject
 
 class DoYouNeedToStopVatMossNUController @Inject()(appConfig: FrontendAppConfig,
                                                    mcc: MessagesControllerComponents,
@@ -39,9 +40,8 @@ class DoYouNeedToStopVatMossNUController @Inject()(appConfig: FrontendAppConfig,
                                                    serviceInfoData: ServiceInfoAction,
                                                    formProvider: DoYouNeedToStopVatMossNUFormProvider,
                                                    errorHandler: ErrorHandler,
-                                                   log: LoggingHelper,
                                                    doYouNeedToStopVatMossNU: doYouNeedToStopVatMossNU)
-  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits with LoggingUtil {
 
   val form: Form[DoYouNeedToStopVatMossNU] = formProvider()
 
@@ -59,7 +59,7 @@ class DoYouNeedToStopVatMossNUController @Inject()(appConfig: FrontendAppConfig,
           nextPage match {
             case Right(c) => Redirect(c)
             case Left(s) =>
-              log.warn(s"cannot navigate to the next page: $s")
+              warnLog(s"cannot navigate to the next page: $s")
               InternalServerError(errorHandler.internalServerErrorTemplate)
           }
         }

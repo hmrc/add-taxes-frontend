@@ -13,6 +13,7 @@ import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
 import uk.gov.hmrc.http.{HeaderCarrier, RequestId, SessionId}
 import uk.gov.hmrc.play.audit.http.connector.{AuditConnector, AuditResult}
 import utils.HmrcEnrolmentType
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 

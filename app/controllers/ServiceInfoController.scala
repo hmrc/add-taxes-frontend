@@ -35,7 +35,7 @@ class ServiceInfoController @Inject()(serviceInfoPartialConnector: ServiceInfoPa
                                       partialService: PartialService) extends FrontendController(mcc) {
 
   def serviceInfoPartial[A](request: AuthenticatedRequest[A])(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[Html]] = {
-    val maybeNavLinks = serviceInfoPartialConnector.getNavLinks()
+    val maybeNavLinks = serviceInfoPartialConnector.getNavLinks()(hc, ec, request)
     implicit val messages: Messages = mcc.messagesApi.preferred(request.request)
     for {
       navLinks <- maybeNavLinks

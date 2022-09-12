@@ -16,9 +16,9 @@
 
 package views.sa
 
-import play.api.data.Form
 import forms.sa.AreYouSelfEmployedFormProvider
 import models.sa.AreYouSelfEmployed
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.sa.areYouSelfEmployed

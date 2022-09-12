@@ -21,6 +21,7 @@ import controllers.actions._
 import forms.deenrolment.DoYouNeedToLeaveVATMOSSFormProvider
 import handlers.ErrorHandler
 import identifiers.DoYouNeedToLeaveVATMOSSId
+
 import javax.inject.Inject
 import models.deenrolment.DoYouNeedToLeaveVATMOSS
 import models.requests.ServiceInfoRequest
@@ -29,7 +30,7 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.auth.core.Enrolment
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import utils.{Enrolments, Enumerable, LoggingHelper, Navigator}
+import utils.{Enrolments, Enumerable, LoggingUtil, Navigator}
 import views.html.deenrolment.doYouNeedToLeaveVATMOSS
 
 class DoYouNeedToLeaveVATMOSSController @Inject()(appConfig: FrontendAppConfig,
@@ -39,9 +40,8 @@ class DoYouNeedToLeaveVATMOSSController @Inject()(appConfig: FrontendAppConfig,
                                                   serviceInfoData: ServiceInfoAction,
                                                   formProvider: DoYouNeedToLeaveVATMOSSFormProvider,
                                                   errorHandler: ErrorHandler,
-                                                  log: LoggingHelper,
                                                   doYouNeedToLeaveVATMOSS: doYouNeedToLeaveVATMOSS)
-  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits with LoggingUtil{
 
   val form: Form[DoYouNeedToLeaveVATMOSS] = formProvider()
 
@@ -60,7 +60,7 @@ class DoYouNeedToLeaveVATMOSSController @Inject()(appConfig: FrontendAppConfig,
           nextPage match {
             case Right(c) => Redirect(c)
             case Left(s) =>
-              log.warn(s"cannot navigate to the next page: $s")
+              warnLog(s"cannot navigate to the next page: $s")
               InternalServerError(errorHandler.internalServerErrorTemplate)
           }
         }

@@ -17,9 +17,9 @@
 package views.other.importexports.nes
 
 import controllers.other.importexports.nes.routes._
-import play.api.data.Form
 import forms.other.importexports.nes.DoYouHaveCHIEFRoleFormProvider
 import models.other.importexports.nes.DoYouHaveCHIEFRole
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import viewmodels.ViewAction
 import views.behaviours.ViewBehaviours

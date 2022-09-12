@@ -16,9 +16,9 @@
 
 package views.vat
 
-import play.api.data.Form
 import forms.vat.ClaimRefundFormProvider
 import models.vat.ClaimRefund
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.vat.claimRefund

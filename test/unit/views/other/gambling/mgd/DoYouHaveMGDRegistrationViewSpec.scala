@@ -16,9 +16,9 @@
 
 package views.other.gambling.mgd
 
-import play.api.data.Form
 import forms.other.gambling.mgd.DoYouHaveMGDRegistrationFormProvider
 import models.other.gambling.mgd.DoYouHaveMGDRegistration
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.other.gambling.mgd.doYouHaveMGDRegistration

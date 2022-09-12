@@ -26,7 +26,7 @@ import identifiers.EnterSAUTRId
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.sa._
-import play.api.Logging
+import utils.LoggingUtil
 import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.http.HeaderCarrier
@@ -39,7 +39,7 @@ class KnownFactsService @Inject()(saService: SaService,
                                   auditService: AuditService,
                                   errorHandler: ErrorHandler,
                                   citizensDetailsConnector: CitizensDetailsConnector,
-                                  implicit val appConfig: FrontendAppConfig) extends Logging {
+                                  implicit val appConfig: FrontendAppConfig) extends LoggingUtil {
 
   def knownFactsLocation(knownFacts: KnownFacts,
                          origin: String)
@@ -111,7 +111,7 @@ class KnownFactsService @Inject()(saService: SaService,
             Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(origin)))
           }
         case _ =>
-          logger.warn("[KnownFactsService][checkCIDNinoComparison] Error Retrieving CID details")
+          warnLog("[KnownFactsService][checkCIDNinoComparison] Error Retrieving CID details")
           Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
       }
     }

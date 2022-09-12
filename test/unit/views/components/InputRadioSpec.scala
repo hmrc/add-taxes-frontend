@@ -20,13 +20,12 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.data.{Field, Form}
+import play.api.data.Forms._
+import play.api.data._
 import play.api.i18n.{Messages, MessagesApi}
 import play.twirl.api.Html
 import utils.RadioOption
 import views.html.components.input_radio
-import play.api.data._
-import play.api.data.Forms._
 
 class InputRadioSpec extends PlaySpec with GuiceOneAppPerSuite {
 

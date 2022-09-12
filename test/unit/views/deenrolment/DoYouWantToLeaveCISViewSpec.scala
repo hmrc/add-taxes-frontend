@@ -16,9 +16,9 @@
 
 package views.deenrolment
 
-import play.api.data.Form
 import forms.deenrolment.DoYouWantToLeaveCISFormProvider
 import models.deenrolment.DoYouWantToLeaveCIS
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.deenrolment.doYouWantToLeaveCIS

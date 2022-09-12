@@ -18,10 +18,8 @@ package views.sa.partnership
 
 import forms.sa.partnership.HaveYouRegisteredPartnershipFormProvider
 import models.sa.partnership.HaveYouRegisteredPartnership
-import org.jsoup.nodes.{Document, Element}
-import play.api.data.{DefaultFormBinding, Form, FormBinding}
-import play.api.mvc.AnyContentAsFormUrlEncoded
-import play.api.test.FakeRequest
+import org.jsoup.nodes.Document
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.sa.partnership.haveYouRegisteredPartnership

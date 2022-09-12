@@ -1,9 +1,7 @@
 package support.stubs
 
 import com.github.tomakehurst.wiremock.client.WireMock.{postRequestedFor, urlEqualTo, verify}
-import models.sa.SaEnrolment
 import play.api.http.Status._
-import support.stubs.StubEnrolmentStoreConnector.enrolForSaPost
 
 object StubOssConnector extends StubHelper {
 

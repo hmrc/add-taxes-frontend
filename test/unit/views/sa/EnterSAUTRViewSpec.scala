@@ -16,12 +16,12 @@
 
 package views.sa
 
-import play.twirl.api.{Html, HtmlFormat}
-import views.behaviours.ViewBehaviours
-import views.html.sa.enterSAUTR
 import forms.sa.SAUTRFormProvider
 import models.sa.SAUTR
 import play.api.data.Form
+import play.twirl.api.{Html, HtmlFormat}
+import views.behaviours.ViewBehaviours
+import views.html.sa.enterSAUTR
 
 class EnterSAUTRViewSpec extends ViewBehaviours {
 

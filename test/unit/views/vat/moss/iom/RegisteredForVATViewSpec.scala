@@ -16,9 +16,9 @@
 
 package views.vat.moss.iom
 
-import play.api.data.Form
 import forms.vat.moss.iom.RegisteredForVATFormProvider
 import models.vat.moss.iom.RegisteredForVAT
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.vat.moss.iom.registeredForVAT

@@ -16,9 +16,9 @@
 
 package views.vat
 
-import play.api.data.Form
 import forms.vat.ImportedGoodsFormProvider
 import models.vat.ImportedGoods
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.vat.importedGoods

@@ -23,9 +23,10 @@ import play.api.i18n.Messages
 import play.api.inject.Injector
 import play.api.mvc.{AnyContent, MessagesControllerComponents}
 import play.api.test.FakeRequest
+import uk.gov.hmrc.auth.core.ConfidenceLevel
 import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
-import views.html.main_template
 import views.html.components.conditional_radio
+import views.html.main_template
 
 trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
 
@@ -42,4 +43,9 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
   def fakeRequest: FakeRequest[AnyContent] = FakeRequest("", "")
 
   def messages: Messages = mcc.messagesApi.preferred(fakeRequest)
+
+  val cacheMapId = "id"
+  val groupId ="group-id"
+  val providerId="provider-id"
+  val confidenceLevel: ConfidenceLevel = ConfidenceLevel.L50
 }

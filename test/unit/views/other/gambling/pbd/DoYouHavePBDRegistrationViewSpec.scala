@@ -16,9 +16,9 @@
 
 package views.other.gambling.pbd
 
-import play.api.data.Form
 import forms.other.gambling.pbd.DoYouHavePBDRegistrationFormProvider
 import models.other.gambling.pbd.DoYouHavePBDRegistration
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.other.gambling.pbd.doYouHavePBDRegistration

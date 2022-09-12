@@ -17,9 +17,12 @@
 package connectors
 
 import config.FrontendAppConfig
+import models.requests.ServiceInfoRequest
+
 import javax.inject.{Inject, Singleton}
-import play.api.Logging
+import utils.LoggingUtil
 import play.api.http.Status._
+import play.api.mvc.AnyContent
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.UpstreamErrorResponse.Upstream4xxResponse
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
@@ -27,18 +30,19 @@ import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class VatSubscriptionConnector @Inject()(val http: HttpClient, val appConfig: FrontendAppConfig) extends Logging {
+class VatSubscriptionConnector @Inject()(val http: HttpClient, val appConfig: FrontendAppConfig) extends LoggingUtil {
 
   lazy val vatSubscriptionUrl: String = appConfig.vatSubscriptionUrl
 
-  def getMandationStatus(vrn: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Int] = {
+  def getMandationStatus(vrn: String)
+                        (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Int] = {
     val url = vatSubscriptionUrl + s"/vat-subscription/$vrn/mandation-status"
     http.GET[HttpResponse](url).map(_.status)
   }.recover {
     case Upstream4xxResponse(error) if error.statusCode == NOT_FOUND => NOT_FOUND
     case Upstream4xxResponse(error) if error.statusCode == PRECONDITION_FAILED => PRECONDITION_FAILED
     case e: Exception =>
-      logger.error(s"[VatSubscriptionConnector][getMandationStatus] Failed with error: ${e.getMessage}")
+      errorLog(s"[VatSubscriptionConnector][getMandationStatus] Failed with error: ${e.getMessage}")
       INTERNAL_SERVER_ERROR
   }
 }

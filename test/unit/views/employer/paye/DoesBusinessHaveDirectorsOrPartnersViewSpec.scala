@@ -16,9 +16,9 @@
 
 package views.employer.paye
 
-import play.api.data.Form
 import forms.employer.paye.DoesBusinessHaveDirectorsOrPartnersFormProvider
 import models.employer.paye.DoesBusinessHaveDirectorsOrPartners
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.employer.paye.doesBusinessHaveDirectorsOrPartners

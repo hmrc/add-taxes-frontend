@@ -25,17 +25,12 @@ import play.api.mvc.{AnyContent, PlayBodyParsers}
 import play.api.test.FakeRequest
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
-import uk.gov.hmrc.auth.core.{ConfidenceLevel, Enrolment, Enrolments}
+import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
 import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
 trait ControllerSpecBase extends SpecBase {
-
-  val cacheMapId = "id"
-  val groupId ="group-id"
-  val providerId="provider-id"
-  val confidenceLevel = ConfidenceLevel.L50
 
   val parser: PlayBodyParsers = injector.instanceOf[PlayBodyParsers]
   val FakeAuthAction = new FakeAuthAction(parser)

@@ -16,9 +16,9 @@
 
 package views.other.gambling.rgd
 
-import play.api.data.Form
 import forms.other.gambling.rgd.DoYouHaveRGDRegistrationFormProvider
 import models.other.gambling.rgd.DoYouHaveRGDRegistration
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.other.gambling.rgd.doYouHaveRGDRegistration

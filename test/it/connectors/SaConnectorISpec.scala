@@ -1,11 +1,17 @@
 package connectors
 
 import models.BusinessDetails
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.sa.IvLinks
 import org.scalatestplus.play.PlaySpec
+import play.api.mvc.AnyContent
+import play.api.test.FakeRequest
 import play.api.test.Helpers.{await, _}
+import play.twirl.api.HtmlFormat
 import support.AddTaxesIntegrationTest
 import support.stubs.StubSaConnector
+import uk.gov.hmrc.auth.core.AffinityGroup.Individual
+import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -19,6 +25,11 @@ class SaConnectorISpec extends PlaySpec with AddTaxesIntegrationTest {
   val origin = "bta-sa"
   val testNino = "aa000000a"
   val testIdentifier = "nino"
+
+  implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+    HtmlFormat.empty
+  )
 
   "SaConnector" when {
     "getIvLinks" should {

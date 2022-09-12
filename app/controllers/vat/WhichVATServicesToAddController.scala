@@ -19,23 +19,21 @@ package controllers.vat
 import config.FrontendAppConfig
 import config.featureToggles.FeatureSwitch.VatOssSwitch
 import config.featureToggles.FeatureToggleSupport
-import config.featureToggles.FeatureToggleSupport.isEnabled
 import connectors.OssConnector
 import controllers.actions._
 import forms.vat.WhichVATServicesToAddFormProvider
 import handlers.ErrorHandler
 import identifiers.WhichVATServicesToAddId
-import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.vat.WhichVATServicesToAdd
-import play.api.Logging
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import utils.{Enumerable, HmrcEnrolmentType, Navigator, RadioOption}
+import utils._
 import views.html.vat.whichVATServicesToAdd
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class WhichVATServicesToAddController @Inject()(mcc: MessagesControllerComponents,
@@ -47,7 +45,7 @@ class WhichVATServicesToAddController @Inject()(mcc: MessagesControllerComponent
                                                 errorHandler: ErrorHandler,
                                                 whichVATServicesToAdd: whichVATServicesToAdd,
                                                 implicit val appConfig: FrontendAppConfig)
-  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits with Logging with FeatureToggleSupport {
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits with LoggingUtil with FeatureToggleSupport {
 
   implicit val ec: ExecutionContext = mcc.executionContext
 
@@ -81,7 +79,7 @@ class WhichVATServicesToAddController @Inject()(mcc: MessagesControllerComponent
                         request.request.enrolments,
                         appConfig.vatOssRedirectUrl(url))))
                   case _ =>
-                    logger.warn("[WhichVATServicesToAddController][onSubmit] No URL passed from OSS Call")
+                    warnLog("[WhichVATServicesToAddController][onSubmit] No URL passed from OSS Call")
                     InternalServerError(errorHandler.internalServerErrorTemplate)
                 }
               }

@@ -16,9 +16,9 @@
 
 package views.vat
 
-import play.api.data.Form
 import forms.vat.AgriculturalFlatRateSchemeFormProvider
 import models.vat.AgriculturalFlatRateScheme
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.vat.agriculturalFlatRateScheme

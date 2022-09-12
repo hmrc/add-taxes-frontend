@@ -18,7 +18,6 @@ package controllers.ct
 
 import controllers.ControllerSpecBase
 import controllers.actions._
-import javax.inject.Inject
 import models.requests.AuthenticatedRequest
 import play.api.Application
 import play.api.inject.bind
@@ -31,6 +30,7 @@ import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.auth.core.{ConfidenceLevel, Enrolments}
 import views.html.ct.individual_add_corporation_tax
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class IndividualAddCorporationTaxControllerSpec extends ControllerSpecBase {

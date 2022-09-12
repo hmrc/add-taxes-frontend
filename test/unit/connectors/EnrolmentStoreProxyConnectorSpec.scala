@@ -17,6 +17,7 @@
 package connectors
 
 import base.SpecBase
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.sa.{KnownFacts, KnownFactsAndIdentifiers, KnownFactsReturn, SAUTR}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
@@ -24,6 +25,11 @@ import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.http.Status.{INTERNAL_SERVER_ERROR, NO_CONTENT, OK}
 import play.api.libs.json.{JsValue, Json}
+import play.api.mvc.AnyContent
+import play.api.test.FakeRequest
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.auth.core.AffinityGroup.Individual
+import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -40,8 +46,11 @@ class EnrolmentStoreProxyConnectorSpec extends SpecBase with MockitoSugar with S
   val utr: String = "1234"
   val officeNumber: String = "123"
   val payeReference: String = "AB123"
-  val groupId: String = "1EB60093-674F-4D03-A0FF-916E0D337319"
 
+  implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+    HtmlFormat.empty
+  )
   val es0ResponsePrincipals: JsValue = Json.parse(
     """
       |{

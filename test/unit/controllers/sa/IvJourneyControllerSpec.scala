@@ -19,12 +19,12 @@ package controllers.sa
 import config.FrontendAppConfig
 import config.featureToggles.FeatureSwitch.IvUpliftSwitch
 import config.featureToggles.FeatureToggleSupport
-import play.api.http.Status.SEE_OTHER
 import controllers.ControllerSpecBase
 import controllers.sa.{routes => saRoutes}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
+import play.api.http.Status.SEE_OTHER
 import play.api.mvc.Results._
 import play.api.test.Helpers.{defaultAwaitTimeout, redirectLocation, status}
 import service.IvService

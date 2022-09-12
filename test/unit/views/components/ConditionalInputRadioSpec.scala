@@ -25,7 +25,6 @@ import play.api.data._
 import play.api.i18n.{Messages, MessagesApi}
 import play.twirl.api.Html
 import utils.RadioOption
-import views.html.components.input_radio
 import views.html.components.conditional_input_radio
 
 class ConditionalInputRadioSpec extends PlaySpec with GuiceOneAppPerSuite {

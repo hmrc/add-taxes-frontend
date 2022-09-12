@@ -21,7 +21,7 @@ import config.featureToggles.FeatureSwitch.IvUpliftSwitch
 import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import javax.inject.Inject
-import play.api.Logging
+import utils.LoggingUtil
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import service.IvService
@@ -35,7 +35,7 @@ class IvJourneyController @Inject()(ivService: IvService,
                                     authenticate: AuthAction,
                                     serviceInfoData: ServiceInfoAction,
                                     implicit val appConfig: FrontendAppConfig)
-  extends FrontendController(mcc) with I18nSupport with Logging {
+  extends FrontendController(mcc) with I18nSupport with LoggingUtil {
 
   implicit val ec: ExecutionContext = mcc.executionContext
 
@@ -45,7 +45,7 @@ class IvJourneyController @Inject()(ivService: IvService,
           journeyId match {
             case Some(id) => ivService.ivCheckAndEnrolUplift(origin, id)
             case _ =>
-              logger.error("[IvJourneyController][ivRouter] Error there is no JounreyId provided on call")
+              errorLog("[IvJourneyController][ivRouter] Error there is no JounreyId provided on call")
               Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"), origin)))
           }
         } else {

@@ -90,7 +90,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
 
       "return redirect to Try Pin in post when fails queryKnownFacts" in {
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())).thenReturn(Future.successful(Some(utr)))
-        when(mockEnrolmentStoreProxyConnector.queryKnownFacts(any(), any())(any(), any()))
+        when(mockEnrolmentStoreProxyConnector.queryKnownFacts(any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(KnownFactsReturn(utr.value, knownFactsResult = false)))
 
         val result = service().knownFactsLocation(testKnownFacts, btaOrigin)
@@ -102,7 +102,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
       "return redirect to Iv when user passes queryKnownFacts" in {
         disable(IvUpliftSwitch)
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())).thenReturn(Future.successful(Some(utr)))
-        when(mockEnrolmentStoreProxyConnector.queryKnownFacts(any(), any())(any(), any()))
+        when(mockEnrolmentStoreProxyConnector.queryKnownFacts(any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(KnownFactsReturn(utr.value, knownFactsResult = true)))
         when(mockSaService.getIvRedirectLink(utr.value, btaOrigin)).thenReturn(Future.successful("/iv-redirect"))
 
@@ -117,9 +117,9 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L50, Some("AA00000A")),
           HtmlFormat.empty)
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())).thenReturn(Future.successful(Some(utr)))
-        when(mockEnrolmentStoreProxyConnector.queryKnownFacts(any(), any())(any(), any()))
+        when(mockEnrolmentStoreProxyConnector.queryKnownFacts(any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(KnownFactsReturn(utr.value, knownFactsResult = true)))
-        when(mockCIDConnector.getDesignatoryDetails(any(), any())(any()))
+        when(mockCIDConnector.getDesignatoryDetails(any(), any())(any(), any()))
           .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000A", "test"))))
         when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
 
@@ -133,7 +133,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
       "return CredIdFound and send and audit event when the ES0 connector returns true" in {
         when(mockAuditService.auditSA(any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(AuditResult.Success))
-        when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any(), any())(any(), any())).thenReturn(Future.successful(true))
+        when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any(), any())(any(), any(), any())).thenReturn(Future.successful(true))
 
         await(service().enrolmentCheck("234", utr, "37219-dsjjd", Some("IR-SA"), DoYouHaveSAUTR.Yes)) mustBe CredIdFound
         //        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
@@ -142,8 +142,8 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
       "return NoRecordFound and send and audit event when the ES0 and ES3 connectors returns false" in {
         when(mockAuditService.auditSA(any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(AuditResult.Success))
-        when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any(), any())(any(), any())).thenReturn(Future.successful(false))
-        when(mockEnrolmentStoreProxyConnector.checkSaGroup(any(), any())(any(), any())).thenReturn(Future.successful(false))
+        when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any(), any())(any(), any(), any())).thenReturn(Future.successful(false))
+        when(mockEnrolmentStoreProxyConnector.checkSaGroup(any(), any())(any(), any(), any())).thenReturn(Future.successful(false))
 
         await(service().enrolmentCheck("234", utr, "37219-dsjjd", Some("IR-SA"), DoYouHaveSAUTR.Yes)) mustBe NoRecordFound
         //        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
@@ -153,8 +153,8 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
       "return GroupIdFound and send and audit event when the ES0 connector returns false and ES3 connectors returns true" in {
         when(mockAuditService.auditSA(any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(AuditResult.Success))
-        when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any(), any())(any(), any())).thenReturn(Future.successful(false))
-        when(mockEnrolmentStoreProxyConnector.checkSaGroup(any(), any())(any(), any())).thenReturn(Future.successful(true))
+        when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any(), any())(any(), any(), any())).thenReturn(Future.successful(false))
+        when(mockEnrolmentStoreProxyConnector.checkSaGroup(any(), any())(any(), any(), any())).thenReturn(Future.successful(true))
 
         await(service().enrolmentCheck("234", utr, "37219-dsjjd", Some("IR-SA"), DoYouHaveSAUTR.Yes)) mustBe GroupIdFound
         //        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
@@ -163,8 +163,8 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
       "return NOSAUTR and send and audit event when the ES0 connector returns false and ES3 connectors returns true" in {
         when(mockAuditService.auditSA(any(), any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(AuditResult.Success))
-        when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any(), any())(any(), any())).thenReturn(Future.successful(false))
-        when(mockEnrolmentStoreProxyConnector.checkSaGroup(any(), any())(any(), any())).thenReturn(Future.successful(true))
+        when(mockEnrolmentStoreProxyConnector.checkExistingUTR(any(), any())(any(), any(), any())).thenReturn(Future.successful(false))
+        when(mockEnrolmentStoreProxyConnector.checkSaGroup(any(), any())(any(), any(), any())).thenReturn(Future.successful(true))
 
         await(service().enrolmentCheck("234", utr, "37219-dsjjd", Some("IR-SA"), DoYouHaveSAUTR.No)) mustBe NoSaUtr
         //        verify(mockAuditService, times(1)).auditSA(any(), any(), any())(any(), any(), any())
@@ -176,7 +176,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
             AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, Some("AA00000A")),
             HtmlFormat.empty)
-          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any()))
+          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any(), any()))
             .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000A", "test"))))
           when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
 
@@ -189,7 +189,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
             AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L50, Some("AA00000A")),
             HtmlFormat.empty)
-          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any()))
+          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any(), any()))
             .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000A", "test"))))
           when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
 
@@ -202,7 +202,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
             AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, Some("AA00000A")),
             HtmlFormat.empty)
-          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any()))
+          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any(), any()))
             .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000B", "test"))))
           when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
 
@@ -215,7 +215,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
             AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, Some("AA00000A")),
             HtmlFormat.empty)
-          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any()))
+          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any(), any()))
             .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000A", "test"))))
           when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
 
@@ -229,7 +229,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
             AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, None),
             HtmlFormat.empty)
-          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any()))
+          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any(), any()))
             .thenReturn(Future.successful(None))
 
           val result = service().checkCIDNinoComparison("bta-sa", "1234567891", "AA00000A")

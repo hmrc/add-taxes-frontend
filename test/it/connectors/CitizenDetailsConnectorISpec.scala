@@ -1,10 +1,16 @@
 package connectors
 
 import models.DesignatoryDetails
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import org.scalatestplus.play.PlaySpec
+import play.api.mvc.AnyContent
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.twirl.api.HtmlFormat
 import support.AddTaxesIntegrationTest
 import support.stubs.StubCitizenDetailsConnector
+import uk.gov.hmrc.auth.core.AffinityGroup.Individual
+import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
@@ -22,6 +28,11 @@ class CitizenDetailsConnectorISpec extends PlaySpec with AddTaxesIntegrationTest
   val nino: String = "AA055075C"
   val dateOfBirthShortFormat: String = "11121971"
   val dateOfBirthLongFormat: String = "1971-12-11"
+
+  implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+    HtmlFormat.empty
+  )
 
   val designatoryDetails: String =  s"""
                                       |{

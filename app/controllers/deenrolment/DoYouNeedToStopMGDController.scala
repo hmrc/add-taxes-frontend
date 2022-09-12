@@ -21,6 +21,7 @@ import controllers.actions._
 import forms.deenrolment.DoYouNeedToStopMGDFormProvider
 import handlers.ErrorHandler
 import identifiers.DoYouNeedToStopMGDId
+
 import javax.inject.Inject
 import models.deenrolment.DoYouNeedToStopMGD
 import models.requests.ServiceInfoRequest
@@ -29,7 +30,7 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.auth.core.Enrolment
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import utils.{Enrolments, Enumerable, LoggingHelper, Navigator}
+import utils.{Enrolments, Enumerable, LoggingUtil, Navigator}
 import views.html.deenrolment.doYouNeedToStopMGD
 
 class DoYouNeedToStopMGDController @Inject()(appConfig: FrontendAppConfig,
@@ -39,9 +40,8 @@ class DoYouNeedToStopMGDController @Inject()(appConfig: FrontendAppConfig,
                                              serviceInfoData: ServiceInfoAction,
                                              formProvider: DoYouNeedToStopMGDFormProvider,
                                              errorHandler: ErrorHandler,
-                                             log: LoggingHelper,
                                              doYouNeedToStopMGD: doYouNeedToStopMGD)
-  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits with LoggingUtil {
 
   val form: Form[DoYouNeedToStopMGD] = formProvider()
 
@@ -59,7 +59,7 @@ class DoYouNeedToStopMGDController @Inject()(appConfig: FrontendAppConfig,
           nextPage match {
             case Right(c) => Redirect(c)
             case Left(s) =>
-              log.warn(s"cannot navigate to the next page: $s")
+              warnLog(s"cannot navigate to the next page: $s")
               InternalServerError(errorHandler.internalServerErrorTemplate)
           }
         }

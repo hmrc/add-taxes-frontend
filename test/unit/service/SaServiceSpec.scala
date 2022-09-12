@@ -62,7 +62,7 @@ class SaServiceSpec extends ControllerSpecBase with MockitoSugar {
   "Sa service" when {
     "getIvRedirectLink is called" must {
       "return redirect url of Try Pin in post when fails to retrieve iv links" in {
-        when(mockSaConnector.getIvLinks(any(), any())(any(), any())).thenReturn(Future.successful(None))
+        when(mockSaConnector.getIvLinks(any(), any())(any(), any(), any())).thenReturn(Future.successful(None))
         when(mockDataCacheConnector.getEntry[String](any(), any())(any()))
           .thenReturn(Future.successful(None))
 
@@ -74,7 +74,7 @@ class SaServiceSpec extends ControllerSpecBase with MockitoSugar {
       }
 
       "return redirect url from retrieve iv links" in {
-        when(mockSaConnector.getIvLinks(any(), any())(any(), any())).thenReturn(Future.successful(Some(testIvLinks)))
+        when(mockSaConnector.getIvLinks(any(), any())(any(), any(), any())).thenReturn(Future.successful(Some(testIvLinks)))
         when(mockDataCacheConnector.getEntry[String](any(), any())(any()))
           .thenReturn(Future.successful(None))
 

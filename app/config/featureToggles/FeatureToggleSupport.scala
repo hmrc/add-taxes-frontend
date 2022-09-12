@@ -19,11 +19,11 @@ package config.featureToggles
 import config.FrontendAppConfig
 import config.featureToggles.ConfigurableValue.ConfigurableValue
 import config.featureToggles.FeatureSwitch.FeatureSwitch
-import play.api.Logging
+import utils.LoggingUtil
 
 import scala.sys.SystemProperties
 
-trait FeatureToggleSupport extends Logging {
+trait FeatureToggleSupport extends LoggingUtil {
 
   def getValue(key: String)(implicit appConfig: FrontendAppConfig): String = {
     sys.props.get(key).getOrElse(appConfig.config.getString(key))
@@ -71,7 +71,7 @@ trait FeatureToggleSupport extends Logging {
   }
 
   def disable(featureSwitch: FeatureSwitch): SystemProperties = {
-    logger.debug(s"[FeatureToggleSupport][enable] ${featureSwitch.name} disabled")
+    logger.debug(s"[FeatureToggleSupport][disable] ${featureSwitch.name} disabled")
     setValue(featureSwitch, false.toString)
   }
 

@@ -94,7 +94,7 @@ class WhatIsYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mock
     }
 
     "redirect when valid empRef is submitted and are in the enrolment store" in {
-      when(mockEnrolmentStoreProxyConnector.checkExistingEmpRef(any(), any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockEnrolmentStoreProxyConnector.checkExistingEmpRef(any(), any())(any(), any(), any())).thenReturn(Future.successful(true))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("empRef", "123/AB123")).withMethod("POST")
 
       val result = controller(empRefExists = true).onSubmit()(postRequest)
@@ -104,7 +104,7 @@ class WhatIsYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mock
     }
 
     "redirect when valid empRef is submitted and are not in the enrolment store" in {
-      when(mockEnrolmentStoreProxyConnector.checkExistingEmpRef(any(), any())(any(), any())).thenReturn(Future.successful(false))
+      when(mockEnrolmentStoreProxyConnector.checkExistingEmpRef(any(), any())(any(), any(), any())).thenReturn(Future.successful(false))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("empRef", "123/AB123")).withMethod("POST")
 
       val result = controller(empRefExists = false).onSubmit()(postRequest)

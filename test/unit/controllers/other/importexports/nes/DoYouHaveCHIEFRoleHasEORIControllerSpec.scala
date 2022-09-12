@@ -16,17 +16,17 @@
 
 package controllers.other.importexports.nes
 
-import play.api.data.Form
-import utils.FakeNavigator
 import controllers._
-import play.api.test.Helpers._
+import controllers.other.importexports.nes.routes._
 import forms.other.importexports.nes.DoYouHaveCHIEFRoleFormProvider
 import models.other.importexports.nes.DoYouHaveCHIEFRole
+import play.api.data.Form
+import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import viewmodels.ViewAction
 import views.html.other.importexports.nes.doYouHaveCHIEFRole
-import controllers.other.importexports.nes.routes._
-import play.api.mvc.Call
 
 class DoYouHaveCHIEFRoleHasEORIControllerSpec extends ControllerSpecBase {
 

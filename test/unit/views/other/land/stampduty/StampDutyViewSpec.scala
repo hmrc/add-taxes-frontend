@@ -16,9 +16,9 @@
 
 package views.other.land.stampduty
 
-import play.api.data.Form
 import forms.other.land.stampduty.StampDutyFormProvider
 import models.other.land.stampduty.StampDuty
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.other.land.stampduty.stampDuty

@@ -24,7 +24,7 @@ import controllers.actions.{AuthAction, ServiceInfoAction}
 import identifiers.EnterSAUTRId
 import javax.inject.Inject
 import models.sa.SAUTR
-import play.api.Logging
+import utils.LoggingUtil
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import service.SaService
@@ -38,7 +38,7 @@ class TryIvController @Inject()(authenticate: AuthAction,
                                 saService: SaService,
                                 dataCacheConnector: DataCacheConnector,
                                 implicit val appConfig: FrontendAppConfig)
-  extends FrontendController(mcc) with I18nSupport with Logging {
+  extends FrontendController(mcc) with I18nSupport with LoggingUtil {
 
   implicit val ec: ExecutionContext = mcc.executionContext
 
@@ -53,7 +53,7 @@ class TryIvController @Inject()(authenticate: AuthAction,
               saService.getIvRedirectLink(utr.value, origin)
             }
           case _ =>
-            logger.warn("[TryIvController][onPageLoad] Failed to get UTR from DataCache")
+            warnLog("[TryIvController][onPageLoad] Failed to get UTR from DataCache")
             Future.successful(routes.TryPinInPostController.onPageLoad(Some("MatchingError"), origin).url)
         }
 

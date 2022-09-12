@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-sbt -Dapplication.router="testOnlyDoNotUseInAppConf.Routes" "run 9730"
+sbt -Dlogger.resource=logback-test.xml -Dapplication.router="testOnlyDoNotUseInAppConf.Routes" "run 9730"
