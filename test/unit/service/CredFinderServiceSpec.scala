@@ -76,15 +76,19 @@ class CredFinderServiceSpec extends ControllerSpecBase with MockitoSugar with Be
 
 
   "mtdItsaSubscribedCheck" when {
-    val enrolments: Enrolments = Enrolments(Set(Enrolment(key = HmrcEnrolmentType.SA.toString, identifiers = Seq(EnrolmentIdentifier("UTR", "1234567816")), state = "Activated")))
+    val enrolments: Enrolments = Enrolments(Set(Enrolment(
+      key = HmrcEnrolmentType.SA.toString,
+      identifiers = Seq(EnrolmentIdentifier("UTR", "1234567816")),
+      state = "Activated"
+    )))
     val designatoryDetails: DesignatoryDetails = DesignatoryDetails("test", "test", "AA00000A", "test")
     val businessDetails: BusinessDetails = BusinessDetails("aa000000a", "1234567")
     implicit val request: ServiceInfoRequest[AnyContent] = test(Organisation, enrolments)
 
     "return true when citizens details and business details return a model" in {
 
-      when(mockCitizensDetailsConnector.getDesignatoryDetails(any(),any())(any())).thenReturn(Future.successful(Some(designatoryDetails)))
-      when(mockSaConnector.getBusinessDetails(any(),any())(any(),any())).thenReturn(Future.successful(Some(businessDetails)))
+      when(mockCitizensDetailsConnector.getDesignatoryDetails(any(),any())(any(), any())).thenReturn(Future.successful(Some(designatoryDetails)))
+      when(mockSaConnector.getBusinessDetails(any(),any())(any(),any(), any())).thenReturn(Future.successful(Some(businessDetails)))
       when(mockDataCacheConnector.save[Boolean](any(),any(),any())(any())).thenReturn(Future.successful(emptyCacheMap))
 
       val result = testService.mtdItsaSubscribedCheck(Some(EnrolmentIdentifier("IR-SA", "1234567816")))
@@ -238,8 +242,8 @@ class CredFinderServiceSpec extends ControllerSpecBase with MockitoSugar with Be
       "should return 200" in{
 
         when(mockDataCacheConnector.getEntry[SAUTR](any(),any())(any())).thenReturn(Future.successful(Some(SAUTR("1234567816"))))
-        when(mockCitizensDetailsConnector.getDesignatoryDetails(any(),any())(any())).thenReturn(Future.successful(Some(designatoryDetails)))
-        when(mockSaConnector.getBusinessDetails(any(),any())(any(),any())).thenReturn(Future.successful(Some(businessDetails)))
+        when(mockCitizensDetailsConnector.getDesignatoryDetails(any(),any())(any(), any())).thenReturn(Future.successful(Some(designatoryDetails)))
+        when(mockSaConnector.getBusinessDetails(any(),any())(any(),any(), any())).thenReturn(Future.successful(Some(businessDetails)))
         when(mockDataCacheConnector.save[Boolean](any(),any(),any())(any())).thenReturn(Future.successful(emptyCacheMap))
 
         val redirectSACategory = testService

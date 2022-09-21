@@ -16,9 +16,9 @@
 
 package views.sa.partnership
 
-import play.api.data.Form
 import forms.sa.partnership.DoYouWantToAddPartnerFormProvider
 import models.sa.partnership.DoYouWantToAddPartner
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.sa.partnership.doYouWantToAddPartner

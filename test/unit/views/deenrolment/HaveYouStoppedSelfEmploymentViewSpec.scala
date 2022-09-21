@@ -16,9 +16,9 @@
 
 package views.deenrolment
 
-import play.api.data.Form
 import forms.deenrolment.HaveYouStoppedSelfEmploymentFormProvider
 import models.deenrolment.HaveYouStoppedSelfEmployment
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.deenrolment.haveYouStoppedSelfEmployment

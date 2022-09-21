@@ -23,8 +23,8 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.Call
 import uk.gov.hmrc.auth.core.AffinityGroup
-import utils.nextpage.NextPageSpecBase
 import utils.NextPage
+import utils.nextpage.NextPageSpecBase
 
 class DoYouHaveVATRegNumberNextPageSpec
     extends NextPageSpecBase

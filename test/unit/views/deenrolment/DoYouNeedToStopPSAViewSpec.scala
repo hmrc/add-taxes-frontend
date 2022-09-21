@@ -16,9 +16,9 @@
 
 package views.deenrolment
 
-import play.api.data.Form
 import forms.deenrolment.DoYouNeedToStopPSAFormProvider
 import models.deenrolment.DoYouNeedToStopPSA
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.deenrolment.doYouNeedToStopPSA

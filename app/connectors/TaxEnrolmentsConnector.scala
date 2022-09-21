@@ -21,7 +21,7 @@ import models.requests.ServiceInfoRequest
 
 import javax.inject.Inject
 import models.sa.SaEnrolment
-import play.api.Logging
+import utils.LoggingUtil
 import play.api.http.Status.{CONFLICT, CREATED}
 import play.api.mvc.AnyContent
 import uk.gov.hmrc.http.UpstreamErrorResponse.Upstream4xxResponse
@@ -30,7 +30,7 @@ import uk.gov.hmrc.http.HttpReads.Implicits._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class TaxEnrolmentsConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) extends Logging {
+class TaxEnrolmentsConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) extends LoggingUtil {
 
   val serviceUrl: String = appConfig.enrolForSaUrl
 
@@ -41,16 +41,16 @@ class TaxEnrolmentsConnector @Inject()(appConfig: FrontendAppConfig, http: HttpC
     http.POST[SaEnrolment, HttpResponse](s"$serviceUrl${request.request.groupId}/enrolments/IR-SA~UTR~$utr", saEnrolment).map { response =>
       response.status match {
         case CREATED =>
-          logger.info(s"[TaxEnrolmentsConnector][enrolForSa] Enrolment created." +
+          infoLog(s"[TaxEnrolmentsConnector][enrolForSa] Enrolment created." +
             s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)} " +
             s"\n confidenceLevel ${request.request.confidenceLevel}"
           )
           true
         case CONFLICT if request.request.enrolments.getEnrolment("IR-SA").isDefined =>
-          logger.info(s"[TaxEnrolmentsConnector][enrolForSa] Enrolment already created. Likely double click")
+          infoLog(s"[TaxEnrolmentsConnector][enrolForSa] Enrolment already created. Likely double click")
           true
         case _ =>
-          logger.error(
+          errorLog(
             s"[TaxEnrolmentsConnector][enrolForSa] failed with status ${response.status}," +
               s"\n body: ${response.body}" +
               s"\n affinityGroup: ${request.request.affinityGroup}" +
@@ -60,10 +60,10 @@ class TaxEnrolmentsConnector @Inject()(appConfig: FrontendAppConfig, http: HttpC
       }
     }.recover {
       case Upstream4xxResponse(error) =>
-        logger.error(s"[TaxEnrolmentsConnector][enrolForSa] Enrolment Store Proxy status ${error.statusCode}, message ${error.message}")
+        errorLog(s"[TaxEnrolmentsConnector][enrolForSa] Enrolment Store Proxy status ${error.statusCode}, message ${error.message}")
         false
       case exception =>
-        logger.error("[TaxEnrolmentsConnector][enrolForSa]Enrolment Store Proxy error", exception)
+        errorLog("[TaxEnrolmentsConnector][enrolForSa]Enrolment Store Proxy error", exception)
         false
     }
   }

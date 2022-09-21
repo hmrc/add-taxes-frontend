@@ -16,9 +16,9 @@
 
 package views.other.ctf
 
-import play.api.data.Form
 import forms.other.ctf.AreYouApprovedCTFFormProvider
 import models.other.ctf.AreYouApprovedCTF
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.other.ctf.areYouApprovedCTF

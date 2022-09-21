@@ -16,9 +16,9 @@
 
 package views.other.charity
 
-import play.api.data.Form
 import forms.other.charity.DoYouHaveCharityReferenceFormProvider
 import models.other.charity.DoYouHaveCharityReference
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.other.charity.doYouHaveCharityReference

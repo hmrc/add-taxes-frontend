@@ -16,9 +16,9 @@
 
 package views.deenrolment
 
-import play.api.data.Form
 import forms.deenrolment.DoYouNeedToStopPBDFormProvider
 import models.deenrolment.DoYouNeedToStopPBD
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.deenrolment.doYouNeedToStopPBD

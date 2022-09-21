@@ -25,7 +25,7 @@ import config.featureToggles.ConfigurableValue.{ConfigurableValue, configurableV
 import config.featureToggles.FeatureSwitch.{FeatureSwitch, featureSwitches}
 import config.featureToggles.{ConfigurableValue, FeatureSwitch, FeatureToggleSupport}
 import javax.inject.Inject
-import play.api.Logging
+import utils.LoggingUtil
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
@@ -35,7 +35,7 @@ import scala.collection.immutable.ListMap
 
 class FeatureSwitchController @Inject()(val cc: MessagesControllerComponents,
                                         view: feature_switch
-                                       )(implicit appConfig: FrontendAppConfig) extends FrontendController(cc) with I18nSupport with FeatureToggleSupport with Logging {
+                                       )(implicit appConfig: FrontendAppConfig) extends FrontendController(cc) with I18nSupport with FeatureToggleSupport with LoggingUtil {
 
   def onPageLoad(): Action[AnyContent] = Action { implicit request =>
 

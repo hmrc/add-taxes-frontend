@@ -16,9 +16,9 @@
 
 package views.vat.giant
 
-import play.api.data.Form
 import forms.vat.giant.WhatIsYourOrganisationFormProvider
 import models.vat.giant.WhatIsYourOrganisation
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.vat.giant.whatIsYourOrganisation

@@ -1,7 +1,7 @@
 package views.sa
 
 import forms.sa.KnownFactsPostcodeFormProvider
-import models.sa.{KnownFacts, KnownFactsPostcode}
+import models.sa.KnownFactsPostcode
 import play.api.data.{Form, FormError}
 import play.twirl.api.HtmlFormat
 import utils.KnownFactsFormValidator

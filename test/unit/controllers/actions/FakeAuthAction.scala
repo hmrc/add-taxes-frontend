@@ -17,7 +17,7 @@
 package controllers.actions
 
 import models.requests.AuthenticatedRequest
-import play.api.mvc.{AnyContent, BodyParser, PlayBodyParsers, Request, Result}
+import play.api.mvc._
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual, Organisation}
 import uk.gov.hmrc.auth.core.{ConfidenceLevel, Enrolments}
 

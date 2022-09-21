@@ -21,7 +21,7 @@ import org.jsoup.nodes.Document
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.data.Forms._
-import play.api.data.{Field, Form, _}
+import play.api.data._
 import play.api.i18n.{Messages, MessagesApi}
 import play.twirl.api.Html
 import views.html.components.input_yes_no

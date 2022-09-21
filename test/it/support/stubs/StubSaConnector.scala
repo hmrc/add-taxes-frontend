@@ -16,7 +16,7 @@
 
 package support.stubs
 import com.github.tomakehurst.wiremock.client.WireMock._
-import play.api.test.Helpers.{OK, NOT_FOUND}
+import play.api.test.Helpers.{NOT_FOUND, OK}
 
 object StubSaConnector extends StubHelper {
 

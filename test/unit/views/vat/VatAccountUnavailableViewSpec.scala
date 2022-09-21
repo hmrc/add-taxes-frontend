@@ -18,7 +18,7 @@ package views.vat
 
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.vat.{vatAccountUnavailable}
+import views.html.vat.vatAccountUnavailable
 
 class VatAccountUnavailableViewSpec extends ViewBehaviours {
 

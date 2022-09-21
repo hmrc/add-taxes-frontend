@@ -16,11 +16,17 @@
 
 package connectors
 
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.sa.JourneyLinkResponse
 import org.scalatestplus.play.PlaySpec
+import play.api.mvc.AnyContent
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.twirl.api.HtmlFormat
 import support.AddTaxesIntegrationTest
 import support.stubs.StubIvConnector
+import uk.gov.hmrc.auth.core.AffinityGroup.Individual
+import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -31,6 +37,11 @@ class IvConnectorISpec extends PlaySpec with AddTaxesIntegrationTest {
   implicit val hc: HeaderCarrier = HeaderCarrier()
 
   lazy val connector: IvConnector = inject[IvConnector]
+
+  implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+    HtmlFormat.empty
+  )
 
   val checkJourneyLinkJson: Option[String] = Some(
     s"""

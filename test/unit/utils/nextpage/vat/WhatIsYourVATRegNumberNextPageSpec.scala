@@ -16,9 +16,9 @@
 
 package utils.nextpage.vat
 
+import play.api.http.Status.{NOT_FOUND, OK}
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
-import play.api.http.Status.{OK, NOT_FOUND}
 class WhatIsYourVATRegNumberNextPageSpec extends NextPageSpecBase {
 
   "whatIsYourVATRegNumber" when {

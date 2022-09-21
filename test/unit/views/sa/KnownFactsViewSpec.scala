@@ -17,7 +17,7 @@
 package views.sa
 
 import forms.sa.KnownFactsNinoFormProvider
-import models.sa.{AreYouSelfEmployed, KnownFacts, KnownFactsNino}
+import models.sa.KnownFactsNino
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import utils.KnownFactsFormValidator

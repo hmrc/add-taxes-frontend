@@ -1,10 +1,16 @@
 package connectors
 
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.sa.{KnownFacts, KnownFactsReturn, SAUTR}
 import org.scalatestplus.play.PlaySpec
+import play.api.mvc.AnyContent
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.twirl.api.HtmlFormat
 import support.AddTaxesIntegrationTest
 import support.stubs.StubEnrolmentStoreConnector
+import uk.gov.hmrc.auth.core.AffinityGroup.Individual
+import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -16,13 +22,18 @@ class EnrolmentStoreProxyConnectorISpec extends PlaySpec with AddTaxesIntegratio
   lazy val connector: EnrolmentStoreProxyConnector = inject[EnrolmentStoreProxyConnector]
   val testUtr = "1234567890"
   val credId: String = "cred"
-  val groupId: String = "HSHGFG734-YHDJS83"
+  override val groupId: String = "HSHGFG734-YHDJS83"
   val enrolActivate: String = "enrolAndActivate"
   val testTaxOfficeNumber = "123"
   val testTaxOfficeReference = "4567890"
   val testAllKnownFacts: KnownFacts = KnownFacts(Some("AA1 1AA"), Some("AA00000A"), None)
   val testNinoOnlyKnownFacts: KnownFacts = KnownFacts(None, Some("AA00000A"), None)
   val testPostCodeOnlyKnownFacts: KnownFacts = KnownFacts(Some("AA1 1AA"), None, None)
+
+  implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+    HtmlFormat.empty
+  )
 
   "EnrolmentStoreProxyConnector" when {
     "checkExistingUTR" should {

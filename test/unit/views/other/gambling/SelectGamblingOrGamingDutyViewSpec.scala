@@ -16,9 +16,9 @@
 
 package views.other.gambling
 
-import play.api.data.Form
 import forms.other.gambling.SelectGamblingOrGamingDutyFormProvider
 import models.other.gambling.SelectGamblingOrGamingDuty
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.other.gambling.selectGamblingOrGamingDuty

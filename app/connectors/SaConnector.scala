@@ -17,40 +17,45 @@
 package connectors
 
 import config.FrontendAppConfig
+
 import javax.inject.Inject
 import models.BusinessDetails
+import models.requests.ServiceInfoRequest
 import models.sa.IvLinks
-import play.api.Logging
+import utils.LoggingUtil
 import play.api.http.Status.NOT_FOUND
+import play.api.mvc.AnyContent
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, UpstreamErrorResponse}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class SaConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) extends Logging{
+class SaConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) extends LoggingUtil {
 
   def serviceUrl(utr: String, origin: String): String = s"${appConfig.saBaseUrl}/sa/individual/$utr/details-for-iv?origin=$origin"
   def serviceBusinessDetails(value: String, identifier: String): String = s"${appConfig.saBaseUrl}/sa/business-details/$value/$identifier"
 
-  def getIvLinks(utr: String, origin: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[IvLinks]] = {
+  def getIvLinks(utr: String, origin: String)
+                (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Option[IvLinks]] = {
     http.GET[IvLinks](serviceUrl(utr, origin)).map { result =>
       Some(result)
     }.recover {
       case UpstreamErrorResponse(_, NOT_FOUND, _, _) => None
       case exception =>
-        logger.error("[SaConnector][getIvLinks] resulted in", exception)
+        errorLog("[SaConnector][getIvLinks] resulted in", exception)
         None
     }
   }
 
 
-  def getBusinessDetails(value: String, identifier: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[BusinessDetails]] = {
+  def getBusinessDetails(value: String, identifier: String)
+                        (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Option[BusinessDetails]] = {
     http.GET[BusinessDetails](serviceBusinessDetails(value, identifier)).map { result =>
       Some(result)
     }.recover {
       case UpstreamErrorResponse(_, NOT_FOUND, _, _) => None
       case exception =>
-        logger.error(s"[SaConnector][getBusinessDetails] resulted in ${exception.getMessage}")
+        errorLog(s"[SaConnector][getBusinessDetails] resulted in ${exception.getMessage}")
         None
     }
   }

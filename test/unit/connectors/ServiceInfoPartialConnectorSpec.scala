@@ -17,23 +17,29 @@
 package connectors
 
 import base.SpecBase
-import models.requests.{NavContent, NavLinks}
+import models.requests.{AuthenticatedRequest, NavContent, NavLinks}
 import org.mockito.ArgumentMatchers.{any, eq => eqTo}
 import org.mockito.Mockito.when
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
+import play.api.mvc.AnyContent
+import play.api.test.FakeRequest
+import uk.gov.hmrc.auth.core.AffinityGroup.Individual
+import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 
 class ServiceInfoPartialConnectorSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures {
   val mockHttpGet: HttpClient = mock[HttpClient]
 
-  object TestServiceInfoPartialConnector extends ServiceInfoPartialConnector(mockHttpGet, frontendAppConfig)
+  implicit val request: AuthenticatedRequest[AnyContent] =
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None)
 
+  object TestServiceInfoPartialConnector extends ServiceInfoPartialConnector(mockHttpGet, frontendAppConfig)
   val successResponseNavLinks = NavContent(
     NavLinks("Home", "Hafan", "http://localhost:9020/business-account"),
     NavLinks("Manage account", "Rheoli'r cyfrif", "http://localhost:9020/business-account/manage-account"),

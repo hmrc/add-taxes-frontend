@@ -17,15 +17,14 @@
 package service
 
 import models.other.importexports.DoYouWantToAddImportExport
-
-import javax.inject.Inject
 import models.sa._
 import play.api.mvc.Request
-import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
+import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.http.connector.{AuditConnector, AuditResult}
 import uk.gov.hmrc.play.audit.model.DataEvent
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class AuditService @Inject()(auditConnector: AuditConnector) {

@@ -1,8 +1,5 @@
 package utils
 
-import java.time.{LocalDate, LocalDateTime}
-import java.time.format.DateTimeFormatter
-
 import config.FrontendAppConfig
 import config.featureToggles.ConfigurableValue.IsBefore24thMarch
 import config.featureToggles.FeatureSwitch.VatOssSwitch
@@ -10,6 +7,9 @@ import config.featureToggles.FeatureToggleSupport
 import org.scalatest.BeforeAndAfterAll
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class FeatureToggleSupportSpec extends PlaySpec with FeatureToggleSupport with BeforeAndAfterAll with GuiceOneAppPerSuite {
   implicit val frontendAppConfig: FrontendAppConfig = app.injector.instanceOf[FrontendAppConfig]

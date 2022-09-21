@@ -16,9 +16,9 @@
 
 package views.employer.cis.ukbased.subcontractor
 
-import play.api.data.Form
 import forms.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGrossFormProvider
 import models.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGross
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.employer.cis.ukbased.subcontractor.doYouWantToBePaidNetOrGross

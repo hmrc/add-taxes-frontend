@@ -16,9 +16,9 @@
 
 package views.other.land
 
-import play.api.data.Form
 import forms.other.land.SelectATaxFormProvider
 import models.other.land.SelectATax
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.other.land.selectATax

@@ -17,26 +17,30 @@
 package connectors
 
 import config.FrontendAppConfig
-import javax.inject.Inject
+import models.requests.ServiceInfoRequest
 import models.vat.{OssRecievedDetails, OssRequestDetails}
-import play.api.Logging
+import play.api.mvc.AnyContent
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpReadsInstances}
+import utils.LoggingUtil
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class OssConnector  @Inject()(val http: HttpClient,
                               appConfig: FrontendAppConfig)(implicit ec: ExecutionContext)
-  extends Logging with HttpReadsInstances {
+  extends LoggingUtil with HttpReadsInstances {
 
   val serviceUrl: String = appConfig.vatOssHost + "/external-entry"
 
-  def ossRegistrationJourneyLink()(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[OssRecievedDetails] = {
+  def ossRegistrationJourneyLink()(implicit hc: HeaderCarrier,
+                                   ec: ExecutionContext,
+                                   request: ServiceInfoRequest[AnyContent]): Future[OssRecievedDetails] = {
     val origin = "BTA"
     val returnUrl = "/business-account"
     val ossRequestData = OssRequestDetails(origin = origin, returnUrl = returnUrl)
 
     http.POST[OssRequestDetails, OssRecievedDetails](serviceUrl, ossRequestData) recover {
-      case e => logger.error(s"[OssConnector][ossRegistrationJourneyLink] OSS error message ${e.getMessage}")
+      case e => errorLog(s"[OssConnector][ossRegistrationJourneyLink] OSS error message ${e.getMessage}")
         OssRecievedDetails(None)
     }
   }

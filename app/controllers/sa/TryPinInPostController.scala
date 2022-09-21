@@ -18,15 +18,13 @@ package controllers.sa
 
 import config.FrontendAppConfig
 import controllers.actions.{AuthAction, ServiceInfoAction}
-import play.api.Logging
-
-import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import service.TryPinInPostService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import views.html.sa.tryPinInPost
 
+import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 
 class TryPinInPostController @Inject()(appConfig: FrontendAppConfig,

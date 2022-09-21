@@ -29,6 +29,7 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Injecting
 import play.api.{Application, Environment, Mode}
 import support.AddTaxesIntegrationTest.{stubHost, stubPort}
+import uk.gov.hmrc.auth.core.ConfidenceLevel
 
 trait AddTaxesIntegrationTest
     extends Eventually
@@ -101,6 +102,11 @@ trait AddTaxesIntegrationTest
     resetAllFeatures()
     WireMock.reset()
   }
+
+  val cacheMapId = "id"
+  val groupId ="group-id"
+  val providerId="provider-id"
+  val confidenceLevel: ConfidenceLevel = ConfidenceLevel.L50
 
 }
 

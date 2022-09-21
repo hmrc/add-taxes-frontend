@@ -17,9 +17,9 @@
 package utils.nextpage.deenrolment
 
 import models.deenrolment.DoYouNeedToStopVatMossNU
+import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier}
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
-import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier}
 
 class DoYouNeedToStopVatMossNUNextPageSpec extends NextPageSpecBase {
 

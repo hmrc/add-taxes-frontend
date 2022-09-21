@@ -47,7 +47,7 @@ class TaxEnrolmentsConnectorSpec extends SpecBase with MockitoSugar with ScalaFu
   val utr: String = "1234"
   val officeNumber: String = "123"
   val payeReference: String = "AB123"
-  val groupId: String = "1EB60093-674F-4D03-A0FF-916E0D337319"
+  override val groupId: String = "1EB60093-674F-4D03-A0FF-916E0D337319"
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
 

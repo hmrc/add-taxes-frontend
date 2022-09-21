@@ -16,9 +16,9 @@
 
 package views.vat.moss.noneu
 
-import play.api.data.Form
 import forms.vat.moss.noneu.HaveYouRegisteredForVATMOSSFormProvider
 import models.vat.moss.noneu.HaveYouRegisteredForVATMOSS
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.vat.moss.noneu.haveYouRegisteredForVATMOSS

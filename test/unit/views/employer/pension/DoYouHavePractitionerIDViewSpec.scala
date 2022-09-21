@@ -16,9 +16,9 @@
 
 package views.employer.pension
 
-import play.api.data.Form
 import forms.employer.pension.DoYouHavePractitionerIDFormProvider
 import models.employer.pension.DoYouHavePractitionerID
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.employer.pension.doYouHavePractitionerID

@@ -79,7 +79,7 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
 
     "redirect to the next page when valid data is submitted" in {
 
-      when(mockVatSubscriptionConnector.getMandationStatus(any())(any(), any()))
+      when(mockVatSubscriptionConnector.getMandationStatus(any())(any(), any(), any()))
         .thenReturn(Future.successful(OK))
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST")
@@ -88,12 +88,12 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockVatSubscriptionConnector, times(1)).getMandationStatus(any())(any(), any())
+      verify(mockVatSubscriptionConnector, times(1)).getMandationStatus(any())(any(), any(), any())
     }
 
     "redirect to the vatAccountUnavailable page when migrating data is submitted" in {
 
-      when(mockVatSubscriptionConnector.getMandationStatus(any())(any(), any()))
+      when(mockVatSubscriptionConnector.getMandationStatus(any())(any(), any(), any()))
         .thenReturn(Future.successful(PRECONDITION_FAILED))
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST")

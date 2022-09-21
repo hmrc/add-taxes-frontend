@@ -16,14 +16,14 @@
 
 package controllers.vat.moss.noneu
 
-import play.api.data.Form
-import utils.FakeNavigator
 import controllers._
-import play.api.test.Helpers._
 import forms.vat.moss.noneu.HaveYouRegisteredForVATMOSSFormProvider
 import models.vat.moss.noneu.HaveYouRegisteredForVATMOSS
+import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import utils.FakeNavigator
 import views.html.vat.moss.noneu.haveYouRegisteredForVATMOSS
 
 class HaveYouRegisteredForVATMOSSControllerSpec extends ControllerSpecBase {

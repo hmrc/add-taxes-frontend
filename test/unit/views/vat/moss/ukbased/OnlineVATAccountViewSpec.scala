@@ -16,9 +16,9 @@
 
 package views.vat.moss.ukbased
 
-import play.api.data.Form
 import forms.vat.moss.uk.OnlineVATAccountFormProvider
 import models.vat.moss.uk.OnlineVATAccount
+import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.vat.moss.ukbased.onlineVATAccount

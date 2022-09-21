@@ -98,7 +98,7 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
     }
 
     "redirect when valid officeNumber and payeReference are submitted and are in the enrolment store" in {
-      when(mockEnrolmentStoreProxyConnector.checkExistingEmpRef(any(), any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockEnrolmentStoreProxyConnector.checkExistingEmpRef(any(), any())(any(), any(), any())).thenReturn(Future.successful(true))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("officeNumber", "123"),("payeReference", "AB123")).withMethod("POST")
 
       val result = controller(empRefExists = true).onSubmit()(postRequest)
@@ -108,7 +108,7 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
     }
 
     "redirect when valid officeNumber and payeReference is submitted and are not in the enrolment store" in {
-      when(mockEnrolmentStoreProxyConnector.checkExistingEmpRef(any(), any())(any(), any())).thenReturn(Future.successful(false))
+      when(mockEnrolmentStoreProxyConnector.checkExistingEmpRef(any(), any())(any(), any(), any())).thenReturn(Future.successful(false))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("officeNumber", "123"),("payeReference", "AB123")).withMethod("POST")
 
       val result = controller(false).onSubmit()(postRequest)

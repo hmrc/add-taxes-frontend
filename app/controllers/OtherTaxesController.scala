@@ -22,7 +22,6 @@ import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions._
 import forms.OtherTaxesFormProvider
 import identifiers.OtherTaxesId
-import javax.inject.Inject
 import models.OtherTaxes
 import models.OtherTaxes._
 import models.requests.ServiceInfoRequest
@@ -35,6 +34,7 @@ import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enrolments, Enumerable, Navigator, RadioOption}
 import views.html.{organisation_only, otherTaxes}
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class OtherTaxesController @Inject()(mcc: MessagesControllerComponents,

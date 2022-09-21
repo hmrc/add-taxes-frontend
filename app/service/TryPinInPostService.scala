@@ -23,7 +23,7 @@ import identifiers.EnterSAUTRId
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.sa.SAUTR
-import play.api.Logging
+import utils.LoggingUtil
 import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.http.HeaderCarrier
@@ -34,7 +34,7 @@ class TryPinInPostService @Inject()(dataCacheConnector: DataCacheConnector,
                                     taxEnrolmentsConnector: TaxEnrolmentsConnector,
                                     errorHandler: ErrorHandler,
                                     appConfig: FrontendAppConfig
-                                   ) extends Logging {
+                                   ) extends LoggingUtil {
 
   def checkEnrol(origin: String)(implicit request: ServiceInfoRequest[AnyContent],
                                  ec: ExecutionContext,
@@ -43,7 +43,7 @@ class TryPinInPostService @Inject()(dataCacheConnector: DataCacheConnector,
 
     val enrolForSaBoolean: Future[Boolean] = utr.flatMap {
       maybeSAUTR: Option[SAUTR] =>
-        logger.info(s"[TryPinInPostService][checkEnrol] attempting to enrol for SA pin in post" +
+        infoLog(s"[TryPinInPostService][checkEnrol] attempting to enrol for SA pin in post" +
           s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)}" +
           s"\n confidenceLevel ${request.request.confidenceLevel}"
         )
@@ -52,7 +52,7 @@ class TryPinInPostService @Inject()(dataCacheConnector: DataCacheConnector,
             utr <- maybeSAUTR
           } yield taxEnrolmentsConnector.enrolForSa(utr.value, "enrolOnly")
           ).getOrElse {
-          logger.info(s"[TryPinInPostService][checkEnrol] unable to retrieve SAUTR from data cache" +
+          infoLog(s"[TryPinInPostService][checkEnrol] unable to retrieve SAUTR from data cache" +
             s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)}" +
             s"\n confidenceLevel ${request.request.confidenceLevel}"
           )
@@ -61,13 +61,13 @@ class TryPinInPostService @Inject()(dataCacheConnector: DataCacheConnector,
     }
     enrolForSaBoolean.map {
       case true =>
-        logger.info(s"[TryPinInPostService][checkEnrol] successfully enrolled for SA pin in post" +
+        infoLog(s"[TryPinInPostService][checkEnrol] successfully enrolled for SA pin in post" +
           s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)} " +
           s"\n confidenceLevel ${request.request.confidenceLevel}"
         )
         Redirect(controllers.sa.routes.RequestedAccessController.onPageLoad(origin))
       case false =>
-        logger.info(s"[TryPinInPostService][checkEnrol] enrolForSaBoolean is false" +
+        infoLog(s"[TryPinInPostService][checkEnrol] enrolForSaBoolean is false" +
           s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)}" +
           s"\n confidenceLevel ${request.request.confidenceLevel}"
         )

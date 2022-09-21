@@ -22,6 +22,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import views.html.sa.retryKnownFacts
+
 import scala.concurrent.ExecutionContext.Implicits.global
 
 
