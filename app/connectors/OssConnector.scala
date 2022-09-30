@@ -38,7 +38,7 @@ class OssConnector  @Inject()(val http: HttpClient,
     val origin = "BTA"
     val returnUrl = "/business-account"
     val ossRequestData = OssRequestDetails(origin = origin, returnUrl = returnUrl)
-
+    infoLog(s"[OssConnector][ossRegistrationJourneyLink] attempted with: $origin, $returnUrl")
     http.POST[OssRequestDetails, OssRecievedDetails](serviceUrl, ossRequestData) recover {
       case e => errorLog(s"[OssConnector][ossRegistrationJourneyLink] OSS error message ${e.getMessage}")
         OssRecievedDetails(None)

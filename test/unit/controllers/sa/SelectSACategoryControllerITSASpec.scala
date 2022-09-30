@@ -3,17 +3,21 @@ package controllers.sa
 import connectors.DataCacheConnector
 import controllers._
 import forms.sa.SelectSACategoryFormProvider
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.sa.SelectSACategory
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, times, verify, when}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.data.Form
-import play.api.mvc.Call
+import play.api.mvc.{AnyContent, Call}
 import play.api.mvc.Results.Redirect
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import service.{CredFinderService, SelectSaCategoryService}
+import uk.gov.hmrc.auth.core.AffinityGroup.Individual
+import uk.gov.hmrc.auth.core.Enrolments
 import utils.{HmrcEnrolmentType, RadioOption}
 import views.html.sa.selectSACategory
 
@@ -31,7 +35,10 @@ class SelectSACategoryControllerITSASpec extends ControllerSpecBase with Mockito
   val view: selectSACategory = injector.instanceOf[selectSACategory]
   val btaOrigin: String = "bta-sa"
   val invalidValue: String = "invalid value"
-
+  implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+    HtmlFormat.empty
+  )
   val radioButtonOptions: Set[RadioOption] = SelectSACategory.options.filterNot(_.value == SelectSACategory.MtdIT.toString)
 
   def controller()(enrolmentTypes: HmrcEnrolmentType*): SelectSACategoryController = {

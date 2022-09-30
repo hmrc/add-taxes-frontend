@@ -19,12 +19,13 @@ package service
 import connectors.{DataCacheConnector, IvConnector, TaxEnrolmentsConnector}
 import controllers.sa.{routes => saRoutes}
 import identifiers.EnterSAUTRId
+
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.sa.{IvLinks, SAUTR, SaEnrolmentDetails}
 import utils.LoggingUtil
 import play.api.mvc.Results._
-import play.api.mvc.{AnyContent, Result}
+import play.api.mvc.{AnyContent, Request, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -149,16 +150,18 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
     }
   }
 
-  def journeyRouter(details: SaEnrolmentDetails): Future[String] = {
+  def journeyRouter(details: SaEnrolmentDetails)(implicit request: Request[_]): Future[String] = {
     details match {
-      case SaEnrolmentDetails(Some(utr), origin, credId) => {
+      case SaEnrolmentDetails(Some(utr), origin, credId) =>
+        infoLog(s"[IvService][journeyRouter] - Successfully saved")
         dataCacheConnector.save[SAUTR](credId, EnterSAUTRId.toString, SAUTR(utr))
         Future.successful(controllers.sa.routes.TryIvController.onPageLoad(origin).url)
-      }
-      case SaEnrolmentDetails(None, origin, credId) => {
+
+      case SaEnrolmentDetails(None, origin, credId) =>
+        warnLog(s"[IvService][journeyRouter] - Failed to save with no utr")
         dataCacheConnector.save[Boolean](credId, "tryAgain", true)
         Future.successful(controllers.sa.routes.EnterSAUTRController.onPageLoad(Some(origin)).url)
-      }
+
     }
   }
 

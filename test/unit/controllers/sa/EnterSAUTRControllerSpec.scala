@@ -23,6 +23,7 @@ import models.sa.SAUTR
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito.{times, verify, when}
 import org.scalatestplus.mockito.MockitoSugar
+import org.scalatestplus.play.PlaySpec
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.mvc.Results.Redirect
@@ -34,7 +35,7 @@ import views.html.sa.enterSAUTR
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class EnterSAUTRControllerSpec extends ControllerSpecBase with MockitoSugar {
+class EnterSAUTRControllerSpec extends PlaySpec with ControllerSpecBase with MockitoSugar {
 
   def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 

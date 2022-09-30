@@ -42,7 +42,7 @@ class TryIvControllerSpec extends ControllerSpecBase with MockitoSugar with Feat
       "redirect back to the IV link returned from the connector when UTR is found" in {
         disable(IvUpliftSwitch)
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())) thenReturn Future.successful(Some(SAUTR("1234567890")))
-        when(mockSaService.getIvRedirectLink(any(), any())(any(), any(), any())) thenReturn(Future.successful("/iv-link"))
+        when(mockSaService.getIvRedirectLink(any(), any())(any(), any(), any())) thenReturn Future.successful("/iv-link")
         val result = controller().onPageLoad(btaOrigin)(fakeRequest)
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some("/iv-link")

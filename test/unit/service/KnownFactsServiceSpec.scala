@@ -45,7 +45,7 @@ import scala.concurrent.Future
 class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach with FeatureToggleSupport {
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
-  implicit val request = ServiceInfoRequest[AnyContent](
+  implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
     AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
     HtmlFormat.empty)
   val btaOrigin: String = "bta-sa"

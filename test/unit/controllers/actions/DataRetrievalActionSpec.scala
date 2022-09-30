@@ -30,9 +30,13 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class DataRetrievalActionSpec extends SpecBase with MockitoSugar with ScalaFutures {
+  implicit val request: AuthenticatedRequest[_] =
+    AuthenticatedRequest(fakeRequest, "id", Enrolments(Set()), Some(Organisation), groupId, providerId, confidenceLevel, None)
 
   class Harness(dataCacheConnector: DataCacheConnector) extends DataRetrievalActionImpl(dataCacheConnector, global) {
-    def callTransform[A](request: AuthenticatedRequest[A]): Future[OptionalDataRequest[A]] = transform(request)
+    def callTransform[A](request: AuthenticatedRequest[A]): Future[OptionalDataRequest[A]] ={
+      transform(request)
+    }
   }
 
   "Data Retrieval Action" when {
@@ -41,9 +45,8 @@ class DataRetrievalActionSpec extends SpecBase with MockitoSugar with ScalaFutur
         val dataCacheConnector = mock[DataCacheConnector]
         when(dataCacheConnector.fetch("id")) thenReturn Future(None)
         val action = new Harness(dataCacheConnector)
-
         val futureResult =
-          action.callTransform(AuthenticatedRequest(fakeRequest, "id", Enrolments(Set()), Some(Organisation), groupId, providerId, confidenceLevel, None))
+          action.callTransform(request)
 
         whenReady(futureResult) { result =>
           result.userAnswers.isEmpty mustBe true
@@ -58,7 +61,7 @@ class DataRetrievalActionSpec extends SpecBase with MockitoSugar with ScalaFutur
         val action = new Harness(dataCacheConnector)
 
         val futureResult =
-          action.callTransform(AuthenticatedRequest(fakeRequest, "id", Enrolments(Set()), Some(Organisation), groupId, providerId, confidenceLevel, None))
+          action.callTransform(request)
 
         whenReady(futureResult) { result =>
           result.userAnswers.isDefined mustBe true

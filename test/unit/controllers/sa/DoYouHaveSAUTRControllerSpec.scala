@@ -19,6 +19,7 @@ package controllers.sa
 import connectors.DataCacheConnector
 import controllers._
 import forms.sa.DoYouHaveSAUTRFormProvider
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.sa.DoYouHaveSAUTR
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, when}
@@ -26,9 +27,12 @@ import org.mockito.internal.verification.VerificationModeFactory.times
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.data.Form
-import play.api.mvc.Call
+import play.api.mvc.{AnyContent, Call}
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.auth.core.AffinityGroup.Individual
+import uk.gov.hmrc.auth.core.Enrolments
 import utils.FakeNavigator
 import views.html.sa.doYouHaveSAUTR
 
@@ -37,6 +41,12 @@ import scala.concurrent.Future
 class DoYouHaveSAUTRControllerSpec extends ControllerSpecBase with BeforeAndAfterEach {
 
   def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
+
+
+  implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+    HtmlFormat.empty
+  )
 
   val formProvider = new DoYouHaveSAUTRFormProvider()
   val form: Form[DoYouHaveSAUTR] = formProvider()
