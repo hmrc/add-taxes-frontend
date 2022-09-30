@@ -16,16 +16,21 @@
 
 package connectors
 
-import javax.inject.Inject
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import play.api.libs.json.{Format, Json}
+import play.api.mvc.{AnyContent, Request}
 import repositories.SessionRepository
 import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.CascadeUpsert
+import utils.{CascadeUpsert, LoggingUtil}
 
+import javax.inject.Inject
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class DataCacheConnector @Inject()(val sessionRepository: SessionRepository, val cascadeUpsert: CascadeUpsert) {
+class DataCacheConnector @Inject()(
+                                    val sessionRepository: SessionRepository,
+                                    val cascadeUpsert: CascadeUpsert
+                                  ) extends LoggingUtil{
 
   def save[A](cacheId: String, key: String, value: A)(implicit fmt: Format[A]): Future[CacheMap] =
     sessionRepository().get(cacheId).flatMap { optionalCacheMap =>

@@ -27,7 +27,7 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.ScalaFutures.whenReady
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.libs.json.{JsValue, Json}
-import play.api.mvc.AnyContent
+import play.api.mvc.{AnyContent, Request}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{status, _}
 import play.twirl.api.HtmlFormat
@@ -49,9 +49,15 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
   val journeyId: String = "12345"
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
-  implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+  implicit val serviceInfoRequest: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
     AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
     HtmlFormat.empty)
+
+  implicit val request: Request[_] = Request(
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+    HtmlFormat.empty
+  )
+
 
   implicit val requestWithJson: ServiceInfoRequest[JsValue] = ServiceInfoRequest[JsValue](
     AuthenticatedRequest(FakeRequest().withBody(Json.parse(s"""{}""")), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
@@ -352,7 +358,7 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
   "journeyRouter is called" must {
     "return try-iv url" when {
       "a utr is provided" in {
-        val result = service().journeyRouter(SaEnrolmentDetails(Some("1234567890"), "pta-sa", "12345"))
+        val result = service().journeyRouter(SaEnrolmentDetails(Some("1234567890"), "pta-sa", "12345"))(request)
         await(result) mustBe "/business-account/add-tax/self-assessment/try-iv?origin=pta-sa"
         verifyDataCacheSave(1)
       }
@@ -361,7 +367,7 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
     "return enter-sa-utr url" when {
 
       "no utr is provided" in {
-        val result = service().journeyRouter(SaEnrolmentDetails(None, "pta-sa", "12345"))
+        val result = service().journeyRouter(SaEnrolmentDetails(None, "pta-sa", "12345"))(request)
         await(result) mustBe "/business-account/add-tax/self-assessment/enter-sa-utr?origin=pta-sa"
         verifyDataCacheSave(1)
       }

@@ -1,15 +1,19 @@
 package controllers.internal
 
 import controllers.ControllerSpecBase
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.Play.materializer
 import play.api.libs.json.{JsValue, Json}
-import play.api.mvc.AnyContentAsJson
+import play.api.mvc.{AnyContent, AnyContentAsJson, Request}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.twirl.api.HtmlFormat
 import service.IvService
+import uk.gov.hmrc.auth.core.AffinityGroup.Individual
+import uk.gov.hmrc.auth.core.Enrolments
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -18,7 +22,12 @@ class ExternalUserControllerSpec extends ControllerSpecBase with MockitoSugar {
 
   val mockIvService: IvService = mock[IvService]
 
-  val validJsonWithUtr: JsValue = Json.parse(
+  implicit val request: Request[_] = Request(
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+    HtmlFormat.empty
+  )
+
+  val  validJsonWithUtr: JsValue = Json.parse(
     s"""
        |{
        |  "origin" : "pta-sa",
@@ -90,7 +99,7 @@ class ExternalUserControllerSpec extends ControllerSpecBase with MockitoSugar {
     "initiateJourney is called" should {
 
       "return try-iv url as JSON when body is valid and contains a UTR" in {
-        when(mockIvService.journeyRouter(any())).thenReturn(Future.successful(controllers.sa.routes.TryIvController.onPageLoad("pta-sa").url))
+        when(mockIvService.journeyRouter(any())(any())).thenReturn(Future.successful(controllers.sa.routes.TryIvController.onPageLoad("pta-sa").url))
         val result = controller().initiateJourney()(fakeRequestWithBody(validJsonWithUtr))
         status(result) mustBe OK
         contentAsJson(result) mustBe Json.parse(
@@ -102,7 +111,7 @@ class ExternalUserControllerSpec extends ControllerSpecBase with MockitoSugar {
       }
 
       "return enter-sa-utr url as JSON when JSON body is valid and does not contains a UTR" in {
-        when(mockIvService.journeyRouter(any())).thenReturn(Future.successful(controllers.sa.routes.EnterSAUTRController.onPageLoad(Some("pta-sa")).url))
+        when(mockIvService.journeyRouter(any())(any())).thenReturn(Future.successful(controllers.sa.routes.EnterSAUTRController.onPageLoad(Some("pta-sa")).url))
         val result = controller().initiateJourney()(fakeRequestWithBody(validJsonNoUtr))
         status(result) mustBe OK
         contentAsJson(result) mustBe Json.parse(
