@@ -16,12 +16,15 @@
 
 package controllers.vat
 
+import config.featureToggles.FeatureSwitch.BypassVATETMPCheck
+import config.featureToggles.FeatureToggleSupport
 import connectors.VatSubscriptionConnector
 import controllers.ControllerSpecBase
 import forms.vat.WhatIsYourVATRegNumberFormProvider
 import handlers.ErrorHandler
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
+import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.data.Form
 import play.api.mvc.Call
@@ -33,7 +36,7 @@ import views.html.vat.{vatAccountUnavailable, vatRegistrationException, whatIsYo
 import scala.concurrent.Future
 
 
-class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with MockitoSugar {
+class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with MockitoSugar with FeatureToggleSupport with BeforeAndAfterEach {
 
   def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
   def vatAccountUnavailableRoute: Call = routes.WhatIsYourVATRegNumberController.onPageLoadVatUnanavailable()
@@ -65,53 +68,102 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
     )
   }
 
+  override def beforeEach(): Unit = {
+    reset(mockVatSubscriptionConnector)
+  }
+
   def viewAsString(form: Form[_] = form): String =
     new whatIsYourVATRegNumber(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "WhatIsYourVATRegNumber Controller" must {
 
-    "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest.withMethod("GET"))
+    "onPageLoad" must {
 
-      status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      "return OK and the correct view for a GET" in {
+        val result = controller().onPageLoad()(fakeRequest.withMethod("GET"))
+
+        status(result) mustBe OK
+        contentAsString(result) mustBe viewAsString()
+      }
     }
 
-    "redirect to the next page when valid data is submitted" in {
+    "onSubmit" when {
 
-      when(mockVatSubscriptionConnector.getMandationStatus(any())(any(), any(), any()))
-        .thenReturn(Future.successful(OK))
+      "DisableETMPCheck is false" must {
 
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST")
+        "redirect to the next page when valid data is submitted" in {
 
-      val result = controller().onSubmit()(postRequest)
+          disable(BypassVATETMPCheck)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockVatSubscriptionConnector, times(1)).getMandationStatus(any())(any(), any(), any())
-    }
+          when(mockVatSubscriptionConnector.getMandationStatus(any())(any(), any(), any()))
+            .thenReturn(Future.successful(OK))
 
-    "redirect to the vatAccountUnavailable page when migrating data is submitted" in {
+          val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST")
 
-      when(mockVatSubscriptionConnector.getMandationStatus(any())(any(), any(), any()))
-        .thenReturn(Future.successful(PRECONDITION_FAILED))
+          val result = controller().onSubmit()(postRequest)
 
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST")
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(onwardRoute.url)
+          verify(mockVatSubscriptionConnector, times(1)).getMandationStatus(any())(any(), any(), any())
+        }
 
-      val result = controller().onSubmit()(postRequest)
+        "redirect to the vatAccountUnavailable page when migrating data is submitted" in {
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(vatAccountUnavailableRoute.toString)
-    }
+          disable(BypassVATETMPCheck)
 
-    "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "")).withMethod("GET")
-      val boundForm = form.bind(Map("value" -> ""))
+          when(mockVatSubscriptionConnector.getMandationStatus(any())(any(), any(), any()))
+            .thenReturn(Future.successful(PRECONDITION_FAILED))
 
-      val result = controller().onSubmit()(postRequest)
+          val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST")
 
-      status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm)
+          val result = controller().onSubmit()(postRequest)
+
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(vatAccountUnavailableRoute.toString)
+        }
+
+        "return a Bad Request and errors when invalid data is submitted" in {
+
+          disable(BypassVATETMPCheck)
+
+          val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "")).withMethod("GET")
+          val boundForm = form.bind(Map("value" -> ""))
+
+          val result = controller().onSubmit()(postRequest)
+
+          status(result) mustBe BAD_REQUEST
+          contentAsString(result) mustBe viewAsString(boundForm)
+        }
+      }
+
+      "DisableETMPCheck is true" must {
+
+        "redirect to the next page when valid data is submitted" in {
+
+          enable(BypassVATETMPCheck)
+
+          val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST")
+
+          val result = controller().onSubmit()(postRequest)
+
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(onwardRoute.url)
+          verify(mockVatSubscriptionConnector, never()).getMandationStatus(any())(any(), any(), any())
+        }
+
+        "return a Bad Request and errors when invalid data is submitted" in {
+
+          enable(BypassVATETMPCheck)
+
+          val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "")).withMethod("GET")
+          val boundForm = form.bind(Map("value" -> ""))
+
+          val result = controller().onSubmit()(postRequest)
+
+          status(result) mustBe BAD_REQUEST
+          contentAsString(result) mustBe viewAsString(boundForm)
+        }
+      }
     }
   }
 }
