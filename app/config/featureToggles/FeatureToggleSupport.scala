@@ -41,6 +41,10 @@ trait FeatureToggleSupport extends LoggingUtil {
     getValue(featureSwitch).toBoolean
   }
 
+  def isDisabled(featureSwitch: FeatureSwitch)(implicit appConfig: FrontendAppConfig): Boolean = {
+    !getValue(featureSwitch).toBoolean
+  }
+
   def setValue(key: String, value: String): SystemProperties = {
     sys.props += key -> value
   }

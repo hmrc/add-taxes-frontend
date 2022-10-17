@@ -18,9 +18,9 @@ package utils.nextpage.vat
 
 import config.FrontendAppConfig
 import identifiers.WhatIsYourVATRegNumberId
+import play.api.http.Status.OK
 import play.api.mvc.{Call, Request}
 import utils.{Enrolments, NextPage}
-import play.api.http.Status.OK
 
 trait WhatIsYourVATRegNumberNextPage {
 

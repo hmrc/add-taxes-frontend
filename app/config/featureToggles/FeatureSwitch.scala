@@ -21,7 +21,8 @@ object FeatureSwitch {
   val prefix = "feature-toggles"
 
   val featureSwitches: Seq[FeatureSwitch] = Seq(
-    VatOssSwitch
+    VatOssSwitch,
+    BypassVATETMPCheck
   )
 
   def apply(str: String): FeatureSwitch =
@@ -66,6 +67,11 @@ object FeatureSwitch {
   case object AtarSwitch extends FeatureSwitch {
     override val name = s"$prefix.atarSwitch"
     override val displayText: String = "Atar Enabled"
+  }
+
+  case object BypassVATETMPCheck  extends FeatureSwitch {
+    override val name = s"$prefix.bypassVATETMPCheck"
+    override val displayText: String = "If true, there will no longer be a check to see if the user is in ETMP"
   }
 }
 

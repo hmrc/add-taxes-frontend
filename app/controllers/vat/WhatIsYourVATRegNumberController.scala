@@ -17,11 +17,14 @@
 package controllers.vat
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.BypassVATETMPCheck
+import config.featureToggles.FeatureToggleSupport
 import connectors.VatSubscriptionConnector
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import forms.vat.WhatIsYourVATRegNumberFormProvider
 import handlers.ErrorHandler
 import identifiers.WhatIsYourVATRegNumberId
+
 import javax.inject.Inject
 import play.api.data.Form
 import play.api.i18n.I18nSupport
@@ -44,9 +47,9 @@ class WhatIsYourVATRegNumberController @Inject()(appConfig: FrontendAppConfig,
                                                  vatAccountUnavailable: vatAccountUnavailable,
                                                  errorHandler: ErrorHandler,
                                                  whatIsYourVATRegNumber: whatIsYourVATRegNumber)
-  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
+  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits with FeatureToggleSupport {
 
-  val form: Form[String] = formProvider()
+  def form: Form[String] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(whatIsYourVATRegNumber(appConfig, form)(request.serviceInfoContent))
@@ -62,10 +65,21 @@ class WhatIsYourVATRegNumberController @Inject()(appConfig: FrontendAppConfig,
         formWithErrors =>
           Future.successful(BadRequest(whatIsYourVATRegNumber(appConfig, formWithErrors)(request.serviceInfoContent))),
         vrn =>
-          vatSubscriptionConnector.getMandationStatus(vrn).map {
-            case status if(status == OK || status == NOT_FOUND)  => Redirect(navigator.nextPage(WhatIsYourVATRegNumberId, (status, vrn)))
-            case PRECONDITION_FAILED => Redirect(routes.WhatIsYourVATRegNumberController.onPageLoadVatUnanavailable())
-            case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
+          if(isDisabled(BypassVATETMPCheck)(appConfig)) {
+            vatSubscriptionConnector.getMandationStatus(vrn).map {
+              case status if status == OK || status == NOT_FOUND =>
+                infoLog(s"[WhatIsYourVATRegNumberController][onSubmit] mandation status: $status")
+                Redirect(navigator.nextPage(WhatIsYourVATRegNumberId, (status, vrn)))
+              case PRECONDITION_FAILED =>
+                infoLog(s"[WhatIsYourVATRegNumberController][onSubmit] mandation status: $PRECONDITION_FAILED")
+                Redirect(routes.WhatIsYourVATRegNumberController.onPageLoadVatUnanavailable())
+              case status =>
+                infoLog(s"[WhatIsYourVATRegNumberController][onSubmit] mandation status: $status")
+                InternalServerError(errorHandler.internalServerErrorTemplate)
+            }
+          } else {
+            infoLog(s"[WhatIsYourVATRegNumberController][onSubmit] DisableETMPCheck is enabled. No mandation check made")
+            Future.successful(Redirect(navigator.nextPage(WhatIsYourVATRegNumberId, (OK, vrn))))
           }
       )
   }

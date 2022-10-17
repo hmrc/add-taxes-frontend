@@ -65,6 +65,27 @@ class FeatureToggleSupportSpec extends PlaySpec with FeatureToggleSupport with B
           isEnabled(VatOssSwitch) mustBe false
         }
       }
+
+      "isDisabled" must {
+
+        "be able to check the status of an enabled feature switch" in {
+
+          enable(VatOssSwitch)
+          isDisabled(VatOssSwitch) mustBe false
+        }
+
+        "be able to check the status of a disabled feature switch" in {
+
+          disable(VatOssSwitch)
+          isDisabled(VatOssSwitch) mustBe true
+        }
+
+        "load config from services config if nothing set in sysProps" in {
+
+          sys.props -= VatOssSwitch.name
+          isDisabled(VatOssSwitch) mustBe true
+        }
+      }
     }
 
     "interacting with configurable values" must {
