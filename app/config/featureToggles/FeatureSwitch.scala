@@ -71,7 +71,7 @@ object FeatureSwitch {
 
   case object BypassVATETMPCheck  extends FeatureSwitch {
     override val name = s"$prefix.bypassVATETMPCheck"
-    override val displayText: String = "If true, there will no longer be a check to see if the user is in ETMP"
+    override val displayText: String = "Bypass VAT ETMP Check"
   }
 }
 
