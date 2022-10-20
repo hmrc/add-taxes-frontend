@@ -21,9 +21,10 @@ import config.FrontendAppConfig
 import javax.inject.Inject
 import models.DesignatoryDetails
 import models.requests.ServiceInfoRequest
+import play.api.http.Status.NOT_FOUND
 import play.api.mvc.AnyContent
 import utils.LoggingUtil
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpReadsInstances, UpstreamErrorResponse}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpReadsInstances, NotFoundException, UpstreamErrorResponse}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -42,6 +43,20 @@ class CitizensDetailsConnector @Inject()(val http: HttpClient,
       case UpstreamErrorResponse(_, 404, _, _) =>
         warnLog(s"Warn: Not Found returned from Citizen Details")
         None
+      case e: Exception =>
+        errorLog(s"Error: ${e.getMessage} returned from Citizen Details")
+        None
+    }
+  }
+
+  def getDesignatoryDetailsForKnownFacts(identifier: String, value: String)
+                           (implicit hc: HeaderCarrier, request: ServiceInfoRequest[AnyContent]): Future[Option[DesignatoryDetails]] = {
+    http.GET[DesignatoryDetails](url(identifier, value)).map(
+      Some(_)
+    ).recover {
+      case UpstreamErrorResponse(_, NOT_FOUND, _, _) =>
+        warnLog(s"Warn: Not Found returned from Citizen Details service")
+        throw new NotFoundException("[CitizensDetailsConnector][getDesignatoryDetails] Not Found returned from Citizen Details")
       case e: Exception =>
         errorLog(s"Error: ${e.getMessage} returned from Citizen Details")
         None

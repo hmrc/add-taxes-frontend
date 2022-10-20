@@ -36,9 +36,10 @@ import play.api.test.Helpers.{status, _}
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.auth.core.{ConfidenceLevel, Enrolments}
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
 import uk.gov.hmrc.play.audit.http.connector.AuditResult
 
+import java.io.FileNotFoundException
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
@@ -119,7 +120,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any())).thenReturn(Future.successful(Some(utr)))
         when(mockEnrolmentStoreProxyConnector.queryKnownFacts(any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(KnownFactsReturn(utr.value, knownFactsResult = true)))
-        when(mockCIDConnector.getDesignatoryDetails(any(), any())(any(), any()))
+        when(mockCIDConnector.getDesignatoryDetailsForKnownFacts(any(), any())(any(), any()))
           .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000A", "test"))))
         when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
 
@@ -176,7 +177,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
             AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, Some("AA00000A")),
             HtmlFormat.empty)
-          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any(), any()))
+          when(mockCIDConnector.getDesignatoryDetailsForKnownFacts(any(), any())(any(), any()))
             .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000A", "test"))))
           when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
 
@@ -189,7 +190,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
             AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L50, Some("AA00000A")),
             HtmlFormat.empty)
-          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any(), any()))
+          when(mockCIDConnector.getDesignatoryDetailsForKnownFacts(any(), any())(any(), any()))
             .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000A", "test"))))
           when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
 
@@ -198,11 +199,37 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           redirectLocation(result) mustBe Some("/IvLink")
         }
 
+        "user has 50 confidence level and utr has the same nino as the account and getDesignatoryDetails throws a NotFound exception" in {
+          implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+            AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L50, Some("AA00000A")),
+            HtmlFormat.empty)
+          when(mockCIDConnector.getDesignatoryDetailsForKnownFacts(any(), any())(any(), any()))
+            .thenReturn(Future.failed(new NotFoundException("Citizen details service threw NotFound exception")))
+          when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/try-pin-in-post")
+
+          val result = service().checkCIDNinoComparison("bta-sa", "1234567891", "AA00000A")
+
+          redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/try-pin-in-post?status=LockedOut&origin=bta-sa")
+        }
+
+        "user has 50 confidence level and utr has the same nino as the account and getDesignatoryDetails throws a non-NotFound exception" in {
+          implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
+            AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L50, Some("AA00000A")),
+            HtmlFormat.empty)
+          when(mockCIDConnector.getDesignatoryDetailsForKnownFacts(any(), any())(any(), any()))
+            .thenReturn(Future.failed(new FileNotFoundException("General exception")))
+          when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/try-pin-in-post")
+
+          val result = service().checkCIDNinoComparison("bta-sa", "1234567891", "AA00000A")
+          status(result) mustBe INTERNAL_SERVER_ERROR
+
+        }
+
         "user has 200 confidence level and utr does not have the same nino as the account" in {
           implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
             AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, Some("AA00000A")),
             HtmlFormat.empty)
-          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any(), any()))
+          when(mockCIDConnector.getDesignatoryDetailsForKnownFacts(any(), any())(any(), any()))
             .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000B", "test"))))
           when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
 
@@ -215,7 +242,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
             AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, Some("AA00000A")),
             HtmlFormat.empty)
-          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any(), any()))
+          when(mockCIDConnector.getDesignatoryDetailsForKnownFacts(any(), any())(any(), any()))
             .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000A", "test"))))
           when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
 
@@ -229,12 +256,13 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
             AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, None),
             HtmlFormat.empty)
-          when(mockCIDConnector.getDesignatoryDetails(any(), any())(any(), any()))
+          when(mockCIDConnector.getDesignatoryDetailsForKnownFacts(any(), any())(any(), any()))
             .thenReturn(Future.successful(None))
 
           val result = service().checkCIDNinoComparison("bta-sa", "1234567891", "AA00000A")
 
-          status(result) mustBe INTERNAL_SERVER_ERROR
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some("/business-account/add-tax/self-assessment/retry-known-facts?origin=bta-sa")
         }
       }
     }
