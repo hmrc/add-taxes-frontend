@@ -29,7 +29,7 @@ import models.sa._
 import utils.LoggingUtil
 import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Call, Result}
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -102,18 +102,32 @@ class KnownFactsService @Inject()(saService: SaService,
 
   def checkCIDNinoComparison(origin: String, utr: String, knownFactsNino: String)
   (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Result] = {
-      val accountNino: String = request.request.nino.getOrElse("").toLowerCase
-      citizensDetailsConnector.getDesignatoryDetails("IR-SA", utr).flatMap {
+    val accountNino: String = request.request.nino.getOrElse("").toLowerCase
+
+    if (accountNino == knownFactsNino.replaceAll("\\s+", "").toLowerCase) {
+      citizensDetailsConnector.getDesignatoryDetailsForKnownFacts("IR-SA", utr).flatMap {
         case Some(cidDetails) =>
-          if (cidDetails.nino.toLowerCase == accountNino && accountNino == knownFactsNino.replaceAll("\\s+","").toLowerCase) {
+          if (cidDetails.nino.toLowerCase == accountNino) {
             Future.successful(Redirect(appConfig.ivUpliftUrl(origin)))
           } else {
             Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(origin)))
           }
-        case _ =>
-          warnLog("[KnownFactsService][checkCIDNinoComparison] Error Retrieving CID details")
+        case None =>
+          warnLog("[KnownFactsService][checkCIDNinoComparison] Error Retrieving CID details. Empty data received from Citizens service")
           Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
-      }
-    }
+      }.recover {
+        case nfe: NotFoundException =>
+          warnLog(s"[KnownFactsService][checkCIDNinoComparison] ${nfe.getMessage}")
+          Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("LockedOut"), origin))
 
+        case e: Exception =>
+          errorLog(s"[KnownFactsService][checkCIDNinoComparison] Error Retrieving CID details ${e.getMessage}")
+          InternalServerError(errorHandler.internalServerErrorTemplate)
+      }
+    } else {
+      warnLog(s"[KnownFactsService][checkCIDNinoComparison] Account authorization NINO and knownFactsNINO are not the same")
+      Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(origin)))
+
+    }
+  }
 }

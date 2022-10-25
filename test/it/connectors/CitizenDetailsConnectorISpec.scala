@@ -11,7 +11,7 @@ import support.AddTaxesIntegrationTest
 import support.stubs.StubCitizenDetailsConnector
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.auth.core.Enrolments
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
 
 import scala.concurrent.Future
 
@@ -77,6 +77,31 @@ class CitizenDetailsConnectorISpec extends PlaySpec with AddTaxesIntegrationTest
         StubCitizenDetailsConnector.withResponseForGetDesignatoryDetails("1234567890")(INTERNAL_SERVER_ERROR, Some(invalidResponse))
 
           await(connector.getDesignatoryDetails(identifier, "1234567890")) mustBe None
+      }
+
+
+    }
+
+    "getDesignatoryDetailsForKnownFacts is called" should {
+
+      "return None if designatory details Not Found" in {
+        StubCitizenDetailsConnector.stubDesignatoryDetailsNotFound("1234567890")
+
+        assertThrows[NotFoundException](await(connector.getDesignatoryDetailsForKnownFacts(identifier, "1234567890")))
+      }
+
+      "return a DesignatoryDetails object if call was successful" in {
+        StubCitizenDetailsConnector.withResponseForGetDesignatoryDetails("1234567890")(OK, Some(designatoryDetails))
+
+        val result: Future[Option[DesignatoryDetails]] = connector.getDesignatoryDetailsForKnownFacts(identifier, "1234567890")
+
+        await(result) mustBe Some(DesignatoryDetails(firstName, surname, nino, dateOfBirthLongFormat))
+      }
+
+      "throw an Exception" in {
+        StubCitizenDetailsConnector.withResponseForGetDesignatoryDetails("1234567890")(INTERNAL_SERVER_ERROR, Some(invalidResponse))
+
+        await(connector.getDesignatoryDetailsForKnownFacts(identifier, "1234567890")) mustBe None
       }
 
     }
