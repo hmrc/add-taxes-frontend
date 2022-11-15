@@ -129,9 +129,9 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   lazy val revenueScotUrl: String = config.getString("urls.external.lbtScotland")
 
-  lazy val vatSignUpHost: String = config.getString("vat-sign-up-frontend.host")
+  lazy val vatSignUpHost: String = config.getString("claim-vat-enrolment-frontend.host")
 
-  def vatSignUpClaimSubscriptionUrl(vrn: String): String = s"$vatSignUpHost/vat-through-software/sign-up/claim-subscription/$vrn"
+  def vatSignUpClaimSubscriptionUrl(vrn: String): String = s"$vatSignUpHost/claim-vat-enrolment/journey/$vrn?continueUrl=/vat-through-software/sign-up/sign-up-complete-client"
 
   def emacEnrollmentsUrl(enrolment: Enrolments): String = {
     s"$enrolmentManagementFrontendHost/enrolment-management-frontend/$enrolment/request-access-tax-scheme?continue=%2Fbusiness-account"

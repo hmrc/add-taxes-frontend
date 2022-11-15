@@ -25,7 +25,7 @@ class WhatIsYourVATRegNumberNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.whatIsYourVATRegNumber,
       (OK, "999999999"),
-      "http://localhost:9566/vat-through-software/sign-up/claim-subscription/999999999"
+      "http://localhost:9936/claim-vat-enrolment/journey/999999999?continueUrl=/vat-through-software/sign-up/sign-up-complete-client"
     )
 
     behave like nextPage(
