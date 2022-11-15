@@ -62,12 +62,12 @@ class SelectAnOilServiceController @Inject()(appConfig: FrontendAppConfig,
     Ok(selectAnOilService(appConfig, form, getOptions)(request.serviceInfoContent))
   }
 
-  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(selectAnOilService(appConfig, formWithErrors, getOptions)(request.serviceInfoContent))),
-        value => Future.successful(Redirect(navigator.nextPage(SelectAnOilServiceId, value)))
+          BadRequest(selectAnOilService(appConfig, formWithErrors, getOptions)(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(SelectAnOilServiceId, value))
       )
   }
 }

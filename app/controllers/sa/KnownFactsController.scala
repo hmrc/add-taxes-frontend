@@ -51,12 +51,12 @@ class KnownFactsController @Inject()(
         Ok(knownFactsPage(appConfig, form, origin, ninoExistsBoolean)(request.serviceInfoContent))
   }
 
-  def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
+  def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[KnownFactsNino]) => {
           val ninoExistsBoolean = request.request.nino.isDefined
-          Future(BadRequest(knownFactsPage(appConfig, formWithErrors, origin, ninoExistsBoolean)(request.serviceInfoContent)))
+          BadRequest(knownFactsPage(appConfig, formWithErrors, origin, ninoExistsBoolean)(request.serviceInfoContent))
         },
         value => knownFactsService.knownFactsLocation(KnownFacts(None, Some(value.kfNino), None), origin)
       )

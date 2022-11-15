@@ -142,12 +142,12 @@ class OtherTaxesController @Inject()(mcc: MessagesControllerComponents,
     }
   }
 
-  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(otherTaxes(appConfig, formWithErrors, getOptions)(request.serviceInfoContent))),
-        value => Future.successful(Redirect(navigator.nextPage(OtherTaxesId, value)))
+          BadRequest(otherTaxes(appConfig, formWithErrors, getOptions)(request.serviceInfoContent)),
+        value => Redirect(navigator.nextPage(OtherTaxesId, value))
       )
   }
 }

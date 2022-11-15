@@ -45,7 +45,7 @@ class KnownFactsService @Inject()(saService: SaService,
                          origin: String)
                         (implicit request: ServiceInfoRequest[AnyContent],
                          ec: ExecutionContext,
-                         hc: HeaderCarrier): Future[Result] = {
+                         hc: HeaderCarrier): Result = {
     val utr = dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
     val queryKnownFactsResult: Future[KnownFactsReturn] = utr.flatMap {
       maybeSAUTR => (
@@ -62,13 +62,13 @@ class KnownFactsService @Inject()(saService: SaService,
       }
       case result@KnownFactsReturn(_, true) if(isEnabled(IvUpliftSwitch)) =>
         auditService.auditSAKnownFacts(request.request.credId, result.utr, knownFacts, knownfactsResult = true)
-        Future.successful(Redirect(appConfig.ivUpliftUrl(origin)))
+        Redirect(appConfig.ivUpliftUrl(origin))
       case result@KnownFactsReturn(_, true) =>
         auditService.auditSAKnownFacts(request.request.credId, result.utr, knownFacts, knownfactsResult = true)
         saService.getIvRedirectLink(result.utr, origin).map(link => Redirect(Call("GET", link)))
       case result =>
         auditService.auditSAKnownFacts(request.request.credId, result.utr, knownFacts, knownfactsResult = false)
-        Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(origin)))
+        Redirect(saRoutes.RetryKnownFactsController.onPageLoad(origin))
     }
   }
 
@@ -101,20 +101,20 @@ class KnownFactsService @Inject()(saService: SaService,
   }
 
   def checkCIDNinoComparison(origin: String, utr: String, knownFactsNino: String)
-  (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Result] = {
+  (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Result= {
     val accountNino: String = request.request.nino.getOrElse("").toLowerCase
 
     if (accountNino == knownFactsNino.replaceAll("\\s+", "").toLowerCase) {
-      citizensDetailsConnector.getDesignatoryDetailsForKnownFacts("IR-SA", utr).flatMap {
+      citizensDetailsConnector.getDesignatoryDetailsForKnownFacts("IR-SA", utr).map {
         case Some(cidDetails) =>
           if (cidDetails.nino.toLowerCase == accountNino) {
-            Future.successful(Redirect(appConfig.ivUpliftUrl(origin)))
+            Redirect(appConfig.ivUpliftUrl(origin))
           } else {
-            Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(origin)))
+            Redirect(saRoutes.RetryKnownFactsController.onPageLoad(origin))
           }
         case None =>
           warnLog("[KnownFactsService][checkCIDNinoComparison] Error Retrieving CID details. Empty data received from Citizens service")
-          Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+          Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("LockedOut"), origin))
       }.recover {
         case nfe: NotFoundException =>
           warnLog(s"[KnownFactsService][checkCIDNinoComparison] ${nfe.getMessage}")
@@ -122,11 +122,11 @@ class KnownFactsService @Inject()(saService: SaService,
 
         case e: Exception =>
           errorLog(s"[KnownFactsService][checkCIDNinoComparison] Error Retrieving CID details ${e.getMessage}")
-          InternalServerError(errorHandler.internalServerErrorTemplate)
+          Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("LockedOut"), origin))
       }
     } else {
       warnLog(s"[KnownFactsService][checkCIDNinoComparison] Account authorization NINO and knownFactsNINO are not the same")
-      Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(origin)))
+      Redirect(saRoutes.RetryKnownFactsController.onPageLoad(origin))
 
     }
   }
