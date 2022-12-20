@@ -23,7 +23,7 @@ import connectors.{CitizensDetailsConnector, DataCacheConnector, EnrolmentStoreP
 import controllers.ControllerSpecBase
 import controllers.sa.{routes => saRoutes}
 import handlers.ErrorHandler
-import models.DesignatoryDetails
+import models.{DesignatoryDetails, DesignatoryDetailsForKnownFacts}
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.sa._
 import org.mockito.ArgumentMatchers.any
@@ -121,7 +121,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
         when(mockEnrolmentStoreProxyConnector.queryKnownFacts(any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(KnownFactsReturn(utr.value, knownFactsResult = true)))
         when(mockCIDConnector.getDesignatoryDetailsForKnownFacts(any(), any())(any(), any()))
-          .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000A", "test"))))
+          .thenReturn(Future.successful(Some(DesignatoryDetailsForKnownFacts("AA00000A"))))
         when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
 
         val result = service().knownFactsLocation(testKnownFactsNinoOnly, btaOrigin)
@@ -178,7 +178,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
             AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, Some("AA00000A")),
             HtmlFormat.empty)
           when(mockCIDConnector.getDesignatoryDetailsForKnownFacts(any(), any())(any(), any()))
-            .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000A", "test"))))
+            .thenReturn(Future.successful(Some(DesignatoryDetailsForKnownFacts("AA00000A"))))
           when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
 
           val result = service().checkCIDNinoComparison("bta-sa", "1234567891", "AA00000A")
@@ -191,7 +191,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
             AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L50, Some("AA00000A")),
             HtmlFormat.empty)
           when(mockCIDConnector.getDesignatoryDetailsForKnownFacts(any(), any())(any(), any()))
-            .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000A", "test"))))
+            .thenReturn(Future.successful(Some(DesignatoryDetailsForKnownFacts("AA00000A"))))
           when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
 
           val result = service().checkCIDNinoComparison("bta-sa", "1234567891", "AA00000A")
@@ -230,7 +230,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
             AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, Some("AA00000A")),
             HtmlFormat.empty)
           when(mockCIDConnector.getDesignatoryDetailsForKnownFacts(any(), any())(any(), any()))
-            .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000B", "test"))))
+            .thenReturn(Future.successful(Some(DesignatoryDetailsForKnownFacts("AA00000B"))))
           when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
 
           val result = service().checkCIDNinoComparison("bta-sa", "1234567891", "AA00000A")
@@ -243,7 +243,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
             AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, ConfidenceLevel.L200, Some("AA00000A")),
             HtmlFormat.empty)
           when(mockCIDConnector.getDesignatoryDetailsForKnownFacts(any(), any())(any(), any()))
-            .thenReturn(Future.successful(Some(DesignatoryDetails("test", "test", "AA00000A", "test"))))
+            .thenReturn(Future.successful(Some(DesignatoryDetailsForKnownFacts("AA00000A"))))
           when(mockAppConfig.ivUpliftUrl(any())).thenReturn("/IvLink")
 
           val result = service().checkCIDNinoComparison("bta-sa", "1234567891", "AA00000B")

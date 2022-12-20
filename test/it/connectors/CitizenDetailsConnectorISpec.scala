@@ -1,6 +1,6 @@
 package connectors
 
-import models.DesignatoryDetails
+import models.{DesignatoryDetails, DesignatoryDetailsForKnownFacts}
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import org.scalatestplus.play.PlaySpec
 import play.api.mvc.AnyContent
@@ -93,9 +93,9 @@ class CitizenDetailsConnectorISpec extends PlaySpec with AddTaxesIntegrationTest
       "return a DesignatoryDetails object if call was successful" in {
         StubCitizenDetailsConnector.withResponseForGetDesignatoryDetails("1234567890")(OK, Some(designatoryDetails))
 
-        val result: Future[Option[DesignatoryDetails]] = connector.getDesignatoryDetailsForKnownFacts(identifier, "1234567890")
+        val result: Future[Option[DesignatoryDetailsForKnownFacts]] = connector.getDesignatoryDetailsForKnownFacts(identifier, "1234567890")
 
-        await(result) mustBe Some(DesignatoryDetails(firstName, surname, nino, dateOfBirthLongFormat))
+        await(result) mustBe Some(DesignatoryDetailsForKnownFacts(nino))
       }
 
       "throw an Exception" in {
