@@ -19,7 +19,7 @@ package connectors
 import config.FrontendAppConfig
 
 import javax.inject.Inject
-import models.DesignatoryDetails
+import models.{DesignatoryDetails, DesignatoryDetailsForKnownFacts}
 import models.requests.ServiceInfoRequest
 import play.api.http.Status.NOT_FOUND
 import play.api.mvc.AnyContent
@@ -50,8 +50,8 @@ class CitizensDetailsConnector @Inject()(val http: HttpClient,
   }
 
   def getDesignatoryDetailsForKnownFacts(identifier: String, value: String)
-                           (implicit hc: HeaderCarrier, request: ServiceInfoRequest[AnyContent]): Future[Option[DesignatoryDetails]] = {
-    http.GET[DesignatoryDetails](url(identifier, value)).map(
+                           (implicit hc: HeaderCarrier, request: ServiceInfoRequest[AnyContent]): Future[Option[DesignatoryDetailsForKnownFacts]] = {
+    http.GET[DesignatoryDetailsForKnownFacts](url(identifier, value)).map(
       Some(_)
     ).recover {
       case UpstreamErrorResponse(_, NOT_FOUND, _, _) =>

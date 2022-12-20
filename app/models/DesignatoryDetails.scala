@@ -44,7 +44,25 @@ object DesignatoryDetails {
       }
     }
 
-    val writes  = Json.writes[DesignatoryDetails]
+    val writes = Json.writes[DesignatoryDetails]
+    Format(reads, writes)
+  }
+}
+
+
+case class DesignatoryDetailsForKnownFacts(nino: String)
+
+object DesignatoryDetailsForKnownFacts {
+  implicit val formats = {
+    val reads: Reads[DesignatoryDetailsForKnownFacts] = {
+      for {
+        nino <- (__ \\ "ids" \ "nino").read[String]
+      } yield {
+        DesignatoryDetailsForKnownFacts(nino)
+      }
+    }
+
+    val writes = Json.writes[DesignatoryDetailsForKnownFacts]
     Format(reads, writes)
   }
 }
