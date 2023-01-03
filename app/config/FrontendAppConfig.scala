@@ -150,7 +150,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   lazy val enrolmentStoreProxyHost: String = config.getString("enrolment-store-proxy.host")
 
-  def checkUtrUrl(utr: String, saEnrolment: String): String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/enrolments/$saEnrolment~UTR~$utr/users?type=all"
+  def checkUtrUrl(utr: String, saEnrolment: String): String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/enrolments/$saEnrolment~UTR~$utr/users?type=all&ignore-assignments=true"
   def checkSaGroupUrl(groupId: String, saEnrolment: String): String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/groups/${groupId}/enrolments?type=principal&service=${saEnrolment}"
   def checkEmpRefUrl(officeNumber: String, payeReference: String): String = s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/enrolments/IR-PAYE~TaxOfficeNumber~$officeNumber~TaxOfficeReference~$payeReference/users?type=principal"
   def getPensionsUrl(key: String): String = pensionsHost + config.getString(s"urls.external.pensions.$key")
