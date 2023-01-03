@@ -23,7 +23,7 @@ import play.api.http.Status._
 object StubEnrolmentStoreConnector extends StubHelper {
 
   def withResponseForCheckUtr(utr: String)(status: Int, optBody: Option[String]): Unit =
-    stubGet(s"/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=all", status, optBody)
+    stubGet(s"/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=all&ignore-assignments=true", status, optBody)
 
   def withResponseForCheckEmpRef(officeNumber: String, payeReference: String)(status: Int, optBody: Option[String]): Unit =
     stubGet(
@@ -241,7 +241,7 @@ object StubEnrolmentStoreConnector extends StubHelper {
   )
 
   def verifyCheckUtr(count: Int, utr: String): Unit =
-    verify(count, getRequestedFor(urlEqualTo(s"/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=all")))
+    verify(count, getRequestedFor(urlEqualTo(s"/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=all&ignore-assignments=true")))
 
   def verifyCheckGroupSA(count: Int, groupId: String): Unit =
     verify(count, getRequestedFor(urlEqualTo(s"/enrolment-store-proxy/enrolment-store/groups/$groupId/enrolments?type=principal&service=IR-SA")))
