@@ -16,7 +16,7 @@
 
 package controllers.other.land
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.other.land.SelectATaxFormProvider
 import models.other.land.SelectATax
 import play.api.data.Form

@@ -16,7 +16,7 @@
 
 package controllers.deenrolment
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.deenrolment.DoYouNeedToStopROFormProvider
 import models.deenrolment.DoYouNeedToStopRO
 import play.api.data.Form

@@ -16,7 +16,7 @@
 
 package controllers.employer
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.employer.WhatEmployerTaxDoYouWantToAddFormProvider
 import models.employer.WhatEmployerTaxDoYouWantToAdd
 import play.api.data.Form

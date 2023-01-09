@@ -16,7 +16,7 @@
 
 package controllers.vat.moss.noneu
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.vat.moss.noneu.HaveYouRegisteredForVATMOSSFormProvider
 import models.vat.moss.noneu.HaveYouRegisteredForVATMOSS
 import play.api.data.Form

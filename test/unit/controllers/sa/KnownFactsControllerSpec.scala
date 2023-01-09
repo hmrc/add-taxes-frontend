@@ -17,7 +17,7 @@
 package controllers.sa
 
 import config.featureToggles.FeatureToggleSupport
-import controllers._
+import controllers.ControllerSpecBase
 import controllers.sa.{routes => saRoutes}
 import forms.sa.KnownFactsNinoFormProvider
 import models.sa.KnownFactsNino

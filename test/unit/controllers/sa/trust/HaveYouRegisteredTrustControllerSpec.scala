@@ -16,7 +16,7 @@
 
 package controllers.sa.trust
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.sa.trust.HaveYouRegisteredTrustFormProvider
 import models.sa.trust.HaveYouRegisteredTrust
 import play.api.data.Form

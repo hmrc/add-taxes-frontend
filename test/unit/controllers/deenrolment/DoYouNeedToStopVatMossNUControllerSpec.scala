@@ -17,7 +17,7 @@
 package controllers.deenrolment
 
 import config.FrontendAppConfig
-import controllers._
+import controllers.ControllerSpecBase
 import forms.deenrolment.DoYouNeedToStopVatMossNUFormProvider
 import handlers.ErrorHandler
 import models.deenrolment.DoYouNeedToStopVatMossNU

@@ -16,7 +16,7 @@
 
 package controllers.other.importexports.nes
 
-import controllers._
+import controllers.ControllerSpecBase
 import controllers.other.importexports.nes.routes._
 import forms.other.importexports.nes.DoYouHaveCHIEFRoleFormProvider
 import models.other.importexports.nes.DoYouHaveCHIEFRole

@@ -17,7 +17,7 @@
 package controllers.sa
 
 import connectors.DataCacheConnector
-import controllers._
+import controllers.ControllerSpecBase
 import forms.sa.DoYouHaveSAUTRFormProvider
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.sa.DoYouHaveSAUTR

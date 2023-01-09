@@ -16,7 +16,7 @@
 
 package controllers.other.ctf
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.other.ctf.AreYouApprovedCTFFormProvider
 import models.other.ctf.AreYouApprovedCTF
 import play.api.data.Form

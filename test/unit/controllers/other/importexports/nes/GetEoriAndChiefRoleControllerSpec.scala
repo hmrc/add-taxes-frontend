@@ -16,7 +16,7 @@
 
 package controllers.other.importexports.nes
 
-import controllers._
+import controllers.ControllerSpecBase
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import views.html.other.importexports.nes.getEoriAndChiefRole

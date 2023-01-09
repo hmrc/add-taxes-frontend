@@ -16,7 +16,7 @@
 
 package controllers.deenrolment
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.deenrolment.DoYouNeedToLeaveVATMOSSFormProvider
 import handlers.ErrorHandler
 import models.deenrolment.DoYouNeedToLeaveVATMOSS

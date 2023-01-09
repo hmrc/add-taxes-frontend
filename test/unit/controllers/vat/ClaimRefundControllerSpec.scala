@@ -17,7 +17,7 @@
 package controllers.vat
 
 import config.featureToggles.FeatureToggleSupport
-import controllers._
+import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.vat.ClaimRefundFormProvider
 import models.vat.ClaimRefund

@@ -16,7 +16,7 @@
 
 package controllers.deenrolment
 
-import controllers._
+import controllers.ControllerSpecBase
 import play.api.test.Helpers._
 import utils.Enrolments
 

@@ -16,7 +16,7 @@
 
 package controllers.employer.paye
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.employer.paye.DoesYourPartnershipHave2To10PartnersFormProvider
 import models.employer.paye.DoesYourPartnershipHave2To10Partners
 import play.api.data.Form

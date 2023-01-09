@@ -19,7 +19,7 @@ package controllers.other.importexports
 import config.FrontendAppConfig
 import config.featureToggles.FeatureSwitch.AtarSwitch
 import config.featureToggles.FeatureToggleSupport.isEnabled
-import controllers._
+import controllers.ControllerSpecBase
 import forms.other.importexports.DoYouWantToAddImportExportFormProvider
 import models.other.importexports.DoYouWantToAddImportExport
 import org.scalatestplus.mockito.MockitoSugar.mock

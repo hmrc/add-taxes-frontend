@@ -16,7 +16,7 @@
 
 package controllers.employer.cis
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.employer.cis.IsYourBusinessInUKFormProvider
 import models.employer.cis.IsYourBusinessInUK
 import play.api.data.Form

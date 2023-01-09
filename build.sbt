@@ -17,7 +17,7 @@ lazy val playSettings: Seq[Setting[_]] = Seq(
     "uk.gov.hmrc.hmrcfrontend.views.html.{components => hmrcComponents}"
   )
 )
-val silencerVersion = "1.7.9"
+val silencerVersion = "1.7.12"
 
 def unitFilter(name: String): Boolean = name startsWith "unit"
 
@@ -37,7 +37,7 @@ lazy val microservice = Project(appName, file("."))
     ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*filters.*;.*handlers.*;.*components.*;.*models.*;.*identifiers.*;.*repositories.*;" +
       ".*BuildInfo.*;.*javascript.*;.*FrontendAuditConnector.*;.*Routes.*;.*GuiceInjector;.*DataCacheConnector;" +
       ".*ControllerConfiguration;.*LanguageSwitchController;.*FeatureQueryBinder;.*featureToggles;.*feature_switch;.*FeatureSwitchController.*",
-    ScoverageKeys.coverageMinimum := 92.98,
+    ScoverageKeys.coverageMinimumStmtTotal := 92.98,
     ScoverageKeys.coverageFailOnMinimum := true,
     ScoverageKeys.coverageHighlighting := true,
     parallelExecution in Test := false
@@ -55,7 +55,7 @@ lazy val microservice = Project(appName, file("."))
     ),
     libraryDependencies ++= AppDependencies(),
     retrieveManaged := true, PlayKeys.playDefaultPort := 9730,
-    scalaVersion := "2.12.15",
+    scalaVersion := "2.13.7",
     isPublicArtefact := true
   )
   .settings(inConfig(Test)(Defaults.testSettings): _*)

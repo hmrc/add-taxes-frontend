@@ -16,7 +16,7 @@
 
 package controllers.other.gambling.gbd
 
-import controllers._
+import controllers.ControllerSpecBase
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import views.html.other.gambling.gbd.registerGBD
