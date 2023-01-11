@@ -16,7 +16,7 @@
 
 package controllers.employer.cis.ukbased.subcontractor
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVATFormProvider
 import models.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVAT
 import play.api.data.Form

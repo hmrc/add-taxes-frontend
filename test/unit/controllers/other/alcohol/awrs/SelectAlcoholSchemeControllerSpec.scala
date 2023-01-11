@@ -16,7 +16,7 @@
 
 package controllers.other.alcohol.awrs
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.other.alcohol.awrs.SelectAlcoholSchemeFormProvider
 import models.other.alcohol.awrs.SelectAlcoholScheme
 import play.api.data.Form

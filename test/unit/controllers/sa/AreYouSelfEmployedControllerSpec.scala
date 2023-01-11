@@ -16,7 +16,7 @@
 
 package controllers.sa
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.sa.AreYouSelfEmployedFormProvider
 import models.sa.AreYouSelfEmployed
 import play.api.data.Form

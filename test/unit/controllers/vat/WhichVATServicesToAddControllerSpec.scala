@@ -19,7 +19,7 @@ package controllers.vat
 import config.featureToggles.FeatureSwitch.VatOssSwitch
 import config.featureToggles.FeatureToggleSupport
 import connectors.OssConnector
-import controllers._
+import controllers.ControllerSpecBase
 import forms.vat.WhichVATServicesToAddFormProvider
 import handlers.ErrorHandler
 import models.vat.WhichVATServicesToAdd.VATOSS

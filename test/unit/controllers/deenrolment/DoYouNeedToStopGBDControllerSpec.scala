@@ -16,7 +16,7 @@
 
 package controllers.deenrolment
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.deenrolment.DoYouNeedToStopGBDFormProvider
 import models.deenrolment.DoYouNeedToStopGBD
 import play.api.data.Form

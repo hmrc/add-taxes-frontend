@@ -16,7 +16,7 @@
 
 package controllers.vat.moss.iom
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.vat.moss.iom.RegisteredForVATFormProvider
 import models.vat.moss.iom.RegisteredForVAT
 import play.api.data.Form

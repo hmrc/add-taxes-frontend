@@ -16,7 +16,7 @@
 
 package controllers.deenrolment
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.deenrolment.DoYouNeedToCancelMTDVATFormProvider
 import models.deenrolment.DoYouNeedToCancelMTDVAT
 import play.api.data.Form

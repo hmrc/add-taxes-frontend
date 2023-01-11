@@ -17,7 +17,7 @@
 package controllers.vat
 
 import config.featureToggles.FeatureToggleSupport
-import controllers._
+import controllers.ControllerSpecBase
 import forms.vat.ImportedGoodsFormProvider
 import models.vat.ImportedGoods
 import org.scalatest.BeforeAndAfterEach

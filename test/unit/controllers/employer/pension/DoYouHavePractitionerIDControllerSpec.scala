@@ -16,7 +16,7 @@
 
 package controllers.employer.pension
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.employer.pension.DoYouHavePractitionerIDFormProvider
 import models.employer.pension.DoYouHavePractitionerID
 import play.api.data.Form

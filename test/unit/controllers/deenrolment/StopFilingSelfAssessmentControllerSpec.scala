@@ -16,7 +16,7 @@
 
 package controllers.deenrolment
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.deenrolment.StopFilingSelfAssessmentFormProvider
 import models.deenrolment.StopFilingSelfAssessment
 import play.api.data.Form

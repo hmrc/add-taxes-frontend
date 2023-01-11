@@ -16,7 +16,7 @@
 
 package controllers.deenrolment
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.deenrolment.DoYouNeedToStopMGDFormProvider
 import handlers.ErrorHandler
 import models.deenrolment.DoYouNeedToStopMGD

@@ -16,7 +16,7 @@
 
 package controllers.other.gambling.rgd
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.other.gambling.rgd.DoYouHaveRGDRegistrationFormProvider
 import models.other.gambling.rgd.DoYouHaveRGDRegistration
 import play.api.data.Form

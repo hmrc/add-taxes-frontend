@@ -17,7 +17,7 @@
 package controllers.sa
 
 import connectors.DataCacheConnector
-import controllers._
+import controllers.ControllerSpecBase
 import forms.sa.SelectSACategoryFormProvider
 import models.sa.SelectSACategory
 import org.mockito.ArgumentMatchers.any

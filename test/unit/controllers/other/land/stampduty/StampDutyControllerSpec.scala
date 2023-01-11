@@ -16,7 +16,7 @@
 
 package controllers.other.land.stampduty
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.other.land.stampduty.StampDutyFormProvider
 import models.other.land.stampduty.StampDuty
 import play.api.data.Form

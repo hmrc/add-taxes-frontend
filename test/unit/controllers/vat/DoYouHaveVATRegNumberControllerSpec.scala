@@ -16,7 +16,7 @@
 
 package controllers.vat
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.vat.DoYouHaveVATRegNumberFormProvider
 import models.vat.DoYouHaveVATRegNumber
 import play.api.data.Form

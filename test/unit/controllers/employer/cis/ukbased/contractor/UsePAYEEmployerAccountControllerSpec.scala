@@ -16,7 +16,7 @@
 
 package controllers.employer.cis.ukbased.contractor
 
-import controllers._
+import controllers.ControllerSpecBase
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import views.html.employer.cis.ukbased.contractor.usePAYEEmployerAccount

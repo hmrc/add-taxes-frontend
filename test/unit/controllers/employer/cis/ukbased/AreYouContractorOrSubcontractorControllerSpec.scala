@@ -16,7 +16,7 @@
 
 package controllers.employer.cis.ukbased
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.employer.cis.uk.AreYouContractorOrSubcontractorFormProvider
 import models.employer.cis.uk.AreYouContractorOrSubcontractor
 import play.api.data.Form

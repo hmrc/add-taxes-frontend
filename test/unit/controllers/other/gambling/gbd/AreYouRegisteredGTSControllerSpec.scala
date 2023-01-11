@@ -16,7 +16,7 @@
 
 package controllers.other.gambling.gbd
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.other.gambling.gbd.AreYouRegisteredGTSFormProvider
 import models.other.gambling.gbd.AreYouRegisteredGTS
 import play.api.data.Form

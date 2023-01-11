@@ -17,7 +17,7 @@
 package controllers.vat
 
 import config.featureToggles.FeatureToggleSupport
-import controllers._
+import controllers.ControllerSpecBase
 import org.scalatest.BeforeAndAfterEach
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat

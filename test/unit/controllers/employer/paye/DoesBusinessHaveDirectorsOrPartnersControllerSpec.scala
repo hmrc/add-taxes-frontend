@@ -16,7 +16,7 @@
 
 package controllers.employer.paye
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.employer.paye.DoesBusinessHaveDirectorsOrPartnersFormProvider
 import models.employer.paye.DoesBusinessHaveDirectorsOrPartners
 import play.api.data.Form

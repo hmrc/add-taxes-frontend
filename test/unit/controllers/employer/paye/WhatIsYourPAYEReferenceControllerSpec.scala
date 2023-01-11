@@ -18,7 +18,7 @@ package controllers.employer.paye
 
 import config.featureToggles.FeatureToggleSupport
 import connectors.EnrolmentStoreProxyConnector
-import controllers._
+import controllers.ControllerSpecBase
 import forms.employer.paye.WhatIsYourPAYEReferenceFormProvider
 import models.employer.paye.PAYEReference
 import org.mockito.ArgumentMatchers._

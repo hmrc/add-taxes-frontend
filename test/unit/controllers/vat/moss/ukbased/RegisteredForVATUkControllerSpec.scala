@@ -16,7 +16,7 @@
 
 package controllers.vat.moss.ukbased
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.vat.moss.uk.RegisteredForVATUkFormProvider
 import models.vat.moss.uk.RegisteredForVATUk
 import play.api.data.Form

@@ -16,7 +16,7 @@
 
 package controllers.employer.intermediaries
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.employer.IsBusinessRegisteredForPAYEFormProvider
 import models.employer.IsBusinessRegisteredForPAYE
 import play.api.data.Form

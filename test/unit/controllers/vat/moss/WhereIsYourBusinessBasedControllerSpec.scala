@@ -16,7 +16,7 @@
 
 package controllers.vat.moss
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.vat.moss.WhereIsYourBusinessBasedFormProvider
 import models.vat.moss.WhereIsYourBusinessBased
 import play.api.data.Form

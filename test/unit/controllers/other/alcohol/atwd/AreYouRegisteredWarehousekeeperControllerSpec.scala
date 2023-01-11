@@ -16,7 +16,7 @@
 
 package controllers.other.alcohol.atwd
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.other.alcohol.atwd.AreYouRegisteredWarehousekeeperFormProvider
 import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
 import play.api.data.Form

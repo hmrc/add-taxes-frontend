@@ -16,7 +16,7 @@
 
 package controllers.other.importexports.nes
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.other.importexports.DoYouHaveEORINumberFormProvider
 import models.other.importexports.DoYouHaveEORINumber
 import play.api.data.Form

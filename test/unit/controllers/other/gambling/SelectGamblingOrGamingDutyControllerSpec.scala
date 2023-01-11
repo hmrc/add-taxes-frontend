@@ -16,7 +16,7 @@
 
 package controllers.other.gambling
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.other.gambling.SelectGamblingOrGamingDutyFormProvider
 import models.other.gambling.SelectGamblingOrGamingDuty
 import play.api.data.Form

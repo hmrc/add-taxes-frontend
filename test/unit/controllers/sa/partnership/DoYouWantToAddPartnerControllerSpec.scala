@@ -16,7 +16,7 @@
 
 package controllers.sa.partnership
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.sa.partnership.DoYouWantToAddPartnerFormProvider
 import models.sa.partnership.DoYouWantToAddPartner
 import play.api.data.Form

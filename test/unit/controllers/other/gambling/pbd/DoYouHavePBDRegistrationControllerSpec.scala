@@ -16,7 +16,7 @@
 
 package controllers.other.gambling.pbd
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.other.gambling.pbd.DoYouHavePBDRegistrationFormProvider
 import models.other.gambling.pbd.DoYouHavePBDRegistration
 import play.api.data.Form

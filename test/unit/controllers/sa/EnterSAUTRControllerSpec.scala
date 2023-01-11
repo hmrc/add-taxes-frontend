@@ -17,7 +17,7 @@
 package controllers.sa
 
 import connectors.{DataCacheConnector, EnrolmentStoreProxyConnector}
-import controllers._
+import controllers.ControllerSpecBase
 import forms.sa.SAUTRFormProvider
 import models.sa.SAUTR
 import org.mockito.ArgumentMatchers._

@@ -16,7 +16,7 @@
 
 package controllers.other.aeoi
 
-import controllers._
+import controllers.ControllerSpecBase
 import forms.other.aeoi.HaveYouRegisteredAEOIFormProvider
 import models.other.aeoi.HaveYouRegisteredAEOI
 import play.api.data.Form
