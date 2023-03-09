@@ -30,7 +30,7 @@ class OssConnector  @Inject()(val http: HttpClient,
                               appConfig: FrontendAppConfig)(implicit ec: ExecutionContext)
   extends LoggingUtil with HttpReadsInstances {
 
-  val serviceUrl: String = appConfig.vatOssHost + "/external-entry"
+  val serviceUrl: String = appConfig.vatOssExternalEntry
 
   def ossRegistrationJourneyLink()(implicit hc: HeaderCarrier,
                                    ec: ExecutionContext,
