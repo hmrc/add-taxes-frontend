@@ -6,7 +6,7 @@ import play.api.http.Status._
 object StubOssConnector extends StubHelper {
 
   def withResponseForOssRegistrationLink(postBody: String)(status: Int, optBody: Option[String]): Unit =
-    stubPost(s"/external-entry", status, postBody, optBody)
+    stubPost(s"/pay-vat-on-goods-sold-to-eu/northern-ireland-register/external-entry", status, postBody, optBody)
 
   def successFulOssRegistrationLink(postBody: String, returnBody: String) = withResponseForOssRegistrationLink(postBody)(
     CREATED, Some(returnBody)
@@ -21,5 +21,5 @@ object StubOssConnector extends StubHelper {
   )
 
   def verifyOssRegistrationLink(count: Int): Unit =
-    verify(count, postRequestedFor(urlEqualTo(s"/external-entry")))
+    verify(count, postRequestedFor(urlEqualTo(s"/pay-vat-on-goods-sold-to-eu/northern-ireland-register/external-entry")))
 }
