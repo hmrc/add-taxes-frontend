@@ -56,7 +56,7 @@ class WhichVATServicesToAddController @Inject()(mcc: MessagesControllerComponent
   private def radioOptions(implicit request: ServiceInfoRequest[AnyContent]): Seq[RadioOption] =
     request.request.enrolments match {
       case HmrcEnrolmentType.VAT() | HmrcEnrolmentType.MTDVAT() => optionsWithoutVAT
-      case _                       => WhichVATServicesToAdd.options(ossFeatureSwitch = isEnabled(VatOssSwitch))
+      case _ => WhichVATServicesToAdd.options(ossFeatureSwitch = isEnabled(VatOssSwitch))
     }
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
@@ -69,21 +69,24 @@ class WhichVATServicesToAddController @Inject()(mcc: MessagesControllerComponent
         formWithErrors => Future.successful(BadRequest(whichVATServicesToAdd(appConfig, formWithErrors, radioOptions)(request.serviceInfoContent))),
         value =>
           value match {
-            case WhichVATServicesToAdd.VATOSS if (isEnabled(VatOssSwitch)) => {
+            case WhichVATServicesToAdd.VATOSS if isEnabled(VatOssSwitch) =>
               for (
                 redirectString <- ossConnector.ossRegistrationJourneyLink()
               ) yield {
                 redirectString.redirectUrl match {
-                  case Some(url) => Redirect(navigator.nextPage(WhichVATServicesToAddId,
-                      (value, request.request.affinityGroup,
+                  case Some(url) =>
+                    infoLog(s"[WhichVATServicesToAddController][onSubmit] redirecting user to $url")
+                    Redirect(navigator.nextPage(WhichVATServicesToAddId,
+                      (value,
+                        request.request.affinityGroup,
                         request.request.enrolments,
-                        appConfig.vatOssRedirectUrl(url))))
+                        url)
+                    ))
                   case _ =>
                     warnLog("[WhichVATServicesToAddController][onSubmit] No URL passed from OSS Call")
                     InternalServerError(errorHandler.internalServerErrorTemplate)
                 }
               }
-            }
             case _ => Future.successful(Redirect(navigator.nextPage(WhichVATServicesToAddId, (value, request.request.affinityGroup, request.request.enrolments, ""))))
           }
       )
