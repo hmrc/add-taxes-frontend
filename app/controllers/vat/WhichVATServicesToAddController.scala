@@ -53,11 +53,24 @@ class WhichVATServicesToAddController @Inject()(mcc: MessagesControllerComponent
   val optionsWithoutVAT: Seq[RadioOption] =
     WhichVATServicesToAdd.options(ossFeatureSwitch = isEnabled(VatOssSwitch)).filterNot(_.value == WhichVATServicesToAdd.VAT.toString)
 
-  private def radioOptions(implicit request: ServiceInfoRequest[AnyContent]): Seq[RadioOption] =
-    request.request.enrolments match {
-      case HmrcEnrolmentType.VAT() | HmrcEnrolmentType.MTDVAT() => optionsWithoutVAT
-      case _ => WhichVATServicesToAdd.options(ossFeatureSwitch = isEnabled(VatOssSwitch))
-    }
+  private def radioOptions(implicit request: ServiceInfoRequest[AnyContent]): Seq[RadioOption] = {
+    val enrolments = request.request.enrolments
+    WhichVATServicesToAdd.options(ossFeatureSwitch = isEnabled(VatOssSwitch))
+      .filterNot(x =>
+        if (enrolments.getEnrolment("HMRC_MTD_VAT").isDefined || enrolments.getEnrolment("HMCE-VATDEC-ORG").isDefined) {
+          x.value == WhichVATServicesToAdd.VAT.toString
+        } else {
+          false
+        }
+      ).filterNot(x =>
+      if (enrolments.getEnrolment("HMRC-OSS-ORG").isDefined) {
+        x.value == WhichVATServicesToAdd.VATOSS.toString
+      } else {
+        false
+      }
+    )
+
+  }
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(whichVATServicesToAdd(appConfig, form, radioOptions)(request.serviceInfoContent))

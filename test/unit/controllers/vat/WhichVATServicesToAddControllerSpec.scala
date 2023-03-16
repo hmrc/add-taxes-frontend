@@ -173,9 +173,9 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
     }
 
     "not display vat radio option" when {
-      val radioOptions = WhichVATServicesToAdd.options().filterNot(_.value == "vat")
 
       "page is loaded and vat is enrolled" in {
+        val radioOptions = WhichVATServicesToAdd.options().filterNot(_.value == "vat")
         disable(VatOssSwitch)
         val result = controller()(HmrcEnrolmentType.VAT).onPageLoad()(fakeRequest.withMethod("GET"))
 
@@ -184,13 +184,25 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
 
       "page is loaded and MTDVAT is enrolled" in {
         disable(VatOssSwitch)
+        val radioOptions = WhichVATServicesToAdd.options().filterNot(_.value == "vatoss")
+
         val result = controller()(HmrcEnrolmentType.MTDVAT).onPageLoad()(fakeRequest.withMethod("GET"))
+
+        contentAsString(result) mustBe viewAsString(radioOptions = radioOptions)
+      }
+
+      "page is loaded and OSS is enrolled" in {
+        disable(VatOssSwitch)
+        val radioOptions = WhichVATServicesToAdd.options().filterNot(_.value == "vatoss")
+
+        val result = controller()(HmrcEnrolmentType.OSS).onPageLoad()(fakeRequest.withMethod("GET"))
 
         contentAsString(result) mustBe viewAsString(radioOptions = radioOptions)
       }
 
       "page errors and vat is enrolled " in {
         disable(VatOssSwitch)
+        val radioOptions = WhichVATServicesToAdd.options().filterNot(_.value == "vat")
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
         val boundForm = form.bind(Map("value" -> "invalid value"))
         val result = controller()(HmrcEnrolmentType.VAT).onSubmit()(postRequest)
@@ -211,7 +223,15 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
         val result = controller()(HmrcEnrolmentType.MTDVAT).onPageLoad()(fakeRequest.withMethod("GET"))
 
         contentAsString(result) mustBe viewAsString(
-          radioOptions = WhichVATServicesToAdd.options(ossFeatureSwitch = true).filterNot(_.value == "vat"))
+          radioOptions = WhichVATServicesToAdd.options(ossFeatureSwitch = true))
+      }
+
+      "page is loaded and OSS is enrolled and switch is enabled" in {
+        enable(VatOssSwitch)
+        val result = controller()(HmrcEnrolmentType.OSS).onPageLoad()(fakeRequest.withMethod("GET"))
+
+        contentAsString(result) mustBe viewAsString(
+          radioOptions = WhichVATServicesToAdd.options(ossFeatureSwitch = true).filterNot(_.value == "vatoss"))
       }
 
       "page errors and vat is enrolled and switch is enabled" in {
