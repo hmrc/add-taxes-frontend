@@ -22,6 +22,7 @@ sealed trait DoYouWantToAddImportExport
 
 object DoYouWantToAddImportExport {
   case object ATaR extends WithName("ATaR") with DoYouWantToAddImportExport
+  case object ARS extends WithName("ARS") with DoYouWantToAddImportExport
   case object EMCS extends WithName("EMCS") with DoYouWantToAddImportExport
   case object ICS extends WithName("ICS") with DoYouWantToAddImportExport
   case object DDES extends WithName("DDES") with DoYouWantToAddImportExport
@@ -33,6 +34,7 @@ object DoYouWantToAddImportExport {
 
   val values: List[DoYouWantToAddImportExport] = List(
     ATaR,
+    ARS,
     EMCS,
     ICS,
     DDES,
@@ -43,9 +45,19 @@ object DoYouWantToAddImportExport {
     ISD
   )
 
-  def options(atarAddTaxSwitch: Boolean) = values.collect {
-    case value if (!(value == eBTI) && !(value == ATaR && !atarAddTaxSwitch)) =>
-      RadioOption("doYouWantToAddImportExport", value.toString)
+  def filterArs(arsAddTaxSwitch: Boolean) = {
+    if(arsAddTaxSwitch) {
+      values.filterNot(_ == ATaR)
+    } else {
+      values.filterNot(_ == ARS)
+    }
+  }
+
+  def options(atarAddTaxSwitch: Boolean, arsAddTaxSwitch: Boolean) = {
+    filterArs(arsAddTaxSwitch).collect {
+      case value if (!(value == eBTI) && !(value == ATaR && !atarAddTaxSwitch)) =>
+        RadioOption("doYouWantToAddImportExport", value.toString)
+    }
   }
 
   implicit val enumerable: Enumerable[DoYouWantToAddImportExport] =

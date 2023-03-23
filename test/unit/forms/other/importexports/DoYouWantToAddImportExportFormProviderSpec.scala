@@ -27,7 +27,7 @@ class DoYouWantToAddImportExportFormProviderSpec (appConfig: FrontendAppConfig) 
   implicit val config: FrontendAppConfig = appConfig
   val atarBool: Boolean = isEnabled(AtarSwitch)
   val validData: Map[String, String] = Map(
-    "value" -> DoYouWantToAddImportExport.options(atarBool).head.value
+    "value" -> DoYouWantToAddImportExport.options(atarBool, arsAddTaxSwitch = false).head.value
   )
 
   val form = new DoYouWantToAddImportExportFormProvider()()
@@ -38,7 +38,7 @@ class DoYouWantToAddImportExportFormProviderSpec (appConfig: FrontendAppConfig) 
 
     behave like formWithOptionField(
       Field("value", Required -> "doYouWantToAddImportExport.error.required", Invalid -> "error.invalid"),
-      DoYouWantToAddImportExport.options(atarBool).toSeq.map(_.value): _*
+      DoYouWantToAddImportExport.options(atarBool, arsAddTaxSwitch = false).toSeq.map(_.value): _*
     )
   }
 }

@@ -17,8 +17,8 @@
 package views.other.importexports
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.AtarSwitch
-import config.featureToggles.FeatureToggleSupport.isEnabled
+import config.featureToggles.FeatureSwitch.{ARSContentSwitch, AtarSwitch}
+import config.featureToggles.FeatureToggleSupport.{disable, enable, isEnabled}
 import forms.other.importexports.DoYouWantToAddImportExportFormProvider
 import models.other.importexports.DoYouWantToAddImportExport
 import org.mockito.Mockito.reset
@@ -48,10 +48,10 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
   val mockConfig: FrontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
 
     def createView: () => HtmlFormat.Appendable = () =>
-      new doYouWantToAddImportExport(formWithCSRF, mainTemplate)(mockConfig, form, isEnabled(AtarSwitch))(serviceInfoContent)(fakeRequest, messages)
+      new doYouWantToAddImportExport(formWithCSRF, mainTemplate)(mockConfig, form, isEnabled(AtarSwitch), isEnabled(ARSContentSwitch))(serviceInfoContent)(fakeRequest, messages)
 
     def createViewUsingForm: (Form[_]) => HtmlFormat.Appendable = (form: Form[_]) =>
-      new doYouWantToAddImportExport(formWithCSRF, mainTemplate)(mockConfig, form, isEnabled(AtarSwitch))(serviceInfoContent)(fakeRequest, messages)
+      new doYouWantToAddImportExport(formWithCSRF, mainTemplate)(mockConfig, form, isEnabled(AtarSwitch), isEnabled(ARSContentSwitch))(serviceInfoContent)(fakeRequest, messages)
 
   override def beforeEach(): Unit = {
     reset(mockConfiguration)
@@ -73,20 +73,30 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
 
     "rendered" must {
       "contain radio buttons for the value" in {
+        disable(ARSContentSwitch)
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- DoYouWantToAddImportExport.options(atarBool)) {
+        for (option <- DoYouWantToAddImportExport.options(atarBool, arsAddTaxSwitch = false)) {
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+        }
+      }
+
+      "contain ARS radio buttons for the value when Content switch is true" in {
+        enable(ARSContentSwitch)
+        val doc = asDocument(createViewUsingForm(form))
+        for (option <- DoYouWantToAddImportExport.options(atarBool, arsAddTaxSwitch = true)) {
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
 
-    for (option <- DoYouWantToAddImportExport.options(atarBool)) {
+    for (option <- DoYouWantToAddImportExport.options(atarBool, arsAddTaxSwitch = false)) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
+          disable(ARSContentSwitch)
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
-          for (unselectedOption <- DoYouWantToAddImportExport.options(atarBool).filterNot(o => o == option)) {
+          for (unselectedOption <- DoYouWantToAddImportExport.options(atarBool, arsAddTaxSwitch = false).filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
@@ -95,6 +105,7 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
 
     "invalid data is sent" must {
       "prepend title with Error: " in {
+        disable(ARSContentSwitch)
         val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> ""))))
         val title = messages("site.service_title", messages(s"$messageKeyPrefix.title"))
 
@@ -105,11 +116,13 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
   "eBTI" should {
     "rendered" must {
       "not display the eBTI option" in {
+        disable(ARSContentSwitch)
         val atarBool: Boolean = isEnabled(AtarSwitch)
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- DoYouWantToAddImportExport.options(atarBool)) {
+        for (option <- DoYouWantToAddImportExport.options(atarBool, arsAddTaxSwitch = false)) {
           assertNotRenderedById(doc, "doYouWantToAddImportExport.eBTI")
         }
       }
     }
-}}
+  }
+}

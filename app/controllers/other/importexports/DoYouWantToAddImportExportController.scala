@@ -17,11 +17,12 @@
 package controllers.other.importexports
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.AtarSwitch
+import config.featureToggles.FeatureSwitch.{ARSContentSwitch, AtarSwitch}
 import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions._
 import forms.other.importexports.DoYouWantToAddImportExportFormProvider
 import identifiers.DoYouWantToAddImportExportId
+
 import javax.inject.Inject
 import models.other.importexports.DoYouWantToAddImportExport
 import play.api.data.Form
@@ -47,14 +48,14 @@ class DoYouWantToAddImportExportController @Inject()(mcc: MessagesControllerComp
   val form: Form[DoYouWantToAddImportExport] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouWantToAddImportExport(appConfig, form, isEnabled(AtarSwitch))(request.serviceInfoContent))
+    Ok(doYouWantToAddImportExport(appConfig, form, isEnabled(AtarSwitch), isEnabled(ARSContentSwitch))(request.serviceInfoContent))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(doYouWantToAddImportExport(appConfig, formWithErrors, isEnabled(AtarSwitch))(request.serviceInfoContent))),
+          Future.successful(BadRequest(doYouWantToAddImportExport(appConfig, formWithErrors, isEnabled(AtarSwitch), isEnabled(ARSContentSwitch))(request.serviceInfoContent))),
         value => {auditService.auditSelectIOCategory(request.request.credId, value, request.request.enrolments)
           Future.successful(Redirect(navigator.nextPage(DoYouWantToAddImportExportId, value)))}
       )

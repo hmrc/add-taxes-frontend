@@ -249,6 +249,7 @@ registerEORINCTS.p1 = When you get this, sign in and add the New Computerised Tr
 doYouWantToAddImportExport.title = What do you want to add?
 doYouWantToAddImportExport.heading = What do you want to add?
 doYouWantToAddImportExport.ATaR = Advance Tariff Rulings (ATaR)
+doYouWantToAddImportExport.ARS = Advance rulings
 doYouWantToAddImportExport.EMCS = Excise Movement and Control System (EMCS)
 doYouWantToAddImportExport.ICS = Import Control System (ICS)
 doYouWantToAddImportExport.DDES = Duty Deferment Electronic Statements (DDES)
