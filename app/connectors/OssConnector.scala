@@ -21,6 +21,7 @@ import models.requests.ServiceInfoRequest
 import models.vat.{OssRecievedDetails, OssRequestDetails}
 import play.api.mvc.AnyContent
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpReadsInstances}
+import uk.gov.hmrc.play.http.HeaderCarrierConverter
 import utils.LoggingUtil
 
 import javax.inject.Inject
@@ -32,9 +33,12 @@ class OssConnector  @Inject()(val http: HttpClient,
 
   val serviceUrl: String = appConfig.vatOssExternalEntry
 
-  def ossRegistrationJourneyLink()(implicit hc: HeaderCarrier,
-                                   ec: ExecutionContext,
+  def ossRegistrationJourneyLink()(implicit ec: ExecutionContext,
                                    request: ServiceInfoRequest[AnyContent]): Future[OssRecievedDetails] = {
+
+    implicit val hc: HeaderCarrier =
+      HeaderCarrierConverter.fromRequestAndSession(request.withHeaders(request.headers), request.session)
+
     val origin = "BTA"
     val returnUrl = "/business-account"
     val ossRequestData = OssRequestDetails(origin = origin, returnUrl = returnUrl)

@@ -151,7 +151,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
     for (option <- WhichVATServicesToAdd.options(ossFeatureSwitch = true)) {
       s"redirect to next page when '${option.value}' is submitted when switch is enabled" in {
         enable(VatOssSwitch)
-        when(mockOssConnector.ossRegistrationJourneyLink()(any(), any(), any()))
+        when(mockOssConnector.ossRegistrationJourneyLink()(any(), any()))
           .thenReturn(Future.successful(OssRecievedDetails(Some(" /test-url"))))
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value)).withMethod("POST")
         val result = controller()().onSubmit()(postRequest)
@@ -162,7 +162,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
       if(option.value == VATOSS.toString) {
         s"internal error if the oss call fails and returns None switch is enabled" in {
           enable(VatOssSwitch)
-          when(mockOssConnector.ossRegistrationJourneyLink()(any(), any(), any()))
+          when(mockOssConnector.ossRegistrationJourneyLink()(any(), any()))
             .thenReturn(Future.successful(OssRecievedDetails(None)))
           val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value)).withMethod("POST")
           val result = controller()().onSubmit()(postRequest)
