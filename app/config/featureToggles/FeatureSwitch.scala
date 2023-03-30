@@ -69,6 +69,13 @@ object FeatureSwitch {
     override val displayText: String = "Atar Enabled"
   }
 
+
+  case object ARSContentSwitch extends FeatureSwitch {
+    override val name = s"$prefix.arsContentSwitch"
+    override val displayText: String = "Atar Enabled"
+  }
+
+
   case object BypassVATETMPCheck  extends FeatureSwitch {
     override val name = s"$prefix.bypassVATETMPCheck"
     override val displayText: String = "Bypass VAT ETMP Check"
