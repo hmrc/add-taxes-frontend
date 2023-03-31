@@ -1,5 +1,6 @@
 package connectors
 
+import config.FrontendAppConfig
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.vat.{OssRecievedDetails, OssRequestDetails}
 import org.scalatestplus.play.PlaySpec
@@ -35,6 +36,7 @@ class OssConnectorISpec extends PlaySpec with AddTaxesIntegrationTest {
        |}
        """.stripMargin
 
+  implicit val appConfig: FrontendAppConfig = inject[FrontendAppConfig]
 
   "OssConnector" when {
 
