@@ -143,7 +143,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   lazy val vatOssHost: String = config.baseUrl("vat-oss-registration-frontend")
   lazy val vatOssBaseUrl: String = config.getString("urls.oss.baseUrl")
-  lazy val vatOssExternalEntryUrl: String = vatOssBaseUrl + config.getString("urls.oss.baseUrl")
+  lazy val vatOssExternalEntryUrl: String = vatOssBaseUrl + config.getString("urls.oss.externalEntry")
   lazy val vatOssExternalEntry: String = vatOssHost + vatOssExternalEntryUrl
 
   lazy val atwdDeenrolmentUrl = s"$enrolmentManagementFrontendHost/enrolment-management-frontend/HMCE-ATWD-ORG/remove-warehouse?continue=/account"
