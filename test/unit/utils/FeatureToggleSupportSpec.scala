@@ -62,7 +62,7 @@ class FeatureToggleSupportSpec extends PlaySpec with FeatureToggleSupport with B
         "load config from services config if nothing set in sysProps" in {
 
           sys.props -= VatOssSwitch.name
-          isEnabled(VatOssSwitch) mustBe false
+          isEnabled(VatOssSwitch) mustBe true
         }
       }
 
@@ -83,7 +83,7 @@ class FeatureToggleSupportSpec extends PlaySpec with FeatureToggleSupport with B
         "load config from services config if nothing set in sysProps" in {
 
           sys.props -= VatOssSwitch.name
-          isDisabled(VatOssSwitch) mustBe true
+          isDisabled(VatOssSwitch) mustBe false
         }
       }
     }

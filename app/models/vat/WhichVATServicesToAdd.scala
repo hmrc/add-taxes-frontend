@@ -42,10 +42,20 @@ object WhichVATServicesToAdd {
     VATOSS
   )
 
+  val valuesWithOutMOSS: Seq[WhichVATServicesToAdd] = Seq(
+    VAT,
+    ECSales,
+    GIANT,
+    EURefunds,
+    RCSL,
+    NOVA,
+    VATOSS
+  )
+
   def options(ossFeatureSwitch: Boolean = false): Seq[RadioOption] = {
     val valuesSeq = {
       if (ossFeatureSwitch) {
-        values.map { value =>
+        valuesWithOutMOSS.map { value =>
           RadioOption("whichVATServicesToAdd", value.toString)
         }
       } else {
