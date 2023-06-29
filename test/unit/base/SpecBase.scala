@@ -16,9 +16,13 @@
 
 package base
 
+import akka.stream.Materializer
 import config.FrontendAppConfig
+import config.featureToggles.FeatureToggleSupport
+import org.scalatest.BeforeAndAfterAll
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice._
+import play.api.Application
 import play.api.i18n.Messages
 import play.api.inject.Injector
 import play.api.mvc.{AnyContent, MessagesControllerComponents}
@@ -28,9 +32,10 @@ import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 import views.html.components.conditional_radio
 import views.html.main_template
 
-trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
+trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with FeatureToggleSupport with BeforeAndAfterAll {
 
-  def injector: Injector = app.injector
+  val injector: Injector = app.injector
+  implicit def materializer(implicit app: Application): Materializer = app.materializer
 
   val formWithCSRF: FormWithCSRF = injector.instanceOf[FormWithCSRF]
   val mainTemplate: main_template = injector.instanceOf[main_template]
@@ -48,4 +53,8 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
   val groupId ="group-id"
   val providerId="provider-id"
   val confidenceLevel: ConfidenceLevel = ConfidenceLevel.L50
+
+  override def afterAll(): Unit = {
+    resetAll()
+  }
 }

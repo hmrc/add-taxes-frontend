@@ -17,12 +17,10 @@
 package controllers
 
 import base.SpecBase
-import config.featureToggles.FeatureToggleSupport
 import controllers.actions.{FakeAuthAction, FakeDataRetrievalAction, FakeServiceInfoAction}
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import org.scalatest.BeforeAndAfterAll
 import play.api.mvc.{AnyContent, PlayBodyParsers}
 import play.api.test.FakeRequest
 import play.twirl.api.HtmlFormat
@@ -32,7 +30,7 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-trait ControllerSpecBase extends SpecBase with FeatureToggleSupport with BeforeAndAfterAll {
+trait ControllerSpecBase extends SpecBase  {
 
   val parser: PlayBodyParsers = injector.instanceOf[PlayBodyParsers]
   val FakeAuthAction = new FakeAuthAction(parser)
@@ -56,9 +54,4 @@ trait ControllerSpecBase extends SpecBase with FeatureToggleSupport with BeforeA
       AuthenticatedRequest(FakeRequest(), "", enrolments, Some(Organisation), groupId, providerId, confidenceLevel, None),
       HtmlFormat.empty)
   }
-
-  override def afterAll(): Unit = {
-    resetAll()
-  }
-
 }

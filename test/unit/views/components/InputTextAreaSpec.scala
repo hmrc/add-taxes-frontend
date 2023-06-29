@@ -16,19 +16,16 @@
 
 package views.components
 
+import base.SpecBase
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import org.scalatestplus.play.PlaySpec
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.data.Forms._
 import play.api.data._
-import play.api.i18n.{Messages, MessagesApi}
+import play.api.i18n.Messages
 import play.twirl.api.Html
 import views.html.components.input_textarea
 
-class InputTextAreaSpec extends PlaySpec with GuiceOneAppPerSuite {
-
-  implicit lazy val messages: Messages = app.injector.instanceOf[MessagesApi].preferred(Seq.empty)
+class InputTextAreaSpec extends SpecBase {
 
   val id = "testId"
 
@@ -42,6 +39,8 @@ class InputTextAreaSpec extends PlaySpec with GuiceOneAppPerSuite {
   )
 
   val testField: Field = testForm("value")
+  implicit val messagesImpl: Messages = messages
+
 
   "inputYesNo must" must {
     "not include error markups when form doesnot have errors" in {

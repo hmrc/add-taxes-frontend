@@ -16,15 +16,14 @@
 
 package playconfig.featuretoggle
 
-import config.featureToggles.{FeatureSwitch, FeatureToggleSupport}
+import base.SpecBase
+import config.featureToggles.FeatureSwitch
 import org.scalatest.BeforeAndAfterEach
-import org.scalatestplus.play.PlaySpec
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
-class FeatureConfigSpec extends PlaySpec with GuiceOneAppPerSuite with FeatureToggleSupport with BeforeAndAfterEach {
+class FeatureConfigSpec extends SpecBase with BeforeAndAfterEach {
 
   val testToggleValue = true
 
