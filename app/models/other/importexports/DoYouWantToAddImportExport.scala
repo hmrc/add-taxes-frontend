@@ -16,11 +16,16 @@
 
 package models.other.importexports
 
+import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.{ARSContentSwitch, AtarSwitch, NewCTCEnrolmentForNCTSJourney}
+import config.featureToggles.FeatureToggleSupport
+import models.requests.ServiceInfoRequest
+import utils.Enrolments.CommonTransitConvention
 import utils.{Enumerable, RadioOption, WithName}
 
 sealed trait DoYouWantToAddImportExport
 
-object DoYouWantToAddImportExport {
+object DoYouWantToAddImportExport extends FeatureToggleSupport{
   case object ATaR extends WithName("ATaR") with DoYouWantToAddImportExport
   case object ARS extends WithName("ARS") with DoYouWantToAddImportExport
   case object EMCS extends WithName("EMCS") with DoYouWantToAddImportExport
@@ -45,17 +50,47 @@ object DoYouWantToAddImportExport {
     ISD
   )
 
-  def filterArs(arsAddTaxSwitch: Boolean) = {
-    if(arsAddTaxSwitch) {
-      values.filterNot(_ == ATaR)
-    } else {
-      values.filterNot(_ == ARS)
+  object RadioFilters {
+
+    def removeATARIfNotEnabled()(implicit appConfig: FrontendAppConfig): Seq[DoYouWantToAddImportExport] = {
+      if (isEnabled(AtarSwitch)) Seq() else Seq(ATaR)
     }
+
+    def replaceATARWithARSIfEnabled()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Seq[DoYouWantToAddImportExport] = {
+      if (isEnabled(ARSContentSwitch)) {
+        infoLog("[DoYouWantToAddImportExport][replaceATARWithARSIfEnabled] ARSContentSwitch enabled. User shown ARS instead of ATAR")
+        Seq(ATaR)
+      } else {
+        Seq(ARS)
+      }
+    }
+
+    // TODO*** LOGGING 
+    def removeNCTSIfUserHasCTCEnrolment()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Seq[DoYouWantToAddImportExport] = {
+      val hasCTCEnrolment = request.hasEnrolments(Seq(CommonTransitConvention))
+      (isEnabled(NewCTCEnrolmentForNCTSJourney), hasCTCEnrolment) match {
+        case (true, true) =>
+          infoLog("[DoYouWantToAddImportExport][removeNCTSIfUserHasCTCEnrolment] user has CTC enrolment. NCTS radio not visible")
+          Seq(NCTS)
+        case _ => Seq()
+      }
+    }
+
   }
 
-  def options(atarAddTaxSwitch: Boolean, arsAddTaxSwitch: Boolean) = {
-    filterArs(arsAddTaxSwitch).collect {
-      case value if (!(value == eBTI) && !(value == ATaR && !atarAddTaxSwitch)) =>
+  def filteredRadios()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Seq[DoYouWantToAddImportExport] = {
+    val enrolmentsToRemove: Seq[DoYouWantToAddImportExport] =
+      Seq(eBTI) ++
+        RadioFilters.removeATARIfNotEnabled() ++
+        RadioFilters.replaceATARWithARSIfEnabled() ++
+        RadioFilters.removeNCTSIfUserHasCTCEnrolment()
+
+    values.filterNot(enrolmentsToRemove.contains(_))
+  }
+
+  def options()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Seq[RadioOption] = {
+    filteredRadios.map {
+      value =>
         RadioOption("doYouWantToAddImportExport", value.toString)
     }
   }

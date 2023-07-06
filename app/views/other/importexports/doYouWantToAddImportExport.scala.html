@@ -18,6 +18,7 @@
 
 @import controllers.other.importexports.routes._
 @import models.other.importexports.DoYouWantToAddImportExport
+@import models.requests.ServiceInfoRequest
 @import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
@@ -25,7 +26,7 @@
     main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig, form: Form[_], atarSwitchBool: Boolean, arsSwitchBool: Boolean)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(form: Form[_])(serviceInfoContent: Html)(implicit request: ServiceInfoRequest[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @main_template(
     title = messages("doYouWantToAddImportExport.title"),
@@ -41,7 +42,7 @@
             field = form("value"),
             headingKey = Some("doYouWantToAddImportExport.heading"),
             headingId = Some("do-you-want-to-add-import-export"),
-            inputs = DoYouWantToAddImportExport.options(atarSwitchBool, arsSwitchBool).toSeq.sortWith((x1, x2) => messages(x1.messageKey) < messages(x2.messageKey))
+            inputs = DoYouWantToAddImportExport.options().toSeq.sortWith((x1, x2) => messages(x1.messageKey) < messages(x2.messageKey))
         )
 
         @components.submit_button(gaEvent = "AddImportExportTax")

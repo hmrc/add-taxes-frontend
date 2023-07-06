@@ -19,9 +19,17 @@ package models.requests
 import play.api.libs.json.Json
 import play.api.mvc.WrappedRequest
 import play.twirl.api.Html
+import utils.Enrolments
 
 case class ServiceInfoRequest[A](request: AuthenticatedRequest[A], serviceInfoContent: Html)
-    extends WrappedRequest[A](request)
+  extends WrappedRequest[A](request) {
+
+  def hasEnrolments(enrolments: Seq[Enrolments])(implicit request: ServiceInfoRequest[_]): Boolean = {
+    val targetEnrolments = enrolments.map(_.toAuthEnrolment.key).toSet
+    val userEnrolments = request.request.enrolments.enrolments.map(_.key)
+    targetEnrolments.subsetOf(userEnrolments)
+  }
+}
 
 case class ListLinks(message: String, url: String, alerts: Option[String] = None, showBoolean: Option[Boolean] = Some(true))
 

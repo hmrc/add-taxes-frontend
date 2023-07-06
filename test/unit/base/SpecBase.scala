@@ -19,18 +19,23 @@ package base
 import akka.stream.Materializer
 import config.FrontendAppConfig
 import config.featureToggles.FeatureToggleSupport
+import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import org.scalatest.BeforeAndAfterAll
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice._
 import play.api.Application
 import play.api.i18n.Messages
 import play.api.inject.Injector
-import play.api.mvc.{AnyContent, MessagesControllerComponents}
+import play.api.mvc.{AnyContent, MessagesControllerComponents, Request}
 import play.api.test.FakeRequest
-import uk.gov.hmrc.auth.core.ConfidenceLevel
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
+import uk.gov.hmrc.auth.core.{ConfidenceLevel, Enrolment, Enrolments}
 import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 import views.html.components.conditional_radio
 import views.html.main_template
+import utils.{Enrolments => AddTaxesEnrolments}
+
 
 trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with FeatureToggleSupport with BeforeAndAfterAll {
 
@@ -46,6 +51,13 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with FeatureToggleSuppo
   implicit def mcc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
 
   def fakeRequest: FakeRequest[AnyContent] = FakeRequest("", "")
+
+  def reqWithEnrolments(enrolments: Seq[AddTaxesEnrolments], request: Request[AnyContent] = fakeRequest): ServiceInfoRequest[_] = {
+    val authEnrolments: Enrolments = Enrolments(enrolments.map(_.toAuthEnrolment).toSet)
+    ServiceInfoRequest[AnyContent](
+      AuthenticatedRequest(request, "", authEnrolments, Some(Organisation), groupId, providerId, confidenceLevel, None),
+      HtmlFormat.empty)
+  }
 
   def messages: Messages = mcc.messagesApi.preferred(fakeRequest)
 

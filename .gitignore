@@ -39,4 +39,4 @@ migrations/applied_migrations
 .metals/
 project/metals.sbt
 sbt.json
-
+.bsp

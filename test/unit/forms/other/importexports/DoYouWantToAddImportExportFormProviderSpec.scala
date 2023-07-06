@@ -16,29 +16,32 @@
 
 package forms.other.importexports
 
+import base.SpecBase
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.AtarSwitch
-import config.featureToggles.FeatureToggleSupport.isEnabled
 import forms.behaviours.FormBehaviours
 import models._
 import models.other.importexports._
+import models.requests.ServiceInfoRequest
+import utils.RadioOption
 
-class DoYouWantToAddImportExportFormProviderSpec (appConfig: FrontendAppConfig) extends FormBehaviours {
-  implicit val config: FrontendAppConfig = appConfig
-  val atarBool: Boolean = isEnabled(AtarSwitch)
+class DoYouWantToAddImportExportFormProviderSpec extends SpecBase with FormBehaviours {
+  implicit val config: FrontendAppConfig = frontendAppConfig
+  implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq())
+
   val validData: Map[String, String] = Map(
-    "value" -> DoYouWantToAddImportExport.options(atarBool, arsAddTaxSwitch = false).head.value
+    "value" -> DoYouWantToAddImportExport.options().head.value
   )
-
   val form = new DoYouWantToAddImportExportFormProvider()()
 
   "DoYouWantToAddImportExport form" must {
 
-    behave like questionForm[DoYouWantToAddImportExport](DoYouWantToAddImportExport.values.head)
+    behave like questionForm[DoYouWantToAddImportExport](DoYouWantToAddImportExport.filteredRadios().head)
+
+    val allDoYouWantToAddImportExportOptions: Seq[RadioOption] = DoYouWantToAddImportExport.values.map(value => RadioOption("doYouWantToAddImportExport", value.toString))
 
     behave like formWithOptionField(
       Field("value", Required -> "doYouWantToAddImportExport.error.required", Invalid -> "error.invalid"),
-      DoYouWantToAddImportExport.options(atarBool, arsAddTaxSwitch = false).toSeq.map(_.value): _*
+      allDoYouWantToAddImportExportOptions.map(_.value): _*
     )
   }
 }

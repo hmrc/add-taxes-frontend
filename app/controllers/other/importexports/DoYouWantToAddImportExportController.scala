@@ -25,11 +25,13 @@ import identifiers.DoYouWantToAddImportExportId
 
 import javax.inject.Inject
 import models.other.importexports.DoYouWantToAddImportExport
+import models.requests.ServiceInfoRequest
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import service.AuditService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
+import utils.Enrolments.CommonTransitConvention
 import utils.{Enumerable, Navigator}
 import views.html.other.importexports.doYouWantToAddImportExport
 
@@ -47,15 +49,16 @@ class DoYouWantToAddImportExportController @Inject()(mcc: MessagesControllerComp
 
   val form: Form[DoYouWantToAddImportExport] = formProvider()
 
-  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouWantToAddImportExport(appConfig, form, isEnabled(AtarSwitch), isEnabled(ARSContentSwitch))(request.serviceInfoContent))
+  def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request: ServiceInfoRequest[_] =>
+
+    Ok(doYouWantToAddImportExport(form)(request.serviceInfoContent))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(doYouWantToAddImportExport(appConfig, formWithErrors, isEnabled(AtarSwitch), isEnabled(ARSContentSwitch))(request.serviceInfoContent))),
+          Future.successful(BadRequest(doYouWantToAddImportExport(formWithErrors)(request.serviceInfoContent))),
         value => {auditService.auditSelectIOCategory(request.request.credId, value, request.request.enrolments)
           Future.successful(Redirect(navigator.nextPage(DoYouWantToAddImportExportId, value)))}
       )

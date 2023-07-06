@@ -22,13 +22,16 @@ import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.ControllerSpecBase
 import forms.other.importexports.DoYouWantToAddImportExportFormProvider
 import models.other.importexports.DoYouWantToAddImportExport
+import models.requests.ServiceInfoRequest
 import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.data.Form
 import play.api.mvc.Call
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import service.AuditService
-import utils.FakeNavigator
+import utils.Enrolments.CommonTransitConvention
+import utils.{FakeNavigator, RadioOption}
 import views.html.other.importexports.doYouWantToAddImportExport
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -44,6 +47,8 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
   val view: doYouWantToAddImportExport = injector.instanceOf[doYouWantToAddImportExport]
   val mockAuditService: AuditService = mock[AuditService]
 
+  implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq())
+
   def controller() =
     new DoYouWantToAddImportExportController(
       mcc,
@@ -56,23 +61,20 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
     )
 
   def viewAsString(form: Form[_] = form): String =
-    new doYouWantToAddImportExport(formWithCSRF, mainTemplate)(frontendAppConfig, form, isEnabled(AtarSwitch), isEnabled(ARSContentSwitch))(HtmlFormat.empty)(fakeRequest, messages).toString
+    new doYouWantToAddImportExport(formWithCSRF, mainTemplate)(form)(HtmlFormat.empty)(request, messages, frontendAppConfig).toString
 
-  "DoYouWantToAddImportExport Controller" must {
+  "DoYouWantToAddImportExport Controller" when {
 
     "return OK and the correct view for a GET" in {
-      disable(ARSContentSwitch)
-      val result = controller().onPageLoad()(fakeRequest.withMethod("GET"))
+      val result = controller().onPageLoad()(request.withMethod("GET"))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val atarBool = isEnabled(AtarSwitch)
-      disable(ARSContentSwitch)
 
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouWantToAddImportExport.options(atarBool, arsAddTaxSwitch = false).head.value)).withMethod("POST")
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", DoYouWantToAddImportExport.options().head.value)).withMethod("POST")
 
       val result = controller().onSubmit()(postRequest)
 
@@ -83,7 +85,6 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
     "return a Bad Request and errors when invalid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
       val boundForm = form.bind(Map("value" -> "invalid value"))
-      disable(ARSContentSwitch)
 
       val result = controller().onSubmit()(postRequest)
 
@@ -91,37 +92,20 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    "return OK" in {
-      val result = controller().onPageLoad()(fakeRequest.withMethod("GET"))
-      disable(ARSContentSwitch)
 
-      status(result) mustBe OK
-    }
+    "redirect to next page" when {
 
-    val atarBool = isEnabled(AtarSwitch)
-    for (option <- DoYouWantToAddImportExport.options(atarBool, arsAddTaxSwitch = false)) {
-      disable(ARSContentSwitch)
-      s"redirect to next page when '${option.value}' is submitted" in {
-        disable(ARSContentSwitch)
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value)).withMethod("POST")
-        val result = controller().onSubmit()(postRequest)
+      val allDoYouWantToAddImportExportOptions: Seq[RadioOption] = DoYouWantToAddImportExport.values.map(value => RadioOption("doYouWantToAddImportExport", value.toString))
 
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(onwardRoute.url)
-      }
-    }
+      for (option <- allDoYouWantToAddImportExportOptions) {
+        s"'${option.value}' is submitted" in {
+          val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value)).withMethod("POST")
+          val result = controller().onSubmit()(postRequest)
 
-
-    for (option <- DoYouWantToAddImportExport.options(atarBool, arsAddTaxSwitch = true)) {
-      enable(ARSContentSwitch)
-      s"redirect to next page when ars switch is set to true '${option.value}' is submitted" in {
-        enable(ARSContentSwitch)
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value)).withMethod("POST")
-        val result = controller().onSubmit()(postRequest)
-
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(onwardRoute.url)
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(onwardRoute.url)
         }
       }
     }
   }
+}
