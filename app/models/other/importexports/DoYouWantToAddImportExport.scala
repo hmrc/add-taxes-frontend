@@ -65,7 +65,6 @@ object DoYouWantToAddImportExport extends FeatureToggleSupport{
       }
     }
 
-    // TODO*** LOGGING 
     def removeNCTSIfUserHasCTCEnrolment()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Seq[DoYouWantToAddImportExport] = {
       val hasCTCEnrolment = request.hasEnrolments(Seq(CommonTransitConvention))
       (isEnabled(NewCTCEnrolmentForNCTSJourney), hasCTCEnrolment) match {

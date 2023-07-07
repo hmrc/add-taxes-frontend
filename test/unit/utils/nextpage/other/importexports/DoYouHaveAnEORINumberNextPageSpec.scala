@@ -16,7 +16,12 @@
 
 package utils.nextpage.other.importexports
 
+import config.featureToggles.FeatureSwitch.NewCTCEnrolmentForNCTSJourney
 import models.other.importexports.DoYouHaveEORINumber
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
+import uk.gov.hmrc.http.InternalServerException
+import utils.Enrolments.{CommonTransitConvention, NewComputerisedTransitSystem}
 import utils.NextPage
 import utils.nextpage.NextPageSpecBase
 
@@ -64,18 +69,106 @@ class DoYouHaveAnEORINumberNextPageSpec extends NextPageSpecBase {
     )
   }
 
-  "nctsEori" when {
-    behave like nextPage(
-      NextPage.nctsEori,
-      DoYouHaveEORINumber.Yes,
-      "http://localhost:9555/enrolment-management-frontend/HMCE-NCTS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
+  "redirectToCTCEnrolmentIfLegacyNCTSEnrolled" when {
 
-    behave like nextPage(
-      NextPage.nctsEori,
-      DoYouHaveEORINumber.No,
-      "/business-account/add-tax/other/import-export/ncts/register"
-    )
+    "user has NewComputerisedTransitSystem enrolment" when {
+
+      "user does not have CommonTransitConvention enrolment" must {
+
+        "return GET /customs-enrolment-services/ctc/subscribe" in {
+
+          implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(NewComputerisedTransitSystem))
+
+          val expectedResult = NextPage.redirectToCTCEnrolmentIfLegacyNCTSEnrolled
+          val actualResult = Call("GET", "http://localhost:6750/customs-enrolment-services/ctc/subscribe")
+
+          expectedResult mustBe actualResult
+        }
+      }
+
+      "user does have CommonTransitConvention enrolment" must {
+
+        "throw ISE" in {
+
+          implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(NewComputerisedTransitSystem, CommonTransitConvention))
+
+          intercept[InternalServerException] {
+            NextPage.redirectToCTCEnrolmentIfLegacyNCTSEnrolled
+          }.message mustBe "[DoYouHaveEORINumberNextPage][redirectToCTCEnrolmentIfLegacyNCTSEnrolled] user is already enrolled for CTC"
+
+        }
+      }
+    }
+
+    "user does not have NewComputerisedTransitSystem enrolment" when {
+
+      "user does not have CommonTransitConvention enrolment" must {
+
+        "return GET /customs-enrolment-services/ctc/subscribe" in {
+
+          implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq())
+
+          val expectedResult = NextPage.redirectToCTCEnrolmentIfLegacyNCTSEnrolled
+          val actualResult = Call("GET", "http://localhost:6750/customs-enrolment-services/ctc/subscribe")
+
+          expectedResult mustBe actualResult
+        }
+      }
+
+      "user does have CommonTransitConvention enrolment" must {
+
+        "throw ISE" in {
+
+          implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
+
+          intercept[InternalServerException] {
+            NextPage.redirectToCTCEnrolmentIfLegacyNCTSEnrolled
+          }.message mustBe "[DoYouHaveEORINumberNextPage][redirectToCTCEnrolmentIfLegacyNCTSEnrolled] user is already enrolled for CTC"
+
+        }
+      }
+    }
+  }
+
+  "nctsEori" when {
+
+    "NewCTCEnrolmentForNCTSJourney is enabled" must {
+
+      enable(NewCTCEnrolmentForNCTSJourney)
+
+      behave like nextPage(
+        NextPage.nctsEori,
+        DoYouHaveEORINumber.Yes,
+        "http://localhost:6750/customs-enrolment-services/ctc/subscribe",
+        Seq(enable(NewCTCEnrolmentForNCTSJourney))
+      )
+
+      behave like nextPage(
+        NextPage.nctsEori,
+        DoYouHaveEORINumber.No,
+        "/business-account/add-tax/other/import-export/ncts/register",
+        Seq(enable(NewCTCEnrolmentForNCTSJourney))
+      )
+    }
+
+    "NewCTCEnrolmentForNCTSJourney is disabled" must {
+
+      disable(NewCTCEnrolmentForNCTSJourney)
+
+      behave like nextPage(
+        NextPage.nctsEori,
+        DoYouHaveEORINumber.Yes,
+        "http://localhost:9555/enrolment-management-frontend/HMCE-NCTS-ORG/request-access-tax-scheme?continue=%2Fbusiness-account",
+        Seq(disable(NewCTCEnrolmentForNCTSJourney))
+      )
+
+      behave like nextPage(
+        NextPage.nctsEori,
+        DoYouHaveEORINumber.No,
+        "/business-account/add-tax/other/import-export/ncts/register",
+        Seq(disable(NewCTCEnrolmentForNCTSJourney))
+      )
+    }
   }
 
 }

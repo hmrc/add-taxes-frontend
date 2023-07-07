@@ -19,7 +19,8 @@ package utils.nextpage.sa.partnership
 import config.FrontendAppConfig
 import identifiers.DoYouWantToAddPartnerId
 import models.sa.partnership.DoYouWantToAddPartner
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.NextPage
 import controllers.sa.partnership.{routes => saPartnerRoutes}
 import utils.HmrcEnrolmentType
@@ -35,7 +36,7 @@ trait DoYouWantToAddPartnerNextPage {
 
       override def get(enrolmentDetails: DoYouWantToAddPartnerWithRequest)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         enrolmentDetails match {
 
           case (DoYouWantToAddPartner.Yes, HmrcEnrolmentType.SA() | HmrcEnrolmentType.CORP_TAX()) =>

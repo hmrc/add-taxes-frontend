@@ -25,7 +25,8 @@ import controllers.other.importexports.nes.{routes => nesRoutes}
 import controllers.other.importexports.ebti.{routes => ebtiRoutes}
 import identifiers.DoYouWantToAddImportExportId
 import models.other.importexports.DoYouWantToAddImportExport
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.NextPage
 
 trait DoYouWantToAddImportExportNextPage {
@@ -35,7 +36,7 @@ trait DoYouWantToAddImportExportNextPage {
     new NextPage[DoYouWantToAddImportExportId.type, models.other.importexports.DoYouWantToAddImportExport, Call] {
       override def get(b: models.other.importexports.DoYouWantToAddImportExport)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouWantToAddImportExport.ATaR => Call("GET", appConfig.getEoriCommonComponentURL("atar"))
           case DoYouWantToAddImportExport.ARS => Call("GET", appConfig.getEoriCommonComponentURL("atar"))

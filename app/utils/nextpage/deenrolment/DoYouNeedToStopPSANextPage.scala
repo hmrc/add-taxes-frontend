@@ -18,7 +18,8 @@ package utils.nextpage.deenrolment
 
 import config.FrontendAppConfig
 import identifiers.DoYouNeedToStopPSAId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.deenrolment.DoYouNeedToStopPSA
 import utils.{Enrolments, NextPage}
 
@@ -28,7 +29,7 @@ trait DoYouNeedToStopPSANextPage {
     new NextPage[DoYouNeedToStopPSAId.type, DoYouNeedToStopPSA, Call] {
       override def get(b: DoYouNeedToStopPSA)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouNeedToStopPSA.Yes => Call("GET", appConfig.getGovUKUrl("stopPsa"))
           case DoYouNeedToStopPSA.No  => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.PSA))

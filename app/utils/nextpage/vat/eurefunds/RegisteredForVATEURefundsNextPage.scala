@@ -19,7 +19,8 @@ package utils.nextpage.vat.eurefunds
 import config.FrontendAppConfig
 import identifiers.RegisteredForVATEURefundsId
 import models.vat.RegisteredForVAT
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.{Enrolments, NextPage}
 
 trait RegisteredForVATEURefundsNextPage {
@@ -28,7 +29,7 @@ trait RegisteredForVATEURefundsNextPage {
     new NextPage[RegisteredForVATEURefundsId.type, RegisteredForVAT, Call] {
       override def get(b: RegisteredForVAT)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case RegisteredForVAT.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.EURefunds))
           case RegisteredForVAT.No  => Call("GET", appConfig.getPortalUrl("businessRegistration"))

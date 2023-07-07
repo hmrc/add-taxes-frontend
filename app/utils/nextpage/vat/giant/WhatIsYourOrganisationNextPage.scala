@@ -18,7 +18,8 @@ package utils.nextpage.vat.giant
 
 import config.FrontendAppConfig
 import identifiers.WhatIsYourOrganisationId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.vat.giant.WhatIsYourOrganisation
 import controllers.vat.giant.{routes => giantRoutes}
 import utils.NextPage
@@ -29,7 +30,7 @@ trait WhatIsYourOrganisationNextPage {
     new NextPage[WhatIsYourOrganisationId.type, WhatIsYourOrganisation, Call] {
       override def get(b: WhatIsYourOrganisation)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case WhatIsYourOrganisation.Yes => Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.VATGIANT))
           case WhatIsYourOrganisation.No  => giantRoutes.YouDoNotNeedVATController.onPageLoad()

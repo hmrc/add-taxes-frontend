@@ -20,7 +20,8 @@ import config.FrontendAppConfig
 import controllers.other.importexports.nes.{routes => nesRoutes}
 import identifiers.DoYouHaveCHIEFRoleId
 import models.other.importexports.nes.DoYouHaveCHIEFRole
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.{Enrolments, NextPage}
 
 trait DoYouHaveCHIEFRoleNextPage {
@@ -29,7 +30,7 @@ trait DoYouHaveCHIEFRoleNextPage {
     new NextPage[DoYouHaveCHIEFRoleId.HasEORI.type, DoYouHaveCHIEFRole, Call] {
       override def get(b: DoYouHaveCHIEFRole)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouHaveCHIEFRole.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.NewExportSystem))
           case DoYouHaveCHIEFRole.No  => nesRoutes.GetCHIEFRoleController.onPageLoad()
@@ -41,7 +42,7 @@ trait DoYouHaveCHIEFRoleNextPage {
     new NextPage[DoYouHaveCHIEFRoleId.NoEORI.type, DoYouHaveCHIEFRole, Call] {
       override def get(b: DoYouHaveCHIEFRole)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouHaveCHIEFRole.Yes => nesRoutes.RegisterEORIController.onPageLoad()
           case DoYouHaveCHIEFRole.No  => nesRoutes.GetEoriAndChiefRoleController.onPageLoad()

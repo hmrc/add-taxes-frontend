@@ -19,7 +19,8 @@ package utils.nextpage.other.alcohol.awrs
 import config.FrontendAppConfig
 import identifiers.SelectAlcoholSchemeId
 import models.other.alcohol.awrs.SelectAlcoholScheme
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.NextPage
 import controllers.other.alcohol.atwd.{routes => atwdRoutes}
 
@@ -29,7 +30,7 @@ trait SelectAlcoholSchemeNextPage {
     new NextPage[SelectAlcoholSchemeId.type, SelectAlcoholScheme, Call] {
       override def get(b: SelectAlcoholScheme)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case SelectAlcoholScheme.ATWD => atwdRoutes.AreYouRegisteredWarehousekeeperController.onPageLoad()
           case SelectAlcoholScheme.AWRS => Call("GET", appConfig.getBusinessAccountUrl("awrs"))

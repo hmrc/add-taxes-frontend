@@ -18,7 +18,8 @@ package utils.nextpage.employer.cis
 
 import config.FrontendAppConfig
 import identifiers.IsYourBusinessInUKId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.employer.cis.IsYourBusinessInUK
 import utils.NextPage
 import controllers.employer.cis.ukbased.routes._
@@ -31,7 +32,7 @@ trait IsYourBusinessInUKNextPage {
 
       override def get(b: IsYourBusinessInUK)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
 
           case IsYourBusinessInUK.Yes => AreYouContractorOrSubcontractorController.onPageLoad()

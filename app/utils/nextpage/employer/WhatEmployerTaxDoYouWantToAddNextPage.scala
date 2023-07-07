@@ -24,7 +24,8 @@ import controllers.employer.paye.{routes => payeRoutes}
 import controllers.routes
 import identifiers.WhatEmployerTaxDoYouWantToAddId
 import models.employer.WhatEmployerTaxDoYouWantToAdd
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import uk.gov.hmrc.auth.core.Enrolments
 import utils.{HmrcEnrolmentType, NextPage}
 
@@ -37,7 +38,7 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
     new NextPage[WhatEmployerTaxDoYouWantToAddId.type, WhatEmployerTaxDoYouWantToAddWithEnrolment, Call] {
       override def get(details: WhatEmployerTaxDoYouWantToAddWithEnrolment)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         details match {
           case (WhatEmployerTaxDoYouWantToAdd.EPAYE, _) =>
               payeRoutes.DoYouHavePAYEReferenceController.onPageLoad()
@@ -56,7 +57,7 @@ trait WhatEmployerTaxDoYouWantToAddNextPage {
   }
 
   def getEnrolERSCall(details: WhatEmployerTaxDoYouWantToAddWithEnrolment)
-                     (implicit appConfig: FrontendAppConfig, request: Request[_]): Call = {
+                     (implicit appConfig: FrontendAppConfig, request: ServiceInfoRequest[_]): Call = {
 
     def taxOfficeNumber: Option[String] =
       details._2

@@ -17,22 +17,28 @@
 package utils.nextpage.other.importexports
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.NewCTCEnrolmentForNCTSJourney
+import config.featureToggles.FeatureToggleSupport
 import controllers.other.importexports.ebti.{routes => ebtiRoutes}
 import controllers.other.importexports.ics.{routes => icsRoutes}
 import controllers.other.importexports.ncts.{routes => nctsRoutes}
 import controllers.other.importexports.nes.{routes => nesRoutes}
 import identifiers.DoYouHaveEORINumberId
 import models.other.importexports.DoYouHaveEORINumber
-import play.api.mvc.{Call, Request}
-import utils.{Enrolments, NextPage}
+import models.requests.ServiceInfoRequest
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
+import uk.gov.hmrc.http.InternalServerException
+import utils.Enrolments.{CommonTransitConvention, NewComputerisedTransitSystem}
+import utils.{Enrolments, LoggingUtil, NextPage}
 
-trait DoYouHaveEORINumberNextPage {
+trait DoYouHaveEORINumberNextPage extends LoggingUtil with FeatureToggleSupport {
 
   implicit val icsEori: NextPage[DoYouHaveEORINumberId.ICS.type, DoYouHaveEORINumber, Call] = {
     new NextPage[DoYouHaveEORINumberId.ICS.type, DoYouHaveEORINumber, Call] {
       override def get(b: DoYouHaveEORINumber)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouHaveEORINumber.Yes =>
             Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.EconomicOperatorsRegistration))
@@ -45,7 +51,7 @@ trait DoYouHaveEORINumberNextPage {
     new NextPage[DoYouHaveEORINumberId.EBTI.type, DoYouHaveEORINumber, Call] {
       override def get(b: DoYouHaveEORINumber)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouHaveEORINumber.Yes =>
             Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.ElectronicBindingTariffInformation))
@@ -54,12 +60,28 @@ trait DoYouHaveEORINumberNextPage {
     }
   }
 
+  def redirectToCTCEnrolmentIfLegacyNCTSEnrolled()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Call = {
+    (request.hasEnrolments(Seq(NewComputerisedTransitSystem)),
+      request.doesNotHaveEnrolments(Seq(CommonTransitConvention))) match {
+      case (hasNCTS, true) =>
+        infoLog(s"[DoYouHaveEORINumberNextPage][redirectToCTCEnrolmentIfLegacyNCTSEnrolled] " +
+          s"redirecting to CTC enrolment. User has legacy NCTS enrloment = $hasNCTS")
+        Call("GET", appConfig.getEoriCommonComponentURL("ctc"))
+      case (hasNCTS, false) =>
+        errorLog(s"[DoYouHaveEORINumberNextPage][redirectToCTCEnrolmentIfLegacyNCTSEnrolled] " +
+          s"user is already enrolled for CTC. User has legacy NCTS enrloment = $hasNCTS ")
+        throw new InternalServerException("[DoYouHaveEORINumberNextPage][redirectToCTCEnrolmentIfLegacyNCTSEnrolled] user is already enrolled for CTC")
+    }
+  }
+
   implicit val nctsEori: NextPage[DoYouHaveEORINumberId.NCTS.type, DoYouHaveEORINumber, Call] = {
     new NextPage[DoYouHaveEORINumberId.NCTS.type, DoYouHaveEORINumber, Call] {
       override def get(b: DoYouHaveEORINumber)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
+          case DoYouHaveEORINumber.Yes if isEnabled(NewCTCEnrolmentForNCTSJourney) =>
+            redirectToCTCEnrolmentIfLegacyNCTSEnrolled()
           case DoYouHaveEORINumber.Yes =>
             Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.NewComputerisedTransitSystem))
           case DoYouHaveEORINumber.No => nctsRoutes.RegisterEORIController.onPageLoad()
@@ -71,7 +93,7 @@ trait DoYouHaveEORINumberNextPage {
     new NextPage[DoYouHaveEORINumberId.NES.type, DoYouHaveEORINumber, Call] {
       override def get(b: DoYouHaveEORINumber)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouHaveEORINumber.Yes => nesRoutes.DoYouHaveCHIEFRoleHasEORIController.onPageLoad()
           case DoYouHaveEORINumber.No  => nesRoutes.DoYouHaveCHIEFRoleNoEORIController.onPageLoad()

@@ -19,7 +19,8 @@ package utils.nextpage.other.gambling.rgd
 import config.FrontendAppConfig
 import controllers.other.gambling.rgd.routes
 import identifiers.DoYouHaveRGDRegistrationId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.other.gambling.rgd.DoYouHaveRGDRegistration
 import utils.{Enrolments, NextPage}
 
@@ -29,7 +30,7 @@ trait DoYouHaveRGDRegistrationNextPage {
     new NextPage[DoYouHaveRGDRegistrationId.type, DoYouHaveRGDRegistration, Call] {
       override def get(b: DoYouHaveRGDRegistration)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouHaveRGDRegistration.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.RemoteGaming))
           case DoYouHaveRGDRegistration.No  => routes.RegisterRGDController.onPageLoad()

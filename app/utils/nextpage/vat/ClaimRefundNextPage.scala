@@ -18,7 +18,8 @@ package utils.nextpage.vat
 
 import config.FrontendAppConfig
 import identifiers.ClaimRefundId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.vat.ClaimRefund
 import utils.NextPage
 import controllers.vat.{routes => vatRoutes}
@@ -29,7 +30,7 @@ trait ClaimRefundNextPage {
     new NextPage[ClaimRefundId.type, ClaimRefund, Call] {
       override def get(b: ClaimRefund)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case ClaimRefund.Yes => vatRoutes.CannotRegisterVATController.onPageLoad()
           case ClaimRefund.No  => vatRoutes.CanRegisterForVATController.onPageLoad()

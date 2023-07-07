@@ -17,6 +17,7 @@
 package utils
 
 import config.FrontendAppConfig
+import models.requests.ServiceInfoRequest
 import play.api.mvc.Request
 import utils.nextpage.OtherTaxesNextPage
 import utils.nextpage.deenrolment._
@@ -62,7 +63,7 @@ import scala.annotation.implicitNotFound
 @implicitNotFound(
   "Could not find NextPage implicit value for ${A} and ${B}. Check you have created one, the types match and extended NextPage with it")
 trait NextPage[A, B, C] {
-  def get(b: B)(implicit appConfig: FrontendAppConfig, request: Request[_]): C
+  def get(b: B)(implicit appConfig: FrontendAppConfig, request: ServiceInfoRequest[_]): C
 }
 
 object NextPage

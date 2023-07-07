@@ -21,7 +21,8 @@ import controllers.other.aeoi.{routes => aeoiRoutes}
 import models.other.aeoi.HaveYouRegisteredAEOI
 import utils.{Enrolments, NextPage}
 import identifiers.HaveYouRegisteredAEOIId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 
 trait HaveYouRegisteredAEOINextPage {
 
@@ -29,7 +30,7 @@ trait HaveYouRegisteredAEOINextPage {
     new NextPage[HaveYouRegisteredAEOIId.type, HaveYouRegisteredAEOI, Call] {
       override def get(b: HaveYouRegisteredAEOI)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case HaveYouRegisteredAEOI.Yes =>
             Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.AEOI))

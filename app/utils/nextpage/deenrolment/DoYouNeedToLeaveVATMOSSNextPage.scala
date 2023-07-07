@@ -19,7 +19,8 @@ package utils.nextpage.deenrolment
 import config.FrontendAppConfig
 import identifiers.DoYouNeedToLeaveVATMOSSId
 import models.deenrolment.DoYouNeedToLeaveVATMOSS
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import uk.gov.hmrc.auth.core.Enrolment
 import utils.{Enrolments, NextPage}
 
@@ -32,7 +33,7 @@ trait DoYouNeedToLeaveVATMOSSNextPage {
     new NextPage[DoYouNeedToLeaveVATMOSSId.type, DoYouNeedToLeaveVATMOSSWithEnrolment, Either[String, Call]] {
       override def get(b: DoYouNeedToLeaveVATMOSSWithEnrolment)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Either[String, Call] =
+        request: ServiceInfoRequest[_]): Either[String, Call] =
         b match {
           case (DoYouNeedToLeaveVATMOSS.Yes, Some(enrolment)) =>
             enrolment.identifiers.toList match {

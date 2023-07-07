@@ -21,8 +21,10 @@ import controllers.actions._
 import controllers.other.importexports.ncts.routes._
 import forms.other.importexports.DoYouHaveEORINumberFormProvider
 import identifiers.DoYouHaveEORINumberId
+
 import javax.inject.Inject
 import models.other.importexports.DoYouHaveEORINumber
+import models.requests.ServiceInfoRequest
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
@@ -50,15 +52,15 @@ class DoYouHaveEORINumberController @Inject()(appConfig: FrontendAppConfig,
     )
   }
 
-  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
+  def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request: ServiceInfoRequest[AnyContent] =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
           Future.successful(BadRequest(
-              doYouHaveEORINumber(
-                appConfig,
-                formWithErrors,
-                ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddNCTSTax"))(request.serviceInfoContent)
+            doYouHaveEORINumber(
+              appConfig,
+              formWithErrors,
+              ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddNCTSTax"))(request.serviceInfoContent)
           )),
         value => Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.NCTS, value)))
       )

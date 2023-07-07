@@ -18,7 +18,8 @@ package utils.nextpage.vat
 
 import config.FrontendAppConfig
 import identifiers.AgriculturalFlatRateSchemeId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.vat.AgriculturalFlatRateScheme
 import utils.NextPage
 import controllers.vat.{routes => vatRoutes}
@@ -30,7 +31,7 @@ trait AgriculturalFlatRateSchemeNextPage {
     new NextPage[AgriculturalFlatRateSchemeId.type, AgriculturalFlatRateScheme, Call] {
       override def get(b: AgriculturalFlatRateScheme)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case AgriculturalFlatRateScheme.Yes => vatRoutes.CannotRegisterVATController.onPageLoad()
           case AgriculturalFlatRateScheme.No  => vatRoutes.CompanyDivisionController.onPageLoad()

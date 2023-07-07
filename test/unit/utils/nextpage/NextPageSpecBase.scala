@@ -17,13 +17,18 @@
 package utils.nextpage
 
 import base.SpecBase
+import config.featureToggles.FeatureSwitch.NewCTCEnrolmentForNCTSJourney
+import models.requests.ServiceInfoRequest
 import play.api.mvc.Call
 import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier}
+import utils.Enrolments.NewComputerisedTransitSystem
 import utils.{HmrcEnrolmentType, NextPage}
+
+import scala.sys.SystemProperties
 
 trait NextPageSpecBase extends SpecBase {
 
-  implicit val request = fakeRequest
+  implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq())
 
   val saEnrolment = Enrolment(key = HmrcEnrolmentType.SA.toString, identifiers = Seq(), state = "Activated")
 
@@ -44,9 +49,12 @@ trait NextPageSpecBase extends SpecBase {
 
   val vatEnrolment = Enrolment(key = HmrcEnrolmentType.VAT.toString, identifiers = Seq(), state = "Activated")
 
-  def nextPage[A, B](np: NextPage[A, B, Call], userSelection: B, urlRedirect: String): Unit =
+  def nextPage[A, B](np: NextPage[A, B, Call], userSelection: B, urlRedirect: String, featureSwitch: => Seq[SystemProperties] = Seq()): Unit =
     s"$userSelection is selected" should {
       s"redirect to $urlRedirect" in {
+
+        featureSwitch.foreach(switch => switch)
+
         val result = np.get(userSelection)
         result.url mustBe urlRedirect
       }

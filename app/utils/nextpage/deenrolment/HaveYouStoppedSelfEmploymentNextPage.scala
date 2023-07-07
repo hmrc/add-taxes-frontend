@@ -18,7 +18,8 @@ package utils.nextpage.deenrolment
 
 import config.FrontendAppConfig
 import identifiers.HaveYouStoppedSelfEmploymentId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.deenrolment.HaveYouStoppedSelfEmployment
 
 import utils.{Enrolments, NextPage}
@@ -30,7 +31,7 @@ trait HaveYouStoppedSelfEmploymentNextPage {
     new NextPage[HaveYouStoppedSelfEmploymentId.type, HaveYouStoppedSelfEmployment, Call] {
       override def get(b: HaveYouStoppedSelfEmployment)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case HaveYouStoppedSelfEmployment.Yes => Call("GET", appConfig.getBusinessAccountUrl("howToStopSA"))
           case HaveYouStoppedSelfEmployment.No  => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.SA))

@@ -18,7 +18,8 @@ package utils.nextpage.employer.paye
 
 import config.FrontendAppConfig
 import identifiers.DoesBusinessHave1To9DirectorsId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.employer.paye.DoesBusinessHave1To9Directors
 import utils.NextPage
 import controllers.employer.{routes => employerPayeRoutes}
@@ -31,7 +32,7 @@ trait DoesBusinessHave1To9DirectorsNextPage {
     new NextPage[DoesBusinessHave1To9DirectorsId.type, DoesBusinessHave1To9Directors, Call] {
       override def get(b: DoesBusinessHave1To9Directors)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoesBusinessHave1To9Directors.Yes => Call("GET", appConfig.getPortalUrl("selectTaxes"))
           case DoesBusinessHave1To9Directors.No  => employerPayeRoutes.DirectorsRegisterByPhoneController.onPageLoad()

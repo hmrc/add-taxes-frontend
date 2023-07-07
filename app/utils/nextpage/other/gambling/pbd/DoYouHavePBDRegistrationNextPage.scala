@@ -18,7 +18,8 @@ package utils.nextpage.other.gambling.pbd
 
 import config.FrontendAppConfig
 import identifiers.DoYouHavePBDRegistrationId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import controllers.other.gambling.pbd.{routes => pbdRoutes}
 import models.other.gambling.pbd.DoYouHavePBDRegistration
 import utils.{Enrolments, NextPage}
@@ -29,7 +30,7 @@ trait DoYouHavePBDRegistrationNextPage {
     new NextPage[DoYouHavePBDRegistrationId.type, DoYouHavePBDRegistration, Call] {
       override def get(b: DoYouHavePBDRegistration)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouHavePBDRegistration.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.PoolBetting))
           case DoYouHavePBDRegistration.No  => pbdRoutes.RegisterGTSFirstController.onPageLoad()

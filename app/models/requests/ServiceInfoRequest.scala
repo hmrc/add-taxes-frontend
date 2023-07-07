@@ -29,6 +29,12 @@ case class ServiceInfoRequest[A](request: AuthenticatedRequest[A], serviceInfoCo
     val userEnrolments = request.request.enrolments.enrolments.map(_.key)
     targetEnrolments.subsetOf(userEnrolments)
   }
+
+  def doesNotHaveEnrolments(enrolments: Seq[Enrolments])(implicit request: ServiceInfoRequest[_]): Boolean = {
+    val targetEnrolments = enrolments.map(_.toAuthEnrolment.key).toSet
+    val userEnrolments = request.request.enrolments.enrolments.map(_.key)
+    !targetEnrolments.subsetOf(userEnrolments)
+  }
 }
 
 case class ListLinks(message: String, url: String, alerts: Option[String] = None, showBoolean: Option[Boolean] = Some(true))

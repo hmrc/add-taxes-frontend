@@ -19,7 +19,8 @@ package utils.nextpage.sa.trust
 import config.FrontendAppConfig
 import identifiers.HaveYouRegisteredTrustId
 import models.sa.trust.HaveYouRegisteredTrust
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.{Enrolments, NextPage}
 import controllers.sa.trust.{routes => trustRoutes}
 
@@ -29,7 +30,7 @@ trait HaveYouRegisteredTrustNextPage {
     new NextPage[HaveYouRegisteredTrustId.type, HaveYouRegisteredTrust, Call] {
       override def get(b: HaveYouRegisteredTrust)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case HaveYouRegisteredTrust.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.RegisterTrusts))
           case HaveYouRegisteredTrust.No  => trustRoutes.RegisterTrustController.onPageLoad()

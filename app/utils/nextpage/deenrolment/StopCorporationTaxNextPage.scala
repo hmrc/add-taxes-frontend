@@ -19,7 +19,8 @@ package utils.nextpage.deenrolment
 import config.FrontendAppConfig
 import identifiers.StopCorporationTaxId
 import models.deenrolment.StopCorporationTax
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 
 import utils.Enrolments.CT
 import utils.NextPage
@@ -30,7 +31,7 @@ trait StopCorporationTaxNextPage {
     new NextPage[StopCorporationTaxId.type, StopCorporationTax, Call] {
       override def get(b: StopCorporationTax)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case StopCorporationTax.Stop    => Call("GET", appConfig.emacDeenrolmentsUrl(CT))
           case StopCorporationTax.Dormant => Call("GET", appConfig.getGovUKUrl("dormant-ct"))

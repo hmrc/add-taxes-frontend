@@ -17,6 +17,7 @@
 package utils
 
 import config.FrontendAppConfig
+import models.requests.ServiceInfoRequest
 import models.{Mode, NormalMode}
 import play.api.mvc.Request
 
@@ -24,5 +25,5 @@ class FakeNavigator[C](desiredRoute: C, mode: Mode = NormalMode)(
   implicit config: FrontendAppConfig)
     extends Navigator[C](config) {
 
-  override def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B, C], request: Request[_]): C = desiredRoute
+  override def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B, C], request: ServiceInfoRequest[_]): C = desiredRoute
 }

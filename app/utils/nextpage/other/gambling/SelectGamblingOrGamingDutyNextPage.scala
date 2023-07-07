@@ -18,7 +18,8 @@ package utils.nextpage.other.gambling
 
 import config.FrontendAppConfig
 import identifiers.SelectGamblingOrGamingDutyId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.NextPage
 import controllers.other.gambling.mgd.{routes => mgdRoutes}
 import controllers.other.gambling.gbd.{routes => gbdRoutes}
@@ -33,7 +34,7 @@ trait SelectGamblingOrGamingDutyNextPage {
     new NextPage[SelectGamblingOrGamingDutyId.type, SelectGamblingOrGamingDuty, Call] {
       override def get(b: models.other.gambling.SelectGamblingOrGamingDuty)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case SelectGamblingOrGamingDuty.MGD =>
             mgdRoutes.DoYouHaveMGDRegistrationController.onPageLoad()

@@ -19,7 +19,8 @@ package utils.nextpage.other.alcohol.atwd
 import config.FrontendAppConfig
 import identifiers.AreYouRegisteredWarehousekeeperId
 import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.{Enrolments, NextPage}
 import controllers.other.alcohol.atwd.{routes => atwdRoutes}
 
@@ -30,7 +31,7 @@ trait AreYouRegisteredWarehousekeeperNextPage {
     new NextPage[AreYouRegisteredWarehousekeeperId.type, AreYouRegisteredWarehousekeeper, Call] {
       override def get(b: AreYouRegisteredWarehousekeeper)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case AreYouRegisteredWarehousekeeper.Yes =>
             Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.ATWD))

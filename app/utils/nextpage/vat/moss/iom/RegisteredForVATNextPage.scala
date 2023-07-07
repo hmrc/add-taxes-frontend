@@ -19,7 +19,8 @@ package utils.nextpage.vat.moss.iom
 import config.FrontendAppConfig
 import controllers.vat.moss.iom.{routes => vatMossRoutes}
 import identifiers.RegisteredForVATId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.vat.moss.iom.RegisteredForVAT
 import utils.NextPage
 
@@ -29,7 +30,7 @@ trait RegisteredForVATNextPage {
     new NextPage[RegisteredForVATId.type, RegisteredForVAT, Call] {
       override def get(b: RegisteredForVAT)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case RegisteredForVAT.Yes => vatMossRoutes.AlreadyRegisteredForVATMossController.onPageLoad()
           case RegisteredForVAT.No  => vatMossRoutes.RegisterForVATController.onPageLoad()
