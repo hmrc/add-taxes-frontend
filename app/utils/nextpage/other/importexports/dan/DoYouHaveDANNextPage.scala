@@ -20,7 +20,8 @@ import config.FrontendAppConfig
 import controllers.other.importexports.dan.{routes => danRoutes}
 import identifiers.DoYouHaveDANId
 import models.other.importexports.dan.DoYouHaveDAN
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.{Enrolments, NextPage}
 
 trait DoYouHaveDANNextPage {
@@ -29,7 +30,7 @@ trait DoYouHaveDANNextPage {
     new NextPage[DoYouHaveDANId.type, DoYouHaveDAN, Call] {
       override def get(b: DoYouHaveDAN)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouHaveDAN.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.DefermentApprovalNumber))
           case DoYouHaveDAN.No  => danRoutes.RegisterDefermentApprovalNumberController.onPageLoad()

@@ -18,7 +18,8 @@ package utils.nextpage.employer.cis.uk.subcontractor
 
 import config.FrontendAppConfig
 import identifiers.WasTurnoverMoreAfterVATId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVAT
 import utils.NextPage
 import controllers.employer.cis.ukbased.subcontractor.routes._
@@ -30,7 +31,7 @@ trait WasTurnoverMoreAfterVATNextPage {
     new NextPage[WasTurnoverMoreAfterVATId.type, WasTurnoverMoreAfterVAT, Call] {
       override def get(b: WasTurnoverMoreAfterVAT)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case WasTurnoverMoreAfterVAT.Yes => DoYouWantToBePaidNetOrGrossController.onPageLoad()
           case WasTurnoverMoreAfterVAT.No  => Call("GET", appConfig.getGovUKUrl("cisRegisterPaidGrossOrLowTurnOver"))

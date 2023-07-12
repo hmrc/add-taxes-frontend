@@ -18,7 +18,8 @@ package utils.nextpage.other.ctf
 
 import config.FrontendAppConfig
 import identifiers.AreYouApprovedCTFId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.other.ctf.AreYouApprovedCTF
 import utils.{Enrolments, NextPage}
 import controllers.other.ctf.{routes => ctfRoutes}
@@ -29,7 +30,7 @@ trait AreYouApprovedCTFNextPage {
     new NextPage[AreYouApprovedCTFId.type, AreYouApprovedCTF, Call] {
       override def get(b: AreYouApprovedCTF)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case AreYouApprovedCTF.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.CTF))
           case AreYouApprovedCTF.No  => ctfRoutes.YouNeedToBeApprovedCTFController.onPageLoad()

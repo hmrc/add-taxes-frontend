@@ -16,20 +16,19 @@
 
 package views.components
 
+import base.SpecBase
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import org.scalatestplus.play.PlaySpec
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.data.Forms._
 import play.api.data._
-import play.api.i18n.{Messages, MessagesApi}
+import play.api.i18n.Messages
 import play.twirl.api.Html
 import utils.RadioOption
 import views.html.components.input_radio
 
-class InputRadioSpec extends PlaySpec with GuiceOneAppPerSuite {
+class InputRadioSpec extends SpecBase {
 
-  implicit lazy val messages: Messages = app.injector.instanceOf[MessagesApi].preferred(Seq.empty)
+  implicit val messagesImpl: Messages = messages
 
   val testLegend = ""
 

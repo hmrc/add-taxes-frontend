@@ -16,20 +16,17 @@
 
 package views.components
 
+import base.SpecBase
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import org.scalatestplus.play.PlaySpec
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.data.Forms._
 import play.api.data._
-import play.api.i18n.{Messages, MessagesApi}
+import play.api.i18n.Messages
 import play.twirl.api.Html
 import utils.RadioOption
 import views.html.components.conditional_input_radio
 
-class ConditionalInputRadioSpec extends PlaySpec with GuiceOneAppPerSuite {
-
-  implicit lazy val messages: Messages = app.injector.instanceOf[MessagesApi].preferred(Seq.empty)
+class ConditionalInputRadioSpec extends SpecBase {
 
   val testLegend = ""
 
@@ -40,6 +37,8 @@ class ConditionalInputRadioSpec extends PlaySpec with GuiceOneAppPerSuite {
   val testForm = Form(
     "value" -> boolean
   )
+  implicit val messagesImpl: Messages = messages
+
 
   def conditionalInputRadio(field: Field, hint: Option[String] = None,
                             conditionalHint: Option[String] = None,

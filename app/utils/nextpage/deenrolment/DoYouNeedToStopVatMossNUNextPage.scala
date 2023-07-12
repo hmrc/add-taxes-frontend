@@ -18,7 +18,8 @@ package utils.nextpage.deenrolment
 
 import config.FrontendAppConfig
 import identifiers.DoYouNeedToStopVatMossNUId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.deenrolment.DoYouNeedToStopVatMossNU
 
 import utils.{Enrolments, NextPage}
@@ -31,7 +32,7 @@ trait DoYouNeedToStopVatMossNUNextPage {
     new NextPage[DoYouNeedToStopVatMossNUId.type, (DoYouNeedToStopVatMossNU, Option[Enrolment]), Either[String, Call]] {
       override def get(b: (DoYouNeedToStopVatMossNU, Option[Enrolment]))(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Either[String, Call] =
+        request: ServiceInfoRequest[_]): Either[String, Call] =
         b match {
           case (DoYouNeedToStopVatMossNU.Yes, Some(enrolment)) =>
             enrolment.identifiers.toList match {

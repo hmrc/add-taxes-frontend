@@ -18,12 +18,13 @@ package utils
 
 import javax.inject.{Inject, Singleton}
 import config.FrontendAppConfig
+import models.requests.ServiceInfoRequest
 import play.api.mvc.Request
 
 @Singleton
 class Navigator[C] @Inject()(frontendAppConfig: FrontendAppConfig) {
 
-  def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B, C], request: Request[_]): C =
+  def nextPage[A, B](id: A, b: B)(implicit ev: NextPage[A, B, C], request: ServiceInfoRequest[_]): C =
     ev.get(b)(frontendAppConfig, request)
 
 }

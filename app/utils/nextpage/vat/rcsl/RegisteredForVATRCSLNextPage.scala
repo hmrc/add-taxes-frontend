@@ -19,7 +19,8 @@ package utils.nextpage.vat.rcsl
 import config.FrontendAppConfig
 import identifiers.RegisteredForVATRCSLId
 import models.vat.RegisteredForVAT
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.{Enrolments, NextPage}
 
 trait RegisteredForVATRCSLNextPage {
@@ -28,7 +29,7 @@ trait RegisteredForVATRCSLNextPage {
     new NextPage[RegisteredForVATRCSLId.type, RegisteredForVAT, Call] {
       override def get(b: RegisteredForVAT)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case RegisteredForVAT.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.RCSL))
           case RegisteredForVAT.No  => Call("GET", appConfig.getPortalUrl("businessRegistration"))

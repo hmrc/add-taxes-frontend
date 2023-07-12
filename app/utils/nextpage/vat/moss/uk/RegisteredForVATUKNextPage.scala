@@ -19,7 +19,8 @@ package utils.nextpage.vat.moss.uk
 import config.FrontendAppConfig
 import identifiers.RegisteredForVATUkId
 import models.vat.moss.uk.RegisteredForVATUk
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.NextPage
 import controllers.vat.moss.ukbased.{routes => vatMossUkRoutes}
 
@@ -29,7 +30,7 @@ trait RegisteredForVATUKNextPage {
     new NextPage[RegisteredForVATUkId.type, RegisteredForVATUk, Call] {
       override def get(b: RegisteredForVATUk)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case RegisteredForVATUk.Yes => vatMossUkRoutes.OnlineVATAccountController.onPageLoad()
           case RegisteredForVATUk.No  => vatMossUkRoutes.RegisterForVATController.onPageLoad()

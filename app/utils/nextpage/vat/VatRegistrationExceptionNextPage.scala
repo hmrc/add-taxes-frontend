@@ -18,7 +18,8 @@ package utils.nextpage.vat
 
 import config.FrontendAppConfig
 import identifiers.VatRegistrationExceptionId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.vat.VatRegistrationException
 import utils.NextPage
 import controllers.vat.{routes => vatRoutes}
@@ -29,7 +30,7 @@ trait VatRegistrationExceptionNextPage {
     new NextPage[VatRegistrationExceptionId.type, VatRegistrationException, Call] {
       override def get(b: VatRegistrationException)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case VatRegistrationException.Yes => vatRoutes.CannotRegisterVATController.onPageLoad()
           case VatRegistrationException.No  => vatRoutes.AgriculturalFlatRateSchemeController.onPageLoad()

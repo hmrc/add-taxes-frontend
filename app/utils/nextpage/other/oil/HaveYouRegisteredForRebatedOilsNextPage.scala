@@ -20,7 +20,8 @@ import config.FrontendAppConfig
 import controllers.other.oil.routes
 import identifiers.HaveYouRegisteredForRebatedOilsId
 import models.other.oil.HaveYouRegisteredForRebatedOils
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.{Enrolments, NextPage}
 
 trait HaveYouRegisteredForRebatedOilsNextPage {
@@ -30,7 +31,7 @@ trait HaveYouRegisteredForRebatedOilsNextPage {
     new NextPage[HaveYouRegisteredForRebatedOilsId.type, HaveYouRegisteredForRebatedOils, Call] {
       override def get(b: HaveYouRegisteredForRebatedOils)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case HaveYouRegisteredForRebatedOils.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.RebatedOils))
           case HaveYouRegisteredForRebatedOils.No  => routes.RegisterRebatedOilsController.onPageLoad()

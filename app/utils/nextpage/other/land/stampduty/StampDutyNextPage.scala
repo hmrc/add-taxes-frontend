@@ -18,7 +18,8 @@ package utils.nextpage.other.land.stampduty
 
 import config.FrontendAppConfig
 import identifiers.StampDutyId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.other.land.stampduty.StampDuty
 import utils.NextPage
 import controllers.other.land.stampduty.{routes => stampDutyRoutes}
@@ -28,7 +29,7 @@ trait StampDutyNextPage {
   implicit val stampDuty: NextPage[StampDutyId.type, StampDuty, Call] = {
     new NextPage[StampDutyId.type, StampDuty, Call] {
       override def get(
-        b: StampDuty)(implicit appConfig: FrontendAppConfig,  request: Request[_]): Call =
+        b: StampDuty)(implicit appConfig: FrontendAppConfig,  request: ServiceInfoRequest[_]): Call =
         b match {
           case StampDuty.Yes => Call("GET", appConfig.getStampDutyUrl("enrol"))
           case StampDuty.No  => stampDutyRoutes.PaperFormsController.onPageLoad()

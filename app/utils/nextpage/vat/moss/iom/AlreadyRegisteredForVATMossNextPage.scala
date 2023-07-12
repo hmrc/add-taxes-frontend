@@ -19,7 +19,8 @@ package utils.nextpage.vat.moss.iom
 import config.FrontendAppConfig
 import identifiers.AlreadyRegisteredForVATMossId
 import models.vat.moss.AlreadyRegisteredForVATMoss
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.{Enrolments, NextPage}
 
 trait AlreadyRegisteredForVATMossNextPage {
@@ -29,7 +30,7 @@ trait AlreadyRegisteredForVATMossNextPage {
     new NextPage[AlreadyRegisteredForVATMossId.IsleOfMan.type, AlreadyRegisteredForVATMoss, Call] {
       override def get(b: AlreadyRegisteredForVATMoss)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case AlreadyRegisteredForVATMoss.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.VATMOSS))
           case AlreadyRegisteredForVATMoss.No  => Call("GET", appConfig.getPortalUrl("vatmoss"))

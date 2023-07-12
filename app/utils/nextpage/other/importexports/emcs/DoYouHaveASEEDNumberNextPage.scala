@@ -20,7 +20,8 @@ import config.FrontendAppConfig
 import controllers.other.importexports.emcs.{routes => emcsRoutes}
 import identifiers.DoYouHaveASEEDNumberId
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.{Enrolments, NextPage}
 
 trait DoYouHaveASEEDNumberNextPage {
@@ -29,7 +30,7 @@ trait DoYouHaveASEEDNumberNextPage {
     new NextPage[DoYouHaveASEEDNumberId.type, DoYouHaveASEEDNumber, Call] {
       override def get(b: DoYouHaveASEEDNumber)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouHaveASEEDNumber.Yes =>
             Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.ExciseMovementControlSystem))

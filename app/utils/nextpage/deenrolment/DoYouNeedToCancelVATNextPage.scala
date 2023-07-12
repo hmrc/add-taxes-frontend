@@ -18,7 +18,8 @@ package utils.nextpage.deenrolment
 
 import config.FrontendAppConfig
 import identifiers.DoYouNeedToCancelVATId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.deenrolment.DoYouNeedToCancelVAT
 import utils.{Enrolments, NextPage}
 
@@ -28,7 +29,7 @@ trait DoYouNeedToCancelVATNextPage {
     new NextPage[DoYouNeedToCancelVATId.type, DoYouNeedToCancelVAT, Call] {
       override def get(b: DoYouNeedToCancelVAT)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouNeedToCancelVAT.Yes => Call("GET", appConfig.getBusinessAccountUrl("vat-deregister"))
           case DoYouNeedToCancelVAT.No  => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.VAT))

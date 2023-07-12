@@ -18,7 +18,8 @@ package utils.nextpage.deenrolment
 
 import config.FrontendAppConfig
 import identifiers.DoYouWantToLeaveCISId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.deenrolment.DoYouWantToLeaveCIS
 
 import utils.{Enrolments, NextPage}
@@ -29,7 +30,7 @@ trait DoYouWantToLeaveCISNextPage {
     new NextPage[DoYouWantToLeaveCISId.type, DoYouWantToLeaveCIS, Call] {
       override def get(b: DoYouWantToLeaveCIS)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouWantToLeaveCIS.Yes => Call("GET", appConfig.getBusinessAccountUrl("cis-remove"))
           case DoYouWantToLeaveCIS.No  => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.AddCis))

@@ -18,7 +18,8 @@ package utils.nextpage.employer.pension
 
 import config.FrontendAppConfig
 import identifiers.DoYouHavePractitionerIDId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.employer.pension.DoYouHavePractitionerID
 import utils.NextPage
 import controllers.employer.pension.routes._
@@ -29,7 +30,7 @@ trait DoYouHavePractitionerIDNextPage {
     new NextPage[DoYouHavePractitionerIDId.type, DoYouHavePractitionerID, Call] {
       override def get(b: DoYouHavePractitionerID)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouHavePractitionerID.Yes => DoYouHaveActivationTokenController.onPageLoad()
           case DoYouHavePractitionerID.No  => ApplyForPractitionerIDController.onPageLoad()

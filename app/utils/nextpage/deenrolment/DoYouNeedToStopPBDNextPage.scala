@@ -18,7 +18,8 @@ package utils.nextpage.deenrolment
 
 import config.FrontendAppConfig
 import identifiers.DoYouNeedToStopPBDId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.deenrolment.DoYouNeedToStopPBD
 import utils.{Enrolments, NextPage}
 
@@ -28,7 +29,7 @@ trait DoYouNeedToStopPBDNextPage {
     new NextPage[DoYouNeedToStopPBDId.type, DoYouNeedToStopPBD, Call] {
       override def get(b: DoYouNeedToStopPBD)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouNeedToStopPBD.Yes => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.PoolBetting))
           case DoYouNeedToStopPBD.No  => Call("GET", appConfig.getGovUKUrl("deenrolGambling"))

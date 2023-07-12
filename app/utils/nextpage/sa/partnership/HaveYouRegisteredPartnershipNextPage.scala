@@ -19,7 +19,8 @@ package utils.nextpage.sa.partnership
 import config.FrontendAppConfig
 import identifiers.HaveYouRegisteredPartnershipId
 import models.sa.partnership.HaveYouRegisteredPartnership
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.{HmrcEnrolmentType, NextPage}
 import uk.gov.hmrc.auth.core.Enrolments
 
@@ -34,7 +35,7 @@ trait HaveYouRegisteredPartnershipNextPage {
 
       override def get(enrolmentDetails: HaveYouRegisteredPartnershipWithRequest)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         enrolmentDetails match {
           case (HaveYouRegisteredPartnership.Yes, _) =>
             Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.SAPartnership))

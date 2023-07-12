@@ -18,7 +18,8 @@ package utils.nextpage.deenrolment
 
 import config.FrontendAppConfig
 import identifiers.DoYouNeedToStopEPAYEId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.deenrolment.DoYouNeedToStopEPAYE
 import utils.{Enrolments, NextPage}
 
@@ -28,7 +29,7 @@ trait DoYouNeedToStopEPAYENextPage {
     new NextPage[DoYouNeedToStopEPAYEId.type, DoYouNeedToStopEPAYE, Call] {
       override def get(b: DoYouNeedToStopEPAYE)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouNeedToStopEPAYE.Yes => Call("GET", appConfig.getBusinessAccountUrl("epaye-remove"))
           case DoYouNeedToStopEPAYE.No  => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.EPAYE))

@@ -18,7 +18,8 @@ package utils.nextpage.deenrolment
 
 import config.FrontendAppConfig
 import identifiers.DoYouNeedToStopROId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.deenrolment.DoYouNeedToStopRO
 import utils.{Enrolments, NextPage}
 
@@ -28,7 +29,7 @@ trait DoYouNeedToStopRONextPage {
     new NextPage[DoYouNeedToStopROId.type, DoYouNeedToStopRO, Call] {
       override def get(b: DoYouNeedToStopRO)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouNeedToStopRO.Yes => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.RebatedOils))
           case DoYouNeedToStopRO.No  => Call("GET", appConfig.getGovUKUrl("rebatedOilsRemove"))

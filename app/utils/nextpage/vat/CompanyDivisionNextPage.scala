@@ -18,7 +18,8 @@ package utils.nextpage.vat
 
 import config.FrontendAppConfig
 import identifiers.CompanyDivisionId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.vat.CompanyDivision
 import utils.NextPage
 import controllers.vat.{routes => vatRoutes}
@@ -29,7 +30,7 @@ trait CompanyDivisionNextPage {
     new NextPage[CompanyDivisionId.type, CompanyDivision, Call] {
       override def get(b: CompanyDivision)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case CompanyDivision.Yes => vatRoutes.CannotRegisterVATController.onPageLoad()
           case CompanyDivision.No  => vatRoutes.DistanceSellingController.onPageLoad()

@@ -16,19 +16,17 @@
 
 package views.components
 
+import base.SpecBase
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import org.scalatestplus.play.PlaySpec
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.data.FormError
-import play.api.i18n.{Messages, MessagesApi}
+import play.api.i18n.Messages
 import play.twirl.api.Html
 import views.html.components.error_summary
 
-class ErrorSummarySpec extends PlaySpec with GuiceOneAppPerSuite {
+class ErrorSummarySpec extends SpecBase {
 
-  implicit lazy val messages: Messages =
-    app.injector.instanceOf[MessagesApi].preferred(Seq.empty)
+  implicit lazy val messagesImpl: Messages = messages
 
   val view: Html = error_summary(Seq(FormError("test", "test")))
 

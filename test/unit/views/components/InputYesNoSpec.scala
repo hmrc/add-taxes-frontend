@@ -16,19 +16,16 @@
 
 package views.components
 
+import base.SpecBase
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import org.scalatestplus.play.PlaySpec
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.data.Forms._
 import play.api.data._
-import play.api.i18n.{Messages, MessagesApi}
+import play.api.i18n.Messages
 import play.twirl.api.Html
 import views.html.components.input_yes_no
 
-class InputYesNoSpec extends PlaySpec with GuiceOneAppPerSuite {
-
-  implicit lazy val messages: Messages = app.injector.instanceOf[MessagesApi].preferred(Seq.empty)
+class InputYesNoSpec extends SpecBase {
 
   val testLegend = ""
 
@@ -37,6 +34,8 @@ class InputYesNoSpec extends PlaySpec with GuiceOneAppPerSuite {
   val testForm = Form(
     "value" -> boolean
   )
+
+  implicit val messagesImpl: Messages = messages
 
   def inputYesNo(field: Field): Html = input_yes_no(
     field,

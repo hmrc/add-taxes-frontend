@@ -22,7 +22,13 @@ object FeatureSwitch {
 
   val featureSwitches: Seq[FeatureSwitch] = Seq(
     VatOssSwitch,
-    BypassVATETMPCheck
+    AccessMTD,
+    IvUpliftSwitch,
+    PptSwitch,
+    AtarSwitch,
+    ARSContentSwitch,
+    BypassVATETMPCheck,
+    NewCTCEnrolmentForNCTSJourney
   )
 
   def apply(str: String): FeatureSwitch =
@@ -72,13 +78,18 @@ object FeatureSwitch {
 
   case object ARSContentSwitch extends FeatureSwitch {
     override val name = s"$prefix.arsContentSwitch"
-    override val displayText: String = "Atar Enabled"
+    override val displayText: String = "ARS content feature enabled"
   }
 
 
   case object BypassVATETMPCheck  extends FeatureSwitch {
     override val name = s"$prefix.bypassVATETMPCheck"
     override val displayText: String = "Bypass VAT ETMP Check"
+  }
+
+  case object NewCTCEnrolmentForNCTSJourney extends FeatureSwitch {
+    override val name: String = s"$prefix.newCTCEnrolmentForNCTSJourney"
+    override val displayText: String = "Enable new HMRC - CTC - ORG enrolment journey for NCTS"
   }
 }
 

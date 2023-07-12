@@ -18,7 +18,8 @@ package utils.nextpage.deenrolment
 
 import config.FrontendAppConfig
 import identifiers.DoYouNeedToStopMGDId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.deenrolment.DoYouNeedToStopMGD
 import uk.gov.hmrc.auth.core.Enrolment
 import utils.{Enrolments, NextPage}
@@ -32,7 +33,7 @@ trait DoYouNeedToStopMGDNextPage {
     new NextPage[DoYouNeedToStopMGDId.type, DoYouNeedToStopMGDWithEnrolment, Either[String, Call]] {
       override def get(b: DoYouNeedToStopMGDWithEnrolment)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Either[String, Call] =
+        request: ServiceInfoRequest[_]): Either[String, Call] =
         b match {
           case (DoYouNeedToStopMGD.Yes, _) =>
             Right(Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.MachineGamesDuty)))

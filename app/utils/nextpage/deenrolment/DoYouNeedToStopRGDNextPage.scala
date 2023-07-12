@@ -18,7 +18,8 @@ package utils.nextpage.deenrolment
 
 import config.FrontendAppConfig
 import identifiers.DoYouNeedToStopRGDId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.deenrolment.DoYouNeedToStopRGD
 import utils.{Enrolments, NextPage}
 
@@ -28,7 +29,7 @@ trait DoYouNeedToStopRGDNextPage {
     new NextPage[DoYouNeedToStopRGDId.type, DoYouNeedToStopRGD, Call] {
       override def get(b: DoYouNeedToStopRGD)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouNeedToStopRGD.Yes => Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.RemoteGaming))
           case DoYouNeedToStopRGD.No  => Call("GET", appConfig.getGovUKUrl("deenrolGambling"))

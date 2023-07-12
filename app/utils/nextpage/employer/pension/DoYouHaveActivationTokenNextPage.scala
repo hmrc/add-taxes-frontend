@@ -20,7 +20,8 @@ import config.FrontendAppConfig
 import controllers.employer.pension.routes.RequestActivationTokenController
 import identifiers.DoYouHaveActivationTokenId
 import models.employer.pension.DoYouHaveActivationToken
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.{Enrolments, NextPage}
 
 trait DoYouHaveActivationTokenNextPage {
@@ -29,7 +30,7 @@ trait DoYouHaveActivationTokenNextPage {
     new NextPage[DoYouHaveActivationTokenId.type, DoYouHaveActivationToken, Call] {
       override def get(b: DoYouHaveActivationToken)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouHaveActivationToken.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.PP))
           case DoYouHaveActivationToken.No  => RequestActivationTokenController.onPageLoad()

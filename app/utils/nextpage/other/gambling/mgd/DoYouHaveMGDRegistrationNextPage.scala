@@ -18,7 +18,8 @@ package utils.nextpage.other.gambling.mgd
 
 import config.FrontendAppConfig
 import identifiers.DoYouHaveMGDRegistrationId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.{Enrolments, NextPage}
 import controllers.other.gambling.mgd.{routes => mgdRoutes}
 import models.other.gambling.mgd.DoYouHaveMGDRegistration
@@ -29,7 +30,7 @@ trait DoYouHaveMGDRegistrationNextPage {
     new NextPage[DoYouHaveMGDRegistrationId.type, DoYouHaveMGDRegistration, Call] {
       override def get(b: DoYouHaveMGDRegistration)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoYouHaveMGDRegistration.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.MachineGamingDuty))
           case DoYouHaveMGDRegistration.No  => mgdRoutes.RegisterMGDController.onPageLoad()

@@ -17,8 +17,11 @@
 package utils
 
 import uk.gov.hmrc.auth.core
+import uk.gov.hmrc.auth.core.Enrolment
 
-sealed trait Enrolments
+sealed trait Enrolments {
+  val toAuthEnrolment: Enrolment = Enrolment(this.toString)
+}
 
 object Enrolments {
 
@@ -61,6 +64,9 @@ object Enrolments {
   case object ElectronicBindingTariffInformation extends WithName("HMCE-EBTI-ORG") with Enrolments
 
   case object NewComputerisedTransitSystem extends WithName("HMCE-NCTS-ORG") with Enrolments
+
+  // CommonTransitConvention is the new NewComputerisedTransitSystem
+  case object CommonTransitConvention extends WithName("HMRC-CTC-ORG") with Enrolments
 
   case object SAPartnership extends WithName("IR-SA-PART-ORG") with Enrolments
 

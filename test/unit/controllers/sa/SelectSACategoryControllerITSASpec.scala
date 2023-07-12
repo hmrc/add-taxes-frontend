@@ -65,6 +65,11 @@ class SelectSACategoryControllerITSASpec extends ControllerSpecBase with Mockito
       formWithCSRF, mainTemplate
     )(frontendAppConfig, form, routes.SelectSACategoryController.onSubmitNoUTR(), origin, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
 
+  override def beforeAll(): Unit = {
+    reset(mockCredFinderService)
+    reset(mockDataCacheConnector)
+    reset(mockSaCategoryService)
+  }
   override def beforeEach(): Unit = {
     reset(mockCredFinderService)
     reset(mockDataCacheConnector)

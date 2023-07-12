@@ -19,7 +19,8 @@ package utils.nextpage.vat
 import config.FrontendAppConfig
 import identifiers.WhatIsYourVATRegNumberId
 import play.api.http.Status.OK
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.{Enrolments, NextPage}
 
 trait WhatIsYourVATRegNumberNextPage {
@@ -31,7 +32,7 @@ trait WhatIsYourVATRegNumberNextPage {
     new NextPage[WhatIsYourVATRegNumberId.type, WhatIsYourVATRegNumberWithRequests, Call] {
       override def get(b: WhatIsYourVATRegNumberWithRequests)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case (OK, vrn) => Call("GET", appConfig.vatSignUpClaimSubscriptionUrl(vrn))
           case _           => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.VAT))

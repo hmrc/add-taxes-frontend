@@ -17,18 +17,21 @@
 package views.other.importexports
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.{ARSContentSwitch, AtarSwitch}
-import config.featureToggles.FeatureToggleSupport.{disable, enable, isEnabled}
+import config.featureToggles.FeatureSwitch.{ARSContentSwitch, AtarSwitch, NewCTCEnrolmentForNCTSJourney}
 import forms.other.importexports.DoYouWantToAddImportExportFormProvider
 import models.other.importexports.DoYouWantToAddImportExport
+import models.requests.ServiceInfoRequest
 import org.mockito.Mockito.reset
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.Configuration
 import play.api.data.Form
+import play.api.i18n.Messages
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.language.LanguageUtils
+import utils.Enrolments.CommonTransitConvention
+import utils.RadioOption
 import views.behaviours.ViewBehaviours
 import views.html.other.importexports.doYouWantToAddImportExport
 
@@ -45,13 +48,16 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
   val mockServiceConfig: ServicesConfig = app.injector.instanceOf[ServicesConfig]
   val mockConfiguration: Configuration = mock[Configuration]
   val mockLanguageUtils: LanguageUtils = mock[LanguageUtils]
-  val mockConfig: FrontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
+  implicit val msgs: Messages = messages
+  implicit val mockConfig: FrontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
+  implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq())
 
-    def createView: () => HtmlFormat.Appendable = () =>
-      new doYouWantToAddImportExport(formWithCSRF, mainTemplate)(mockConfig, form, isEnabled(AtarSwitch), isEnabled(ARSContentSwitch))(serviceInfoContent)(fakeRequest, messages)
+  def createView: () => HtmlFormat.Appendable = () =>
+    new doYouWantToAddImportExport(formWithCSRF, mainTemplate)(form)(serviceInfoContent)
 
-    def createViewUsingForm: (Form[_]) => HtmlFormat.Appendable = (form: Form[_]) =>
-      new doYouWantToAddImportExport(formWithCSRF, mainTemplate)(mockConfig, form, isEnabled(AtarSwitch), isEnabled(ARSContentSwitch))(serviceInfoContent)(fakeRequest, messages)
+  def createViewUsingForm(form: Form[_])(implicit request: ServiceInfoRequest[_]): HtmlFormat.Appendable = {
+    new doYouWantToAddImportExport(formWithCSRF, mainTemplate)(form)(serviceInfoContent)
+  }
 
   override def beforeEach(): Unit = {
     reset(mockConfiguration)
@@ -69,35 +75,764 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
   }
 
   "DoYouWantToAddImportExport view" when {
-    val atarBool: Boolean = isEnabled(AtarSwitch)
 
-    "rendered" must {
-      "contain radio buttons for the value" in {
-        disable(ARSContentSwitch)
-        val doc = asDocument(createViewUsingForm(form))
-        for (option <- DoYouWantToAddImportExport.options(atarBool, arsAddTaxSwitch = false)) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+    "AtarSwitch is enabled" when {
+
+      "ARSContentSwitch is enabled" must {
+
+        "NewCTCEnrolmentForNCTSJourney is enabled" when {
+
+          "user has CTC enrolment" must {
+
+            "contain radio buttons for each option and no filtered options" in {
+
+              enable(AtarSwitch)
+              enable(ARSContentSwitch)
+              enable(NewCTCEnrolmentForNCTSJourney)
+
+              implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
+
+              val doc = asDocument(createViewUsingForm(form))
+              for (option <- DoYouWantToAddImportExport.options()) {
+                assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+              }
+
+              val expectedFilteredEnrolments = DoYouWantToAddImportExport.values.diff(DoYouWantToAddImportExport.filteredRadios())
+              val expectedFilteredRadios = expectedFilteredEnrolments.map(value => RadioOption("doYouWantToAddImportExport", value.toString))
+
+              for (option <- expectedFilteredRadios) {
+                assertNotRenderedById(doc, option.id)
+              }
+            }
+
+            "render with each value selected" when {
+
+              enable(AtarSwitch)
+              enable(ARSContentSwitch)
+              enable(NewCTCEnrolmentForNCTSJourney)
+
+              for (option <- DoYouWantToAddImportExport.options()) {
+                s"rendered with a value of '${option.value}'" must {
+
+                  s"have the '${option.value}' radio button selected" in {
+
+                    val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+                    assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
+
+                    for (unselectedOption <- DoYouWantToAddImportExport.options().filterNot(o => o == option)) {
+                      assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          "user does not have the CTC enrolment" must {
+
+            "contain radio buttons for each option and no filtered options" in {
+
+              enable(AtarSwitch)
+              enable(ARSContentSwitch)
+              enable(NewCTCEnrolmentForNCTSJourney)
+
+              val doc = asDocument(createViewUsingForm(form))
+              for (option <- DoYouWantToAddImportExport.options()) {
+                assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+              }
+
+              val expectedFilteredEnrolments = DoYouWantToAddImportExport.values.diff(DoYouWantToAddImportExport.filteredRadios())
+              val expectedFilteredRadios = expectedFilteredEnrolments.map(value => RadioOption("doYouWantToAddImportExport", value.toString))
+
+              for (option <- expectedFilteredRadios) {
+                assertNotRenderedById(doc, option.id)
+              }
+            }
+
+            "render with each value selected" when {
+
+              enable(AtarSwitch)
+              enable(ARSContentSwitch)
+              enable(NewCTCEnrolmentForNCTSJourney)
+
+              for (option <- DoYouWantToAddImportExport.options()) {
+                s"rendered with a value of '${option.value}'" must {
+
+                  s"have the '${option.value}' radio button selected" in {
+
+                    val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+                    assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
+
+                    for (unselectedOption <- DoYouWantToAddImportExport.options().filterNot(o => o == option)) {
+                      assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        "NewCTCEnrolmentForNCTSJourney is disabled" when {
+
+          "user has CTC enrolment" must {
+
+            "contain radio buttons for each option and no filtered options" in {
+
+              enable(AtarSwitch)
+              enable(ARSContentSwitch)
+              disable(NewCTCEnrolmentForNCTSJourney)
+
+              implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
+
+              val doc = asDocument(createViewUsingForm(form))
+              for (option <- DoYouWantToAddImportExport.options()) {
+                assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+              }
+
+              val expectedFilteredEnrolments = DoYouWantToAddImportExport.values.diff(DoYouWantToAddImportExport.filteredRadios())
+              val expectedFilteredRadios = expectedFilteredEnrolments.map(value => RadioOption("doYouWantToAddImportExport", value.toString))
+
+              for (option <- expectedFilteredRadios) {
+                assertNotRenderedById(doc, option.id)
+              }
+            }
+
+            "render with each value selected" when {
+
+              enable(AtarSwitch)
+              enable(ARSContentSwitch)
+              disable(NewCTCEnrolmentForNCTSJourney)
+
+              for (option <- DoYouWantToAddImportExport.options()) {
+                s"rendered with a value of '${option.value}'" must {
+
+                  s"have the '${option.value}' radio button selected" in {
+
+                    val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+                    assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
+
+                    for (unselectedOption <- DoYouWantToAddImportExport.options().filterNot(o => o == option)) {
+                      assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          "user does not have the CTC enrolment" must {
+
+            "contain radio buttons for each option and no filtered options" in {
+
+              enable(AtarSwitch)
+              enable(ARSContentSwitch)
+              disable(NewCTCEnrolmentForNCTSJourney)
+
+              val doc = asDocument(createViewUsingForm(form))
+              for (option <- DoYouWantToAddImportExport.options()) {
+                assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+              }
+
+              val expectedFilteredEnrolments = DoYouWantToAddImportExport.values.diff(DoYouWantToAddImportExport.filteredRadios())
+              val expectedFilteredRadios = expectedFilteredEnrolments.map(value => RadioOption("doYouWantToAddImportExport", value.toString))
+
+              for (option <- expectedFilteredRadios) {
+                assertNotRenderedById(doc, option.id)
+              }
+            }
+
+            "render with each value selected" when {
+
+              enable(AtarSwitch)
+              enable(ARSContentSwitch)
+              disable(NewCTCEnrolmentForNCTSJourney)
+
+              for (option <- DoYouWantToAddImportExport.options()) {
+                s"rendered with a value of '${option.value}'" must {
+
+                  s"have the '${option.value}' radio button selected" in {
+
+                    val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+                    assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
+
+                    for (unselectedOption <- DoYouWantToAddImportExport.options().filterNot(o => o == option)) {
+                      assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
 
-      "contain ARS radio buttons for the value when Content switch is true" in {
-        enable(ARSContentSwitch)
-        val doc = asDocument(createViewUsingForm(form))
-        for (option <- DoYouWantToAddImportExport.options(atarBool, arsAddTaxSwitch = true)) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+      "ARSContentSwitch is disabled" must {
+
+        "NewCTCEnrolmentForNCTSJourney is enabled" when {
+
+          "user has CTC enrolment" must {
+
+            "contain radio buttons for each option and no filtered options" in {
+
+              enable(AtarSwitch)
+              disable(ARSContentSwitch)
+              enable(NewCTCEnrolmentForNCTSJourney)
+
+              implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
+
+              val doc = asDocument(createViewUsingForm(form))
+              for (option <- DoYouWantToAddImportExport.options()) {
+                assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+              }
+
+              val expectedFilteredEnrolments = DoYouWantToAddImportExport.values.diff(DoYouWantToAddImportExport.filteredRadios())
+              val expectedFilteredRadios = expectedFilteredEnrolments.map(value => RadioOption("doYouWantToAddImportExport", value.toString))
+
+              for (option <- expectedFilteredRadios) {
+                assertNotRenderedById(doc, option.id)
+              }
+            }
+
+            "render with each value selected" when {
+
+              enable(AtarSwitch)
+              disable(ARSContentSwitch)
+              enable(NewCTCEnrolmentForNCTSJourney)
+
+              for (option <- DoYouWantToAddImportExport.options()) {
+                s"rendered with a value of '${option.value}'" must {
+
+                  s"have the '${option.value}' radio button selected" in {
+
+                    val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+                    assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
+
+                    for (unselectedOption <- DoYouWantToAddImportExport.options().filterNot(o => o == option)) {
+                      assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          "user does not have the CTC enrolment" must {
+
+            "contain radio buttons for each option and no filtered options" in {
+
+              enable(AtarSwitch)
+              disable(ARSContentSwitch)
+              enable(NewCTCEnrolmentForNCTSJourney)
+
+              val doc = asDocument(createViewUsingForm(form))
+              for (option <- DoYouWantToAddImportExport.options()) {
+                assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+              }
+
+              val expectedFilteredEnrolments = DoYouWantToAddImportExport.values.diff(DoYouWantToAddImportExport.filteredRadios())
+              val expectedFilteredRadios = expectedFilteredEnrolments.map(value => RadioOption("doYouWantToAddImportExport", value.toString))
+
+              for (option <- expectedFilteredRadios) {
+                assertNotRenderedById(doc, option.id)
+              }
+            }
+
+            "render with each value selected" when {
+
+              enable(AtarSwitch)
+              disable(ARSContentSwitch)
+              enable(NewCTCEnrolmentForNCTSJourney)
+
+              for (option <- DoYouWantToAddImportExport.options()) {
+                s"rendered with a value of '${option.value}'" must {
+
+                  s"have the '${option.value}' radio button selected" in {
+
+                    val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+                    assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
+
+                    for (unselectedOption <- DoYouWantToAddImportExport.options().filterNot(o => o == option)) {
+                      assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        "NewCTCEnrolmentForNCTSJourney is disabled" when {
+
+          "user has CTC enrolment" must {
+
+            "contain radio buttons for each option and no filtered options" in {
+
+              enable(AtarSwitch)
+              disable(ARSContentSwitch)
+              disable(NewCTCEnrolmentForNCTSJourney)
+
+              implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
+
+              val doc = asDocument(createViewUsingForm(form))
+              for (option <- DoYouWantToAddImportExport.options()) {
+                assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+              }
+
+              val expectedFilteredEnrolments = DoYouWantToAddImportExport.values.diff(DoYouWantToAddImportExport.filteredRadios())
+              val expectedFilteredRadios = expectedFilteredEnrolments.map(value => RadioOption("doYouWantToAddImportExport", value.toString))
+
+              for (option <- expectedFilteredRadios) {
+                assertNotRenderedById(doc, option.id)
+              }
+            }
+
+            "render with each value selected" when {
+
+              enable(AtarSwitch)
+              disable(ARSContentSwitch)
+              disable(NewCTCEnrolmentForNCTSJourney)
+
+              for (option <- DoYouWantToAddImportExport.options()) {
+                s"rendered with a value of '${option.value}'" must {
+
+                  s"have the '${option.value}' radio button selected" in {
+
+                    val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+                    assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
+
+                    for (unselectedOption <- DoYouWantToAddImportExport.options().filterNot(o => o == option)) {
+                      assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          "user does not have the CTC enrolment" must {
+
+            "contain radio buttons for each option and no filtered options" in {
+
+              enable(AtarSwitch)
+              disable(ARSContentSwitch)
+              disable(NewCTCEnrolmentForNCTSJourney)
+
+              val doc = asDocument(createViewUsingForm(form))
+              for (option <- DoYouWantToAddImportExport.options()) {
+                assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+              }
+
+              val expectedFilteredEnrolments = DoYouWantToAddImportExport.values.diff(DoYouWantToAddImportExport.filteredRadios())
+              val expectedFilteredRadios = expectedFilteredEnrolments.map(value => RadioOption("doYouWantToAddImportExport", value.toString))
+
+              for (option <- expectedFilteredRadios) {
+                assertNotRenderedById(doc, option.id)
+              }
+            }
+
+            "render with each value selected" when {
+
+              enable(AtarSwitch)
+              disable(ARSContentSwitch)
+              disable(NewCTCEnrolmentForNCTSJourney)
+
+              for (option <- DoYouWantToAddImportExport.options()) {
+                s"rendered with a value of '${option.value}'" must {
+
+                  s"have the '${option.value}' radio button selected" in {
+
+                    val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+                    assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
+
+                    for (unselectedOption <- DoYouWantToAddImportExport.options().filterNot(o => o == option)) {
+                      assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
 
-    for (option <- DoYouWantToAddImportExport.options(atarBool, arsAddTaxSwitch = false)) {
-      s"rendered with a value of '${option.value}'" must {
-        s"have the '${option.value}' radio button selected" in {
-          disable(ARSContentSwitch)
-          val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
+    "AtarSwitch is disabled" when {
 
-          for (unselectedOption <- DoYouWantToAddImportExport.options(atarBool, arsAddTaxSwitch = false).filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
+      "ARSContentSwitch is enabled" must {
+
+        "NewCTCEnrolmentForNCTSJourney is enabled" when {
+
+          "user has CTC enrolment" must {
+
+            "contain radio buttons for each option and no filtered options" in {
+
+              disable(AtarSwitch)
+              enable(ARSContentSwitch)
+              enable(NewCTCEnrolmentForNCTSJourney)
+
+              implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
+
+              val doc = asDocument(createViewUsingForm(form))
+              for (option <- DoYouWantToAddImportExport.options()) {
+                assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+              }
+
+              val expectedFilteredEnrolments = DoYouWantToAddImportExport.values.diff(DoYouWantToAddImportExport.filteredRadios())
+              val expectedFilteredRadios = expectedFilteredEnrolments.map(value => RadioOption("doYouWantToAddImportExport", value.toString))
+
+              for (option <- expectedFilteredRadios) {
+                assertNotRenderedById(doc, option.id)
+              }
+            }
+
+            "render with each value selected" when {
+
+              disable(AtarSwitch)
+              enable(ARSContentSwitch)
+              enable(NewCTCEnrolmentForNCTSJourney)
+
+              for (option <- DoYouWantToAddImportExport.options()) {
+                s"rendered with a value of '${option.value}'" must {
+
+                  s"have the '${option.value}' radio button selected" in {
+
+                    val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+                    assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
+
+                    for (unselectedOption <- DoYouWantToAddImportExport.options().filterNot(o => o == option)) {
+                      assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          "user does not have the CTC enrolment" must {
+
+            "contain radio buttons for each option and no filtered options" in {
+
+              disable(AtarSwitch)
+              enable(ARSContentSwitch)
+              enable(NewCTCEnrolmentForNCTSJourney)
+
+              val doc = asDocument(createViewUsingForm(form))
+              for (option <- DoYouWantToAddImportExport.options()) {
+                assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+              }
+
+              val expectedFilteredEnrolments = DoYouWantToAddImportExport.values.diff(DoYouWantToAddImportExport.filteredRadios())
+              val expectedFilteredRadios = expectedFilteredEnrolments.map(value => RadioOption("doYouWantToAddImportExport", value.toString))
+
+              for (option <- expectedFilteredRadios) {
+                assertNotRenderedById(doc, option.id)
+              }
+            }
+
+            "render with each value selected" when {
+
+              disable(AtarSwitch)
+              enable(ARSContentSwitch)
+              enable(NewCTCEnrolmentForNCTSJourney)
+
+              for (option <- DoYouWantToAddImportExport.options()) {
+                s"rendered with a value of '${option.value}'" must {
+
+                  s"have the '${option.value}' radio button selected" in {
+
+                    val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+                    assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
+
+                    for (unselectedOption <- DoYouWantToAddImportExport.options().filterNot(o => o == option)) {
+                      assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        "NewCTCEnrolmentForNCTSJourney is disabled" when {
+
+          "user has CTC enrolment" must {
+
+            "contain radio buttons for each option and no filtered options" in {
+
+              disable(AtarSwitch)
+              enable(ARSContentSwitch)
+              disable(NewCTCEnrolmentForNCTSJourney)
+
+              implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
+
+              val doc = asDocument(createViewUsingForm(form))
+              for (option <- DoYouWantToAddImportExport.options()) {
+                assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+              }
+
+              val expectedFilteredEnrolments = DoYouWantToAddImportExport.values.diff(DoYouWantToAddImportExport.filteredRadios())
+              val expectedFilteredRadios = expectedFilteredEnrolments.map(value => RadioOption("doYouWantToAddImportExport", value.toString))
+
+              for (option <- expectedFilteredRadios) {
+                assertNotRenderedById(doc, option.id)
+              }
+            }
+
+            "render with each value selected" when {
+
+              disable(AtarSwitch)
+              enable(ARSContentSwitch)
+              disable(NewCTCEnrolmentForNCTSJourney)
+
+              for (option <- DoYouWantToAddImportExport.options()) {
+                s"rendered with a value of '${option.value}'" must {
+
+                  s"have the '${option.value}' radio button selected" in {
+
+                    val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+                    assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
+
+                    for (unselectedOption <- DoYouWantToAddImportExport.options().filterNot(o => o == option)) {
+                      assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          "user does not have the CTC enrolment" must {
+
+            "contain radio buttons for each option and no filtered options" in {
+
+              disable(AtarSwitch)
+              enable(ARSContentSwitch)
+              disable(NewCTCEnrolmentForNCTSJourney)
+
+              val doc = asDocument(createViewUsingForm(form))
+              for (option <- DoYouWantToAddImportExport.options()) {
+                assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+              }
+
+              val expectedFilteredEnrolments = DoYouWantToAddImportExport.values.diff(DoYouWantToAddImportExport.filteredRadios())
+              val expectedFilteredRadios = expectedFilteredEnrolments.map(value => RadioOption("doYouWantToAddImportExport", value.toString))
+
+              for (option <- expectedFilteredRadios) {
+                assertNotRenderedById(doc, option.id)
+              }
+            }
+
+            "render with each value selected" when {
+
+              disable(AtarSwitch)
+              enable(ARSContentSwitch)
+              disable(NewCTCEnrolmentForNCTSJourney)
+
+              for (option <- DoYouWantToAddImportExport.options()) {
+                s"rendered with a value of '${option.value}'" must {
+
+                  s"have the '${option.value}' radio button selected" in {
+
+                    val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+                    assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
+
+                    for (unselectedOption <- DoYouWantToAddImportExport.options().filterNot(o => o == option)) {
+                      assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      "ARSContentSwitch is disabled" must {
+
+        "NewCTCEnrolmentForNCTSJourney is enabled" when {
+
+          "user has CTC enrolment" must {
+
+            "contain radio buttons for each option and no filtered options" in {
+
+              disable(AtarSwitch)
+              disable(ARSContentSwitch)
+              enable(NewCTCEnrolmentForNCTSJourney)
+
+              implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
+
+              val doc = asDocument(createViewUsingForm(form))
+              for (option <- DoYouWantToAddImportExport.options()) {
+                assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+              }
+
+              val expectedFilteredEnrolments = DoYouWantToAddImportExport.values.diff(DoYouWantToAddImportExport.filteredRadios())
+              val expectedFilteredRadios = expectedFilteredEnrolments.map(value => RadioOption("doYouWantToAddImportExport", value.toString))
+
+              for (option <- expectedFilteredRadios) {
+                assertNotRenderedById(doc, option.id)
+              }
+            }
+
+            "render with each value selected" when {
+
+              disable(AtarSwitch)
+              disable(ARSContentSwitch)
+              enable(NewCTCEnrolmentForNCTSJourney)
+
+              for (option <- DoYouWantToAddImportExport.options()) {
+                s"rendered with a value of '${option.value}'" must {
+
+                  s"have the '${option.value}' radio button selected" in {
+
+                    val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+                    assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
+
+                    for (unselectedOption <- DoYouWantToAddImportExport.options().filterNot(o => o == option)) {
+                      assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          "user does not have the CTC enrolment" must {
+
+            "contain radio buttons for each option and no filtered options" in {
+
+              disable(AtarSwitch)
+              disable(ARSContentSwitch)
+              enable(NewCTCEnrolmentForNCTSJourney)
+
+              val doc = asDocument(createViewUsingForm(form))
+              for (option <- DoYouWantToAddImportExport.options()) {
+                assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+              }
+
+              val expectedFilteredEnrolments = DoYouWantToAddImportExport.values.diff(DoYouWantToAddImportExport.filteredRadios())
+              val expectedFilteredRadios = expectedFilteredEnrolments.map(value => RadioOption("doYouWantToAddImportExport", value.toString))
+
+              for (option <- expectedFilteredRadios) {
+                assertNotRenderedById(doc, option.id)
+              }
+            }
+
+            "render with each value selected" when {
+
+              disable(AtarSwitch)
+              disable(ARSContentSwitch)
+              enable(NewCTCEnrolmentForNCTSJourney)
+
+              for (option <- DoYouWantToAddImportExport.options()) {
+                s"rendered with a value of '${option.value}'" must {
+
+                  s"have the '${option.value}' radio button selected" in {
+
+                    val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+                    assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
+
+                    for (unselectedOption <- DoYouWantToAddImportExport.options().filterNot(o => o == option)) {
+                      assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        "NewCTCEnrolmentForNCTSJourney is disabled" when {
+
+          "user has CTC enrolment" must {
+
+            "contain radio buttons for each option and no filtered options" in {
+
+              disable(AtarSwitch)
+              disable(ARSContentSwitch)
+              disable(NewCTCEnrolmentForNCTSJourney)
+
+              implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
+
+              val doc = asDocument(createViewUsingForm(form))
+              for (option <- DoYouWantToAddImportExport.options()) {
+                assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+              }
+
+              val expectedFilteredEnrolments = DoYouWantToAddImportExport.values.diff(DoYouWantToAddImportExport.filteredRadios())
+              val expectedFilteredRadios = expectedFilteredEnrolments.map(value => RadioOption("doYouWantToAddImportExport", value.toString))
+
+              for (option <- expectedFilteredRadios) {
+                assertNotRenderedById(doc, option.id)
+              }
+            }
+
+            "render with each value selected" when {
+
+              disable(AtarSwitch)
+              disable(ARSContentSwitch)
+              disable(NewCTCEnrolmentForNCTSJourney)
+
+              for (option <- DoYouWantToAddImportExport.options()) {
+                s"rendered with a value of '${option.value}'" must {
+
+                  s"have the '${option.value}' radio button selected" in {
+
+                    val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+                    assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
+
+                    for (unselectedOption <- DoYouWantToAddImportExport.options().filterNot(o => o == option)) {
+                      assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          "user does not have the CTC enrolment" must {
+
+            "contain radio buttons for each option and no filtered options" in {
+
+              disable(AtarSwitch)
+              disable(ARSContentSwitch)
+              disable(NewCTCEnrolmentForNCTSJourney)
+
+              val doc = asDocument(createViewUsingForm(form))
+              for (option <- DoYouWantToAddImportExport.options()) {
+                assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+              }
+
+              val expectedFilteredEnrolments = DoYouWantToAddImportExport.values.diff(DoYouWantToAddImportExport.filteredRadios())
+              val expectedFilteredRadios = expectedFilteredEnrolments.map(value => RadioOption("doYouWantToAddImportExport", value.toString))
+
+              for (option <- expectedFilteredRadios) {
+                assertNotRenderedById(doc, option.id)
+              }
+            }
+
+            "render with each value selected" when {
+
+              disable(AtarSwitch)
+              disable(ARSContentSwitch)
+              disable(NewCTCEnrolmentForNCTSJourney)
+
+              for (option <- DoYouWantToAddImportExport.options()) {
+                s"rendered with a value of '${option.value}'" must {
+
+                  s"have the '${option.value}' radio button selected" in {
+
+                    val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+                    assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
+
+                    for (unselectedOption <- DoYouWantToAddImportExport.options().filterNot(o => o == option)) {
+                      assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -105,23 +840,10 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
 
     "invalid data is sent" must {
       "prepend title with Error: " in {
-        disable(ARSContentSwitch)
         val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> ""))))
         val title = messages("site.service_title", messages(s"$messageKeyPrefix.title"))
 
         assertEqualsMessage(doc, "title", "error.browser.title", title)
-      }
-    }
-  }
-  "eBTI" should {
-    "rendered" must {
-      "not display the eBTI option" in {
-        disable(ARSContentSwitch)
-        val atarBool: Boolean = isEnabled(AtarSwitch)
-        val doc = asDocument(createViewUsingForm(form))
-        for (option <- DoYouWantToAddImportExport.options(atarBool, arsAddTaxSwitch = false)) {
-          assertNotRenderedById(doc, "doYouWantToAddImportExport.eBTI")
-        }
       }
     }
   }

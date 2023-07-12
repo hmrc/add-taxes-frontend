@@ -18,7 +18,8 @@ package utils.nextpage.employer.paye
 
 import config.FrontendAppConfig
 import identifiers.DoesBusinessHaveDirectorsOrPartnersId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.employer.paye.DoesBusinessHaveDirectorsOrPartners
 import utils.NextPage
 import controllers.employer.paye.{routes => employerPayeRoutes}
@@ -30,7 +31,7 @@ trait DoesBusinessHaveDirectorsOrPartnersNextPage {
     new NextPage[DoesBusinessHaveDirectorsOrPartnersId.type, DoesBusinessHaveDirectorsOrPartners, Call] {
       override def get(b: DoesBusinessHaveDirectorsOrPartners)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoesBusinessHaveDirectorsOrPartners.Yes =>
             employerPayeRoutes.DoesBusinessHave1To9DirectorsController.onPageLoad()

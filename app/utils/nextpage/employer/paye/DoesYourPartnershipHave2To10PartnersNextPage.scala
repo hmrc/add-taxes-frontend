@@ -18,7 +18,8 @@ package utils.nextpage.employer.paye
 
 import config.FrontendAppConfig
 import identifiers.DoesYourPartnershipHave2To10PartnersId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.employer.paye.DoesYourPartnershipHave2To10Partners
 import utils.NextPage
 import controllers.employer.{routes => employerPayeRoutes}
@@ -30,7 +31,7 @@ trait DoesYourPartnershipHave2To10PartnersNextPage {
     new NextPage[DoesYourPartnershipHave2To10PartnersId.type, DoesYourPartnershipHave2To10Partners, Call] {
       override def get(b: DoesYourPartnershipHave2To10Partners)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoesYourPartnershipHave2To10Partners.Yes => Call("GET", appConfig.getPortalUrl("selectTaxes"))
           case DoesYourPartnershipHave2To10Partners.No =>

@@ -22,7 +22,8 @@ import controllers.employer.ers.routes
 import controllers.employer.intermediaries.{routes => eiRoutes}
 import identifiers.IsBusinessRegisteredForPAYEId
 import models.employer.IsBusinessRegisteredForPAYE
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.NextPage
 
 trait IsBusinessRegisteredForPAYENextPage {
@@ -32,7 +33,7 @@ trait IsBusinessRegisteredForPAYENextPage {
     new NextPage[IsBusinessRegisteredForPAYEId.CIS.type, IsBusinessRegisteredForPAYE, Call] {
       override def get(b: IsBusinessRegisteredForPAYE)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case IsBusinessRegisteredForPAYE.Yes =>
             payeAccountRoutes.DoesBusinessManagePAYEController.onPageLoad()
@@ -47,7 +48,7 @@ trait IsBusinessRegisteredForPAYENextPage {
     new NextPage[IsBusinessRegisteredForPAYEId.EI.type, IsBusinessRegisteredForPAYE, Call] {
       override def get(b: IsBusinessRegisteredForPAYE)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case IsBusinessRegisteredForPAYE.Yes =>
             eiRoutes.DoesBusinessManagePAYEController.onPageLoad()
@@ -62,7 +63,7 @@ trait IsBusinessRegisteredForPAYENextPage {
     new NextPage[IsBusinessRegisteredForPAYEId.ERS.type, IsBusinessRegisteredForPAYE, Call] {
       override def get(b: IsBusinessRegisteredForPAYE)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case IsBusinessRegisteredForPAYE.Yes =>
             routes.DoesBusinessManagePAYEController.onPageLoad()

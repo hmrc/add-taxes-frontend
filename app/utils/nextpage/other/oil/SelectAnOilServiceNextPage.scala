@@ -21,7 +21,8 @@ import controllers.other.oil.routes
 import identifiers.SelectAnOilServiceId
 import models.other.oil.SelectAnOilService
 import models.other.oil.SelectAnOilService.{RebatedOilsEnquiryService, TiedOilsEnquiryService}
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.NextPage
 
 trait SelectAnOilServiceNextPage {
@@ -30,7 +31,7 @@ trait SelectAnOilServiceNextPage {
     new NextPage[SelectAnOilServiceId.type, SelectAnOilService, Call] {
       override def get(b: SelectAnOilService)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case RebatedOilsEnquiryService => routes.HaveYouRegisteredForRebatedOilsController.onPageLoad()
           case TiedOilsEnquiryService    => routes.HaveYouRegisteredForTiedOilsController.onPageLoad()

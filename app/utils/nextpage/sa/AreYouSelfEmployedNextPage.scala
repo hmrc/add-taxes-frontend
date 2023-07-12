@@ -18,7 +18,8 @@ package utils.nextpage.sa
 
 import config.FrontendAppConfig
 import identifiers.AreYouSelfEmployedId
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import models.sa.AreYouSelfEmployed
 import utils.NextPage
 
@@ -28,7 +29,7 @@ trait AreYouSelfEmployedNextPage {
     new NextPage[AreYouSelfEmployedId.type, AreYouSelfEmployed, Call] {
       override def get(b: AreYouSelfEmployed)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case AreYouSelfEmployed.Yes => Call("GET", appConfig.getPortalUrl("selectTaxes"))
           case AreYouSelfEmployed.No  => Call("GET", appConfig.getPortalUrl("registerSAForm"))

@@ -22,7 +22,8 @@ import controllers.employer.ers.{routes => ersRoutes}
 import controllers.employer.intermediaries.{routes => eiAccountRoutes}
 import identifiers.DoesBusinessManagePAYEId
 import models.employer.DoesBusinessManagePAYE
-import play.api.mvc.{Call, Request}
+import models.requests.ServiceInfoRequest
+import play.api.mvc.Call
 import utils.{Enrolments, NextPage}
 
 trait DoesBusinessManagePAYENextPage {
@@ -32,7 +33,7 @@ trait DoesBusinessManagePAYENextPage {
     new NextPage[DoesBusinessManagePAYEId.EPaye.type, DoesBusinessManagePAYE, Call] {
       override def get(b: DoesBusinessManagePAYE)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoesBusinessManagePAYE.Yes => payeAccountRoutes.UsePAYEEmployerAccountController.onPageLoad()
           case DoesBusinessManagePAYE.No  => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.AddCis))
@@ -44,7 +45,7 @@ trait DoesBusinessManagePAYENextPage {
     new NextPage[DoesBusinessManagePAYEId.EI.type, DoesBusinessManagePAYE, Call] {
       override def get(b: DoesBusinessManagePAYE)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoesBusinessManagePAYE.Yes => eiAccountRoutes.UsePAYEEmployerAccountController.onPageLoad()
           case DoesBusinessManagePAYE.No  => Call("GET", appConfig.eiUrl)
@@ -56,7 +57,7 @@ trait DoesBusinessManagePAYENextPage {
     new NextPage[DoesBusinessManagePAYEId.ERS.type, DoesBusinessManagePAYE, Call] {
       override def get(b: DoesBusinessManagePAYE)(
         implicit appConfig: FrontendAppConfig,
-        request: Request[_]): Call =
+        request: ServiceInfoRequest[_]): Call =
         b match {
           case DoesBusinessManagePAYE.Yes => ersRoutes.UseEmployersPAYEController.onPageLoad()
           case DoesBusinessManagePAYE.No  => ersRoutes.AddEmployersPAYEController.onPageLoad()
