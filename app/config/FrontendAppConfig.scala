@@ -41,6 +41,9 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   lazy val fulfilmentHouseHost: String = config.getString("urls.fulfilment-house.host")
   lazy val fulfilmentHouse: String = fulfilmentHouseHost + config.getString("urls.fulfilment-house.schemeIntegration")
 
+  lazy val ECLHost: String = config.getString("urls.ECL-Handoff.host")
+  lazy val eclHandOff: String = ECLHost + config.getString("urls.ECL-Handoff.url")
+
   lazy val podsHost: String = config.getString("urls.manage-pensions-frontend.host")
   lazy val pods: String = podsHost + config.getString("urls.manage-pensions-frontend.schemesOverview")
 

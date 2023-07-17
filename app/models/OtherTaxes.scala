@@ -27,6 +27,7 @@ object OtherTaxes {
   case object AlcoholAndTobacco extends WithName("alcoholAndTobaccoWholesalingAndWarehousing") with OtherTaxes
   case object AutomaticExchangeOfInformation extends WithName("automaticExchangeOfInformation") with OtherTaxes
   case object Charities extends WithName("charities") with OtherTaxes
+  case object ECL extends WithName("economicCrimeLevy") with OtherTaxes
   case object GamblingAndGaming extends WithName("gamblingAndGaming") with OtherTaxes
   case object ChildTrustFund extends WithName("childTrustFund") with OtherTaxes
   case object HousingAndLand extends WithName("housingAndLand") with OtherTaxes
@@ -42,6 +43,7 @@ object OtherTaxes {
     AlcoholAndTobacco,
     AutomaticExchangeOfInformation,
     Charities,
+    ECL,
     GamblingAndGaming,
     ChildTrustFund,
     HousingAndLand,

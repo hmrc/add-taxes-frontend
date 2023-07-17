@@ -17,7 +17,7 @@
 package controllers
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.PptSwitch
+import config.featureToggles.FeatureSwitch.{ECLSwitch, PptSwitch}
 import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions._
 import forms.OtherTaxesFormProvider
@@ -59,7 +59,8 @@ class OtherTaxesController @Inject()(mcc: MessagesControllerComponents,
       checkFulfilmentHouse,
       checkChildTrustFund,
       checkPODS,
-      checkPPT
+      checkPPT,
+      checkECL
     )
     val defaultRadioOptions: Seq[RadioOption] = Seq(HousingAndLand, ImportsExports).map(_.toRadioOption)
     val unsortedRadioOptions: Seq[RadioOption] = checks.flatMap(_.apply(r.request.enrolments)) ++ defaultRadioOptions
@@ -73,6 +74,12 @@ class OtherTaxesController @Inject()(mcc: MessagesControllerComponents,
   private val checkAutomaticExchangeOfInformation: CoreEnrolments => Option[RadioOption] =
     _.getEnrolment(Enrolments.AEOI.toString)
       .fold[Option[RadioOption]](Some(AutomaticExchangeOfInformation.toRadioOption))(_ => None)
+
+  private val checkECL: CoreEnrolments => Option[RadioOption] = e => {
+    val ecl: Option[Enrolment] = e.getEnrolment(Enrolments.ECL.toString)
+    if (isEnabled(ECLSwitch) && ecl.isEmpty) Some(ECL.toRadioOption)
+    else None
+  }
 
   private val checkCharities: CoreEnrolments => Option[RadioOption] =
     _.getEnrolment(Enrolments.Charities.toString)
