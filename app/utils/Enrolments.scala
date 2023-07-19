@@ -39,6 +39,8 @@ object Enrolments {
 
   case object Charities extends WithName("HMRC-CHAR-ORG") with Enrolments
 
+  case object ECL extends WithName("HMRC-ECL-ORG") with Enrolments
+
   case object MachineGamingDuty extends WithName("HMRC-MGD-ORG") with Enrolments
 
   case object GeneralBetting extends WithName("HMRC-GTS-GBD") with Enrolments

@@ -50,6 +50,7 @@ trait OtherTaxesNextPage {
           case OtherTaxes.FulfilmentHouseDueDiligenceSchemeIntegration => Call("GET", appConfig.fulfilmentHouse)
           case OtherTaxes.PODS                                         => Call("GET", appConfig.pods)
           case OtherTaxes.PPT                                          => pptRoutes.DoYouHaveAPPTRefController.onPageLoad()
+          case OtherTaxes.ECL                                          => Call("GET", appConfig.eclHandOff)
         }
     }
   }

@@ -16,12 +16,12 @@
 
 package controllers
 
-import config.featureToggles.FeatureSwitch.PptSwitch
-import config.featureToggles.FeatureToggleSupport.isEnabled
+import config.featureToggles.FeatureSwitch.{ECLSwitch, PptSwitch}
 import controllers.actions._
 import forms.OtherTaxesFormProvider
 import models.OtherTaxes
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
+import org.scalatest.BeforeAndAfterEach
 import play.api.data.Form
 import play.api.mvc.{AnyContent, Call}
 import play.api.test.FakeRequest
@@ -34,7 +34,12 @@ import views.html.{organisation_only, otherTaxes}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class OtherTaxesControllerSpec extends ControllerSpecBase {
+class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEach {
+
+  override def beforeEach(): Unit = {
+    disable(PptSwitch)
+    disable(ECLSwitch)
+  }
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
 
@@ -59,33 +64,33 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
 
 
   def listOfAllRadioOptions: Seq[RadioOption] = {
-    if(isEnabled(PptSwitch)) {
-      Seq(
-        RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing"),
-        RadioOption("otherTaxes", "automaticExchangeOfInformation"),
-        RadioOption("otherTaxes", "charities"),
-        RadioOption("otherTaxes", "childTrustFund"),
-        RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration"),
-        RadioOption("otherTaxes", "gamblingAndGaming"),
-        RadioOption("otherTaxes", "housingAndLand"),
-        RadioOption("otherTaxes", "importsExports"),
-        RadioOption("otherTaxes", "oilAndFuel"),
-        RadioOption("otherTaxes", "pods"),
-        RadioOption("otherTaxes", "ppt")
+    val radiotionOptions = Seq(
+      RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing"),
+      RadioOption("otherTaxes", "automaticExchangeOfInformation"),
+      RadioOption("otherTaxes", "charities"),
+      RadioOption("otherTaxes", "childTrustFund"),
+      RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration"),
+      RadioOption("otherTaxes", "gamblingAndGaming"),
+      RadioOption("otherTaxes", "housingAndLand"),
+      RadioOption("otherTaxes", "importsExports"),
+      RadioOption("otherTaxes", "oilAndFuel"),
+      RadioOption("otherTaxes", "pods")
+    )
+    (isEnabled(PptSwitch), isEnabled(ECLSwitch)) match {
+      case (true, true) => {
+        radiotionOptions ++ Seq(
+          RadioOption("otherTaxes", "ppt"),
+          RadioOption("otherTaxes", "economicCrimeLevy")
+        )
+      }
+      case (true, false) =>
+        radiotionOptions ++ Seq(
+          RadioOption("otherTaxes", "ppt")
+        )
+      case (false, true) => radiotionOptions ++ Seq(
+        RadioOption("otherTaxes", "economicCrimeLevy")
       )
-    } else {
-      Seq(
-        RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing"),
-        RadioOption("otherTaxes", "automaticExchangeOfInformation"),
-        RadioOption("otherTaxes", "charities"),
-        RadioOption("otherTaxes", "childTrustFund"),
-        RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration"),
-        RadioOption("otherTaxes", "gamblingAndGaming"),
-        RadioOption("otherTaxes", "housingAndLand"),
-        RadioOption("otherTaxes", "importsExports"),
-        RadioOption("otherTaxes", "oilAndFuel"),
-        RadioOption("otherTaxes", "pods")
-      )
+      case (_, _) => radiotionOptions
     }
   }
 
@@ -193,6 +198,31 @@ class OtherTaxesControllerSpec extends ControllerSpecBase {
 
       result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "childTrustFund")))
     }
+    "not display ECL if the user has ECL" in {
+      val request = requestWithEnrolments("HMRC-ECL-ORG")
+      val result = controller().getOptions(request)
+
+      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "economicCrimeLevy")))
+    }
+
+    "not display ECL if the user doesnt have ECL but the feature is off" in {
+      disable(ECLSwitch)
+      val request = requestWithEnrolments("")
+      val result = controller().getOptions(request)
+
+      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "economicCrimeLevy")))
+    }
+
+    "display ECL if the user doesnt have ECL but the feature is on" in {
+      enable(ECLSwitch)
+      enable(PptSwitch)
+
+      val request = requestWithEnrolments("")
+      val result = controller().getOptions(request)
+
+      result mustBe removeRadioOptionFromList().sortBy(_.value)
+    }
+
     "not display Gambling and Gaming if the user has HMRC-MGD-ORG, HMRC-GTS-GBD, HMRC-GTS-PBD, HMRC-GTS-RGD" in {
       val request = requestWithEnrolments("HMRC-MGD-ORG", "HMRC-GTS-GBD", "HMRC-GTS-PBD", "HMRC-GTS-RGD")
       val result = controller().getOptions(request)
