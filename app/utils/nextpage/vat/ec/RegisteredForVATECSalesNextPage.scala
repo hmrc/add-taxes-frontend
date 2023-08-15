@@ -32,7 +32,7 @@ trait RegisteredForVATECSalesNextPage {
         request: ServiceInfoRequest[_]): Call =
         b match {
           case RegisteredForVAT.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.ECSales))
-          case RegisteredForVAT.No  => Call("GET", appConfig.getPortalUrl("businessRegistration"))
+          case RegisteredForVAT.No  => Call("GET", appConfig.vatRegHandoff)
         }
     }
   }

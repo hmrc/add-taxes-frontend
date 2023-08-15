@@ -32,7 +32,7 @@ trait RegisteredForVATRCSLNextPage {
         request: ServiceInfoRequest[_]): Call =
         b match {
           case RegisteredForVAT.Yes => Call("GET", appConfig.emacEnrollmentsUrl(Enrolments.RCSL))
-          case RegisteredForVAT.No  => Call("GET", appConfig.getPortalUrl("businessRegistration"))
+          case RegisteredForVAT.No  => Call("GET", appConfig.vatRegHandoff)
         }
     }
   }
