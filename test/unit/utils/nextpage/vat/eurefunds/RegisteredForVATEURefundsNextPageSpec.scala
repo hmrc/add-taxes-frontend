@@ -32,7 +32,7 @@ class RegisteredForVATEURefundsNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.registeredForVATEURefunds,
       RegisteredForVAT.No,
-      "http://localhost:8081/portal/business-registration/introduction?lang=eng"
+      "http://localhost:9895/register-for-vat"
     )
   }
 }

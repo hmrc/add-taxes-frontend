@@ -32,7 +32,7 @@ class SelectATaxNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.selectATax,
       SelectATax.LBT,
-      "https://www.revenue.scot/land-buildings-transaction-tax/forms"
+      "https://revenue.scot/taxes/land-buildings-transaction-tax/paper-lbtt-forms"
     )
 
     behave like nextPage(
