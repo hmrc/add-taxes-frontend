@@ -31,94 +31,6 @@ class WhichVATServicesToAddNextPageSpec extends NextPageSpecBase with FeatureTog
   val enrolledInVAT = Enrolments(Set(vatEnrolment))
   val redirectUrl = "http://localhost:8081/external-entry"
 
-  "whichVATServicesToAdd Vat Oss switch disabled" when {
-    disable(VatOssSwitch)
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.VAT, affinityGroupOrganisation, noEnrolments, redirectUrl),
-      "/business-account/add-tax/vat/do-you-have-a-vat-number"
-    )
-
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.ECSales, affinityGroupOrganisation, noEnrolments, redirectUrl),
-      "/business-account/add-tax/vat/ec"
-    )
-
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.ECSales, affinityGroupOrganisation, enrolledInVAT, redirectUrl),
-      "http://localhost:9555/enrolment-management-frontend/HMCE-ECSL-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.GIANT, affinityGroupOrganisation, noEnrolments, redirectUrl),
-      "/business-account/add-tax/vat/vat-giant"
-    )
-
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.GIANT, affinityGroupIndividual, noEnrolments, redirectUrl),
-      "/business-account/add-tax/vat/giant/newaccount"
-    )
-
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.EURefunds, affinityGroupOrganisation, noEnrolments, redirectUrl),
-      "/business-account/add-tax/vat/eurefunds"
-    )
-
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.EURefunds, affinityGroupOrganisation, enrolledInVAT, redirectUrl),
-      "http://localhost:9555/enrolment-management-frontend/HMRC-EU-REF-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.RCSL, affinityGroupOrganisation, noEnrolments, redirectUrl),
-      "/business-account/add-tax/vat/rcsl"
-    )
-
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.RCSL, affinityGroupOrganisation, enrolledInVAT, redirectUrl),
-      "http://localhost:9555/enrolment-management-frontend/HMCE-VATRSL-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.MOSS, affinityGroupIndividual, noEnrolments, redirectUrl),
-      "/business-account/add-tax/vat/moss/newaccount"
-    )
-
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.MOSS, affinityGroupIndividual, enrolledInVAT, redirectUrl),
-      "/business-account/add-tax/vat/moss/newaccount"
-    )
-
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.MOSS, affinityGroupOrganisation, noEnrolments, redirectUrl),
-      "/business-account/add-tax/vat/moss"
-    )
-
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.MOSS, affinityGroupOrganisation, enrolledInVAT, redirectUrl),
-      "/business-account/add-tax/vat/moss-uk/vat-registered"
-    )
-
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.NOVA, affinityGroupOrganisation, noEnrolments, redirectUrl),
-      "http://localhost:8081/portal/nova/normal?lang=eng"
-    )
-  }
-
-
   "whichVATServicesToAdd Vat Oss switch enabled" when {
     enable(VatOssSwitch)
     behave like nextPage(
@@ -173,30 +85,6 @@ class WhichVATServicesToAddNextPageSpec extends NextPageSpecBase with FeatureTog
       NextPage.whichVATServicesToAdd,
       (WhichVATServicesToAdd.RCSL, affinityGroupOrganisation, enrolledInVAT, redirectUrl),
       "http://localhost:9555/enrolment-management-frontend/HMCE-VATRSL-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
-
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.MOSS, affinityGroupIndividual, noEnrolments, redirectUrl),
-      "/business-account/add-tax/vat/moss/newaccount"
-    )
-
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.MOSS, affinityGroupIndividual, enrolledInVAT, redirectUrl),
-      "/business-account/add-tax/vat/moss/newaccount"
-    )
-
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.MOSS, affinityGroupOrganisation, noEnrolments, redirectUrl),
-      "/business-account/add-tax/vat/moss"
-    )
-
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.MOSS, affinityGroupOrganisation, enrolledInVAT, redirectUrl),
-      "/business-account/add-tax/vat/moss-uk/vat-registered"
     )
 
     behave like nextPage(

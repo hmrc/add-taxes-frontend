@@ -51,10 +51,6 @@ import utils.nextpage.vat._
 import utils.nextpage.vat.ec.RegisteredForVATECSalesNextPage
 import utils.nextpage.vat.eurefunds.RegisteredForVATEURefundsNextPage
 import utils.nextpage.vat.giant.WhatIsYourOrganisationNextPage
-import utils.nextpage.vat.moss.iom._
-import utils.nextpage.vat.moss.noneu.HaveYouRegisteredForVATMOSSNextPage
-import utils.nextpage.vat.moss.uk.{OnlineVATAccountNextPage, RegisteredForVATUKNextPage}
-import utils.nextpage.vat.moss.{WhereIsYourBusinessBasedNextPage, uk => vatuk}
 import utils.nextpage.vat.rcsl.RegisteredForVATRCSLNextPage
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 
@@ -80,9 +76,7 @@ object NextPage
     with SelectAnOilServiceNextPage
     with SelectAlcoholSchemeNextPage
     with FindingYourAccountNextPage
-    with RegisteredForVATUKNextPage
     with OtherTaxesNextPage
-    with OnlineVATAccountNextPage
     with DoYouHaveEORINumberNextPage
     with AreYouRegisteredGTSNextPage
     with DoYouWantToAddPartnerNextPage
@@ -92,10 +86,6 @@ object NextPage
     with HaveYouRegisteredTrustNextPage
     with DoYouHaveCHIEFRoleNextPage
     with DoYouWantToAddImportExportNextPage
-    with WhereIsYourBusinessBasedNextPage
-    with HaveYouRegisteredForVATMOSSNextPage
-    with AlreadyRegisteredForVATMossNextPage
-    with RegisteredForVATNextPage
     with WhatEmployerTaxDoYouWantToAddNextPage
     with AreYouContractorOrSubcontractorNextPage
     with IsYourBusinessInUKNextPage
@@ -128,7 +118,6 @@ object NextPage
     with DoYouNeedToStopPBDNextPage
     with DoYouNeedToStopVatMossNUNextPage
     with DoYouNeedToStopMGDNextPage
-    with vatuk.AlreadyRegisteredForVATMossNextPage
     with DoYouHaveVATRegNumberNextPage
     with WhatIsYourVATRegNumberNextPage
     with DoYouHaveSAUTRNextPage

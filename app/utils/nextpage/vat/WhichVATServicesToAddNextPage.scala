@@ -22,9 +22,6 @@ import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.vat.ec.{routes => ecRoutes}
 import controllers.vat.eurefunds.{routes => euRoutes}
 import controllers.vat.giant.{routes => giantRoutes}
-import controllers.vat.moss.newaccount.{routes => newAccountRoutes}
-import controllers.vat.moss.ukbased.{routes => ukbasedRoutes}
-import controllers.vat.moss.{routes => mossRoutes}
 import controllers.vat.rcsl.{routes => rcslRoutes}
 import controllers.vat.{routes => vatRoutes}
 import identifiers.WhichVATServicesToAddId
@@ -53,7 +50,6 @@ trait WhichVATServicesToAddNextPage {
           case WhichVATServicesToAdd.GIANT     => getVATGIANTCall(affinity)
           case WhichVATServicesToAdd.EURefunds => getEURefundsCall(enrolments)
           case WhichVATServicesToAdd.RCSL      => getRCSLCall(enrolments)
-          case WhichVATServicesToAdd.MOSS      => getVATMOSSCall(affinity, enrolments)
           case WhichVATServicesToAdd.NOVA      => Call("GET", appConfig.getPortalUrl("novaEnrolment"))
           case WhichVATServicesToAdd.VATOSS if(isEnabled(VatOssSwitch)) => Call("GET", vatOssRedirectUrl)
         }
@@ -83,12 +79,5 @@ trait WhichVATServicesToAddNextPage {
     enrolments match {
       case HmrcEnrolmentType.VAT() => Call("GET", appConfig.emacEnrollmentsUrl(utils.Enrolments.RCSL))
       case _                       => rcslRoutes.RegisteredForVATRCSLController.onPageLoad()
-    }
-
-  def getVATMOSSCall(affinity: Option[AffinityGroup], enrolments: Enrolments): Call =
-    (affinity, enrolments) match {
-      case (Some(AffinityGroup.Individual), _) => newAccountRoutes.SetUpANewAccountController.onPageLoad()
-      case (_, HmrcEnrolmentType.VAT())        => ukbasedRoutes.AlreadyRegisteredForVATMossController.onPageLoad()
-      case (_, _)                              => mossRoutes.WhereIsYourBusinessBasedController.onPageLoad()
     }
 }

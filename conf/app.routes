@@ -193,36 +193,6 @@ POST       /vat/eurefunds                               controllers.vat.eurefund
 GET        /vat/rcsl                                    controllers.vat.rcsl.RegisteredForVATRCSLController.onPageLoad()
 POST       /vat/rcsl                                    controllers.vat.rcsl.RegisteredForVATRCSLController.onSubmit()
 
-GET        /vat/moss/uk                                 controllers.vat.moss.ukbased.RegisteredForVATUkController.onPageLoad()
-POST       /vat/moss/uk                                 controllers.vat.moss.ukbased.RegisteredForVATUkController.onSubmit()
-
-GET        /vat/moss/uk/vat-registered                  controllers.vat.moss.ukbased.OnlineVATAccountController.onPageLoad()
-POST       /vat/moss/uk/vat-registered                  controllers.vat.moss.ukbased.OnlineVATAccountController.onSubmit()
-
-GET        /vat/moss/uk/not-vat-registered              controllers.vat.moss.ukbased.RegisterForVATController.onPageLoad()
-
-GET        /vat/moss/uk/vat-registered/other-account    controllers.vat.moss.ukbased.AddVATMOSSController.onPageLoad()
-
-GET        /vat/moss/uk/vat-registered/no-other-account controllers.vat.moss.ukbased.AddVATFirstController.onPageLoad()
-
-GET        /vat/moss/iom                                controllers.vat.moss.iom.RegisteredForVATController.onPageLoad()
-POST       /vat/moss/iom                                controllers.vat.moss.iom.RegisteredForVATController.onSubmit()
-
-GET        /vat/moss/iom/not-vat-registered             controllers.vat.moss.iom.RegisterForVATController.onPageLoad()
-
-GET        /vat/moss/iom/vat-registered                 controllers.vat.moss.iom.AlreadyRegisteredForVATMossController.onPageLoad()
-POST       /vat/moss/iom/vat-registered                 controllers.vat.moss.iom.AlreadyRegisteredForVATMossController.onSubmit()
-
-GET        /vat/moss/non-eu                             controllers.vat.moss.noneu.HaveYouRegisteredForVATMOSSController.onPageLoad()
-POST       /vat/moss/non-eu                             controllers.vat.moss.noneu.HaveYouRegisteredForVATMOSSController.onSubmit()
-
-GET        /vat/moss/newaccount                         controllers.vat.moss.newaccount.SetUpANewAccountController.onPageLoad()
-
-GET        /vat/moss                                    controllers.vat.moss.WhereIsYourBusinessBasedController.onPageLoad()
-POST       /vat/moss                                    controllers.vat.moss.WhereIsYourBusinessBasedController.onSubmit()
-
-GET        /vat/moss/eu                                 controllers.vat.moss.eu.RegisterInHomeCountryController.onPageLoad()
-
 GET        /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onPageLoad()
 POST       /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onSubmit()
 
@@ -311,9 +281,6 @@ GET        /other/ctf/ctf-provider                      controllers.other.ctf.Ar
 POST       /other/ctf/ctf-provider                      controllers.other.ctf.AreYouApprovedCTFController.onSubmit()
 
 GET        /other/ctf/ctf-11                            controllers.other.ctf.YouNeedToBeApprovedCTFController.onPageLoad()
-
-GET        /vat/moss-uk/vat-registered                  controllers.vat.moss.ukbased.AlreadyRegisteredForVATMossController.onPageLoad()
-POST       /vat/moss-uk/vat-registered                  controllers.vat.moss.ukbased.AlreadyRegisteredForVATMossController.onSubmit()
 
 GET        /enrol/:service                              controllers.enrolment.EnrolmentProxyController.onPageLoad(service: utils.Enrolments)
 
