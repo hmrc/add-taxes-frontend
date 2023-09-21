@@ -17,8 +17,6 @@
 package utils.nextpage.vat
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.VatOssSwitch
-import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.vat.ec.{routes => ecRoutes}
 import controllers.vat.eurefunds.{routes => euRoutes}
 import controllers.vat.giant.{routes => giantRoutes}
@@ -51,7 +49,7 @@ trait WhichVATServicesToAddNextPage {
           case WhichVATServicesToAdd.EURefunds => getEURefundsCall(enrolments)
           case WhichVATServicesToAdd.RCSL      => getRCSLCall(enrolments)
           case WhichVATServicesToAdd.NOVA      => Call("GET", appConfig.getPortalUrl("novaEnrolment"))
-          case WhichVATServicesToAdd.VATOSS if(isEnabled(VatOssSwitch)) => Call("GET", vatOssRedirectUrl)
+          case WhichVATServicesToAdd.VATOSS    => Call("GET", vatOssRedirectUrl)
         }
       }
     }

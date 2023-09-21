@@ -21,7 +21,6 @@ object FeatureSwitch {
   val prefix = "feature-toggles"
 
   val featureSwitches: Seq[FeatureSwitch] = Seq(
-    VatOssSwitch,
     AccessMTD,
     IvUpliftSwitch,
     PptSwitch,
@@ -48,11 +47,6 @@ object FeatureSwitch {
     val name: String
     val displayText: String
     val hint: Option[String] = None
-  }
-
-  case object VatOssSwitch extends FeatureSwitch {
-    override val name = s"$prefix.vatOSSSwitch"
-    override val displayText: String = "Vat OSS Radio Option Enabled"
   }
 
   case object AccessMTD extends FeatureSwitch {

@@ -16,7 +16,6 @@
 
 package utils.nextpage.vat
 
-import config.featureToggles.FeatureSwitch.VatOssSwitch
 import config.featureToggles.FeatureToggleSupport
 import models.vat.WhichVATServicesToAdd
 import uk.gov.hmrc.auth.core.{AffinityGroup, Enrolments}
@@ -31,8 +30,7 @@ class WhichVATServicesToAddNextPageSpec extends NextPageSpecBase with FeatureTog
   val enrolledInVAT = Enrolments(Set(vatEnrolment))
   val redirectUrl = "http://localhost:8081/external-entry"
 
-  "whichVATServicesToAdd Vat Oss switch enabled" when {
-    enable(VatOssSwitch)
+  "whichVATServicesToAdd" when {
     behave like nextPage(
       NextPage.whichVATServicesToAdd,
       (WhichVATServicesToAdd.VAT, affinityGroupOrganisation, noEnrolments, redirectUrl),

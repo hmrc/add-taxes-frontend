@@ -16,7 +16,6 @@
 
 package controllers.vat
 
-import config.featureToggles.FeatureSwitch.VatOssSwitch
 import config.featureToggles.FeatureToggleSupport
 import connectors.OssConnector
 import controllers.ControllerSpecBase
@@ -61,21 +60,19 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
     )
   }
 
-  def viewAsString(form: Form[_] = form, radioOptions: Seq[RadioOption] = WhichVATServicesToAdd.options()): String =
+  def viewAsString(form: Form[_] = form, radioOptions: Seq[RadioOption] = WhichVATServicesToAdd.options): String =
     new whichVATServicesToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "WhichVATServicesToAdd Controller" must {
     "return OK and the correct view for a GET" in {
-      disable(VatOssSwitch)
       val result = controller()().onPageLoad()(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe viewAsString(radioOptions = WhichVATServicesToAdd.options)
     }
 
     "redirect to the next page when valid data is submitted" in {
-      disable(VatOssSwitch)
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhichVATServicesToAdd.options().head.value)).withMethod("POST")
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhichVATServicesToAdd.options.head.value)).withMethod("POST")
 
       val result = controller()().onSubmit()(postRequest)
 
@@ -84,73 +81,23 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-      disable(VatOssSwitch)
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
       val result = controller()().onSubmit()(postRequest)
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm)
+      contentAsString(result) mustBe viewAsString(boundForm, radioOptions = WhichVATServicesToAdd.options)
     }
 
-    "return OK" in {
-      disable(VatOssSwitch)
+    "return OK " in {
       val result = controller()().onPageLoad()(fakeRequest.withMethod("GET"))
 
       status(result) mustBe OK
     }
 
-    for (option <- WhichVATServicesToAdd.options()) {
+    for (option <- WhichVATServicesToAdd.options) {
       s"redirect to next page when '${option.value}' is submitted" in {
-        disable(VatOssSwitch)
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value)).withMethod("POST")
-        val result = controller()().onSubmit()(postRequest)
-
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(onwardRoute.url)
-      }
-    }
-
-    "return OK and the correct view for a GET when switch is enabled" in {
-      enable(VatOssSwitch)
-      val result = controller()().onPageLoad()(fakeRequest.withMethod("GET"))
-
-      status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString(radioOptions = WhichVATServicesToAdd.options(ossFeatureSwitch = true))
-    }
-
-    "redirect to the next page when valid data is submitted when switch is enabled" in {
-      enable(VatOssSwitch)
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhichVATServicesToAdd.options(ossFeatureSwitch = true).head.value)).withMethod("POST")
-
-      val result = controller()().onSubmit()(postRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
-    }
-
-    "return a Bad Request and errors when invalid data is submitted when switch is enabled" in {
-      enable(VatOssSwitch)
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
-      val boundForm = form.bind(Map("value" -> "invalid value"))
-
-      val result = controller()().onSubmit()(postRequest)
-
-      status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm, radioOptions = WhichVATServicesToAdd.options(ossFeatureSwitch = true))
-    }
-
-    "return OK when switch is enabled" in {
-      enable(VatOssSwitch)
-      val result = controller()().onPageLoad()(fakeRequest.withMethod("GET"))
-
-      status(result) mustBe OK
-    }
-
-    for (option <- WhichVATServicesToAdd.options(ossFeatureSwitch = true)) {
-      s"redirect to next page when '${option.value}' is submitted when switch is enabled" in {
-        enable(VatOssSwitch)
         when(mockOssConnector.ossRegistrationJourneyLink()(any(), any(), any()))
           .thenReturn(Future.successful(OssRecievedDetails(Some(" /test-url"))))
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value)).withMethod("POST")
@@ -160,8 +107,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
         redirectLocation(result) mustBe Some(onwardRoute.url)
       }
       if(option.value == VATOSS.toString) {
-        s"internal error if the oss call fails and returns None switch is enabled" in {
-          enable(VatOssSwitch)
+        s"internal error if the oss call fails and returns None" in {
           when(mockOssConnector.ossRegistrationJourneyLink()(any(), any(), any()))
             .thenReturn(Future.successful(OssRecievedDetails(None)))
           val postRequest = fakeRequest.withFormUrlEncodedBody(("value", option.value)).withMethod("POST")
@@ -173,75 +119,34 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
     }
 
     "not display vat radio option" when {
-
       "page is loaded and vat is enrolled" in {
-        val radioOptions = WhichVATServicesToAdd.options().filterNot(_.value == "vat")
-        disable(VatOssSwitch)
         val result = controller()(HmrcEnrolmentType.VAT).onPageLoad()(fakeRequest.withMethod("GET"))
 
-        contentAsString(result) mustBe viewAsString(radioOptions = radioOptions)
+        contentAsString(result) mustBe viewAsString(
+          radioOptions = WhichVATServicesToAdd.options.filterNot(_.value == "vat"))
       }
 
       "page is loaded and MTDVAT is enrolled" in {
-        disable(VatOssSwitch)
-        val radioOptions = WhichVATServicesToAdd.options().filterNot(_.value == "vatoss")
-
         val result = controller()(HmrcEnrolmentType.MTDVAT).onPageLoad()(fakeRequest.withMethod("GET"))
 
-        contentAsString(result) mustBe viewAsString(radioOptions = radioOptions)
+        contentAsString(result) mustBe viewAsString(
+          radioOptions = WhichVATServicesToAdd.options)
       }
 
       "page is loaded and OSS is enrolled" in {
-        disable(VatOssSwitch)
-        val radioOptions = WhichVATServicesToAdd.options().filterNot(_.value == "vatoss")
-
-        val result = controller()(HmrcEnrolmentType.OSS).onPageLoad()(fakeRequest.withMethod("GET"))
-
-        contentAsString(result) mustBe viewAsString(radioOptions = radioOptions)
-      }
-
-      "page errors and vat is enrolled " in {
-        disable(VatOssSwitch)
-        val radioOptions = WhichVATServicesToAdd.options().filterNot(_.value == "vat")
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
-        val boundForm = form.bind(Map("value" -> "invalid value"))
-        val result = controller()(HmrcEnrolmentType.VAT).onSubmit()(postRequest)
-
-        contentAsString(result) mustBe viewAsString(boundForm, radioOptions)
-      }
-
-      "page is loaded and vat is enrolled and switch is enabled" in {
-        enable(VatOssSwitch)
-        val result = controller()(HmrcEnrolmentType.VAT).onPageLoad()(fakeRequest.withMethod("GET"))
-
-        contentAsString(result) mustBe viewAsString(
-          radioOptions = WhichVATServicesToAdd.options(ossFeatureSwitch = true).filterNot(_.value == "vat"))
-      }
-
-      "page is loaded and MTDVAT is enrolled and switch is enabled" in {
-        enable(VatOssSwitch)
-        val result = controller()(HmrcEnrolmentType.MTDVAT).onPageLoad()(fakeRequest.withMethod("GET"))
-
-        contentAsString(result) mustBe viewAsString(
-          radioOptions = WhichVATServicesToAdd.options(ossFeatureSwitch = true))
-      }
-
-      "page is loaded and OSS is enrolled and switch is enabled" in {
-        enable(VatOssSwitch)
         val result = controller()(HmrcEnrolmentType.OSS).onPageLoad()(fakeRequest.withMethod("GET"))
 
         contentAsString(result) mustBe viewAsString(
-          radioOptions = WhichVATServicesToAdd.options(ossFeatureSwitch = true).filterNot(_.value == "vatoss"))
+          radioOptions = WhichVATServicesToAdd.options.filterNot(_.value == "vatoss"))
       }
 
-      "page errors and vat is enrolled and switch is enabled" in {
-        enable(VatOssSwitch)
+      "page errors and vat is enrolled" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
         val boundForm = form.bind(Map("value" -> "invalid value"))
         val result = controller()(HmrcEnrolmentType.VAT).onSubmit()(postRequest)
 
         contentAsString(result) mustBe viewAsString(boundForm,
-          radioOptions = WhichVATServicesToAdd.options(ossFeatureSwitch = true).filterNot(_.value == "vat"))
+          radioOptions = WhichVATServicesToAdd.options.filterNot(_.value == "vat"))
       }
     }
   }

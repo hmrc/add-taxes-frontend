@@ -2,7 +2,7 @@ package utils
 
 import base.SpecBase
 import config.featureToggles.ConfigurableValue.IsBefore24thMarch
-import config.featureToggles.FeatureSwitch.VatOssSwitch
+import config.featureToggles.FeatureSwitch.ECLSwitch
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter
 class FeatureToggleSupportSpec extends SpecBase {
 
   override def afterAll(): Unit = {
-    resetValue(VatOssSwitch)
+    resetValue(ECLSwitch)
   }
 
   "FeatureToggleSupport" when {
@@ -19,45 +19,45 @@ class FeatureToggleSupportSpec extends SpecBase {
 
       "be able to enable a feature switch" in {
 
-        enable(VatOssSwitch)
-        sys.props.get(VatOssSwitch.name) mustBe Some(true.toString)
+        enable(ECLSwitch)
+        sys.props.get(ECLSwitch.name) mustBe Some(true.toString)
       }
 
       "be able to disable a feature switch" in {
 
-        disable(VatOssSwitch)
-        sys.props.get(VatOssSwitch.name) mustBe Some(false.toString)
+        disable(ECLSwitch)
+        sys.props.get(ECLSwitch.name) mustBe Some(false.toString)
       }
 
       "be able to reset a value" in {
 
-        val valueFromApplicationConf: Boolean = frontendAppConfig.config.getString(VatOssSwitch.name).toBoolean
+        val valueFromApplicationConf: Boolean = frontendAppConfig.config.getString(ECLSwitch.name).toBoolean
 
-        setValue(VatOssSwitch, (!valueFromApplicationConf).toString)
-        valueFromApplicationConf == isEnabled(VatOssSwitch) mustBe false
+        setValue(ECLSwitch, (!valueFromApplicationConf).toString)
+        valueFromApplicationConf == isEnabled(ECLSwitch) mustBe false
 
-        resetValue(VatOssSwitch)
-        valueFromApplicationConf == isEnabled(VatOssSwitch) mustBe true
+        resetValue(ECLSwitch)
+        valueFromApplicationConf == isEnabled(ECLSwitch) mustBe true
       }
 
       "isEnabled" must {
 
         "be able to check the status of an enabled feature switch" in {
 
-          enable(VatOssSwitch)
-          isEnabled(VatOssSwitch) mustBe true
+          enable(ECLSwitch)
+          isEnabled(ECLSwitch) mustBe true
         }
 
         "be able to check the status of a disabled feature switch" in {
 
-          disable(VatOssSwitch)
-          isEnabled(VatOssSwitch) mustBe false
+          disable(ECLSwitch)
+          isEnabled(ECLSwitch) mustBe false
         }
 
         "load config from services config if nothing set in sysProps" in {
 
-          sys.props -= VatOssSwitch.name
-          isEnabled(VatOssSwitch) mustBe true
+          sys.props -= ECLSwitch.name
+          isEnabled(ECLSwitch) mustBe true
         }
       }
 
@@ -65,20 +65,20 @@ class FeatureToggleSupportSpec extends SpecBase {
 
         "be able to check the status of an enabled feature switch" in {
 
-          enable(VatOssSwitch)
-          isDisabled(VatOssSwitch) mustBe false
+          enable(ECLSwitch)
+          isDisabled(ECLSwitch) mustBe false
         }
 
         "be able to check the status of a disabled feature switch" in {
 
-          disable(VatOssSwitch)
-          isDisabled(VatOssSwitch) mustBe true
+          disable(ECLSwitch)
+          isDisabled(ECLSwitch) mustBe true
         }
 
         "load config from services config if nothing set in sysProps" in {
 
-          sys.props -= VatOssSwitch.name
-          isDisabled(VatOssSwitch) mustBe false
+          sys.props -= ECLSwitch.name
+          isDisabled(ECLSwitch) mustBe false
         }
       }
     }
