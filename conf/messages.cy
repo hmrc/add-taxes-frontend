@@ -402,57 +402,6 @@ haveYouRegisteredAEOI.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi 
 haveYouRegisteredAEOI.p1 = Bydd gennych ID Cyfnewid Gwybodaeth yn Awtomatig.
 
 #######################################################
-##  AddVATMOSS
-#######################################################
-addVATMOSS.title = Ychwanegu GUC TAW i’ch cyfrif TAW
-addVATMOSS.heading = Ychwanegu GUC TAW i’ch cyfrif TAW
-addVATMOSS.p1 = Mae angen i chi reoli GUC TAW yn y cyfrif lle’r ydych yn rheoli TAW.
-addVATMOSS.p2 = Mewngofnodwch i’ch cyfrif TAW ac ychwanegwch GUC TAW yn y fan honno.
-addVATMOSS.p3 = Os nad yw hynny’n gweithio, ffoniwch ni a byddwn yn ei wneud i chi â llaw.
-addVATMOSS.continue = Mewngofnodi i’ch cyfrif TAW
-addVATMOSS.notnow = Nid wyf am ychwanegu TAW at y cyfrif hwn ar hyn o bryd
-
-#######################################################
-##  AddVATFirst
-#######################################################
-addVATFirst.title = Ychwanegwch TAW yn gyntaf
-addVATFirst.heading = Ychwanegwch TAW yn gyntaf
-addVATFirst.p1 = Mae angen i chi reoli TAW ar-lein cyn y gallwch ychwanegu GUC TAW i’ch cyfrif.
-addVATFirst.continue = Ychwanegu TAW i’r cyfrif hwn
-addVATFirst.notnow = Nid wyf am ychwanegu TAW at y cyfrif hwn ar hyn o bryd
-
-#######################################################
-##  RegisterForVAT
-#######################################################
-registerForVAT.title = Cofrestru ar gyfer TAW - Cyfrif treth busnes - GOV.UK
-registerForVAT.heading = Cofrestru ar gyfer TAW
-registerForVAT.p1 = Mae’n rhaid eich bod wedi cofrestru ar gyfer TAW cyn y gallwch gofrestru ar gyfer GUC TAW.
-registerForVAT.p2 = Dychwelwch i’r cyfrif hwn ac ychwanegwch GUC TAW unwaith eich bod wedi cael rhif cofrestru TAW (VRN).
-registerForVAT.continue = Cofrestru ar gyfer TAW
-registerForVAT.notnow = Nid wyf eisiau gwneud hyn ar hyn o bryd
-
-#######################################################
-##  OnlineVATAccount
-#######################################################
-onlineVATAccount.title = A oes gan eich busnes gyfrif CThEM ar-lein arall ar gyfer TAW?
-onlineVATAccount.heading = A oes gan eich busnes gyfrif CThEM ar-lein arall ar gyfer TAW?
-onlineVATAccount.p1 = Bydd gennych Ddynodydd Defnyddiwr (ID) a chyfrinair gwahanol os oes gennych gyfrif arall ar gyfer TAW.
-onlineVATAccount.Yes = Iawn
-onlineVATAccount.No = Na
-onlineVATAccount.error.required = Dewiswch ‘Iawn’ os oes gan eich busnes gyfrif CThEM ar-lein arall ar gyfer TAW
-
-#######################################################
-##  RegisteredForVATUk
-#######################################################
-registeredForVATUk.title = A yw eich busnes wedi’i gofrestru ar gyfer TAW yn y DU?
-registeredForVATUk.heading = A yw eich busnes wedi’i gofrestru ar gyfer TAW yn y DU?
-registeredForVATUk.p1 = Bydd gennych rif cofrestru TAW os ydych wedi’ch cofrestru ar gyfer TAW yn y DU.
-registeredForVATUk.Yes = Iawn
-registeredForVATUk.No = Na
-registeredForVATUk.error.required = Dewiswch ‘Iawn’ os yw’r busnes wedi’i gofrestru ar gyfer TAW yn y DU
-
-
-#######################################################
 ##  RegisterMGD
 #######################################################
 registerMGD.title = Cofrestru ar gyfer Toll Peiriannau Hapchwarae
@@ -573,56 +522,6 @@ selectGamblingOrGamingDuty.RGD = Toll Hapchwarae o Bell (RGD)
 selectGamblingOrGamingDuty.error.required = Dewiswch pa doll ydych am ei hychwanegu
 
 #######################################################
-##  WhereIsYourBusinessBased
-#######################################################
-whereIsYourBusinessBased.title = Ymhle mae eich busnes wedi’i leoli?
-whereIsYourBusinessBased.heading = Ymhle mae eich busnes wedi’i leoli?
-whereIsYourBusinessBased.UK = Y DU
-whereIsYourBusinessBased.EU = Aelod wladwriaeth arall yr UE
-whereIsYourBusinessBased.NonEu = Y tu allan i’r UE
-whereIsYourBusinessBased.Iom = Ynys Manaw
-whereIsYourBusinessBased.error.required = Dewis lleoliad
-
-#######################################################
-##  HaveYouRegisteredForVATMOSS
-#######################################################
-haveYouRegisteredForVATMOSS.title = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
-haveYouRegisteredForVATMOSS.heading = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
-haveYouRegisteredForVATMOSS.subtext = Bydd gennych rif adnabod GUC TAW os ydych eisoes wedi’ch cofrestru.
-haveYouRegisteredForVATMOSS.Yes = Iawn
-haveYouRegisteredForVATMOSS.No = Na
-haveYouRegisteredForVATMOSS.error.required =  Dewiswch ‘Iawn’ os ydych eisoes wedi’ch cofrestru ar gyfer GUC TAW
-
-#######################################################
-##  AlreadyRegisteredForVATMoss
-#######################################################
-alreadyRegisteredForVATMoss.title = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
-alreadyRegisteredForVATMoss.heading = A ydych eisoes wedi cofrestru ar gyfer GUC TAW?
-alreadyRegisteredForVATMoss.p1 = Bydd gennych rif adnabod GUC TAW os ydych eisoes wedi’ch cofrestru.
-alreadyRegisteredForVATMoss.Yes = Iawn
-alreadyRegisteredForVATMoss.No = Na
-alreadyRegisteredForVATMoss.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi’ch cofrestru ar gyfer GUC TAW
-
-#######################################################
-##  RegisterForVAT
-#######################################################
-registerForVAT.title = Cofrestru ar gyfer TAW
-registerForVAT.heading = Cofrestru ar gyfer TAW
-registerForVAT.p1 = Mae’n rhaid eich bod wedi cofrestru ar gyfer TAW cyn y gallwch gofrestru ar gyfer GUC TAW.
-registerForVAT.p2 = Dychwelwch i’r cyfrif hwn ac ychwanegwch GUC TAW unwaith eich bod wedi cael rhif cofrestru TAW (VRN).
-registerForVAT.continue = Cofrestru ar gyfer TAW
-registerForVAT.notnow = Nid wyf am gofrestru ar gyfer TAW nawr
-
-#######################################################
-##  RegisteredForVAT
-#######################################################
-registeredForVAT.title = A yw eich busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw?
-registeredForVAT.heading = A yw eich busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw?
-registeredForVAT.Yes = Iawn
-registeredForVAT.No = Na
-registeredForVAT.error.required = Dewiswch ‘Iawn’ os yw’r busnes wedi’i gofrestru ar gyfer TAW ar Ynys Manaw
-
-#######################################################
 ##  RegisteredForVATECSales
 #######################################################
 registeredForVATECSales.title = A yw’r busnes wedi’i gofrestru ar gyfer TAW?
@@ -645,15 +544,6 @@ whichVATServicesToAdd.moss = Gwasanaeth Un Cam (GUC), TAW ar gyfer gwasanaethau 
 whichVATServicesToAdd.nova = Hysbysiad o Gerbydau’n Cyrraedd (NOVA)
 whichVATServicesToAdd.vatoss = Y Gwasanaeth Un Cam (GUC), talu TAW ar nwyddau o Ogledd Iwerddon i gwsmeriaid yr UE
 whichVATServicesToAdd.error.required = Dewis gwasanaeth TAW
-
-#######################################################
-##  RegisterInHomeCountry
-#######################################################
-registerInHomeCountry.title = Cofrestru yn eich gwlad wreiddiol
-registerInHomeCountry.heading = Cofrestru yn eich gwlad wreiddiol
-registerInHomeCountry.p1=Dylech gofrestru ar gyfer GUC TAW gyda’r awdurdod treth yng ngwlad wreiddiol eich busnes.
-registerInHomeCountry.p2=Os ydych eisiau cofrestru ar gyfer GUC TAW yn y DU, mae angen i chi
-registerInHomeCountry.contact_helpline = Cysylltwch â’r Llinell Gymorth TAW i gofrestru ar gyfer GUC TAW yn y DU
 
 #######################################################
 ##  UseEmployersPAYE
@@ -791,16 +681,6 @@ setUpNewAccountPartnership.li3=Ychwanegu partneriaeth Hunanasesiad yn y cyfrif h
 setUpNewAccountPartnership.p3=Peidiwch â cheisio ychwanegu partneriaeth Hunanasesiad ar wefan Porth y Llywodraeth.
 setUpNewAccountPartnership.continue = Allgofnodwch a chreu cyfrif Sefydliad
 setUpNewAccountPartnership.notnow = Allgofnodwch a chreu cyfrif Sefydliad
-
-#######################################################
-##  SetUpANewAccount
-#######################################################
-setUpANewAccount.title = Sefydlu cyfrif newydd
-setUpANewAccount.heading = Sefydlu cyfrif newydd
-setUpANewAccount.subtext1 = Mae hwn yn gyfrif ’Unigolyn’
-setUpANewAccount.subtext2 = Dim ond GUC TAW y gallwch ei ychwanegu i gyfrif "Sefydliad".
-setUpANewAccount.anchor = Ffoniwch ni
-setUpANewAccount.subtext3 = a byddwn yn eich helpu i wneud hyn dros y ffôn.
 
 #######################################################
 ##  PaperForms

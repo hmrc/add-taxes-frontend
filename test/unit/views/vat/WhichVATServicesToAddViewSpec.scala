@@ -32,10 +32,10 @@ class WhichVATServicesToAddViewSpec extends ViewBehaviours {
   val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
-      new whichVATServicesToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, WhichVATServicesToAdd.options())(serviceInfoContent)(fakeRequest, messages)
+      new whichVATServicesToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, WhichVATServicesToAdd.options)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
-      new whichVATServicesToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, WhichVATServicesToAdd.options())(serviceInfoContent)(fakeRequest, messages)
+      new whichVATServicesToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, WhichVATServicesToAdd.options)(serviceInfoContent)(fakeRequest, messages)
 
   "WhichVATServicesToAdd view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -50,19 +50,19 @@ class WhichVATServicesToAddViewSpec extends ViewBehaviours {
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- WhichVATServicesToAdd.options()) {
+        for (option <- WhichVATServicesToAdd.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
 
-    for (option <- WhichVATServicesToAdd.options()) {
+    for (option <- WhichVATServicesToAdd.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
-          for (unselectedOption <- WhichVATServicesToAdd.options().filterNot(o => o == option)) {
+          for (unselectedOption <- WhichVATServicesToAdd.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }

@@ -17,7 +17,6 @@
 package controllers.vat
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.VatOssSwitch
 import config.featureToggles.FeatureToggleSupport
 import connectors.OssConnector
 import controllers.actions._
@@ -50,12 +49,10 @@ class WhichVATServicesToAddController @Inject()(mcc: MessagesControllerComponent
   implicit val ec: ExecutionContext = mcc.executionContext
 
   val form: Form[WhichVATServicesToAdd] = formProvider()
-  val optionsWithoutVAT: Seq[RadioOption] =
-    WhichVATServicesToAdd.options(ossFeatureSwitch = isEnabled(VatOssSwitch)).filterNot(_.value == WhichVATServicesToAdd.VAT.toString)
 
   private def radioOptions(implicit request: ServiceInfoRequest[AnyContent]): Seq[RadioOption] = {
     val enrolments = request.request.enrolments
-    WhichVATServicesToAdd.options(ossFeatureSwitch = isEnabled(VatOssSwitch))
+    WhichVATServicesToAdd.options
       .filterNot(x =>
         if (enrolments.getEnrolment("HMRC_MTD_VAT").isDefined || enrolments.getEnrolment("HMCE-VATDEC-ORG").isDefined) {
           x.value == WhichVATServicesToAdd.VAT.toString
@@ -82,7 +79,7 @@ class WhichVATServicesToAddController @Inject()(mcc: MessagesControllerComponent
         formWithErrors => Future.successful(BadRequest(whichVATServicesToAdd(appConfig, formWithErrors, radioOptions)(request.serviceInfoContent))),
         value =>
           value match {
-            case WhichVATServicesToAdd.VATOSS if isEnabled(VatOssSwitch) =>
+            case WhichVATServicesToAdd.VATOSS =>
               for (
                 redirectString <- ossConnector.ossRegistrationJourneyLink()
               ) yield {
