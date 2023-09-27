@@ -36,7 +36,7 @@ class VerifiedUserErrorViewSpec extends ViewBehaviours {
     }
 
     "contain a link that points to the correct destination" in {
-      doc.getElementById("sign-in-different-user-id").attr("href") mustBe "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fbusiness-account"
+      doc.getElementById("sign-in-different-user-id").attr("href") mustBe "http://localhost:9020/business-account/sso-sign-out?continueUrl=http://localhost:9553/business-account"
     }
 
   }

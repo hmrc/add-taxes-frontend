@@ -42,12 +42,11 @@ class UsePAYEEmployerAccountViewSpec extends ViewBehaviours {
       view must include("It will make it easier to manage both schemes.")
 
       view must include("Sign in to your other account and add employment intermediaries.")
-
       assertLinkById(
         doc,
         "continue",
         "Sign in to your other account",
-        "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fbusiness-account",
+        "http://localhost:9020/business-account/sso-sign-out?continueUrl=http://localhost:9553/business-account",
         expectedRole = Some("button")
       )
 

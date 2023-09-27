@@ -29,7 +29,7 @@
 
     <h1 id="verified-unauthorised-heading" class="govuk-heading-xl">@messages("noAccessVerified.heading")</h1>
 
-    <p class="govuk-body">@messages("noAccessVerified.youNeedTo") <a id="sign-in-different-user-id" href="@appConfig.getBusinessAccountUrl("signoutBTA")">@messages("sign in with a different Government Gateway user ID.")</a></p>
+    <p class="govuk-body">@messages("noAccessVerified.youNeedTo") <a id="sign-in-different-user-id" href="@appConfig.addTaxesSignoutToOrg("signoutBTA")">@messages("sign in with a different Government Gateway user ID.")</a></p>
     <p class="govuk-body">@messages("noAccessVerified.contactHMRC")</p>
     <p class="govuk-body no-bottom-margin">@messages("noAccessVerified.telephone")</p>
     <p class="govuk-body no-top-margin"><strong class="bold-small">@messages("noAccessVerified.telephoneNumber")</strong></p>
