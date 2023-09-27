@@ -38,7 +38,7 @@ class SignInDifferentViewSpec extends ViewBehaviours {
       doc,
       linkId = "signout-button",
       expectedText = "Sign out",
-      expectedUrl = "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fbusiness-account"
+      expectedUrl = "http://localhost:9020/business-account/sso-sign-out?continueUrl=http://localhost:9553/business-account"
     )
   }
 
