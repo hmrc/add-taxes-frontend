@@ -57,7 +57,7 @@ class SetUpNewAccountViewSpec extends ViewBehaviours {
         doc,
         "continue",
         "Sign out and create ‘Organisation’ account",
-        "http://localhost:9020/business-account/sso-sign-out?continueUrl=%2Fcoafe%2Fgovernment-gateway%2Fregister%3FaccountType%3Dorganisation%2526continue%3D%2Fbusiness-account%2Fadd-tax%2526origin%3Dunknown",
+        "http://localhost:9020/business-account/sso-sign-out?continueUrl=http://localhost:9553/coafe/government-gateway/register?accountType=organisation&continue=/business-account/add-tax&origin=unknown",
         expectedRole = Some("button")
       )
 
