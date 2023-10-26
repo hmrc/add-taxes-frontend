@@ -2,7 +2,7 @@ package connectors
 
 import config.FrontendAppConfig
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
-import models.vat.{OssRecievedDetails, OssRequestDetails}
+import models.vat.{VatOneStopRecievedDetails, VatOneStopRequestDetails, WhichVATServicesToAdd}
 import org.scalatestplus.play.PlaySpec
 import play.api.libs.json.Json
 import play.api.mvc.AnyContent
@@ -21,15 +21,15 @@ import scala.concurrent.Future
 class OssConnectorISpec extends PlaySpec with AddTaxesIntegrationTest {
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
-  lazy val connector: OssConnector = inject[OssConnector]
+  lazy val connector: VatOneStopConnector = inject[VatOneStopConnector]
   val testUtr = "1234567890"
 
   val enrolActivate: String = "enrolAndActivate"
 
   val origin = "BTA"
   val returnUrl = "/business-account"
-  val testOssRequestDetails: String = Json.toJson(OssRequestDetails(origin, returnUrl)).toString()
-  val testOssRecievedDetailsJson: String =
+  val testOneStopRequestDetails: String = Json.toJson(VatOneStopRequestDetails(origin, returnUrl)).toString()
+  val testOneStopRecievedDetailsJson: String =
     s"""
        |{
        | "redirectUrl": "/test-url"
@@ -50,22 +50,44 @@ class OssConnectorISpec extends PlaySpec with AddTaxesIntegrationTest {
         HtmlFormat.empty
       )
 
-      "return a url when successful response is returned" in {
-        StubOssConnector.successFulOssRegistrationLink(testOssRequestDetails, testOssRecievedDetailsJson)
+      "return a url when successful response is returned with VAT OSS" in {
+        val lang: String = "en"
+        StubOssConnector.successFulOneStopRegistrationLink(testOneStopRequestDetails, testOneStopRecievedDetailsJson, iossBool = false, lang)
 
-        val result: Future[OssRecievedDetails] = connector.ossRegistrationJourneyLink()
+        val result: Future[VatOneStopRecievedDetails] = connector.vatOneStopRegistrationJourneyLink(WhichVATServicesToAdd.VATOSS, lang)
 
-        await(result) mustBe OssRecievedDetails(Some("/test-url"))
-        StubOssConnector.verifyOssRegistrationLink(1)
+        await(result) mustBe VatOneStopRecievedDetails(Some("/test-url"))
+        StubOssConnector.verifyOneStopRegistrationLink(count = 1, iossBool = false,lang = lang)
+      }
+
+      "return a url when successful response is returned with VAT IOSS and english lang is passed" in {
+        val lang: String = "en"
+        StubOssConnector.successFulOneStopRegistrationLink(testOneStopRequestDetails, testOneStopRecievedDetailsJson, iossBool = true, lang)
+
+        val result: Future[VatOneStopRecievedDetails] = connector.vatOneStopRegistrationJourneyLink(WhichVATServicesToAdd.VATIOSS, lang)
+
+        await(result) mustBe VatOneStopRecievedDetails(Some("/test-url"))
+        StubOssConnector.verifyOneStopRegistrationLink(count = 1, iossBool = true, lang = lang)
+      }
+
+      "return a url when successful response is returned with VAT IOSS and CY lang is passed" in {
+        val lang: String = "cy"
+        StubOssConnector.successFulOneStopRegistrationLink(testOneStopRequestDetails, testOneStopRecievedDetailsJson, iossBool = true, lang)
+
+        val result: Future[VatOneStopRecievedDetails] = connector.vatOneStopRegistrationJourneyLink(WhichVATServicesToAdd.VATIOSS, lang)
+
+        await(result) mustBe VatOneStopRecievedDetails(Some("/test-url"))
+        StubOssConnector.verifyOneStopRegistrationLink(count = 1, iossBool = true, lang = lang)
       }
 
       "return a None when the call fails" in {
-        StubOssConnector.conflictOssRegistrationLink(testOssRequestDetails)
+        val lang: String = "en"
+        StubOssConnector.conflictOneStopRegistrationLink(testOneStopRequestDetails, iossBool = false, lang)
 
-        val result: Future[OssRecievedDetails] = connector.ossRegistrationJourneyLink()
+        val result: Future[VatOneStopRecievedDetails] = connector.vatOneStopRegistrationJourneyLink(WhichVATServicesToAdd.VATOSS, lang)
 
-        await(result) mustBe OssRecievedDetails(None)
-        StubOssConnector.verifyOssRegistrationLink(1)
+        await(result) mustBe VatOneStopRecievedDetails(None)
+        StubOssConnector.verifyOneStopRegistrationLink(1, iossBool = false, lang = lang)
       }
     }
   }

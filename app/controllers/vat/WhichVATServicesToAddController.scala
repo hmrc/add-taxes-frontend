@@ -17,8 +17,9 @@
 package controllers.vat
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.IossSwitch
 import config.featureToggles.FeatureToggleSupport
-import connectors.OssConnector
+import connectors.VatOneStopConnector
 import controllers.actions._
 import forms.vat.WhichVATServicesToAddFormProvider
 import handlers.ErrorHandler
@@ -40,7 +41,7 @@ class WhichVATServicesToAddController @Inject()(mcc: MessagesControllerComponent
                                                 authenticate: AuthAction,
                                                 serviceInfoData: ServiceInfoAction,
                                                 formProvider: WhichVATServicesToAddFormProvider,
-                                                ossConnector: OssConnector,
+                                                vatOneStopConnector: VatOneStopConnector,
                                                 errorHandler: ErrorHandler,
                                                 whichVATServicesToAdd: whichVATServicesToAdd,
                                                 implicit val appConfig: FrontendAppConfig)
@@ -65,6 +66,12 @@ class WhichVATServicesToAddController @Inject()(mcc: MessagesControllerComponent
       } else {
         false
       }
+    ).filterNot(x =>
+      if(isDisabled(IossSwitch)) {
+        x.value == WhichVATServicesToAdd.VATIOSS.toString
+      } else {
+        false
+      }
     )
 
   }
@@ -79,9 +86,9 @@ class WhichVATServicesToAddController @Inject()(mcc: MessagesControllerComponent
         formWithErrors => Future.successful(BadRequest(whichVATServicesToAdd(appConfig, formWithErrors, radioOptions)(request.serviceInfoContent))),
         value =>
           value match {
-            case WhichVATServicesToAdd.VATOSS =>
+            case _ if(value == WhichVATServicesToAdd.VATIOSS || value == WhichVATServicesToAdd.VATOSS) =>
               for (
-                redirectString <- ossConnector.ossRegistrationJourneyLink()
+                redirectString <- vatOneStopConnector.vatOneStopRegistrationJourneyLink(value, request.lang.language)
               ) yield {
                 redirectString.redirectUrl match {
                   case Some(url) =>
@@ -93,7 +100,7 @@ class WhichVATServicesToAddController @Inject()(mcc: MessagesControllerComponent
                         url)
                     ))
                   case _ =>
-                    warnLog("[WhichVATServicesToAddController][onSubmit] No URL passed from OSS Call")
+                    warnLog("[WhichVATServicesToAddController][onSubmit] No URL passed from Vat One Stop Call")
                     InternalServerError(errorHandler.internalServerErrorTemplate)
                 }
               }

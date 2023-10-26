@@ -6,21 +6,37 @@ import play.api.http.Status._
 
 object StubOssConnector extends StubHelper {
 
-  def withResponseForOssRegistrationLink(postBody: String)(status: Int, optBody: Option[String])(implicit appConfig: FrontendAppConfig): Unit =
-    stubPost(appConfig.vatOssExternalEntryUrl, status, postBody, optBody)
+  def withResponseForOneStopRegistrationLink(postBody: String)(status: Int,
+                                                           optBody: Option[String],
+                                                           iossBool: Boolean,
+                                                           lang: String)(implicit appConfig: FrontendAppConfig): Unit = {
+    val serviceUrl = if (iossBool) appConfig.vatIossExternalEntryUrl + s"?lang=$lang" else appConfig.vatOssExternalEntryUrl + s"?lang=$lang"
+    stubPost(serviceUrl, status, postBody, optBody)
+  }
 
-  def successFulOssRegistrationLink(postBody: String, returnBody: String)(implicit appConfig: FrontendAppConfig) = withResponseForOssRegistrationLink(postBody)(
-    CREATED, Some(returnBody)
+  def successFulOneStopRegistrationLink(postBody: String,
+                                    returnBody: String,
+                                    iossBool: Boolean,
+                                    lang: String)(implicit appConfig: FrontendAppConfig) = withResponseForOneStopRegistrationLink(postBody)(
+      CREATED, Some(returnBody), iossBool, lang
+    )
+
+  def unsuccessFulOneStopRegistrationLink(postBody: String,
+                                      iossBool: Boolean,
+                                      lang: String)(implicit appConfig: FrontendAppConfig) = withResponseForOneStopRegistrationLink(postBody)(
+    BAD_REQUEST, None, iossBool, lang
   )
 
-  def unsuccessFulOssRegistrationLink(postBody: String)(implicit appConfig: FrontendAppConfig) = withResponseForOssRegistrationLink(postBody)(
-    BAD_REQUEST, None
+  def conflictOneStopRegistrationLink(postBody: String,
+                                  iossBool: Boolean,
+                                  lang: String)(implicit appConfig: FrontendAppConfig) = withResponseForOneStopRegistrationLink(postBody)(
+    CONFLICT, None, iossBool, lang
   )
 
-  def conflictOssRegistrationLink(postBody: String)(implicit appConfig: FrontendAppConfig) = withResponseForOssRegistrationLink(postBody)(
-    CONFLICT, None
-  )
-
-  def verifyOssRegistrationLink(count: Int)(implicit appConfig: FrontendAppConfig): Unit =
-    verify(count, postRequestedFor(urlEqualTo(appConfig.vatOssExternalEntryUrl)))
+  def verifyOneStopRegistrationLink(count: Int,
+                                iossBool: Boolean,
+                                lang: String)(implicit appConfig: FrontendAppConfig): Unit = {
+    val serviceUrl = if (iossBool) appConfig.vatIossExternalEntryUrl + s"?lang=$lang" else appConfig.vatOssExternalEntryUrl + s"?lang=$lang"
+    verify(count, postRequestedFor(urlEqualTo(serviceUrl)))
+  }
 }

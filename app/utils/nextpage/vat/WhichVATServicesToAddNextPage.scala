@@ -40,7 +40,7 @@ trait WhichVATServicesToAddNextPage {
         implicit appConfig: FrontendAppConfig,
         request: ServiceInfoRequest[_]): Call = {
 
-        val (serviceToAdd, affinity, enrolments, vatOssRedirectUrl) = b
+        val (serviceToAdd, affinity, enrolments, redirectUrl) = b
 
         serviceToAdd match {
           case WhichVATServicesToAdd.VAT       => vatRoutes.DoYouHaveVATRegNumberController.onPageLoad()
@@ -49,7 +49,8 @@ trait WhichVATServicesToAddNextPage {
           case WhichVATServicesToAdd.EURefunds => getEURefundsCall(enrolments)
           case WhichVATServicesToAdd.RCSL      => getRCSLCall(enrolments)
           case WhichVATServicesToAdd.NOVA      => Call("GET", appConfig.getPortalUrl("novaEnrolment"))
-          case WhichVATServicesToAdd.VATOSS    => Call("GET", vatOssRedirectUrl)
+          case WhichVATServicesToAdd.VATOSS    => Call("GET", redirectUrl)
+          case WhichVATServicesToAdd.VATIOSS   => Call("GET", redirectUrl)
         }
       }
     }

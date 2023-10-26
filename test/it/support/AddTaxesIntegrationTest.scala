@@ -72,7 +72,8 @@ trait AddTaxesIntegrationTest
     "tax-enrolments",
     "des",
     "citizen-details",
-    "vat-oss-registration-frontend"
+    "vat-oss-registration-frontend",
+    "ioss-registration"
   )
 
   protected def resetAllFeatures(): Unit =

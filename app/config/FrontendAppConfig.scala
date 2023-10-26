@@ -154,6 +154,11 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   lazy val vatOssExternalEntryUrl: String = vatOssBaseUrl + config.getString("urls.oss.externalEntry")
   lazy val vatOssExternalEntry: String = vatOssHost + vatOssExternalEntryUrl
 
+  lazy val vatIossHost: String = config.baseUrl("ioss-registration")
+  lazy val vatIossBaseUrl: String = config.getString("urls.ioss.baseUrl")
+  lazy val vatIossExternalEntryUrl: String = vatIossBaseUrl + config.getString("urls.ioss.externalEntry")
+  lazy val vatIossExternalEntry: String = vatIossHost + vatIossExternalEntryUrl
+
   lazy val atwdDeenrolmentUrl = s"$enrolmentManagementFrontendHost/enrolment-management-frontend/HMCE-ATWD-ORG/remove-warehouse?continue=/account"
 
   def lostCredentials(forgottenOption: ForgottenOptions): String = s"$basGatewayFrontendHost$basGatewayCredRecovery?continue_url=/account&recovery=$forgottenOption"

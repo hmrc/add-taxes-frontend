@@ -64,6 +64,11 @@ object FeatureSwitch {
     override val displayText: String = "PPT Enabled"
   }
 
+  case object IossSwitch extends FeatureSwitch {
+    override val name = s"$prefix.iossSwitch"
+    override val displayText: String = "IOSS Enabled"
+  }
+
   case object ECLSwitch extends FeatureSwitch {
     override val name = s"$prefix.eclSwitch"
     override val displayText: String = "PPT Enabled"
