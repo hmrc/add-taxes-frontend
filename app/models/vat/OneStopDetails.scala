@@ -19,14 +19,14 @@ package models.vat
 import play.api.libs.json.{Json, OFormat}
 
 
-case class OssRequestDetails(origin: String, returnUrl: String)
+case class VatOneStopRequestDetails(origin: String, returnUrl: String)
 
-object OssRequestDetails {
-  implicit val format: OFormat[OssRequestDetails] = Json.format[OssRequestDetails]
+object VatOneStopRequestDetails {
+  implicit val format: OFormat[VatOneStopRequestDetails] = Json.format[VatOneStopRequestDetails]
 }
 
-case class OssRecievedDetails(redirectUrl: Option[String])
+case class VatOneStopRecievedDetails(redirectUrl: Option[String])
 
-object OssRecievedDetails {
-  implicit val format: OFormat[OssRecievedDetails] = Json.format[OssRecievedDetails]
+object VatOneStopRecievedDetails {
+  implicit val format: OFormat[VatOneStopRecievedDetails] = Json.format[VatOneStopRecievedDetails]
 }

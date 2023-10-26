@@ -16,6 +16,8 @@
 
 package models.vat
 
+import config.featureToggles.FeatureSwitch.IossSwitch
+import config.featureToggles.FeatureToggleSupport
 import utils.{Enumerable, RadioOption, WithName}
 
 sealed trait WhichVATServicesToAdd
@@ -28,7 +30,8 @@ object WhichVATServicesToAdd {
   case object EURefunds extends WithName("eurefunds") with WhichVATServicesToAdd
   case object RCSL extends WithName("rcsl") with WhichVATServicesToAdd
   case object NOVA extends WithName("nova") with WhichVATServicesToAdd
-  case object VATOSS extends WithName("vatoss") with WhichVATServicesToAdd
+  case object VATOSS extends WithName("ossvat") with WhichVATServicesToAdd
+  case object VATIOSS extends WithName("iossvat") with WhichVATServicesToAdd
 
   val values: Seq[WhichVATServicesToAdd] = Seq(
     VAT,
@@ -37,7 +40,8 @@ object WhichVATServicesToAdd {
     EURefunds,
     RCSL,
     NOVA,
-    VATOSS
+    VATOSS,
+    VATIOSS
   )
 
   def options: Seq[RadioOption] = {
