@@ -73,17 +73,7 @@ class WhichVATServicesToAddNextPageSpec extends NextPageSpecBase with FeatureTog
       "http://localhost:9555/enrolment-management-frontend/HMRC-EU-REF-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
     )
 
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.RCSL, affinityGroupOrganisation, noEnrolments, redirectUrl),
-      "/business-account/add-tax/vat/rcsl"
-    )
 
-    behave like nextPage(
-      NextPage.whichVATServicesToAdd,
-      (WhichVATServicesToAdd.RCSL, affinityGroupOrganisation, enrolledInVAT, redirectUrl),
-      "http://localhost:9555/enrolment-management-frontend/HMCE-VATRSL-ORG/request-access-tax-scheme?continue=%2Fbusiness-account"
-    )
 
     behave like nextPage(
       NextPage.whichVATServicesToAdd,

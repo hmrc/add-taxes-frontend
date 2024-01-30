@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -90,8 +90,6 @@ object Enrolments {
 
   case object EURefunds extends WithName("HMRC-EU-REF-ORG") with Enrolments
 
-  case object RCSL extends WithName("HMCE-VATRSL-ORG") with Enrolments
-
   case object EPAYE extends WithName("IR-PAYE") with Enrolments
 
   case object PP extends WithName("HMRC-PP-ORG") with Enrolments
@@ -146,7 +144,6 @@ object Enrolments {
     VATMOSSNonUnion,
     ECSales,
     EURefunds,
-    RCSL,
     EPAYE,
     ExciseMovementControlSystem,
     PP,

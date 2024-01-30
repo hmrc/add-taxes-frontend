@@ -190,8 +190,6 @@ GET        /vat/vat-giant/do-not-need-service           controllers.vat.giant.Yo
 GET        /vat/eurefunds                               controllers.vat.eurefunds.RegisteredForVATEURefundsController.onPageLoad()
 POST       /vat/eurefunds                               controllers.vat.eurefunds.RegisteredForVATEURefundsController.onSubmit()
 
-GET        /vat/rcsl                                    controllers.vat.rcsl.RegisteredForVATRCSLController.onPageLoad()
-POST       /vat/rcsl                                    controllers.vat.rcsl.RegisteredForVATRCSLController.onSubmit()
 
 GET        /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onPageLoad()
 POST       /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onSubmit()
