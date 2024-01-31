@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,6 @@ import utils.nextpage.vat._
 import utils.nextpage.vat.ec.RegisteredForVATECSalesNextPage
 import utils.nextpage.vat.eurefunds.RegisteredForVATEURefundsNextPage
 import utils.nextpage.vat.giant.WhatIsYourOrganisationNextPage
-import utils.nextpage.vat.rcsl.RegisteredForVATRCSLNextPage
 import utils.nextpage.wrongcredentials.FindingYourAccountNextPage
 
 import scala.annotation.implicitNotFound
@@ -91,7 +90,6 @@ object NextPage
     with IsYourBusinessInUKNextPage
     with RegisteredForVATECSalesNextPage
     with RegisteredForVATEURefundsNextPage
-    with RegisteredForVATRCSLNextPage
     with WhichVATServicesToAddNextPage
     with DoYouWantToBePaidNetOrGrossNextPage
     with WasTurnoverMoreAfterVATNextPage

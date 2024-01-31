@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ object WhichVATServicesToAdd {
   case object ECSales extends WithName("ecsales") with WhichVATServicesToAdd
   case object GIANT extends WithName("giant") with WhichVATServicesToAdd
   case object EURefunds extends WithName("eurefunds") with WhichVATServicesToAdd
-  case object RCSL extends WithName("rcsl") with WhichVATServicesToAdd
   case object NOVA extends WithName("nova") with WhichVATServicesToAdd
   case object VATOSS extends WithName("ossvat") with WhichVATServicesToAdd
   case object VATIOSS extends WithName("iossvat") with WhichVATServicesToAdd
@@ -38,7 +37,6 @@ object WhichVATServicesToAdd {
     ECSales,
     GIANT,
     EURefunds,
-    RCSL,
     NOVA,
     VATOSS,
     VATIOSS

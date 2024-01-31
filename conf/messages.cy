@@ -539,7 +539,6 @@ whichVATServicesToAdd.vat = TAW
 whichVATServicesToAdd.ecsales = Rhestr Gwerthiannau yn y GE, rhoi gwybod am werthiannau a wnaed i gyflenwyr yr UE sydd wedi cofrestru ar gyfer TAW
 whichVATServicesToAdd.giant = Ymddiriedolaethau Gwybodaeth Llywodraeth ac Iechyd Cenedlaethol (GIANT)
 whichVATServicesToAdd.eurefunds = Ad-daliadau yn yr UE, gwneud cais i gael TAW y gwnaethoch ei thalu yn yr UE yn ôl
-whichVATServicesToAdd.rcsl = Rhestr Gwerthiannau Tâl Gwrthdro (RCSL), rhoi gwybod am werthiannau sydd â TAW Tâl Gwrthdro
 whichVATServicesToAdd.moss = Gwasanaeth Un Cam (GUC), TAW ar gyfer gwasanaethau digidol a werthwyd yn yr UE
 whichVATServicesToAdd.nova = Hysbysiad o Gerbydau’n Cyrraedd (NOVA)
 whichVATServicesToAdd.ossvat = Y Gwasanaeth Un Cam (GUC), talu TAW ar nwyddau o Ogledd Iwerddon i gwsmeriaid yr UE
