@@ -17,8 +17,6 @@
 package controllers.other.importexports
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.{ARSContentSwitch, AtarSwitch}
-import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions._
 import forms.other.importexports.DoYouWantToAddImportExportFormProvider
 import identifiers.DoYouWantToAddImportExportId
@@ -31,7 +29,6 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import service.AuditService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import utils.Enrolments.CommonTransitConvention
 import utils.{Enumerable, Navigator}
 import views.html.other.importexports.doYouWantToAddImportExport
 

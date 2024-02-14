@@ -36,7 +36,7 @@ class KnownFactsPostcodeFormProvider @Inject()(knownFactsFormValidator: KnownFac
         blankPostcodeMessageKey = "enterKnownFacts.postcode.error.required",
         invalidPostcodeMessageKey = "enterKnownFacts.postcode.error.invalid"))
       ),
-      "isAbroad" -> optional(of(knownFactsFormValidator.stringFormatter))
+      "isAbroad" -> optional(of(knownFactsFormValidator.stringFormatter()))
     )(KnownFactsPostcode.apply)(KnownFactsPostcode.unapply)
   )
 }

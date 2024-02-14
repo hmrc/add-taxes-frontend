@@ -29,22 +29,21 @@ import uk.gov.hmrc.mongo.play.json.Codecs.toBson
 import uk.gov.hmrc.mongo.play.json.PlayMongoRepository
 import uk.gov.hmrc.mongo.play.json.formats.MongoJavatimeFormats
 
-import java.time.{LocalDateTime, ZoneOffset}
+import java.time.Instant
 import java.util.concurrent.TimeUnit
 import javax.inject.{Inject, Singleton}
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-case class DatedCacheMap(id: String, data: Map[String, JsValue], lastUpdated: LocalDateTime = LocalDateTime.now(ZoneOffset.UTC))
+case class DatedCacheMap(id: String, data: Map[String, JsValue], lastUpdated: Instant = Instant.now())
 
 object DatedCacheMap {
-  implicit val dateFormat: Format[LocalDateTime] = MongoJavatimeFormats.localDateTimeFormat
+  implicit val dateFormat: Format[Instant] = MongoJavatimeFormats.instantFormat
   implicit val formats: OFormat[DatedCacheMap] = Json.format[DatedCacheMap]
 
   def apply(cacheMap: CacheMap): DatedCacheMap = DatedCacheMap(cacheMap.id, cacheMap.data)
 }
 
-class ReactiveMongoRepository(config: Configuration, mongo: MongoComponent)
+class ReactiveMongoRepository(config: Configuration, mongo: MongoComponent)(implicit ec: ExecutionContext)
     extends PlayMongoRepository[DatedCacheMap](
       mongoComponent = mongo,
       collectionName = config.get[String]("appName"),
@@ -86,7 +85,7 @@ class ReactiveMongoRepository(config: Configuration, mongo: MongoComponent)
 }
 
 @Singleton
-class SessionRepository @Inject()(config: Configuration, mongoComponent: MongoComponent) {
+class SessionRepository @Inject()(config: Configuration, mongoComponent: MongoComponent)(implicit ec: ExecutionContext) {
   private lazy val sessionRepository = new ReactiveMongoRepository(config, mongoComponent)
   def apply(): ReactiveMongoRepository = sessionRepository
 }

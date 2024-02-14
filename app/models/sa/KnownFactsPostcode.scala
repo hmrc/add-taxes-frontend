@@ -16,7 +16,7 @@
 
 package models.sa
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class KnownFactsPostcode(kfPostcode: Option[String], kfAbroad: Option[String]) {
   def provided: Seq[String] = List(kfPostcode, kfAbroad).flatten
@@ -25,5 +25,5 @@ case class KnownFactsPostcode(kfPostcode: Option[String], kfAbroad: Option[Strin
 }
 
 object KnownFactsPostcode {
-  implicit val format = Json.format[KnownFactsPostcode]
+  implicit val format: OFormat[KnownFactsPostcode] = Json.format[KnownFactsPostcode]
 }

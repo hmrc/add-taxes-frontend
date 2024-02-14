@@ -32,8 +32,6 @@ import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier, Enrolments}
 import utils.{FakeNavigator, RadioOption}
 import views.html.{organisation_only, otherTaxes}
 
-import scala.concurrent.ExecutionContext.Implicits.global
-
 class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEach {
 
   override def beforeEach(): Unit = {

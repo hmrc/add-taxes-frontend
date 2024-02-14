@@ -18,14 +18,10 @@ package controllers.actions
 
 import base.SpecBase
 import config.FrontendAppConfig
-import config.featureToggles.FeatureToggleSupport
-import org.scalatestplus.play.PlaySpec
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Request, Result}
 import play.api.test.FakeRequest
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class FeatureDependantActionSpec extends SpecBase {

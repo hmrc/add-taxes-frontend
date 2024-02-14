@@ -16,10 +16,10 @@
 
 package base
 
-import akka.stream.Materializer
 import config.FrontendAppConfig
 import config.featureToggles.FeatureToggleSupport
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
+import org.apache.pekko.stream.Materializer
 import org.scalatest.BeforeAndAfterAll
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice._
@@ -30,18 +30,20 @@ import play.api.mvc.{AnyContent, MessagesControllerComponents, Request}
 import play.api.test.FakeRequest
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
-import uk.gov.hmrc.auth.core.{ConfidenceLevel, Enrolment, Enrolments}
+import uk.gov.hmrc.auth.core.{ConfidenceLevel, Enrolments}
 import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
+import utils.{Enrolments => AddTaxesEnrolments}
 import views.html.components.conditional_radio
 import views.html.main_template
-import utils.{Enrolments => AddTaxesEnrolments}
+
+import scala.concurrent.ExecutionContextExecutor
 
 
 trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with FeatureToggleSupport with BeforeAndAfterAll {
 
   val injector: Injector = app.injector
   implicit def materializer(implicit app: Application): Materializer = app.materializer
-
+  implicit val ec: ExecutionContextExecutor = scala.concurrent.ExecutionContext.global
   val formWithCSRF: FormWithCSRF = injector.instanceOf[FormWithCSRF]
   val mainTemplate: main_template = injector.instanceOf[main_template]
   val conditionalRadio: conditional_radio = injector.instanceOf[conditional_radio]

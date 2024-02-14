@@ -33,8 +33,7 @@ import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import views.html.vat.{vatAccountUnavailable, vatRegistrationException, whatIsYourVATRegNumber}
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class WhatIsYourVATRegNumberController @Inject()(appConfig: FrontendAppConfig,
                                                  mcc: MessagesControllerComponents,
@@ -46,8 +45,9 @@ class WhatIsYourVATRegNumberController @Inject()(appConfig: FrontendAppConfig,
                                                  vatRegistrationException: vatRegistrationException,
                                                  vatAccountUnavailable: vatAccountUnavailable,
                                                  errorHandler: ErrorHandler,
-                                                 whatIsYourVATRegNumber: whatIsYourVATRegNumber)
-  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits with FeatureToggleSupport {
+                                                 whatIsYourVATRegNumber: whatIsYourVATRegNumber)(
+                                                implicit val ec: ExecutionContext
+  ) extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits with FeatureToggleSupport {
 
   def form: Form[String] = formProvider()
 

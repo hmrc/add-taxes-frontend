@@ -19,7 +19,6 @@ package utils
 import config.FrontendAppConfig
 import models.requests.ServiceInfoRequest
 import models.{Mode, NormalMode}
-import play.api.mvc.Request
 
 class FakeNavigator[C](desiredRoute: C, mode: Mode = NormalMode)(
   implicit config: FrontendAppConfig)

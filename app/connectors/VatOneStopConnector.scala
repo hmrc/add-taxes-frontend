@@ -27,7 +27,7 @@ import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class VatOneStopConnector @Inject()(val http: HttpClient,
-                              appConfig: FrontendAppConfig)(implicit ec: ExecutionContext)
+                              appConfig: FrontendAppConfig)
   extends LoggingUtil with HttpReadsInstances {
 
   val serviceOssUrl: String = appConfig.vatOssExternalEntry

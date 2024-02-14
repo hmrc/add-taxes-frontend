@@ -16,8 +16,6 @@
 
 package models.vat
 
-import config.featureToggles.FeatureSwitch.IossSwitch
-import config.featureToggles.FeatureToggleSupport
 import utils.{Enumerable, RadioOption, WithName}
 
 sealed trait WhichVATServicesToAdd

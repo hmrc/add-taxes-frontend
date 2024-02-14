@@ -1,6 +1,5 @@
 package utils
 
-import com.google.inject.Inject
 import controllers.vat.VatReferenceChecker
 import org.scalacheck.Gen
 

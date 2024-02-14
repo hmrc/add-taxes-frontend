@@ -23,8 +23,6 @@ import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import views.html.sa.retryKnownFacts
 
-import scala.concurrent.ExecutionContext.Implicits.global
-
 
 class RetryKnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar {
 

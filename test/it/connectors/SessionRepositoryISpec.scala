@@ -12,6 +12,8 @@ import repositories.SessionRepository
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.mongo.MongoComponent
 
+import scala.concurrent.ExecutionContext
+
 class SessionRepositoryISpec extends PlaySpec with BeforeAndAfterEach with GuiceOneAppPerSuite with BeforeAndAfterAll {
 
   override lazy val app: Application =
@@ -27,6 +29,7 @@ class SessionRepositoryISpec extends PlaySpec with BeforeAndAfterEach with Guice
 
   val mongoComponent = app.injector.instanceOf[MongoComponent]
   val config = app.injector.instanceOf[Configuration]
+  implicit val ec: ExecutionContext = app.injector.instanceOf[ExecutionContext]
 
   lazy val testDataRepo = new SessionRepository(config, mongoComponent)
 

@@ -23,8 +23,6 @@ import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import views.html.sa.signInDifferent
 
-import scala.concurrent.ExecutionContext.Implicits.global
-
 
 class SignInDifferentControllerSpec extends ControllerSpecBase with MockitoSugar {
 

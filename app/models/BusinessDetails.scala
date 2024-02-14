@@ -16,10 +16,10 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class BusinessDetails(nino: String, mtdbsa: String)
 
 object BusinessDetails {
-  implicit val format = Json.format[BusinessDetails]
+  implicit val format: OFormat[BusinessDetails] = Json.format[BusinessDetails]
 }

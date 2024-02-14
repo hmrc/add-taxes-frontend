@@ -29,6 +29,6 @@ case class QueryGroupsEnrolmentsResponseModel(enrolments: Seq[Enrolment])
 case class Enrolment(service: String)
 
 object QueryGroupsEnrolmentsResponseModel {
-  implicit val enrolmentReads = Json.format[Enrolment]
-  implicit val queryGroupsEnrolmentsReads = Json.format[QueryGroupsEnrolmentsResponseModel]
+  implicit val enrolmentReads: OFormat[Enrolment] = Json.format[Enrolment]
+  implicit val queryGroupsEnrolmentsReads: OFormat[QueryGroupsEnrolmentsResponseModel] = Json.format[QueryGroupsEnrolmentsResponseModel]
 }

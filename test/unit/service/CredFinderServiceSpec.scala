@@ -23,7 +23,6 @@ import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HmrcEnrolmentType, RadioOption}
 import views.html.sa.selectSACategory
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 class CredFinderServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach {

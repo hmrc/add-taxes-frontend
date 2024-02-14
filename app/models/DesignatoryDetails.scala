@@ -24,7 +24,7 @@ case class DesignatoryDetails(firstName: String, lastName: String, nino: String,
 
 object DesignatoryDetails {
 
-  implicit val formats = {
+  implicit val formats: Format[DesignatoryDetails] = {
     val reads: Reads[DesignatoryDetails] = {
 
       def formatDate(dob: String): String = {
@@ -53,7 +53,7 @@ object DesignatoryDetails {
 case class DesignatoryDetailsForKnownFacts(nino: String)
 
 object DesignatoryDetailsForKnownFacts {
-  implicit val formats = {
+  implicit val formats: Format[DesignatoryDetailsForKnownFacts] = {
     val reads: Reads[DesignatoryDetailsForKnownFacts] = {
       for {
         nino <- (__ \\ "ids" \ "nino").read[String]

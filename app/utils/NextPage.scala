@@ -18,7 +18,6 @@ package utils
 
 import config.FrontendAppConfig
 import models.requests.ServiceInfoRequest
-import play.api.mvc.Request
 import utils.nextpage.OtherTaxesNextPage
 import utils.nextpage.deenrolment._
 import utils.nextpage.employer._

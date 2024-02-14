@@ -16,7 +16,7 @@
 
 package models.sa
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 class SAUTR (saUTR: String) {
   val value: String = saUTR
@@ -34,5 +34,5 @@ object SAUTR {
 
   def unapply(saUTR: SAUTR): Option[String] = Some(saUTR.value)
 
-  implicit val format = Json.format[SAUTR]
+  implicit val format: OFormat[SAUTR] = Json.format[SAUTR]
 }

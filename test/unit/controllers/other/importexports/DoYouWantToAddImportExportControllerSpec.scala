@@ -17,8 +17,6 @@
 package controllers.other.importexports
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.{ARSContentSwitch, AtarSwitch}
-import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.ControllerSpecBase
 import forms.other.importexports.DoYouWantToAddImportExportFormProvider
 import models.other.importexports.DoYouWantToAddImportExport
@@ -26,15 +24,11 @@ import models.requests.ServiceInfoRequest
 import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.data.Form
 import play.api.mvc.Call
-import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import service.AuditService
-import utils.Enrolments.CommonTransitConvention
 import utils.{FakeNavigator, RadioOption}
 import views.html.other.importexports.doYouWantToAddImportExport
-
-import scala.concurrent.ExecutionContext.Implicits.global
 
 class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
 

@@ -91,7 +91,6 @@ class ConditionalInputRadioSpec extends SpecBase {
 
     "include no conditional hidden text for No radio option" in {
       val testConditionalHint = "test conditional hint"
-      val testNo = testField.copy(value = Some("option-false"))
       val doc: Document = Jsoup.parse(conditionalInputRadio(testField, None, Some(testConditionalHint), Seq(RadioOption("conditionalInputRadio1", "No"))).toString)
 
       val forms = doc.select("fieldset")

@@ -9,7 +9,7 @@ GET        /language/:lang                              @controllers.LanguageSwi
 
 GET        /this-service-has-been-reset                 @controllers.SessionExpiredController.onPageLoad
 
-GET        /check-your-answers                          @controllers.CheckYourAnswersController.onPageLoad
+GET        /check-your-answers                          @controllers.CheckYourAnswersController.onPageLoad()
 
 GET        /unauthorised                                @controllers.UnauthorisedController.onPageLoad
 
