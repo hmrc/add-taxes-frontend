@@ -18,7 +18,6 @@ import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.auth.core.Enrolments
 import views.html.sa.tryPinInPost
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class TryPinInPostControllerSpec extends ControllerSpecBase with MockitoSugar with FeatureToggleSupport {

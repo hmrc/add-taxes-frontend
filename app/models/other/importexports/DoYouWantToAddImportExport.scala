@@ -88,7 +88,7 @@ object DoYouWantToAddImportExport extends FeatureToggleSupport{
   }
 
   def options()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Seq[RadioOption] = {
-    filteredRadios.map {
+    filteredRadios().map {
       value =>
         RadioOption("doYouWantToAddImportExport", value.toString)
     }

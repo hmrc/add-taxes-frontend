@@ -20,7 +20,7 @@ import play.api.mvc.PathBindable
 import utils.Enrolments
 
 object Binders {
-  implicit def enrolmentBinder = new PathBindable[Enrolments] {
+  implicit def enrolmentBinder: PathBindable[Enrolments] = new PathBindable[Enrolments] {
     override def bind(key: String, value: String): Either[String, Enrolments] =
       Enrolments.values.find(_.toString.toLowerCase.trim == value.toLowerCase.trim) match {
         case Some(enrolment) => Right(enrolment)

@@ -16,12 +16,12 @@
 
 package models.sa
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class KnownFactsNino(kfNino: String) {
 }
 
 object KnownFactsNino {
-  implicit val format = Json.format[KnownFactsNino]
+  implicit val format: OFormat[KnownFactsNino] = Json.format[KnownFactsNino]
 }
 

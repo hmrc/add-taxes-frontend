@@ -32,7 +32,6 @@ import play.twirl.api.HtmlFormat
 import service.{AuditService, SelectSaCategoryService}
 import views.html.sa.enterSAUTR
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class EnterSAUTRControllerSpec extends PlaySpec with ControllerSpecBase with MockitoSugar {

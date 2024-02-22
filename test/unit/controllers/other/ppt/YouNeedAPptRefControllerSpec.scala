@@ -2,7 +2,6 @@ package controllers.other.ppt
 
 import config.FrontendAppConfig
 import config.featureToggles.FeatureSwitch.PptSwitch
-import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.ControllerSpecBase
 import handlers.ErrorHandler
 import play.api.http.Status.{INTERNAL_SERVER_ERROR, OK}

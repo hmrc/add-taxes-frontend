@@ -79,7 +79,7 @@ class DoYouHaveAnEORINumberNextPageSpec extends NextPageSpecBase {
 
           implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(NewComputerisedTransitSystem))
 
-          val expectedResult = NextPage.redirectToCTCEnrolmentIfLegacyNCTSEnrolled
+          val expectedResult = NextPage.redirectToCTCEnrolmentIfLegacyNCTSEnrolled()
           val actualResult = Call("GET", "http://localhost:6750/customs-enrolment-services/ctc/subscribe")
 
           expectedResult mustBe actualResult
@@ -93,7 +93,7 @@ class DoYouHaveAnEORINumberNextPageSpec extends NextPageSpecBase {
           implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(NewComputerisedTransitSystem, CommonTransitConvention))
 
           intercept[InternalServerException] {
-            NextPage.redirectToCTCEnrolmentIfLegacyNCTSEnrolled
+            NextPage.redirectToCTCEnrolmentIfLegacyNCTSEnrolled()
           }.message mustBe "[DoYouHaveEORINumberNextPage][redirectToCTCEnrolmentIfLegacyNCTSEnrolled] user is already enrolled for CTC"
 
         }
@@ -108,7 +108,7 @@ class DoYouHaveAnEORINumberNextPageSpec extends NextPageSpecBase {
 
           implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq())
 
-          val expectedResult = NextPage.redirectToCTCEnrolmentIfLegacyNCTSEnrolled
+          val expectedResult = NextPage.redirectToCTCEnrolmentIfLegacyNCTSEnrolled()
           val actualResult = Call("GET", "http://localhost:6750/customs-enrolment-services/ctc/subscribe")
 
           expectedResult mustBe actualResult
@@ -122,7 +122,7 @@ class DoYouHaveAnEORINumberNextPageSpec extends NextPageSpecBase {
           implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
 
           intercept[InternalServerException] {
-            NextPage.redirectToCTCEnrolmentIfLegacyNCTSEnrolled
+            NextPage.redirectToCTCEnrolmentIfLegacyNCTSEnrolled()
           }.message mustBe "[DoYouHaveEORINumberNextPage][redirectToCTCEnrolmentIfLegacyNCTSEnrolled] user is already enrolled for CTC"
 
         }

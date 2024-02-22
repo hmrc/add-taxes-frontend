@@ -20,7 +20,7 @@ import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
 import views.html.organisation_only
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 class OrganisationOnlyViewSpec extends ViewBehaviours {
 

@@ -33,7 +33,6 @@ import uk.gov.hmrc.play.audit.http.connector.AuditResult
 import utils.{Enrolments, FakeNavigator}
 import views.html.employer.paye.whatIsYourPAYEReference
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class WhatIsYourPAYEReferenceControllerSpec extends ControllerSpecBase with MockitoSugar with FeatureToggleSupport {

@@ -29,7 +29,7 @@ import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.Enumerable
 import views.html.sa.yourSaIsNotInThisAccount
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class YourSaIsNotInThisAccountController @Inject()(appConfig: FrontendAppConfig,
                                                    mcc: MessagesControllerComponents,
@@ -40,7 +40,7 @@ class YourSaIsNotInThisAccountController @Inject()(appConfig: FrontendAppConfig,
                                                    saService: SaService)
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
-  implicit val ec = mcc.executionContext
+  implicit val ec: ExecutionContext = mcc.executionContext
   val form: Form[YourSaIsNotInThisAccount] = formProvider()
 
   def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>

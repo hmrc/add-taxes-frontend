@@ -1,13 +1,12 @@
 package controllers.internal
 
 import controllers.ControllerSpecBase
-import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
+import models.requests.AuthenticatedRequest
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.Play.materializer
 import play.api.libs.json.{JsValue, Json}
-import play.api.mvc.{AnyContent, AnyContentAsJson, Request}
+import play.api.mvc.{AnyContentAsJson, Request}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
@@ -15,7 +14,6 @@ import service.IvService
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.auth.core.Enrolments
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class ExternalUserControllerSpec extends ControllerSpecBase with MockitoSugar {

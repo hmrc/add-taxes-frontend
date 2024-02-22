@@ -17,11 +17,9 @@
 package utils.nextpage
 
 import base.SpecBase
-import config.featureToggles.FeatureSwitch.NewCTCEnrolmentForNCTSJourney
 import models.requests.ServiceInfoRequest
 import play.api.mvc.Call
 import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier}
-import utils.Enrolments.NewComputerisedTransitSystem
 import utils.{HmrcEnrolmentType, NextPage}
 
 import scala.sys.SystemProperties
@@ -75,7 +73,7 @@ trait NextPageSpecBase extends SpecBase {
     s"$userSelection is selected" should {
       s"be $expected" in {
         val result = np.get(userSelection)
-        result.right.map(_.url) mustBe expected
+        result.map(_.url) mustBe expected
       }
     }
 

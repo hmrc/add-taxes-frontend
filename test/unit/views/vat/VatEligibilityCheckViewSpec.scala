@@ -39,7 +39,6 @@ class VatEligibilityCheckViewSpec extends ViewBehaviours {
 
     "Render the correct content" in {
       val doc = asDocument(createView())
-      val view = doc.text()
 
       assertLinkById(
         doc,

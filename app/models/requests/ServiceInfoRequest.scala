@@ -16,7 +16,7 @@
 
 package models.requests
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 import play.api.mvc.WrappedRequest
 import play.twirl.api.Html
 import utils.Enrolments
@@ -42,7 +42,7 @@ case class ListLinks(message: String, url: String, alerts: Option[String] = None
 case class NavLinks(en: String, cy: String, url: String, alerts: Option[Int] = None)
 
 object NavLinks {
-  implicit val format = Json.format[NavLinks]
+  implicit val format: OFormat[NavLinks] = Json.format[NavLinks]
 }
 
 case class NavContent(home: NavLinks,
@@ -53,5 +53,5 @@ case class NavContent(home: NavLinks,
                      )
 
 object NavContent {
-  implicit val format = Json.format[NavContent]
+  implicit val format: OFormat[NavContent] = Json.format[NavContent]
 }

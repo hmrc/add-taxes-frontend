@@ -24,7 +24,6 @@ import play.api.mvc.{ActionFilter, Result}
 import uk.gov.hmrc.http.NotFoundException
 
 import scala.concurrent.{ExecutionContext, Future}
-import scala.language.higherKinds
 
 class FeatureDependantAction @Inject()(implicit val appConfig: FrontendAppConfig,
                                        ec: ExecutionContext) {

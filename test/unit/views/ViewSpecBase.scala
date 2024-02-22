@@ -115,7 +115,7 @@ trait ViewSpecBase extends SpecBase {
     expectedUrl: String,
     expectedIsExternal: Boolean = false,
     expectedOpensInNewTab: Boolean = false,
-    expectedRole: Option[String] = None) {
+    expectedRole: Option[String] = None): Unit = {
     val link = doc.getElementById(linkId)
     assert(link.text() == expectedText, s"\n\n Link $linkId does not have text $expectedText")
     assert(link.attr("href") == expectedUrl, s"\n\n Link $linkId does not expectedUrl $expectedUrl")
@@ -143,9 +143,9 @@ trait ViewSpecBase extends SpecBase {
                         expectedGAEvent: String = "",
                         expectedIsExternal: Boolean = false,
                         expectedOpensInNewTab: Boolean = false,
-                        expectedRole: String = "") {
+                        expectedRole: String = ""): Unit = {
     val link = doc.getElementsByClass(classTag)
-    if (!link.text().isEmpty) {
+    if (link.text().nonEmpty) {
       assert(
         link.attr("data-journey-click") == expectedGAEvent,
         s"\n\n Link $classTag does not have expectedGAEvent $expectedGAEvent"
@@ -173,7 +173,7 @@ trait ViewSpecBase extends SpecBase {
     )
   }
 
-  def assertLinkByContent(doc: Document, expectedText: String, expectedUrl: String) {
+  def assertLinkByContent(doc: Document, expectedText: String, expectedUrl: String): Unit = {
     val link = doc.getElementsMatchingText(expectedText)
     assert(link != null, s"\n\n Link containing '$expectedText' could not be found")
     assert(link.attr("href") == expectedUrl, s"\n\n Link containing '$expectedText' does not have href '$expectedUrl'")

@@ -19,7 +19,6 @@ package utils
 import javax.inject.{Inject, Singleton}
 import config.FrontendAppConfig
 import models.requests.ServiceInfoRequest
-import play.api.mvc.Request
 
 @Singleton
 class Navigator[C] @Inject()(frontendAppConfig: FrontendAppConfig) {

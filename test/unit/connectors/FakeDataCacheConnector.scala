@@ -18,15 +18,15 @@ package connectors
 
 import models.requests.ServiceInfoRequest
 import play.api.libs.json.Format
-import play.api.mvc.{AnyContent, Request}
+import play.api.mvc.AnyContent
 import repositories.SessionRepository
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.CascadeUpsert
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class FakeDataCacheConnector(val sr: SessionRepository, val cu: CascadeUpsert,  val request: ServiceInfoRequest[AnyContent]) extends DataCacheConnector(sr, cu) {
+class FakeDataCacheConnector(val sr: SessionRepository, val cu: CascadeUpsert,  val request: ServiceInfoRequest[AnyContent])
+                            (implicit override val ec: ExecutionContext) extends DataCacheConnector(sr, cu)(ec) {
 
   override def save[A](cacheId: String, key: String, value: A)(implicit fmt: Format[A]): Future[CacheMap] =
     Future(CacheMap(cacheId, Map()))

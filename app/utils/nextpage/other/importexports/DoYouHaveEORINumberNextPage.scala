@@ -26,7 +26,6 @@ import controllers.other.importexports.nes.{routes => nesRoutes}
 import identifiers.DoYouHaveEORINumberId
 import models.other.importexports.DoYouHaveEORINumber
 import models.requests.ServiceInfoRequest
-import models.requests.ServiceInfoRequest
 import play.api.mvc.Call
 import uk.gov.hmrc.http.InternalServerException
 import utils.Enrolments.{CommonTransitConvention, NewComputerisedTransitSystem}

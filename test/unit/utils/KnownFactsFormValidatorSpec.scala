@@ -17,9 +17,10 @@
 package utils
 
 import base.SpecBase
+import org.scalatest.EitherValues
 import play.api.data.FormError
 
-class KnownFactsFormValidatorSpec extends SpecBase {
+class KnownFactsFormValidatorSpec extends SpecBase with EitherValues {
 
   val mockKnownFactsFormValidator: KnownFactsFormValidator = new KnownFactsFormValidator()
 
@@ -31,25 +32,25 @@ class KnownFactsFormValidatorSpec extends SpecBase {
     "return Form Error when postcode is blank " in {
       val postcodeBlankData = Map("postcode" -> "")
       val result = mockKnownFactsFormValidator.validatePostcode(postcodeKey, blankPostcodeError,invalidPostcodeError)
-      result.bind("postcode", postcodeBlankData).left.get.contains(FormError(postcodeKey, blankPostcodeError )) mustBe true
+      assert(result.bind("postcode", postcodeBlankData).left.value contains FormError(postcodeKey, blankPostcodeError ))
     }
 
     "return Form Error when postcode is invalid" in {
       val postcodeInvalidPostcode = Map("postcode" -> "!!!!!")
       val result = mockKnownFactsFormValidator.validatePostcode(postcodeKey, blankPostcodeError,invalidPostcodeError)
-      result.bind("postcode", postcodeInvalidPostcode).left.get.contains(FormError(postcodeKey, invalidPostcodeError)) mustBe true
+      assert(result.bind("postcode", postcodeInvalidPostcode).left.value contains FormError(postcodeKey, invalidPostcodeError))
     }
 
     "return Form Error when postcode not the correct length" in {
       val postcodeInvalidPostcodeLength = Map("postcode" -> "AA1 1AAAAA")
       val result = mockKnownFactsFormValidator.validatePostcode(postcodeKey, blankPostcodeError,invalidPostcodeError)
-      result.bind("postcode", postcodeInvalidPostcodeLength).left.get.contains(FormError(postcodeKey, invalidPostcodeError)) mustBe true
+      assert(result.bind("postcode", postcodeInvalidPostcodeLength).left.value contains FormError(postcodeKey, invalidPostcodeError))
     }
 
     "return valid postcode" in {
       val validPostcode = Map("postcode" -> "AA1 1AA")
       val result = mockKnownFactsFormValidator.validatePostcode(postcodeKey, blankPostcodeError,invalidPostcodeError)
-      result.bind("postcode", validPostcode).right.get.contains("AA1 1AA") mustBe true
+      result.bind("postcode", validPostcode).contains("AA1 1AA") mustBe true
     }
   }
 
@@ -62,25 +63,25 @@ class KnownFactsFormValidatorSpec extends SpecBase {
     "return Form Error when nino is blank " in {
       val ninoBlankData = Map("nino" -> "")
       val result = mockKnownFactsFormValidator.ninoFormatter(ninoKey, blankMessageKey, lengthMessageKey, formatMessageKey)
-      result.bind("nino", ninoBlankData).left.get.contains(FormError(ninoKey, blankMessageKey)) mustBe true
+      assert(result.bind("nino", ninoBlankData).left.value contains FormError(ninoKey, blankMessageKey))
      }
 
     "return Form Error when nino is invalid" in {
       val ninoInvalidData = Map("nino" -> "AAAAVVBGF")
       val result = mockKnownFactsFormValidator.ninoFormatter(ninoKey, blankMessageKey, lengthMessageKey, formatMessageKey)
-      result.bind("nino", ninoInvalidData).left.get.contains(FormError(ninoKey, formatMessageKey)) mustBe true
+      assert(result.bind("nino", ninoInvalidData).left.value contains FormError(ninoKey, formatMessageKey))
     }
 
     "return Form Error when nino has invalid length" in {
       val ninoInvalidLength = Map("nino" -> "1234567891012")
       val result = mockKnownFactsFormValidator.ninoFormatter(ninoKey, blankMessageKey, lengthMessageKey, formatMessageKey)
-      result.bind("nino", ninoInvalidLength).left.get.contains(FormError(ninoKey, lengthMessageKey)) mustBe true
+      assert(result.bind("nino", ninoInvalidLength).left.value contains FormError(ninoKey, lengthMessageKey))
     }
 
     "return valid nino" in {
       val validPostcode = Map("nino"-> "AA000000A")
       val result = mockKnownFactsFormValidator.ninoFormatter(ninoKey, blankMessageKey, lengthMessageKey, formatMessageKey)
-      result.bind("nino", validPostcode).right.get.contains("AA000000A") mustBe true
+      assert(result.bind("nino", validPostcode).value contains "AA000000A")
     }
    }
 }

@@ -4,20 +4,18 @@ import sbt.Keys.javaOptions
 import scoverage.ScoverageKeys
 import uk.gov.hmrc.DefaultBuildSettings.{addTestReportOption, defaultSettings, scalaSettings}
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin
-import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin.publishingSettings
 import uk.gov.hmrc.sbtsettingkeys.Keys.isPublicArtefact
 
 
 lazy val appName: String = "add-taxes-frontend"
 lazy val plugins: Seq[Plugins] = Seq.empty
-lazy val playSettings: Seq[Setting[_]] = Seq(
+lazy val playSettings: Seq[Setting[?]] = Seq(
   RoutesKeys.routesImport ++= Seq(),
   TwirlKeys.templateImports ++= Seq(
     "uk.gov.hmrc.govukfrontend.views.html.components._",
     "uk.gov.hmrc.hmrcfrontend.views.html.{components => hmrcComponents}"
   )
 )
-val silencerVersion = "1.7.12"
 
 def unitFilter(name: String): Boolean = name startsWith "unit"
 
@@ -25,7 +23,7 @@ def getSourceDirectories(root: File, testType: String) = Seq(root / s"test/$test
 def getResourceDirectories(root: File, testType: String) = Seq(root / s"test/$testType", root / "target/web/public/test")
 
 lazy val microservice = Project(appName, file("."))
-  .enablePlugins(Seq(play.sbt.PlayScala, SbtDistributablesPlugin) ++ plugins: _*)
+  .enablePlugins((Seq(play.sbt.PlayScala, SbtDistributablesPlugin) ++ plugins) *)
   .disablePlugins(JUnitXmlReportPlugin)
   .settings(playSettings: _*)
   .settings(RoutesKeys.routesImport ++= Seq(
@@ -43,19 +41,12 @@ lazy val microservice = Project(appName, file("."))
     parallelExecution in Test := false
   )
   .settings(scalaSettings: _*)
-  .settings(publishingSettings: _*)
   .settings(defaultSettings(): _*)
   .settings(
-    // ***************
-    // Use the silencer plugin to suppress warnings from unused imports in compiled twirl templates
-    scalacOptions += "-P:silencer:pathFilters=views;routes",
-    libraryDependencies ++= Seq(
-      compilerPlugin("com.github.ghik" % "silencer-plugin" % silencerVersion cross CrossVersion.full),
-      "com.github.ghik" % "silencer-lib" % silencerVersion % Provided cross CrossVersion.full
-    ),
+    scalaVersion := "2.13.12",
     libraryDependencies ++= AppDependencies(),
-    retrieveManaged := true, PlayKeys.playDefaultPort := 9730,
-    scalaVersion := "2.13.7",
+    retrieveManaged := true,
+    PlayKeys.playDefaultPort := 9730,
     isPublicArtefact := true
   )
   .settings(inConfig(Test)(Defaults.testSettings): _*)

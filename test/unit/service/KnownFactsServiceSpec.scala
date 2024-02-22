@@ -23,7 +23,7 @@ import connectors.{CitizensDetailsConnector, DataCacheConnector, EnrolmentStoreP
 import controllers.ControllerSpecBase
 import controllers.sa.{routes => saRoutes}
 import handlers.ErrorHandler
-import models.{DesignatoryDetails, DesignatoryDetailsForKnownFacts}
+import models.DesignatoryDetailsForKnownFacts
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.sa._
 import org.mockito.ArgumentMatchers.any
@@ -40,7 +40,6 @@ import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
 import uk.gov.hmrc.play.audit.http.connector.AuditResult
 
 import java.io.FileNotFoundException
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach with FeatureToggleSupport {
