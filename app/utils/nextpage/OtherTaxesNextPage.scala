@@ -51,6 +51,7 @@ trait OtherTaxesNextPage {
           case OtherTaxes.PODS                                         => Call("GET", appConfig.pods)
           case OtherTaxes.PPT                                          => pptRoutes.DoYouHaveAPPTRefController.onPageLoad()
           case OtherTaxes.ECL                                          => Call("GET", appConfig.eclHandOff)
+          case OtherTaxes.PLRID                                        => Call("GET", appConfig.pillar2Url)
         }
     }
   }

@@ -17,7 +17,7 @@
 package controllers
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.{ECLSwitch, PptSwitch}
+import config.featureToggles.FeatureSwitch.{ECLSwitch, Pillar2Switch, PptSwitch}
 import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions._
 import forms.OtherTaxesFormProvider
@@ -33,7 +33,6 @@ import uk.gov.hmrc.auth.core.{Enrolment, Enrolments => CoreEnrolments}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enrolments, Enumerable, Navigator, RadioOption}
 import views.html.{organisation_only, otherTaxes}
-
 import javax.inject.Inject
 import scala.concurrent.Future
 
@@ -60,7 +59,8 @@ class OtherTaxesController @Inject()(mcc: MessagesControllerComponents,
       checkChildTrustFund,
       checkPODS,
       checkPPT,
-      checkECL
+      checkECL,
+      checkPillar2
     )
     val defaultRadioOptions: Seq[RadioOption] = Seq(HousingAndLand, ImportsExports).map(_.toRadioOption)
     val unsortedRadioOptions: Seq[RadioOption] = checks.flatMap(_.apply(r.request.enrolments)) ++ defaultRadioOptions
@@ -78,6 +78,12 @@ class OtherTaxesController @Inject()(mcc: MessagesControllerComponents,
   private val checkECL: CoreEnrolments => Option[RadioOption] = e => {
     val ecl: Option[Enrolment] = e.getEnrolment(Enrolments.ECL.toString)
     if (isEnabled(ECLSwitch) && ecl.isEmpty) Some(ECL.toRadioOption)
+    else None
+  }
+
+  private val checkPillar2: CoreEnrolments => Option[RadioOption] = e => {
+    val pillar2: Option[Enrolment] = e.getEnrolment(Enrolments.PLRID.toString)
+    if (isEnabled(Pillar2Switch) && pillar2.isEmpty) Some(PLRID.toRadioOption)
     else None
   }
 
