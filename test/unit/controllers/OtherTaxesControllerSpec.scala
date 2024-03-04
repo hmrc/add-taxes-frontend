@@ -16,7 +16,7 @@
 
 package controllers
 
-import config.featureToggles.FeatureSwitch.{ECLSwitch, PptSwitch}
+import config.featureToggles.FeatureSwitch.{ECLSwitch, Pillar2Switch, PptSwitch}
 import controllers.actions._
 import forms.OtherTaxesFormProvider
 import models.OtherTaxes
@@ -37,6 +37,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
   override def beforeEach(): Unit = {
     disable(PptSwitch)
     disable(ECLSwitch)
+    disable(Pillar2Switch)
   }
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
@@ -74,21 +75,44 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
       RadioOption("otherTaxes", "oilAndFuel"),
       RadioOption("otherTaxes", "pods")
     )
-    (isEnabled(PptSwitch), isEnabled(ECLSwitch)) match {
-      case (true, true) => {
+    (isEnabled(PptSwitch), isEnabled(ECLSwitch), isEnabled(Pillar2Switch)) match {
+      case (true, true, false) => {
         radiotionOptions ++ Seq(
           RadioOption("otherTaxes", "ppt"),
-          RadioOption("otherTaxes", "economicCrimeLevy")
+          RadioOption("otherTaxes", "economicCrimeLevy"),
         )
       }
-      case (true, false) =>
+      case (true, false, false) =>
         radiotionOptions ++ Seq(
           RadioOption("otherTaxes", "ppt")
         )
-      case (false, true) => radiotionOptions ++ Seq(
+      case (false, true, false) => radiotionOptions ++ Seq(
         RadioOption("otherTaxes", "economicCrimeLevy")
       )
-      case (_, _) => radiotionOptions
+      case (true, true, true) => {
+        radiotionOptions ++ Seq(
+          RadioOption("otherTaxes", "ppt"),
+          RadioOption("otherTaxes", "economicCrimeLevy"),
+          RadioOption("otherTaxes", "pillar2")
+        )
+      }
+      case (false, true, true) => radiotionOptions ++ Seq(
+        RadioOption("otherTaxes", "economicCrimeLevy"),
+        RadioOption("otherTaxes", "pillar2")
+      )
+
+      case (true, false, true) =>
+        radiotionOptions ++ Seq(
+          RadioOption("otherTaxes", "ppt"),
+          RadioOption("otherTaxes", "pillar2")
+        )
+
+      case (false, false, true) =>
+        radiotionOptions ++ Seq(
+          RadioOption("otherTaxes", "pillar2")
+        )
+
+      case (_, _, _) => radiotionOptions
     }
   }
 
@@ -219,6 +243,31 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
       val result = controller().getOptions(request)
 
       result mustBe removeRadioOptionFromList().sortBy(_.value)
+    }
+
+    "not display PLRID if the user has PLRID" in {
+      val request = requestWithEnrolments("HMRC-PILLAR2-ORG")
+      val result = controller().getOptions(request)
+
+      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "pillar2")))
+    }
+
+    "not display PLRID if the user doesnt have PLRID but the feature is off" in {
+
+      disable(Pillar2Switch)
+      val request = requestWithEnrolments("")
+      val result = controller().getOptions(request)
+
+      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "pillar2")))
+    }
+
+    "display PLRID if the user doesnt have PLRID but the feature is on" in {
+      enable(Pillar2Switch)
+
+      val request = requestWithEnrolments("")
+      val result = controller().getOptions(request)
+      result mustBe removeRadioOptionFromList().sortBy(_.value)
+
     }
 
     "not display Gambling and Gaming if the user has HMRC-MGD-ORG, HMRC-GTS-GBD, HMRC-GTS-PBD, HMRC-GTS-RGD" in {

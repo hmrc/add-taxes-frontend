@@ -27,7 +27,8 @@ object FeatureSwitch {
     AtarSwitch,
     ARSContentSwitch,
     BypassVATETMPCheck,
-    NewCTCEnrolmentForNCTSJourney
+    NewCTCEnrolmentForNCTSJourney,
+    Pillar2Switch
   )
 
   def apply(str: String): FeatureSwitch =
@@ -94,6 +95,10 @@ object FeatureSwitch {
   case object NewCTCEnrolmentForNCTSJourney extends FeatureSwitch {
     override val name: String = s"$prefix.newCTCEnrolmentForNCTSJourney"
     override val displayText: String = "Enable new HMRC - CTC - ORG enrolment journey for NCTS"
+  }
+  case object Pillar2Switch extends FeatureSwitch {
+    override val name = s"$prefix.pillar2Switch"
+    override val displayText: String = "pillar2 tax feature Enabled"
   }
 }
 

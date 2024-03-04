@@ -142,6 +142,7 @@ otherTaxes.error.required = Select a tax or scheme type
 otherTaxes.legend = Select a tax or scheme type
 otherTaxes.pods = Manage and register pension schemes
 otherTaxes.ppt = Plastic Packaging Tax (PPT)
+otherTaxes.pillar2 = Pillar 2 top-up taxes
 
 
 #######################################################

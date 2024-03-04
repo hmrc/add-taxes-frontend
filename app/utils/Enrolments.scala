@@ -116,6 +116,8 @@ object Enrolments {
 
   case object ATaR extends WithName("HMRC-ATAR-ORG") with Enrolments
 
+  case object PLRID extends WithName("HMRC-PILLAR2-ORG") with Enrolments
+
 
   val values: Set[Enrolments] = Set(
     RebatedOils,

@@ -81,6 +81,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   def addTaxesSignoutToOrg(key: String): String = businessAccountHost + signoutBTALink + signoutToOrgHost + config.getString(s"urls.business-account.${key}")
   def getBusinessAccountUrl(key: String): String = businessAccountHost + config.getString(s"urls.business-account.$key")
+  lazy val pillar2Url: String = businessAccountHost + config.getString("urls.business-account.pillar2")
 
   def getTarUrl: String = tarHost + config.getString(s"tax-account-router-frontend.url")
 
