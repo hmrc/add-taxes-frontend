@@ -61,8 +61,7 @@ class IndividualAddCorporationTaxViewSpec extends ViewBehaviours {
           doc,
           linkId = "create-account",
           expectedText = "Sign out and create ‘Organisation’ account",
-          expectedUrl =
-            "http://localhost:9020/business-account/sso-sign-out?continueUrl=http://localhost:9553/coafe/government-gateway/register?accountType=organisation&continue=/business-account/add-tax&origin=unknown",
+          expectedUrl = signOutAndRegisterAsOrgLink,
           expectedRole = Some("button")
         )
 

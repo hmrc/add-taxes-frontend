@@ -67,10 +67,10 @@ class OrganisationOnlyViewSpec extends ViewBehaviours {
       "have the correct links" in {
         val doc = asDocument(createView())
         assertLinkById(
-          doc,
-          "create-account",
-          "Sign out and create ‘Organisation’ account",
-          "http://localhost:9020/business-account/sso-sign-out?continueUrl=http://localhost:9553/coafe/government-gateway/register?accountType=organisation&continue=/business-account/add-tax&origin=unknown",
+          doc = doc,
+          linkId = "create-account",
+          expectedText = "Sign out and create ‘Organisation’ account",
+          expectedUrl = signOutAndRegisterAsOrgLink,
           expectedRole = Some("button")
         )
 
