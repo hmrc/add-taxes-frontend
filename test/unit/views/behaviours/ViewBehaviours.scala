@@ -24,6 +24,8 @@ trait ViewBehaviours extends ViewSpecBase {
 
   implicit val lang: Lang = Lang("en")
 
+  val signOutAndRegisterAsOrgLink = "http://localhost:9020/business-account/sso-sign-out?continueUrl=http://localhost:9553/coafe/government-gateway/register?accountType=organisation&continueUrl=/business-account/add-tax&origin=unknown"
+
   def normalPage(view: () => HtmlFormat.Appendable, messageKeyPrefix: String, expectedGuidanceKeys: String*): Unit =
     "behave like a normal page" when {
       "rendered" must {
