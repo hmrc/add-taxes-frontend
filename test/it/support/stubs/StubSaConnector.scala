@@ -48,7 +48,7 @@ object StubSaConnector extends StubHelper {
          |{
          | "safeId": "XE00001234567890",
          | "nino": "$value",
-         | "mtdbsa": "1234567"
+         | "mtdId": "1234567"
          |
          |}""".stripMargin
     ))
