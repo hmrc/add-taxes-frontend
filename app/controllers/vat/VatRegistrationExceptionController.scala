@@ -20,11 +20,13 @@ import config.FrontendAppConfig
 import controllers.actions._
 import forms.vat.VatRegistrationExceptionFormProvider
 import identifiers.VatRegistrationExceptionId
+
 import javax.inject.Inject
 import models.vat.VatRegistrationException
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import service.ThresholdService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import views.html.vat.vatRegistrationException
@@ -36,21 +38,22 @@ class VatRegistrationExceptionController @Inject()(appConfig: FrontendAppConfig,
                                                    serviceInfoData: ServiceInfoAction,
                                                    formProvider: VatRegistrationExceptionFormProvider,
                                                    featureDepandantAction: FeatureDependantAction,
-                                                   vatRegistrationException: vatRegistrationException)
+                                                   vatRegistrationException: vatRegistrationException,
+                                                   thresholdService: ThresholdService)
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
   val form: Form[VatRegistrationException] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = {
     (authenticate andThen serviceInfoData) { implicit request =>
-      Ok(vatRegistrationException(appConfig, form)(request.serviceInfoContent))
+      Ok(vatRegistrationException(appConfig, form, thresholdService.formattedVatDeregThreshold())(request.serviceInfoContent))
     }
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(vatRegistrationException(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(vatRegistrationException(appConfig, formWithErrors, thresholdService.formattedVatDeregThreshold())(request.serviceInfoContent)),
         value => Redirect(navigator.nextPage(VatRegistrationExceptionId, value))
       )
   }

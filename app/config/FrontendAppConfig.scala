@@ -17,15 +17,18 @@
 package config
 
 import com.google.inject.{Inject, Singleton}
+import com.typesafe.config.{ConfigList, ConfigRenderOptions}
 import controllers.routes
+import models.VatThreshold
 import play.api.Configuration
 import play.api.i18n.Lang
+import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.language.LanguageUtils
 import utils.{Enrolments, ForgottenOptions, PortalUrlBuilder}
-import java.time.LocalDateTime
 
+import java.time.LocalDateTime
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, Language}
 
 @Singleton
@@ -262,6 +265,12 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   val pptFEHost = config.getString("plastic-packaging-tax-returns-frontend.host")
   def pptEnrolmentUrl() = s"$pptFEHost${config.getString("plastic-packaging-tax-returns-frontend.enrolmentPptUrl")}"
   def pptRegisterUrl() = s"$pptFEHost${config.getString("plastic-packaging-tax-returns-frontend.registerPpt")}"
+
+  def thresholdString: String = conf.get[ConfigList]("vat-threshold").render(ConfigRenderOptions.concise())
+  lazy val thresholds: Seq[VatThreshold] = Json.parse(thresholdString).as[List[VatThreshold]]
+
+  def deregThresholdString: String = conf.get[ConfigList]("vat-dereg-threshold").render(ConfigRenderOptions.concise())
+  lazy val deregThresholds: Seq[VatThreshold] = Json.parse(deregThresholdString).as[List[VatThreshold]]
 
 }
 

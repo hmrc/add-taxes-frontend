@@ -22,9 +22,12 @@ import forms.vat.ImportedGoodsFormProvider
 import models.vat.ImportedGoods
 import org.scalatest.BeforeAndAfterEach
 import play.api.data.Form
+import play.api.i18n.Messages
 import play.api.mvc.Call
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
+import service.ThresholdService
 import utils.FakeNavigator
 import views.html.vat.importedGoods
 
@@ -33,9 +36,12 @@ class ImportedGoodsControllerSpec extends ControllerSpecBase with BeforeAndAfter
   def onwardRoute: Call = controllers.routes.IndexController.onPageLoad
 
   val formProvider = new ImportedGoodsFormProvider()
-  val form: Form[ImportedGoods] = formProvider()
+  val thresholdService: ThresholdService = injector.instanceOf[ThresholdService]
+  implicit val msg: Messages = messages
+  val form: Form[ImportedGoods] = formProvider(thresholdService.formattedVatThreshold())
 
   val view: importedGoods = injector.instanceOf[importedGoods]
+  implicit val req: FakeRequest[_] = fakeRequest
 
   def controller() =
     new ImportedGoodsController(
@@ -45,11 +51,13 @@ class ImportedGoodsControllerSpec extends ControllerSpecBase with BeforeAndAfter
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider,
-      view
+      view,
+      thresholdService
     )
 
   def viewAsString(form: Form[_] = form): String =
-    new importedGoods(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new importedGoods(formWithCSRF, mainTemplate)(
+      frontendAppConfig, form, thresholdService.formattedVatThreshold())(HtmlFormat.empty)(fakeRequest, messages).toString
 
   override def beforeEach(): Unit = {
     super.beforeEach()

@@ -16,24 +16,31 @@
 
 package forms.vat
 
+import base.SpecBase
 import forms.behaviours.FormBehaviours
 import models._
 import models.vat._
+import play.api.i18n.Messages
+import play.api.mvc.Request
+import service.ThresholdService
 
-class ImportedGoodsFormProviderSpec extends FormBehaviours {
+class ImportedGoodsFormProviderSpec extends FormBehaviours with SpecBase {
 
   val validData: Map[String, String] = Map(
     "value" -> ImportedGoods.options.head.value
   )
 
-  val form = new ImportedGoodsFormProvider()()
+  val thresholdService: ThresholdService = injector.instanceOf[ThresholdService]
+  implicit val request: Request[_] = fakeRequest
+  implicit val msg: Messages = messages
+  val form = new ImportedGoodsFormProvider()(thresholdService.formattedVatThreshold())
 
   "ImportedGoods form" must {
 
     behave like questionForm[ImportedGoods](ImportedGoods.values.head)
 
     behave like formWithOptionField(
-      Field("value", Required -> "importedGoods.error.required", Invalid -> "error.invalid"),
+      Field("value", Required -> messages("importedGoods.error.required", thresholdService.formattedVatThreshold()), Invalid -> "error.invalid"),
       ImportedGoods.options.toSeq.map(_.value): _*)
   }
 }

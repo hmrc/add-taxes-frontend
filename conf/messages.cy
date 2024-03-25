@@ -1117,7 +1117,7 @@ registerForVATOnline.listitem1 = mae angen i chi wneud cais ar gyfer ‘eithriad
 registerForVATOnline.listitem2 = rydych yn ymuno â’r Cynllun Cyfradd Unffurf Amaethyddol
 registerForVATOnline.listitem3 = rydych yn cofrestru adrannau neu unedau busnes corff corfforaethol o dan rifau TAW gwahanol
 registerForVATOnline.listitem4 = mae gennych fusnes yn yr UE sy’n ‘gwerthu o bell’ i’r DU
-registerForVATOnline.listitem5 = rydych wedi mewnforio (‘caffael’) nwyddau sy’n werth mwy na £85,000 o gwmni arall yn yr UE
+registerForVATOnline.listitem5 = rydych wedi mewnforio (‘caffael’) nwyddau sy’n werth mwy na {0} o gwmni arall yn yr UE
 registerForVATOnline.listitem6 = rydych yn cael gwared o asedion y gwnaed hawliad am ad-daliadau o dan yr 8fed neu’r 13eg Cyfarwyddeb arnynt
 registerForVATOnline.subheading = A ydych eisiau cofrestru ar gyfer TAW ar-lein?
 registerForVATOnline.Yes = Iawn
@@ -1178,7 +1178,7 @@ vatEligibilityCheck.p1 = Gofynnir hyd at 6 chwestiwn i chi er mwyn gwirio a ydyc
 vatRegistrationException.title = A oes angen i chi wneud cais am eithriad rhag cofrestru ar gyfer TAW?
 vatRegistrationException.heading = A oes angen i chi wneud cais am eithriad rhag cofrestru ar gyfer TAW?
 vatRegistrationException.error.required = Dewiswch ‘Iawn’ os oes angen i chi wneud cais am eithriad rhag cofrestru ar gyfer TAW
-vatRegistrationException.p1 = Gallwch wneud cais os yw’ch trosiant trethadwy TAW wedi mynd dros y trothwy dros dro ac rydych o’r farn na fydd yn mynd dros y trothwy dadgofrestru o £83,000 yn ystod y 12 mis nesaf.
+vatRegistrationException.p1 = Gallwch wneud cais os yw’ch trosiant trethadwy TAW wedi mynd dros y trothwy dros dro ac rydych o’r farn na fydd yn mynd dros y trothwy dadgofrestru o {0} yn ystod y 12 mis nesaf.
 
 #######################################################
 ##  AgriculturalFlatRateScheme
@@ -1207,10 +1207,10 @@ distanceSelling.hintText = Mae gwerthu o bell yn digwydd pan fo busnes yn gwerth
 #######################################################
 ##  ImportedGoods
 #######################################################
-importedGoods.title = A ydych wedi caffael nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE?
-importedGoods.heading = A ydych wedi caffael nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE?
-importedGoods.error.required = Dewiswch ‘Iawn’ os ydych wedi caffael nwyddau sydd werth mwy nag £85,000 o gwmni arall yn yr UE
-importedGoods.hintText = Os ydych wedi mewnforio nwyddau sydd werth mwy nag £85,000 o aelod-wladwriaethau eraill yn yr UE, rhaid i chi gofrestru ar gyfer TAW gan ddefnyddio ffurflen VAT1B.
+importedGoods.title = A ydych wedi caffael nwyddau sydd werth mwy nag {0} o gwmni arall yn yr UE?
+importedGoods.heading = A ydych wedi caffael nwyddau sydd werth mwy nag {0} o gwmni arall yn yr UE?
+importedGoods.error.required = Dewiswch ‘Iawn’ os ydych wedi caffael nwyddau sydd werth mwy nag {0} o gwmni arall yn yr UE
+importedGoods.hintText = Os ydych wedi mewnforio nwyddau sydd werth mwy nag {0} o aelod-wladwriaethau eraill yn yr UE, rhaid i chi gofrestru ar gyfer TAW gan ddefnyddio ffurflen VAT1B.
 
 #######################################################
 ##  ClaimRefund

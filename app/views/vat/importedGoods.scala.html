@@ -25,12 +25,12 @@
     main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_], vatThreshold: String)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @dataPageId = { data-page-id="has-imported-goods" }
 
 @main_template(
-    title = messages("importedGoods.title"),
+    title = messages("importedGoods.title", vatThreshold),
     appConfig = appConfig,
     form = Some(form),
     serviceInfoContent = Some(serviceInfoContent),
@@ -42,10 +42,10 @@
 
         @components.input_radio(
             field = form("value"),
-            headingKey = Some("importedGoods.heading"),
+            headingKey = Some(messages("importedGoods.heading", vatThreshold)),
             headingId = Some("imported-goods"),
             inputs = ImportedGoods.options.toSeq,
-            hint = Some(messages("importedGoods.hintText")),
+            hint = Some(messages("importedGoods.hintText", vatThreshold)),
             noMarginClass = Some("no-bottom-margin"),
             hintTextSpacing = Some("padding-bottom-small")
         )

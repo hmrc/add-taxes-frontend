@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,10 @@
  * limitations under the License.
  */
 
-package forms.vat
+package utils.formatters
 
-import javax.inject.Inject
-import forms.FormErrorHelper
-import forms.mappings.Mappings
-import play.api.data.Form
-import models.vat.ImportedGoods
-import play.api.i18n.Messages
-
-class ImportedGoodsFormProvider @Inject() extends FormErrorHelper with Mappings {
-
-  def apply(vatThreshold: String)(implicit messages: Messages): Form[ImportedGoods] =
-    Form(
-      "value" -> enumerable[ImportedGoods](messages("importedGoods.error.required", vatThreshold))
-    )
+trait CurrencyFormatter {
+  def currencyFormat(amt: BigDecimal): String = f"£$amt%,1.2f".replace(".00","")
 }
+
+object CurrencyFormatter extends CurrencyFormatter

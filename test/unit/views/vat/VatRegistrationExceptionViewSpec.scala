@@ -19,7 +19,9 @@ package views.vat
 import forms.vat.VatRegistrationExceptionFormProvider
 import models.vat.VatRegistrationException
 import play.api.data.Form
+import play.api.mvc.Request
 import play.twirl.api.{Html, HtmlFormat}
+import service.ThresholdService
 import views.behaviours.ViewBehaviours
 import views.html.vat.vatRegistrationException
 
@@ -31,11 +33,16 @@ class VatRegistrationExceptionViewSpec extends ViewBehaviours {
 
   val serviceInfoContent: Html = HtmlFormat.empty
 
+  val thresholdService: ThresholdService = injector.instanceOf[ThresholdService]
+  implicit val request: Request[_] = fakeRequest
+
   def createView: () => HtmlFormat.Appendable = () =>
-    new vatRegistrationException(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    new vatRegistrationException(formWithCSRF, mainTemplate)(
+      frontendAppConfig, form, thresholdService.formattedVatDeregThreshold())(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
-    new vatRegistrationException(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    new vatRegistrationException(formWithCSRF, mainTemplate)(
+      frontendAppConfig, form, thresholdService.formattedVatDeregThreshold())(serviceInfoContent)(fakeRequest, messages)
 
   "VatRegistrationException view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -45,7 +52,7 @@ class VatRegistrationExceptionViewSpec extends ViewBehaviours {
       assertContainsText(
         doc,
         "You can apply if your VAT taxable turnover has temporarily gone over the threshold and you do not think it " +
-          "will go over the deregistration threshold of £83,000 in the next 12 months."
+          s"will go over the deregistration threshold of ${thresholdService.formattedVatDeregThreshold()} in the next 12 months."
       )
     }
   }

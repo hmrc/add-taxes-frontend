@@ -20,11 +20,13 @@ import config.FrontendAppConfig
 import controllers.actions._
 import forms.vat.RegisterForVATOnlineFormProvider
 import identifiers.RegisterForVATOnlineId
+
 import javax.inject.Inject
 import models.vat.RegisterForVATOnline
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import service.ThresholdService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import views.html.vat.registerForVATOnline
@@ -35,19 +37,20 @@ class RegisterForVATOnlineController @Inject()(appConfig: FrontendAppConfig,
                                                authenticate: AuthAction,
                                                serviceInfoData: ServiceInfoAction,
                                                formProvider: RegisterForVATOnlineFormProvider,
-                                               registerForVATOnline: registerForVATOnline)
+                                               registerForVATOnline: registerForVATOnline,
+                                               thresholdService: ThresholdService)
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
   val form: Form[RegisterForVATOnline] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(registerForVATOnline(appConfig, form)(request.serviceInfoContent))
+    Ok(registerForVATOnline(appConfig, form, thresholdService.formattedVatThreshold())(request.serviceInfoContent))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(registerForVATOnline(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(registerForVATOnline(appConfig, formWithErrors, thresholdService.formattedVatThreshold())(request.serviceInfoContent)),
         value => Redirect(navigator.nextPage(RegisterForVATOnlineId, value))
       )
   }
