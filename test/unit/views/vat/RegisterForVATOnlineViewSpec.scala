@@ -19,23 +19,29 @@ package views.vat
 import forms.vat.RegisterForVATOnlineFormProvider
 import models.vat.RegisterForVATOnline
 import play.api.data.Form
+import play.api.mvc.Request
 import play.twirl.api.{Html, HtmlFormat}
+import service.ThresholdService
 import views.behaviours.ViewBehaviours
 import views.html.vat.registerForVATOnline
 
 class RegisterForVATOnlineViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "registerForVATOnline"
+  val thresholdService: ThresholdService = injector.instanceOf[ThresholdService]
+  implicit val request: Request[_] = fakeRequest
 
   val form = new RegisterForVATOnlineFormProvider()()
 
   val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new registerForVATOnline(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    new registerForVATOnline(formWithCSRF, mainTemplate)(
+      frontendAppConfig, form, thresholdService.formattedVatThreshold())(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
-    new registerForVATOnline(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    new registerForVATOnline(formWithCSRF, mainTemplate)(
+      frontendAppConfig, form, thresholdService.formattedVatThreshold())(serviceInfoContent)(fakeRequest, messages)
 
   "RegisterForVATOnline view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -64,7 +70,7 @@ class RegisterForVATOnlineViewSpec extends ViewBehaviours {
           doc,
           "are registering the divisions or business units of a body corporate under separate VAT numbers")
         assertContainsText(doc, "have an EU business ‘distance selling’ to the UK")
-        assertContainsText(doc, "have imported (‘acquired’) goods worth more than £85,000 from another EU company")
+        assertContainsText(doc, s"have imported (‘acquired’) goods worth more than ${thresholdService.formattedVatThreshold()} from another EU company")
         assertContainsText(doc, "are disposing of assets on which 8th or 13th Directive refunds have been claimed")
       }
     }

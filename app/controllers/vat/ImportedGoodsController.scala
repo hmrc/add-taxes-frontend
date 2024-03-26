@@ -20,13 +20,16 @@ import config.FrontendAppConfig
 import controllers.actions._
 import forms.vat.ImportedGoodsFormProvider
 import identifiers.ImportedGoodsId
+
 import javax.inject.Inject
 import models.vat.ImportedGoods
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import service.ThresholdService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enumerable, Navigator}
+import views.html.helper.form
 import views.html.vat.importedGoods
 
 class ImportedGoodsController @Inject()(appConfig: FrontendAppConfig,
@@ -35,21 +38,22 @@ class ImportedGoodsController @Inject()(appConfig: FrontendAppConfig,
                                         authenticate: AuthAction,
                                         serviceInfoData: ServiceInfoAction,
                                         formProvider: ImportedGoodsFormProvider,
-                                        importedGoods: importedGoods)
+                                        importedGoods: importedGoods,
+                                        thresholdService: ThresholdService)
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
-
-  val form: Form[ImportedGoods] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = {
     (authenticate andThen serviceInfoData) { implicit request =>
-      Ok(importedGoods(appConfig, form)(request.serviceInfoContent))
+      val form: Form[ImportedGoods] = formProvider(thresholdService.formattedVatThreshold())
+      Ok(importedGoods(appConfig, form, thresholdService.formattedVatThreshold())(request.serviceInfoContent))
     }
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
+    val form: Form[ImportedGoods] = formProvider(thresholdService.formattedVatThreshold())
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(importedGoods(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(importedGoods(appConfig, formWithErrors, thresholdService.formattedVatThreshold())(request.serviceInfoContent)),
         value => Redirect(navigator.nextPage(ImportedGoodsId, value))
       )
   }

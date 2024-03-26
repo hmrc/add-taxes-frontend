@@ -25,7 +25,7 @@
     main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_], vatThreshold: String)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("registerForVATOnline.title"),
@@ -43,7 +43,7 @@
             <li>@messages("registerForVATOnline.listitem2")</li>
             <li>@messages("registerForVATOnline.listitem3")</li>
             <li>@messages("registerForVATOnline.listitem4")</li>
-            <li>@messages("registerForVATOnline.listitem5")</li>
+            <li>@messages("registerForVATOnline.listitem5", vatThreshold)</li>
             <li>@messages("registerForVATOnline.listitem6")</li>
         </ul>
 

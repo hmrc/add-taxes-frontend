@@ -19,26 +19,33 @@ package views.vat
 import forms.vat.ImportedGoodsFormProvider
 import models.vat.ImportedGoods
 import play.api.data.Form
+import play.api.i18n.Messages
+import play.api.mvc.Request
 import play.twirl.api.{Html, HtmlFormat}
+import service.ThresholdService
 import views.behaviours.ViewBehaviours
 import views.html.vat.importedGoods
 
 class ImportedGoodsViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "importedGoods"
+  val thresholdService: ThresholdService = injector.instanceOf[ThresholdService]
+  implicit val request: Request[_] = fakeRequest
 
-  val form = new ImportedGoodsFormProvider()()
+  implicit val msg: Messages = messages
+
+  val form = new ImportedGoodsFormProvider()(thresholdService.formattedVatThreshold())
 
   val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new importedGoods(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    new importedGoods(formWithCSRF, mainTemplate)(frontendAppConfig, form, thresholdService.formattedVatThreshold())(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
-    new importedGoods(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    new importedGoods(formWithCSRF, mainTemplate)(frontendAppConfig, form, thresholdService.formattedVatThreshold())(serviceInfoContent)(fakeRequest, messages)
 
   "ImportedGoods view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPageWithArg(createView, messageKeyPrefix, thresholdService.formattedVatThreshold())
 
     "contain heading ID" in {
       val doc = asDocument(createView())
@@ -49,7 +56,7 @@ class ImportedGoodsViewSpec extends ViewBehaviours {
       val doc = asDocument(createViewUsingForm(form))
       assertContainsText(
         doc,
-        "You need to register for VAT using form VAT1B if you have imported goods worth more than £85,000 from other EU member states.")
+        s"You need to register for VAT using form VAT1B if you have imported goods worth more than ${thresholdService.formattedVatThreshold()} from other EU member states.")
     }
   }
 
@@ -79,7 +86,7 @@ class ImportedGoodsViewSpec extends ViewBehaviours {
     "invalid data is sent" must {
       "prepend title with Error: " in {
         val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> ""))))
-        val title = messages("site.service_title", messages(s"$messageKeyPrefix.title"))
+        val title = messages("site.service_title", messages(s"$messageKeyPrefix.title", thresholdService.formattedVatThreshold()))
 
         assertEqualsMessage(doc, "title", "error.browser.title", title)
       }

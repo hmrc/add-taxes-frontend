@@ -1115,7 +1115,7 @@ registerForVATOnline.listitem1 = need to apply for a ‘registration exception�
 registerForVATOnline.listitem2 = are joining the Agricultural Flat Rate Scheme
 registerForVATOnline.listitem3 = are registering the divisions or business units of a body corporate under separate VAT numbers
 registerForVATOnline.listitem4 = have an EU business ‘distance selling’ to the UK
-registerForVATOnline.listitem5 = have imported (‘acquired’) goods worth more than £85,000 from another EU company
+registerForVATOnline.listitem5 = have imported (‘acquired’) goods worth more than {0} from another EU company
 registerForVATOnline.listitem6 = are disposing of assets on which 8th or 13th Directive refunds have been claimed
 registerForVATOnline.subheading = Do you want to register for VAT online?
 registerForVATOnline.Yes = Yes
@@ -1176,7 +1176,7 @@ vatEligibilityCheck.p1 =  You will be asked up to 6 questions to check if you ar
 vatRegistrationException.title = Do you need to apply for a VAT registration exception?
 vatRegistrationException.heading = Do you need to apply for a VAT registration exception?
 vatRegistrationException.error.required = Select yes if you need to apply for a VAT registration ‘exception’
-vatRegistrationException.p1 = You can apply if your VAT taxable turnover has temporarily gone over the threshold and you do not think it will go over the deregistration threshold of £83,000 in the next 12 months.
+vatRegistrationException.p1 = You can apply if your VAT taxable turnover has temporarily gone over the threshold and you do not think it will go over the deregistration threshold of {0} in the next 12 months.
 
 #######################################################
 ##  AgriculturalFlatRateScheme
@@ -1205,10 +1205,10 @@ distanceSelling.hintText = Distance selling occurs when a business sells or deli
 #######################################################
 ##  ImportedGoods
 #######################################################
-importedGoods.title = Have you acquired goods worth more than £85,000 from another EU company?
-importedGoods.heading = Have you acquired goods worth more than £85,000 from another EU company?
-importedGoods.error.required = Select yes if you have acquired goods worth more than £85,000 from another EU company
-importedGoods.hintText = You need to register for VAT using form VAT1B if you have imported goods worth more than £85,000 from other EU member states.
+importedGoods.title = Have you acquired goods worth more than {0} from another EU company?
+importedGoods.heading = Have you acquired goods worth more than {0} from another EU company?
+importedGoods.error.required = Select yes if you have acquired goods worth more than {0} from another EU company
+importedGoods.hintText = You need to register for VAT using form VAT1B if you have imported goods worth more than {0} from other EU member states.
 
 #######################################################
 ##  ClaimRefund
