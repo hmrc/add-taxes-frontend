@@ -75,6 +75,8 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   def getStampDutyUrl(key: String): String = stampDutyEnrollmentHost + config.getString(s"stamp-duty-land-tax-enrolment-frontend.$key")
 
   private lazy val businessAccountHost = config.getString("urls.business-account.host")
+  private lazy val pillar2Host = config.getString("urls.pillar2.host")
+
 
   private lazy val tarHost = config.getString("tax-account-router-frontend.host")
 
@@ -87,7 +89,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   lazy val signOutRedirectToOrgRegistration: String = signoutToOrgHost + config.getString(s"urls.business-account.signoutContinueUrl")
 
-  lazy val pillar2Url: String = businessAccountHost + config.getString("urls.business-account.pillar2")
+  lazy val pillar2Url: String = pillar2Host + config.getString("urls.pillar2.pillar2Link")
 
   def getTarUrl: String = tarHost + config.getString(s"tax-account-router-frontend.url")
 
