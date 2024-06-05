@@ -36,7 +36,7 @@ class HaveYouRegisteredPartnershipNextPageSpec extends NextPageSpecBase {
       NextPage.haveYouRegisteredPartnership,
       (HaveYouRegisteredPartnership.No, Enrolments(Set())),
       HaveYouRegisteredPartnership.No.toString,
-      "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/359500/sa400-static.pdf",
+      "https://assets.publishing.service.gov.uk/media/65d31d930f4eb1ec90a98110/SA400-2023.pdf",
       "no SA or CT Enrolments"
     )
 
