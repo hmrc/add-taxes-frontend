@@ -76,6 +76,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   private lazy val businessAccountHost = config.getString("urls.business-account.host")
   private lazy val pillar2Host = config.getString("urls.pillar2.host")
+  private lazy val accountDutyReturnsFrontendUrl = config.getString("urls.alcohol-duty-returns-frontend.host")
 
 
   private lazy val tarHost = config.getString("tax-account-router-frontend.host")
@@ -85,6 +86,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   private lazy val signoutToOrgHost = config.getString("add-taxes-sign-out.host")
 
   def addTaxesSignoutToOrg(key: String): String = businessAccountHost + signoutBTALink + signoutToOrgHost + config.getString(s"urls.business-account.${key}")
+  def getAccountDutyReturnsUrl(key: String): String = accountDutyReturnsFrontendUrl + config.getString(s"urls.alcohol-duty-returns-frontend.$key")
   def getBusinessAccountUrl(key: String): String = businessAccountHost + config.getString(s"urls.business-account.$key")
 
   lazy val signOutRedirectToOrgRegistration: String = signoutToOrgHost + config.getString(s"urls.business-account.signoutContinueUrl")

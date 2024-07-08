@@ -24,7 +24,8 @@ sealed trait OtherTaxes {
 
 object OtherTaxes {
 
-  case object AlcoholAndTobacco extends WithName("alcoholAndTobaccoWholesalingAndWarehousing") with OtherTaxes
+  case object AlcoholAndTobaccoOld extends WithName("alcoholAndTobaccoWholesalingAndWarehousing") with OtherTaxes
+  case object AlcoholAndTobacco extends WithName("alcoholAndTobacco") with OtherTaxes
   case object AutomaticExchangeOfInformation extends WithName("automaticExchangeOfInformation") with OtherTaxes
   case object Charities extends WithName("charities") with OtherTaxes
   case object ECL extends WithName("economicCrimeLevy") with OtherTaxes
@@ -42,6 +43,7 @@ object OtherTaxes {
 
 
   val values: Seq[OtherTaxes] = Seq(
+    AlcoholAndTobaccoOld,
     AlcoholAndTobacco,
     AutomaticExchangeOfInformation,
     Charities,

@@ -100,5 +100,10 @@ object FeatureSwitch {
     override val name = s"$prefix.pillar2Switch"
     override val displayText: String = "pillar2 tax feature Enabled"
   }
+
+  case object NewADPJourney extends FeatureSwitch {
+    override val name = s"$prefix.newADPJourney"
+    override val displayText: String = "new add a tax journey for ADP Enabled"
+  }
 }
 

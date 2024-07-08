@@ -24,7 +24,7 @@ class OtherTaxesNextPageSpec extends NextPageSpecBase {
   "OtherTaxes" when {
     behave like nextPage(
       NextPage.otherTaxes,
-      OtherTaxes.AlcoholAndTobacco,
+      OtherTaxes.AlcoholAndTobaccoOld,
       "/business-account/add-tax/other/alcohol"
     )
 
