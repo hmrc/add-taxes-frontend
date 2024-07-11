@@ -24,10 +24,12 @@ object SelectAlcoholScheme {
 
   case object ATWD extends WithName("atwd") with SelectAlcoholScheme
   case object AWRS extends WithName("awrs") with SelectAlcoholScheme
+  case object AD extends WithName("ad") with SelectAlcoholScheme
 
   val values: Set[SelectAlcoholScheme] = Set(
     ATWD,
-    AWRS
+    AWRS,
+    AD
   )
 
   val options: Set[RadioOption] = values.map { value =>

@@ -16,7 +16,7 @@
 
 package controllers
 
-import config.featureToggles.FeatureSwitch.{ECLSwitch, Pillar2Switch, PptSwitch}
+import config.featureToggles.FeatureSwitch.{ECLSwitch, NewADPJourney, Pillar2Switch, PptSwitch}
 import controllers.actions._
 import forms.OtherTaxesFormProvider
 import models.OtherTaxes
@@ -64,7 +64,11 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
 
   def listOfAllRadioOptions: Seq[RadioOption] = {
     val radiotionOptions = Seq(
-      RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing"),
+      if (isEnabled(NewADPJourney)) {
+        RadioOption("otherTaxes", "alcoholAndTobacco")
+      } else {
+        RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing")
+      },
       RadioOption("otherTaxes", "automaticExchangeOfInformation"),
       RadioOption("otherTaxes", "charities"),
       RadioOption("otherTaxes", "childTrustFund"),
@@ -199,6 +203,22 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
       val result = controller().getOptions(request)
 
       result mustBe removeRadioOptionFromList()
+    }
+
+    "display new ADP radio button if the user has HMCE-ATWD-ORG, HMRC-AWRS-ORG and newADPJourney feature is enabled" in {
+      enable(NewADPJourney)
+      val request = requestWithEnrolments("HMCE-ATWD-ORG", "HMRC-AWRS-ORG")
+      val result = controller().getOptions(request)
+
+      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing")))
+    }
+
+    "display old ADP radio button if the user has HMCE-ATWD-ORG, HMRC-AWRS-ORG and newADPJourney feature is enabled" in {
+      disable(NewADPJourney)
+      val request = requestWithEnrolments("HMCE-ATWD-ORG", "HMRC-AWRS-ORG")
+      val result = controller().getOptions(request)
+
+      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "alcoholAndTobacco")))
     }
 
     "not display AEOI if the user has HMRC-FATCA-ORG" in {

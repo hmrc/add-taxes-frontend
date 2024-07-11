@@ -34,5 +34,11 @@ class SelectAlcoholSchemeNextPageSpec extends NextPageSpecBase {
       SelectAlcoholScheme.AWRS,
       "http://localhost:9020/business-customer/business-verification/awrs"
     )
+
+    behave like nextPage(
+      NextPage.selectAlcoholScheme,
+      SelectAlcoholScheme.AD,
+      "http://localhost:16000/manage-your-alcohol-duty/enrol/approval-id"
+    )
   }
 }

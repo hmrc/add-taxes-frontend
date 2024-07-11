@@ -129,6 +129,7 @@ findingYourAccount.error.required = Select the option that best describes your p
 otherTaxes.title = Select a category
 otherTaxes.heading = Select a category
 otherTaxes.alcoholAndTobaccoWholesalingAndWarehousing = Alcohol and tobacco wholesaling and warehousing
+otherTaxes.alcoholAndTobacco = Alcohol and Tobacco
 otherTaxes.automaticExchangeOfInformation = Automatic Exchange of Information (AEOI)
 otherTaxes.charities = Charities - for Gift Aid repayment claims
 otherTaxes.economicCrimeLevy = Economic Crime Levy (ECL)
@@ -430,6 +431,7 @@ selectAlcoholScheme.title = Which scheme do you need?
 selectAlcoholScheme.heading = Which scheme do you need?
 selectAlcoholScheme.atwd = Alcohol & Tobacco Warehousing Declarations (ATWD)
 selectAlcoholScheme.awrs = Alcohol Wholesaler Registration Scheme (AWRS)
+selectAlcoholScheme.ad = Alcohol Duty (AD)
 selectAlcoholScheme.error.required = Select which scheme you need
 
 #######################################################

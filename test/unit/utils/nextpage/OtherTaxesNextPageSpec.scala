@@ -16,17 +16,32 @@
 
 package utils.nextpage
 
+import config.featureToggles.FeatureSwitch.NewADPJourney
 import models.OtherTaxes
 import utils.NextPage
 
 class OtherTaxesNextPageSpec extends NextPageSpecBase {
 
   "OtherTaxes" when {
-    behave like nextPage(
-      NextPage.otherTaxes,
-      OtherTaxes.AlcoholAndTobacco,
-      "/business-account/add-tax/other/alcohol"
-    )
+    "NewADPJourney is enabled" should {
+      enable(NewADPJourney)
+
+      behave like nextPage(
+        NextPage.otherTaxes,
+        OtherTaxes.AlcoholAndTobacco,
+      "http://localhost:16000/manage-your-alcohol-duty/enrol/approval-id"
+      )
+    }
+
+    "NewADPJourney is disabled" should {
+      disable(NewADPJourney)
+
+      behave like nextPage(
+        NextPage.otherTaxes,
+        OtherTaxes.AlcoholAndTobaccoOld,
+        "/business-account/add-tax/other/alcohol"
+      )
+    }
 
     behave like nextPage(
       NextPage.otherTaxes,

@@ -130,6 +130,7 @@ findingYourAccount.error.required = Dewiswch yr opsiwn sy’n disgrifio’ch pro
 otherTaxes.title = Dewis categori
 otherTaxes.heading = Dewis categori
 otherTaxes.alcoholAndTobaccoWholesalingAndWarehousing = Cyfanwerthu a warysu alcohol a thybaco
+otherTaxes.alcoholAndTobacco = Alcohol a thybaco
 otherTaxes.automaticExchangeOfInformation = Cyfnewid Gwybodaeth yn Awtomatig (AEOI)
 otherTaxes.charities = Elusennau - ar gyfer ceisiadau am ad-daliadau Rhodd Cymorth
 otherTaxes.gamblingAndGaming = Betio a hapchwarae
@@ -455,6 +456,7 @@ selectAlcoholScheme.title = Pa gynllun sydd ei angen arnoch?
 selectAlcoholScheme.heading = Pa gynllun sydd ei angen arnoch?
 selectAlcoholScheme.atwd = Datganiadau Warysu Alcohol a Thybaco (ATWD)
 selectAlcoholScheme.awrs = Cynllun Cofrestru Cyfanwerthwyr Alcohol (AWRS)
+selectAlcoholScheme.ad = Toll Alcohol (AD)
 selectAlcoholScheme.error.required = Dewiswch pa gynllun sydd ei angen arnoch
 
 #######################################################

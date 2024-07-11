@@ -17,7 +17,7 @@
 package controllers
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.{ECLSwitch, Pillar2Switch, PptSwitch}
+import config.featureToggles.FeatureSwitch.{ECLSwitch, NewADPJourney, Pillar2Switch, PptSwitch}
 import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions._
 import forms.OtherTaxesFormProvider
@@ -33,6 +33,7 @@ import uk.gov.hmrc.auth.core.{Enrolment, Enrolments => CoreEnrolments}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enrolments, Enumerable, Navigator, RadioOption}
 import views.html.{organisation_only, otherTaxes}
+
 import javax.inject.Inject
 import scala.concurrent.Future
 
@@ -68,8 +69,10 @@ class OtherTaxesController @Inject()(mcc: MessagesControllerComponents,
     unsortedRadioOptions.sortBy(_.value)
   }
 
-  private val checkAlcohol: CoreEnrolments => Option[RadioOption] =
-    (_: CoreEnrolments) => Some(AlcoholAndTobacco.toRadioOption)
+  private val checkAlcohol: CoreEnrolments => Option[RadioOption] = { _: CoreEnrolments =>
+    if (isEnabled(NewADPJourney)) Some(AlcoholAndTobacco.toRadioOption)
+    else Some(AlcoholAndTobaccoOld.toRadioOption)
+  }
 
   private val checkAutomaticExchangeOfInformation: CoreEnrolments => Option[RadioOption] =
     _.getEnrolment(Enrolments.AEOI.toString)
