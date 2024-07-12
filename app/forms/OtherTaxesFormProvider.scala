@@ -23,6 +23,7 @@ import play.api.data.Form
 import models.OtherTaxes
 
 class OtherTaxesFormProvider @Inject() extends FormErrorHelper with Mappings {
+  import OtherTaxes.enumerable
 
   def apply(): Form[OtherTaxes] =
     Form(

@@ -40,7 +40,7 @@ trait OtherTaxesNextPage {
         b: OtherTaxes)(implicit appConfig: FrontendAppConfig, request: ServiceInfoRequest[_]): Call =
         b match {
           case OtherTaxes.AlcoholAndTobaccoOld                            => alcoholRoutes.SelectAlcoholSchemeController.onPageLoad()
-          case OtherTaxes.AlcoholAndTobacco                            => Call("GET", appConfig.getAccountDutyReturnsUrl("ad"))
+          case OtherTaxes.AlcoholAndTobaccoOld                            => alcoholRoutes.SelectAlcoholSchemeController.onPageLoad()
           case OtherTaxes.AutomaticExchangeOfInformation               => aeoiRoutes.HaveYouRegisteredAEOIController.onPageLoad()
           case OtherTaxes.Charities                                    => charityRoutes.DoYouHaveCharityReferenceController.onPageLoad()
           case OtherTaxes.GamblingAndGaming                            => gamblingRoutes.SelectGamblingOrGamingDutyController.onPageLoad()
