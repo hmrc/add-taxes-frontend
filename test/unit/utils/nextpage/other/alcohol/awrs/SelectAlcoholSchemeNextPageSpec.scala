@@ -38,7 +38,7 @@ class SelectAlcoholSchemeNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.selectAlcoholScheme,
       SelectAlcoholScheme.AD,
-      "http://localhost:16000/manage-your-alcohol-duty/enrol/approval-id"
+      "http://localhost:16000/manage-alcohol-duty/enrol/approval-id"
     )
   }
 }
