@@ -66,6 +66,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   lazy val basGatewayFrontendHost: String = config.getString("urls.bas-gateway-frontend.host")
   lazy val basGatewayCredRecovery: String = config.getString("urls.bas-gateway-frontend.credRecovery")
   lazy val btaUrl: String = config.baseUrl("business-tax-account")
+  lazy val accountDutyReturnsFrontendHost = config.baseUrl("alcohol-duty-returns-frontend")
   lazy val postcodeValidLength: Int = config.getInt(s"valid-known-facts-lengths.validationMaxLengthPostcode")
   lazy val validationMinLengthNINO: Int = config.getInt(s"valid-known-facts-lengths.validationMinLengthNINO")
   lazy val validationMaxLengthNINO: Int = config.getInt(s"valid-known-facts-lengths.validationMaxLengthNINO")
@@ -76,7 +77,6 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   private lazy val businessAccountHost = config.getString("urls.business-account.host")
   private lazy val pillar2Host = config.getString("urls.pillar2.host")
-  private lazy val accountDutyReturnsFrontendUrl = config.getString("urls.alcohol-duty-returns-frontend.host")
 
 
   private lazy val tarHost = config.getString("tax-account-router-frontend.host")
@@ -86,7 +86,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   private lazy val signoutToOrgHost = config.getString("add-taxes-sign-out.host")
 
   def addTaxesSignoutToOrg(key: String): String = businessAccountHost + signoutBTALink + signoutToOrgHost + config.getString(s"urls.business-account.${key}")
-  def getAccountDutyReturnsUrl(key: String): String = accountDutyReturnsFrontendUrl + config.getString(s"urls.alcohol-duty-returns-frontend.$key")
+  def getAccountDutyReturnsUrl(key: String): String = accountDutyReturnsFrontendHost + config.getString(s"urls.alcohol-duty-returns-frontend.$key")
   def getBusinessAccountUrl(key: String): String = businessAccountHost + config.getString(s"urls.business-account.$key")
 
   lazy val signOutRedirectToOrgRegistration: String = signoutToOrgHost + config.getString(s"urls.business-account.signoutContinueUrl")
