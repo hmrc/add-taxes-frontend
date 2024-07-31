@@ -34,7 +34,7 @@ trait SelectAlcoholSchemeNextPage {
         b match {
           case SelectAlcoholScheme.ATWD => atwdRoutes.AreYouRegisteredWarehousekeeperController.onPageLoad()
           case SelectAlcoholScheme.AWRS => Call("GET", appConfig.getBusinessAccountUrl("awrs"))
-          case SelectAlcoholScheme.AD => Call("GET", appConfig.getAccountDutyReturnsUrl("ad"))
+          case SelectAlcoholScheme.AD => Call("GET", appConfig.getAdrUrl)
         }
     }
   }
