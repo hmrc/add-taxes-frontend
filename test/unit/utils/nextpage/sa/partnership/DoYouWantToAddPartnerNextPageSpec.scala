@@ -28,7 +28,7 @@ class DoYouWantToAddPartnerNextPageSpec extends NextPageSpecBase {
       NextPage.doYouWantToAddPartner,
       (DoYouWantToAddPartner.Yes, Enrolments(Set())),
       DoYouWantToAddPartner.Yes.toString,
-      "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/359508/sa401-static.pdf",
+      "https://assets.publishing.service.gov.uk/media/65d3275de1bdec7737322219/SA401-2023.pdf",
       "no SA or CT Enrolments"
     )
 
