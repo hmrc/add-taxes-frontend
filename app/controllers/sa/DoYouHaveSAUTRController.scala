@@ -19,16 +19,20 @@ package controllers.sa
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import forms.sa.DoYouHaveSAUTRFormProvider
-import identifiers.DoYouHaveSAUTRId
+import forms.sa.{DoYouHaveSAUTRFormProvider, SAUTRFormProvider}
+import identifiers.{DoYouHaveSAUTRId, EnterSAUTRId}
+
 import javax.inject.Inject
-import models.sa.DoYouHaveSAUTR
+import models.sa.{DoYouHaveSAUTR, SAUTR, SelectSACategory}
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import service.SelectSaCategoryService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import views.html.sa.doYouHaveSAUTR
+
+import scala.concurrent.{ExecutionContext, Future}
 
 class DoYouHaveSAUTRController @Inject()(appConfig: FrontendAppConfig,
                                          mcc: MessagesControllerComponents,
@@ -37,7 +41,8 @@ class DoYouHaveSAUTRController @Inject()(appConfig: FrontendAppConfig,
                                          serviceInfoData: ServiceInfoAction,
                                          formProvider: DoYouHaveSAUTRFormProvider,
                                          doYouHaveSAUTR: doYouHaveSAUTR,
-                                         dataCacheConnector: DataCacheConnector)
+                                         dataCacheConnector: DataCacheConnector,
+                                         selectSaCategoryService: SelectSaCategoryService)(implicit val ec: ExecutionContext)
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
 
   val form: Form[DoYouHaveSAUTR] = formProvider()
@@ -51,7 +56,38 @@ class DoYouHaveSAUTRController @Inject()(appConfig: FrontendAppConfig,
     form.bindFromRequest()
       .fold(
         formWithErrors => BadRequest(doYouHaveSAUTR(appConfig, formWithErrors)(request.serviceInfoContent)),
-        value => Redirect(navigator.nextPage(DoYouHaveSAUTRId, value))
+        value => {
+          val saUTR =  new SAUTR(request.body.asFormUrlEncoded.get("txtdoYouHaveSAUTR")(0))
+          println(saUTR.value)
+          println(value)
+
+          lazy val tryAgainBoolean: Future[Boolean] = {
+            for {
+              tryAgain <- dataCacheConnector.getEntry[Boolean](request.request.credId, "tryAgain").map(_.getOrElse(false))
+            } yield {
+              tryAgain
+            }
+          }
+
+
+          println(tryAgainBoolean)
+
+          dataCacheConnector.save[SAUTR](request.request.credId, EnterSAUTRId.toString, saUTR).flatMap { _ =>
+            tryAgainBoolean.flatMap { tryAgain =>
+              if (tryAgain) {
+                selectSaCategoryService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.Yes, "bta-sa")
+              } else {
+                Future.successful(Redirect(controllers.sa.routes.SelectSACategoryController.onPageLoadHasUTR(Some("bta-sa"))))
+              }
+            }
+          }
+          dataCacheConnector.save[SAUTR](request.request.credId, EnterSAUTRId.toString, saUTR)
+
+          val utr = dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
+          println("print utr")
+          println(utr.value)
+          Redirect(navigator.nextPage(DoYouHaveSAUTRId, value))
+        }
       )
   }
 }

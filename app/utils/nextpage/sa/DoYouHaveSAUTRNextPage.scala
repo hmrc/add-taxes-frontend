@@ -28,11 +28,12 @@ trait DoYouHaveSAUTRNextPage {
 
   implicit val doYouHaveSAUTR: NextPage[DoYouHaveSAUTRId.type, DoYouHaveSAUTR, Call] = {
     new NextPage[DoYouHaveSAUTRId.type, DoYouHaveSAUTR, Call] {
+      println("inside DoYouHaveSAUTRNextPage ************************** ")
       override def get(b: DoYouHaveSAUTR)(
         implicit appConfig: FrontendAppConfig,
         request: ServiceInfoRequest[_]): Call =
         b match {
-          case DoYouHaveSAUTR.Yes => EnterSAUTRController.onPageLoad(Some("bta-sa"))
+          case DoYouHaveSAUTR.Yes => SelectSACategoryController.onPageLoadHasUTR(Some("bta-sa"))
           case DoYouHaveSAUTR.No  => SelectSACategoryController.onPageLoadNoUTR()
         }
     }

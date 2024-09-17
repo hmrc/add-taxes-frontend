@@ -923,6 +923,9 @@ doYouHaveSAUTR.title = Do you have a Self Assessment Unique Taxpayer Reference (
 doYouHaveSAUTR.heading = Do you have a Self Assessment Unique Taxpayer Reference (UTR)?
 doYouHaveSAUTR.Yes = Yes
 doYouHaveSAUTR.No = No
+doYouHaveSAUTR.p1 = Your UTR can be 10 or 13 digits long. You can find it in your Personal Tax Account,
+doYouHaveSAUTR.p2 = the HMRC app or on tax returns and other documents from HMRC.
+doYouHaveSAUTR.p3 = It might be called ‘reference’, ‘UTR’ or ‘official use’.
 doYouHaveSAUTR.error.required = Select yes if you have a Self Assessment Unique Taxpayer Reference (UTR)
 
 #######################################################

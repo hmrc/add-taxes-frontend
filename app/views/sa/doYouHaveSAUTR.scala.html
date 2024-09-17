@@ -33,14 +33,18 @@
     form = Some(form),
     serviceInfoContent = Some(serviceInfoContent)) {
 
-    @uiForm(action = DoYouHaveSAUTRController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+@uiForm(action = DoYouHaveSAUTRController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+
+
+        @components.heading("do-you-have-sa-utr", "doYouHaveSAUTR.heading")
+
+        <p class="govuk-body">@messages("doYouHaveSAUTR.p1") @messages("doYouHaveSAUTR.p2") @messages("doYouHaveSAUTR.p3")</p>
+
 
         @components.error_summary(form.errors, Some("doYouHaveSAUTR.Yes"))
 
-        @components.input_radio(
+        @components.conditional_radio_inputtxt(
             field = form("value"),
-            headingKey = Some("doYouHaveSAUTR.heading"),
-            headingId = Some("do-you-have-sa-utr"),
             inputs = DoYouHaveSAUTR.options.toSeq
         )
 
