@@ -1,0 +1,58 @@
+@*
+ * Copyright 2024 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import utils.RadioOption
+
+@(
+form: Form[_],
+headingKey: String,
+hint: Option[Html] = None,
+headingMessageArgs: Seq[String] = Seq(),
+isPageHeading: Boolean = true,
+classes: String = "govuk-fieldset__legend--xl",
+yesRadioMsg: String = "site.yes",
+noRadioMsg: String = "site.no",
+inline: Boolean = true
+)(implicit messages: Messages)
+
+<div class="govuk-form-group">
+
+    <div class="govuk-radios" data-module="govuk-radios">
+
+    <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="value" type="radio" name="value" value="true" data-aria-controls="conditional-value" @if(form.value){checked="checked"} />
+            <label class="block-label govuk-label govuk-radios__label" for="value" >
+                @messages("site.yes")
+            </label>
+        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-value">
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="sautrValue">
+                    Enter your UTR
+                </label>
+                <input class="govuk-input govuk-!-width-one-third"
+                       id="sautrValue" name="sautrValue" type="text" >
+            </div>
+        </div>
+        </div>
+
+        <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="value-no" type="radio" name="value" value="false" data-aria-controls="conditional-value-no" @if(form.value){checked="checked"} />
+            <label class="block-label govuk-label govuk-radios__label" for="value">
+                @messages("site.no")
+            </label>
+        </div>
+    </div>
+</div>
