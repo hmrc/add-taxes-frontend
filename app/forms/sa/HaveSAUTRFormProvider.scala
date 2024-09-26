@@ -41,39 +41,44 @@ class HaveSAUTRFormProvider @Inject() extends FormErrorHelper with Mappings {
         sautrValue = details.sautrValue
       ), x => x
     ).verifying(firstError(
-      utrProvidedAndutrChecked
+      sautrNonEmpty,
+      sautrType,
+      sautrLength
     )
     ))
 
-  def utrProvidedAndutrChecked: Constraint[HaveSAUTRModel] = Constraint {
+  def sautrNonEmpty: Constraint[HaveSAUTRModel] = Constraint {
     model =>
-      println("ppppppppppppppppppppppppppp")
       if (model.value && model.sautrValue.isEmpty) {
-        println("invalid ppppppppppppppppppppppppppp")
+          Invalid("enterSAUTR.error.required")
+      }
+      else {
+        Valid
+      }
+  }
 
-        println(model.value)
-        println(model.sautrValue)
-        Invalid("enterSAUTR.error.required")
-      } else if (model.value && model.sautrValue.isDefined) {
-        println("invalid ppppppppppppppppppppppppppp")
-        println(model.value)
-        println(model.sautrValue)
-          if(model.sautrValue.get.length == 13) {
-            Valid
-          } else {
-            Invalid("enterSAUTR.error.length")
-          }
-
-        if(model.sautrValue.get.matches("^(\\d)+$")) {
+  def sautrType: Constraint[HaveSAUTRModel] = Constraint {
+    model =>
+      if(model.value) {
+        if (model.value && model.sautrValue.isDefined && model.sautrValue.get.matches("^(\\d)+$")) {
           Valid
         } else {
           Invalid("enterSAUTR.error.characters")
         }
+      } else {
+        Valid
       }
-      else {
-        println("valid ppppppppppppppppppppppppppp")
-        println(model.value)
-        println(model.sautrValue)
+  }
+
+  def sautrLength: Constraint[HaveSAUTRModel] = Constraint {
+    model =>
+      if(model.value) {
+        if (model.value && model.sautrValue.isDefined && (model.sautrValue.get.length == 13 || model.sautrValue.get.length == 10)) {
+          Valid
+        } else {
+          Invalid("enterSAUTR.error.length")
+        }
+      } else {
         Valid
       }
   }

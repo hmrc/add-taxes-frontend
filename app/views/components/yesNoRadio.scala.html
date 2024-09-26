@@ -33,23 +33,23 @@ inline: Boolean = true
     <div class="govuk-radios" data-module="govuk-radios">
 
     <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="value" type="radio" name="value" value="true" data-aria-controls="conditional-value" @if(form.value){checked="checked"} />
+            <input class="govuk-radios__input" id="value" type="radio" name="value" value="true" data-aria-controls="conditional-value" @if(form.data.get("value")){checked="checked"} />
             <label class="block-label govuk-label govuk-radios__label" for="value" >
                 @messages("site.yes")
             </label>
-        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-value">
+        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-value" >
             <div class="govuk-form-group">
                 <label class="govuk-label" for="sautrValue">
                     Enter your UTR
                 </label>
                 <input class="govuk-input govuk-!-width-one-third"
-                       id="sautrValue" name="sautrValue" type="text" >
+                       id="sautrValue" name="sautrValue" type="text" value="@{form.data.get("sautrValue")}">
             </div>
         </div>
         </div>
 
         <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="value-no" type="radio" name="value" value="false" data-aria-controls="conditional-value-no" @if(form.value){checked="checked"} />
+            <input class="govuk-radios__input" id="value-no" type="radio" name="value" value="false" data-aria-controls="conditional-value-no" />
             <label class="block-label govuk-label govuk-radios__label" for="value">
                 @messages("site.no")
             </label>

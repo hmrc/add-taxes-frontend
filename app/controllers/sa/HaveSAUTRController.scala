@@ -57,43 +57,37 @@ class HaveSAUTRController @Inject()(appConfig: FrontendAppConfig,
     dataCacheConnector.remove(request.request.credId,"tryAgain")
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(haveSAUTR(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => {
+          BadRequest(haveSAUTR(appConfig, formWithErrors)(request.serviceInfoContent))
+        },
         value => {
-          println("inside HaveSAUTRController ************************** ")
-          println(value)
-         // val saUTR =  new SAUTR(request.body.asFormUrlEncoded.get("txtdoYouHaveSAUTR")(0))
-          val saUTR = new SAUTR("1222222");
-          println(saUTR.value)
-          println(value)
+          if(value.value) {
+            val saUTR = new SAUTR(value.sautrValue.get);
 
-          lazy val tryAgainBoolean: Future[Boolean] = {
-            for {
-              tryAgain <- dataCacheConnector.getEntry[Boolean](request.request.credId, "tryAgain").map(_.getOrElse(false))
-            } yield {
-              tryAgain
-            }
-          }
-
-
-          println(tryAgainBoolean)
-
-          dataCacheConnector.save[SAUTR](request.request.credId, EnterSAUTRId.toString, saUTR).flatMap { _ =>
-            tryAgainBoolean.flatMap { tryAgain =>
-              if (tryAgain) {
-                selectSaCategoryService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.Yes, "bta-sa")
-              } else {
-                Future.successful(Redirect(controllers.sa.routes.SelectSACategoryController.onPageLoadHasUTR(Some("bta-sa"))))
+            lazy val tryAgainBoolean: Future[Boolean] = {
+              for {
+                tryAgain <- dataCacheConnector.getEntry[Boolean](request.request.credId, "tryAgain").map(_.getOrElse(false))
+              } yield {
+                tryAgain
               }
             }
-          }
-          dataCacheConnector.save[SAUTR](request.request.credId, EnterSAUTRId.toString, saUTR)
 
-          val utr = dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
-          println("print utr")
-          println(utr.value)
-          val value2: DoYouHaveSAUTR = DoYouHaveSAUTR.Yes
-          Redirect(navigator.nextPage(DoYouHaveSAUTRId, value2))
-          //Redirect(SelectSACategoryController.onPageLoadHasUTR(Some("bta-sa")))
+            dataCacheConnector.save[SAUTR](request.request.credId, EnterSAUTRId.toString, saUTR).flatMap { _ =>
+              tryAgainBoolean.flatMap { tryAgain =>
+                if (tryAgain) {
+                  selectSaCategoryService.saCategoryResult(SelectSACategory.Sa, DoYouHaveSAUTR.Yes, "bta-sa")
+                } else {
+                  Future.successful(Redirect(controllers.sa.routes.SelectSACategoryController.onPageLoadHasUTR(Some("bta-sa"))))
+                }
+              }
+            }
+
+            val value2: DoYouHaveSAUTR = DoYouHaveSAUTR.Yes
+            Redirect(navigator.nextPage(DoYouHaveSAUTRId, value2))
+          } else {
+            val value3: DoYouHaveSAUTR = DoYouHaveSAUTR.No
+            Redirect(navigator.nextPage(DoYouHaveSAUTRId, value3))
+          }
         }
       )
   }
