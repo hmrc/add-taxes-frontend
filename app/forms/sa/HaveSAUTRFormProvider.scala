@@ -73,7 +73,7 @@ class HaveSAUTRFormProvider @Inject() extends FormErrorHelper with Mappings {
   def sautrLength: Constraint[HaveSAUTRModel] = Constraint {
     model =>
       if(model.value) {
-        if (model.value && model.sautrValue.isDefined && (model.sautrValue.get.length == 13 || model.sautrValue.get.length == 10)) {
+        if (model.value && model.sautrValue.isDefined && model.sautrValue.get.length == 10) {
           Valid
         } else {
           Invalid("enterSAUTR.error.length")
