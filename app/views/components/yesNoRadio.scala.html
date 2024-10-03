@@ -40,10 +40,15 @@ inline: Boolean = true
         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-value" >
             <div class="govuk-form-group">
                 <label class="govuk-label" for="sautrValue">
-                    Enter your UTR
+                    @messages("site.enterUTR")
                 </label>
                 <input class="govuk-input govuk-!-width-one-third"
                        id="sautrValue" name="sautrValue" type="text" value="@{form.data.get("sautrValue")}">
+                <div class="govuk-hint">
+                    @form.errors.map { error =>
+                    <span class="govuk-error-message margin-bottom-small" id="error-message-sautrValue"><span id="visually-hidden-error-prefix" class="govuk-visually-hidden">@messages("error.message.prefix")</span> @messages(error.message, error.args: _*)</span>
+                    }
+                </div>
             </div>
         </div>
         </div>

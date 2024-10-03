@@ -36,7 +36,18 @@
 
     @uiForm(action = HaveSAUTRController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-        @components.error_summary(form.errors, Some("doYouHaveSAUTR.Yes"))
+    @components.heading("do-you-have-sa-utr", "doYouHaveSAUTR.heading")
+
+
+<p class="govuk-body">@messages("doYouHaveSAUTR.p1") @messages("doYouHaveSAUTR.p2") @messages("doYouHaveSAUTR.p3")</p>
+
+<p class="govuk-body">@messages("doYouHaveSAUTR.p4")</p>
+
+<p class="govuk-body">@messages("doYouHaveSAUTR.p5")</p>
+
+<p> <a id='sautrHelpId' class="govuk-link" href='@appConfig.getGovUKUrl("sautrHelp")'>@messages("doYouHaveSAUTR.help.linkText")</a> </p>
+
+    @components.error_summary(form.errors, Some("doYouHaveSAUTR.Yes"))
 
 
         @components.yesNoRadio(form,

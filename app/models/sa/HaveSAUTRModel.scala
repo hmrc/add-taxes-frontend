@@ -23,7 +23,7 @@ case class HaveSAUTRModel (value : Boolean, sautrValue : Option[String])
 object HaveSAUTRModel {
 
   def formApply(value1: Boolean, sautrValue1: Option[String]): HaveSAUTRModel = {
-    if (value1) {
+    if (value1 && sautrValue1.isDefined) {
     sautrValue1.get.replace(" ", "") match {
       case s if s.length == 13 => HaveSAUTRModel(value1,Option(s.takeRight(10)))
       case s => HaveSAUTRModel(value1, Option(s))

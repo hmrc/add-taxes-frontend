@@ -919,11 +919,18 @@ enterSAUTR.p1 = This 10-digit number is on your tax return or other self assessm
 #######################################################
 ##  DoYouHaveSAUTR
 #######################################################
-doYouHaveSAUTR.title = Do you have a Self Assessment Unique Taxpayer Reference (UTR)?
-doYouHaveSAUTR.heading = Do you have a Self Assessment Unique Taxpayer Reference (UTR)?
+doYouHaveSAUTR.title = Your Self Assessment Unique Taxpayer Reference (UTR)
+doYouHaveSAUTR.heading = Your Self Assessment Unique Taxpayer Reference (UTR)
 doYouHaveSAUTR.Yes = Yes
 doYouHaveSAUTR.No = No
+doYouHaveSAUTR.p1 = You can find your UTR in your Personal Tax Account,
+doYouHaveSAUTR.p2 = the HMRC app or on tax returns and other documents from HMRC.
+doYouHaveSAUTR.p3 = It might be called ‘reference’, ‘UTR’ or ‘official use’.
+doYouHaveSAUTR.p4 = UTRs are 10 digits long, for example, ‘1234567890’.
+doYouHaveSAUTR.p5 = Some UTRs may appear as 13 digits, for example, ‘1234567890123’. If so, remove the first 3 digits when you enter it.
 doYouHaveSAUTR.error.required = Select yes if you have a Self Assessment Unique Taxpayer Reference (UTR)
+doYouHaveSAUTR.help.linkText = Get more help to find your UTR (opens in new tab)
+doYouHaveSAUTR.enterUTR = Enter your UTR
 
 #######################################################
 ##  SetupNewAccount - VAT GIANT
