@@ -40,7 +40,7 @@ inline: Boolean = true
         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-value" >
             <div class="govuk-form-group">
                 <label class="govuk-label" for="sautrValue">
-                    @messages("site.enterUTR")
+                    @messages(headingKey)
                 </label>
                 <input class="govuk-input govuk-!-width-one-third"
                        id="sautrValue" name="sautrValue" type="text" value="@{form.data.get("sautrValue")}">
