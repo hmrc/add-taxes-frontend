@@ -38,14 +38,14 @@
 
     @components.heading("do-you-have-sa-utr", "doYouHaveSAUTR.heading")
 
-
+<p> <a href='@appConfig.getBusinessAccountUrl("addTax")' > Back </a> </p>
 <p class="govuk-body">@messages("doYouHaveSAUTR.p1") @messages("doYouHaveSAUTR.p2") @messages("doYouHaveSAUTR.p3")</p>
 
 <p class="govuk-body">@messages("doYouHaveSAUTR.p4")</p>
 
 <p class="govuk-body">@messages("doYouHaveSAUTR.p5")</p>
 
-<p> <a id='sautrHelpId' class="govuk-link" href='@appConfig.getGovUKUrl("sautrHelp")'>@messages("doYouHaveSAUTR.help.linkText")</a> </p>
+<p> <a id='sautrHelpId' class="govuk-link" target="_blank" href='@appConfig.getGovUKUrl("sautrHelp")'>@messages("doYouHaveSAUTR.help.linkText")</a> </p>
 
     @components.error_summary(form.errors, Some("doYouHaveSAUTR.Yes"))
 
