@@ -13,7 +13,8 @@ private object AppDependencies {
     "uk.gov.hmrc.mongo"             %% "hmrc-mongo-play-30"             % "1.7.0",
     "uk.gov.hmrc"                   %% "http-caching-client-play-30"    % "11.2.0",
     "uk.gov.hmrc"                   %% "play-frontend-hmrc-play-30"     % "8.5.0",
-    "com.fasterxml.jackson.module"  %% "jackson-module-scala"           % "2.16.1"
+    "com.fasterxml.jackson.module"  %% "jackson-module-scala"           % "2.16.1",
+    "uk.gov.hmrc"                   %% "play-conditional-form-mapping-play-30" % "3.1.0"
   )
 
   abstract class TestDependencies(scope: String) {
