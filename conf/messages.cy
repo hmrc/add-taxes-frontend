@@ -912,6 +912,36 @@ doYouNeedToStopMGD.No = Na, mae angen i fi ddadgofrestru o’r Doll Peiriannau H
 doYouNeedToStopMGD.error.required = Dewiswch ‘Iawn’ os oes angen i chi roi’r gorau i ddefnyddio’r Doll Peiriannau Hapchwarae
 
 #######################################################
+##  Add VAT - Interstitial page
+#######################################################
+claimVATInterstitialPage.title=Ychwanegu TAW at eich cyfrif treth busnes
+claimVATInterstitialPage.heading=Ychwanegu TAW at eich cyfrif treth busnes
+claimVATInterstitialPage.h1=Er mwyn ychwanegu TAW at eich cyfrif, bydd angen i chi roi gwybod i ni am y canlynol:
+
+claimVATInterstitialPage.p1.title=1. Eich Rhif cofrestru TAW (VRN)
+claimVATInterstitialPage.p1.text1=Gallwch ddod o hyd i’ch VRN ar eich:
+claimVATInterstitialPage.p1.bullet1=Hysbysiad o lythyr Cofrestru ar gyfer TAW. Byddwch wedi cael hyn drwy’r post pan wnaethoch gofrestru ar gyfer TAW am y tro cyntaf
+claimVATInterstitialPage.p1.bullet2=Ffurflen TAW diwethaf
+claimVATInterstitialPage.p1.text2=Mae’n cynnwys 9 rhif, weithiau â ‘GB’ ar y dechrau. Er enghraifft, 123456789 neu GB123456789.
+
+claimVATInterstitialPage.p2.title=2. Y dyddiad y cofrestrwyd y busnes ar gyfer TAW
+claimVATInterstitialPage.p2.text1=Mae hwn i’w weld ar eich Hysbysiad o lythyr Cofrestru ar gyfer TAW. Fe’i gelwir yn ‘Dyddiad y daw’r cofrestriad i rym’.
+
+claimVATInterstitialPage.p3.title=3. Cod post y busnes yn y DU (os yw’n berthnasol)
+claimVATInterstitialPage.p3.text1=Mae’n rhaid i’r cod post hwn gyd-fynd â’r cod post sydd wedi’i gofrestru yn erbyn y cofnod TAW. Gallwch ddod o hyd i hwn ar y:
+claimVATInterstitialPage.p3.bullet1=Gwasanaeth Gwirio Rhif TAW yn y DU (yn agor tab newydd)
+claimVATInterstitialPage.p3.bullet2=Hysbysiad o lythyr Cofrestru ar gyfer TAW
+
+claimVATInterstitialPage.h2=Os ydych yn cyflwyno Ffurflenni TAW ar hyn o bryd, bydd angen i chi roi gwybod i ni:
+
+claimVATInterstitialPage.p4.title=4. Union swm eich Ffurflen TAW ddiweddaraf
+claimVATInterstitialPage.p4.text1=Mae’r swm hwn i’w weld ym mlwch 5 yn y Ffurflen TAW ddiweddaraf i chi ei chyflwyno i CThEF. Mae angen i chi roi gwybod i ni yr union swm mewn punnoedd a cheiniogau.
+
+claimVATInterstitialPage.p5.title=5. Mis eich cyfnod cyfrifyddu TAW diweddaraf
+claimVATInterstitialPage.p5.text1=Gallwch ddod o hyd i hyn yn y Ffurflen TAW ddiweddaraf i chi ei chyflwyno i CThEF.
+claimVATInterstitialPage.continue=Parhau
+
+#######################################################
 ##  DoYouHaveVATRegNumber
 #######################################################
 doYouHaveVATRegNumber.title = A oes gennych rif TAW?

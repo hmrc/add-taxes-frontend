@@ -168,6 +168,8 @@ POST       /self-assessment/not-in-this-account         controllers.sa.YourSaIsN
 GET        /vat                                         controllers.vat.WhichVATServicesToAddController.onPageLoad()
 POST       /vat                                         controllers.vat.WhichVATServicesToAddController.onSubmit()
 
+GET        /vat/interstitial                            controllers.vat.ClaimVATInterstitialController.onPageLoad()
+
 GET        /vat/do-you-have-a-vat-number                controllers.vat.DoYouHaveVATRegNumberController.onPageLoad()
 POST       /vat/do-you-have-a-vat-number                controllers.vat.DoYouHaveVATRegNumberController.onSubmit()
 
