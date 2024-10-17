@@ -32,7 +32,7 @@ trait DoYouHaveSAUTRNextPage {
         implicit appConfig: FrontendAppConfig,
         request: ServiceInfoRequest[_]): Call =
         b match {
-          case DoYouHaveSAUTR.Yes => EnterSAUTRController.onPageLoad(Some("bta-sa"))
+          case DoYouHaveSAUTR.Yes => SelectSACategoryController.onPageLoadHasUTR(Some("bta-sa"))
           case DoYouHaveSAUTR.No  => SelectSACategoryController.onPageLoadNoUTR()
         }
     }
