@@ -34,7 +34,7 @@ class WhichVATServicesToAddNextPageSpec extends NextPageSpecBase with FeatureTog
     behave like nextPage(
       NextPage.whichVATServicesToAdd,
       (WhichVATServicesToAdd.VAT, affinityGroupOrganisation, noEnrolments, redirectUrl),
-      "/business-account/add-tax/vat/do-you-have-a-vat-number"
+      "/business-account/add-tax/vat/interstitial"
     )
 
     behave like nextPage(

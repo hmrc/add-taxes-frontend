@@ -42,7 +42,7 @@ trait WhichVATServicesToAddNextPage {
         val (serviceToAdd, affinity, enrolments, redirectUrl) = b
 
         serviceToAdd match {
-          case WhichVATServicesToAdd.VAT       => vatRoutes.DoYouHaveVATRegNumberController.onPageLoad()
+          case WhichVATServicesToAdd.VAT       => vatRoutes.ClaimVATInterstitialController.onPageLoad()
           case WhichVATServicesToAdd.ECSales   => getECSalesCall(enrolments)
           case WhichVATServicesToAdd.GIANT     => getVATGIANTCall(affinity)
           case WhichVATServicesToAdd.EURefunds => getEURefundsCall(enrolments)
