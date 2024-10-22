@@ -120,8 +120,8 @@ POST       /self-assessment/trust                       controllers.sa.trust.Hav
 GET        /self-assessment/enter-sa-utr                controllers.sa.EnterSAUTRController.onPageLoad(origin: Option[String])
 POST       /self-assessment/enter-sa-utr                controllers.sa.EnterSAUTRController.onSubmit(origin: String)
 
-GET        /self-assessment/have-sa-utr                 controllers.sa.DoYouHaveSAUTRController.onPageLoad()
-POST       /self-assessment/have-sa-utr                 controllers.sa.DoYouHaveSAUTRController.onSubmit()
+GET        /self-assessment/have-sa-utr                 controllers.sa.CaptureSAUTRController.onPageLoad()
+POST       /self-assessment/have-sa-utr                 controllers.sa.CaptureSAUTRController.onSubmit()
 
 
 # This route will be the completion url we send to IV (Pin in Post)

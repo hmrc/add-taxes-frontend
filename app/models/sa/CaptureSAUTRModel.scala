@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,19 @@
  * limitations under the License.
  */
 
-package utils.nextpage.sa
+package models.sa
 
-import models.sa.DoYouHaveSAUTR
-import utils.NextPage
-import utils.nextpage.NextPageSpecBase
+import play.api.libs.json.{Format, Json}
 
-class DoYouHaveSAUTRNextPageSpec extends NextPageSpecBase {
+case class CaptureSAUTRModel (value : DoYouHaveSAUTR, sautrValue : Option[String])
 
-  "doYouHaveSAUTR" when {
-    behave like nextPage(
-      NextPage.doYouHaveSAUTR,
-      DoYouHaveSAUTR.Yes,
-      "/business-account/add-tax/self-assessment/enter-sa-utr?origin=bta-sa"
-    )
+object CaptureSAUTRModel {
 
-    behave like nextPage(
-      NextPage.doYouHaveSAUTR,
-      DoYouHaveSAUTR.No,
-      "/business-account/add-tax/self-assessment/no-utr"
-    )
-  }
+  def formApply(value1: DoYouHaveSAUTR, sautrValue1: Option[String]) = CaptureSAUTRModel(value1, sautrValue1)
+
+  def formUnapply(arg: CaptureSAUTRModel): Option[(DoYouHaveSAUTR, Option[String])] = Some((
+    arg.value,
+    arg.sautrValue
+  ))
+
 }

@@ -1,43 +1,27 @@
-/*
- * Copyright 2020 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package views.sa
 
-import forms.sa.DoYouHaveSAUTRFormProvider
+import forms.sa.CaptureSAUTRFormProvider
 import models.sa.DoYouHaveSAUTR
 import play.api.data.Form
 import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.ViewBehaviours
-import views.html.sa.doYouHaveSAUTR
+import views.html.sa.captureSAUTR
 
-class DoYouHaveSAUTRViewSpec extends ViewBehaviours {
+class CaptureSAUTRViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "doYouHaveSAUTR"
+  val messageKeyPrefix = "captureSAUTR"
 
-  val form = new DoYouHaveSAUTRFormProvider()()
+  val form = new CaptureSAUTRFormProvider()()
 
   val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new doYouHaveSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    new captureSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
-    new doYouHaveSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    new captureSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
-  "DoYouHaveSAUTR view" must {
+  "CaptureSAUTR view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     "contain heading ID" in {
@@ -75,6 +59,16 @@ class DoYouHaveSAUTRViewSpec extends ViewBehaviours {
         val title = messages("site.service_title", messages(s"$messageKeyPrefix.title"))
 
         assertEqualsMessage(doc, "title", "error.browser.title", title)
+      }
+    }
+
+    "when clicking Yes rendering sautr input box" must {
+      "sautr should have value: " in {
+        val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> "Yes", "sautrValue"->"1234567890"))))
+        val inputBox = doc.getElementById("sautrValue")
+        assert(inputBox.attr("name") == "sautrValue", s"\n\n input box does not rendered")
+        assert(inputBox.`val`() == "1234567890", s"\n\n sautr value is not correct")
+
       }
     }
   }
