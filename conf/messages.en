@@ -60,6 +60,8 @@ unauthorised.heading = You can’t access this service with this account
 radio.No = No
 radio.Yes = Yes
 
+backLink.text = Back
+
 #######################################################
 ##  Select An Oil Service
 #######################################################
@@ -954,6 +956,25 @@ doYouHaveSAUTR.heading = Do you have a Self Assessment Unique Taxpayer Reference
 doYouHaveSAUTR.Yes = Yes
 doYouHaveSAUTR.No = No
 doYouHaveSAUTR.error.required = Select yes if you have a Self Assessment Unique Taxpayer Reference (UTR)
+
+#######################################################
+##  CaptureSAUTR
+#######################################################
+captureSAUTR.title = Your Self Assessment Unique Taxpayer Reference (UTR)
+captureSAUTR.heading = Your Self Assessment Unique Taxpayer Reference (UTR)
+captureSAUTR.Yes = Yes
+captureSAUTR.No = No
+captureSAUTR.p1 = You can find your UTR in your Personal Tax Account,
+captureSAUTR.p2 = the HMRC app or on tax returns and other documents from HMRC.
+captureSAUTR.p3 = It might be called ‘reference’, ‘UTR’ or ‘official use’.
+captureSAUTR.p4 = UTRs are 10 digits long, for example, ‘1234567890’.
+captureSAUTR.p5 = Some UTRs may appear as 13 digits, for example, ‘1234567890123’. If so, remove the first 3 digits when you enter it.
+captureSAUTR.error.required = Select yes if you have a Self Assessment Unique Taxpayer Reference (UTR)
+captureSAUTR.help.linkText = Get more help to find your UTR (opens in new tab)
+captureSAUTR.enterUTR = Enter your UTR
+captureSAUTR.utr.error.required = Enter your Self Assessment Unique Taxpayer Reference (UTR)
+captureSAUTR.utr.error.length = Enter a Self Assessment Unique Taxpayer Reference (UTR) that is 10 characters long
+captureSAUTR.utr.error.characters = Enter your Self Assessment Unique Taxpayer Reference (UTR) that only includes characters 0-9
 
 #######################################################
 ##  SetupNewAccount - VAT GIANT

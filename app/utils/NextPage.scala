@@ -117,7 +117,6 @@ object NextPage
     with DoYouNeedToStopMGDNextPage
     with DoYouHaveVATRegNumberNextPage
     with WhatIsYourVATRegNumberNextPage
-    with DoYouHaveSAUTRNextPage
     with DoYouHaveActivationTokenNextPage
     with DoYouHavePractitionerIDNextPage
     with DoesBusinessHave1To9DirectorsNextPage
