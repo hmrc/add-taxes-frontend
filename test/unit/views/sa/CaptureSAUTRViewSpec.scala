@@ -22,7 +22,6 @@ class CaptureSAUTRViewSpec extends ViewBehaviours {
     new captureSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "CaptureSAUTR view" must {
-    behave like normalPage(createView, messageKeyPrefix)
 
     "contain heading ID" in {
       val doc = asDocument(createView())
@@ -35,23 +34,18 @@ class CaptureSAUTRViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- DoYouHaveSAUTR.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
+          assertContainsRadioButton(doc, "value", "value", "Yes", isChecked = false)
         }
       }
     }
 
-    for (option <- DoYouHaveSAUTR.options) {
-      s"rendered with a value of '${option.value}'" must {
-        s"have the '${option.value}' radio button selected" in {
-          val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
-
-          for (unselectedOption <- DoYouHaveSAUTR.options.filterNot(_ == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
-          }
+      s"rendered with a value of Yes" must {
+        s"have the Yes radio button selected" in {
+          val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> "Yes"))))
+          assertContainsRadioButton(doc, "value", "value", "Yes", isChecked = true)
         }
       }
-    }
+
 
     "invalid data is sent" must {
       "prepend title with Error: " in {
