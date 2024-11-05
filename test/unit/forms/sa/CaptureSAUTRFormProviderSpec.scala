@@ -18,7 +18,7 @@ class CaptureSAUTRFormProviderSpec extends FormBehaviours {
   "CaptureSAUTRFormProvider" must {
 
     behave like formWithMandatoryTextFields(
-      Field("value", Required -> "doYouHaveSAUTR.error.required")
+      Field("value", Required -> "captureSAUTR.error.required")
     )
 
     "fail for invalid lengths" in {

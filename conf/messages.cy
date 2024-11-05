@@ -986,19 +986,19 @@ doYouHaveSAUTR.error.required = Dewiswch ‘Iawn’ os oes gennych Gyfeirnod Uni
 #######################################################
 captureSAUTR.title = Eich Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Hunanasesiad
 captureSAUTR.heading = Eich Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Hunanasesiad
+captureSAUTR.question = A oes gennych UTR ar gyfer Hunanasesiad?
 captureSAUTR.Yes = Iawn
 captureSAUTR.No = Na
 captureSAUTR.p1 = Gallwch ddod o hyd i’ch UTR yn eich Cyfrif Treth Personol,
 captureSAUTR.p2 = yn ap CThEF neu ar Ffurflenni Treth a dogfennau eraill oddi wrth CThEF.
-captureSAUTR.p3 = Efallai y cyfeirir ato gan ddefnyddio’r geiriau ‘cyfeirnod’, ‘UTR’ neu ‘defnydd swyddogol’.
 captureSAUTR.p4 = Mae UTRs yn 10 digid, er enghraifft ‘1234567890’.
 captureSAUTR.p5 = Gall rhai UTRs ymddangos fel 13 digid, er enghraifft, ‘1234567890123’. Os felly, tynnwch y 3 digid cyntaf pan fyddwch yn ei nodi.
-captureSAUTR.error.required = Dewiswch ‘Iawn’ os oes gennych Gyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Hunanasesiad
+captureSAUTR.error.required = Dewiswch ‘Iawn’ os oes gennych UTR ar gyfer Hunanasesiad
 captureSAUTR.help.linkText = Rhagor o help i ddod o hyd i’ch UTR (yn agor tab newydd)
 captureSAUTR.enterUTR = Nodwch eich UTR
-captureSAUTR.utr.error.required = Nodwch eich Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Hunanasesiad
-captureSAUTR.utr.error.length = Nodwch Gyfeirnod Unigryw y Trethdalwr (UTR) Hunanasesiad sy’n 10 cymeriad o hyd
-captureSAUTR.utr.error.characters = Nodwch eich Cyfeirnod Unigryw y Trethdalwr (UTR) Hunanasesiad sydd ond yn cynnwys y cymeriadau 0-9
+captureSAUTR.utr.error.required = Nodwch eich UTR ar gyfer Hunanasesiad
+captureSAUTR.utr.error.length = Mae’n rhaid i’r UTR ar gyfer Hunanasesiad fod yn 10 digid o hyd
+captureSAUTR.utr.error.characters = Mae’n rhaid i’r UTR ar gyfer Hunanasesiad gynnwys rhifau yn unig
 
 #######################################################
 ##  SetupNewAccount - VAT GIANT

@@ -31,23 +31,25 @@ title = messages("captureSAUTR.title"),
 appConfig = appConfig,
 form = Some(form),
 serviceInfoContent = Some(serviceInfoContent)) {
+    <a href='@appConfig.getBusinessAccountUrl("addTax")' class="govuk-back-link" >@messages("backLink.text")</a>
+
+    @components.error_summary(form.errors, if(form.errors.nonEmpty) Some(form.errors(0).key) else Some("value"))
 
     @uiForm(action = CaptureSAUTRController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
     @components.heading("do-you-have-sa-utr", "captureSAUTR.heading")
 
-    <p><a href='@appConfig.getBusinessAccountUrl("addTax")'>@messages("backLink.text")</a></p>
-
-    <p class="govuk-body">@messages("captureSAUTR.p1") @messages("captureSAUTR.p2") @messages("captureSAUTR.p3")</p>
+    <p class="govuk-body">@messages("captureSAUTR.p1") @messages("captureSAUTR.p2")</p>
 
     <p class="govuk-body">@messages("captureSAUTR.p4")</p>
 
     <p class="govuk-body">@messages("captureSAUTR.p5")</p>
 
-    <p><a class="govuk-link" href='@appConfig.getGovUKUrl("sautrHelp")' id='sautrHelpId' target="_blank">@messages("captureSAUTR.help.linkText")</a>
+    <p class="govuk-body">
+        <a class="govuk-link" href='@appConfig.getGovUKUrl("sautrHelp")' id='sautrHelpId' target="_blank">@messages("captureSAUTR.help.linkText")</a>
     </p>
 
-    @components.error_summary(form.errors, Some("sautrValue"))
+    <h1 class="govuk-heading-m govuk-!-margin-bottom-2">@messages("captureSAUTR.question")</h1>
 
     @components.yesNoUtrRadio(
     field = form("value"),
