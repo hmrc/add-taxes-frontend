@@ -30,7 +30,7 @@ class CaptureSAUTRFormProvider @Inject() extends FormErrorHelper with Mappings {
 
   def apply(): Form[CaptureSAUTRModel] = {
     Form(mapping(
-      "value" -> enumerable[DoYouHaveSAUTR]("doYouHaveSAUTR.error.required"),
+      "value" -> enumerable[DoYouHaveSAUTR]("captureSAUTR.error.required"),
       "sautrValue" -> mandatoryIfEqual("value", DoYouHaveSAUTR.Yes.toString,
         text("captureSAUTR.utr.error.required")
           .transform[String](x => SAUTR(x).value, x => x)
