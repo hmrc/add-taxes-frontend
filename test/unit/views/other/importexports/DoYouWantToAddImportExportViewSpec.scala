@@ -17,7 +17,7 @@
 package views.other.importexports
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.{ARSContentSwitch, AtarSwitch, NewCTCEnrolmentForNCTSJourney}
+import config.featureToggles.FeatureSwitch.{AtarSwitch, NewCTCEnrolmentForNCTSJourney}
 import forms.other.importexports.DoYouWantToAddImportExportFormProvider
 import models.other.importexports.DoYouWantToAddImportExport
 import models.requests.ServiceInfoRequest
@@ -87,7 +87,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "contain radio buttons for each option and no filtered options" in {
 
               enable(AtarSwitch)
-              enable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
@@ -108,7 +107,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "render with each value selected" when {
 
               enable(AtarSwitch)
-              enable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               for (option <- DoYouWantToAddImportExport.options()) {
@@ -133,7 +131,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "contain radio buttons for each option and no filtered options" in {
 
               enable(AtarSwitch)
-              enable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               val doc = asDocument(createViewUsingForm(form))
@@ -152,7 +149,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "render with each value selected" when {
 
               enable(AtarSwitch)
-              enable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               for (option <- DoYouWantToAddImportExport.options()) {
@@ -180,7 +176,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "contain radio buttons for each option and no filtered options" in {
 
               enable(AtarSwitch)
-              enable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
@@ -201,7 +196,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "render with each value selected" when {
 
               enable(AtarSwitch)
-              enable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               for (option <- DoYouWantToAddImportExport.options()) {
@@ -226,7 +220,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "contain radio buttons for each option and no filtered options" in {
 
               enable(AtarSwitch)
-              enable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               val doc = asDocument(createViewUsingForm(form))
@@ -245,7 +238,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "render with each value selected" when {
 
               enable(AtarSwitch)
-              enable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               for (option <- DoYouWantToAddImportExport.options()) {
@@ -276,7 +268,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "contain radio buttons for each option and no filtered options" in {
 
               enable(AtarSwitch)
-              disable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
@@ -297,7 +288,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "render with each value selected" when {
 
               enable(AtarSwitch)
-              disable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               for (option <- DoYouWantToAddImportExport.options()) {
@@ -322,7 +312,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "contain radio buttons for each option and no filtered options" in {
 
               enable(AtarSwitch)
-              disable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               val doc = asDocument(createViewUsingForm(form))
@@ -341,7 +330,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "render with each value selected" when {
 
               enable(AtarSwitch)
-              disable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               for (option <- DoYouWantToAddImportExport.options()) {
@@ -369,7 +357,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "contain radio buttons for each option and no filtered options" in {
 
               enable(AtarSwitch)
-              disable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
@@ -390,7 +377,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "render with each value selected" when {
 
               enable(AtarSwitch)
-              disable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               for (option <- DoYouWantToAddImportExport.options()) {
@@ -415,7 +401,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "contain radio buttons for each option and no filtered options" in {
 
               enable(AtarSwitch)
-              disable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               val doc = asDocument(createViewUsingForm(form))
@@ -434,7 +419,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "render with each value selected" when {
 
               enable(AtarSwitch)
-              disable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               for (option <- DoYouWantToAddImportExport.options()) {
@@ -468,7 +452,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "contain radio buttons for each option and no filtered options" in {
 
               disable(AtarSwitch)
-              enable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
@@ -489,7 +472,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "render with each value selected" when {
 
               disable(AtarSwitch)
-              enable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               for (option <- DoYouWantToAddImportExport.options()) {
@@ -514,7 +496,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "contain radio buttons for each option and no filtered options" in {
 
               disable(AtarSwitch)
-              enable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               val doc = asDocument(createViewUsingForm(form))
@@ -533,7 +514,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "render with each value selected" when {
 
               disable(AtarSwitch)
-              enable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               for (option <- DoYouWantToAddImportExport.options()) {
@@ -561,7 +541,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "contain radio buttons for each option and no filtered options" in {
 
               disable(AtarSwitch)
-              enable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
@@ -582,7 +561,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "render with each value selected" when {
 
               disable(AtarSwitch)
-              enable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               for (option <- DoYouWantToAddImportExport.options()) {
@@ -607,7 +585,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "contain radio buttons for each option and no filtered options" in {
 
               disable(AtarSwitch)
-              enable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               val doc = asDocument(createViewUsingForm(form))
@@ -626,7 +603,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "render with each value selected" when {
 
               disable(AtarSwitch)
-              enable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               for (option <- DoYouWantToAddImportExport.options()) {
@@ -657,7 +633,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "contain radio buttons for each option and no filtered options" in {
 
               disable(AtarSwitch)
-              disable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
@@ -678,7 +653,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "render with each value selected" when {
 
               disable(AtarSwitch)
-              disable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               for (option <- DoYouWantToAddImportExport.options()) {
@@ -703,7 +677,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "contain radio buttons for each option and no filtered options" in {
 
               disable(AtarSwitch)
-              disable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               val doc = asDocument(createViewUsingForm(form))
@@ -722,7 +695,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "render with each value selected" when {
 
               disable(AtarSwitch)
-              disable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               for (option <- DoYouWantToAddImportExport.options()) {
@@ -750,7 +722,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "contain radio buttons for each option and no filtered options" in {
 
               disable(AtarSwitch)
-              disable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
@@ -771,7 +742,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "render with each value selected" when {
 
               disable(AtarSwitch)
-              disable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               for (option <- DoYouWantToAddImportExport.options()) {
@@ -796,7 +766,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "contain radio buttons for each option and no filtered options" in {
 
               disable(AtarSwitch)
-              disable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               val doc = asDocument(createViewUsingForm(form))
@@ -815,7 +784,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             "render with each value selected" when {
 
               disable(AtarSwitch)
-              disable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               for (option <- DoYouWantToAddImportExport.options()) {

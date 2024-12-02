@@ -1,7 +1,7 @@
 package models
 
 import base.SpecBase
-import config.featureToggles.FeatureSwitch.{ARSContentSwitch, AtarSwitch, NewCTCEnrolmentForNCTSJourney}
+import config.featureToggles.FeatureSwitch.{AtarSwitch, NewCTCEnrolmentForNCTSJourney}
 import models.other.importexports.DoYouWantToAddImportExport
 import models.other.importexports.DoYouWantToAddImportExport.{ATaR, eBTI, _}
 import models.requests.ServiceInfoRequest
@@ -73,8 +73,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
 
         "return ATAR" in {
 
-          enable(ARSContentSwitch)
-
           val expectedResult = Seq(ATaR)
           val actualResult = RadioFilters.replaceATARWithARSIfEnabled()
 
@@ -83,13 +81,11 @@ class DoYouWantToImportExportSpec extends SpecBase {
       }
     }
 
-    "replaceATARWithARSIfEnabled" when {
+/*    "replaceATARWithARSIfEnabled" when {
 
       "ARSContentSwitch is disabled" must {
 
         "return ARS" in {
-
-          disable(ARSContentSwitch)
 
           val expectedResult = Seq(ARS)
           val actualResult = RadioFilters.replaceATARWithARSIfEnabled()
@@ -97,7 +93,7 @@ class DoYouWantToImportExportSpec extends SpecBase {
           expectedResult mustBe actualResult
         }
       }
-    }
+    }*/
 
     "removeNCTSIfUserHasCTCEnrolment" when {
 
@@ -178,7 +174,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
             "remove eBTI, ATAR and NCTS" in {
 
               enable(AtarSwitch)
-              enable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
@@ -197,7 +192,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
             "remove eBTI, ATAR" in {
 
               enable(AtarSwitch)
-              enable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               val enrolmentsToRemove = Seq(eBTI, ATaR)
@@ -217,7 +211,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
             "remove eBTI, ATAR" in {
 
               enable(AtarSwitch)
-              enable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
@@ -236,7 +229,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
             "remove eBTI, ATAR" in {
 
               enable(AtarSwitch)
-              enable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               val enrolmentsToRemove = Seq(eBTI, ATaR)
@@ -259,7 +251,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
             "remove eBTI, ATAR and NCTS" in {
 
               enable(AtarSwitch)
-              disable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
@@ -278,7 +269,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
             "remove eBTI, ATAR" in {
 
               enable(AtarSwitch)
-              disable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               val enrolmentsToRemove = Seq(eBTI, ARS)
@@ -298,7 +288,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
             "remove eBTI, ATAR" in {
 
               enable(AtarSwitch)
-              disable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
@@ -317,7 +306,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
             "remove eBTI, ARS" in {
 
               enable(AtarSwitch)
-              disable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               val enrolmentsToRemove = Seq(eBTI, ARS)
@@ -343,7 +331,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
             "remove eBTI, ATAR and NCTS" in {
 
               disable(AtarSwitch)
-              enable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
@@ -362,7 +349,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
             "remove eBTI, ATAR" in {
 
               disable(AtarSwitch)
-              enable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               val enrolmentsToRemove = Seq(eBTI, ATaR)
@@ -382,7 +368,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
             "remove eBTI, ATAR" in {
 
               disable(AtarSwitch)
-              enable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
@@ -401,7 +386,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
             "remove eBTI, ATAR" in {
 
               disable(AtarSwitch)
-              enable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               val enrolmentsToRemove = Seq(eBTI, ATaR)
@@ -424,7 +408,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
             "remove eBTI, ATAR, ARS and NCTS" in {
 
               disable(AtarSwitch)
-              disable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
@@ -443,7 +426,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
             "remove eBTI, ATAR, ARS" in {
 
               disable(AtarSwitch)
-              disable(ARSContentSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               val enrolmentsToRemove = Seq(eBTI, ATaR, ARS)
@@ -463,7 +445,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
             "remove eBTI, ATAR, ARS" in {
 
               disable(AtarSwitch)
-              disable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
@@ -482,7 +463,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
             "remove eBTI, ATAR, ARS" in {
 
               disable(AtarSwitch)
-              disable(ARSContentSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               val enrolmentsToRemove = Seq(eBTI, ATaR, ARS)
@@ -509,7 +489,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
           "Not return eBTI, ATAR or NCTS radio options" in {
 
             enable(AtarSwitch)
-            enable(ARSContentSwitch)
             enable(NewCTCEnrolmentForNCTSJourney)
 
             implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
@@ -532,7 +511,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
           "Not return eBTI, ATAT or ARS radio options" in {
 
             disable(AtarSwitch)
-            disable(ARSContentSwitch)
             disable(NewCTCEnrolmentForNCTSJourney)
 
             val enrolmentsToRemove = List(eBTI, ARS, ATaR)
