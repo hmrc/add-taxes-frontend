@@ -1,7 +1,6 @@
 package controllers.other.ppt
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.PptSwitch
 import controllers.ControllerSpecBase
 import handlers.ErrorHandler
 import play.api.http.Status.{INTERNAL_SERVER_ERROR, OK}
@@ -31,14 +30,11 @@ class YouNeedAPptRefControllerSpec extends ControllerSpecBase {
       FakeServiceInfoAction,
       view,
       frontendAppConfig
-    ) {
-      override val pptFeatureSwitch: Boolean = pptSwitch
-    }
+    )
 
   def viewAsString(): String =
     new you_need_a_ppt_ref(mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  if (isEnabled(PptSwitch)) {
   "YouNeedAPptRef Controller" must {
       "return OK and the correct view for a GET" in {
         val result = controller().onPageLoad()(fakeRequest)
@@ -46,13 +42,6 @@ class YouNeedAPptRefControllerSpec extends ControllerSpecBase {
         status(result) mustBe OK
         contentAsString(result) mustBe viewAsString()
       }
-
-    "return INTERNAL_SERVER_ERROR when the flag is set to false" in {
-      val result = controller(pptSwitch = false).onPageLoad()(fakeRequest)
-
-      status(result) mustBe INTERNAL_SERVER_ERROR
-      }
     }
-  }
 
 }

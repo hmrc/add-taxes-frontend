@@ -17,7 +17,6 @@
 package controllers.other.ppt
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.PptSwitch
 import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import handlers.ErrorHandler
@@ -35,14 +34,9 @@ class YouNeedAPptRefController @Inject()(mcc: MessagesControllerComponents,
                                          implicit val appConfig: FrontendAppConfig)
   extends FrontendController(mcc) with I18nSupport {
 
-  val pptFeatureSwitch: Boolean = isEnabled(PptSwitch)
-
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    if(pptFeatureSwitch) {
-      Ok(youNeedAPptRefView(appConfig)(request.serviceInfoContent))
-    } else {
-      InternalServerError(errorHandler.internalServerErrorTemplate)
-    }
-  }
 
+      Ok(youNeedAPptRefView(appConfig)(request.serviceInfoContent))
+
+  }
 }

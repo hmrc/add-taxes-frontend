@@ -17,7 +17,7 @@
 package controllers
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.{ECLSwitch, NewADPJourney, Pillar2Switch, PptSwitch}
+import config.featureToggles.FeatureSwitch.{ECLSwitch, Pillar2Switch}
 import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions._
 import forms.OtherTaxesFormProvider
@@ -70,8 +70,7 @@ class OtherTaxesController @Inject()(mcc: MessagesControllerComponents,
   }
 
   private val checkAlcohol: CoreEnrolments => Option[RadioOption] = { _: CoreEnrolments =>
-    if (isEnabled(NewADPJourney)) Some(AlcoholAndTobacco.toRadioOption)
-    else Some(AlcoholAndTobaccoOld.toRadioOption)
+    Some(AlcoholAndTobacco.toRadioOption)
   }
 
   private val checkAutomaticExchangeOfInformation: CoreEnrolments => Option[RadioOption] =
@@ -148,7 +147,7 @@ class OtherTaxesController @Inject()(mcc: MessagesControllerComponents,
 
   private val checkPPT: CoreEnrolments => Option[RadioOption] = e => {
     val ppt: Option[Enrolment] = e.getEnrolment(Enrolments.PPT.toString)
-    if(isEnabled(PptSwitch) && ppt.isEmpty) Some(PPT.toRadioOption) else None
+    Some(PPT.toRadioOption)
   }
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>

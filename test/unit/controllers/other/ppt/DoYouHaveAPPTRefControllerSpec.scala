@@ -40,9 +40,7 @@ class DoYouHaveAPPTRefControllerSpec extends ControllerSpecBase {
       formProvider,
       view,
       frontendAppConfig
-    ) {
-      override val pptFeatureSwitch: Boolean = pptSwitch
-    }
+    )
 
   def viewAsString(form: Form[_] = form): String =
     new do_you_have_a_ppt_reference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
@@ -72,11 +70,6 @@ class DoYouHaveAPPTRefControllerSpec extends ControllerSpecBase {
 
         status(result) mustBe BAD_REQUEST
         contentAsString(result) mustBe viewAsString(boundForm)
-      }
-
-      "return INTERNAL_SERVER_ERROR when switch is turned off" in {
-        val result = controller(pptSwitch = false).onPageLoad()(fakeRequest.withMethod("GET"))
-        status(result) mustBe INTERNAL_SERVER_ERROR
       }
     }
 
