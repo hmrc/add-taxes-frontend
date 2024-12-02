@@ -81,20 +81,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
       }
     }
 
-/*    "replaceATARWithARSIfEnabled" when {
-
-      "ARSContentSwitch is disabled" must {
-
-        "return ARS" in {
-
-          val expectedResult = Seq(ARS)
-          val actualResult = RadioFilters.replaceATARWithARSIfEnabled()
-
-          expectedResult mustBe actualResult
-        }
-      }
-    }*/
-
     "removeNCTSIfUserHasCTCEnrolment" when {
 
       "NewCTCEnrolmentForNCTSJourney is enabled" when {
@@ -242,7 +228,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
         }
       }
 
-      "ARSContentSwitch is disabled" must {
 
         "NewCTCEnrolmentForNCTSJourney is enabled" when {
 
@@ -255,7 +240,7 @@ class DoYouWantToImportExportSpec extends SpecBase {
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
 
-              val enrolmentsToRemove = Seq(eBTI, ARS, NCTS)
+              val enrolmentsToRemove = Seq(eBTI,ATaR, NCTS)
 
               val expectedResult = expectedFullDoYouWantToAddImportExportList.filterNot(enrolmentsToRemove.contains(_))
               val actualResult = DoYouWantToAddImportExport.filteredRadios()
@@ -271,7 +256,7 @@ class DoYouWantToImportExportSpec extends SpecBase {
               enable(AtarSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
-              val enrolmentsToRemove = Seq(eBTI, ARS)
+              val enrolmentsToRemove = Seq(eBTI, ATaR)
 
               val expectedResult = expectedFullDoYouWantToAddImportExportList.filterNot(enrolmentsToRemove.contains(_))
               val actualResult = DoYouWantToAddImportExport.filteredRadios()
@@ -292,7 +277,7 @@ class DoYouWantToImportExportSpec extends SpecBase {
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
 
-              val enrolmentsToRemove = Seq(eBTI, ARS)
+              val enrolmentsToRemove = Seq(eBTI, ATaR)
 
               val expectedResult = expectedFullDoYouWantToAddImportExportList.filterNot(enrolmentsToRemove.contains(_))
               val actualResult = DoYouWantToAddImportExport.filteredRadios()
@@ -303,12 +288,12 @@ class DoYouWantToImportExportSpec extends SpecBase {
 
           "user does not have CTC enrolment" must {
 
-            "remove eBTI, ARS" in {
+            "remove eBTI" in {
 
               enable(AtarSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
-              val enrolmentsToRemove = Seq(eBTI, ARS)
+              val enrolmentsToRemove = Seq(eBTI, ATaR)
 
               val expectedResult = expectedFullDoYouWantToAddImportExportList.filterNot(enrolmentsToRemove.contains(_))
               val actualResult = DoYouWantToAddImportExport.filteredRadios()
@@ -317,7 +302,7 @@ class DoYouWantToImportExportSpec extends SpecBase {
             }
           }
         }
-      }
+
     }
 
     "AtarSwitch is disabled" when {
@@ -399,20 +384,19 @@ class DoYouWantToImportExportSpec extends SpecBase {
         }
       }
 
-      "ARSContentSwitch is disabled" must {
 
         "NewCTCEnrolmentForNCTSJourney is enabled" when {
 
           "user has CTC enrolment" must {
 
-            "remove eBTI, ATAR, ARS and NCTS" in {
+            "remove eBTI, ATAR and NCTS" in {
 
               disable(AtarSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
 
-              val enrolmentsToRemove = Seq(eBTI, ATaR, ARS, NCTS)
+              val enrolmentsToRemove = Seq(eBTI, ATaR, NCTS)
 
               val expectedResult = expectedFullDoYouWantToAddImportExportList.filterNot(enrolmentsToRemove.contains(_))
               val actualResult = DoYouWantToAddImportExport.filteredRadios()
@@ -423,12 +407,12 @@ class DoYouWantToImportExportSpec extends SpecBase {
 
           "user does not have CTC enrolment" must {
 
-            "remove eBTI, ATAR, ARS" in {
+            "remove eBTI, ATAR" in {
 
               disable(AtarSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
 
-              val enrolmentsToRemove = Seq(eBTI, ATaR, ARS)
+              val enrolmentsToRemove = Seq(eBTI, ATaR)
 
               val expectedResult = expectedFullDoYouWantToAddImportExportList.filterNot(enrolmentsToRemove.contains(_))
               val actualResult = DoYouWantToAddImportExport.filteredRadios()
@@ -442,14 +426,14 @@ class DoYouWantToImportExportSpec extends SpecBase {
 
           "user has CTC enrolment" must {
 
-            "remove eBTI, ATAR, ARS" in {
+            "remove eBTI, ATAR" in {
 
               disable(AtarSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
               implicit val request: ServiceInfoRequest[_] = reqWithEnrolments(Seq(CommonTransitConvention))
 
-              val enrolmentsToRemove = Seq(eBTI, ATaR, ARS)
+              val enrolmentsToRemove = Seq(eBTI, ATaR)
 
               val expectedResult = expectedFullDoYouWantToAddImportExportList.filterNot(enrolmentsToRemove.contains(_))
               val actualResult = DoYouWantToAddImportExport.filteredRadios()
@@ -460,12 +444,12 @@ class DoYouWantToImportExportSpec extends SpecBase {
 
           "user does not have CTC enrolment" must {
 
-            "remove eBTI, ATAR, ARS" in {
+            "remove eBTI, ATAR" in {
 
               disable(AtarSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
 
-              val enrolmentsToRemove = Seq(eBTI, ATaR, ARS)
+              val enrolmentsToRemove = Seq(eBTI, ATaR)
 
               val expectedResult = expectedFullDoYouWantToAddImportExportList.filterNot(enrolmentsToRemove.contains(_))
               val actualResult = DoYouWantToAddImportExport.filteredRadios()
@@ -474,7 +458,7 @@ class DoYouWantToImportExportSpec extends SpecBase {
             }
           }
         }
-      }
+
     }
   }
 
@@ -482,7 +466,7 @@ class DoYouWantToImportExportSpec extends SpecBase {
 
     "all enrolments are present" when {
 
-      "AtarSwitch, ARSContentSwitch and NewCTCEnrolmentForNCTSJourney are enabled" when {
+      "AtarSwitch and NewCTCEnrolmentForNCTSJourney are enabled" when {
 
         "user has CTC enrolment" must {
 
@@ -506,14 +490,14 @@ class DoYouWantToImportExportSpec extends SpecBase {
           }
         }
 
-        "AtarSwitch, ARSContentSwitch and NewCTCEnrolmentForNCTSJourney are enabled" when {
+        "AtarSwitch and NewCTCEnrolmentForNCTSJourney are enabled" when {
 
-          "Not return eBTI, ATAT or ARS radio options" in {
+          "Not return eBTI or ATAT radio options" in {
 
             disable(AtarSwitch)
             disable(NewCTCEnrolmentForNCTSJourney)
 
-            val enrolmentsToRemove = List(eBTI, ARS, ATaR)
+            val enrolmentsToRemove = List(eBTI, ATaR)
             val filteredEnrolments = expectedFullDoYouWantToAddImportExportList.filterNot(enrolmentsToRemove.contains(_))
 
             val expectedResult: Seq[RadioOption] = filteredEnrolments.map { enrolment =>

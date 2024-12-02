@@ -58,7 +58,7 @@ object DoYouWantToAddImportExport extends FeatureToggleSupport{
 
     def replaceATARWithARSIfEnabled()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Seq[DoYouWantToAddImportExport] = {
         infoLog("[DoYouWantToAddImportExport][replaceATARWithARSIfEnabled] ARSContentSwitch enabled. User shown ARS instead of ATAR")
-        Seq(ARS)
+        Seq(ATaR)
     }
 
     def removeNCTSIfUserHasCTCEnrolment()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Seq[DoYouWantToAddImportExport] = {
