@@ -67,9 +67,7 @@ class DoYouWantToImportExportSpec extends SpecBase {
       }
     }
 
-    "replaceATARWithARSIfEnabled" when {
-
-      "ARSContentSwitch is enabled" must {
+    "replaceATARWithARSIfEnabled" must {
 
         "return ATAR" in {
 
@@ -78,7 +76,6 @@ class DoYouWantToImportExportSpec extends SpecBase {
 
           expectedResult mustBe actualResult
         }
-      }
     }
 
     "removeNCTSIfUserHasCTCEnrolment" when {

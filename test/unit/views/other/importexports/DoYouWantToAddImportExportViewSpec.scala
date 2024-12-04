@@ -257,15 +257,12 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             }
           }
         }
-      }
-
-      "ARSContentSwitch is disabled" must {
 
         "NewCTCEnrolmentForNCTSJourney is enabled" when {
 
           "user has CTC enrolment" must {
 
-            "contain radio buttons for each option and no filtered options" in {
+            "contain radio buttons for all option and no filtered options" in {
 
               enable(AtarSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
@@ -285,7 +282,7 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
               }
             }
 
-            "render with each value selected" when {
+            "render with all value selected" when {
 
               enable(AtarSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
@@ -309,7 +306,7 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
 
           "user does not have the CTC enrolment" must {
 
-            "contain radio buttons for each option and no filtered options" in {
+            "contain radio buttons for all option and no filtered options" in {
 
               enable(AtarSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
@@ -327,7 +324,7 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
               }
             }
 
-            "render with each value selected" when {
+            "render with all value selected" when {
 
               enable(AtarSwitch)
               enable(NewCTCEnrolmentForNCTSJourney)
@@ -354,7 +351,7 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
 
           "user has CTC enrolment" must {
 
-            "contain radio buttons for each option and no filtered options" in {
+            "contain radio buttons for each of the option and no filtered options" in {
 
               enable(AtarSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
@@ -374,7 +371,7 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
               }
             }
 
-            "render with each value selected" when {
+            "render with each of the value selected" when {
 
               enable(AtarSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
@@ -398,7 +395,7 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
 
           "user does not have the CTC enrolment" must {
 
-            "contain radio buttons for each option and no filtered options" in {
+            "contain radio buttons for all option and no filtered options" in {
 
               enable(AtarSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
@@ -416,7 +413,7 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
               }
             }
 
-            "render with each value selected" when {
+            "render with all value selected" when {
 
               enable(AtarSwitch)
               disable(NewCTCEnrolmentForNCTSJourney)
@@ -624,7 +621,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
         }
       }
 
-      "ARSContentSwitch is disabled" must {
 
         "NewCTCEnrolmentForNCTSJourney is enabled" when {
 
@@ -803,7 +799,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
             }
           }
         }
-      }
     }
 
     "invalid data is sent" must {
