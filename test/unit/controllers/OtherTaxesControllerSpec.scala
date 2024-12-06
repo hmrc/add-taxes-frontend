@@ -16,7 +16,7 @@
 
 package controllers
 
-import config.featureToggles.FeatureSwitch.{ECLSwitch, NewADPJourney, Pillar2Switch, PptSwitch}
+import config.featureToggles.FeatureSwitch.{ECLSwitch, Pillar2Switch}
 import controllers.actions._
 import forms.OtherTaxesFormProvider
 import models.OtherTaxes
@@ -35,7 +35,6 @@ import views.html.{organisation_only, otherTaxes}
 class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEach {
 
   override def beforeEach(): Unit = {
-    disable(PptSwitch)
     disable(ECLSwitch)
     disable(Pillar2Switch)
   }
@@ -64,11 +63,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
 
   def listOfAllRadioOptions: Seq[RadioOption] = {
     val radiotionOptions = Seq(
-      if (isEnabled(NewADPJourney)) {
-        RadioOption("otherTaxes", "alcoholAndTobacco")
-      } else {
-        RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing")
-      },
+      RadioOption("otherTaxes", "alcoholAndTobacco"),
       RadioOption("otherTaxes", "automaticExchangeOfInformation"),
       RadioOption("otherTaxes", "charities"),
       RadioOption("otherTaxes", "childTrustFund"),
@@ -77,46 +72,42 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
       RadioOption("otherTaxes", "housingAndLand"),
       RadioOption("otherTaxes", "importsExports"),
       RadioOption("otherTaxes", "oilAndFuel"),
-      RadioOption("otherTaxes", "pods")
+      RadioOption("otherTaxes", "pods"),
+      RadioOption("otherTaxes", "ppt")
     )
-    (isEnabled(PptSwitch), isEnabled(ECLSwitch), isEnabled(Pillar2Switch)) match {
-      case (true, true, false) => {
+    (isEnabled(ECLSwitch), isEnabled(Pillar2Switch)) match {
+      case (true, false) => {
         radiotionOptions ++ Seq(
-          RadioOption("otherTaxes", "ppt"),
           RadioOption("otherTaxes", "economicCrimeLevy"),
         )
       }
-      case (true, false, false) =>
-        radiotionOptions ++ Seq(
-          RadioOption("otherTaxes", "ppt")
-        )
-      case (false, true, false) => radiotionOptions ++ Seq(
+      case (false, false) =>
+        radiotionOptions ++ Seq()
+      case (true, false) => radiotionOptions ++ Seq(
         RadioOption("otherTaxes", "economicCrimeLevy")
       )
-      case (true, true, true) => {
+      case (true, true) => {
         radiotionOptions ++ Seq(
-          RadioOption("otherTaxes", "ppt"),
           RadioOption("otherTaxes", "economicCrimeLevy"),
           RadioOption("otherTaxes", "pillar2")
         )
       }
-      case (false, true, true) => radiotionOptions ++ Seq(
+      case (true, true) => radiotionOptions ++ Seq(
         RadioOption("otherTaxes", "economicCrimeLevy"),
         RadioOption("otherTaxes", "pillar2")
       )
 
-      case (true, false, true) =>
-        radiotionOptions ++ Seq(
-          RadioOption("otherTaxes", "ppt"),
-          RadioOption("otherTaxes", "pillar2")
-        )
-
-      case (false, false, true) =>
+      case (false, true) =>
         radiotionOptions ++ Seq(
           RadioOption("otherTaxes", "pillar2")
         )
 
-      case (_, _, _) => radiotionOptions
+      case (false, true) =>
+        radiotionOptions ++ Seq(
+          RadioOption("otherTaxes", "pillar2")
+        )
+
+      case (_, _) => radiotionOptions
     }
   }
 
@@ -206,19 +197,10 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
     }
 
     "display new ADP radio button if the user has HMCE-ATWD-ORG, HMRC-AWRS-ORG and newADPJourney feature is enabled" in {
-      enable(NewADPJourney)
       val request = requestWithEnrolments("HMCE-ATWD-ORG", "HMRC-AWRS-ORG")
       val result = controller().getOptions(request)
 
       result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing")))
-    }
-
-    "display old ADP radio button if the user has HMCE-ATWD-ORG, HMRC-AWRS-ORG and newADPJourney feature is enabled" in {
-      disable(NewADPJourney)
-      val request = requestWithEnrolments("HMCE-ATWD-ORG", "HMRC-AWRS-ORG")
-      val result = controller().getOptions(request)
-
-      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "alcoholAndTobacco")))
     }
 
     "not display AEOI if the user has HMRC-FATCA-ORG" in {
@@ -257,7 +239,6 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
 
     "display ECL if the user doesnt have ECL but the feature is on" in {
       enable(ECLSwitch)
-      enable(PptSwitch)
 
       val request = requestWithEnrolments("")
       val result = controller().getOptions(request)
@@ -328,7 +309,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
       val request = requestWithEnrolments("HMRC-PPT-ORG")
       val result = controller().getOptions(request)
 
-      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "ppt")))
+      result mustBe removeRadioOptionFromList(None)
     }
 
     "not display Fulfilment House if the user has HMRC-OBTDS-ORG and an EtmpRegistrationNumber" in {

@@ -23,9 +23,7 @@ object FeatureSwitch {
   val featureSwitches: Seq[FeatureSwitch] = Seq(
     AccessMTD,
     IvUpliftSwitch,
-    PptSwitch,
     AtarSwitch,
-    ARSContentSwitch,
     BypassVATETMPCheck,
     NewCTCEnrolmentForNCTSJourney,
     Pillar2Switch
@@ -60,16 +58,6 @@ object FeatureSwitch {
     override val displayText: String = "Iv Uplift Enabled"
   }
 
-  case object PptSwitch extends FeatureSwitch {
-    override val name = s"$prefix.pptSwitch"
-    override val displayText: String = "PPT Enabled"
-  }
-
-  case object IossSwitch extends FeatureSwitch {
-    override val name = s"$prefix.iossSwitch"
-    override val displayText: String = "IOSS Enabled"
-  }
-
   case object ECLSwitch extends FeatureSwitch {
     override val name = s"$prefix.eclSwitch"
     override val displayText: String = "PPT Enabled"
@@ -80,13 +68,6 @@ object FeatureSwitch {
     override val displayText: String = "Atar Enabled"
   }
 
-
-  case object ARSContentSwitch extends FeatureSwitch {
-    override val name = s"$prefix.arsContentSwitch"
-    override val displayText: String = "ARS content feature enabled"
-  }
-
-
   case object BypassVATETMPCheck  extends FeatureSwitch {
     override val name = s"$prefix.bypassVATETMPCheck"
     override val displayText: String = "Bypass VAT ETMP Check"
@@ -96,14 +77,11 @@ object FeatureSwitch {
     override val name: String = s"$prefix.newCTCEnrolmentForNCTSJourney"
     override val displayText: String = "Enable new HMRC - CTC - ORG enrolment journey for NCTS"
   }
+
   case object Pillar2Switch extends FeatureSwitch {
     override val name = s"$prefix.pillar2Switch"
     override val displayText: String = "pillar2 tax feature Enabled"
   }
 
-  case object NewADPJourney extends FeatureSwitch {
-    override val name = s"$prefix.newADPJourney"
-    override val displayText: String = "new add a tax journey for ADP Enabled"
-  }
 }
 
