@@ -17,7 +17,7 @@
 package models.other.importexports
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.{ARSContentSwitch, AtarSwitch, NewCTCEnrolmentForNCTSJourney}
+import config.featureToggles.FeatureSwitch.{AtarSwitch, NewCTCEnrolmentForNCTSJourney}
 import config.featureToggles.FeatureToggleSupport
 import models.requests.ServiceInfoRequest
 import utils.Enrolments.CommonTransitConvention
@@ -57,12 +57,8 @@ object DoYouWantToAddImportExport extends FeatureToggleSupport{
     }
 
     def replaceATARWithARSIfEnabled()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Seq[DoYouWantToAddImportExport] = {
-      if (isEnabled(ARSContentSwitch)) {
         infoLog("[DoYouWantToAddImportExport][replaceATARWithARSIfEnabled] ARSContentSwitch enabled. User shown ARS instead of ATAR")
         Seq(ATaR)
-      } else {
-        Seq(ARS)
-      }
     }
 
     def removeNCTSIfUserHasCTCEnrolment()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Seq[DoYouWantToAddImportExport] = {

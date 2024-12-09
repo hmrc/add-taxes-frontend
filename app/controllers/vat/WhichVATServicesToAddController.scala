@@ -17,7 +17,6 @@
 package controllers.vat
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.IossSwitch
 import config.featureToggles.FeatureToggleSupport
 import connectors.VatOneStopConnector
 import controllers.actions._
@@ -63,12 +62,6 @@ class WhichVATServicesToAddController @Inject()(mcc: MessagesControllerComponent
       ).filterNot(x =>
       if (enrolments.getEnrolment("HMRC-OSS-ORG").isDefined) {
         x.value == WhichVATServicesToAdd.VATOSS.toString
-      } else {
-        false
-      }
-    ).filterNot(x =>
-      if(isDisabled(IossSwitch)) {
-        x.value == WhichVATServicesToAdd.VATIOSS.toString
       } else {
         false
       }

@@ -17,7 +17,6 @@
 package controllers.other.ppt
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.PptSwitch
 import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import forms.other.ppt.PptReferenceFormProvider
@@ -44,16 +43,10 @@ class DoYouHaveAPPTRefController @Inject()(mcc: MessagesControllerComponents,
                                            implicit val appConfig: FrontendAppConfig)
   extends FrontendController(mcc) with I18nSupport {
 
-  val pptFeatureSwitch: Boolean = isEnabled(PptSwitch)
-
   val form: Form[DoYouHaveAPptReference] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    if(pptFeatureSwitch) {
       Ok(doYouHaveAPPTRefView(appConfig, form)(request.serviceInfoContent))
-    } else {
-      InternalServerError(errorHandler.internalServerErrorTemplate)
-    }
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
