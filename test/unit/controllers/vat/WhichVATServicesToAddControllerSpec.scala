@@ -16,7 +16,6 @@
 
 package controllers.vat
 
-import config.featureToggles.FeatureSwitch.IossSwitch
 import config.featureToggles.FeatureToggleSupport
 import connectors.VatOneStopConnector
 import controllers.ControllerSpecBase
@@ -142,22 +141,12 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
       }
 
       "page is loaded and Ioss Switch is enabled" in {
-        enable(IossSwitch)
         val result = controller()().onPageLoad()(fakeRequest.withMethod("GET"))
 
         contentAsString(result) mustBe viewAsString(radioOptions = WhichVATServicesToAdd.options)
       }
 
-      "page is loaded and Ioss Switch is disabled" in {
-        disable(IossSwitch)
-        val result = controller()().onPageLoad()(fakeRequest.withMethod("GET"))
-
-        contentAsString(result) mustBe viewAsString(
-          radioOptions = WhichVATServicesToAdd.options.filterNot(_.value == "iossvat"))
-      }
-
       "page errors and vat is enrolled" in {
-        enable(IossSwitch)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
         val boundForm = form.bind(Map("value" -> "invalid value"))
         val result = controller()(HmrcEnrolmentType.VAT).onSubmit()(postRequest)
