@@ -22,7 +22,7 @@ import identifiers.EnterSAUTRId
 
 import javax.inject.Inject
 import models.requests.ServiceInfoRequest
-import models.sa.{IvLinks, SAUTR, SaEnrolmentDetails}
+import models.sa.{IvLinks, KnownFacts, SAUTR, SaEnrolmentDetails}
 import utils.LoggingUtil
 import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Request, Result}
@@ -32,7 +32,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class IvService @Inject()(dataCacheConnector: DataCacheConnector,
                           ivConnector: IvConnector,
-                          taxEnrolmentsConnector: TaxEnrolmentsConnector) extends LoggingUtil {
+                          taxEnrolmentsConnector: TaxEnrolmentsConnector,
+                          knownFactsService: KnownFactsService) extends LoggingUtil {
 
   def journeyLinkCheckUplift(journeyId: String)
                             (implicit ec: ExecutionContext, hc: HeaderCarrier, request: ServiceInfoRequest[AnyContent]): Future[String] = {
@@ -72,45 +73,11 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
         infoLog(s"[IvService][ivCheckAndEnrolUplift] success response received from journeyLinkCheckUplift" +
           s"\n journeyId: $journeyId" +
           s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)} " +
+          s"\n enrolments ${request.request.nino} " +
           s"\n confidenceLevel ${request.request.confidenceLevel}"
         )
-        for {
-          maybeSAUTR: Option[SAUTR] <- dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
-          enrolForSaBoolean <- {
-            maybeSAUTR.map { utr =>
-              infoLog(s"[IvService][ivCheckAndEnrolUplift] attempting to enrol for SA" +
-                s"\n journeyId: $journeyId" +
-                s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)} " +
-                s"\n confidenceLevel ${request.request.confidenceLevel}"
-              )
-              taxEnrolmentsConnector.enrolForSa(utr.value, "enrolAndActivate")
-            }.getOrElse {
-              infoLog(s"[IvService][ivCheckAndEnrolUplift] could not retrieve SAUTR from data cache" +
-                s"\n journeyId: $journeyId" +
-                s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)} " +
-                s"\n confidenceLevel ${request.request.confidenceLevel}"
-              )
-              Future.successful(false)
-            }
-          }
-        } yield {
-          if (enrolForSaBoolean) {
-            infoLog(s"[IvService][ivCheckAndEnrolUplift] successfully enrolled for SA" +
-              s"\n journeyId: $journeyId" +
-              s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)} " +
-              s"\n confidenceLevel ${request.request.confidenceLevel}"
-            )
-            Redirect(saRoutes.EnrolmentSuccessController.onPageLoad(origin))
-          } else {
-            infoLog(s"[IvService][ivCheckAndEnrolUplift] enrolment unsuccessful. Redirecting to TryPinInPost" +
-              s"\n journeyId: $journeyId" +
-              s"\n enrolments ${request.request.enrolments.enrolments.map(_.key)} " +
-              s"\n confidenceLevel ${request.request.confidenceLevel}"
-            )
-            Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"), origin))
-          }
-        }
-      case "LockedOut" =>
+        knownFactsService.knownFactsLocation(KnownFacts(None, request.request.nino, None), origin)
+    case "LockedOut" =>
         warnLog(s"[IvService][ivCheckAndEnrol] journeyId: $journeyId LockedOut")
         Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("LockedOut"), origin)))
       case x if x == "InsufficientEvidence" || x == "PreconditionFailed" || x == "FailedMatching" || x == "FailedIV" =>
