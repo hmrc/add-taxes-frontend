@@ -16,9 +16,10 @@
 
 package service
 
-import connectors.{DataCacheConnector, IvConnector, TaxEnrolmentsConnector}
+import connectors.{CitizensDetailsConnector, DataCacheConnector, IvConnector, TaxEnrolmentsConnector}
 import controllers.ControllerSpecBase
 import controllers.sa.{routes => saRoutes}
+import models.DesignatoryDetailsForKnownFacts
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import models.sa.{IvLinks, JourneyLinkResponse, SAUTR, SaEnrolmentDetails}
 import org.mockito.ArgumentMatchers.any
@@ -42,24 +43,27 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
   val mockTaxEnrolmentsConnector: TaxEnrolmentsConnector = mock[TaxEnrolmentsConnector]
   val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
   val mockIvConnector: IvConnector = mock[IvConnector]
+  val mockCitizensDetailsConnector: CitizensDetailsConnector = mock[CitizensDetailsConnector]
   val enrolActivate: String = "enrolAndActivate"
   val btaOrigin: String = "bta-sa"
   val ssttpOrigin: String = "ssttp-sa"
   val journeyId: String = "12345"
+  val nino: Option[String] = Some("AA123456A")
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
   implicit val serviceInfoRequest: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
-    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, nino),
     HtmlFormat.empty)
 
   implicit val request: Request[_] = Request(
-    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, nino),
     HtmlFormat.empty
   )
 
+  val designatoryDetails: DesignatoryDetailsForKnownFacts = DesignatoryDetailsForKnownFacts("AA123456A")
 
   implicit val requestWithJson: ServiceInfoRequest[JsValue] = ServiceInfoRequest[JsValue](
-    AuthenticatedRequest(FakeRequest().withBody(Json.parse(s"""{}""")), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+    AuthenticatedRequest(FakeRequest().withBody(Json.parse(s"""{}""")), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, nino),
     HtmlFormat.empty)
 
   def verifyDataCacheSave(expectedTimes: Int): Unit =
@@ -68,13 +72,15 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
   def service() = new IvService(
     mockDataCacheConnector,
     mockIvConnector,
-    mockTaxEnrolmentsConnector
+    mockTaxEnrolmentsConnector,
+    mockCitizensDetailsConnector
   )
 
   def serviceWithStubbedLinkCheck(journeyLinkCheckResult: String): IvService = new IvService(
     mockDataCacheConnector,
     mockIvConnector,
-    mockTaxEnrolmentsConnector
+    mockTaxEnrolmentsConnector,
+    mockCitizensDetailsConnector
   ) {
     override def journeyLinkCheck()
                                  (implicit request: ServiceInfoRequest[AnyContent],
@@ -88,7 +94,8 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
   def serviceWithStubbedLinkCheckUplift(journeyLinkCheckResult: String, journeyId: String): IvService = new IvService(
     mockDataCacheConnector,
     mockIvConnector,
-    mockTaxEnrolmentsConnector
+    mockTaxEnrolmentsConnector,
+    mockCitizensDetailsConnector
   ) {
 
     override def journeyLinkCheckUplift(journeyId: String)
@@ -99,9 +106,11 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
     }
   }
 
-
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
+    when(mockCitizensDetailsConnector.getDesignatoryDetailsForKnownFacts(any(),any())(any(), any()))
+      .thenReturn(Future.successful(Some(designatoryDetails)))
+
   }
 
   "Iv service" when {
@@ -345,6 +354,9 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
           .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
         when(mockTaxEnrolmentsConnector.enrolForSa(any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(true))
+        when(mockCitizensDetailsConnector.getDesignatoryDetailsForKnownFacts(any(),any())(any(), any()))
+          .thenReturn(Future.successful(Some(designatoryDetails)))
+
 
         val result = serviceWithStubbedLinkCheckUplift("Success", journeyId).ivCheckAndEnrolUplift(btaOrigin, journeyId)
         status(result) mustBe SEE_OTHER
