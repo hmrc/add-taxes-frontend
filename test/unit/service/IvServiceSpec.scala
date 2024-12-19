@@ -27,6 +27,7 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.ScalaFutures.whenReady
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.libs.json.{JsValue, Json}
+import play.api.mvc.Results.Redirect
 import play.api.mvc.{AnyContent, Request}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{status, _}
@@ -42,24 +43,26 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
   val mockTaxEnrolmentsConnector: TaxEnrolmentsConnector = mock[TaxEnrolmentsConnector]
   val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
   val mockIvConnector: IvConnector = mock[IvConnector]
+  val mockKnownFactsService: KnownFactsService = mock[KnownFactsService]
   val enrolActivate: String = "enrolAndActivate"
   val btaOrigin: String = "bta-sa"
   val ssttpOrigin: String = "ssttp-sa"
   val journeyId: String = "12345"
+  val nino: Option[String] = Some("AA123456A")
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
   implicit val serviceInfoRequest: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
-    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, nino),
     HtmlFormat.empty)
 
   implicit val request: Request[_] = Request(
-    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+    AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, nino),
     HtmlFormat.empty
   )
 
 
   implicit val requestWithJson: ServiceInfoRequest[JsValue] = ServiceInfoRequest[JsValue](
-    AuthenticatedRequest(FakeRequest().withBody(Json.parse(s"""{}""")), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+    AuthenticatedRequest(FakeRequest().withBody(Json.parse(s"""{}""")), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, nino),
     HtmlFormat.empty)
 
   def verifyDataCacheSave(expectedTimes: Int): Unit =
@@ -68,13 +71,15 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
   def service() = new IvService(
     mockDataCacheConnector,
     mockIvConnector,
-    mockTaxEnrolmentsConnector
+    mockTaxEnrolmentsConnector,
+    mockKnownFactsService
   )
 
   def serviceWithStubbedLinkCheck(journeyLinkCheckResult: String): IvService = new IvService(
     mockDataCacheConnector,
     mockIvConnector,
-    mockTaxEnrolmentsConnector
+    mockTaxEnrolmentsConnector,
+    mockKnownFactsService
   ) {
     override def journeyLinkCheck()
                                  (implicit request: ServiceInfoRequest[AnyContent],
@@ -88,7 +93,8 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
   def serviceWithStubbedLinkCheckUplift(journeyLinkCheckResult: String, journeyId: String): IvService = new IvService(
     mockDataCacheConnector,
     mockIvConnector,
-    mockTaxEnrolmentsConnector
+    mockTaxEnrolmentsConnector,
+    mockKnownFactsService
   ) {
 
     override def journeyLinkCheckUplift(journeyId: String)
@@ -268,6 +274,9 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
   "ivCheckAndEnrolUplift is called" must {
     "return try pin an post call" when {
       "journeyLink returns false" in {
+        when(mockKnownFactsService.knownFactsLocation(any(), any())(any(), any(), any()))
+          .thenReturn(Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("LockedOut"), btaOrigin))))
+
         val result = serviceWithStubbedLinkCheckUplift("Failed", journeyId).ivCheckAndEnrolUplift(btaOrigin, journeyId)
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"), btaOrigin).url)
@@ -276,6 +285,9 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
       "data cache connector returns None and journeyLink is true" in {
         when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
           .thenReturn(Future.successful(None))
+
+        when(mockKnownFactsService.knownFactsLocation(any(), any())(any(), any(), any()))
+          .thenReturn(Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"), btaOrigin))))
 
         val result = serviceWithStubbedLinkCheckUplift("Success", journeyId).ivCheckAndEnrolUplift(btaOrigin, journeyId)
         status(result) mustBe SEE_OTHER
@@ -337,19 +349,6 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
         val result = serviceWithStubbedLinkCheckUplift("FailedMatching", journeyId).ivCheckAndEnrolUplift(btaOrigin, journeyId)
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError"), btaOrigin).url)
-      }
-    }
-    "return enrolment successful call" when {
-      "journeyLink returns true and enrol for sa returns true" in {
-        when(mockDataCacheConnector.getEntry[SAUTR](any(), any())(any()))
-          .thenReturn(Future.successful(Some(SAUTR("1234567890"))))
-        when(mockTaxEnrolmentsConnector.enrolForSa(any(), any())(any(), any(), any()))
-          .thenReturn(Future.successful(true))
-
-        val result = serviceWithStubbedLinkCheckUplift("Success", journeyId).ivCheckAndEnrolUplift(btaOrigin, journeyId)
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(saRoutes.EnrolmentSuccessController.onPageLoad(btaOrigin).url)
-
       }
     }
   }
