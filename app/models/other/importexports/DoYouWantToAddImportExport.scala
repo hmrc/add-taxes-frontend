@@ -17,10 +17,10 @@
 package models.other.importexports
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.{AtarSwitch, NewCTCEnrolmentForNCTSJourney}
+import config.featureToggles.FeatureSwitch.{AtarSwitch, CDSSwitch, NewCTCEnrolmentForNCTSJourney}
 import config.featureToggles.FeatureToggleSupport
 import models.requests.ServiceInfoRequest
-import utils.Enrolments.CommonTransitConvention
+import utils.Enrolments.{CommonTransitConvention, CustomsDeclarationServices}
 import utils.{Enumerable, RadioOption, WithName}
 
 sealed trait DoYouWantToAddImportExport
@@ -36,6 +36,7 @@ object DoYouWantToAddImportExport extends FeatureToggleSupport{
   case object eBTI extends WithName("eBTI") with DoYouWantToAddImportExport
   case object NES extends WithName("NES") with DoYouWantToAddImportExport
   case object ISD extends WithName("ISD") with DoYouWantToAddImportExport
+  case object CDS extends WithName("CDS") with DoYouWantToAddImportExport
 
   val values: List[DoYouWantToAddImportExport] = List(
     ATaR,
@@ -47,7 +48,8 @@ object DoYouWantToAddImportExport extends FeatureToggleSupport{
     NCTS,
     eBTI,
     NES,
-    ISD
+    ISD,
+    CDS
   )
 
   object RadioFilters {
@@ -71,6 +73,21 @@ object DoYouWantToAddImportExport extends FeatureToggleSupport{
       }
     }
 
+    def removeCDSIfUserHasEnrolment()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Seq[DoYouWantToAddImportExport] = {
+      if (isEnabled(CDSSwitch)) {
+        val hasCDSEnrolment = request.hasEnrolments(Seq(CustomsDeclarationServices))
+        hasCDSEnrolment match {
+          case true =>
+            infoLog("[DoYouWantToAddImportExport][removeCDSIfUserHasEnrolment] user already has CDS enrolment. CDS radio not visible")
+            Seq(CDS)
+          case _ => Seq()
+        }
+      } else {
+        Seq(CDS)
+      }
+
+    }
+
   }
 
   def filteredRadios()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Seq[DoYouWantToAddImportExport] = {
@@ -78,7 +95,8 @@ object DoYouWantToAddImportExport extends FeatureToggleSupport{
       Seq(eBTI) ++
         RadioFilters.removeATARIfNotEnabled() ++
         RadioFilters.replaceATARWithARSIfEnabled() ++
-        RadioFilters.removeNCTSIfUserHasCTCEnrolment()
+        RadioFilters.removeNCTSIfUserHasCTCEnrolment() ++
+        RadioFilters.removeCDSIfUserHasEnrolment()
 
     values.filterNot(enrolmentsToRemove.contains(_))
   }

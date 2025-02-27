@@ -31,6 +31,12 @@ class DoYouWantToAddImportExportNextPageSpec extends NextPageSpecBase {
 
     behave like nextPage(
       NextPage.doYouWantToAddImportExport,
+      DoYouWantToAddImportExport.CDS,
+      "https://www.gov.uk/guidance/get-access-to-the-customs-declaration-service"
+    )
+
+    behave like nextPage(
+      NextPage.doYouWantToAddImportExport,
       DoYouWantToAddImportExport.EMCS,
       "/business-account/add-tax/other/import-export/emcs"
     )
