@@ -262,6 +262,7 @@ doYouWantToAddImportExport.NCTS = System Gludo Gyfrifiadurol Newydd (NCTS)
 doYouWantToAddImportExport.eBTI = Gwybodaeth Electronig am Dariff sy’n Rhwymo (eBTI)
 doYouWantToAddImportExport.NES = System Allforio Newydd (NES)
 doYouWantToAddImportExport.ISD = Datganiad Atodol Intrastat
+doYouWantToAddImportExport.CDS = Gwasanaeth Datganiadau Tollau (CDS)
 doYouWantToAddImportExport.error.required = Dewis cynllun
 
 #######################################################

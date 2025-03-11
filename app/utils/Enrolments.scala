@@ -67,6 +67,8 @@ object Enrolments {
 
   case object NewComputerisedTransitSystem extends WithName("HMCE-NCTS-ORG") with Enrolments
 
+  case object CustomsDeclarationServices extends WithName("HMRC-CUS-ORG") with Enrolments
+
   // CommonTransitConvention is the new NewComputerisedTransitSystem
   case object CommonTransitConvention extends WithName("HMRC-CTC-ORG") with Enrolments
 

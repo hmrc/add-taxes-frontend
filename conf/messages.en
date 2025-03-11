@@ -263,6 +263,7 @@ doYouWantToAddImportExport.NCTS = New Computerised Transit System (NCTS)
 doYouWantToAddImportExport.eBTI = Electronic Binding Tariff Information (eBTI)
 doYouWantToAddImportExport.NES = New Export System (NES)
 doYouWantToAddImportExport.ISD = Intrastat Supplementary Declaration
+doYouWantToAddImportExport.CDS = Customs Declaration Service (CDS)
 doYouWantToAddImportExport.error.required = Select a scheme
 
 #######################################################

@@ -48,6 +48,7 @@ trait DoYouWantToAddImportExportNextPage {
           case DoYouWantToAddImportExport.eBTI => ebtiRoutes.DoYouHaveEORINumberController.onPageLoad()
           case DoYouWantToAddImportExport.NES  => nesRoutes.DoYouHaveEORINumberController.onPageLoad()
           case DoYouWantToAddImportExport.ISD  => Call("GET", appConfig.getHmceURL("isd"))
+          case DoYouWantToAddImportExport.CDS  => Call("Get", appConfig.getGovUKUrl("cds"))
         }
     }
   }
