@@ -77,6 +77,17 @@ trait NextPageSpecBase extends SpecBase {
       }
     }
 
+  def nextPagePortal[A, B](
+                      np: NextPage[A, B, Call],
+                      userSelection: B,
+                      expected: String): Unit =
+    s"$userSelection is selected" should {
+      s"redirect to a url including $expected" in {
+        val result = np.get(userSelection)
+        result.url must include(expected)
+      }
+    }
+
   def nextPageWithEnrolments[A, B](
     np: NextPage[A, B, Call],
     userSelectionWithEnrolments: B,

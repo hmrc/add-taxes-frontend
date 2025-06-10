@@ -25,14 +25,20 @@ class DoesBusinessHaveDirectorsOrPartnersNextPageSpec extends NextPageSpecBase {
   "doesBusinessHaveDirectorsOrPartners" when {
     behave like nextPage(
       NextPage.doesBusinessHaveDirectorsOrPartners,
-      DoesBusinessHaveDirectorsOrPartners.Yes,
+      DoesBusinessHaveDirectorsOrPartners.Director,
       "/business-account/add-tax/employer/directors"
     )
 
     behave like nextPage(
       NextPage.doesBusinessHaveDirectorsOrPartners,
-      DoesBusinessHaveDirectorsOrPartners.No,
+      DoesBusinessHaveDirectorsOrPartners.Partner,
       "/business-account/add-tax/employer/partners"
+    )
+
+    behave like nextPagePortal(
+      NextPage.doesBusinessHaveDirectorsOrPartners,
+      DoesBusinessHaveDirectorsOrPartners.Solo,
+      "/portal/business-registration/select-taxes"
     )
   }
 }

@@ -33,10 +33,12 @@ trait DoesBusinessHaveDirectorsOrPartnersNextPage {
         implicit appConfig: FrontendAppConfig,
         request: ServiceInfoRequest[_]): Call =
         b match {
-          case DoesBusinessHaveDirectorsOrPartners.Yes =>
+          case DoesBusinessHaveDirectorsOrPartners.Director =>
             employerPayeRoutes.DoesBusinessHave1To9DirectorsController.onPageLoad()
-          case DoesBusinessHaveDirectorsOrPartners.No =>
+          case DoesBusinessHaveDirectorsOrPartners.Partner =>
             employerPayeRoutes.DoesYourPartnershipHave2To10PartnersController.onPageLoad()
+          case DoesBusinessHaveDirectorsOrPartners.Solo =>
+            Call("GET", appConfig.getPortalUrl("selectTaxes"))
         }
     }
   }

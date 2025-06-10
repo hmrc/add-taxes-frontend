@@ -22,12 +22,14 @@ sealed trait DoesBusinessHaveDirectorsOrPartners
 
 object DoesBusinessHaveDirectorsOrPartners {
 
-  case object Yes extends WithName("Yes") with DoesBusinessHaveDirectorsOrPartners
-  case object No extends WithName("No") with DoesBusinessHaveDirectorsOrPartners
+  case object Director extends WithName("Director") with DoesBusinessHaveDirectorsOrPartners
+  case object Partner extends WithName("Partner") with DoesBusinessHaveDirectorsOrPartners
+  case object Solo extends WithName("Solo") with DoesBusinessHaveDirectorsOrPartners
 
   val values: Set[DoesBusinessHaveDirectorsOrPartners] = Set(
-    Yes,
-    No
+    Director,
+    Partner,
+    Solo
   )
 
   val options: Set[RadioOption] = values.map { value =>
