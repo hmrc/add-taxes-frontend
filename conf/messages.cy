@@ -1138,8 +1138,9 @@ doesYourPartnershipHave2To10Partners.error.required = Dewiswch ‘Iawn’ os oes
 #######################################################
 doesBusinessHaveDirectorsOrPartners.title = A oes gan eich busnes gyfarwyddwyr neu bartneriaid?
 doesBusinessHaveDirectorsOrPartners.heading = A oes gan eich busnes gyfarwyddwyr neu bartneriaid?
-doesBusinessHaveDirectorsOrPartners.Yes = Cyfarwyddwyr
-doesBusinessHaveDirectorsOrPartners.No = Partneriaid
+doesBusinessHaveDirectorsOrPartners.Director = Cyfarwyddwyr
+doesBusinessHaveDirectorsOrPartners.Partner = Partneriaid
+doesBusinessHaveDirectorsOrPartners.Solo = Y naill na’r llall, rwy’n unig fasnachwr
 doesBusinessHaveDirectorsOrPartners.error.required = Dewiswch a oes gan eich busnes gyfarwyddwyr neu bartneriaid
 
 #######################################################

@@ -1114,8 +1114,9 @@ doesYourPartnershipHave2To10Partners.error.required = Select yes if your partner
 #######################################################
 doesBusinessHaveDirectorsOrPartners.title = Does your business have directors or partners?
 doesBusinessHaveDirectorsOrPartners.heading = Does your business have directors or partners?
-doesBusinessHaveDirectorsOrPartners.Yes = Directors
-doesBusinessHaveDirectorsOrPartners.No = Partners
+doesBusinessHaveDirectorsOrPartners.Director = Directors
+doesBusinessHaveDirectorsOrPartners.Partner = Partners
+doesBusinessHaveDirectorsOrPartners.Solo = Neither, I am a sole trader
 doesBusinessHaveDirectorsOrPartners.error.required = Select if your business has directors or partners
 
 #######################################################
