@@ -32,7 +32,7 @@ class SelectAlcoholSchemeNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.selectAlcoholScheme,
       SelectAlcoholScheme.AWRS,
-      "http://localhost:9020/business-customer/business-verification/awrs"
+      "http://localhost:9913/alcohol-wholesale-scheme/have-you-registered"
     )
 
     behave like nextPage(

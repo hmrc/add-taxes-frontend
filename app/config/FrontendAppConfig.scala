@@ -89,6 +89,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
 
   def addTaxesSignoutToOrg(key: String): String = businessAccountHost + signoutBTALink + signoutToOrgHost + config.getString(s"urls.business-account.${key}")
   def getBusinessAccountUrl(key: String): String = businessAccountHost + config.getString(s"urls.business-account.$key")
+  def getAWRSRegistrationCheckUrl(key: String): String = awrsFrontendHost + config.getString(s"urls.awrs-frontend.$key")
 
   lazy val signOutRedirectToOrgRegistration: String = signoutToOrgHost + config.getString(s"urls.business-account.signoutContinueUrl")
 
@@ -195,6 +196,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   lazy val identityVerificationFrontendBaseUrl: String = config.baseUrl("identity-verification-frontend")
   lazy val identityVerificationEnv: String = config.getString("identity-verification-frontend.env")
   lazy val addTaxesHost: String = config.getString("add-taxes-frontend.host")
+  lazy val awrsFrontendHost: String = config.getString("urls.awrs-frontend.host")
   lazy val identityVerificationHost: String = config.getString("identity-verification-frontend.host")
   lazy val taxEnrolmentsBaseUrl: String = config.baseUrl("tax-enrolments")
 

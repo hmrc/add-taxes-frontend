@@ -22,9 +22,11 @@ import models.other.alcohol.awrs.SelectAlcoholScheme
 import models.requests.ServiceInfoRequest
 import play.api.mvc.Call
 import utils.NextPage
+import config.featureToggles.FeatureSwitch.AWRSJourneyRedirect
+import config.featureToggles.FeatureToggleSupport
 import controllers.other.alcohol.atwd.{routes => atwdRoutes}
 
-trait SelectAlcoholSchemeNextPage {
+trait SelectAlcoholSchemeNextPage extends FeatureToggleSupport {
 
   implicit val selectAlcoholScheme: NextPage[SelectAlcoholSchemeId.type, SelectAlcoholScheme, Call] = {
     new NextPage[SelectAlcoholSchemeId.type, SelectAlcoholScheme, Call] {
@@ -33,7 +35,12 @@ trait SelectAlcoholSchemeNextPage {
         request: ServiceInfoRequest[_]): Call =
         b match {
           case SelectAlcoholScheme.ATWD => atwdRoutes.AreYouRegisteredWarehousekeeperController.onPageLoad()
-          case SelectAlcoholScheme.AWRS => Call("GET", appConfig.getBusinessAccountUrl("awrs"))
+          case SelectAlcoholScheme.AWRS =>
+            if (isEnabled(AWRSJourneyRedirect)) {
+              Call("GET", appConfig.getAWRSRegistrationCheckUrl("awrsRedirect"))
+            } else {
+              Call("GET", "/business-customer/business-verification/awrs")
+            }
           case SelectAlcoholScheme.AD => Call("GET", appConfig.getAdrUrl)
         }
     }
