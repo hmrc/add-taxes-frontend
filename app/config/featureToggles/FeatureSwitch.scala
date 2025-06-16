@@ -27,7 +27,8 @@ object FeatureSwitch {
     BypassVATETMPCheck,
     NewCTCEnrolmentForNCTSJourney,
     Pillar2Switch,
-    CDSSwitch
+    CDSSwitch,
+    AWRSJourneyRedirect
   )
 
   def apply(str: String): FeatureSwitch =
@@ -87,6 +88,11 @@ object FeatureSwitch {
   case object CDSSwitch extends FeatureSwitch {
     override val name: String = s"$prefix.cdsSwitch"
     override val displayText: String = "Add and remove CDS tax enabled"
+  }
+
+  case object AWRSJourneyRedirect extends FeatureSwitch {
+    override val name: String = s"$prefix.awrsJourneyRedirect"
+    override val displayText: String = "Enable redirect for AWRS registration check"
   }
 
 }
