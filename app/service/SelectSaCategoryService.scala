@@ -65,9 +65,8 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
           case SelectSACategory.Sa => saResult(doYouHaveSaUtr, enrolmentStoreResult, origin)
           case SelectSACategory.Partnership => partnershipResult(doYouHaveSaUtr, enrolmentStoreResult)
           case SelectSACategory.Trust => trustsResult(doYouHaveSaUtr, enrolmentStoreResult)
-          case SelectSACategory.MtdIT if(accessMtdFeatureSwitch) => {
+          case SelectSACategory.MtdIT if accessMtdFeatureSwitch =>
             Redirect(Call(method = "GET", url = appConfig.mtdItUrl))
-          }
         }
       }
     }
@@ -80,7 +79,7 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
       case (DoYouHaveSAUTR.Yes, NoRecordFound) => Redirect(saRoutes.KnownFactsController.onPageLoad(origin))
       case (_, CredIdFound)                    => Redirect(Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials")))
       case (_, GroupIdFound)                   => Redirect(saRoutes.GroupIdFoundController.onPageLoad())
-      case (_, _) if (request.request.affinityGroup.contains(AffinityGroup.Individual)) =>
+      case (_, _) if request.request.affinityGroup.contains(AffinityGroup.Individual) =>
         Redirect(saRoutes.AreYouSelfEmployedController.onPageLoad())
       case (_, _)                              => Redirect(Call("GET", appConfig.getPortalUrl("selectTaxes")))
     }
@@ -92,7 +91,7 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
     (doYouHaveSaUtr, enrolmentStoreResult) match {
       case (_, CredIdFound)     => Redirect(Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials")))
       case (_, GroupIdFound)    => Redirect(saRoutes.GroupIdFoundController.onPageLoad())
-      case (_, _) if (request.request.affinityGroup.contains(AffinityGroup.Organisation)) =>
+      case (_, _) if request.request.affinityGroup.contains(AffinityGroup.Organisation) =>
         Redirect(saPartnerRoutes.DoYouWantToAddPartnerController.onPageLoad())
       case (_, _)    => Redirect(saPartnerRoutes.SetUpNewAccountController.onPageLoad())
     }
@@ -104,7 +103,7 @@ class SelectSaCategoryService @Inject()(dataCacheConnector: DataCacheConnector,
     (doYouHaveSaUtr, enrolmentStoreResult) match {
       case (_, CredIdFound)    => Redirect(Call("GET", appConfig.getBusinessAccountUrl("wrong-credentials")))
       case (_, GroupIdFound)   => Redirect(saRoutes.GroupIdFoundController.onPageLoad())
-      case (_, _) if (request.request.affinityGroup.contains(AffinityGroup.Organisation)) =>
+      case (_, _) if request.request.affinityGroup.contains(AffinityGroup.Organisation) =>
         Redirect(trustRoutes.HaveYouRegisteredTrustController.onPageLoad())
       case (_, _) => Redirect(trustRoutes.SetUpNewAccountController.onPageLoad())
     }

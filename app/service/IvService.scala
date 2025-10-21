@@ -19,15 +19,13 @@ package service
 import connectors.{CitizensDetailsConnector, DataCacheConnector, IvConnector, TaxEnrolmentsConnector}
 import controllers.sa.{routes => saRoutes}
 import identifiers.EnterSAUTRId
-
-import javax.inject.Inject
 import models.requests.ServiceInfoRequest
 import models.sa.{IvLinks, SAUTR, SaEnrolmentDetails}
-import utils.LoggingUtil
 import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Request, Result}
-import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
-
+import uk.gov.hmrc.http.HeaderCarrier
+import utils.LoggingUtil
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class IvService @Inject()(dataCacheConnector: DataCacheConnector,
@@ -185,7 +183,7 @@ class IvService @Inject()(dataCacheConnector: DataCacheConnector,
       case x if x == "InsufficientEvidence" || x == "PreconditionFailed" || x == "FailedMatching" || x == "FailedIV" =>
         Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError"), origin)))
       case result =>
-        warnLog(s"[IvService][ivCheckAndEnrol] Failed Iv for ${result}")
+        warnLog(s"[IvService][ivCheckAndEnrol] Failed Iv for $result")
         Future.successful(Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("Failed"), origin)))
     }
   }

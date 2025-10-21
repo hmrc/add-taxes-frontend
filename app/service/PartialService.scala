@@ -20,13 +20,13 @@ import javax.inject.Inject
 import models.requests.{ListLinks, NavContent, NavLinks}
 import play.api.i18n.{Lang, Messages}
 
-class PartialService @Inject()() {
+class PartialService @Inject() {
 
   def notificationBadgeCount(messageCount: Int): String = {
     messageCount match {
       case 0 => "0"
       case count if count > 99  => "+99"
-      case _ => s"${messageCount}"
+      case _ => s"$messageCount"
     }
   }
 
