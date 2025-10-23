@@ -56,11 +56,10 @@ class KnownFactsService @Inject()(saService: SaService,
       }
 
     queryKnownFactsResult.flatMap {
-      case result@KnownFactsReturn(utr, true) if(request.request.nino.isDefined) => {
+      case result@KnownFactsReturn(utr, true) if request.request.nino.isDefined =>
         auditService.auditSAKnownFacts(request.request.credId, result.utr, knownFacts, knownfactsResult = true)
         checkCIDNinoComparison(origin, utr, knownFacts.nino.getOrElse(""))
-      }
-      case result@KnownFactsReturn(_, true) if(isEnabled(IvUpliftSwitch)) =>
+      case result@KnownFactsReturn(_, true) if isEnabled(IvUpliftSwitch) =>
         auditService.auditSAKnownFacts(request.request.credId, result.utr, knownFacts, knownfactsResult = true)
         Future.successful(Redirect(appConfig.ivUpliftUrl(origin)))
       case result@KnownFactsReturn(_, true) =>

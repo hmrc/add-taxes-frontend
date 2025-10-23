@@ -41,7 +41,7 @@ class SaService @Inject()(saConnector: SaConnector,
     saConnector.getIvLinks(utr, origin).map {
       case Some(ivLinks) =>
         dataCacheConnector.save[IvLinks](request.request.credId, "IvLinksId", ivLinks)
-        s"${serviceUrl}${ivLinks.link}"
+        s"$serviceUrl${ivLinks.link}"
       case _ =>
         errorLog("[SaService][getIvRedirectLink] Failed retrieving IV link from SA")
         saRoutes.TryPinInPostController.onPageLoad(status = Some("MatchingError"), origin).url
