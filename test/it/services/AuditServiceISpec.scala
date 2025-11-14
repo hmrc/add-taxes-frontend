@@ -11,7 +11,6 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.http.connector.AuditResult
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.util.{Failure, Success}
 
 class AuditServiceISpec extends PlaySpec with AddTaxesIntegrationTest  {
 
