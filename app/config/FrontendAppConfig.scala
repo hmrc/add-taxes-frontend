@@ -279,6 +279,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   def deregThresholdString: String = conf.get[ConfigList]("vat-dereg-threshold").render(ConfigRenderOptions.concise())
   lazy val deregThresholds: Seq[VatThreshold] = Json.parse(deregThresholdString).as[List[VatThreshold]]
 
+  lazy val forceServiceNavigation: Boolean = config.getBoolean("play-frontend-hmrc.forceServiceNavigation")
 }
 
 trait FeatureToggles {

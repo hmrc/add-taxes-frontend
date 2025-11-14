@@ -11,6 +11,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.http.connector.AuditResult
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.util.{Failure, Success}
 
 class AuditServiceISpec extends PlaySpec with AddTaxesIntegrationTest  {
 
@@ -26,7 +27,6 @@ class AuditServiceISpec extends PlaySpec with AddTaxesIntegrationTest  {
 
     "successfully audit" in {
       val result = testService.auditSA("credId123", "utr321", enrolmentCheckResult = CredIdFound)
-
       whenReady(result){ _ mustBe expected }
     }
   }

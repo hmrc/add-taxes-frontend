@@ -40,3 +40,4 @@ migrations/applied_migrations
 project/metals.sbt
 sbt.json
 .bsp
+node_modules
