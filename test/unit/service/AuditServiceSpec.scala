@@ -35,11 +35,20 @@ class AuditServiceSpec extends PlaySpec with MockitoSugar {
     )
     implicit val request: FakeRequest[AnyContent] = FakeRequest()
 
-    "successfully audit" in {
+    "successfully audit for CredIdFound" in {
       when(mockAuditConnector.sendEvent(any())(any(), any()))
         .thenReturn(Future.successful(expected))
 
       val result = testService.auditSA("credId123", "utr321", enrolmentCheckResult = CredIdFound)
+
+      whenReady(result){ _ mustBe expected }
+    }
+
+    "successfully audit for GroupIdFound" in {
+      when(mockAuditConnector.sendEvent(any())(any(), any()))
+        .thenReturn(Future.successful(expected))
+
+      val result = testService.auditSA("credId123", "utr321", enrolmentCheckResult = GroupIdFound)
 
       whenReady(result){ _ mustBe expected }
     }
