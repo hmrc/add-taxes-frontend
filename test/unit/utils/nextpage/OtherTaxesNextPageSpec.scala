@@ -27,7 +27,11 @@ class OtherTaxesNextPageSpec extends NextPageSpecBase {
       OtherTaxes.AlcoholAndTobaccoOld,
       "/business-account/add-tax/other/alcohol"
     )
-
+    behave like nextPage(
+      NextPage.otherTaxes,
+      OtherTaxes.AlcoholAndTobacco,
+      "/business-account/add-tax/other/alcohol"
+    )
     behave like nextPage(
       NextPage.otherTaxes,
       OtherTaxes.AutomaticExchangeOfInformation,
@@ -72,6 +76,21 @@ class OtherTaxesNextPageSpec extends NextPageSpecBase {
       NextPage.otherTaxes,
       OtherTaxes.PODS,
       "http://localhost:8204/manage-pension-schemes/overview"
+    )
+    behave like nextPage(
+      NextPage.otherTaxes,
+      OtherTaxes.ECL,
+      "http://localhost:14007/add-economic-crime-levy/do-you-have-an-ecl-reference-number"
+    )
+    behave like nextPage(
+      NextPage.otherTaxes,
+      OtherTaxes.PLRID,
+      "http://localhost:10050/report-pillar2-top-up-taxes/bta/pillar2-id"
+    )
+    behave like nextPage(
+      NextPage.otherTaxes,
+      OtherTaxes.PPT,
+      "/business-account/add-tax/other/ppt"
     )
   }
 }

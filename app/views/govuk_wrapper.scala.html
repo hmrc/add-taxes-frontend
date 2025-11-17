@@ -77,27 +77,38 @@
 }
 
 @footerDefault = {
-@govukFooter()
+    @govukFooter()
 }
 
 @beforeContentBlock = {
-<div class="centered-content soft--ends">
-    @serviceInfoContent
-</div>
 
-@{
-def playLangToUiLanguage(l: Lang) = l.code match {
-case "en" => En
-case "cy" => Cy
-}
+    @if(!appConfig.forceServiceNavigation){
+        <div class="centered-content soft--ends">
+            @serviceInfoContent
+        </div>
+    } else {
+        <div class="govuk-service-navigation" data-module="govuk-service-navigation">
+            <div class="govuk-width-container">
+                <div class="govuk-service-navigation__container">
+                    @serviceInfoContent
+                </div>
+            </div>
+        </div>
+    }
+    @{ if(!appConfig.forceServiceNavigation){
+            def playLangToUiLanguage(l: Lang) = l.code match {
+                case "en" => En
+                case "cy" => Cy
+            }
 
-if(appConfig.languageTranslationEnabled) {
-hmrcLanguageSelect(LanguageSelect(
-playLangToUiLanguage(messages.lang),
-appConfig.languageLinks: _*
-))
-}
-}
+            if(appConfig.languageTranslationEnabled) {
+                hmrcLanguageSelect(LanguageSelect(
+                    playLangToUiLanguage(messages.lang),
+                    appConfig.languageLinks: _*
+                ))
+            }
+        }
+    }
 }
 
 @footerLinks = {}
@@ -136,10 +147,11 @@ appConfig.languageLinks: _*
 @govukTemplate(pageTitle = Some(title),
     headBlock = Some(hmrcHead(Some(head))),
     headerBlock = hmrcStandardHeader(
-    serviceName = Some(messages("site.service_name")),
-    serviceUrl = Some(appConfig.getTarUrl),
-    signOutUrl = Some(appConfig.getBusinessAccountUrl("signout"))
-),
+        serviceName = Some(messages("site.service_name")),
+        serviceUrl = Some(appConfig.getTarUrl),
+        signOutUrl = Some(appConfig.getBusinessAccountUrl("signout")),
+        isWelshTranslationAvailable = true
+    ),
     bodyEndBlock = Some(bodyEnd),
     footerBlock = footerDefault,
     beforeContentBlock = Some(beforeContentBlock)

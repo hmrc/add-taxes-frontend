@@ -26,7 +26,6 @@ class AuditServiceISpec extends PlaySpec with AddTaxesIntegrationTest  {
 
     "successfully audit" in {
       val result = testService.auditSA("credId123", "utr321", enrolmentCheckResult = CredIdFound)
-
       whenReady(result){ _ mustBe expected }
     }
   }
