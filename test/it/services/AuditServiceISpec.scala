@@ -14,10 +14,10 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class AuditServiceISpec extends PlaySpec with AddTaxesIntegrationTest  {
 
-  override protected def config: Map[String, Any] = Map("auditing.enabled" -> "false")
+  override protected def config: Map[String, Any] = Map("auditing.enabled" -> "true")
 
   val testService: AuditService = inject[AuditService]
-  val expected: AuditResult = AuditResult.Disabled
+  val expected: AuditResult = AuditResult.Success
 
   "auditSA" should {
 
