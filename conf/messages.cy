@@ -942,7 +942,7 @@ claimVATInterstitialPage.p4.text1=Mae’r swm hwn i’w weld ym mlwch 5 yn y Ffu
 claimVATInterstitialPage.p5.title=2. Mis eich cyfnod cyfrifyddu TAW diweddaraf
 claimVATInterstitialPage.p5.text1=Gallwch ddod o hyd iddo yn y Ffurflen TAW ddiweddaraf i chi ei chyflwyno i CThEF.
 
-claimVATInterstitialPage.h3=If you have not yet submitted a VAT Return you will need to tell us:
+claimVATInterstitialPage.h3=Os nad ydych wedi cyflwyno Ffurflen TAW hyd yma, bydd angen i chi roi gwybod i ni am y canlynol:
 
 claimVATInterstitialPage.p6.title=1. Rhif eich cais TAW
 claimVATInterstitialPage.p6.text1=Dyma’r cyfeirnod unigryw sy’n cael ei greu wrth gyflwyno cais i gofrestru am TAW, Cafodd y cyfeirnod ei ddangos ar y sgrin a’i e-bostio atoch ar ôl i chi wneud y cais.
