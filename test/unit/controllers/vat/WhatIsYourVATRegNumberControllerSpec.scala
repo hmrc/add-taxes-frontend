@@ -16,9 +16,9 @@
 
 package controllers.vat
 
-import config.featureToggles.FeatureSwitch.BypassVATETMPCheck
+import config.featureToggles.FeatureSwitch.{BypassVATETMPCheck, VATKnownFactsCheck}
 import config.featureToggles.FeatureToggleSupport
-import connectors.VatSubscriptionConnector
+import connectors.{DataCacheConnector, VatSubscriptionConnector}
 import controllers.ControllerSpecBase
 import forms.vat.WhatIsYourVATRegNumberFormProvider
 import handlers.ErrorHandler
@@ -44,8 +44,12 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
   val formProvider = new WhatIsYourVATRegNumberFormProvider()
   val form: Form[String] = formProvider()
   lazy val mockVatSubscriptionConnector: VatSubscriptionConnector = mock[VatSubscriptionConnector]
+  lazy val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
 
   val testVrn = "968501689"
+  val sameTestVrn: Option[String] = Some("968501689")
+  val testVrnEmpty:Option[String] = None
+  val differentVrn: Option[String] = Some("968501688")
   val vatAccountUnavailable: vatAccountUnavailable = injector.instanceOf[vatAccountUnavailable]
   val whatIsYourVATRegNumber: whatIsYourVATRegNumber = injector.instanceOf[whatIsYourVATRegNumber]
   val vatRegistrationException: vatRegistrationException = injector.instanceOf[vatRegistrationException]
@@ -61,6 +65,7 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
       FakeServiceInfoAction,
       mockVatSubscriptionConnector,
       formProvider,
+      mockDataCacheConnector,
       vatRegistrationException,
       vatAccountUnavailable,
       errorHandler = errorHandler,
@@ -98,6 +103,8 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
           when(mockVatSubscriptionConnector.getMandationStatus(any())(any(), any(), any()))
             .thenReturn(Future.successful(OK))
 
+          when(mockDataCacheConnector.getEntry[String](any(), any())(any())).thenReturn(Future.successful(testVrnEmpty))
+
           val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST")
 
           val result = controller().onSubmit()(postRequest)
@@ -105,6 +112,25 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some(onwardRoute.url)
           verify(mockVatSubscriptionConnector, times(1)).getMandationStatus(any())(any(), any(), any())
+        }
+
+
+        "redirect to the different VAT page when vrn mismatch" in {
+
+          disable(BypassVATETMPCheck)
+          enable(VATKnownFactsCheck)
+
+          when(mockVatSubscriptionConnector.getMandationStatus(any())(any(), any(), any()))
+            .thenReturn(Future.successful(OK))
+
+          when(mockDataCacheConnector.getEntry[String](any(), any())(any())).thenReturn(Future.successful(differentVrn))
+
+          val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST")
+
+          val result = controller().onSubmit()(postRequest)
+
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(vatAccountUnavailableRoute.toString) // has to be replaced with the new page url.
         }
 
         "redirect to the vatAccountUnavailable page when migrating data is submitted" in {
@@ -163,6 +189,7 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
           status(result) mustBe BAD_REQUEST
           contentAsString(result) mustBe viewAsString(boundForm)
         }
+
       }
     }
   }

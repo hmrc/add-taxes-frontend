@@ -26,8 +26,12 @@
 
 @(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
+@{
+  val pageTitle: String = if(appConfig.isKnownFactsCheckEnabled) "whatIsYourVATRegNumber.title.new" else "whatIsYourVATRegNumber.title"
+  val pageHeading: String = if(appConfig.isKnownFactsCheckEnabled) "whatIsYourVATRegNumber.heading.new" else "whatIsYourVATRegNumber.heading"
+}
 @main_template(
-    title = messages("whatIsYourVATRegNumber.title"),
+    title = messages(if(appConfig.isKnownFactsCheckEnabled) "whatIsYourVATRegNumber.title.new" else "whatIsYourVATRegNumber.title"),
     appConfig = appConfig,
     form = Some(form),
     serviceInfoContent = Some(serviceInfoContent)) {
@@ -38,7 +42,7 @@
 
         @components.input_text(
           field = form("value"),
-          label = messages("whatIsYourVATRegNumber.heading"),
+          label = messages(if(appConfig.isKnownFactsCheckEnabled) "whatIsYourVATRegNumber.heading.new" else "whatIsYourVATRegNumber.heading"),
           hint  = Some(messages("whatIsYourVATRegNumber.hintText")),
           formHintMargin= Some("margin-bottom-small"),
           headingId = "enter-vat-registration-heading"

@@ -975,7 +975,9 @@ doYouHaveVATRegNumber.error.required = Dewiswch ‘Iawn’ os oes gennych rif co
 ## WhatIsYourVATRegNumber
 #######################################################
 whatIsYourVATRegNumber.title = Beth yw’ch rhif TAW?
+whatIsYourVATRegNumber.title.new = Beth yw’ch rhif cofrestru TAW?
 whatIsYourVATRegNumber.heading = Beth yw’ch rhif TAW?
+whatIsYourVATRegNumber.heading.new = Beth yw’ch rhif cofrestru TAW?
 whatIsYourVATRegNumber.error.required = Nodwch rif TAW yn y fformat cywir
 whatIsYourVATRegNumber.error.tooLong = Rydych wedi nodi gormod o rifau
 whatIsYourVATRegNumber.error.tooShort = Nid ydych wedi nodi digon o rifau

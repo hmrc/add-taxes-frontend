@@ -24,12 +24,12 @@ import play.api.Configuration
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, Language}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.language.LanguageUtils
 import utils.{Enrolments, ForgottenOptions, PortalUrlBuilder}
 
 import java.time.LocalDateTime
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, Language}
 
 @Singleton
 class FrontendAppConfig @Inject()(val config: ServicesConfig,
@@ -281,6 +281,7 @@ class FrontendAppConfig @Inject()(val config: ServicesConfig,
   def deregThresholdString: String = conf.get[ConfigList]("vat-dereg-threshold").render(ConfigRenderOptions.concise())
   lazy val deregThresholds: Seq[VatThreshold] = Json.parse(deregThresholdString).as[List[VatThreshold]]
 
+  lazy val isKnownFactsCheckEnabled: Boolean = config.getConfBool("feature-toggles.vatKnownFactsCheck", false)
 }
 
 trait FeatureToggles {
