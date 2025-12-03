@@ -1,5 +1,5 @@
 @*
- * Copyright 2025 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,8 +30,6 @@ title = messages("claimVATInterstitialPage.title"),
 appConfig = appConfig,
 serviceInfoContent = Some(serviceInfoContent)) {
 
-<a href='@appConfig.getBusinessAccountUrl("addTax")' class="govuk-back-link" >@messages("backLink.text")</a>
-
 @components.heading("claim-vat-interstitial-heading", "claimVATInterstitialPage.heading")
 
 <h2 class="govuk-heading-m">@messages("claimVATInterstitialPage.h1")</h2>
@@ -48,11 +46,12 @@ serviceInfoContent = Some(serviceInfoContent)) {
 <p class="govuk-body">@messages("claimVATInterstitialPage.p2.text1")</p>
 
 <h2 class="govuk-heading-s">@messages("claimVATInterstitialPage.p3.title")</h2>
-<p class="govuk-body">@messages("claimVATInterstitialPage.p3.text1")
-    <a class="govuk-link" id="check-vat-number-link" target="_blank"
-           href="@appConfig.getGovUKUrl("checkVATNumber")">@messages("claimVATInterstitialPage.p3.link")</a>
-    @messages("claimVATInterstitialPage.p3.text2")
-</p>
+<p class="govuk-body">@messages("claimVATInterstitialPage.p3.text1")</p>
+<ul class="govuk-list govuk-list--bullet">
+    <li><a class="govuk-link" id="check-vat-number-link" target="_blank"
+           href="@appConfig.getGovUKUrl("checkVATNumber")">@messages("claimVATInterstitialPage.p3.bullet1")</a></li>
+    <li>@messages("claimVATInterstitialPage.p3.bullet2")</li>
+</ul>
 
 <h2 class="govuk-heading-m">@messages("claimVATInterstitialPage.h2")</h2>
 
@@ -62,39 +61,6 @@ serviceInfoContent = Some(serviceInfoContent)) {
 <h2 class="govuk-heading-s">@messages("claimVATInterstitialPage.p5.title")</h2>
 <p class="govuk-body">@messages("claimVATInterstitialPage.p5.text1")</p>
 
-<h2 class="govuk-heading-m">@messages("claimVATInterstitialPage.h3")</h2>
-
-<h2 class="govuk-heading-s">@messages("claimVATInterstitialPage.p6.title")</h2>
-<p class="govuk-body">@messages("claimVATInterstitialPage.p6.text1")</p>
-<p class="govuk-body">@messages("claimVATInterstitialPage.p6.text2")</p>
-<p class="govuk-body">@messages("claimVATInterstitialPage.p6.text3")</p>
-
-<details class="govuk-details" data-module="govuk-details">
-    <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      @messages("claimVATInterstitialPage.dropdown.title")
-    </span>
-    </summary>
-
-    <div class="govuk-details__text">
-        <p class="govuk-body">@messages("claimVATInterstitialPage.dropdown.p1")</p>
-
-        <h2 class="govuk-heading-s">@messages("claimVATInterstitialPage.dropdown.bullet1.title")</h2>
-        <p class="govuk-body">@messages("claimVATInterstitialPage.dropdown.bullet1.text")</p>
-
-        <h2 class="govuk-heading-s">@messages("claimVATInterstitialPage.dropdown.bullet2.title")</h2>
-        <p class="govuk-body">@messages("claimVATInterstitialPage.dropdown.bullet2.text")</p>
-
-        <h2 class="govuk-heading-s">@messages("claimVATInterstitialPage.dropdown.bullet3.title")</h2>
-        <p class="govuk-body">@messages("claimVATInterstitialPage.dropdown.bullet3.text")
-            <a class="govuk-link"
-               href="@appConfig.getGovUkUrl" id="vat-online-support"
-               target="_blank">
-                @messages("claimVATInterstitialPage.dropdown.supportLink")
-            </a>
-        </p>
-    </div>
-</details>
 
 <a data-module="govuk-button" id="continue" href='@DoYouHaveVATRegNumberController.onPageLoad()' class="govuk-button"
    role="button">
