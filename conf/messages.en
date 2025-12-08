@@ -952,8 +952,6 @@ doYouHaveVATRegNumber.error.required = Select yes if you have a VAT registration
 #######################################################
 whatIsYourVATRegNumber.title = What is your VAT number?
 whatIsYourVATRegNumber.title.new = What is your VAT registration number?
-whatIsYourVATRegNumber.heading = What is your VAT number?
-whatIsYourVATRegNumber.heading.new = What is your VAT registration number?
 whatIsYourVATRegNumber.error.required = Enter a VAT number in the correct format
 whatIsYourVATRegNumber.error.tooLong = You have entered too many numbers
 whatIsYourVATRegNumber.error.tooShort = You have not entered enough numbers

@@ -334,4 +334,4 @@ GET        /vat/can-register-online                     controllers.vat.CanRegis
 
 GET        /vat/cannot-register-online                  controllers.vat.CannotRegisterVATController.onPageLoad()
 
-GET        /account-unavailable                         controllers.vat.WhatIsYourVATRegNumberController.onPageLoadVatUnanavailable()
+GET        /account-unavailable                         controllers.vat.WhatIsYourVATRegNumberController.onPageLoadVatUnavailable()

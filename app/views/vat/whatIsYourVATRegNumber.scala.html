@@ -24,25 +24,21 @@
     main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_], switchIsEnabled: Boolean)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
-@{
-  val pageTitle: String = if(appConfig.isKnownFactsCheckEnabled) "whatIsYourVATRegNumber.title.new" else "whatIsYourVATRegNumber.title"
-  val pageHeading: String = if(appConfig.isKnownFactsCheckEnabled) "whatIsYourVATRegNumber.heading.new" else "whatIsYourVATRegNumber.heading"
-}
 @main_template(
-    title = messages(if(appConfig.isKnownFactsCheckEnabled) "whatIsYourVATRegNumber.title.new" else "whatIsYourVATRegNumber.title"),
+    title = messages(s"whatIsYourVATRegNumber.title${if(switchIsEnabled) ".new" else ""}"),
     appConfig = appConfig,
     form = Some(form),
     serviceInfoContent = Some(serviceInfoContent)) {
 
-        @uiForm(action = WhatIsYourVATRegNumberController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+        @uiForm(action = WhatIsYourVATRegNumberController.onSubmit(), Symbol("autoComplete") -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors, Some("value"))
 
         @components.input_text(
           field = form("value"),
-          label = messages(if(appConfig.isKnownFactsCheckEnabled) "whatIsYourVATRegNumber.heading.new" else "whatIsYourVATRegNumber.heading"),
+          label = messages(s"whatIsYourVATRegNumber.title${if(switchIsEnabled) ".new" else ""}"),
           hint  = Some(messages("whatIsYourVATRegNumber.hintText")),
           formHintMargin= Some("margin-bottom-small"),
           headingId = "enter-vat-registration-heading"
