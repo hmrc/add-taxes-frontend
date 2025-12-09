@@ -17,52 +17,58 @@
 package service
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.IvUpliftSwitch
+import config.featureToggles.FeatureSwitch.{IvUpliftSwitch, RealVatEtmpCheck, VATKnownFactsCheck}
 import config.featureToggles.FeatureToggleSupport.isEnabled
-import connectors.{CitizensDetailsConnector, DataCacheConnector, EnrolmentStoreProxyConnector}
+import connectors.{CitizensDetailsConnector, DataCacheConnector, EnrolmentStoreProxyConnector, VatSubscriptionConnector}
 import controllers.sa.{routes => saRoutes}
+import controllers.vat.{routes => vatRoutes}
 import handlers.ErrorHandler
-import identifiers.EnterSAUTRId
-import javax.inject.Inject
+import identifiers.{EnterSAUTRId, WhatIsYourVATRegNumberId}
 import models.requests.ServiceInfoRequest
 import models.sa._
-import utils.LoggingUtil
+import play.api.http.Status.{LOCKED, NOT_FOUND, OK, PRECONDITION_FAILED}
 import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Call, Result}
+import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
+import utils.{LoggingUtil, Navigator}
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class KnownFactsService @Inject()(saService: SaService,
-                                  dataCacheConnector: DataCacheConnector,
-                                  enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
-                                  auditService: AuditService,
-                                  errorHandler: ErrorHandler,
-                                  citizensDetailsConnector: CitizensDetailsConnector,
-                                  implicit val appConfig: FrontendAppConfig) extends LoggingUtil {
+//noinspection ScalaStyle
+class KnownFactsService @Inject() (saService: SaService,
+                                   dataCacheConnector: DataCacheConnector,
+                                   enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
+                                   vatSubscriptionConnector: VatSubscriptionConnector,
+                                   auditService: AuditService,
+                                   errorHandler: ErrorHandler,
+                                   citizensDetailsConnector: CitizensDetailsConnector,
+                                   navigator: Navigator[Call],
+                                   implicit val appConfig: FrontendAppConfig)
+    extends LoggingUtil {
 
-  def knownFactsLocation(knownFacts: KnownFacts,
-                         origin: String)
-                        (implicit request: ServiceInfoRequest[AnyContent],
-                         ec: ExecutionContext,
-                         hc: HeaderCarrier): Future[Result] = {
+  def knownFactsLocation(knownFacts: KnownFacts, origin: String)(implicit
+      request: ServiceInfoRequest[AnyContent],
+      ec: ExecutionContext,
+      hc: HeaderCarrier): Future[Result] = {
     val utr = dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
-    val queryKnownFactsResult: Future[KnownFactsReturn] = utr.flatMap {
-      maybeSAUTR => (
-          for {
-            utr <- maybeSAUTR
-          } yield enrolmentStoreProxyConnector.queryKnownFacts(utr, knownFacts)
-        ).getOrElse(Future.successful(KnownFactsReturn("", knownFactsResult = false)))
-      }
+    val queryKnownFactsResult: Future[KnownFactsReturn] = utr.flatMap { maybeSAUTR =>
+      (
+        for {
+          utr <- maybeSAUTR
+        } yield enrolmentStoreProxyConnector.queryKnownFacts(utr, knownFacts)
+      ).getOrElse(Future.successful(KnownFactsReturn("", knownFactsResult = false)))
+    }
 
     queryKnownFactsResult.flatMap {
-      case result@KnownFactsReturn(utr, true) if request.request.nino.isDefined =>
+      case result @ KnownFactsReturn(utr, true) if request.request.nino.isDefined =>
         auditService.auditSAKnownFacts(request.request.credId, result.utr, knownFacts, knownfactsResult = true)
         checkCIDNinoComparison(origin, utr, knownFacts.nino.getOrElse(""))
-      case result@KnownFactsReturn(_, true) if isEnabled(IvUpliftSwitch) =>
+      case result @ KnownFactsReturn(_, true) if isEnabled(IvUpliftSwitch) =>
         auditService.auditSAKnownFacts(request.request.credId, result.utr, knownFacts, knownfactsResult = true)
         Future.successful(Redirect(appConfig.ivUpliftUrl(origin)))
-      case result@KnownFactsReturn(_, true) =>
+      case result @ KnownFactsReturn(_, true) =>
         auditService.auditSAKnownFacts(request.request.credId, result.utr, knownFacts, knownfactsResult = true)
         saService.getIvRedirectLink(result.utr, origin).map(link => Redirect(Call("GET", link)))
       case result =>
@@ -71,62 +77,118 @@ class KnownFactsService @Inject()(saService: SaService,
     }
   }
 
-  def enrolmentCheck(credId: String,
-                     saUTR: SAUTR,
-                     groupId: String,
-                     saEnrolment: Option[String],
-                     doYouHaveSaUtr: DoYouHaveSAUTR)(implicit request: ServiceInfoRequest[AnyContent],
-                                                   ec: ExecutionContext,
-                                                   hc: HeaderCarrier): Future[EnrolmentCheckResult] = {
+  def enrolmentCheck(credId: String, saUTR: SAUTR, groupId: String, saEnrolment: Option[String], doYouHaveSaUtr: DoYouHaveSAUTR)(implicit
+      request: ServiceInfoRequest[AnyContent],
+      ec: ExecutionContext,
+      hc: HeaderCarrier): Future[EnrolmentCheckResult] = {
 
-   val enrolmentCheck: Future[EnrolmentCheckResult] = {
-     if(doYouHaveSaUtr.equals(DoYouHaveSAUTR.Yes) && saEnrolment.nonEmpty) {
-       val saEnrolmentString = saEnrolment.getOrElse("")
-       enrolmentStoreProxyConnector.checkExistingUTR(saUTR.value, saEnrolmentString).flatMap { enrolmentStoreResult =>
-         if (!enrolmentStoreResult) {
-           enrolmentStoreProxyConnector.checkSaGroup(groupId, saEnrolmentString).map(
-             res => if (res) GroupIdFound else NoRecordFound
-           )
-         } else { Future.successful(CredIdFound) }
-       }
-     } else { Future.successful(NoSaUtr) }
-   }
+    val enrolmentCheck: Future[EnrolmentCheckResult] =
+      if (doYouHaveSaUtr.equals(DoYouHaveSAUTR.Yes) && saEnrolment.nonEmpty) {
+        val saEnrolmentString = saEnrolment.getOrElse("")
+        enrolmentStoreProxyConnector.checkExistingUTR(saUTR.value, saEnrolmentString).flatMap { enrolmentStoreResult =>
+          if (!enrolmentStoreResult) {
+            enrolmentStoreProxyConnector.checkSaGroup(groupId, saEnrolmentString).map(res => if (res) GroupIdFound else NoRecordFound)
+          } else { Future.successful(CredIdFound) }
+        }
+      } else { Future.successful(NoSaUtr) }
 
-    enrolmentCheck.map { enrolmentCheckResult =>
-      auditService.auditSA(credId, saUTR.value, enrolmentCheckResult)
+    enrolmentCheck.flatMap { enrolmentCheckResult =>
+      auditService.auditSA(credId, saUTR.value, enrolmentCheckResult).map(_ => enrolmentCheckResult)
     }
-
-    enrolmentCheck
   }
 
-  def checkCIDNinoComparison(origin: String, utr: String, knownFactsNino: String)
-  (implicit hc: HeaderCarrier, ec: ExecutionContext, request: ServiceInfoRequest[AnyContent]): Future[Result] = {
+  def checkCIDNinoComparison(origin: String, utr: String, knownFactsNino: String)(implicit
+      hc: HeaderCarrier,
+      ec: ExecutionContext,
+      request: ServiceInfoRequest[AnyContent]): Future[Result] = {
     val accountNino: String = request.request.nino.getOrElse("").toLowerCase
 
     if (accountNino == knownFactsNino.replaceAll("\\s+", "").toLowerCase) {
-      citizensDetailsConnector.getDesignatoryDetailsForKnownFacts("IR-SA", utr).flatMap {
-        case Some(cidDetails) =>
-          if (cidDetails.nino.toLowerCase == accountNino) {
-            Future.successful(Redirect(appConfig.ivUpliftUrl(origin)))
-          } else {
-            Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(origin)))
-          }
-        case None =>
-          warnLog("[KnownFactsService][checkCIDNinoComparison] Error Retrieving CID details. Empty data received from Citizens service")
-          Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
-      }.recover {
-        case nfe: NotFoundException =>
-          warnLog(s"[KnownFactsService][checkCIDNinoComparison] ${nfe.getMessage}")
-          Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("LockedOut"), origin))
+      citizensDetailsConnector
+        .getDesignatoryDetailsForKnownFacts("IR-SA", utr)
+        .flatMap {
+          case Some(cidDetails) =>
+            if (cidDetails.nino.toLowerCase == accountNino) {
+              Future.successful(Redirect(appConfig.ivUpliftUrl(origin)))
+            } else {
+              Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(origin)))
+            }
+          case None =>
+            warnLog("[KnownFactsService][checkCIDNinoComparison] Error Retrieving CID details. Empty data received from Citizens service")
+            Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+        }
+        .recover {
+          case nfe: NotFoundException =>
+            warnLog(s"[KnownFactsService][checkCIDNinoComparison] ${nfe.getMessage}")
+            Redirect(saRoutes.TryPinInPostController.onPageLoad(status = Some("LockedOut"), origin))
 
-        case e: Exception =>
-          errorLog(s"[KnownFactsService][checkCIDNinoComparison] Error Retrieving CID details ${e.getMessage}")
-          InternalServerError(errorHandler.internalServerErrorTemplate)
-      }
+          case e: Exception =>
+            errorLog(s"[KnownFactsService][checkCIDNinoComparison] Error Retrieving CID details ${e.getMessage}")
+            InternalServerError(errorHandler.internalServerErrorTemplate)
+        }
     } else {
       warnLog(s"[KnownFactsService][checkCIDNinoComparison] Account authorization NINO and knownFactsNINO are not the same")
       Future.successful(Redirect(saRoutes.RetryKnownFactsController.onPageLoad(origin)))
 
     }
   }
+
+  def bypassOrCheckMandationStatus(
+      submittedVrn: String)(implicit request: ServiceInfoRequest[AnyContent], ec: ExecutionContext, hc: HeaderCarrier): Future[Either[Result, Int]] =
+    if (isEnabled(RealVatEtmpCheck)(appConfig)) {
+      getMandationStatus(submittedVrn)
+    } else {
+      infoLog(s"[KnownFactsService][bypassOrCheckMandationStatus] RealVatEtmpCheck is disabled. No mandation check made")
+      Future.successful(Right(OK))
+    }
+
+  private def getMandationStatus(
+      vrn: String)(implicit request: ServiceInfoRequest[AnyContent], ec: ExecutionContext, hc: HeaderCarrier): Future[Either[Result, Int]] =
+    vatSubscriptionConnector.getMandationStatus(vrn).map {
+      case status if status == OK || status == NOT_FOUND =>
+        infoLog(s"[KnownFactsService][getMandationStatus] mandation status: $status")
+        Right(status)
+      case PRECONDITION_FAILED =>
+        infoLog(s"[KnownFactsService][getMandationStatus] mandation status: $PRECONDITION_FAILED")
+        Left(Redirect(vatRoutes.WhatIsYourVATRegNumberController.onPageLoadVatUnavailable()))
+      case status =>
+        infoLog(s"[KnownFactsService][getMandationStatus] mandation status: $status")
+        Left(InternalServerError(errorHandler.internalServerErrorTemplate))
+    }
+
+  def checkVrnMatchesPreviousAttempts(newSubmittedVrn: String)(implicit
+      request: ServiceInfoRequest[AnyContent],
+      ec: ExecutionContext,
+      hc: HeaderCarrier): Future[Either[Result, String]] = {
+    val logPrefix = "[KnownFactsService][checkVrnMatchesPreviousAttempts]"
+    if (isEnabled(VATKnownFactsCheck)) {
+      infoLog(s"$logPrefix VATKnownFactsCheck switch is enabled")
+
+      retrieveVRN(request.request.credId).flatMap {
+        case None =>
+          saveVRN(request.request.credId, newSubmittedVrn)
+          infoLog(s"$logPrefix First time submitting VRN in journey")
+          Future.successful(Right(newSubmittedVrn))
+        case Some(previousAttemptVrn) if previousAttemptVrn.equals(newSubmittedVrn) =>
+          infoLog(s"$logPrefix Submitted VRN matches previous VRN attempt in journey")
+          Future.successful(Right(newSubmittedVrn))
+        case Some(previousAttemptVrn) =>
+          infoLog(s"$logPrefix Multiple VRNs attempted - saved VRN: $previousAttemptVrn, new VRN $newSubmittedVrn")
+          auditService.auditCveMultipleVrnsAttempted(previousAttemptVrn, newSubmittedVrn)
+
+          val multipleVrnsAttemptedErrorRedirect: Call = navigator.nextPage(WhatIsYourVATRegNumberId, (LOCKED, ""))
+          val signOutWithRedirectToErrorPage: String        = appConfig.addTaxesSignoutThenContinueTo(multipleVrnsAttemptedErrorRedirect.url)
+          Future.successful(Left(Redirect(signOutWithRedirectToErrorPage)))
+      }
+    } else {
+      infoLog(s"$logPrefix VATKnownFactsCheck switch is disabled")
+      Future.successful(Right(newSubmittedVrn))
+    }
+  }
+
+  private def saveVRN(credId: String, vrn: String): Future[CacheMap] =
+    dataCacheConnector.save[String](credId, "vrn", vrn)
+  private def retrieveVRN(credId: String): Future[Option[String]] =
+    dataCacheConnector.getEntry[String](credId, "vrn")
+
 }

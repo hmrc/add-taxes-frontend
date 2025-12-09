@@ -24,21 +24,21 @@
     main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_], switchIsEnabled: Boolean)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("whatIsYourVATRegNumber.title"),
+    title = messages(s"whatIsYourVATRegNumber.title${if(switchIsEnabled) ".new" else ""}"),
     appConfig = appConfig,
     form = Some(form),
     serviceInfoContent = Some(serviceInfoContent)) {
 
-        @uiForm(action = WhatIsYourVATRegNumberController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
+        @uiForm(action = WhatIsYourVATRegNumberController.onSubmit(), Symbol("autoComplete") -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
         @components.error_summary(form.errors, Some("value"))
 
         @components.input_text(
           field = form("value"),
-          label = messages("whatIsYourVATRegNumber.heading"),
+          label = messages(s"whatIsYourVATRegNumber.title${if(switchIsEnabled) ".new" else ""}"),
           hint  = Some(messages("whatIsYourVATRegNumber.hintText")),
           formHintMargin= Some("margin-bottom-small"),
           headingId = "enter-vat-registration-heading"

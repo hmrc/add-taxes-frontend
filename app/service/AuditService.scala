@@ -35,6 +35,7 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
   final private val saKnownFactsEvent: String = "SA-knownfacts-result-check"
   final private val selectSACategoryEvent: String = "select-SA-Category-check"
   final private val selectIOCategoryEvent: String = "select-import-output-category-check"
+  final private val cveMultipleVrnsAttemptedEvent: String = "cve-multiple-vrns-attempted"
 
 
   def auditSA(credId: String, saUtr: String, enrolmentCheckResult: EnrolmentCheckResult)
@@ -153,6 +154,22 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
     val data = DataEvent(
       auditSource,
       selectIOCategoryEvent,
+      tags = buildTags(),
+      detail = detail
+    )
+    auditConnector.sendEvent(data)
+  }
+
+  def auditCveMultipleVrnsAttempted(originalVatNumber: String, newVatNumber: String)
+                           (implicit ec: ExecutionContext, hc: HeaderCarrier, request: Request[_]): Future[AuditResult] = {
+
+    val detail = Map[String,String](elems =
+      "originalVatNumber" -> originalVatNumber,
+      "newVatNumber" -> newVatNumber
+    )
+    val data = DataEvent(
+      auditSource,
+      cveMultipleVrnsAttemptedEvent,
       tags = buildTags(),
       detail = detail
     )

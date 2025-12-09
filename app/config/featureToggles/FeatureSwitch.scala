@@ -24,17 +24,18 @@ object FeatureSwitch {
     AccessMTD,
     IvUpliftSwitch,
     AtarSwitch,
-    BypassVATETMPCheck,
+    RealVatEtmpCheck,
     NewCTCEnrolmentForNCTSJourney,
     Pillar2Switch,
     CDSSwitch,
-    AWRSJourneyRedirect
+    AWRSJourneyRedirect,
+    VATKnownFactsCheck
   )
 
   def apply(str: String): FeatureSwitch =
     featureSwitches find (_.name == str) match {
       case Some(switch) => switch
-      case None => throw new IllegalArgumentException("Invalid feature switch: " + str)
+      case None         => throw new IllegalArgumentException("Invalid feature switch: " + str)
     }
 
   def get(string: String): Option[FeatureSwitch] = featureSwitches find (_.name == string)
@@ -51,49 +52,56 @@ object FeatureSwitch {
   }
 
   case object AccessMTD extends FeatureSwitch {
-    override val name = s"$prefix.accessMTD"
+    override val name                = s"$prefix.accessMTD"
     override val displayText: String = "Access MTD Enabled"
   }
 
   case object IvUpliftSwitch extends FeatureSwitch {
-    override val name = s"$prefix.ivUpliftSwitch"
+    override val name                = s"$prefix.ivUpliftSwitch"
     override val displayText: String = "Iv Uplift Enabled"
   }
 
   case object ECLSwitch extends FeatureSwitch {
-    override val name = s"$prefix.eclSwitch"
+    override val name                = s"$prefix.eclSwitch"
     override val displayText: String = "PPT Enabled"
   }
 
   case object AtarSwitch extends FeatureSwitch {
-    override val name = s"$prefix.atarSwitch"
+    override val name                = s"$prefix.atarSwitch"
     override val displayText: String = "Atar Enabled"
   }
 
-  case object BypassVATETMPCheck  extends FeatureSwitch {
-    override val name = s"$prefix.bypassVATETMPCheck"
-    override val displayText: String = "Bypass VAT ETMP Check"
+  // TODO this config name doesn't match the functionality.
+  //  We should either change the name in config or flip the config Boolean in the different envs
+  //  (would need an overlap for prod safety)
+  case object RealVatEtmpCheck extends FeatureSwitch {
+    override val name                = s"$prefix.bypassVATETMPCheck"
+    override val displayText: String = "Make the real VAT ETMP check rather than passing by default"
   }
 
   case object NewCTCEnrolmentForNCTSJourney extends FeatureSwitch {
-    override val name: String = s"$prefix.newCTCEnrolmentForNCTSJourney"
+    override val name: String        = s"$prefix.newCTCEnrolmentForNCTSJourney"
     override val displayText: String = "Enable new HMRC - CTC - ORG enrolment journey for NCTS"
   }
 
   case object Pillar2Switch extends FeatureSwitch {
-    override val name = s"$prefix.pillar2Switch"
+    override val name                = s"$prefix.pillar2Switch"
     override val displayText: String = "pillar2 tax feature Enabled"
   }
 
   case object CDSSwitch extends FeatureSwitch {
-    override val name: String = s"$prefix.cdsSwitch"
+    override val name: String        = s"$prefix.cdsSwitch"
     override val displayText: String = "Add and remove CDS tax enabled"
   }
 
   case object AWRSJourneyRedirect extends FeatureSwitch {
-    override val name: String = s"$prefix.awrsJourneyRedirect"
+    override val name: String        = s"$prefix.awrsJourneyRedirect"
     override val displayText: String = "Enable redirect for AWRS registration check"
   }
 
-}
+  case object VATKnownFactsCheck extends FeatureSwitch {
+    override val name: String        = s"$prefix.vatKnownFactsCheck"
+    override val displayText: String = "VAT Known Facts changes"
+  }
 
+}
