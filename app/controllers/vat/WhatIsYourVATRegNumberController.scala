@@ -64,15 +64,16 @@ class WhatIsYourVATRegNumberController @Inject() (appConfig: FrontendAppConfig,
       Future.successful(BadRequest(whatIsYourVATRegNumber(appConfig, formWithErrors, isKnownFactsCheckEnabled)(request.serviceInfoContent)))
 
     def handleSuccessfulSubmission(submittedVrn: String): Future[Result] = {
-      val checkMandationStatus: Future[Either[Result, Int]]   = knownFactsService.bypassOrCheckMandationStatus(submittedVrn)
       val submittedVrnIsValid: Future[Either[Result, String]] = knownFactsService.checkVrnMatchesPreviousAttempts(submittedVrn)
+      val checkMandationStatus: Future[Either[Result, Int]]   = knownFactsService.bypassOrCheckMandationStatus(submittedVrn)
       for {
-        mandationStatus <- checkMandationStatus
         submittedVrn    <- submittedVrnIsValid
-      } yield (mandationStatus, submittedVrn) match {
-        case (Left(errorRedirect), _) => errorRedirect
-        case (_, Left(errorRedirect)) => errorRedirect
-        case (Right(status), Right(vrn)) =>
+        mandationStatus <- checkMandationStatus
+      } yield (submittedVrn, mandationStatus) match {
+        // check the VRNs match with redirect BEFORE checking mandation status
+        case (Left(errorVrnRedirect), _) => errorVrnRedirect
+        case (_, Left(errorStatusRedirect)) => errorStatusRedirect
+        case (Right(vrn), Right(status)) =>
           Redirect(navigator.nextPage(WhatIsYourVATRegNumberId, (status, vrn)))
       }
     }
