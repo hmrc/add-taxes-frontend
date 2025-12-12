@@ -916,31 +916,49 @@ doYouNeedToStopMGD.error.required = Dewiswch ‘Iawn’ os oes angen i chi roi�
 #######################################################
 ##  Add VAT - Interstitial page
 #######################################################
-claimVATInterstitialPage.title=Ychwanegu TAW at eich cyfrif treth busnes
-claimVATInterstitialPage.heading=Ychwanegu TAW at eich cyfrif treth busnes
-claimVATInterstitialPage.h1=Er mwyn ychwanegu TAW at eich cyfrif, bydd angen i chi roi gwybod i ni am y canlynol:
+claimVATInterstitialPage.title=Ychwanegu TAW at eich Cyfrif Treth Busnes
+claimVATInterstitialPage.heading=Ychwanegu TAW at eich Cyfrif Treth Busnes
+claimVATInterstitialPage.h1=I ychwanegu TAW at eich cyfrif, bydd angen i chi roi’r wybodaeth ganlynol i ni:
 
-claimVATInterstitialPage.p1.title=1. Eich Rhif cofrestru TAW (VRN)
-claimVATInterstitialPage.p1.text1=Gallwch ddod o hyd i’ch VRN ar eich:
-claimVATInterstitialPage.p1.bullet1=Hysbysiad o lythyr Cofrestru ar gyfer TAW. Byddwch wedi cael hyn drwy’r post pan wnaethoch gofrestru ar gyfer TAW am y tro cyntaf
-claimVATInterstitialPage.p1.bullet2=Ffurflen TAW diwethaf
-claimVATInterstitialPage.p1.text2=Mae’n cynnwys 9 rhif, weithiau â ‘GB’ ar y dechrau. Er enghraifft, 123456789 neu GB123456789.
+claimVATInterstitialPage.p1.title=1. Eich rhif cofrestru TAW
+claimVATInterstitialPage.p1.text1=Mae’ch rhif cofrestru TAW i’w weld ar eich:
+claimVATInterstitialPage.p1.bullet1=Hysbysiad o Gofrestriad TAW, sef y llythyr a anfonwyd atoch drwy’r post pan wnaethoch gofrestru ar gyfer TAW am y tro cyntaf
+claimVATInterstitialPage.p1.bullet2=Ffurflen TAW ddiwethaf
+claimVATInterstitialPage.p1.text2=Rhif 9 digid yw hwn, er enghraifft 123456789.
 
-claimVATInterstitialPage.p2.title=2. Y dyddiad y cofrestrwyd y busnes ar gyfer TAW
-claimVATInterstitialPage.p2.text1=Mae hwn i’w weld ar eich Hysbysiad o lythyr Cofrestru ar gyfer TAW. Fe’i gelwir yn ‘Dyddiad y daw’r cofrestriad i rym’.
+claimVATInterstitialPage.p2.title=2. Y dyddiad cafodd y busnes ei gofrestru ar gyfer TAW
+claimVATInterstitialPage.p2.text1=Gallwch ddod o hyd i’r dyddiad hwn ar y llythyr Hysbysiad o Gofrestriad TAW. Yr enw ar hwn yw’r ‘Dyddiad y daw’r cofrestriad i rym’.
 
 claimVATInterstitialPage.p3.title=3. Cod post y busnes yn y DU (os yw’n berthnasol)
-claimVATInterstitialPage.p3.text1=Mae’n rhaid i’r cod post hwn gyd-fynd â’r cod post sydd wedi’i gofrestru yn erbyn y cofnod TAW. Gallwch ddod o hyd i hwn ar y:
-claimVATInterstitialPage.p3.bullet1=Gwasanaeth Gwirio Rhif TAW yn y DU (yn agor tab newydd)
-claimVATInterstitialPage.p3.bullet2=Hysbysiad o lythyr Cofrestru ar gyfer TAW
+claimVATInterstitialPage.p3.text1=Rhaid i’r cod post rydych yn ei nodi gyd-fynd â’r cod post sydd wedi’i gofrestru yn ôl y cofnod TAW. Gallwch wirio’r cod post sydd wedi’i gofrestru drwy ddefnyddio’r gwasanaeth
+claimVATInterstitialPage.p3.link=Gwirio Rhif TAW yn y DU (yn agor tab newydd).
+claimVATInterstitialPage.p3.text2=Mae’r cod post hefyd i’w weld ar y llythyr Hysbysiad o Gofrestriad TAW.
 
-claimVATInterstitialPage.h2=Os ydych yn cyflwyno Ffurflenni TAW ar hyn o bryd, bydd angen i chi roi gwybod i ni:
+claimVATInterstitialPage.h2=Os ydych yn cyflwyno Ffurflenni TAW ar hyn o bryd, bydd hefyd angen i chi roi’r wybodaeth ganlynol i ni:
 
-claimVATInterstitialPage.p4.title=4. Union swm eich Ffurflen TAW ddiweddaraf
-claimVATInterstitialPage.p4.text1=Mae’r swm hwn i’w weld ym mlwch 5 yn y Ffurflen TAW ddiweddaraf i chi ei chyflwyno i CThEF. Mae angen i chi roi gwybod i ni yr union swm mewn punnoedd a cheiniogau.
+claimVATInterstitialPage.p4.title=1. Yr union swm a nodwyd gennych ar eich Ffurflen TAW ddiweddaraf
+claimVATInterstitialPage.p4.text1=Mae’r swm hwn i’w weld ym mlwch 5 yn y Ffurflen TAW ddiweddaraf i chi ei chyflwyno i CThEF. Mae angen i chi roi gwybod i ni beth yw’r union swm mewn punnoedd a cheiniogau.
 
-claimVATInterstitialPage.p5.title=5. Mis eich cyfnod cyfrifyddu TAW diweddaraf
-claimVATInterstitialPage.p5.text1=Gallwch ddod o hyd i hyn yn y Ffurflen TAW ddiweddaraf i chi ei chyflwyno i CThEF.
+claimVATInterstitialPage.p5.title=2. Mis eich cyfnod cyfrifyddu TAW diweddaraf
+claimVATInterstitialPage.p5.text1=Gallwch ddod o hyd iddo yn y Ffurflen TAW ddiweddaraf i chi ei chyflwyno i CThEF.
+
+claimVATInterstitialPage.h3=Os nad ydych wedi cyflwyno Ffurflen TAW hyd yma, bydd angen i chi roi gwybod i ni am y canlynol:
+
+claimVATInterstitialPage.p6.title=1. Rhif eich cais TAW
+claimVATInterstitialPage.p6.text1=Dyma’r cyfeirnod unigryw sy’n cael ei greu wrth gyflwyno cais i gofrestru am TAW, Cafodd y cyfeirnod ei ddangos ar y sgrin a’i e-bostio atoch ar ôl i chi wneud y cais.
+claimVATInterstitialPage.p6.text2=Os oedd y cofrestriad TAW wedi’i reoli gan drydydd parti, mae’n rhaid iddo roi’r rhif cais TAW i’r busnes gan fod angen y rhif hwnnw i reoli ei gyfrif TAW.
+claimVATInterstitialPage.p6.text3=Mae’n 12 rhif ac mae’n dechrau gyda ‘099’, er enghraifft 099 123456789
+
+claimVATInterstitialPage.dropdown.title=Os ydych wedi cael problemau wrth ychwanegu ymrestriad TAW
+claimVATInterstitialPage.dropdown.p1=Gallai hyn fod oherwydd y canlynol:
+claimVATInterstitialPage.dropdown.bullet1.title=Gwnaethoch nodi manylion busnes anghywir
+claimVATInterstitialPage.dropdown.bullet1.text=Mae’n rhaid i’r manylion gyd-fynd yn union â’r rhai sydd gan CThEF ar gyfer y rhif cofrestru TAW sydd wedi cael ei nodi.
+claimVATInterstitialPage.dropdown.bullet2.title=Mae eich manylion mewngofnodi eisoes wedi’u defnyddio i ychwanegu busnes gwahanol at eich cyfrif
+claimVATInterstitialPage.dropdown.bullet2.text=Efallai eich bod wedi ceisio ychwanegu ymrestriad TAW at eich cyfrif gan ddefnyddio manylion mewngofnodi sydd eisoes wedi’u defnyddio.
+claimVATInterstitialPage.dropdown.bullet3.title=Mae’r busnes yr ydych wedi ceisio ei ychwanegu eisoes wedi’i ychwanegu
+claimVATInterstitialPage.dropdown.bullet3.text=Gwiriwch a oes rhywun arall eisoes wedi ychwanegu’r busnes at eich cyfrif. Os na allwch gofio eich manylion, cysylltwch â CThEF am
+claimVATInterstitialPage.dropdown.supportLink=gymorth technegol gyda gwasanaethau TAW ar-lein.
+
 claimVATInterstitialPage.continue=Parhau
 
 #######################################################
