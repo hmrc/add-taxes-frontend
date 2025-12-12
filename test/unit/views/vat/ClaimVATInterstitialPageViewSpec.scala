@@ -26,7 +26,7 @@ class ClaimVATInterstitialPageViewSpec extends ViewBehaviours {
       val doc = asDocument(createView())
       assertContainsText(
         doc,
-        "Notification of VAT Registration letter. You will have received this by post when you first registered for VAT"
+        "Notification of VAT registration, the letter we sent by post when you first registered for VAT"
       )
       assertContainsText(
         doc,
@@ -34,24 +34,24 @@ class ClaimVATInterstitialPageViewSpec extends ViewBehaviours {
       )
       assertContainsText(
         doc,
-        "5. The month of your latest VAT accounting period"
+        "2. The month of your latest VAT accounting period"
       )
       assertContainsText(
         doc,
-        "It is 9 numbers, sometimes with ‘GB’ at the start. For example, 123456789 or GB123456789."
+        "It is 9 numbers, for example, 123456789"
       )
     }
   }
 
   "ClaimVATInterstitialPage view" when {
     "rendered" must {
-      "have all five headings and have the link that opens in new tab" in {
+      "have all nine headings and have the link that opens in new tab" in {
         val doc = asDocument(createView())
         val headingSection = doc.getElementsByClass("govuk-heading-s")
 
-        headingSection.size() mustBe 5
+        headingSection.size() mustBe 9
 
-        assertLinkById(doc, "check-vat-number-link", expectedText = "Check a UK VAT Number service (opens in new tab)",
+        assertLinkById(doc, "check-vat-number-link", expectedText = "Check a UK VAT Number service (opens in new tab).",
           "https://www.gov.uk/check-uk-vat-number",expectedOpensInNewTab = true)
 
         assertRenderedById(doc, "continue")

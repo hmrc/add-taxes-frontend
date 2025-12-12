@@ -203,6 +203,8 @@ class FrontendAppConfig @Inject() (val config: ServicesConfig, val conf: Configu
   lazy val identityVerificationHost: String            = config.getString("identity-verification-frontend.host")
   lazy val taxEnrolmentsBaseUrl: String                = config.baseUrl("tax-enrolments")
 
+  lazy val getGovUkUrl = "https://www.gov.uk/find-hmrc-contacts/technical-support-with-vat-online-services"
+
   lazy val ptaHost: String = config.getString("personal-tax-account.host")
   lazy val ptaHomeUrl      = s"$ptaHost/personal-account"
 
