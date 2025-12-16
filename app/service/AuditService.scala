@@ -151,12 +151,14 @@ class AuditService @Inject() (auditConnector: AuditConnector) {
     auditConnector.sendEvent(data)
   }
 
-  def auditCveMultipleVrnsAttempted(originalVatNumber: String, newVatNumber: String)(implicit
-      ec: ExecutionContext,
-      hc: HeaderCarrier,
-      request: Request[_]): Future[AuditResult] = {
+  def auditCveMultipleVrnsAttempted(originalVatNumber: String, newVatNumber: String, userType: String)
+                           (implicit ec: ExecutionContext, hc: HeaderCarrier, request: Request[_]): Future[AuditResult] = {
 
-    val detail = Map[String, String](elems = "originalVatNumber" -> originalVatNumber, "newVatNumber" -> newVatNumber)
+    val detail = Map[String,String](elems =
+      "originalVatNumber" -> originalVatNumber,
+      "newVatNumber" -> newVatNumber,
+      "userType" -> userType
+    )
     val data = DataEvent(
       auditSource,
       vrnNotMatchedEvent,

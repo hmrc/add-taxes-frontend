@@ -174,7 +174,12 @@ class KnownFactsService @Inject() (saService: SaService,
           Future.successful(Right(newSubmittedVrn))
         case Some(previousAttemptVrn) =>
           infoLog(s"$logPrefix Multiple VRNs attempted - saved VRN: $previousAttemptVrn, new VRN $newSubmittedVrn")
-          auditService.auditCveMultipleVrnsAttempted(previousAttemptVrn, newSubmittedVrn)
+
+          val userType: String =
+            request.request.affinityGroup.map(_.toString).getOrElse("Unknown")
+          infoLog(s"$logPrefix Audit userType = $userType")
+
+          auditService.auditCveMultipleVrnsAttempted(previousAttemptVrn, newSubmittedVrn, userType)
 
           val multipleVrnsAttemptedErrorRedirect: Call = navigator.nextPage(WhatIsYourVATRegNumberId, (LOCKED, ""))
           val signOutWithRedirectToErrorPage: String        = appConfig.addTaxesSignoutThenContinueTo(multipleVrnsAttemptedErrorRedirect.url)

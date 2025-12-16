@@ -35,7 +35,7 @@ class AuditServiceISpec extends PlaySpec with AddTaxesIntegrationTest {
     implicit val request: FakeRequest[AnyContent] = FakeRequest()
 
     "successfully audit" in {
-      val result = testService.auditCveMultipleVrnsAttempted(originalVatNumber = "123456789", newVatNumber = "987654321")
+      val result = testService.auditCveMultipleVrnsAttempted(originalVatNumber = "123456789", newVatNumber = "987654321", userType = "Organisation")
 
       whenReady(result)(_ mustBe expected)
     }
