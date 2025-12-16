@@ -70,8 +70,7 @@ class WhatIsYourVATRegNumberController @Inject() (appConfig: FrontendAppConfig,
         submittedVrn    <- submittedVrnIsValid
         mandationStatus <- checkMandationStatus
       } yield (submittedVrn, mandationStatus) match {
-        // check the VRNs match with redirect BEFORE checking mandation status
-        case (Left(errorVrnRedirect), _) => errorVrnRedirect
+        case (Left(errorVrnRedirect), _)    => errorVrnRedirect
         case (_, Left(errorStatusRedirect)) => errorStatusRedirect
         case (Right(vrn), Right(status)) =>
           Redirect(navigator.nextPage(WhatIsYourVATRegNumberId, (status, vrn)))

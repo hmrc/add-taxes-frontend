@@ -85,9 +85,9 @@ class FrontendAppConfig @Inject() (val config: ServicesConfig, val conf: Configu
   private lazy val signoutBtaLinkWithContinue = config.getString("urls.business-account.signoutContinueUrl")
   private lazy val signoutToOrgHost           = config.getString("add-taxes-sign-out.host")
 
-  def addTaxesSignoutThenContinueTo(continueUrl: String): String = businessAccountHost + signoutBtaLinkWithContinue + continueUrl
+  def addTaxesSignoutThenContinueTo(continueUrl: String): String = businessAccountHost + signoutBtaLinkWithContinue + signoutToOrgHost + continueUrl
   def addTaxesSignoutToOrg(key: String): String =
-    businessAccountHost + signoutBtaLinkWithContinue + signoutToOrgHost + config.getString(s"urls.business-account.${key}")
+    businessAccountHost + signoutBtaLinkWithContinue + signoutToOrgHost + config.getString(s"urls.business-account.$key")
   def getBusinessAccountUrl(key: String): String       = businessAccountHost + config.getString(s"urls.business-account.$key")
   def getAWRSRegistrationCheckUrl(key: String): String = awrsFrontendHost + config.getString(s"urls.awrs-frontend.$key")
 
