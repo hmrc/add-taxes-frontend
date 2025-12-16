@@ -119,7 +119,7 @@ class AuditServiceSpec extends PlaySpec with MockitoSugar {
     "return an Audit Success response from the controller" in {
       when(mockAuditConnector.sendEvent(any())(any(), any())).thenReturn(Future.successful(successResponse))
 
-      val result = testService.auditCveMultipleVrnsAttempted(originalVatNumber = "123456789", newVatNumber = "987654321")
+      val result = testService.auditCveMultipleVrnsAttempted(originalVatNumber = "123456789", newVatNumber = "987654321", userType = "Organisation")
 
       whenReady(result)(_ mustBe successResponse)
     }
@@ -127,7 +127,7 @@ class AuditServiceSpec extends PlaySpec with MockitoSugar {
     "return an Audit Failure response from the controller" in {
       when(mockAuditConnector.sendEvent(any())(any(), any())).thenReturn(Future.successful(failureResponse))
 
-      val result = testService.auditCveMultipleVrnsAttempted(originalVatNumber = "123456789", newVatNumber = "987654321")
+      val result = testService.auditCveMultipleVrnsAttempted(originalVatNumber = "123456789", newVatNumber = "987654321", userType = "Organisation")
 
       whenReady(result)(_ mustBe failureResponse)
     }

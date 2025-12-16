@@ -367,7 +367,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           val resultRedirect = result.left.map(_.header.headers("Location"))
           resultRedirect mustBe Left(cveErrorPageUrl)
           verify(mockAuditService, times(1))
-            .auditCveMultipleVrnsAttempted(any(), any())(any(), any(), any())
+            .auditCveMultipleVrnsAttempted(any(), any(), any())(any(), any(), any())
         }
       }
     }
