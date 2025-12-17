@@ -27,19 +27,20 @@ import uk.gov.hmrc.play.audit.model.DataEvent
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class AuditService @Inject()(auditConnector: AuditConnector) {
+class AuditService @Inject() (auditConnector: AuditConnector) {
 
-  final private val auditSource: String = "add-taxes-frontend"
-  final private val utrEvent: String = "UTR-check"
-  final private val payeEvent: String = "PAYE-check"
-  final private val saKnownFactsEvent: String = "SA-knownfacts-result-check"
+  final private val auditSource: String           = "add-taxes-frontend"
+  final private val utrEvent: String              = "UTR-check"
+  final private val payeEvent: String             = "PAYE-check"
+  final private val saKnownFactsEvent: String     = "SA-knownfacts-result-check"
   final private val selectSACategoryEvent: String = "select-SA-Category-check"
   final private val selectIOCategoryEvent: String = "select-import-output-category-check"
-  final private val cveMultipleVrnsAttemptedEvent: String = "cve-multiple-vrns-attempted"
+  final private val vrnNotMatchedEvent: String    = "VrnNotMatched"
 
-
-  def auditSA(credId: String, saUtr: String, enrolmentCheckResult: EnrolmentCheckResult)
-             (implicit ec: ExecutionContext, hc: HeaderCarrier, request: Request[_]): Future[AuditResult] = {
+  def auditSA(credId: String, saUtr: String, enrolmentCheckResult: EnrolmentCheckResult)(implicit
+      ec: ExecutionContext,
+      hc: HeaderCarrier,
+      request: Request[_]): Future[AuditResult] = {
 
     val recordMatch: Boolean = enrolmentCheckResult match {
       case CredIdFound   => true
@@ -48,11 +49,7 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
       case NoRecordFound => false
     }
 
-    val detail = Map[String,String](elems =
-      "credId" -> credId,
-      "utr" -> saUtr,
-      "recordFound" -> recordMatch.toString
-    )
+    val detail = Map[String, String](elems = "credId" -> credId, "utr" -> saUtr, "recordFound" -> recordMatch.toString)
 
     val data = DataEvent(
       auditSource,
@@ -63,28 +60,26 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
     auditConnector.sendEvent(data)
   }
 
-  def auditSAKnownFacts(credId: String,
-                        saUtr: String,
-                        knownfacts: KnownFacts,
-                        knownfactsResult: Boolean
-                       )
-             (implicit ec: ExecutionContext, hc: HeaderCarrier, request: Request[_]): Future[AuditResult] = {
+  def auditSAKnownFacts(credId: String, saUtr: String, knownfacts: KnownFacts, knownfactsResult: Boolean)(implicit
+      ec: ExecutionContext,
+      hc: HeaderCarrier,
+      request: Request[_]): Future[AuditResult] = {
 
     val knownFactsIdentifier = knownfacts match {
-      case KnownFacts(Some(postcode),_, _) => postcode
-      case KnownFacts(_,Some(nino), _) => nino
-      case KnownFacts(_,_, Some(isAbroad)) => "isAbroad" + isAbroad
-      case _ => ""
+      case KnownFacts(Some(postcode), _, _) => postcode
+      case KnownFacts(_, Some(nino), _)     => nino
+      case KnownFacts(_, _, Some(isAbroad)) => "isAbroad" + isAbroad
+      case _                                => ""
     }
 
-    val knownFactsPassOrFail = if(knownfactsResult) {"pass"} else {"fail"}
+    val knownFactsPassOrFail = if (knownfactsResult) { "pass" }
+    else { "fail" }
 
-    val detail = Map[String,String](elems =
-      "credId" -> credId,
-      "utr" -> saUtr,
+    val detail = Map[String, String](
+      elems = "credId" -> credId,
+      "utr"                  -> saUtr,
       "knownFactsIdentifier" -> knownFactsIdentifier,
-      "knownFactsResult" -> knownFactsPassOrFail
-    )
+      "knownFactsResult"     -> knownFactsPassOrFail)
 
     val data = DataEvent(
       auditSource,
@@ -95,13 +90,11 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
     auditConnector.sendEvent(data)
   }
 
-  def auditEPAYE(credId: String, epayeRef: String, recordMatch: Boolean)
-             (implicit ec: ExecutionContext, hc: HeaderCarrier, request: Request[_]): Future[AuditResult] = {
-    val detail = Map[String,String](elems =
-      "credId" -> credId,
-      "utr" -> epayeRef,
-      "recordFound" -> recordMatch.toString
-    )
+  def auditEPAYE(credId: String, epayeRef: String, recordMatch: Boolean)(implicit
+      ec: ExecutionContext,
+      hc: HeaderCarrier,
+      request: Request[_]): Future[AuditResult] = {
+    val detail = Map[String, String](elems = "credId" -> credId, "utr" -> epayeRef, "recordFound" -> recordMatch.toString)
 
     val data = DataEvent(
       auditSource,
@@ -112,28 +105,28 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
     auditConnector.sendEvent(data)
   }
 
-  private def buildTags()(implicit hc: HeaderCarrier, request: Request[_]): Map[String, String] = {
+  private def buildTags()(implicit hc: HeaderCarrier, request: Request[_]): Map[String, String] =
     Map(
-      "X-Request-Id" -> hc.requestId.map(_.value).getOrElse(""),
-      "X-Session-Id" -> hc.sessionId.map(_.value).getOrElse(""),
-      "path" -> request.path,
+      "X-Request-Id"    -> hc.requestId.map(_.value).getOrElse(""),
+      "X-Session-Id"    -> hc.sessionId.map(_.value).getOrElse(""),
+      "path"            -> request.path,
       "transactionName" -> request.path,
-      "clientIP" -> hc.trueClientIp.getOrElse(""),
-      "clientPort" -> hc.trueClientPort.getOrElse(""),
-      "type" -> "Audit"
+      "clientIP"        -> hc.trueClientIp.getOrElse(""),
+      "clientPort"      -> hc.trueClientPort.getOrElse(""),
+      "type"            -> "Audit"
     )
-  }
 
-  def auditSelectSACategory(saType: SelectSACategory, doYouHaveSaUtr: DoYouHaveSAUTR, utr: String, credId: String, groupId: String)
-                           (implicit ec: ExecutionContext, hc: HeaderCarrier, request: Request[_]): Future[AuditResult] = {
+  def auditSelectSACategory(saType: SelectSACategory, doYouHaveSaUtr: DoYouHaveSAUTR, utr: String, credId: String, groupId: String)(implicit
+      ec: ExecutionContext,
+      hc: HeaderCarrier,
+      request: Request[_]): Future[AuditResult] = {
 
-    val detail = Map[String,String](elems =
-      "saType" -> saType.toString,
-      "credId" -> credId,
+    val detail = Map[String, String](
+      elems = "saType" -> saType.toString,
+      "credId"         -> credId,
       "doYouHaveSaUtr" -> doYouHaveSaUtr.toString,
-      "utr" -> utr,
-      "groupID" -> groupId
-    )
+      "utr"            -> utr,
+      "groupID"        -> groupId)
     val data = DataEvent(
       auditSource,
       selectSACategoryEvent,
@@ -143,14 +136,12 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
     auditConnector.sendEvent(data)
   }
 
-  def auditSelectIOCategory(credId: String, doYouWantToAddImportExport: DoYouWantToAddImportExport, enrolments: Enrolments)
-                           (implicit ec: ExecutionContext, hc: HeaderCarrier, request: Request[_]): Future[AuditResult] = {
+  def auditSelectIOCategory(credId: String, doYouWantToAddImportExport: DoYouWantToAddImportExport, enrolments: Enrolments)(implicit
+      ec: ExecutionContext,
+      hc: HeaderCarrier,
+      request: Request[_]): Future[AuditResult] = {
 
-    val detail = Map[String,String](elems =
-      "credId" -> credId,
-      "enrolments" -> enrolments.toString,
-      "IOType" -> doYouWantToAddImportExport.toString
-    )
+    val detail = Map[String, String](elems = "credId" -> credId, "enrolments" -> enrolments.toString, "IOType" -> doYouWantToAddImportExport.toString)
     val data = DataEvent(
       auditSource,
       selectIOCategoryEvent,
@@ -170,7 +161,7 @@ class AuditService @Inject()(auditConnector: AuditConnector) {
     )
     val data = DataEvent(
       auditSource,
-      cveMultipleVrnsAttemptedEvent,
+      vrnNotMatchedEvent,
       tags = buildTags(),
       detail = detail
     )
