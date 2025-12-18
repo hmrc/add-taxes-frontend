@@ -1318,6 +1318,13 @@ vatAccountUnavailable.p2 = It will take up to 72 hours for your account to be se
 vatAccountUnavailable.p3 = Check back again later.
 
 #######################################################
+##  differentVatRegistrationNumbers
+#######################################################
+differentVatRegistrationNumbers.title = You have entered different VAT registration numbers
+differentVatRegistrationNumbers.p1 = The VAT registration number you have provided does not match exactly the number previously used. For security, this session must be restarted.
+differentVatRegistrationNumbers.p2 = To make another attempt, sign out and sign in.
+
+#######################################################
 ##  successfulEnrolment
 #######################################################
 successfulEnrolment.title = You now have access to Self Assessment

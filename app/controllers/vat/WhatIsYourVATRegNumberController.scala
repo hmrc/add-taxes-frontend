@@ -28,7 +28,7 @@ import play.api.mvc._
 import service.KnownFactsService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enumerable, Navigator}
-import views.html.vat.{vatAccountUnavailable, whatIsYourVATRegNumber}
+import views.html.vat.{differentVatRegistrationNumbers, vatAccountUnavailable, whatIsYourVATRegNumber}
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
@@ -41,6 +41,7 @@ class WhatIsYourVATRegNumberController @Inject() (appConfig: FrontendAppConfig,
                                                   formProvider: WhatIsYourVATRegNumberFormProvider,
                                                   vatAccountUnavailable: vatAccountUnavailable,
                                                   whatIsYourVATRegNumber: whatIsYourVATRegNumber,
+                                                  differentVatRegistrationNumbers: differentVatRegistrationNumbers,
                                                   knownFactsService: KnownFactsService)(implicit val ec: ExecutionContext)
     extends FrontendController(mcc)
     with I18nSupport
@@ -58,6 +59,11 @@ class WhatIsYourVATRegNumberController @Inject() (appConfig: FrontendAppConfig,
   def onPageLoadVatUnavailable(): Action[AnyContent] = authenticate { implicit request =>
     Ok(vatAccountUnavailable(appConfig))
   }
+
+  def onPageLoadDifferentVatRegistrationNumbers(): Action[AnyContent] =
+    mcc.messagesActionBuilder { implicit request =>
+      Ok(differentVatRegistrationNumbers(appConfig))
+    }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     def handleErrorSubmission(formWithErrors: Form[String]): Future[Result] =

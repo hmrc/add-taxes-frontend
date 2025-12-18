@@ -33,7 +33,7 @@ import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import service.KnownFactsService
 import utils.{Enrolments, FakeNavigator}
-import views.html.vat.{vatAccountUnavailable, vatRegistrationException, whatIsYourVATRegNumber}
+import views.html.vat.{differentVatRegistrationNumbers, vatAccountUnavailable, vatRegistrationException, whatIsYourVATRegNumber}
 
 import scala.concurrent.Future
 
@@ -48,15 +48,16 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
   lazy val mockDataCacheConnector: DataCacheConnector             = mock[DataCacheConnector]
   lazy val mockKnownFactsService: KnownFactsService               = mock[KnownFactsService]
 
-  val testVrn                                            = "968501689"
-  val sameTestVrn: Option[String]                        = Some("968501689")
-  val testVrnEmpty: Option[String]                       = None
-  val differentVrn: Option[String]                       = Some("968501688")
-  val vatAccountUnavailable: vatAccountUnavailable       = injector.instanceOf[vatAccountUnavailable]
-  val whatIsYourVATRegNumber: whatIsYourVATRegNumber     = injector.instanceOf[whatIsYourVATRegNumber]
-  val vatRegistrationException: vatRegistrationException = injector.instanceOf[vatRegistrationException]
-  val view: whatIsYourVATRegNumber                       = injector.instanceOf[whatIsYourVATRegNumber]
-  val errorHandler: ErrorHandler                         = injector.instanceOf[ErrorHandler]
+  val testVrn                                                          = "968501689"
+  val sameTestVrn: Option[String]                                      = Some("968501689")
+  val testVrnEmpty: Option[String]                                     = None
+  val differentVrn: Option[String]                                     = Some("968501688")
+  val vatAccountUnavailable: vatAccountUnavailable                     = injector.instanceOf[vatAccountUnavailable]
+  val whatIsYourVATRegNumber: whatIsYourVATRegNumber                   = injector.instanceOf[whatIsYourVATRegNumber]
+  val differentVatRegistrationNumbers: differentVatRegistrationNumbers = injector.instanceOf[differentVatRegistrationNumbers]
+  val vatRegistrationException: vatRegistrationException               = injector.instanceOf[vatRegistrationException]
+  val view: whatIsYourVATRegNumber                                     = injector.instanceOf[whatIsYourVATRegNumber]
+  val errorHandler: ErrorHandler                                       = injector.instanceOf[ErrorHandler]
 
   def controller(navigatorOnwardRoute: Call = onwardRoute): WhatIsYourVATRegNumberController =
     new WhatIsYourVATRegNumberController(
@@ -68,6 +69,7 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
       formProvider,
       vatAccountUnavailable,
       view,
+      differentVatRegistrationNumbers,
       mockKnownFactsService
     )
 
@@ -82,6 +84,9 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
 
   def vatAccountUnavailableViewAsString(): String =
     vatAccountUnavailablePage(frontendAppConfig)(fakeRequest, messages).toString
+
+  def differentVatRegistrationNumbersAsString(): String =
+    differentVatRegistrationNumbers(frontendAppConfig)(fakeRequest, messages).toString
 
   "WhatIsYourVATRegNumberController" when {
 
@@ -110,6 +115,16 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
       "return OK and the correct view for a GET" in {
         val result              = controller().onPageLoadVatUnavailable()(fakeRequest.withMethod("GET"))
         val expectedViewContent = vatAccountUnavailableViewAsString()
+
+        status(result) mustBe OK
+        contentAsString(result) mustBe expectedViewContent
+      }
+    }
+
+    "differentVatRegistrationNumbers" must {
+      "return OK and the correct view for a GET" in {
+        val result              = controller().onPageLoadDifferentVatRegistrationNumbers()(fakeRequest.withMethod("GET"))
+        val expectedViewContent = differentVatRegistrationNumbersAsString()
 
         status(result) mustBe OK
         contentAsString(result) mustBe expectedViewContent
