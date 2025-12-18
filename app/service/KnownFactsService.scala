@@ -21,12 +21,12 @@ import config.featureToggles.FeatureSwitch.{IvUpliftSwitch, RealVatEtmpCheck, VA
 import config.featureToggles.FeatureToggleSupport.isEnabled
 import connectors.{CitizensDetailsConnector, DataCacheConnector, EnrolmentStoreProxyConnector, VatSubscriptionConnector}
 import controllers.sa.{routes => saRoutes}
-import controllers.vat.{routes => vatRoutes}
+import controllers.vat.{routes, routes => vatRoutes}
 import handlers.ErrorHandler
-import identifiers.{EnterSAUTRId, WhatIsYourVATRegNumberId}
+import identifiers.EnterSAUTRId
 import models.requests.ServiceInfoRequest
 import models.sa._
-import play.api.http.Status.{LOCKED, NOT_FOUND, OK, PRECONDITION_FAILED}
+import play.api.http.Status.{NOT_FOUND, OK, PRECONDITION_FAILED}
 import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -181,8 +181,8 @@ class KnownFactsService @Inject() (saService: SaService,
 
           auditService.auditCveMultipleVrnsAttempted(previousAttemptVrn, newSubmittedVrn, userType)
 
-          val multipleVrnsAttemptedErrorRedirect: Call = navigator.nextPage(WhatIsYourVATRegNumberId, (LOCKED, ""))
-          val signOutWithRedirectToErrorPage: String        = appConfig.addTaxesSignoutThenContinueTo(multipleVrnsAttemptedErrorRedirect.url)
+          val multipleVrnsAttemptedErrorRedirect: Call = routes.WhatIsYourVATRegNumberController.onPageLoadDifferentVatRegistrationNumbers()
+          val signOutWithRedirectToErrorPage: String   = appConfig.addTaxesSignoutThenContinueTo(multipleVrnsAttemptedErrorRedirect.url)
           Future.successful(Left(Redirect(signOutWithRedirectToErrorPage)))
       }
     } else {

@@ -1,337 +1,339 @@
 # microservice specific routes
-->    /hmrc-frontend                                      hmrcfrontend.Routes
+->          /hmrc-frontend                                                  hmrcfrontend.Routes
 
-GET        /                                            @controllers.IndexController.onPageLoad
+GET         /                                                               @controllers.IndexController.onPageLoad
 
-GET        /assets/*file                                @controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/*file                                                   @controllers.Assets.versioned(path="/public", file: Asset)
 
-GET        /language/:lang                              @controllers.LanguageSwitchController.switchToLanguage(lang: String)
+GET         /language/:lang                                                 @controllers.LanguageSwitchController.switchToLanguage(lang: String)
 
-GET        /this-service-has-been-reset                 @controllers.SessionExpiredController.onPageLoad
+GET         /this-service-has-been-reset                                    @controllers.SessionExpiredController.onPageLoad
 
-GET        /check-your-answers                          @controllers.CheckYourAnswersController.onPageLoad()
+GET         /check-your-answers                                             @controllers.CheckYourAnswersController.onPageLoad()
 
-GET        /unauthorised                                @controllers.UnauthorisedController.onPageLoad
+GET         /unauthorised                                                   @controllers.UnauthorisedController.onPageLoad
 
-GET        /verified-user-error                         @controllers.VerifiedUserController.onPageLoad
+GET         /verified-user-error                                            @controllers.VerifiedUserController.onPageLoad
 
-GET        /other                                       @controllers.OtherTaxesController.onPageLoad()
-POST       /other                                       @controllers.OtherTaxesController.onSubmit()
+GET         /other                                                          @controllers.OtherTaxesController.onPageLoad()
+POST        /other                                                          @controllers.OtherTaxesController.onSubmit()
 
-GET        /other/oil                                   @controllers.other.oil.SelectAnOilServiceController.onPageLoad()
-POST       /other/oil                                   @controllers.other.oil.SelectAnOilServiceController.onSubmit()
+GET         /other/oil                                                      @controllers.other.oil.SelectAnOilServiceController.onPageLoad()
+POST        /other/oil                                                      @controllers.other.oil.SelectAnOilServiceController.onSubmit()
 
-GET        /other/oil/tied                              @controllers.other.oil.HaveYouRegisteredForTiedOilsController.onPageLoad()
-POST       /other/oil/tied                              @controllers.other.oil.HaveYouRegisteredForTiedOilsController.onSubmit()
+GET         /other/oil/tied                                                 @controllers.other.oil.HaveYouRegisteredForTiedOilsController.onPageLoad()
+POST        /other/oil/tied                                                 @controllers.other.oil.HaveYouRegisteredForTiedOilsController.onSubmit()
 
-GET        /other/oil/tied/register                     @controllers.other.oil.RegisterTiedOilsController.onPageLoad()
+GET         /other/oil/tied/register                                        @controllers.other.oil.RegisterTiedOilsController.onPageLoad()
 
-GET        /other/oil/rebated                           @controllers.other.oil.HaveYouRegisteredForRebatedOilsController.onPageLoad()
-POST       /other/oil/rebated                           @controllers.other.oil.HaveYouRegisteredForRebatedOilsController.onSubmit()
+GET         /other/oil/rebated                                              @controllers.other.oil.HaveYouRegisteredForRebatedOilsController.onPageLoad()
+POST        /other/oil/rebated                                              @controllers.other.oil.HaveYouRegisteredForRebatedOilsController.onSubmit()
 
-GET        /other/oil/rebated/register                  @controllers.other.oil.RegisterRebatedOilsController.onPageLoad()
+GET         /other/oil/rebated/register                                     @controllers.other.oil.RegisterRebatedOilsController.onPageLoad()
 
-GET        /wrong-credentials/finding-your-account      @controllers.wrongcredentials.FindingYourAccountController.onPageLoad()
-POST       /wrong-credentials/finding-your-account      @controllers.wrongcredentials.FindingYourAccountController.onSubmit()
+GET         /wrong-credentials/finding-your-account                         @controllers.wrongcredentials.FindingYourAccountController.onPageLoad()
+POST        /wrong-credentials/finding-your-account                         @controllers.wrongcredentials.FindingYourAccountController.onSubmit()
 
-GET        /other/import-export/emcs/register           @controllers.other.importexports.emcs.RegisterExciseMovementControlSystemController.onPageLoad()
+GET         /other/import-export/emcs/register                              @controllers.other.importexports.emcs.RegisterExciseMovementControlSystemController.onPageLoad()
 
-GET        /other/import-export/emcs                    @controllers.other.importexports.emcs.DoYouHaveASEEDNumberController.onPageLoad()
-POST       /other/import-export/emcs                    @controllers.other.importexports.emcs.DoYouHaveASEEDNumberController.onSubmit()
+GET         /other/import-export/emcs                                       @controllers.other.importexports.emcs.DoYouHaveASEEDNumberController.onPageLoad()
+POST        /other/import-export/emcs                                       @controllers.other.importexports.emcs.DoYouHaveASEEDNumberController.onSubmit()
 
-GET        /other/import-export/ics                     @controllers.other.importexports.ics.DoYouHaveEORINumberController.onPageLoad()
-POST       /other/import-export/ics                     @controllers.other.importexports.ics.DoYouHaveEORINumberController.onSubmit()
+GET         /other/import-export/ics                                        @controllers.other.importexports.ics.DoYouHaveEORINumberController.onPageLoad()
+POST        /other/import-export/ics                                        @controllers.other.importexports.ics.DoYouHaveEORINumberController.onSubmit()
 
-GET        /other/import-export/ics/register            @controllers.other.importexports.ics.RegisterEORIController.onPageLoad()
+GET         /other/import-export/ics/register                               @controllers.other.importexports.ics.RegisterEORIController.onPageLoad()
 
-GET        /other/import-export/ddes/register           @controllers.other.importexports.dan.RegisterDefermentApprovalNumberController.onPageLoad()
+GET         /other/import-export/ddes/register                              @controllers.other.importexports.dan.RegisterDefermentApprovalNumberController.onPageLoad()
 
-GET        /other/import-export/ddes                    @controllers.other.importexports.dan.DoYouHaveDANController.onPageLoad()
-POST       /other/import-export/ddes                    @controllers.other.importexports.dan.DoYouHaveDANController.onSubmit()
+GET         /other/import-export/ddes                                       @controllers.other.importexports.dan.DoYouHaveDANController.onPageLoad()
+POST        /other/import-export/ddes                                       @controllers.other.importexports.dan.DoYouHaveDANController.onSubmit()
 
-GET        /other/import-export/ebti/register           @controllers.other.importexports.ebti.RegisterEORIController.onPageLoad()
+GET         /other/import-export/ebti/register                              @controllers.other.importexports.ebti.RegisterEORIController.onPageLoad()
 
-GET        /other/import-export/ebti                    @controllers.other.importexports.ebti.DoYouHaveEORINumberController.onPageLoad()
-POST       /other/import-export/ebti                    @controllers.other.importexports.ebti.DoYouHaveEORINumberController.onSubmit()
+GET         /other/import-export/ebti                                       @controllers.other.importexports.ebti.DoYouHaveEORINumberController.onPageLoad()
+POST        /other/import-export/ebti                                       @controllers.other.importexports.ebti.DoYouHaveEORINumberController.onSubmit()
 
-GET        /other/import-export/ncts/register           controllers.other.importexports.ncts.RegisterEORIController.onPageLoad()
+GET         /other/import-export/ncts/register                              controllers.other.importexports.ncts.RegisterEORIController.onPageLoad()
 
-GET        /other/import-export/ncts                    controllers.other.importexports.ncts.DoYouHaveEORINumberController.onPageLoad()
-POST       /other/import-export/ncts                    controllers.other.importexports.ncts.DoYouHaveEORINumberController.onSubmit()
+GET         /other/import-export/ncts                                       controllers.other.importexports.ncts.DoYouHaveEORINumberController.onPageLoad()
+POST        /other/import-export/ncts                                       controllers.other.importexports.ncts.DoYouHaveEORINumberController.onSubmit()
 
-GET        /other/import-export                         controllers.other.importexports.DoYouWantToAddImportExportController.onPageLoad()
-POST       /other/import-export                         controllers.other.importexports.DoYouWantToAddImportExportController.onSubmit()
+GET         /other/import-export                                            controllers.other.importexports.DoYouWantToAddImportExportController.onPageLoad()
+POST        /other/import-export                                            controllers.other.importexports.DoYouWantToAddImportExportController.onSubmit()
 
-GET        /other/import-export/nes/has-eori            controllers.other.importexports.nes.DoYouHaveCHIEFRoleHasEORIController.onPageLoad()
-POST       /other/import-export/nes/has-eori            controllers.other.importexports.nes.DoYouHaveCHIEFRoleHasEORIController.onSubmit()
+GET         /other/import-export/nes/has-eori                               controllers.other.importexports.nes.DoYouHaveCHIEFRoleHasEORIController.onPageLoad()
+POST        /other/import-export/nes/has-eori                               controllers.other.importexports.nes.DoYouHaveCHIEFRoleHasEORIController.onSubmit()
 
-GET        /other/import-export/nes                     controllers.other.importexports.nes.DoYouHaveEORINumberController.onPageLoad()
-POST       /other/import-export/nes                     controllers.other.importexports.nes.DoYouHaveEORINumberController.onSubmit()
+GET         /other/import-export/nes                                        controllers.other.importexports.nes.DoYouHaveEORINumberController.onPageLoad()
+POST        /other/import-export/nes                                        controllers.other.importexports.nes.DoYouHaveEORINumberController.onSubmit()
 
-GET        /other/import-export/nes/has-eori/register-chief     controllers.other.importexports.nes.GetCHIEFRoleController.onPageLoad()
+GET         /other/import-export/nes/has-eori/register-chief                controllers.other.importexports.nes.GetCHIEFRoleController.onPageLoad()
 
-GET        /other/import-export/nes/no-eori                     controllers.other.importexports.nes.DoYouHaveCHIEFRoleNoEORIController.onPageLoad()
-POST       /other/import-export/nes/no-eori                     controllers.other.importexports.nes.DoYouHaveCHIEFRoleNoEORIController.onSubmit()
+GET         /other/import-export/nes/no-eori                                controllers.other.importexports.nes.DoYouHaveCHIEFRoleNoEORIController.onPageLoad()
+POST        /other/import-export/nes/no-eori                                controllers.other.importexports.nes.DoYouHaveCHIEFRoleNoEORIController.onSubmit()
 
-GET        /other/import-export/nes/no-eori/register-eori       controllers.other.importexports.nes.RegisterEORIController.onPageLoad()
+GET         /other/import-export/nes/no-eori/register-eori                  controllers.other.importexports.nes.RegisterEORIController.onPageLoad()
 
-GET        /other/import-export/nes/no-eori/register-both       controllers.other.importexports.nes.GetEoriAndChiefRoleController.onPageLoad()
+GET         /other/import-export/nes/no-eori/register-both                  controllers.other.importexports.nes.GetEoriAndChiefRoleController.onPageLoad()
 
-GET        /other/import-export/nes/has-eori/register-chief     controllers.other.importexports.nes.GetCHIEFRoleController.onPageLoad()
+GET         /other/import-export/nes/has-eori/register-chief                controllers.other.importexports.nes.GetCHIEFRoleController.onPageLoad()
 
-GET        /other/gambling/gbd/register                 controllers.other.gambling.gbd.RegisterGBDController.onPageLoad()
+GET         /other/gambling/gbd/register                                    controllers.other.gambling.gbd.RegisterGBDController.onPageLoad()
 
-GET        /other/ppt                                   controllers.other.ppt.DoYouHaveAPPTRefController.onPageLoad()
-POST       /other/ppt                                   controllers.other.ppt.DoYouHaveAPPTRefController.onSubmit()
+GET         /other/ppt                                                      controllers.other.ppt.DoYouHaveAPPTRefController.onPageLoad()
+POST        /other/ppt                                                      controllers.other.ppt.DoYouHaveAPPTRefController.onSubmit()
 
-GET        /other/ppt-no-ref                            controllers.other.ppt.YouNeedAPptRefController.onPageLoad()
+GET         /other/ppt-no-ref                                               controllers.other.ppt.YouNeedAPptRefController.onPageLoad()
 
-GET        /other/gambling/gbd                          controllers.other.gambling.gbd.AreYouRegisteredGTSController.onPageLoad()
-POST       /other/gambling/gbd                          controllers.other.gambling.gbd.AreYouRegisteredGTSController.onSubmit()
+GET         /other/gambling/gbd                                             controllers.other.gambling.gbd.AreYouRegisteredGTSController.onPageLoad()
+POST        /other/gambling/gbd                                             controllers.other.gambling.gbd.AreYouRegisteredGTSController.onSubmit()
 
-GET        /other/gambling/pbd/register                 controllers.other.gambling.pbd.RegisterGTSFirstController.onPageLoad()
+GET         /other/gambling/pbd/register                                    controllers.other.gambling.pbd.RegisterGTSFirstController.onPageLoad()
 
-GET        /other/gambling/pbd                          controllers.other.gambling.pbd.DoYouHavePBDRegistrationController.onPageLoad()
-POST       /other/gambling/pbd                          controllers.other.gambling.pbd.DoYouHavePBDRegistrationController.onSubmit()
+GET         /other/gambling/pbd                                             controllers.other.gambling.pbd.DoYouHavePBDRegistrationController.onPageLoad()
+POST        /other/gambling/pbd                                             controllers.other.gambling.pbd.DoYouHavePBDRegistrationController.onSubmit()
 
-GET        /other/gambling/rgd/register                 controllers.other.gambling.rgd.RegisterRGDController.onPageLoad()
+GET         /other/gambling/rgd/register                                    controllers.other.gambling.rgd.RegisterRGDController.onPageLoad()
 
-GET        /other/gambling/mgd/register                 controllers.other.gambling.mgd.RegisterMGDController.onPageLoad()
+GET         /other/gambling/mgd/register                                    controllers.other.gambling.mgd.RegisterMGDController.onPageLoad()
 
-GET        /other/gambling/mgd                          controllers.other.gambling.mgd.DoYouHaveMGDRegistrationController.onPageLoad()
-POST       /other/gambling/mgd                          controllers.other.gambling.mgd.DoYouHaveMGDRegistrationController.onSubmit()
+GET         /other/gambling/mgd                                             controllers.other.gambling.mgd.DoYouHaveMGDRegistrationController.onPageLoad()
+POST        /other/gambling/mgd                                             controllers.other.gambling.mgd.DoYouHaveMGDRegistrationController.onSubmit()
 
-GET        /other/alcohol/atwd/register                 controllers.other.alcohol.atwd.RegisterWarehousekeeperController.onPageLoad()
+GET         /other/alcohol/atwd/register                                    controllers.other.alcohol.atwd.RegisterWarehousekeeperController.onPageLoad()
 
-GET        /other/alcohol/atwd                          controllers.other.alcohol.atwd.AreYouRegisteredWarehousekeeperController.onPageLoad()
-POST       /other/alcohol/atwd                          controllers.other.alcohol.atwd.AreYouRegisteredWarehousekeeperController.onSubmit()
+GET         /other/alcohol/atwd                                             controllers.other.alcohol.atwd.AreYouRegisteredWarehousekeeperController.onPageLoad()
+POST        /other/alcohol/atwd                                             controllers.other.alcohol.atwd.AreYouRegisteredWarehousekeeperController.onSubmit()
 
-GET        /self-assessment/partnership/other           controllers.sa.partnership.HaveYouRegisteredPartnershipController.onPageLoad()
-POST       /self-assessment/partnership/other           controllers.sa.partnership.HaveYouRegisteredPartnershipController.onSubmit()
+GET         /self-assessment/partnership/other                              controllers.sa.partnership.HaveYouRegisteredPartnershipController.onPageLoad()
+POST        /self-assessment/partnership/other                              controllers.sa.partnership.HaveYouRegisteredPartnershipController.onSubmit()
 
-GET        /self-assessment/partnership                 controllers.sa.partnership.DoYouWantToAddPartnerController.onPageLoad()
-POST       /self-assessment/partnership                 controllers.sa.partnership.DoYouWantToAddPartnerController.onSubmit()
+GET         /self-assessment/partnership                                    controllers.sa.partnership.DoYouWantToAddPartnerController.onPageLoad()
+POST        /self-assessment/partnership                                    controllers.sa.partnership.DoYouWantToAddPartnerController.onSubmit()
 
-GET        /self-assessment/trust/not-registered        controllers.sa.trust.RegisterTrustController.onPageLoad()
+GET         /self-assessment/trust/not-registered                           controllers.sa.trust.RegisterTrustController.onPageLoad()
 
-GET        /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onPageLoad()
-POST       /self-assessment/trust                       controllers.sa.trust.HaveYouRegisteredTrustController.onSubmit()
+GET         /self-assessment/trust                                          controllers.sa.trust.HaveYouRegisteredTrustController.onPageLoad()
+POST        /self-assessment/trust                                          controllers.sa.trust.HaveYouRegisteredTrustController.onSubmit()
 
-GET        /self-assessment/enter-sa-utr                controllers.sa.EnterSAUTRController.onPageLoad(origin: Option[String])
-POST       /self-assessment/enter-sa-utr                controllers.sa.EnterSAUTRController.onSubmit(origin: String)
+GET         /self-assessment/enter-sa-utr                                   controllers.sa.EnterSAUTRController.onPageLoad(origin: Option[String])
+POST        /self-assessment/enter-sa-utr                                   controllers.sa.EnterSAUTRController.onSubmit(origin: String)
 
-GET        /self-assessment/have-sa-utr                 controllers.sa.CaptureSAUTRController.onPageLoad()
-POST       /self-assessment/have-sa-utr                 controllers.sa.CaptureSAUTRController.onSubmit()
+GET         /self-assessment/have-sa-utr                                    controllers.sa.CaptureSAUTRController.onPageLoad()
+POST        /self-assessment/have-sa-utr                                    controllers.sa.CaptureSAUTRController.onSubmit()
 
 
 # This route will be the completion url we send to IV (Pin in Post)
-GET        /self-assessment/sa-iv-router                controllers.sa.IvJourneyController.ivRouter(origin: String, journeyId: Option[String])
-GET        /self-assessment/try-iv                      controllers.sa.TryIvController.onPageLoad(origin: String)
+GET         /self-assessment/sa-iv-router                                   controllers.sa.IvJourneyController.ivRouter(origin: String, journeyId: Option[String])
+GET         /self-assessment/try-iv                                         controllers.sa.TryIvController.onPageLoad(origin: String)
 
-GET        /self-assessment/enrolment-successful        controllers.sa.EnrolmentSuccessController.onPageLoad(origin: String)
-GET        /self-assessment/retry-known-facts           controllers.sa.RetryKnownFactsController.onPageLoad(origin: String)
-POST       /self-assessment/retry-known-facts           controllers.sa.RetryKnownFactsController.onSubmit(origin: String)
+GET         /self-assessment/enrolment-successful                           controllers.sa.EnrolmentSuccessController.onPageLoad(origin: String)
+GET         /self-assessment/retry-known-facts                              controllers.sa.RetryKnownFactsController.onPageLoad(origin: String)
+POST        /self-assessment/retry-known-facts                              controllers.sa.RetryKnownFactsController.onSubmit(origin: String)
 
-GET        /self-assessment/nino-sign-out               controllers.sa.SignInDifferentController.onPageLoad(origin: String)
-POST       /self-assessment/nino-sign-out               controllers.sa.SignInDifferentController.onSubmit(origin: String)
+GET         /self-assessment/nino-sign-out                                  controllers.sa.SignInDifferentController.onPageLoad(origin: String)
+POST        /self-assessment/nino-sign-out                                  controllers.sa.SignInDifferentController.onSubmit(origin: String)
 
-GET        /self-assessment/try-pin-in-post             controllers.sa.TryPinInPostController.onPageLoad(status: Option[String], origin: String)
-POST       /self-assessment/try-pin-in-post             controllers.sa.TryPinInPostController.onSubmit(origin: String)
+GET         /self-assessment/try-pin-in-post                                controllers.sa.TryPinInPostController.onPageLoad(status: Option[String], origin: String)
+POST        /self-assessment/try-pin-in-post                                controllers.sa.TryPinInPostController.onSubmit(origin: String)
 
-GET        /self-assessment/access-requested            controllers.sa.RequestedAccessController.onPageLoad(origin: String)
+GET         /self-assessment/access-requested                               controllers.sa.RequestedAccessController.onPageLoad(origin: String)
 
-GET        /self-assessment/group-error                 controllers.sa.GroupIdFoundController.onPageLoad()
+GET         /self-assessment/group-error                                    controllers.sa.GroupIdFoundController.onPageLoad()
 
-GET        /other/aeoi/register                         controllers.other.aeoi.RegisterAEOIController.onPageLoad()
+GET         /other/aeoi/register                                            controllers.other.aeoi.RegisterAEOIController.onPageLoad()
 
-GET        /other/aeoi                                  controllers.other.aeoi.HaveYouRegisteredAEOIController.onPageLoad()
-POST       /other/aeoi                                  controllers.other.aeoi.HaveYouRegisteredAEOIController.onSubmit()
+GET         /other/aeoi                                                     controllers.other.aeoi.HaveYouRegisteredAEOIController.onPageLoad()
+POST        /other/aeoi                                                     controllers.other.aeoi.HaveYouRegisteredAEOIController.onSubmit()
 
-GET        /self-assessment                             controllers.sa.SelectSACategoryController.onPageLoadHasUTR(origin: Option[String])
-POST       /self-assessment                             controllers.sa.SelectSACategoryController.onSubmitHasUTR(origin: String)
+GET         /self-assessment                                                controllers.sa.SelectSACategoryController.onPageLoadHasUTR(origin: Option[String])
+POST        /self-assessment                                                controllers.sa.SelectSACategoryController.onSubmitHasUTR(origin: String)
 
-GET        /self-assessment/known-facts                 controllers.sa.KnownFactsController.onPageLoad(origin: String)
-POST       /self-assessment/known-facts                 controllers.sa.KnownFactsController.onSubmit(origin: String)
+GET         /self-assessment/known-facts                                    controllers.sa.KnownFactsController.onPageLoad(origin: String)
+POST        /self-assessment/known-facts                                    controllers.sa.KnownFactsController.onSubmit(origin: String)
 
-GET        /self-assessment/postcode                    controllers.sa.PostcodeController.onPageLoad(origin: String)
-POST       /self-assessment/postcode                    controllers.sa.PostcodeController.onSubmit(origin: String)
+GET         /self-assessment/postcode                                       controllers.sa.PostcodeController.onPageLoad(origin: String)
+POST        /self-assessment/postcode                                       controllers.sa.PostcodeController.onSubmit(origin: String)
 
-GET        /self-assessment/no-utr                      controllers.sa.SelectSACategoryController.onPageLoadNoUTR()
-POST       /self-assessment/no-utr                      controllers.sa.SelectSACategoryController.onSubmitNoUTR()
+GET         /self-assessment/no-utr                                         controllers.sa.SelectSACategoryController.onPageLoadNoUTR()
+POST        /self-assessment/no-utr                                         controllers.sa.SelectSACategoryController.onSubmitNoUTR()
 
-GET        /self-assessment/self-employed               controllers.sa.AreYouSelfEmployedController.onPageLoad()
-POST       /self-assessment/self-employed               controllers.sa.AreYouSelfEmployedController.onSubmit()
+GET         /self-assessment/self-employed                                  controllers.sa.AreYouSelfEmployedController.onPageLoad()
+POST        /self-assessment/self-employed                                  controllers.sa.AreYouSelfEmployedController.onSubmit()
 
-GET        /self-assessment/not-in-this-account         controllers.sa.YourSaIsNotInThisAccountController.onPageLoad(origin: String)
-POST       /self-assessment/not-in-this-account         controllers.sa.YourSaIsNotInThisAccountController.onSubmit(origin: String)
+GET         /self-assessment/not-in-this-account                            controllers.sa.YourSaIsNotInThisAccountController.onPageLoad(origin: String)
+POST        /self-assessment/not-in-this-account                            controllers.sa.YourSaIsNotInThisAccountController.onSubmit(origin: String)
 
-GET        /vat                                         controllers.vat.WhichVATServicesToAddController.onPageLoad()
-POST       /vat                                         controllers.vat.WhichVATServicesToAddController.onSubmit()
+GET         /vat                                                            controllers.vat.WhichVATServicesToAddController.onPageLoad()
+POST        /vat                                                            controllers.vat.WhichVATServicesToAddController.onSubmit()
 
-GET        /vat/interstitial                            controllers.vat.ClaimVATInterstitialController.onPageLoad()
+GET         /vat/interstitial                                               controllers.vat.ClaimVATInterstitialController.onPageLoad()
 
-GET        /vat/do-you-have-a-vat-number                controllers.vat.DoYouHaveVATRegNumberController.onPageLoad()
-POST       /vat/do-you-have-a-vat-number                controllers.vat.DoYouHaveVATRegNumberController.onSubmit()
+GET         /vat/do-you-have-a-vat-number                                   controllers.vat.DoYouHaveVATRegNumberController.onPageLoad()
+POST        /vat/do-you-have-a-vat-number                                   controllers.vat.DoYouHaveVATRegNumberController.onSubmit()
 
-GET        /vat/what-is-your-vat-number                 controllers.vat.WhatIsYourVATRegNumberController.onPageLoad()
-POST       /vat/what-is-your-vat-number                 controllers.vat.WhatIsYourVATRegNumberController.onSubmit()
+GET         /vat/what-is-your-vat-number                                    controllers.vat.WhatIsYourVATRegNumberController.onPageLoad()
+POST        /vat/what-is-your-vat-number                                    controllers.vat.WhatIsYourVATRegNumberController.onSubmit()
 
-GET        /vat/register-form                           controllers.vat.RegisterForVatByPostController.onPageLoad()
+GET         /vat/register-form                                              controllers.vat.RegisterForVatByPostController.onPageLoad()
 
-GET        /vat/register-online                         controllers.vat.RegisterForVATOnlineController.onPageLoad()
-POST       /vat/register-online                         controllers.vat.RegisterForVATOnlineController.onSubmit()
+GET         /vat/register-online                                            controllers.vat.RegisterForVATOnlineController.onPageLoad()
+POST        /vat/register-online                                            controllers.vat.RegisterForVATOnlineController.onSubmit()
 
-GET        /vat/ec                                      controllers.vat.ec.RegisteredForVATECSalesController.onPageLoad()
-POST       /vat/ec                                      controllers.vat.ec.RegisteredForVATECSalesController.onSubmit()
+GET         /vat/ec                                                         controllers.vat.ec.RegisteredForVATECSalesController.onPageLoad()
+POST        /vat/ec                                                         controllers.vat.ec.RegisteredForVATECSalesController.onSubmit()
 
-GET        /vat/vat-giant                               controllers.vat.giant.WhatIsYourOrganisationController.onPageLoad()
-POST       /vat/vat-giant                               controllers.vat.giant.WhatIsYourOrganisationController.onSubmit()
+GET         /vat/vat-giant                                                  controllers.vat.giant.WhatIsYourOrganisationController.onPageLoad()
+POST        /vat/vat-giant                                                  controllers.vat.giant.WhatIsYourOrganisationController.onSubmit()
 
-GET        /vat/vat-giant/do-not-need-service           controllers.vat.giant.YouDoNotNeedVATController.onPageLoad()
+GET         /vat/vat-giant/do-not-need-service                              controllers.vat.giant.YouDoNotNeedVATController.onPageLoad()
 
-GET        /vat/eurefunds                               controllers.vat.eurefunds.RegisteredForVATEURefundsController.onPageLoad()
-POST       /vat/eurefunds                               controllers.vat.eurefunds.RegisteredForVATEURefundsController.onSubmit()
+GET         /vat/eurefunds                                                  controllers.vat.eurefunds.RegisteredForVATEURefundsController.onPageLoad()
+POST        /vat/eurefunds                                                  controllers.vat.eurefunds.RegisteredForVATEURefundsController.onSubmit()
 
 
-GET        /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onPageLoad()
-POST       /other/alcohol                               controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onSubmit()
+GET         /other/alcohol                                                  controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onPageLoad()
+POST        /other/alcohol                                                  controllers.other.alcohol.awrs.SelectAlcoholSchemeController.onSubmit()
 
-GET        /other/charities                             controllers.other.charity.DoYouHaveCharityReferenceController.onPageLoad()
-POST       /other/charities                             controllers.other.charity.DoYouHaveCharityReferenceController.onSubmit()
+GET         /other/charities                                                controllers.other.charity.DoYouHaveCharityReferenceController.onPageLoad()
+POST        /other/charities                                                controllers.other.charity.DoYouHaveCharityReferenceController.onSubmit()
 
-GET        /other/land/stamp-duty                       controllers.other.land.stampduty.StampDutyController.onPageLoad()
-POST       /other/land/stamp-duty                       controllers.other.land.stampduty.StampDutyController.onSubmit()
+GET         /other/land/stamp-duty                                          controllers.other.land.stampduty.StampDutyController.onPageLoad()
+POST        /other/land/stamp-duty                                          controllers.other.land.stampduty.StampDutyController.onSubmit()
 
-GET        /other/land/stamp-duty/paper-forms           controllers.other.land.stampduty.PaperFormsController.onPageLoad()
+GET         /other/land/stamp-duty/paper-forms                              controllers.other.land.stampduty.PaperFormsController.onPageLoad()
 
-GET        /other/charities/register                    controllers.other.charity.RegisterForCharityController.onPageLoad()
+GET         /other/charities/register                                       controllers.other.charity.RegisterForCharityController.onPageLoad()
 
-GET        /employer/cis/uk/contractor/epaye/other-account    controllers.employer.cis.ukbased.contractor.UsePAYEEmployerAccountController.onPageLoad()
+GET         /employer/cis/uk/contractor/epaye/other-account                 controllers.employer.cis.ukbased.contractor.UsePAYEEmployerAccountController.onPageLoad()
 
-GET        /employer/cis/uk/contractor/epaye                  controllers.employer.cis.ukbased.contractor.DoesBusinessManagePAYEController.onPageLoad()
-POST       /employer/cis/uk/contractor/epaye                  controllers.employer.cis.ukbased.contractor.DoesBusinessManagePAYEController.onSubmit()
+GET         /employer/cis/uk/contractor/epaye                               controllers.employer.cis.ukbased.contractor.DoesBusinessManagePAYEController.onPageLoad()
+POST        /employer/cis/uk/contractor/epaye                               controllers.employer.cis.ukbased.contractor.DoesBusinessManagePAYEController.onSubmit()
 
-GET        /employer/cis/uk/contractor/register-epaye         controllers.employer.cis.ukbased.contractor.RegisterForPAYEController.onPageLoad()
+GET         /employer/cis/uk/contractor/register-epaye                      controllers.employer.cis.ukbased.contractor.RegisterForPAYEController.onPageLoad()
 
-GET        /employer/cis/uk/contractor                        controllers.employer.cis.ukbased.contractor.IsBusinessRegisteredForPAYEController.onPageLoad()
-POST       /employer/cis/uk/contractor                        controllers.employer.cis.ukbased.contractor.IsBusinessRegisteredForPAYEController.onSubmit()
+GET         /employer/cis/uk/contractor                                     controllers.employer.cis.ukbased.contractor.IsBusinessRegisteredForPAYEController.onPageLoad()
+POST        /employer/cis/uk/contractor                                     controllers.employer.cis.ukbased.contractor.IsBusinessRegisteredForPAYEController.onSubmit()
 
-GET        /other/gambling                               controllers.other.gambling.SelectGamblingOrGamingDutyController.onPageLoad()
-POST       /other/gambling                               controllers.other.gambling.SelectGamblingOrGamingDutyController.onSubmit()
+GET         /other/gambling                                                 controllers.other.gambling.SelectGamblingOrGamingDutyController.onPageLoad()
+POST        /other/gambling                                                 controllers.other.gambling.SelectGamblingOrGamingDutyController.onSubmit()
 
-GET        /employer/ers/epaye/other-account             controllers.employer.ers.UseEmployersPAYEController.onPageLoad()
+GET         /employer/ers/epaye/other-account                               controllers.employer.ers.UseEmployersPAYEController.onPageLoad()
 
-GET        /employer/ers/epaye/not-enrolled              controllers.employer.ers.AddEmployersPAYEController.onPageLoad()
+GET         /employer/ers/epaye/not-enrolled                                controllers.employer.ers.AddEmployersPAYEController.onPageLoad()
 
-GET        /employer/ers/register-epaye                  controllers.employer.ers.RegisterEmployersPAYEController.onPageLoad()
+GET         /employer/ers/register-epaye                                    controllers.employer.ers.RegisterEmployersPAYEController.onPageLoad()
 
-GET        /employer/ers/epaye                           controllers.employer.ers.DoesBusinessManagePAYEController.onPageLoad()
-POST       /employer/ers/epaye                           controllers.employer.ers.DoesBusinessManagePAYEController.onSubmit()
+GET         /employer/ers/epaye                                             controllers.employer.ers.DoesBusinessManagePAYEController.onPageLoad()
+POST        /employer/ers/epaye                                             controllers.employer.ers.DoesBusinessManagePAYEController.onSubmit()
 
-GET        /employer/ers                                 controllers.employer.ers.IsBusinessRegisteredForPAYEController.onPageLoad()
-POST       /employer/ers                                 controllers.employer.ers.IsBusinessRegisteredForPAYEController.onSubmit()
-GET        /employer/cis/uk                              controllers.employer.cis.ukbased.AreYouContractorOrSubcontractorController.onPageLoad()
-POST       /employer/cis/uk                              controllers.employer.cis.ukbased.AreYouContractorOrSubcontractorController.onSubmit()
+GET         /employer/ers                                                   controllers.employer.ers.IsBusinessRegisteredForPAYEController.onPageLoad()
+POST        /employer/ers                                                   controllers.employer.ers.IsBusinessRegisteredForPAYEController.onSubmit()
+GET         /employer/cis/uk                                                controllers.employer.cis.ukbased.AreYouContractorOrSubcontractorController.onPageLoad()
+POST        /employer/cis/uk                                                controllers.employer.cis.ukbased.AreYouContractorOrSubcontractorController.onSubmit()
 
-GET        /employer/cis/uk/subcontractor/sole-trader/high-turnover    controllers.employer.cis.ukbased.subcontractor.DoYouWantToBePaidNetOrGrossController.onPageLoad()
-POST       /employer/cis/uk/subcontractor/sole-trader/high-turnover    controllers.employer.cis.ukbased.subcontractor.DoYouWantToBePaidNetOrGrossController.onSubmit()
+GET         /employer/cis/uk/subcontractor/sole-trader/high-turnover        controllers.employer.cis.ukbased.subcontractor.DoYouWantToBePaidNetOrGrossController.onPageLoad()
+POST        /employer/cis/uk/subcontractor/sole-trader/high-turnover        controllers.employer.cis.ukbased.subcontractor.DoYouWantToBePaidNetOrGrossController.onSubmit()
 
-GET        /employer/cis/uk/subcontractor/sole-trader    controllers.employer.cis.ukbased.subcontractor.WasTurnoverMoreAfterVATController.onPageLoad()
-POST       /employer/cis/uk/subcontractor/sole-trader    controllers.employer.cis.ukbased.subcontractor.WasTurnoverMoreAfterVATController.onSubmit()
+GET         /employer/cis/uk/subcontractor/sole-trader                      controllers.employer.cis.ukbased.subcontractor.WasTurnoverMoreAfterVATController.onPageLoad()
+POST        /employer/cis/uk/subcontractor/sole-trader                      controllers.employer.cis.ukbased.subcontractor.WasTurnoverMoreAfterVATController.onSubmit()
 
-GET        /employer/cis/uk/subcontractor                controllers.employer.cis.ukbased.subcontractor.WhatTypeOfSubcontractorController.onPageLoad()
-POST       /employer/cis/uk/subcontractor                controllers.employer.cis.ukbased.subcontractor.WhatTypeOfSubcontractorController.onSubmit()
+GET         /employer/cis/uk/subcontractor                                  controllers.employer.cis.ukbased.subcontractor.WhatTypeOfSubcontractorController.onPageLoad()
+POST        /employer/cis/uk/subcontractor                                  controllers.employer.cis.ukbased.subcontractor.WhatTypeOfSubcontractorController.onSubmit()
 
-GET        /employer/intermediaries/epaye/other-account  controllers.employer.intermediaries.UsePAYEEmployerAccountController.onPageLoad()
+GET         /employer/intermediaries/epaye/other-account                    controllers.employer.intermediaries.UsePAYEEmployerAccountController.onPageLoad()
 
-GET        /employer/intermediaries/epaye                controllers.employer.intermediaries.DoesBusinessManagePAYEController.onPageLoad()
-POST       /employer/intermediaries/epaye                controllers.employer.intermediaries.DoesBusinessManagePAYEController.onSubmit()
+GET         /employer/intermediaries/epaye                                  controllers.employer.intermediaries.DoesBusinessManagePAYEController.onPageLoad()
+POST        /employer/intermediaries/epaye                                  controllers.employer.intermediaries.DoesBusinessManagePAYEController.onSubmit()
 
-GET        /employer/intermediaries/register-epaye       controllers.employer.intermediaries.RegisterForPAYEController.onPageLoad()
+GET         /employer/intermediaries/register-epaye                         controllers.employer.intermediaries.RegisterForPAYEController.onPageLoad()
 
-GET        /employer/intermediaries                      controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onPageLoad()
-POST       /employer/intermediaries                      controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onSubmit()
+GET         /employer/intermediaries                                        controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onPageLoad()
+POST        /employer/intermediaries                                        controllers.employer.intermediaries.IsBusinessRegisteredForPAYEController.onSubmit()
 
-GET        /employer/cis                                controllers.employer.cis.IsYourBusinessInUKController.onPageLoad()
-POST       /employer/cis                                controllers.employer.cis.IsYourBusinessInUKController.onSubmit()
+GET         /employer/cis                                                   controllers.employer.cis.IsYourBusinessInUKController.onPageLoad()
+POST        /employer/cis                                                   controllers.employer.cis.IsYourBusinessInUKController.onSubmit()
 
-GET        /employer                                    controllers.employer.WhatEmployerTaxDoYouWantToAddController.onPageLoad()
-POST       /employer                                    controllers.employer.WhatEmployerTaxDoYouWantToAddController.onSubmit()
+GET         /employer                                                       controllers.employer.WhatEmployerTaxDoYouWantToAddController.onPageLoad()
+POST        /employer                                                       controllers.employer.WhatEmployerTaxDoYouWantToAddController.onSubmit()
 
-GET        /employer/pension/activation-token           controllers.employer.pension.DoYouHaveActivationTokenController.onPageLoad()
-POST       /employer/pension/activation-token           controllers.employer.pension.DoYouHaveActivationTokenController.onSubmit()
+GET         /employer/pension/activation-token                              controllers.employer.pension.DoYouHaveActivationTokenController.onPageLoad()
+POST        /employer/pension/activation-token                              controllers.employer.pension.DoYouHaveActivationTokenController.onSubmit()
 
-GET        /employer/pension/practitioner-ID            controllers.employer.pension.DoYouHavePractitionerIDController.onPageLoad()
-POST       /employer/pension/practitioner-ID            controllers.employer.pension.DoYouHavePractitionerIDController.onSubmit()
+GET         /employer/pension/practitioner-ID                               controllers.employer.pension.DoYouHavePractitionerIDController.onPageLoad()
+POST        /employer/pension/practitioner-ID                               controllers.employer.pension.DoYouHavePractitionerIDController.onSubmit()
 
-GET        /employer/pension/practitioner/apply         controllers.employer.pension.ApplyForPractitionerIDController.onPageLoad()
+GET         /employer/pension/practitioner/apply                            controllers.employer.pension.ApplyForPractitionerIDController.onPageLoad()
 
-GET        /employer/pension/need-activation-token      controllers.employer.pension.RequestActivationTokenController.onPageLoad()
+GET         /employer/pension/need-activation-token                         controllers.employer.pension.RequestActivationTokenController.onPageLoad()
 
-GET        /self-assessment/trust/new-account           controllers.sa.trust.SetUpNewAccountController.onPageLoad()
-GET        /self-assessment/partnership/new-account     controllers.sa.partnership.SetUpNewAccountController.onPageLoad()
+GET         /self-assessment/trust/new-account                              controllers.sa.trust.SetUpNewAccountController.onPageLoad()
+GET         /self-assessment/partnership/new-account                        controllers.sa.partnership.SetUpNewAccountController.onPageLoad()
 
-GET        /other/land                                  controllers.other.land.SelectATaxController.onPageLoad()
-POST       /other/land                                  controllers.other.land.SelectATaxController.onSubmit()
+GET         /other/land                                                     controllers.other.land.SelectATaxController.onPageLoad()
+POST        /other/land                                                     controllers.other.land.SelectATaxController.onSubmit()
 
-GET        /other/gambling/rgd                          controllers.other.gambling.rgd.DoYouHaveRGDRegistrationController.onPageLoad()
-POST       /other/gambling/rgd                          controllers.other.gambling.rgd.DoYouHaveRGDRegistrationController.onSubmit()
+GET         /other/gambling/rgd                                             controllers.other.gambling.rgd.DoYouHaveRGDRegistrationController.onPageLoad()
+POST        /other/gambling/rgd                                             controllers.other.gambling.rgd.DoYouHaveRGDRegistrationController.onSubmit()
 
-GET        /other/ctf/ctf-provider                      controllers.other.ctf.AreYouApprovedCTFController.onPageLoad()
-POST       /other/ctf/ctf-provider                      controllers.other.ctf.AreYouApprovedCTFController.onSubmit()
+GET         /other/ctf/ctf-provider                                         controllers.other.ctf.AreYouApprovedCTFController.onPageLoad()
+POST        /other/ctf/ctf-provider                                         controllers.other.ctf.AreYouApprovedCTFController.onSubmit()
 
-GET        /other/ctf/ctf-11                            controllers.other.ctf.YouNeedToBeApprovedCTFController.onPageLoad()
+GET         /other/ctf/ctf-11                                               controllers.other.ctf.YouNeedToBeApprovedCTFController.onPageLoad()
 
-GET        /enrol/:service                              controllers.enrolment.EnrolmentProxyController.onPageLoad(service: utils.Enrolments)
+GET         /enrol/:service                                                 controllers.enrolment.EnrolmentProxyController.onPageLoad(service: utils.Enrolments)
 
-GET        /vat/giant/newaccount                        controllers.vat.giant.SetupNewAccountController.onPageLoad()
+GET         /vat/giant/newaccount                                           controllers.vat.giant.SetupNewAccountController.onPageLoad()
 
-GET        /employer/directors-register-by-phone        controllers.employer.DirectorsRegisterByPhoneController.onPageLoad()
+GET         /employer/directors-register-by-phone                           controllers.employer.DirectorsRegisterByPhoneController.onPageLoad()
 
-GET        /employer/partners-register-by-phone         controllers.employer.PartnershipRegisterByPhoneController.onPageLoad()
+GET         /employer/partners-register-by-phone                            controllers.employer.PartnershipRegisterByPhoneController.onPageLoad()
 
-GET        /employer/directors                          controllers.employer.paye.DoesBusinessHave1To9DirectorsController.onPageLoad()
-POST       /employer/directors                          controllers.employer.paye.DoesBusinessHave1To9DirectorsController.onSubmit()
+GET         /employer/directors                                             controllers.employer.paye.DoesBusinessHave1To9DirectorsController.onPageLoad()
+POST        /employer/directors                                             controllers.employer.paye.DoesBusinessHave1To9DirectorsController.onSubmit()
 
-GET        /employer/partners                           controllers.employer.paye.DoesYourPartnershipHave2To10PartnersController.onPageLoad()
-POST       /employer/partners                           controllers.employer.paye.DoesYourPartnershipHave2To10PartnersController.onSubmit()
+GET         /employer/partners                                              controllers.employer.paye.DoesYourPartnershipHave2To10PartnersController.onPageLoad()
+POST        /employer/partners                                              controllers.employer.paye.DoesYourPartnershipHave2To10PartnersController.onSubmit()
 
-GET        /employer/directors-or-partners              controllers.employer.paye.DoesBusinessHaveDirectorsOrPartnersController.onPageLoad()
-POST       /employer/directors-or-partners              controllers.employer.paye.DoesBusinessHaveDirectorsOrPartnersController.onSubmit()
+GET         /employer/directors-or-partners                                 controllers.employer.paye.DoesBusinessHaveDirectorsOrPartnersController.onPageLoad()
+POST        /employer/directors-or-partners                                 controllers.employer.paye.DoesBusinessHaveDirectorsOrPartnersController.onSubmit()
 
-GET        /employer/have-paye-ref                      controllers.employer.paye.DoYouHavePAYEReferenceController.onPageLoad()
-POST       /employer/have-paye-ref                      controllers.employer.paye.DoYouHavePAYEReferenceController.onSubmit()
+GET         /employer/have-paye-ref                                         controllers.employer.paye.DoYouHavePAYEReferenceController.onPageLoad()
+POST        /employer/have-paye-ref                                         controllers.employer.paye.DoYouHavePAYEReferenceController.onSubmit()
 
-GET        /employer/enter-paye-ref                     controllers.employer.paye.EnterYourPAYEReferenceController.onPageLoad()
-POST       /employer/enter-paye-ref                     controllers.employer.paye.EnterYourPAYEReferenceController.onSubmit()
+GET         /employer/enter-paye-ref                                        controllers.employer.paye.EnterYourPAYEReferenceController.onPageLoad()
+POST        /employer/enter-paye-ref                                        controllers.employer.paye.EnterYourPAYEReferenceController.onSubmit()
 
-GET        /employer/what-is-your-paye-ref              controllers.employer.paye.WhatIsYourPAYEReferenceController.onPageLoad()
-POST       /employer/what-is-your-paye-ref              controllers.employer.paye.WhatIsYourPAYEReferenceController.onSubmit()
+GET         /employer/what-is-your-paye-ref                                 controllers.employer.paye.WhatIsYourPAYEReferenceController.onPageLoad()
+POST        /employer/what-is-your-paye-ref                                 controllers.employer.paye.WhatIsYourPAYEReferenceController.onSubmit()
 
-GET        /corporation-tax                             controllers.ct.IndividualAddCorporationTaxController.onPageLoad()
+GET         /corporation-tax                                                controllers.ct.IndividualAddCorporationTaxController.onPageLoad()
 
-GET        /vat/eligibility                             controllers.vat.VatEligibilityCheckController.onPageLoad()
+GET         /vat/eligibility                                                controllers.vat.VatEligibilityCheckController.onPageLoad()
 
-GET        /vat/has-vat-exception                       controllers.vat.VatRegistrationExceptionController.onPageLoad()
-POST       /vat/has-vat-exception                       controllers.vat.VatRegistrationExceptionController.onSubmit()
+GET         /vat/has-vat-exception                                          controllers.vat.VatRegistrationExceptionController.onPageLoad()
+POST        /vat/has-vat-exception                                          controllers.vat.VatRegistrationExceptionController.onSubmit()
 
-GET        /vat/is-agricultural-flat-rate               controllers.vat.AgriculturalFlatRateSchemeController.onPageLoad()
-POST       /vat/is-agricultural-flat-rate               controllers.vat.AgriculturalFlatRateSchemeController.onSubmit()
+GET         /vat/is-agricultural-flat-rate                                  controllers.vat.AgriculturalFlatRateSchemeController.onPageLoad()
+POST        /vat/is-agricultural-flat-rate                                  controllers.vat.AgriculturalFlatRateSchemeController.onSubmit()
 
-GET        /vat/is-part-of-division                     controllers.vat.CompanyDivisionController.onPageLoad()
-POST       /vat/is-part-of-division                     controllers.vat.CompanyDivisionController.onSubmit()
+GET         /vat/is-part-of-division                                        controllers.vat.CompanyDivisionController.onPageLoad()
+POST        /vat/is-part-of-division                                        controllers.vat.CompanyDivisionController.onSubmit()
 
-GET        /vat/is-distance-selling                     controllers.vat.DistanceSellingController.onPageLoad()
-POST       /vat/is-distance-selling                     controllers.vat.DistanceSellingController.onSubmit()
+GET         /vat/is-distance-selling                                        controllers.vat.DistanceSellingController.onPageLoad()
+POST        /vat/is-distance-selling                                        controllers.vat.DistanceSellingController.onSubmit()
 
-GET        /vat/has-imported-goods                      controllers.vat.ImportedGoodsController.onPageLoad()
-POST       /vat/has-imported-goods                      controllers.vat.ImportedGoodsController.onSubmit()
+GET         /vat/has-imported-goods                                         controllers.vat.ImportedGoodsController.onPageLoad()
+POST        /vat/has-imported-goods                                         controllers.vat.ImportedGoodsController.onSubmit()
 
-GET        /vat/is-claiming-refund                      controllers.vat.ClaimRefundController.onPageLoad()
-POST       /vat/is-claiming-refund                      controllers.vat.ClaimRefundController.onSubmit()
+GET         /vat/is-claiming-refund                                         controllers.vat.ClaimRefundController.onPageLoad()
+POST        /vat/is-claiming-refund                                         controllers.vat.ClaimRefundController.onSubmit()
 
-GET        /vat/can-register-online                     controllers.vat.CanRegisterForVATController.onPageLoad()
+GET         /vat/can-register-online                                        controllers.vat.CanRegisterForVATController.onPageLoad()
 
-GET        /vat/cannot-register-online                  controllers.vat.CannotRegisterVATController.onPageLoad()
+GET         /vat/cannot-register-online                                     controllers.vat.CannotRegisterVATController.onPageLoad()
 
-GET        /account-unavailable                         controllers.vat.WhatIsYourVATRegNumberController.onPageLoadVatUnavailable()
+GET         /vat/different-vat-registration-numbers                         controllers.vat.WhatIsYourVATRegNumberController.onPageLoadDifferentVatRegistrationNumbers()
+
+GET         /account-unavailable                                            controllers.vat.WhatIsYourVATRegNumberController.onPageLoadVatUnavailable()

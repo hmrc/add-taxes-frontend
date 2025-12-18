@@ -1319,6 +1319,13 @@ vatAccountUnavailable.p2 = Bydd yn cymryd hyd at 72 awr i greu’ch cyfrif.
 vatAccountUnavailable.p3 = Dewch yn ôl yn nes ymlaen.
 
 #######################################################
+##  differentVatRegistrationNumbers
+#######################################################
+differentVatRegistrationNumbers.title = Rydych wedi nodi gwahanol rifau cofrestru TAW
+differentVatRegistrationNumbers.p1 = Nid yw’r rhif cofrestru TAW rydych wedi ei ddarparu yn cyd-fynd yn union â’r rhif a ddefnyddiwyd o’r blaen. Am resymau diogelwch, mae’n rhaid ailddechrau’r sesiwn hwn.
+differentVatRegistrationNumbers.p2 = Er mwyn rhoi cynnig arall arni, bydd angen i chi allgofnodi ac yna mewngofnodi eto.
+
+#######################################################
 ##  successfulEnrolment
 #######################################################
 successfulEnrolment.title = Gallwch nawr gael at eich cyfrif Hunanasesiad
