@@ -22,7 +22,7 @@ import connectors.{DataCacheConnector, VatSubscriptionConnector}
 import controllers.ControllerSpecBase
 import forms.vat.WhatIsYourVATRegNumberFormProvider
 import handlers.ErrorHandler
-import org.mockito.ArgumentMatchers.{any, eq => meq}
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
@@ -32,7 +32,7 @@ import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import service.KnownFactsService
-import uk.gov.hmrc.http.{HeaderNames, SessionId}
+import uk.gov.hmrc.http.HeaderNames
 import utils.{Enrolments, FakeNavigator}
 import views.html.vat.{differentVatRegistrationNumbers, vatAccountUnavailable, vatRegistrationException, whatIsYourVATRegNumber}
 
