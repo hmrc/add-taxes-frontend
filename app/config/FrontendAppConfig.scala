@@ -85,7 +85,7 @@ class FrontendAppConfig @Inject() (val config: ServicesConfig, val conf: Configu
   private lazy val signoutBtaLinkWithContinue = config.getString("urls.business-account.signoutContinueUrl")
   private lazy val signoutToOrgHost           = config.getString("add-taxes-sign-out.host")
 
-  def addTaxesSignoutThenContinueTo(continueUrl: String): String = businessAccountHost + signoutBtaLinkWithContinue + addTaxesHost + continueUrl
+  def addTaxesSignoutThenContinueTo(continueUrl: String): String = businessAccountHost + signoutBtaLinkWithContinue + addTaxesEnvHost + continueUrl
   def addTaxesSignoutToOrg(key: String): String =
     businessAccountHost + signoutBtaLinkWithContinue + signoutToOrgHost + config.getString(s"urls.business-account.$key")
   def getBusinessAccountUrl(key: String): String       = businessAccountHost + config.getString(s"urls.business-account.$key")
@@ -199,6 +199,7 @@ class FrontendAppConfig @Inject() (val config: ServicesConfig, val conf: Configu
   lazy val identityVerificationFrontendBaseUrl: String = config.baseUrl("identity-verification-frontend")
   lazy val identityVerificationEnv: String             = config.getString("identity-verification-frontend.env")
   lazy val addTaxesHost: String                        = config.getString("add-taxes-frontend.host")
+  lazy val addTaxesEnvHost: String                     = config.getString("add-taxes-frontend-environment.host")
   lazy val awrsFrontendHost: String                    = config.getString("urls.awrs-frontend.host")
   lazy val identityVerificationHost: String            = config.getString("identity-verification-frontend.host")
   lazy val taxEnrolmentsBaseUrl: String                = config.baseUrl("tax-enrolments")

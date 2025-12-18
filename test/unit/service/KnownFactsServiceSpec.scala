@@ -70,6 +70,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
   val testKnownFactsNinoOnly: KnownFacts                             = KnownFacts(None, Some("AA00000A"), None)
   val utr: SAUTR                                                     = SAUTR("1234567890")
   val vrn: String                                                    = "123456789"
+  val sessId: String                                                 = "sessionId"
 
   def service(): KnownFactsService = new KnownFactsService(
     mockSaService,
@@ -326,7 +327,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
     "'VATKnownFactsCheck' switch is disabled" must {
       "return the given VRN in a Right" in {
         disable(VATKnownFactsCheck)
-        val result = await(service().checkVrnMatchesPreviousAttempts(vrn))
+        val result = await(service().checkVrnMatchesPreviousAttempts(vrn, sessId))
 
         result mustBe Right(vrn)
       }
@@ -339,7 +340,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           mockSaveVrn()
           mockRetrieveVrn(savedVrn = None)
 
-          val result = await(service().checkVrnMatchesPreviousAttempts(vrn))
+          val result = await(service().checkVrnMatchesPreviousAttempts(vrn, sessId))
           result mustBe Right(vrn)
           verify(mockDataCacheConnector, times(1)).save[String](any(), any(), any())(any())
         }
@@ -349,7 +350,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           enable(VATKnownFactsCheck)
           mockRetrieveVrn(savedVrn = Some(vrn))
 
-          val result = await(service().checkVrnMatchesPreviousAttempts(vrn))
+          val result = await(service().checkVrnMatchesPreviousAttempts(vrn, sessId))
           result mustBe Right(vrn)
           verify(mockDataCacheConnector, never())
             .save[String](any(), any(), any())(any())
@@ -363,7 +364,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           val cveErrorPageUrl = "/claim-vat-enrolment/error/different-vat-registration-numbers"
           when(mockAppConfig.addTaxesSignoutThenContinueTo(any())).thenReturn(cveErrorPageUrl)
 
-          val result         = await(service().checkVrnMatchesPreviousAttempts(vrn))
+          val result         = await(service().checkVrnMatchesPreviousAttempts(vrn, sessId))
           val resultRedirect = result.left.map(_.header.headers("Location"))
           resultRedirect mustBe Left(cveErrorPageUrl)
           verify(mockAuditService, times(1))
