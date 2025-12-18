@@ -21,7 +21,7 @@ import config.featureToggles.FeatureSwitch.{IvUpliftSwitch, RealVatEtmpCheck, VA
 import config.featureToggles.FeatureToggleSupport.isEnabled
 import connectors.{CitizensDetailsConnector, DataCacheConnector, EnrolmentStoreProxyConnector, VatSubscriptionConnector}
 import controllers.sa.{routes => saRoutes}
-import controllers.vat.{routes, routes => vatRoutes}
+import controllers.vat.{routes => vatRoutes}
 import handlers.ErrorHandler
 import identifiers.EnterSAUTRId
 import models.requests.ServiceInfoRequest
@@ -181,7 +181,7 @@ class KnownFactsService @Inject() (saService: SaService,
 
           auditService.auditCveMultipleVrnsAttempted(previousAttemptVrn, newSubmittedVrn, userType)
 
-          val multipleVrnsAttemptedErrorRedirect: Call = routes.WhatIsYourVATRegNumberController.onPageLoadDifferentVatRegistrationNumbers()
+          val multipleVrnsAttemptedErrorRedirect: Call = vatRoutes.WhatIsYourVATRegNumberController.onPageLoadDifferentVatRegistrationNumbers()
           val signOutWithRedirectToErrorPage: String   = appConfig.addTaxesSignoutThenContinueTo(multipleVrnsAttemptedErrorRedirect.url)
           Future.successful(Left(Redirect(signOutWithRedirectToErrorPage)))
       }
