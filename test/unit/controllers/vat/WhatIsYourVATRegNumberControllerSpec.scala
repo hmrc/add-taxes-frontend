@@ -22,7 +22,7 @@ import connectors.{DataCacheConnector, VatSubscriptionConnector}
 import controllers.ControllerSpecBase
 import forms.vat.WhatIsYourVATRegNumberFormProvider
 import handlers.ErrorHandler
-import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
@@ -32,6 +32,7 @@ import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import service.KnownFactsService
+import uk.gov.hmrc.http.{HeaderNames, SessionId}
 import utils.{Enrolments, FakeNavigator}
 import views.html.vat.{differentVatRegistrationNumbers, vatAccountUnavailable, vatRegistrationException, whatIsYourVATRegNumber}
 
@@ -148,42 +149,44 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
         "call to bypassOrCheckMandationStatus fails and returns a redirect in a Left" in {
           when(mockKnownFactsService.bypassOrCheckMandationStatus(any())(any(), any(), any()))
             .thenReturn(Future.successful(Left(Redirect("/redirect-call"))))
-          when(mockKnownFactsService.checkVrnMatchesPreviousAttempts(any())(any(), any(), any()))
+          when(mockKnownFactsService.checkVrnMatchesPreviousAttempts(any(), any())(any(), any(), any()))
             .thenReturn(Future.successful(Right(testVrn)))
 
-          val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST")
-          val result      = controller().onSubmit()(postRequest)
+          val postRequest =
+            fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST").withHeaders(HeaderNames.xSessionId -> "sessionId")
+          val result = controller().onSubmit()(postRequest)
 
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some("/redirect-call")
           verify(mockKnownFactsService, times(1)).bypassOrCheckMandationStatus(any())(any(), any(), any())
-          verify(mockKnownFactsService, times(1)).checkVrnMatchesPreviousAttempts(any())(any(), any(), any())
+          verify(mockKnownFactsService, times(1)).checkVrnMatchesPreviousAttempts(any(), any())(any(), any(), any())
         }
         "call to checkVrnMatchesPreviousAttempts fails and returns a redirect in a Left" in {
           when(mockKnownFactsService.bypassOrCheckMandationStatus(any())(any(), any(), any()))
             .thenReturn(Future.successful(Right(OK)))
-          when(mockKnownFactsService.checkVrnMatchesPreviousAttempts(any())(any(), any(), any()))
+          when(mockKnownFactsService.checkVrnMatchesPreviousAttempts(any(), any())(any(), any(), any()))
             .thenReturn(Future.successful(Left(Redirect("/redirect-call"))))
 
-          val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST")
-          val result      = controller().onSubmit()(postRequest)
+          val postRequest =
+            fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST").withHeaders(HeaderNames.xSessionId -> "sessionId")
+          val result = controller().onSubmit()(postRequest)
 
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some("/redirect-call")
           verify(mockKnownFactsService, times(1)).bypassOrCheckMandationStatus(any())(any(), any(), any())
-          verify(mockKnownFactsService, times(1)).checkVrnMatchesPreviousAttempts(any())(any(), any(), any())
+          verify(mockKnownFactsService, times(1)).checkVrnMatchesPreviousAttempts(any(), any())(any(), any(), any())
         }
       }
 
       "redirect to the next page when valid data is submitted and mandation status is 200" in {
         when(mockKnownFactsService.bypassOrCheckMandationStatus(any())(any(), any(), any()))
           .thenReturn(Future.successful(Right(OK)))
-        when(mockKnownFactsService.checkVrnMatchesPreviousAttempts(any())(any(), any(), any()))
+        when(mockKnownFactsService.checkVrnMatchesPreviousAttempts(any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(Right(testVrn)))
 
         val claimSubscriptionPage = frontendAppConfig.vatSignUpClaimSubscriptionUrl(testVrn)
-        val postRequest           = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST")
-        val result                = controller(Call("GET", claimSubscriptionPage)).onSubmit()(postRequest)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST").withHeaders(HeaderNames.xSessionId -> "sessionId")
+        val result      = controller(Call("GET", claimSubscriptionPage)).onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(claimSubscriptionPage)
@@ -192,12 +195,12 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
       "redirect to the Enrolment Management page when the mandation status is not 200" in {
         when(mockKnownFactsService.bypassOrCheckMandationStatus(any())(any(), any(), any()))
           .thenReturn(Future.successful(Right(NOT_FOUND)))
-        when(mockKnownFactsService.checkVrnMatchesPreviousAttempts(any())(any(), any(), any()))
+        when(mockKnownFactsService.checkVrnMatchesPreviousAttempts(any(), any())(any(), any(), any()))
           .thenReturn(Future.successful(Right(testVrn)))
 
         val enrolmentManagementPage = frontendAppConfig.emacEnrollmentsUrl(Enrolments.VAT)
-        val postRequest             = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST")
-        val result                  = controller(Call("GET", enrolmentManagementPage)).onSubmit()(postRequest)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST").withHeaders(HeaderNames.xSessionId -> "sessionId")
+        val result      = controller(Call("GET", enrolmentManagementPage)).onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(enrolmentManagementPage)

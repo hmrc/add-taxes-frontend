@@ -70,7 +70,8 @@ class WhatIsYourVATRegNumberController @Inject() (appConfig: FrontendAppConfig,
       Future.successful(BadRequest(whatIsYourVATRegNumber(appConfig, formWithErrors, isKnownFactsCheckEnabled)(request.serviceInfoContent)))
 
     def handleSuccessfulSubmission(submittedVrn: String): Future[Result] = {
-      val submittedVrnIsValid: Future[Either[Result, String]] = knownFactsService.checkVrnMatchesPreviousAttempts(submittedVrn)
+      val sessionId = hc.sessionId.getOrElse(throw new IllegalStateException("SessionId missing from HeaderCarrier"))
+      val submittedVrnIsValid: Future[Either[Result, String]] = knownFactsService.checkVrnMatchesPreviousAttempts(submittedVrn, sessionId.value)
       val checkMandationStatus: Future[Either[Result, Int]]   = knownFactsService.bypassOrCheckMandationStatus(submittedVrn)
       for {
         submittedVrn    <- submittedVrnIsValid

@@ -156,7 +156,7 @@ class KnownFactsService @Inject() (saService: SaService,
         Left(InternalServerError(errorHandler.internalServerErrorTemplate))
     }
 
-  def checkVrnMatchesPreviousAttempts(newSubmittedVrn: String)(implicit
+  def checkVrnMatchesPreviousAttempts(newSubmittedVrn: String, sessionId: String)(implicit
       request: ServiceInfoRequest[AnyContent],
       ec: ExecutionContext,
       hc: HeaderCarrier): Future[Either[Result, String]] = {
@@ -164,9 +164,9 @@ class KnownFactsService @Inject() (saService: SaService,
     if (isEnabled(VATKnownFactsCheck)) {
       infoLog(s"$logPrefix VATKnownFactsCheck switch is enabled")
 
-      retrieveVRN(request.request.credId).flatMap {
+      retrieveVRN(sessionId).flatMap {
         case None =>
-          saveVRN(request.request.credId, newSubmittedVrn)
+          saveVRN(sessionId, newSubmittedVrn)
           infoLog(s"$logPrefix First time submitting VRN in journey")
           Future.successful(Right(newSubmittedVrn))
         case Some(previousAttemptVrn) if previousAttemptVrn.equals(newSubmittedVrn) =>
@@ -191,9 +191,9 @@ class KnownFactsService @Inject() (saService: SaService,
     }
   }
 
-  private def saveVRN(credId: String, vrn: String): Future[CacheMap] =
-    dataCacheConnector.save[String](credId, "vrn", vrn)
-  private def retrieveVRN(credId: String): Future[Option[String]] =
-    dataCacheConnector.getEntry[String](credId, "vrn")
+  private def saveVRN(sessionId: String, vrn: String): Future[CacheMap] =
+    dataCacheConnector.save[String](sessionId, "vrn", vrn)
+  private def retrieveVRN(sessionId: String): Future[Option[String]] =
+    dataCacheConnector.getEntry[String](sessionId, "vrn")
 
 }
