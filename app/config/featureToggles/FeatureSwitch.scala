@@ -104,4 +104,9 @@ object FeatureSwitch {
     override val displayText: String = "VAT Known Facts changes"
   }
 
+  case object VANContentChanges extends FeatureSwitch {
+    override val name: String        = s"$prefix.vanContentChanges"
+    override val displayText: String = "VAN Content changes"
+  }
+
 }

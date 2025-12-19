@@ -890,7 +890,7 @@ doYouNeedToStopMGD.No = No, I need to deregister from Machine Games Duty
 doYouNeedToStopMGD.error.required = Select yes if you need to stop using the Machine Games Duty online service
 
 #######################################################
-##  Add VAT - Interstitial page
+##  Add VAT - Interstitial page New
 #######################################################
 claimVATInterstitialPage.title=Adding VAT to your business tax account
 claimVATInterstitialPage.heading=Adding VAT to your business tax account
@@ -936,6 +936,37 @@ claimVATInterstitialPage.dropdown.bullet3.text=Check whether someone else has al
 claimVATInterstitialPage.dropdown.supportLink=technical support with VAT online services.
 
 claimVATInterstitialPage.continue=Continue
+
+#######################################################
+##  Add VAT - Interstitial page Old
+#######################################################
+claimVATInterstitialPage.title=Adding VAT to your business tax account
+claimVATInterstitialPage.heading=Adding VAT to your business tax account
+claimVATInterstitialPage.old.h1=To add VAT to your account you will need to tell us:
+
+claimVATInterstitialPage.old.p1.title=1. Your VAT registration number (VRN)
+claimVATInterstitialPage.old.p1.text1=You can find your VRN on your:
+claimVATInterstitialPage.old.p1.bullet1=Notification of VAT Registration letter. You will have received this by post when you first registered for VAT
+claimVATInterstitialPage.old.p1.bullet2=last VAT Return
+claimVATInterstitialPage.old.p1.text2=It is 9 numbers, sometimes with ‘GB’ at the start. For example, 123456789 or GB123456789.
+
+claimVATInterstitialPage.old.p2.title=2. The date the business was registered for VAT
+claimVATInterstitialPage.old.p2.text1=You can find this date on your Notification of VAT Registration letter. It is called the ‘Effective date of registration’.
+
+claimVATInterstitialPage.old.p3.title=3. The business''s UK postcode (if applicable)
+claimVATInterstitialPage.old.p3.text1=This postcode must match the postcode that’s registered against the VAT record. You can find this on the:
+claimVATInterstitialPage.old.p3.bullet1=Check a UK VAT Number service (opens in new tab)
+claimVATInterstitialPage.old.p3.bullet2=Notification of VAT Registration letter
+
+claimVATInterstitialPage.old.h2=If you are currently submitting VAT returns you will also need to tell us:
+
+claimVATInterstitialPage.old.p4.title=4. The exact amount of your latest VAT return
+claimVATInterstitialPage.old.p4.text1=You can find this amount in box number 5 on your latest VAT Return submitted to HMRC. You need to tell us the exact amount in pounds and pence.
+
+claimVATInterstitialPage.old.p5.title=5. The month of your latest VAT accounting period
+claimVATInterstitialPage.old.p5.text1=You can find this in your latest VAT Return submitted to HMRC.
+
+claimVATInterstitialPage.old.continue=Continue
 
 #######################################################
 ##  DoYouHaveVATRegNumber
