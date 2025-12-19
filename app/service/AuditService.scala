@@ -107,13 +107,10 @@ class AuditService @Inject() (auditConnector: AuditConnector) {
 
   private def buildTags()(implicit hc: HeaderCarrier, request: Request[_]): Map[String, String] =
     Map(
-      "X-Request-Id"    -> hc.requestId.map(_.value).getOrElse(""),
-      "X-Session-Id"    -> hc.sessionId.map(_.value).getOrElse(""),
       "path"            -> request.path,
       "transactionName" -> request.path,
       "clientIP"        -> hc.trueClientIp.getOrElse(""),
-      "clientPort"      -> hc.trueClientPort.getOrElse(""),
-      "type"            -> "Audit"
+      "clientPort"      -> hc.trueClientPort.getOrElse("")
     )
 
   def auditSelectSACategory(saType: SelectSACategory, doYouHaveSaUtr: DoYouHaveSAUTR, utr: String, credId: String, groupId: String)(implicit
