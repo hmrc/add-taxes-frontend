@@ -16,7 +16,6 @@
 
 package models.sa
 
-import play.api.libs.json.{Format, Json}
 
 case class CaptureSAUTRModel (value : DoYouHaveSAUTR, sautrValue : Option[String])
 

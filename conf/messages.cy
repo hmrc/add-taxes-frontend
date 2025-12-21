@@ -914,7 +914,7 @@ doYouNeedToStopMGD.No = Na, mae angen i fi ddadgofrestru o’r Doll Peiriannau H
 doYouNeedToStopMGD.error.required = Dewiswch ‘Iawn’ os oes angen i chi roi’r gorau i ddefnyddio’r Doll Peiriannau Hapchwarae
 
 #######################################################
-##  Add VAT - Interstitial page
+##  Add VAT - Interstitial page New
 #######################################################
 claimVATInterstitialPage.title=Ychwanegu TAW at eich Cyfrif Treth Busnes
 claimVATInterstitialPage.heading=Ychwanegu TAW at eich Cyfrif Treth Busnes
@@ -960,6 +960,37 @@ claimVATInterstitialPage.dropdown.bullet3.text=Gwiriwch a oes rhywun arall eisoe
 claimVATInterstitialPage.dropdown.supportLink=gymorth technegol gyda gwasanaethau TAW ar-lein.
 
 claimVATInterstitialPage.continue=Parhau
+
+#######################################################
+##  Add VAT - Interstitial page Old
+#######################################################
+claimVATInterstitialPage.title=Ychwanegu TAW at eich cyfrif treth busnes
+claimVATInterstitialPage.heading=Ychwanegu TAW at eich cyfrif treth busnes
+claimVATInterstitialPage.old.h1=Er mwyn ychwanegu TAW at eich cyfrif, bydd angen i chi roi gwybod i ni am y canlynol:
+
+claimVATInterstitialPage.old.p1.title=1. Eich Rhif cofrestru TAW (VRN)
+claimVATInterstitialPage.old.p1.text1=Gallwch ddod o hyd i’ch VRN ar eich:
+claimVATInterstitialPage.old.p1.bullet1=Hysbysiad o lythyr Cofrestru ar gyfer TAW. Byddwch wedi cael hyn drwy’r post pan wnaethoch gofrestru ar gyfer TAW am y tro cyntaf
+claimVATInterstitialPage.old.p1.bullet2=Ffurflen TAW diwethaf
+claimVATInterstitialPage.old.p1.text2=Mae’n cynnwys 9 rhif, weithiau â ‘GB’ ar y dechrau. Er enghraifft, 123456789 neu GB123456789.
+
+claimVATInterstitialPage.old.p2.title=2. Y dyddiad y cofrestrwyd y busnes ar gyfer TAW
+claimVATInterstitialPage.old.p2.text1=Mae hwn i’w weld ar eich Hysbysiad o lythyr Cofrestru ar gyfer TAW. Fe’i gelwir yn ‘Dyddiad y daw’r cofrestriad i rym’.
+
+claimVATInterstitialPage.old.p3.title=3. Cod post y busnes yn y DU (os yw’n berthnasol)
+claimVATInterstitialPage.old.p3.text1=Mae’n rhaid i’r cod post hwn gyd-fynd â’r cod post sydd wedi’i gofrestru yn erbyn y cofnod TAW. Gallwch ddod o hyd i hwn ar y:
+claimVATInterstitialPage.old.p3.bullet1=Gwasanaeth Gwirio Rhif TAW yn y DU (yn agor tab newydd)
+claimVATInterstitialPage.old.p3.bullet2=Hysbysiad o lythyr Cofrestru ar gyfer TAW
+
+claimVATInterstitialPage.old.h2=Os ydych yn cyflwyno Ffurflenni TAW ar hyn o bryd, bydd angen i chi roi gwybod i ni:
+
+claimVATInterstitialPage.old.p4.title=4. Union swm eich Ffurflen TAW ddiweddaraf
+claimVATInterstitialPage.old.p4.text1=Mae’r swm hwn i’w weld ym mlwch 5 yn y Ffurflen TAW ddiweddaraf i chi ei chyflwyno i CThEF. Mae angen i chi roi gwybod i ni yr union swm mewn punnoedd a cheiniogau.
+
+claimVATInterstitialPage.old.p5.title=5. Mis eich cyfnod cyfrifyddu TAW diweddaraf
+claimVATInterstitialPage.old.p5.text1=Gallwch ddod o hyd i hyn yn y Ffurflen TAW ddiweddaraf i chi ei chyflwyno i CThEF.
+
+claimVATInterstitialPage.old.continue=Parhau
 
 #######################################################
 ##  DoYouHaveVATRegNumber

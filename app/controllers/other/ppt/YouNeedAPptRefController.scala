@@ -17,7 +17,6 @@
 package controllers.other.ppt
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import handlers.ErrorHandler
 import javax.inject.Inject
