@@ -29,7 +29,6 @@ import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import service.ThresholdService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enumerable, Navigator}
-import views.html.helper.form
 import views.html.vat.importedGoods
 
 class ImportedGoodsController @Inject()(appConfig: FrontendAppConfig,

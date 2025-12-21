@@ -17,7 +17,6 @@
 package controllers.other.ppt
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import forms.other.ppt.PptReferenceFormProvider
 import handlers.ErrorHandler

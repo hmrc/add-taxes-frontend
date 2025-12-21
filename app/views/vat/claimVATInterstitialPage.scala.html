@@ -37,7 +37,7 @@ serviceInfoContent = Some(serviceInfoContent)) {
 @defining(appConfig.getGovUkUrl) { vatOnlineSupportUrl =>
 @defining(controllers.vat.routes.DoYouHaveVATRegNumberController.onPageLoad()) { continueCall =>
 
-@if(appConfig.isVANContentChangesEnabled) {
+@if(appConfig.VANContentChanges) {
 @_claimVATInterstitial_new(checkVatUrl, vatOnlineSupportUrl, continueCall)
 } else {
 @_claimVATInterstitial_old(checkVatUrl, continueCall)

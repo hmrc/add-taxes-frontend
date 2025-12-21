@@ -18,7 +18,6 @@ package config
 
 import com.google.inject.{Inject, Singleton}
 import com.typesafe.config.{ConfigList, ConfigRenderOptions}
-import config.featureToggles.FeatureSwitch.{VANContentChanges, featureSwitches}
 import controllers.routes
 import models.VatThreshold
 import play.api.Configuration
@@ -283,7 +282,12 @@ class FrontendAppConfig @Inject() (val config: ServicesConfig, val conf: Configu
   lazy val deregThresholds: Seq[VatThreshold] = Json.parse(deregThresholdString).as[List[VatThreshold]]
 
   lazy val isKnownFactsCheckEnabled: Boolean = config.getConfBool("feature-toggles.vatKnownFactsCheck", false)
-  lazy val isVANContentChangesEnabled: Boolean = config.getConfBool("feature-toggles.vanContentChanges", false)
+  lazy val VANContentChanges: Boolean =
+    sys.props
+      .get("feature-toggles.vanContentChanges")
+      .map(_.toBoolean)
+      .getOrElse(config.getBoolean("feature-toggles.vanContentChanges"))
+
 }
 
 trait FeatureToggles {

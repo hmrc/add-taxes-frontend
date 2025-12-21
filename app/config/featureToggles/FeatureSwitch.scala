@@ -29,7 +29,8 @@ object FeatureSwitch {
     Pillar2Switch,
     CDSSwitch,
     AWRSJourneyRedirect,
-    VATKnownFactsCheck
+    VATKnownFactsCheck,
+    VANContentChanges
   )
 
   def apply(str: String): FeatureSwitch =
@@ -106,7 +107,7 @@ object FeatureSwitch {
 
   case object VANContentChanges extends FeatureSwitch {
     override val name: String        = s"$prefix.vanContentChanges"
-    override val displayText: String = "VAN Content changes"
+    override val displayText: String = "Feature switch for VAN Content changes"
   }
 
 }
