@@ -971,8 +971,8 @@ claimVATInterstitialPage.old.continue=Continue
 #######################################################
 ##  DoYouHaveVATRegNumber
 #######################################################
-doYouHaveVATRegNumber.title = Do you have a VAT number?
-doYouHaveVATRegNumber.heading = Do you have a VAT number?
+doYouHaveVATRegNumber.title = Do you have a VAT registration number?
+doYouHaveVATRegNumber.heading = Do you have a VAT registration number?
 doYouHaveVATRegNumber.explanation = This is the 9-digit number on your VAT registration certificate.
 doYouHaveVATRegNumber.Yes = Yes
 doYouHaveVATRegNumber.No = No
