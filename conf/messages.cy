@@ -995,8 +995,8 @@ claimVATInterstitialPage.old.continue=Parhau
 #######################################################
 ##  DoYouHaveVATRegNumber
 #######################################################
-doYouHaveVATRegNumber.title = A oes gennych rif TAW?
-doYouHaveVATRegNumber.heading = A oes gennych rif TAW?
+doYouHaveVATRegNumber.title = A oes gennych rif cofrestru TAW?
+doYouHaveVATRegNumber.heading = A oes gennych rif cofrestru TAW?
 doYouHaveVATRegNumber.explanation = Dyma’r rhif 9 digid ar eich tystysgrif gofrestru TAW.
 doYouHaveVATRegNumber.Yes = Iawn
 doYouHaveVATRegNumber.No = Na
