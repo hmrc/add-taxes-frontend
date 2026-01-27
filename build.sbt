@@ -6,8 +6,7 @@ import uk.gov.hmrc.DefaultBuildSettings.{addTestReportOption, defaultSettings, s
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin
 import uk.gov.hmrc.sbtsettingkeys.Keys.isPublicArtefact
 
-
-lazy val appName: String = "add-taxes-frontend"
+lazy val appName: String       = "add-taxes-frontend"
 lazy val plugins: Seq[Plugins] = Seq.empty
 lazy val playSettings: Seq[Setting[?]] = Seq(
   RoutesKeys.routesImport ++= Seq(),
@@ -19,13 +18,13 @@ lazy val playSettings: Seq[Setting[?]] = Seq(
 
 def unitFilter(name: String): Boolean = name startsWith "unit"
 
-def getSourceDirectories(root: File, testType: String) = Seq(root / s"test/$testType")
+def getSourceDirectories(root: File, testType: String)   = Seq(root / s"test/$testType")
 def getResourceDirectories(root: File, testType: String) = Seq(root / s"test/$testType", root / "target/web/public/test")
 
 lazy val microservice = Project(appName, file("."))
   .enablePlugins((Seq(play.sbt.PlayScala, SbtDistributablesPlugin) ++ plugins) *)
   .disablePlugins(JUnitXmlReportPlugin)
-  .settings(playSettings: _*)
+  .settings(playSettings *)
   .settings(RoutesKeys.routesImport ++= Seq(
     "models._",
     "config.Binders._",
@@ -36,44 +35,48 @@ lazy val microservice = Project(appName, file("."))
       ".*BuildInfo.*;.*javascript.*;.*FrontendAuditConnector.*;.*Routes.*;.*GuiceInjector;.*DataCacheConnector;" +
       ".*ControllerConfiguration;.*LanguageSwitchController;.*FeatureQueryBinder;.*featureToggles;.*feature_switch;.*FeatureSwitchController.*",
     ScoverageKeys.coverageMinimumStmtTotal := 92.98,
-    ScoverageKeys.coverageFailOnMinimum := true,
-    ScoverageKeys.coverageHighlighting := true,
-    parallelExecution in Test := false
+    ScoverageKeys.coverageFailOnMinimum    := true,
+    ScoverageKeys.coverageHighlighting     := true,
+    Test / parallelExecution               := false
   )
-  .settings(scalaSettings: _*)
-  .settings(defaultSettings(): _*)
+  .settings(scalaSettings *)
+  .settings(defaultSettings() *)
   .settings(
     scalaVersion := "2.13.16",
     libraryDependencies ++= AppDependencies(),
-    retrieveManaged := true,
+    retrieveManaged          := true,
     PlayKeys.playDefaultPort := 9730,
-    isPublicArtefact := true
+    isPublicArtefact         := true
   )
-  .settings(inConfig(Test)(Defaults.testSettings): _*)
+  .settings(inConfig(Test)(Defaults.testSettings) *)
   .settings(
     addTestReportOption(Test, "test-reports"),
-    unmanagedSourceDirectories in Test := (baseDirectory in Test) (base => getSourceDirectories(base, "unit")).value,
-    unmanagedResourceDirectories in Test := (baseDirectory in Test) (base => getResourceDirectories(base, "unit")).value
+    Test / unmanagedSourceDirectories   := (Test / baseDirectory)(base => getSourceDirectories(base, "unit")).value,
+    Test / unmanagedResourceDirectories := (Test / baseDirectory)(base => getResourceDirectories(base, "unit")).value
   )
   .configs(IntegrationTest)
-  .settings(inConfig(IntegrationTest)(Defaults.itSettings): _*)
+  .settings(inConfig(IntegrationTest)(Defaults.itSettings) *)
   .settings(
-    unmanagedSourceDirectories in IntegrationTest := (baseDirectory in IntegrationTest) (base => getSourceDirectories(base, "it")).value,
-    unmanagedResourceDirectories in IntegrationTest := (baseDirectory in IntegrationTest) (base => getResourceDirectories(base, "it")).value,
-    Keys.fork in IntegrationTest := true,
-    parallelExecution in IntegrationTest := false,
+    IntegrationTest / unmanagedSourceDirectories   := (IntegrationTest / baseDirectory)(base => getSourceDirectories(base, "it")).value,
+    IntegrationTest / unmanagedResourceDirectories := (IntegrationTest / baseDirectory)(base => getResourceDirectories(base, "it")).value,
+    IntegrationTest / Keys.fork                    := true,
+    IntegrationTest / parallelExecution            := false,
     addTestReportOption(IntegrationTest, "it-test-reports"),
-    (compile in IntegrationTest) := (compile in IntegrationTest).dependsOn(assets in TestAssets).value,
-    unmanagedClasspath in IntegrationTest += ((baseDirectory in IntegrationTest) map { base => Attributed.blank(base / "target/web/public/test") }).value,
-    javaOptions in IntegrationTest ++= Seq(
+    (IntegrationTest / compile) := (IntegrationTest / compile).dependsOn(TestAssets / assets).value,
+    IntegrationTest / unmanagedClasspath += ((IntegrationTest / baseDirectory) map { base =>
+      Attributed.blank(base / "target/web/public/test")
+    }).value,
+    IntegrationTest / javaOptions ++= Seq(
       "-Dlogger.resource=logback-test.xml"
-    )
+    ),
+    scalacOptions.+=("-Wconf:src=routes/.*:s"),
+    scalacOptions.+=("-Wconf:src=html/.*:s")
   )
   .settings(
-    Keys.fork in Test := true,
-    Keys.fork in IntegrationTest := true,
+    Test / Keys.fork            := true,
+    IntegrationTest / Keys.fork := true,
     addTestReportOption(IntegrationTest, "int-test-reports"),
-    parallelExecution in IntegrationTest := false
+    IntegrationTest / parallelExecution := false
   )
   .settings(
     // concatenate js
@@ -82,10 +85,11 @@ lazy val microservice = Project(appName, file("."))
     ),
     // prevent removal of unused code which generates warning errors due to use of third-party libs
     uglifyCompressOptions := Seq("unused=false", "dead_code=false"),
-    uglifyOps := UglifyOps.singleFile,
-    pipelineStages := Seq(digest),
+    uglifyOps             := UglifyOps.singleFile,
+    pipelineStages        := Seq(digest),
     // below line required to force asset pipeline to operate in dev rather than only prod
-    pipelineStages in Assets := Seq(concat, uglify),
+    Assets / pipelineStages := Seq(concat, uglify),
     // only compress files generated by concat
-    includeFilter in uglify := GlobFilter("addtaxesfrontend-*.js"))
+    uglify / includeFilter := GlobFilter("addtaxesfrontend-*.js")
+  )
   .settings(majorVersion := 0)

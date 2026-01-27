@@ -116,7 +116,6 @@ object NextPage
     with DoYouNeedToStopVatMossNUNextPage
     with DoYouNeedToStopMGDNextPage
     with DoYouHaveVATRegNumberNextPage
-    with WhatIsYourVATRegNumberNextPage
     with DoYouHaveActivationTokenNextPage
     with DoYouHavePractitionerIDNextPage
     with DoesBusinessHave1To9DirectorsNextPage
@@ -132,4 +131,3 @@ object NextPage
     with utils.nextpage.vat.DistanceSellingNextPage
     with utils.nextpage.vat.ImportedGoodsNextPage
     with utils.nextpage.vat.ClaimRefundNextPage
-

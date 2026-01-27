@@ -11,17 +11,16 @@ import org.mockito.internal.verification.VerificationModeFactory.times
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.data.Form
+import play.api.http.Status._
+import play.api.mvc.Results.Redirect
 import play.api.mvc.{AnyContent, Call}
 import play.api.test.FakeRequest
-import play.api.test.Helpers.{await, contentAsString, redirectLocation, status}
+import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout, redirectLocation, status}
 import play.twirl.api.HtmlFormat
 import service.SelectSaCategoryService
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.auth.core.Enrolments
 import views.html.sa.captureSAUTR
-import play.api.http.Status._
-import play.api.mvc.Results.Redirect
-import play.api.test.Helpers.{defaultAwaitTimeout, redirectLocation, status}
 
 import scala.concurrent.Future
 

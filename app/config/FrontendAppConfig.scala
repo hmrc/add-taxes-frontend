@@ -39,16 +39,16 @@ class FrontendAppConfig @Inject() (val config: ServicesConfig, val conf: Configu
   private lazy val contactHost             = config.getString("contact-frontend.host")
   private val contactFormServiceIdentifier = "addtaxesfrontend"
 
-  lazy val enrolmentManagementFrontendHost: String = config.getString("enrolment-management-frontend.host")
-  lazy val lostCredentialsFrontendHost: String     = config.getString("lost-credentials-frontend.host")
-  lazy val fulfilmentHouseHost: String             = config.getString("urls.fulfilment-house.host")
-  lazy val fulfilmentHouse: String                 = fulfilmentHouseHost + config.getString("urls.fulfilment-house.schemeIntegration")
+  private lazy val enrolmentManagementFrontendHost: String = config.getString("enrolment-management-frontend.host")
+  lazy val lostCredentialsFrontendHost: String             = config.getString("lost-credentials-frontend.host")
+  private lazy val fulfilmentHouseHost: String             = config.getString("urls.fulfilment-house.host")
+  lazy val fulfilmentHouse: String                         = fulfilmentHouseHost + config.getString("urls.fulfilment-house.schemeIntegration")
 
-  lazy val ECLHost: String    = config.getString("urls.ECL-Handoff.host")
-  lazy val eclHandOff: String = ECLHost + config.getString("urls.ECL-Handoff.url")
+  private lazy val ECLHost: String = config.getString("urls.ECL-Handoff.host")
+  lazy val eclHandOff: String      = ECLHost + config.getString("urls.ECL-Handoff.url")
 
-  lazy val podsHost: String = config.getString("urls.manage-pensions-frontend.host")
-  lazy val pods: String     = podsHost + config.getString("urls.manage-pensions-frontend.schemesOverview")
+  private lazy val podsHost: String = config.getString("urls.manage-pensions-frontend.host")
+  lazy val pods: String             = podsHost + config.getString("urls.manage-pensions-frontend.schemesOverview")
 
   lazy val analyticsToken: String         = config.getString(s"google-analytics.token")
   lazy val analyticsHost: String          = config.getString(s"google-analytics.host")
@@ -62,16 +62,16 @@ class FrontendAppConfig @Inject() (val config: ServicesConfig, val conf: Configu
 
   lazy val authUrl: String = config.baseUrl("auth")
 
-  lazy val vatSubscriptionUrl: String     = config.baseUrl("vat-subscription")
-  lazy val basGatewayFrontendHost: String = config.getString("urls.bas-gateway-frontend.host")
-  lazy val basGatewayCredRecovery: String = config.getString("urls.bas-gateway-frontend.credRecovery")
-  lazy val btaUrl: String                 = config.baseUrl("business-tax-account")
-  lazy val postcodeValidLength: Int       = config.getInt(s"valid-known-facts-lengths.validationMaxLengthPostcode")
-  lazy val validationMinLengthNINO: Int   = config.getInt(s"valid-known-facts-lengths.validationMinLengthNINO")
-  lazy val validationMaxLengthNINO: Int   = config.getInt(s"valid-known-facts-lengths.validationMaxLengthNINO")
+  lazy val vatSubscriptionUrl: String             = config.baseUrl("vat-subscription")
+  private lazy val basGatewayFrontendHost: String = config.getString("urls.bas-gateway-frontend.host")
+  private lazy val basGatewayCredRecovery: String = config.getString("urls.bas-gateway-frontend.credRecovery")
+  lazy val btaUrl: String                         = config.baseUrl("business-tax-account")
+  lazy val postcodeValidLength: Int               = config.getInt(s"valid-known-facts-lengths.validationMaxLengthPostcode")
+  lazy val validationMinLengthNINO: Int           = config.getInt(s"valid-known-facts-lengths.validationMinLengthNINO")
+  lazy val validationMaxLengthNINO: Int           = config.getInt(s"valid-known-facts-lengths.validationMaxLengthNINO")
 
-  lazy val adrFrontendHost: String = config.getString("urls.ADR-Handoff.host")
-  lazy val getAdrUrl: String       = adrFrontendHost + config.getString("urls.ADR-Handoff.url")
+  private lazy val adrFrontendHost: String = config.getString("urls.ADR-Handoff.host")
+  lazy val getAdrUrl: String               = adrFrontendHost + config.getString("urls.ADR-Handoff.url")
 
   private lazy val stampDutyEnrollmentHost = config.getString("stamp-duty-land-tax-enrolment-frontend.host")
 
@@ -103,7 +103,7 @@ class FrontendAppConfig @Inject() (val config: ServicesConfig, val conf: Configu
 
   def getGovUKUrl(key: String): String = govUKHost + config.getString(s"urls.govuk.$key")
 
-  val reportTechProb = config.getString("urls.reportTechProb")
+  val reportTechProb: String = config.getString("urls.reportTechProb")
 
   private lazy val ggRegistrationHost = config.getString("government-gateway-registration-frontend.host")
 
@@ -127,19 +127,19 @@ class FrontendAppConfig @Inject() (val config: ServicesConfig, val conf: Configu
   def getPortalUrl(key: String, args: String*)(implicit request: Request[_]): String =
     appendLanguage(portalHost + config.getString(s"urls.external.portal.$key")).format(args: _*)
 
-  lazy val hmceHost: String = config.getString(s"urls.external.hmce.host")
+  private lazy val hmceHost: String = config.getString(s"urls.external.hmce.host")
 
   def getHmceURL(key: String): String = hmceHost + config.getString(s"urls.external.hmce.$key")
 
-  lazy val customsHost: String = config.getString("urls.external.customs.host")
+  private lazy val customsHost: String = config.getString("urls.external.customs.host")
 
   def getCustomsUrl(key: String): String = customsHost + config.getString(s"urls.external.customs.$key")
 
-  lazy val eoriCommonComponentFrontendHost: String = config.getString(s"eori-common-component-frontend.host")
+  private lazy val eoriCommonComponentFrontendHost: String = config.getString(s"eori-common-component-frontend.host")
 
   def getEoriCommonComponentURL(key: String): String = eoriCommonComponentFrontendHost + config.getString(s"eori-common-component-frontend.$key")
 
-  lazy val publishedAssets: String = config.getString(s"urls.external.assets.host")
+  private lazy val publishedAssets: String = config.getString(s"urls.external.assets.host")
 
   def getPublishedAssetsUrl(key: String): String = publishedAssets + config.getString(s"urls.external.assets.$key")
 
@@ -149,11 +149,10 @@ class FrontendAppConfig @Inject() (val config: ServicesConfig, val conf: Configu
 
   lazy val revenueScotUrl: String = config.getString("urls.external.lbtScotland")
 
-  lazy val vatSignUpHost: String = config.getString("claim-vat-enrolment-frontend.host")
+  private lazy val vatSignUpHost: String = config.getString("claim-vat-enrolment-frontend.host")
 
   def vatSignUpClaimSubscriptionUrl(vrn: String): String =
     s"$vatSignUpHost/claim-vat-enrolment/journey/$vrn?continueUrl=/vat-through-software/sign-up/sign-up-complete-client"
-  def cveDifferentVrnNumberError(): String = s"$vatSignUpHost/claim-vat-enrolment/error/different-vat-registration-numbers"
 
   def emacEnrollmentsUrl(enrolment: Enrolments): String =
     s"$enrolmentManagementFrontendHost/enrolment-management-frontend/$enrolment/request-access-tax-scheme?continue=%2Fbusiness-account"
@@ -161,13 +160,13 @@ class FrontendAppConfig @Inject() (val config: ServicesConfig, val conf: Configu
   def emacDeenrolmentsUrl(enrolment: Enrolments): String =
     s"$enrolmentManagementFrontendHost/enrolment-management-frontend/$enrolment/remove-access-tax-scheme?continue=%2Fbusiness-account"
 
-  lazy val vatOssHost: String             = config.baseUrl("vat-oss-registration-frontend")
-  lazy val vatOssBaseUrl: String          = config.getString("urls.oss.baseUrl")
+  private lazy val vatOssHost: String     = config.baseUrl("vat-oss-registration-frontend")
+  private lazy val vatOssBaseUrl: String  = config.getString("urls.oss.baseUrl")
   lazy val vatOssExternalEntryUrl: String = vatOssBaseUrl + config.getString("urls.oss.externalEntry")
   lazy val vatOssExternalEntry: String    = vatOssHost + vatOssExternalEntryUrl
 
-  lazy val vatIossHost: String             = config.baseUrl("ioss-registration")
-  lazy val vatIossBaseUrl: String          = config.getString("urls.ioss.baseUrl")
+  private lazy val vatIossHost: String     = config.baseUrl("ioss-registration")
+  private lazy val vatIossBaseUrl: String  = config.getString("urls.ioss.baseUrl")
   lazy val vatIossExternalEntryUrl: String = vatIossBaseUrl + config.getString("urls.ioss.externalEntry")
   lazy val vatIossExternalEntry: String    = vatIossHost + vatIossExternalEntryUrl
 
@@ -176,12 +175,12 @@ class FrontendAppConfig @Inject() (val config: ServicesConfig, val conf: Configu
   def lostCredentials(forgottenOption: ForgottenOptions): String =
     s"$basGatewayFrontendHost$basGatewayCredRecovery?continue_url=/account&recovery=$forgottenOption"
 
-  lazy val enrolmentStoreProxyHost: String = config.getString("enrolment-store-proxy.host")
+  private lazy val enrolmentStoreProxyHost: String = config.getString("enrolment-store-proxy.host")
 
   def checkUtrUrl(utr: String, saEnrolment: String): String =
     s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/enrolments/$saEnrolment~UTR~$utr/users?type=all&ignore-assignments=true"
   def checkSaGroupUrl(groupId: String, saEnrolment: String): String =
-    s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/groups/${groupId}/enrolments?type=principal&service=${saEnrolment}"
+    s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/groups/$groupId/enrolments?type=principal&service=$saEnrolment"
   def checkEmpRefUrl(officeNumber: String, payeReference: String): String =
     s"$enrolmentStoreProxyHost/enrolment-store-proxy/enrolment-store/enrolments/IR-PAYE~TaxOfficeNumber~$officeNumber~TaxOfficeReference~$payeReference/users?type=principal"
   def getPensionsUrl(key: String): String = pensionsHost + config.getString(s"urls.external.pensions.$key")
@@ -191,28 +190,28 @@ class FrontendAppConfig @Inject() (val config: ServicesConfig, val conf: Configu
   lazy val saBaseUrl: String                           = config.baseUrl("sa")
   private lazy val pensionsHost: String                = config.getString("urls.external.pensions.host")
   lazy val googleTagManagerId: String                  = config.getString(s"google-tag-manager.id")
-  lazy val changeBusinessDetailsHost: String           = config.getString("urls.manage-vat-subscription-frontend.host")
-  lazy val changeBusinessDetailsUri: String            = config.getString("urls.manage-vat-subscription-frontend.changeBusinessDetails")
+  private lazy val changeBusinessDetailsHost: String   = config.getString("urls.manage-vat-subscription-frontend.host")
+  private lazy val changeBusinessDetailsUri: String    = config.getString("urls.manage-vat-subscription-frontend.changeBusinessDetails")
   lazy val changeBusinessDetailsUrl: String            = changeBusinessDetailsHost + changeBusinessDetailsUri
-  lazy val vatRegHost: String                          = config.getString("urls.vat-registration-frontend.host")
+  private lazy val vatRegHost: String                  = config.getString("urls.vat-registration-frontend.host")
   lazy val vatRegHandoff: String                       = vatRegHost + config.getString("urls.vat-registration-frontend.handoff")
   lazy val identityVerificationFrontendBaseUrl: String = config.baseUrl("identity-verification-frontend")
   lazy val identityVerificationEnv: String             = config.getString("identity-verification-frontend.env")
   lazy val addTaxesHost: String                        = config.getString("add-taxes-frontend.host")
-  lazy val addTaxesEnvHost: String                     = config.getString("add-taxes-frontend-environment.host")
-  lazy val awrsFrontendHost: String                    = config.getString("urls.awrs-frontend.host")
+  private lazy val addTaxesEnvHost: String             = config.getString("add-taxes-frontend-environment.host")
+  private lazy val awrsFrontendHost: String            = config.getString("urls.awrs-frontend.host")
   lazy val identityVerificationHost: String            = config.getString("identity-verification-frontend.host")
-  lazy val taxEnrolmentsBaseUrl: String                = config.baseUrl("tax-enrolments")
+  private lazy val taxEnrolmentsBaseUrl: String        = config.baseUrl("tax-enrolments")
 
   lazy val getGovUkUrl = "https://www.gov.uk/find-hmrc-contacts/technical-support-with-vat-online-services"
 
-  lazy val ptaHost: String = config.getString("personal-tax-account.host")
-  lazy val ptaHomeUrl      = s"$ptaHost/personal-account"
+  private lazy val ptaHost: String = config.getString("personal-tax-account.host")
+  private lazy val ptaHomeUrl      = s"$ptaHost/personal-account"
 
   // TODO change to real host/url once known
-  lazy val ssttpHost: String       = config.getString("self-service-time-to-pay-frontend.host")
-  lazy val ssttpSuccessUrl: String = s"${ssttpHost}/pay-what-you-owe-in-instalments/arrangement/determine-eligibility"
-  lazy val ssttpFailUrl: String    = s"${ssttpHost}/pay-what-you-owe-in-instalments/eligibility/not-enrolled"
+  private lazy val ssttpHost: String       = config.getString("self-service-time-to-pay-frontend.host")
+  private lazy val ssttpSuccessUrl: String = s"$ssttpHost/pay-what-you-owe-in-instalments/arrangement/determine-eligibility"
+  lazy val ssttpFailUrl: String            = s"$ssttpHost/pay-what-you-owe-in-instalments/eligibility/not-enrolled"
 
   lazy val validOrigins: Seq[String] = Seq("pta-sa", "ssttp-sa", "bta-sa")
 
@@ -238,7 +237,7 @@ class FrontendAppConfig @Inject() (val config: ServicesConfig, val conf: Configu
 
   def now(): LocalDateTime = LocalDateTime.now()
 
-  lazy val citizensDetailsUrl: String = config.baseUrl("citizen-details")
+  private lazy val citizensDetailsUrl: String = config.baseUrl("citizen-details")
   def designatoryDetailsUrl(identifier: String, value: String): String =
     if (identifier == "IR-SA") {
       s"$citizensDetailsUrl/citizen-details/sautr/$value"
@@ -246,42 +245,42 @@ class FrontendAppConfig @Inject() (val config: ServicesConfig, val conf: Configu
       s"$citizensDetailsUrl/citizen-details/nino/$value"
     }
 
-  lazy val desUrl: String    = config.baseUrl("des")
-  def desConfig(key: String) = config.getString(s"microservice.services.des.$key")
+  private lazy val desUrl: String    = config.baseUrl("des")
+  def desConfig(key: String): String = config.getString(s"microservice.services.des.$key")
 
   def businessDetailsUrl(identifier: String, value: String): String =
     if (identifier == "nino") {
-      s"${desUrl}/registration/business-details/nino/$value"
+      s"$desUrl/registration/business-details/nino/$value"
     } else {
-      s"${desUrl}/registration/business-details/mtdbsa/${value}"
+      s"$desUrl/registration/business-details/mtdbsa/$value"
     }
 
-  lazy val mtdItHost: String   = config.getString("income-tax-subscription-frontend.host")
-  lazy val mtdItSignup: String = config.getString("income-tax-subscription-frontend.claim-enrolment")
-  lazy val mtdItUrl            = mtdItHost + mtdItSignup
+  private lazy val mtdItHost: String   = config.getString("income-tax-subscription-frontend.host")
+  private lazy val mtdItSignup: String = config.getString("income-tax-subscription-frontend.claim-enrolment")
+  lazy val mtdItUrl: String            = mtdItHost + mtdItSignup
 
-  val ivLocationForEnvironments: String        = config.getString("ivLocation")
-  val identityVerificationFrontendHost: String = config.getString("identity-verification-frontend.host")
+  private val ivLocationForEnvironments: String        = config.getString("ivLocation")
+  private val identityVerificationFrontendHost: String = config.getString("identity-verification-frontend.host")
 
   def ivUpliftUrl(origin: String): String = {
     val completionUrl = s"$addTaxesHost/business-account/add-tax/self-assessment/sa-iv-router?origin=$origin"
     val failureUrl    = s"$addTaxesHost/business-account/add-tax/self-assessment/sa-iv-router?origin=$origin"
     val url =
-      s"$identityVerificationFrontendHost/$ivLocationForEnvironments/uplift?origin=${origin}&confidenceLevel=250&completionURL=${completionUrl}&failureURL=${failureUrl}"
+      s"$identityVerificationFrontendHost/$ivLocationForEnvironments/uplift?origin=$origin&confidenceLevel=250&completionURL=$completionUrl&failureURL=$failureUrl"
     url
   }
 
-  val pptFEHost         = config.getString("plastic-packaging-tax-returns-frontend.host")
-  def pptEnrolmentUrl() = s"$pptFEHost${config.getString("plastic-packaging-tax-returns-frontend.enrolmentPptUrl")}"
-  def pptRegisterUrl()  = s"$pptFEHost${config.getString("plastic-packaging-tax-returns-frontend.registerPpt")}"
+  private val pptFEHost: String = config.getString("plastic-packaging-tax-returns-frontend.host")
+  def pptEnrolmentUrl()         = s"$pptFEHost${config.getString("plastic-packaging-tax-returns-frontend.enrolmentPptUrl")}"
+  def pptRegisterUrl()          = s"$pptFEHost${config.getString("plastic-packaging-tax-returns-frontend.registerPpt")}"
 
-  def thresholdString: String            = conf.get[ConfigList]("vat-threshold").render(ConfigRenderOptions.concise())
+  private def thresholdString: String    = conf.get[ConfigList]("vat-threshold").render(ConfigRenderOptions.concise())
   lazy val thresholds: Seq[VatThreshold] = Json.parse(thresholdString).as[List[VatThreshold]]
 
-  def deregThresholdString: String            = conf.get[ConfigList]("vat-dereg-threshold").render(ConfigRenderOptions.concise())
+  private def deregThresholdString: String    = conf.get[ConfigList]("vat-dereg-threshold").render(ConfigRenderOptions.concise())
   lazy val deregThresholds: Seq[VatThreshold] = Json.parse(deregThresholdString).as[List[VatThreshold]]
 
-  lazy val isKnownFactsCheckEnabled: Boolean = config.getConfBool("feature-toggles.vatKnownFactsCheck", false)
+  lazy val isKnownFactsCheckEnabled: Boolean = config.getConfBool("feature-toggles.vatKnownFactsCheck", defBool = false)
   lazy val VANContentChanges: Boolean =
     sys.props
       .get("feature-toggles.vanContentChanges")

@@ -39,9 +39,9 @@ class MessagesSpec extends SpecBase {
     missingKeys.toList.sorted.mkString(header + displayLine, "\n", displayLine)
 
   private def assertNonEmptyNonTemporaryValues(label: String, messages: Map[String, String]): Unit = messages.foreach {
-    case (key: String, value: String) =>
-      withClue(s"In $label, there is an empty value for the key:[$key][$value]") {
-        value.trim.isEmpty mustBe false
+    case (msgKey: String, msgValue: String) =>
+      withClue(s"In $label, there is an empty value for the key:[$msgKey][$msgValue]") {
+        msgValue.trim.isEmpty mustBe false
       }
   }
 
@@ -49,10 +49,10 @@ class MessagesSpec extends SpecBase {
   val MatchBacktickQuoteOnly: Regex = """`+""".r
 
   private def assertCorrectUseOfQuotes(label: String, messages: Map[String, String]): Unit = messages.foreach {
-    case (key: String, value: String) =>
-      withClue(s"In $label, there is an unescaped or invalid quote:[$key][$value]") {
-        MatchSingleQuoteOnly.findFirstIn(value).isDefined mustBe false
-        MatchBacktickQuoteOnly.findFirstIn(value).isDefined mustBe false
+    case (msgKey: String, msgValue: String) =>
+      withClue(s"In $label, there is an unescaped or invalid quote:[$msgKey][$msgValue]") {
+        MatchSingleQuoteOnly.findFirstIn(msgValue).isDefined mustBe false
+        MatchBacktickQuoteOnly.findFirstIn(msgValue).isDefined mustBe false
       }
   }
 
@@ -82,8 +82,8 @@ class MessagesSpec extends SpecBase {
     //   - Content which is pending translation to Welsh
     "have different messages for English and Welsh" in {
       val same = englishMesssages.keys.collect({
-        case key if englishMesssages.get(key) == welshMessages.get(key) =>
-          (key, englishMesssages.get(key))
+        case msgKey if englishMesssages.get(msgKey) == welshMessages.get(msgKey) =>
+          (msgKey, englishMesssages.get(msgKey))
       })
 
       withClue("##############################################\n" +
@@ -110,15 +110,15 @@ class MessagesSpec extends SpecBase {
     def listArgs(msg: String) = toArgArray(msg).mkString
 
     "have a resolvable message for keys which take arguments" in {
-      val englishWithArgsMsgKeys = englishMesssages collect { case (key, value) if countArgs(value) > 0 => key }
-      val welshWithArgsMsgKeys = welshMessages collect { case (key, value) if countArgs(value) > 0      => key }
+      val englishWithArgsMsgKeys = englishMesssages collect { case (msgKey, msgValue) if countArgs(msgValue) > 0 => msgKey }
+      val welshWithArgsMsgKeys = welshMessages collect { case (msgKey, msgValue) if countArgs(msgValue) > 0      => msgKey }
       val missingFromEnglish = englishWithArgsMsgKeys.toList diff welshWithArgsMsgKeys.toList
       val missingFromWelsh = welshWithArgsMsgKeys.toList diff englishWithArgsMsgKeys.toList
 
       val clueTextForWelsh =
-        missingFromWelsh.foldLeft("")((soFar, key) => s"$soFar$key has arguments in English but not in Welsh\n")
-      val clueText = missingFromEnglish.foldLeft(clueTextForWelsh)((soFar, key) =>
-        s"$soFar$key has arguments in Welsh but not in English\n")
+        missingFromWelsh.foldLeft("")((soFar, msgKey) => s"$soFar$msgKey has arguments in English but not in Welsh\n")
+      val clueText = missingFromEnglish.foldLeft(clueTextForWelsh)((soFar, msgKey) =>
+        s"$soFar$msgKey has arguments in Welsh but not in English\n")
 
       withClue(clueText) {
         englishWithArgsMsgKeys.size mustBe welshWithArgsMsgKeys.size
@@ -128,19 +128,19 @@ class MessagesSpec extends SpecBase {
 
     "have the same args in the same order for all keys which take args" in {
       val englishWithArgsMsgKeysAndArgList = englishMesssages collect {
-        case (key, value) if countArgs(value) > 0 => (key, listArgs(value))
+        case (msgKey, msgValue) if countArgs(msgValue) > 0 => (msgKey, listArgs(msgValue))
       }
       val welshWithArgsMsgKeysAndArgList = welshMessages collect {
-        case (key, value) if countArgs(value) > 0 => (key, listArgs(value))
+        case (msgKey, msgValue) if countArgs(msgValue) > 0 => (msgKey, listArgs(msgValue))
       }
       val mismatchedArgSequences = englishWithArgsMsgKeysAndArgList collect {
-        case (key, engArgSeq) if engArgSeq != welshWithArgsMsgKeysAndArgList(key) =>
-          (key, engArgSeq, welshWithArgsMsgKeysAndArgList(key))
+        case (msgKey, engArgSeq) if engArgSeq != welshWithArgsMsgKeysAndArgList(msgKey) =>
+          (msgKey, engArgSeq, welshWithArgsMsgKeysAndArgList(msgKey))
       }
 
       val mismatchedKeys = mismatchedArgSequences map (sequence => sequence._1)
-      val clueText = mismatchedKeys.foldLeft("")((soFar, key) =>
-        s"$soFar$key does not have the same number of arguments in English and Welsh\n")
+      val clueText = mismatchedKeys.foldLeft("")((soFar, msgKey) =>
+        s"$soFar$msgKey does not have the same number of arguments in English and Welsh\n")
       withClue(clueText) {
         mismatchedArgSequences.size mustBe 0
       }
