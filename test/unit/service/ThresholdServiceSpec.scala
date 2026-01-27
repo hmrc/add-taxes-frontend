@@ -23,7 +23,6 @@ import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.mvc.Request
-import play.api.test.FakeRequest
 import uk.gov.hmrc.http.InternalServerException
 
 import java.time.LocalDateTime

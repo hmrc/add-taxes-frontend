@@ -21,13 +21,12 @@ import config.featureToggles.FeatureSwitch.VATKnownFactsCheck
 import config.featureToggles.FeatureToggleSupport
 import controllers.actions.{AuthAction, ServiceInfoAction}
 import forms.vat.WhatIsYourVATRegNumberFormProvider
-import identifiers.WhatIsYourVATRegNumberId
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc._
 import service.KnownFactsService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import utils.{Enumerable, Navigator}
+import utils.Enumerable
 import views.html.vat.{differentVatRegistrationNumbers, vatAccountUnavailable, whatIsYourVATRegNumber}
 
 import javax.inject.Inject
@@ -35,7 +34,6 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class WhatIsYourVATRegNumberController @Inject() (appConfig: FrontendAppConfig,
                                                   mcc: MessagesControllerComponents,
-                                                  navigator: Navigator[Call],
                                                   authenticate: AuthAction,
                                                   serviceInfoData: ServiceInfoAction,
                                                   formProvider: WhatIsYourVATRegNumberFormProvider,
@@ -69,20 +67,11 @@ class WhatIsYourVATRegNumberController @Inject() (appConfig: FrontendAppConfig,
     def handleErrorSubmission(formWithErrors: Form[String]): Future[Result] =
       Future.successful(BadRequest(whatIsYourVATRegNumber(appConfig, formWithErrors, isKnownFactsCheckEnabled)(request.serviceInfoContent)))
 
-    def handleSuccessfulSubmission(submittedVrn: String): Future[Result] = {
-      val sessionId = hc.sessionId.getOrElse(throw new IllegalStateException("SessionId missing from HeaderCarrier"))
-      val submittedVrnIsValid: Future[Either[Result, String]] = knownFactsService.checkVrnMatchesPreviousAttempts(submittedVrn, sessionId.value)
-      val checkMandationStatus: Future[Either[Result, Int]]   = knownFactsService.bypassOrCheckMandationStatus(submittedVrn)
-      for {
-        submittedVrn    <- submittedVrnIsValid
-        mandationStatus <- checkMandationStatus
-      } yield (submittedVrn, mandationStatus) match {
-        case (Left(errorVrnRedirect), _)    => errorVrnRedirect
-        case (_, Left(errorStatusRedirect)) => errorStatusRedirect
-        case (Right(vrn), Right(status)) =>
-          Redirect(navigator.nextPage(WhatIsYourVATRegNumberId, (status, vrn)))
+    def handleSuccessfulSubmission(submittedVrn: String): Future[Result] =
+      knownFactsService.checkVrnMatchesPreviousAttempts(submittedVrn).map {
+        case Left(errorVrnRedirect) => errorVrnRedirect
+        case Right(submittedVrn)    => Redirect(Call("GET", appConfig.vatSignUpClaimSubscriptionUrl(submittedVrn)))
       }
-    }
 
     form
       .bindFromRequest()

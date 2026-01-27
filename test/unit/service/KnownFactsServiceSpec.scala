@@ -17,12 +17,11 @@
 package service
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.{IvUpliftSwitch, RealVatEtmpCheck, VATKnownFactsCheck}
+import config.featureToggles.FeatureSwitch.{IvUpliftSwitch, VATKnownFactsCheck}
 import config.featureToggles.FeatureToggleSupport
-import connectors.{CitizensDetailsConnector, DataCacheConnector, EnrolmentStoreProxyConnector, VatSubscriptionConnector}
+import connectors.{CitizensDetailsConnector, DataCacheConnector, EnrolmentStoreProxyConnector}
 import controllers.ControllerSpecBase
 import controllers.sa.{routes => saRoutes}
-import controllers.vat.{routes => vatRoutes}
 import handlers.ErrorHandler
 import models.DesignatoryDetailsForKnownFacts
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
@@ -32,26 +31,23 @@ import org.mockito.Mockito._
 import org.mockito.stubbing.OngoingStubbing
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.http.Status.PRECONDITION_FAILED
 import play.api.libs.json.JsObject
-import play.api.mvc.Results.{InternalServerError, Redirect}
-import play.api.mvc.{AnyContent, Call}
+import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{status, _}
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.auth.core.{ConfidenceLevel, Enrolments}
 import uk.gov.hmrc.http.cache.client.CacheMap
-import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
+import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException, SessionId}
 import uk.gov.hmrc.play.audit.http.connector.AuditResult
-import utils.Navigator
 
 import java.io.FileNotFoundException
 import scala.concurrent.Future
 
 class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach with FeatureToggleSupport {
 
-  implicit val hc: HeaderCarrier = HeaderCarrier()
+  implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId("sessionId")))
   implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
     AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
     HtmlFormat.empty)
@@ -60,12 +56,10 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
   val mockSaService: SaService                                       = mock[SaService]
   val mockDataCacheConnector: DataCacheConnector                     = mock[DataCacheConnector]
   val mockEnrolmentStoreProxyConnector: EnrolmentStoreProxyConnector = mock[EnrolmentStoreProxyConnector]
-  val mockVatSubscriptionConnector: VatSubscriptionConnector         = mock[VatSubscriptionConnector]
   val mockAuditService: AuditService                                 = mock[AuditService]
   val mockAppConfig: FrontendAppConfig                               = mock[FrontendAppConfig]
   val mockCIDConnector: CitizensDetailsConnector                     = mock[CitizensDetailsConnector]
   val errorHandler: ErrorHandler                                     = injector.instanceOf[ErrorHandler]
-  val navigator: Navigator[Call]                                     = injector.instanceOf[Navigator[Call]]
   val testKnownFacts: KnownFacts                                     = KnownFacts(Some("AA00000A"), Some("AA1 1AA"), None)
   val testKnownFactsNinoOnly: KnownFacts                             = KnownFacts(None, Some("AA00000A"), None)
   val utr: SAUTR                                                     = SAUTR("1234567890")
@@ -76,11 +70,9 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
     mockSaService,
     mockDataCacheConnector,
     mockEnrolmentStoreProxyConnector,
-    mockVatSubscriptionConnector,
     mockAuditService,
     errorHandler,
     mockCIDConnector,
-    navigator,
     mockAppConfig
   )
 
@@ -276,58 +268,11 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
     }
   }
 
-  "bypassOrCheckMandationStatus" when {
-    "'RealVatEtmpCheck' switch is disabled" must {
-      "return a Right(OK)" in {
-        disable(RealVatEtmpCheck)
-        val result = await(service().bypassOrCheckMandationStatus(vrn))
-
-        result mustBe Right(OK)
-      }
-    }
-
-    "'RealVatEtmpCheck' switch is enabled" must {
-      "return a Right status from connector" when {
-        "status is OK 200" in {
-          enable(RealVatEtmpCheck)
-          mockGetMandationStatusResponse(OK)
-          val result = await(service().bypassOrCheckMandationStatus(vrn))
-
-          result mustBe Right(OK)
-        }
-        "status is NOT_FOUND 404" in {
-          enable(RealVatEtmpCheck)
-          mockGetMandationStatusResponse(NOT_FOUND)
-          val result = await(service().bypassOrCheckMandationStatus(vrn))
-
-          result mustBe Right(NOT_FOUND)
-        }
-      }
-
-      "return a Left" that {
-        "has a 'VAT Unavailable' page result when a PRECONDITION_FAILED status is returned from the connector" in {
-          enable(RealVatEtmpCheck)
-          mockGetMandationStatusResponse(PRECONDITION_FAILED)
-          val result = await(service().bypassOrCheckMandationStatus(vrn))
-
-          result mustBe Left(Redirect(vatRoutes.WhatIsYourVATRegNumberController.onPageLoadVatUnavailable()))
-        }
-        "has an InternalServerError result when a different status is returned from the connector" in {
-          enable(RealVatEtmpCheck)
-          mockGetMandationStatusResponse(FORBIDDEN)
-          val result = await(service().bypassOrCheckMandationStatus(vrn))
-
-          result mustBe Left(InternalServerError(errorHandler.internalServerErrorTemplate))
-        }
-      }
-    }
-  }
-
   "checkVrnMatchesPreviousAttempts" when {
     "'VATKnownFactsCheck' switch is disabled" must {
       "return the given VRN in a Right" in {
         disable(VATKnownFactsCheck)
-        val result = await(service().checkVrnMatchesPreviousAttempts(vrn, sessId))
+        val result = await(service().checkVrnMatchesPreviousAttempts(vrn))
 
         result mustBe Right(vrn)
       }
@@ -340,7 +285,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           mockSaveVrn()
           mockRetrieveVrn(savedVrn = None)
 
-          val result = await(service().checkVrnMatchesPreviousAttempts(vrn, sessId))
+          val result = await(service().checkVrnMatchesPreviousAttempts(vrn))
           result mustBe Right(vrn)
           verify(mockDataCacheConnector, times(1)).save[String](any(), any(), any())(any())
         }
@@ -350,7 +295,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           enable(VATKnownFactsCheck)
           mockRetrieveVrn(savedVrn = Some(vrn))
 
-          val result = await(service().checkVrnMatchesPreviousAttempts(vrn, sessId))
+          val result = await(service().checkVrnMatchesPreviousAttempts(vrn))
           result mustBe Right(vrn)
           verify(mockDataCacheConnector, never())
             .save[String](any(), any(), any())(any())
@@ -364,7 +309,7 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
           val cveErrorPageUrl = "/claim-vat-enrolment/error/different-vat-registration-numbers"
           when(mockAppConfig.addTaxesSignoutThenContinueTo(any())).thenReturn(cveErrorPageUrl)
 
-          val result         = await(service().checkVrnMatchesPreviousAttempts(vrn, sessId))
+          val result         = await(service().checkVrnMatchesPreviousAttempts(vrn))
           val resultRedirect = result.left.map(_.header.headers("Location"))
           resultRedirect mustBe Left(cveErrorPageUrl)
           verify(mockAuditService, times(1))
@@ -374,8 +319,6 @@ class KnownFactsServiceSpec extends ControllerSpecBase with MockitoSugar with Be
     }
   }
 
-  private def mockGetMandationStatusResponse(responseStatus: Int): OngoingStubbing[Future[Int]] =
-    when(mockVatSubscriptionConnector.getMandationStatus(any())(any(), any(), any())).thenReturn(Future.successful(responseStatus))
   private def mockRetrieveVrn(savedVrn: Option[String]): OngoingStubbing[Future[Option[String]]] =
     when(mockDataCacheConnector.getEntry[String](any(), any())(any())).thenReturn(Future.successful(savedVrn))
   private def mockSaveVrn(): OngoingStubbing[Future[CacheMap]] =

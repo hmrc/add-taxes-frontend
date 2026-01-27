@@ -25,18 +25,18 @@ import utils.{Enumerable, RadioOption, WithName}
 
 sealed trait DoYouWantToAddImportExport
 
-object DoYouWantToAddImportExport extends FeatureToggleSupport{
+object DoYouWantToAddImportExport extends FeatureToggleSupport {
   case object ATaR extends WithName("ATaR") with DoYouWantToAddImportExport
-  case object ARS extends WithName("ARS") with DoYouWantToAddImportExport
+  case object ARS  extends WithName("ARS") with DoYouWantToAddImportExport
   case object EMCS extends WithName("EMCS") with DoYouWantToAddImportExport
-  case object ICS extends WithName("ICS") with DoYouWantToAddImportExport
+  case object ICS  extends WithName("ICS") with DoYouWantToAddImportExport
   case object DDES extends WithName("DDES") with DoYouWantToAddImportExport
   case object NOVA extends WithName("NOVA") with DoYouWantToAddImportExport
   case object NCTS extends WithName("NCTS") with DoYouWantToAddImportExport
   case object eBTI extends WithName("eBTI") with DoYouWantToAddImportExport
-  case object NES extends WithName("NES") with DoYouWantToAddImportExport
-  case object ISD extends WithName("ISD") with DoYouWantToAddImportExport
-  case object CDS extends WithName("CDS") with DoYouWantToAddImportExport
+  case object NES  extends WithName("NES") with DoYouWantToAddImportExport
+  case object ISD  extends WithName("ISD") with DoYouWantToAddImportExport
+  case object CDS  extends WithName("CDS") with DoYouWantToAddImportExport
 
   val values: List[DoYouWantToAddImportExport] = List(
     ATaR,
@@ -54,13 +54,12 @@ object DoYouWantToAddImportExport extends FeatureToggleSupport{
 
   object RadioFilters {
 
-    def removeATARIfNotEnabled()(implicit appConfig: FrontendAppConfig): Seq[DoYouWantToAddImportExport] = {
+    def removeATARIfNotEnabled()(implicit appConfig: FrontendAppConfig): Seq[DoYouWantToAddImportExport] =
       if (isEnabled(AtarSwitch)) Seq() else Seq(ATaR)
-    }
 
-    def replaceATARWithARSIfEnabled()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Seq[DoYouWantToAddImportExport] = {
-        infoLog("[DoYouWantToAddImportExport][replaceATARWithARSIfEnabled] ARSContentSwitch enabled. User shown ARS instead of ATAR")
-        Seq(ATaR)
+    def replaceATARWithARSIfEnabled()(implicit request: ServiceInfoRequest[_]): Seq[DoYouWantToAddImportExport] = {
+      infoLog("[DoYouWantToAddImportExport][replaceATARWithARSIfEnabled] ARSContentSwitch enabled. User shown ARS instead of ATAR")
+      Seq(ATaR)
     }
 
     def removeNCTSIfUserHasCTCEnrolment()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Seq[DoYouWantToAddImportExport] = {
@@ -73,20 +72,18 @@ object DoYouWantToAddImportExport extends FeatureToggleSupport{
       }
     }
 
-    def removeCDSIfUserHasEnrolment()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Seq[DoYouWantToAddImportExport] = {
+    def removeCDSIfUserHasEnrolment()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Seq[DoYouWantToAddImportExport] =
       if (isEnabled(CDSSwitch)) {
         val hasCDSEnrolment = request.hasEnrolments(Seq(CustomsDeclarationServices))
-        hasCDSEnrolment match {
-          case true =>
-            infoLog("[DoYouWantToAddImportExport][removeCDSIfUserHasEnrolment] user already has CDS enrolment. CDS radio not visible")
-            Seq(CDS)
-          case _ => Seq()
+        if (hasCDSEnrolment) {
+          infoLog("[DoYouWantToAddImportExport][removeCDSIfUserHasEnrolment] user already has CDS enrolment. CDS radio not visible")
+          Seq(CDS)
+        } else {
+          Seq()
         }
       } else {
         Seq(CDS)
       }
-
-    }
 
   }
 
@@ -101,12 +98,10 @@ object DoYouWantToAddImportExport extends FeatureToggleSupport{
     values.filterNot(enrolmentsToRemove.contains(_))
   }
 
-  def options()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Seq[RadioOption] = {
-    filteredRadios().map {
-      value =>
-        RadioOption("doYouWantToAddImportExport", value.toString)
+  def options()(implicit request: ServiceInfoRequest[_], appConfig: FrontendAppConfig): Seq[RadioOption] =
+    filteredRadios().map { value =>
+      RadioOption("doYouWantToAddImportExport", value.toString)
     }
-  }
 
   implicit val enumerable: Enumerable[DoYouWantToAddImportExport] =
     Enumerable(values.map(v => v.toString -> v): _*)

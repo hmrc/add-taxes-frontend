@@ -18,7 +18,6 @@ package controllers.vat
 
 import config.featureToggles.FeatureSwitch.VATKnownFactsCheck
 import config.featureToggles.FeatureToggleSupport
-import connectors.{DataCacheConnector, VatSubscriptionConnector}
 import controllers.ControllerSpecBase
 import forms.vat.WhatIsYourVATRegNumberFormProvider
 import handlers.ErrorHandler
@@ -27,55 +26,40 @@ import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.data.Form
-import play.api.mvc.Call
 import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
 import service.KnownFactsService
 import uk.gov.hmrc.http.HeaderNames
-import utils.{Enrolments, FakeNavigator}
 import views.html.vat.{differentVatRegistrationNumbers, vatAccountUnavailable, vatRegistrationException, whatIsYourVATRegNumber}
 
 import scala.concurrent.Future
 
 class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with MockitoSugar with FeatureToggleSupport with BeforeAndAfterEach {
 
-  def onwardRoute: Call                = controllers.routes.IndexController.onPageLoad
-  def vatAccountUnavailableRoute: Call = routes.WhatIsYourVATRegNumberController.onPageLoadVatUnavailable()
+  val testVrn                                       = "968501689"
+  val formProvider                                  = new WhatIsYourVATRegNumberFormProvider()
+  val form: Form[String]                            = formProvider()
+  lazy val mockKnownFactsService: KnownFactsService = mock[KnownFactsService]
 
-  val formProvider                                                = new WhatIsYourVATRegNumberFormProvider()
-  val form: Form[String]                                          = formProvider()
-  lazy val mockVatSubscriptionConnector: VatSubscriptionConnector = mock[VatSubscriptionConnector]
-  lazy val mockDataCacheConnector: DataCacheConnector             = mock[DataCacheConnector]
-  lazy val mockKnownFactsService: KnownFactsService               = mock[KnownFactsService]
+  val vatAccountUnavailablePage: vatAccountUnavailable                     = injector.instanceOf[vatAccountUnavailable]
+  val whatIsYourVATRegNumberPage: whatIsYourVATRegNumber                   = injector.instanceOf[whatIsYourVATRegNumber]
+  val differentVatRegistrationNumbersPage: differentVatRegistrationNumbers = injector.instanceOf[differentVatRegistrationNumbers]
+  val vatRegistrationExceptionPage: vatRegistrationException               = injector.instanceOf[vatRegistrationException]
+  val errorHandler: ErrorHandler                                           = injector.instanceOf[ErrorHandler]
 
-  val testVrn                                                          = "968501689"
-  val sameTestVrn: Option[String]                                      = Some("968501689")
-  val testVrnEmpty: Option[String]                                     = None
-  val differentVrn: Option[String]                                     = Some("968501688")
-  val vatAccountUnavailable: vatAccountUnavailable                     = injector.instanceOf[vatAccountUnavailable]
-  val whatIsYourVATRegNumber: whatIsYourVATRegNumber                   = injector.instanceOf[whatIsYourVATRegNumber]
-  val differentVatRegistrationNumbers: differentVatRegistrationNumbers = injector.instanceOf[differentVatRegistrationNumbers]
-  val vatRegistrationException: vatRegistrationException               = injector.instanceOf[vatRegistrationException]
-  val view: whatIsYourVATRegNumber                                     = injector.instanceOf[whatIsYourVATRegNumber]
-  val errorHandler: ErrorHandler                                       = injector.instanceOf[ErrorHandler]
-
-  def controller(navigatorOnwardRoute: Call = onwardRoute): WhatIsYourVATRegNumberController =
+  def controller(): WhatIsYourVATRegNumberController =
     new WhatIsYourVATRegNumberController(
       frontendAppConfig,
       mcc,
-      new FakeNavigator[Call](desiredRoute = navigatorOnwardRoute),
       FakeAuthAction,
       FakeServiceInfoAction,
       formProvider,
-      vatAccountUnavailable,
-      view,
-      differentVatRegistrationNumbers,
+      vatAccountUnavailablePage,
+      whatIsYourVATRegNumberPage,
+      differentVatRegistrationNumbersPage,
       mockKnownFactsService
     )
-
-  val whatIsYourVATRegNumberPage: whatIsYourVATRegNumber = app.injector.instanceOf[whatIsYourVATRegNumber]
-  val vatAccountUnavailablePage: vatAccountUnavailable   = app.injector.instanceOf[vatAccountUnavailable]
 
   override def beforeEach(): Unit =
     reset(mockKnownFactsService)
@@ -87,7 +71,7 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
     vatAccountUnavailablePage(frontendAppConfig)(fakeRequest, messages).toString
 
   def differentVatRegistrationNumbersAsString(): String =
-    differentVatRegistrationNumbers(frontendAppConfig)(fakeRequest, messages).toString
+    differentVatRegistrationNumbersPage(frontendAppConfig)(fakeRequest, messages).toString
 
   "WhatIsYourVATRegNumberController" when {
 
@@ -146,25 +130,8 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
       }
 
       "follow the error redirect returned from the service" when {
-        "call to bypassOrCheckMandationStatus fails and returns a redirect in a Left" in {
-          when(mockKnownFactsService.bypassOrCheckMandationStatus(any())(any(), any(), any()))
-            .thenReturn(Future.successful(Left(Redirect("/redirect-call"))))
-          when(mockKnownFactsService.checkVrnMatchesPreviousAttempts(any(), any())(any(), any(), any()))
-            .thenReturn(Future.successful(Right(testVrn)))
-
-          val postRequest =
-            fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST").withHeaders(HeaderNames.xSessionId -> "sessionId")
-          val result = controller().onSubmit()(postRequest)
-
-          status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some("/redirect-call")
-          verify(mockKnownFactsService, times(1)).bypassOrCheckMandationStatus(any())(any(), any(), any())
-          verify(mockKnownFactsService, times(1)).checkVrnMatchesPreviousAttempts(any(), any())(any(), any(), any())
-        }
         "call to checkVrnMatchesPreviousAttempts fails and returns a redirect in a Left" in {
-          when(mockKnownFactsService.bypassOrCheckMandationStatus(any())(any(), any(), any()))
-            .thenReturn(Future.successful(Right(OK)))
-          when(mockKnownFactsService.checkVrnMatchesPreviousAttempts(any(), any())(any(), any(), any()))
+          when(mockKnownFactsService.checkVrnMatchesPreviousAttempts(any())(any(), any(), any()))
             .thenReturn(Future.successful(Left(Redirect("/redirect-call"))))
 
           val postRequest =
@@ -173,37 +140,20 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
 
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some("/redirect-call")
-          verify(mockKnownFactsService, times(1)).bypassOrCheckMandationStatus(any())(any(), any(), any())
-          verify(mockKnownFactsService, times(1)).checkVrnMatchesPreviousAttempts(any(), any())(any(), any(), any())
+          verify(mockKnownFactsService, times(1)).checkVrnMatchesPreviousAttempts(any())(any(), any(), any())
         }
       }
 
       "redirect to the next page when valid data is submitted and mandation status is 200" in {
-        when(mockKnownFactsService.bypassOrCheckMandationStatus(any())(any(), any(), any()))
-          .thenReturn(Future.successful(Right(OK)))
-        when(mockKnownFactsService.checkVrnMatchesPreviousAttempts(any(), any())(any(), any(), any()))
+        when(mockKnownFactsService.checkVrnMatchesPreviousAttempts(any())(any(), any(), any()))
           .thenReturn(Future.successful(Right(testVrn)))
 
         val claimSubscriptionPage = frontendAppConfig.vatSignUpClaimSubscriptionUrl(testVrn)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST").withHeaders(HeaderNames.xSessionId -> "sessionId")
-        val result      = controller(Call("GET", claimSubscriptionPage)).onSubmit()(postRequest)
+        val result      = controller().onSubmit()(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(claimSubscriptionPage)
-      }
-
-      "redirect to the Enrolment Management page when the mandation status is not 200" in {
-        when(mockKnownFactsService.bypassOrCheckMandationStatus(any())(any(), any(), any()))
-          .thenReturn(Future.successful(Right(NOT_FOUND)))
-        when(mockKnownFactsService.checkVrnMatchesPreviousAttempts(any(), any())(any(), any(), any()))
-          .thenReturn(Future.successful(Right(testVrn)))
-
-        val enrolmentManagementPage = frontendAppConfig.emacEnrollmentsUrl(Enrolments.VAT)
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testVrn)).withMethod("POST").withHeaders(HeaderNames.xSessionId -> "sessionId")
-        val result      = controller(Call("GET", enrolmentManagementPage)).onSubmit()(postRequest)
-
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(enrolmentManagementPage)
       }
     }
   }
