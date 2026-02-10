@@ -17,21 +17,20 @@
 package service
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.{IvUpliftSwitch, RealVatEtmpCheck, VATKnownFactsCheck}
+import config.featureToggles.FeatureSwitch.{IvUpliftSwitch, VATKnownFactsCheck}
 import config.featureToggles.FeatureToggleSupport.isEnabled
-import connectors.{CitizensDetailsConnector, DataCacheConnector, EnrolmentStoreProxyConnector, VatSubscriptionConnector}
+import connectors.{CitizensDetailsConnector, DataCacheConnector, EnrolmentStoreProxyConnector}
 import controllers.sa.{routes => saRoutes}
 import controllers.vat.{routes => vatRoutes}
 import handlers.ErrorHandler
 import identifiers.EnterSAUTRId
 import models.requests.ServiceInfoRequest
 import models.sa._
-import play.api.http.Status.{NOT_FOUND, OK, PRECONDITION_FAILED}
 import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Call, Result}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
-import utils.{LoggingUtil, Navigator}
+import utils.LoggingUtil
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
@@ -40,11 +39,9 @@ import scala.concurrent.{ExecutionContext, Future}
 class KnownFactsService @Inject() (saService: SaService,
                                    dataCacheConnector: DataCacheConnector,
                                    enrolmentStoreProxyConnector: EnrolmentStoreProxyConnector,
-                                   vatSubscriptionConnector: VatSubscriptionConnector,
                                    auditService: AuditService,
                                    errorHandler: ErrorHandler,
                                    citizensDetailsConnector: CitizensDetailsConnector,
-                                   navigator: Navigator[Call],
                                    implicit val appConfig: FrontendAppConfig)
     extends LoggingUtil {
 
@@ -133,34 +130,13 @@ class KnownFactsService @Inject() (saService: SaService,
     }
   }
 
-  def bypassOrCheckMandationStatus(
-      submittedVrn: String)(implicit request: ServiceInfoRequest[AnyContent], ec: ExecutionContext, hc: HeaderCarrier): Future[Either[Result, Int]] =
-    if (isEnabled(RealVatEtmpCheck)(appConfig)) {
-      getMandationStatus(submittedVrn)
-    } else {
-      infoLog(s"[KnownFactsService][bypassOrCheckMandationStatus] RealVatEtmpCheck is disabled. No mandation check made")
-      Future.successful(Right(OK))
-    }
-
-  private def getMandationStatus(
-      vrn: String)(implicit request: ServiceInfoRequest[AnyContent], ec: ExecutionContext, hc: HeaderCarrier): Future[Either[Result, Int]] =
-    vatSubscriptionConnector.getMandationStatus(vrn).map {
-      case status if status == OK || status == NOT_FOUND =>
-        infoLog(s"[KnownFactsService][getMandationStatus] mandation status: $status")
-        Right(status)
-      case PRECONDITION_FAILED =>
-        infoLog(s"[KnownFactsService][getMandationStatus] mandation status: $PRECONDITION_FAILED")
-        Left(Redirect(vatRoutes.WhatIsYourVATRegNumberController.onPageLoadVatUnavailable()))
-      case status =>
-        infoLog(s"[KnownFactsService][getMandationStatus] mandation status: $status")
-        Left(InternalServerError(errorHandler.internalServerErrorTemplate))
-    }
-
-  def checkVrnMatchesPreviousAttempts(newSubmittedVrn: String, sessionId: String)(implicit
+  def checkVrnMatchesPreviousAttempts(newSubmittedVrn: String)(implicit
       request: ServiceInfoRequest[AnyContent],
       ec: ExecutionContext,
       hc: HeaderCarrier): Future[Either[Result, String]] = {
     val logPrefix = "[KnownFactsService][checkVrnMatchesPreviousAttempts]"
+    val sessionId = hc.sessionId.getOrElse(throw new IllegalStateException("SessionId missing from HeaderCarrier")).value
+
     if (isEnabled(VATKnownFactsCheck)) {
       infoLog(s"$logPrefix VATKnownFactsCheck switch is enabled")
 

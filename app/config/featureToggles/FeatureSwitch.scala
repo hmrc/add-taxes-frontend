@@ -24,7 +24,6 @@ object FeatureSwitch {
     AccessMTD,
     IvUpliftSwitch,
     AtarSwitch,
-    RealVatEtmpCheck,
     NewCTCEnrolmentForNCTSJourney,
     Pillar2Switch,
     CDSSwitch,
@@ -70,14 +69,6 @@ object FeatureSwitch {
   case object AtarSwitch extends FeatureSwitch {
     override val name                = s"$prefix.atarSwitch"
     override val displayText: String = "Atar Enabled"
-  }
-
-  // TODO this config name doesn't match the functionality.
-  //  We should either change the name in config or flip the config Boolean in the different envs
-  //  (would need an overlap for prod safety)
-  case object RealVatEtmpCheck extends FeatureSwitch {
-    override val name                = s"$prefix.bypassVATETMPCheck"
-    override val displayText: String = "Make the real VAT ETMP check rather than passing by default"
   }
 
   case object NewCTCEnrolmentForNCTSJourney extends FeatureSwitch {

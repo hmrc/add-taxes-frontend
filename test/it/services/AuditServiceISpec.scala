@@ -1,10 +1,10 @@
 package services
 
 import models.sa.CredIdFound
-import org.scalatest.concurrent.ScalaFutures.whenReady
 import org.scalatestplus.play.PlaySpec
 import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
+import play.api.test.Helpers.{await, defaultAwaitTimeout}
 import service.AuditService
 import support.AddTaxesIntegrationTest
 import uk.gov.hmrc.http.HeaderCarrier
@@ -25,9 +25,9 @@ class AuditServiceISpec extends PlaySpec with AddTaxesIntegrationTest {
     implicit val request: FakeRequest[AnyContent] = FakeRequest()
 
     "successfully audit" in {
-      val result = testService.auditSA("credId123", "utr321", enrolmentCheckResult = CredIdFound)
+      val result = await(testService.auditSA("credId123", "utr321", enrolmentCheckResult = CredIdFound))
 
-      whenReady(result)(_ mustBe expected)
+      result mustBe expected
     }
   }
 
@@ -35,9 +35,10 @@ class AuditServiceISpec extends PlaySpec with AddTaxesIntegrationTest {
     implicit val request: FakeRequest[AnyContent] = FakeRequest()
 
     "successfully audit" in {
-      val result = testService.auditCveMultipleVrnsAttempted(originalVatNumber = "123456789", newVatNumber = "987654321", userType = "Organisation")
+      val result =
+        await(testService.auditCveMultipleVrnsAttempted(originalVatNumber = "123456789", newVatNumber = "987654321", userType = "Organisation"))
 
-      whenReady(result)(_ mustBe expected)
+      result mustBe expected
     }
   }
 

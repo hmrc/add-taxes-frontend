@@ -6,7 +6,7 @@ import forms.other.ppt.PptReferenceFormProvider
 import handlers.ErrorHandler
 import models.other.ppt.DoYouHaveAPptReference
 import play.api.data.Form
-import play.api.http.Status.{BAD_REQUEST, INTERNAL_SERVER_ERROR, OK, SEE_OTHER}
+import play.api.http.Status.{BAD_REQUEST, OK, SEE_OTHER}
 import play.api.i18n.MessagesApi
 import play.api.mvc.Call
 import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout, redirectLocation, status}

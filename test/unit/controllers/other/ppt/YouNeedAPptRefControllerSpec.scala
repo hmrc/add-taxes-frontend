@@ -3,7 +3,7 @@ package controllers.other.ppt
 import config.FrontendAppConfig
 import controllers.ControllerSpecBase
 import handlers.ErrorHandler
-import play.api.http.Status.{INTERNAL_SERVER_ERROR, OK}
+import play.api.http.Status.OK
 import play.api.i18n.MessagesApi
 import play.api.mvc.Call
 import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout, status}
