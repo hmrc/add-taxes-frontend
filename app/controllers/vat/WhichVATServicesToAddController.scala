@@ -54,7 +54,7 @@ class WhichVATServicesToAddController @Inject()(mcc: MessagesControllerComponent
     val enrolments = request.request.enrolments
     WhichVATServicesToAdd.options
       .filterNot(x =>
-        if (enrolments.getEnrolment("HMRC_MTD_VAT").isDefined || enrolments.getEnrolment("HMCE-VATDEC-ORG").isDefined) {
+        if (checkForVatEnrolment) {
           x.value == WhichVATServicesToAdd.VAT.toString
         } else {
           false
@@ -66,17 +66,25 @@ class WhichVATServicesToAddController @Inject()(mcc: MessagesControllerComponent
         false
       }
     )
+  }
 
+  private def checkForVatEnrolment(implicit request: ServiceInfoRequest[AnyContent]): Boolean = {
+    val enrolments = request.request.enrolments
+    if (enrolments.getEnrolment("HMRC-MTD-VAT").isDefined || enrolments.getEnrolment("HMCE-VATDEC-ORG").isDefined) {
+      true
+    } else {
+      false
+    }
   }
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(whichVATServicesToAdd(appConfig, form, radioOptions)(request.serviceInfoContent))
+    Ok(whichVATServicesToAdd(appConfig, form, radioOptions, checkForVatEnrolment)(request.serviceInfoContent))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => Future.successful(BadRequest(whichVATServicesToAdd(appConfig, formWithErrors, radioOptions)(request.serviceInfoContent))),
+        formWithErrors => Future.successful(BadRequest(whichVATServicesToAdd(appConfig, formWithErrors, radioOptions, checkForVatEnrolment)(request.serviceInfoContent))),
         value =>
           value match {
             case _ if(value == WhichVATServicesToAdd.VATIOSS || value == WhichVATServicesToAdd.VATOSS) =>
