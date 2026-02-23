@@ -70,11 +70,7 @@ class WhichVATServicesToAddController @Inject()(mcc: MessagesControllerComponent
 
   private def checkForVatEnrolment(implicit request: ServiceInfoRequest[AnyContent]): Boolean = {
     val enrolments = request.request.enrolments
-    if (enrolments.getEnrolment("HMRC-MTD-VAT").isDefined || enrolments.getEnrolment("HMCE-VATDEC-ORG").isDefined) {
-      true
-    } else {
-      false
-    }
+    enrolments.getEnrolment("HMRC-MTD-VAT").isDefined || enrolments.getEnrolment("HMCE-VATDEC-ORG").isDefined
   }
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
