@@ -258,10 +258,11 @@ class SelectSaCategoryServiceITSASpec extends ControllerSpecBase with MockitoSug
         when(mockKnownFactsService.enrolmentCheck(any(), any(), any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(NoSaUtr))
 
         val result: Future[Result] = testService.saCategoryResult(SelectSACategory.MtdIT, DoYouHaveSAUTR.Yes, btaOrigin)
+        val expectedURL = s"${frontendAppConfig.mtdItUrl}?origin=BTA"
 
         status(result) mustBe SEE_OTHER
 
-        redirectLocation(result) mustBe Some(frontendAppConfig.mtdItUrl)
+        redirectLocation(result) mustBe Some(expectedURL)
       }
     }
 
