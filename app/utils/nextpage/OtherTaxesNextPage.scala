@@ -17,14 +17,14 @@
 package utils.nextpage
 
 import config.FrontendAppConfig
-import controllers.other.oil.{routes => oilRoutes}
-import controllers.other.land.{routes => landRoutes}
 import controllers.other.aeoi.{routes => aeoiRoutes}
+import controllers.other.alcohol.awrs.{routes => alcoholRoutes}
 import controllers.other.charity.{routes => charityRoutes}
+import controllers.other.ctf.{routes => ctfRoutes}
 import controllers.other.gambling.{routes => gamblingRoutes}
 import controllers.other.importexports.{routes => importexportsRoutes}
-import controllers.other.alcohol.awrs.{routes => alcoholRoutes}
-import controllers.other.ctf.{routes => ctfRoutes}
+import controllers.other.land.{routes => landRoutes}
+import controllers.other.oil.{routes => oilRoutes}
 import controllers.other.ppt.{routes => pptRoutes}
 import identifiers.OtherTaxesId
 import models.OtherTaxes
@@ -34,10 +34,9 @@ import utils.NextPage
 
 trait OtherTaxesNextPage {
 
-  implicit val otherTaxes: NextPage[OtherTaxesId.type, OtherTaxes, Call] = {
+  implicit val otherTaxes: NextPage[OtherTaxesId.type, OtherTaxes, Call] =
     new NextPage[OtherTaxesId.type, OtherTaxes, Call] {
-      override def get(
-        b: OtherTaxes)(implicit appConfig: FrontendAppConfig, request: ServiceInfoRequest[_]): Call =
+      override def get(b: OtherTaxes)(implicit appConfig: FrontendAppConfig, request: ServiceInfoRequest[_]): Call =
         b match {
           case OtherTaxes.AlcoholAndTobaccoOld                         => alcoholRoutes.SelectAlcoholSchemeController.onPageLoad()
           case OtherTaxes.AlcoholAndTobacco                            => alcoholRoutes.SelectAlcoholSchemeController.onPageLoad()
@@ -53,7 +52,7 @@ trait OtherTaxesNextPage {
           case OtherTaxes.PPT                                          => pptRoutes.DoYouHaveAPPTRefController.onPageLoad()
           case OtherTaxes.ECL                                          => Call("GET", appConfig.eclHandOff)
           case OtherTaxes.PLRID                                        => Call("GET", appConfig.pillar2Url)
+          case OtherTaxes.VapingDuty                                   => Call("GET", appConfig.vapingDutyHandOff)
         }
     }
-  }
 }

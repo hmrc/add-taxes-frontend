@@ -17,137 +17,78 @@
 package controllers
 
 import config.FrontendAppConfig
-import config.featureToggles.FeatureSwitch.{ECLSwitch, Pillar2Switch}
 import config.featureToggles.FeatureToggleSupport.isEnabled
 import controllers.actions._
 import forms.OtherTaxesFormProvider
 import identifiers.OtherTaxesId
 import models.OtherTaxes
-import models.OtherTaxes._
+import models.OtherTaxes.{AlcoholAndTobacco, GamblingAndGaming, HousingAndLand, ImportsExports, OilAndFuel, PODS, PPT}
 import models.requests.ServiceInfoRequest
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
-import uk.gov.hmrc.auth.core.{Enrolment, Enrolments => CoreEnrolments}
+import uk.gov.hmrc.auth.core.{Enrolments => CoreEnrolments}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import utils.{Enrolments, Enumerable, Navigator, RadioOption}
+import utils.Enrolments._
+import utils._
 import views.html.{organisation_only, otherTaxes}
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
-class OtherTaxesController @Inject()(mcc: MessagesControllerComponents,
-                                     navigator: Navigator[Call],
-                                     authenticate: AuthAction,
-                                     serviceInfoData: ServiceInfoAction,
-                                     formProvider: OtherTaxesFormProvider,
-                                     otherTaxes: otherTaxes,
-                                     organisation_only: organisation_only,
-                                     implicit val appConfig: FrontendAppConfig)
-  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
+class OtherTaxesController @Inject() (mcc: MessagesControllerComponents,
+                                      navigator: Navigator[Call],
+                                      authenticate: AuthAction,
+                                      serviceInfoData: ServiceInfoAction,
+                                      formProvider: OtherTaxesFormProvider,
+                                      otherTaxes: otherTaxes,
+                                      organisation_only: organisation_only,
+                                      implicit val appConfig: FrontendAppConfig)
+    extends FrontendController(mcc)
+    with I18nSupport
+    with Enumerable.Implicits {
 
   val form: Form[OtherTaxes] = formProvider()
 
   private[controllers] def getOptions(implicit r: ServiceInfoRequest[AnyContent]): Seq[RadioOption] = {
-    val checks: Seq[CoreEnrolments => Option[RadioOption]] = Seq(
-      checkAlcohol,
-      checkAutomaticExchangeOfInformation,
-      checkCharities,
-      checkGamblingAndGaming,
-      checkOilAndFuel,
-      checkFulfilmentHouse,
-      checkChildTrustFund,
-      checkPODS,
-      checkPPT,
-      checkECL,
-      checkPillar2
-    )
-    val defaultRadioOptions: Seq[RadioOption] = Seq(HousingAndLand, ImportsExports).map(_.toRadioOption)
-    val unsortedRadioOptions: Seq[RadioOption] = checks.flatMap(_.apply(r.request.enrolments)) ++ defaultRadioOptions
+    val allUserEnrolments: uk.gov.hmrc.auth.core.Enrolments = r.request.enrolments
 
-    unsortedRadioOptions.sortBy(_.value)
+    val permanentRadios: Set[RadioOption] =
+      Set(AlcoholAndTobacco, HousingAndLand, ImportsExports, PPT).map(_.toRadioOption)
+
+    val singleEnrolmentChecks: Set[OtherTaxEnrolment] = Set(AEOI, Charities, CTF, ECL, OtherBusinessTaxDutyScheme, PLRID, VPD)
+    val radiosFromSingleChecksWithSwitches: Set[RadioOption] =
+      singleEnrolmentChecks.flatMap(returnFeatureSwitchedRadioIfSingleEnrolmentIsNotPresent(_, allUserEnrolments))
+
+    val gamblingAndGamingSubMenuRadio: Option[RadioOption] =
+      returnSubMenuRadioIfAllSubEnrolmentsAreNotPresent(Enrolments.allGamblingAndGaming, GamblingAndGaming.toRadioOption, allUserEnrolments)
+
+    val oilAndFuelSubMenuRadio: Option[RadioOption] =
+      returnSubMenuRadioIfAllSubEnrolmentsAreNotPresent(Enrolments.allOilAndFuel, OilAndFuel.toRadioOption, allUserEnrolments)
+
+    val podsSubMenuRadio: Option[RadioOption] =
+      returnSubMenuRadioIfAllSubEnrolmentsAreNotPresent(Enrolments.allPODS, PODS.toRadioOption, allUserEnrolments)
+
+    val allRemainingRadios: Set[RadioOption] =
+      permanentRadios ++ radiosFromSingleChecksWithSwitches ++ Set(gamblingAndGamingSubMenuRadio, oilAndFuelSubMenuRadio, podsSubMenuRadio).flatten
+
+    allRemainingRadios.toSeq.sortBy(_.value)
   }
 
-  private val checkAlcohol: CoreEnrolments => Option[RadioOption] = { _: CoreEnrolments =>
-    Some(AlcoholAndTobacco.toRadioOption)
+  private def returnFeatureSwitchedRadioIfSingleEnrolmentIsNotPresent(enrolmentToCheck: OtherTaxEnrolment,
+                                                                      allUserEnrolments: CoreEnrolments): Option[RadioOption] = {
+    val notYetEnrolled     = allUserEnrolments.getEnrolment(enrolmentToCheck.identifier).isEmpty
+    val switchOnOrNoSwitch = enrolmentToCheck.featureSwitch.forall(isEnabled)
+
+    if (notYetEnrolled && switchOnOrNoSwitch) Some(enrolmentToCheck.toOtherTaxRadioOption) else None
   }
 
-  private val checkAutomaticExchangeOfInformation: CoreEnrolments => Option[RadioOption] =
-    _.getEnrolment(Enrolments.AEOI.toString)
-      .fold[Option[RadioOption]](Some(AutomaticExchangeOfInformation.toRadioOption))(_ => None)
-
-  private val checkECL: CoreEnrolments => Option[RadioOption] = e => {
-    val ecl: Option[Enrolment] = e.getEnrolment(Enrolments.ECL.toString)
-    if (isEnabled(ECLSwitch) && ecl.isEmpty) Some(ECL.toRadioOption)
-    else None
-  }
-
-  private val checkPillar2: CoreEnrolments => Option[RadioOption] = e => {
-    val pillar2: Option[Enrolment] = e.getEnrolment(Enrolments.PLRID.toString)
-    if (isEnabled(Pillar2Switch) && pillar2.isEmpty) Some(PLRID.toRadioOption)
-    else None
-  }
-
-  private val checkCharities: CoreEnrolments => Option[RadioOption] =
-    _.getEnrolment(Enrolments.Charities.toString)
-      .fold[Option[RadioOption]](Some(Charities.toRadioOption))(_ => None)
-
-  private val checkGamblingAndGaming: CoreEnrolments => Option[RadioOption] = { (enrolments: CoreEnrolments) =>
-    val checks = List(
-      checkMachineGamingDuty,
-      checkGeneralBetting,
-      checkRemoteGaming,
-      checkPoolBetting
-    )
-
-    if (checks.forall(_.apply(enrolments))) None else Some(GamblingAndGaming.toRadioOption)
-  }
-
-  private val checkMachineGamingDuty: CoreEnrolments => Boolean =
-    _.getEnrolment(Enrolments.MachineGamingDuty.toString).isDefined
-
-  private val checkGeneralBetting: CoreEnrolments => Boolean =
-    _.getEnrolment(Enrolments.GeneralBetting.toString).isDefined
-
-  private val checkRemoteGaming: CoreEnrolments => Boolean =
-    _.getEnrolment(Enrolments.RemoteGaming.toString).isDefined
-
-  private val checkPoolBetting: CoreEnrolments => Boolean =
-    _.getEnrolment(Enrolments.PoolBetting.toString).isDefined
-
-  private val checkOilAndFuel: CoreEnrolments => Option[RadioOption] =
-    (enrolments: CoreEnrolments) =>
-      if (checkRebatedOils(enrolments) && checkTiedOils(enrolments)) {
-        None
-      } else {
-        Some(OilAndFuel.toRadioOption)
-    }
-
-  private val checkRebatedOils: CoreEnrolments => Boolean =
-    _.getEnrolment(Enrolments.RebatedOils.toString).isDefined
-
-  private val checkTiedOils: CoreEnrolments => Boolean =
-    _.getEnrolment(Enrolments.TiedOils.toString).isDefined
-
-  private val checkFulfilmentHouse: CoreEnrolments => Option[RadioOption] =
-    _.getEnrolment(Enrolments.OtherBusinessTaxDutyScheme.toString)
-      .flatMap(_.getIdentifier(Enrolments.OtherBusinessTaxDutyScheme.FulfilmentHouseDueDiligenceSchemeIdentifier))
-      .fold(Option(FulfilmentHouseDueDiligenceSchemeIntegration.toRadioOption))(_ => None)
-
-  private val checkChildTrustFund: CoreEnrolments => Option[RadioOption] =
-    _.getEnrolment(Enrolments.CTF.toString)
-      .fold[Option[RadioOption]](Some(ChildTrustFund.toRadioOption))(_ => None)
-
-  private val checkPODS: CoreEnrolments => Option[RadioOption] = e => {
-    val pod = e.getEnrolment(Enrolments.PODSORG.toString)
-    val podpp = e.getEnrolment(Enrolments.PODSPP.toString)
-    if(pod.isDefined && podpp.isDefined) None else Some(PODS.toRadioOption)
-  }
-
-  private val checkPPT: CoreEnrolments => Option[RadioOption] = e => {
-    val ppt: Option[Enrolment] = e.getEnrolment(Enrolments.PPT.toString)
-    Some(PPT.toRadioOption)
+  private def returnSubMenuRadioIfAllSubEnrolmentsAreNotPresent(enrolmentsToCheck: Set[_ <: Enrolments],
+                                                                subMenuRadio: RadioOption,
+                                                                allUserEnrolments: CoreEnrolments): Option[RadioOption] = {
+    val userHasAllEnrolments = enrolmentsToCheck.forall(e => allUserEnrolments.getEnrolment(e.toString).isDefined)
+    if (userHasAllEnrolments) None else Some(subMenuRadio)
   }
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
@@ -158,10 +99,10 @@ class OtherTaxesController @Inject()(mcc: MessagesControllerComponents,
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
-    form.bindFromRequest()
+    form
+      .bindFromRequest()
       .fold(
-        formWithErrors =>
-          Future.successful(BadRequest(otherTaxes(appConfig, formWithErrors, getOptions)(request.serviceInfoContent))),
+        formWithErrors => Future.successful(BadRequest(otherTaxes(appConfig, formWithErrors, getOptions)(request.serviceInfoContent))),
         value => Future.successful(Redirect(navigator.nextPage(OtherTaxesId, value)))
       )
   }

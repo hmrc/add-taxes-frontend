@@ -146,6 +146,7 @@ otherTaxes.legend = Dewis treth neu fath o gynllun
 otherTaxes.pods = Rheoli a chofrestru cynlluniau pensiwn
 otherTaxes.ppt = Treth Deunydd Pacio Plastig (PPT)
 otherTaxes.pillar2 = Trethi atodol Colofn 2
+otherTaxes.vapingDuty = Toll Cynhyrchion Fepio
 
 #######################################################
 ##  OrganisationOnly

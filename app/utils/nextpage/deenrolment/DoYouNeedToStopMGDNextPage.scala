@@ -36,7 +36,7 @@ trait DoYouNeedToStopMGDNextPage {
         request: ServiceInfoRequest[_]): Either[String, Call] =
         b match {
           case (DoYouNeedToStopMGD.Yes, _) =>
-            Right(Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.MachineGamesDuty)))
+            Right(Call("GET", appConfig.emacDeenrolmentsUrl(Enrolments.MachineGamingDuty)))
           case (DoYouNeedToStopMGD.No, Some(enrolment)) =>
             enrolment.identifiers.toList match {
               case Nil    => Left(s"unable to find identifier for ${enrolment.key}")
