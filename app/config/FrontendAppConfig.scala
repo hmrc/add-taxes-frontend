@@ -50,6 +50,8 @@ class FrontendAppConfig @Inject() (val config: ServicesConfig, val conf: Configu
   private lazy val podsHost: String = config.getString("urls.manage-pensions-frontend.host")
   lazy val pods: String             = podsHost + config.getString("urls.manage-pensions-frontend.schemesOverview")
 
+  lazy val vapingDutyHandOff: String = addTaxesEnvHost + config.getString("urls.vaping-duty.handoff")
+
   lazy val analyticsToken: String         = config.getString(s"google-analytics.token")
   lazy val analyticsHost: String          = config.getString(s"google-analytics.host")
   lazy val ssoUrl: String                 = portalHost + config.getString(s"urls.external.portal.sso")

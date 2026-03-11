@@ -19,7 +19,7 @@ package models
 import utils.{Enumerable, RadioOption, WithName}
 
 sealed trait OtherTaxes {
-  val toRadioOption = RadioOption("otherTaxes", this.toString)
+  val toRadioOption: RadioOption = RadioOption("otherTaxes", this.toString)
 }
 
 object OtherTaxes {
@@ -40,6 +40,7 @@ object OtherTaxes {
   case object FulfilmentHouseDueDiligenceSchemeIntegration
       extends WithName("fulfilmentHouseDueDiligenceSchemeIntegration")
       with OtherTaxes
+  case object VapingDuty extends WithName("vapingDuty") with OtherTaxes
 
 
   val values: Seq[OtherTaxes] = Seq(
@@ -56,7 +57,8 @@ object OtherTaxes {
     FulfilmentHouseDueDiligenceSchemeIntegration,
     PODS,
     PPT,
-    PLRID
+    PLRID,
+    VapingDuty
   )
 
   val options: Seq[RadioOption] = values.map {

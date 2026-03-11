@@ -16,10 +16,10 @@
 
 package controllers
 
-import config.featureToggles.FeatureSwitch.{ECLSwitch, Pillar2Switch}
 import controllers.actions._
 import forms.OtherTaxesFormProvider
 import models.OtherTaxes
+import models.OtherTaxes.{GamblingAndGaming, OilAndFuel, PODS}
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
 import org.scalatest.BeforeAndAfterEach
 import play.api.data.Form
@@ -27,134 +27,237 @@ import play.api.mvc.{AnyContent, Call}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual, Organisation}
-import uk.gov.hmrc.auth.core.{Enrolment, EnrolmentIdentifier, Enrolments}
+import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual}
+import uk.gov.hmrc.auth.core.Enrolments
 import utils.{FakeNavigator, RadioOption}
 import views.html.{organisation_only, otherTaxes}
 
 class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEach {
 
-  override def beforeEach(): Unit = {
-    disable(ECLSwitch)
-    disable(Pillar2Switch)
-  }
+  override def beforeEach(): Unit = {}
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
 
-  val formProvider = new OtherTaxesFormProvider()
+  val formProvider           = new OtherTaxesFormProvider()
   val form: Form[OtherTaxes] = formProvider()
 
-  val view: otherTaxes = injector.instanceOf[otherTaxes]
-  val orgOnly: organisation_only = injector.instanceOf[organisation_only]
+  private val otherTaxesView: otherTaxes              = injector.instanceOf[otherTaxes]
+  private val organisationOnlyView: organisation_only = injector.instanceOf[organisation_only]
 
-  def controller(fakeAuthAction: AuthAction = FakeAuthAction): OtherTaxesController = {
+  def controller(fakeAuthAction: AuthAction = FakeAuthAction): OtherTaxesController =
     new OtherTaxesController(
       mcc,
       new FakeNavigator[Call](desiredRoute = onwardRoute),
       fakeAuthAction,
       FakeServiceInfoAction,
       formProvider,
-      view,
-      orgOnly,
+      otherTaxesView,
+      organisationOnlyView,
       frontendAppConfig
     )
-  }
 
-
-  def listOfAllRadioOptions: Seq[RadioOption] = {
-    val radiotionOptions = Seq(
-      RadioOption("otherTaxes", "alcoholAndTobacco"),
-      RadioOption("otherTaxes", "automaticExchangeOfInformation"),
-      RadioOption("otherTaxes", "charities"),
-      RadioOption("otherTaxes", "childTrustFund"),
-      RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration"),
-      RadioOption("otherTaxes", "gamblingAndGaming"),
-      RadioOption("otherTaxes", "housingAndLand"),
-      RadioOption("otherTaxes", "importsExports"),
-      RadioOption("otherTaxes", "oilAndFuel"),
-      RadioOption("otherTaxes", "pods"),
-      RadioOption("otherTaxes", "ppt")
-    )
-    (isEnabled(ECLSwitch), isEnabled(Pillar2Switch)) match {
-      case (true, false) => {
-        radiotionOptions ++ Seq(
-          RadioOption("otherTaxes", "economicCrimeLevy"),
-        )
-      }
-      case (false, false) =>
-        radiotionOptions ++ Seq()
-      case (true, false) => radiotionOptions ++ Seq(
-        RadioOption("otherTaxes", "economicCrimeLevy")
-      )
-      case (true, true) => {
-        radiotionOptions ++ Seq(
-          RadioOption("otherTaxes", "economicCrimeLevy"),
-          RadioOption("otherTaxes", "pillar2")
-        )
-      }
-      case (true, true) => radiotionOptions ++ Seq(
-        RadioOption("otherTaxes", "economicCrimeLevy"),
-        RadioOption("otherTaxes", "pillar2")
-      )
-
-      case (false, true) =>
-        radiotionOptions ++ Seq(
-          RadioOption("otherTaxes", "pillar2")
-        )
-
-      case (false, true) =>
-        radiotionOptions ++ Seq(
-          RadioOption("otherTaxes", "pillar2")
-        )
-
-      case (_, _) => radiotionOptions
-    }
-  }
+  private val allOtherTaxOptions: Seq[RadioOption] = Seq(
+    RadioOption("otherTaxes", "alcoholAndTobacco"),
+    RadioOption("otherTaxes", "automaticExchangeOfInformation"),
+    RadioOption("otherTaxes", "charities"),
+    RadioOption("otherTaxes", "childTrustFund"),
+    RadioOption("otherTaxes", "economicCrimeLevy"),
+    RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration"),
+    RadioOption("otherTaxes", "gamblingAndGaming"),
+    RadioOption("otherTaxes", "housingAndLand"),
+    RadioOption("otherTaxes", "importsExports"),
+    RadioOption("otherTaxes", "oilAndFuel"),
+    RadioOption("otherTaxes", "pillar2"),
+    RadioOption("otherTaxes", "pods"),
+    RadioOption("otherTaxes", "ppt"),
+    RadioOption("otherTaxes", "vapingDuty")
+  )
+  private val allEnrolmentKeys: Seq[String] = utils.Enrolments.values.map(_.identifier).toSeq
 
   def viewAsString(form: Form[_] = form): String =
-    new otherTaxes(formWithCSRF, mainTemplate)(frontendAppConfig, form, removeRadioOptionFromList())(HtmlFormat.empty)(fakeRequest, messages).toString
+    new otherTaxes(formWithCSRF, mainTemplate)(frontendAppConfig, form, allOtherTaxOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   def viewAsStringOrganisationOnly(request: ServiceInfoRequest[AnyContent]): String =
     new organisation_only(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(request, messages).toString()
 
-  def removeRadioOptionFromList(radioOptionToRemove: Option[RadioOption] = None): Seq[RadioOption] = {
-    radioOptionToRemove.fold(listOfAllRadioOptions)(radioOptionToRemove =>
-      listOfAllRadioOptions.filterNot(currentRadioOption => currentRadioOption.equals(radioOptionToRemove)))
+  def removeOptionsFromListOfAllRadioOptions(radioOptionsToRemove: Seq[RadioOption]): Seq[RadioOption] = allOtherTaxOptions.diff(radioOptionsToRemove)
+
+  "getOptions" must {
+    "show only the default radio options (AlcoholAndTobacco, HousingAndLand, ImportsExports, PPT)" when {
+      "request contains all possible other tax enrolment keys" in {
+        val request = requestWithEnrolments(keys = allEnrolmentKeys: _*)
+        val result  = controller().getOptions(request)
+        val defaultRadioOptions = Seq(
+          RadioOption("otherTaxes", "alcoholAndTobacco"),
+          RadioOption("otherTaxes", "housingAndLand"),
+          RadioOption("otherTaxes", "importsExports"),
+          RadioOption("otherTaxes", "ppt")
+        )
+
+        result mustBe defaultRadioOptions
+      }
+    }
+
+    "show all possible OtherTax radio options" when {
+      "request contains no enrolment keys" in {
+        val request = requestWithEnrolments(keys = "")
+        val result  = controller().getOptions(request).toList
+
+        result mustBe allOtherTaxOptions
+      }
+    }
+
+    val singleEnrolmentChecks = Seq(
+      ("AutomaticExchangeOfInformation", "HMRC-FATCA-ORG", "automaticExchangeOfInformation"),
+      ("Charities", "HMRC-CHAR-ORG", "charities"),
+      ("ChildTrustFund", "IR-CTF", "childTrustFund"),
+      ("ECL", "HMRC-ECL-ORG", "economicCrimeLevy"),
+      ("FulfilmentHouseDueDiligenceSchemeIntegration", "EtmpRegistrationNumber", "fulfilmentHouseDueDiligenceSchemeIntegration"),
+      ("Pillar2", "HMRC-PILLAR2-ORG", "pillar2"),
+      ("VapingProductsDuty", "HMRC-VPD-ORG", "vapingDuty")
+    )
+
+    singleEnrolmentChecks.foreach { case (name, enrolmentKey, radioOptionName) =>
+      s"show all but $name radio options" when {
+        s"request contains $enrolmentKey enrolment key" in {
+          val request = requestWithEnrolments(keys = enrolmentKey)
+          val result  = controller().getOptions(request).toList
+
+          result mustBe allOtherTaxOptions.filterNot(_ == RadioOption("otherTaxes", radioOptionName))
+        }
+      }
+    }
+
+    val generalBetting = "HMRC-GTS-GBD"
+    val machineGaming  = "HMRC-MGD-ORG"
+    val poolBetting    = "HMRC-GTS-PBD"
+    val remoteGaming   = "HMRC-GTS-RGD"
+    "show the GamblingAndGaming radio option" when {
+      "request does not contain all four enrolment keys" when {
+        "all but 'GeneralBetting'" in {
+          val request = requestWithEnrolments(keys = machineGaming, poolBetting, remoteGaming)
+          val result  = controller().getOptions(request)
+
+          result.contains(GamblingAndGaming.toRadioOption) mustBe true
+        }
+        "all but 'MachineGamingDuty'" in {
+          val request = requestWithEnrolments(keys = generalBetting, poolBetting, remoteGaming)
+          val result  = controller().getOptions(request)
+
+          result.contains(GamblingAndGaming.toRadioOption) mustBe true
+        }
+        "all but 'PoolBetting'" in {
+          val request = requestWithEnrolments(keys = generalBetting, machineGaming, remoteGaming)
+          val result  = controller().getOptions(request)
+
+          result.contains(GamblingAndGaming.toRadioOption) mustBe true
+        }
+        "all but 'RemoteGaming'" in {
+          val request = requestWithEnrolments(keys = generalBetting, machineGaming, poolBetting)
+          val result  = controller().getOptions(request)
+
+          result.contains(GamblingAndGaming.toRadioOption) mustBe true
+        }
+      }
+    }
+    "do NOT show the GamblingAndGaming radio option" when {
+      "request contains all four enrolment keys" in {
+        val request = requestWithEnrolments(keys = generalBetting, machineGaming, poolBetting, remoteGaming)
+        val result  = controller().getOptions(request)
+
+        result.contains(GamblingAndGaming.toRadioOption) mustBe false
+      }
+    }
+
+    val rebatedOils = "HMCE-RO"
+    val tiedOils    = "HMCE-TO"
+    "show the OilAndFuel radio option" when {
+      "request does not contain 'RebatedOils' enrolment key" in {
+        val request = requestWithEnrolments(keys = rebatedOils)
+        val result  = controller().getOptions(request)
+
+        result.contains(OilAndFuel.toRadioOption) mustBe true
+      }
+      "request does not contain 'TiedOils' enrolment key" in {
+        val request = requestWithEnrolments(keys = tiedOils)
+        val result  = controller().getOptions(request)
+
+        result.contains(OilAndFuel.toRadioOption) mustBe true
+      }
+    }
+    "do NOT show the OilAndFuel radio option" when {
+      "request contains both enrolment keys" in {
+        val request = requestWithEnrolments(keys = rebatedOils, tiedOils)
+        val result  = controller().getOptions(request)
+
+        result.contains(OilAndFuel.toRadioOption) mustBe false
+      }
+    }
+
+    val podsorg = "HMRC-PODS-ORG"
+    val podspp  = "HMRC-PODSPP-ORG"
+    "show the PODS radio option" when {
+      "request does not contain 'PODSORG' enrolment key" in {
+        val request = requestWithEnrolments(keys = podsorg)
+        val result  = controller().getOptions(request)
+
+        result.contains(OilAndFuel.toRadioOption) mustBe true
+      }
+      "request does not contain 'PODSPP' enrolment key" in {
+        val request = requestWithEnrolments(keys = podspp)
+        val result  = controller().getOptions(request)
+
+        result.contains(PODS.toRadioOption) mustBe true
+      }
+    }
+    "do NOT show the PODS radio option" when {
+      "request contains both enrolment keys" in {
+        val request = requestWithEnrolments(keys = podsorg, podspp)
+        val result  = controller().getOptions(request)
+
+        result.contains(PODS.toRadioOption) mustBe false
+      }
+    }
   }
 
-  "OtherTaxes Controller" must {
+  "onPageLoad" must {
+    "render the 'You can't add this business account' view" when {
+      "the user is an individual" in {
+        val request = ServiceInfoRequest[AnyContent](
+          AuthenticatedRequest(FakeRequest().withMethod("GET"), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
+          HtmlFormat.empty)
 
-    "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest.withMethod("GET"))
+        val result = controller(new FakeAuthActionIndividual(parser)).onPageLoad()(request)
 
-      status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+        status(result) mustBe OK
+        val view = contentAsString(result)
+        view mustBe viewAsStringOrganisationOnly(request)
+      }
+
+      "the user is an agent" in {
+        val request = ServiceInfoRequest[AnyContent](
+          AuthenticatedRequest(FakeRequest().withMethod("GET"), "", Enrolments(Set()), Some(Agent), groupId, providerId, confidenceLevel, None),
+          HtmlFormat.empty)
+
+        val result = controller(fakeAuthAction = new FakeAuthActionAgent(parser)).onPageLoad()(request)
+
+        status(result) mustBe OK
+        val view = contentAsString(result)
+        view mustBe viewAsStringOrganisationOnly(request)
+      }
     }
 
-    "When a user is an individual, render the you can't add this business account view" in {
-      val request = ServiceInfoRequest[AnyContent](
-        AuthenticatedRequest(FakeRequest().withMethod("GET"), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
-        HtmlFormat.empty)
+    "render the 'Select a category' other tax view" when {
+      "the user is an 'Organisation'" in {
+        val result = controller().onPageLoad()(fakeRequest.withMethod("GET"))
 
-      val result = controller(new FakeAuthActionIndividual(parser)).onPageLoad()(request)
-
-      status(result) mustBe OK
-      val view = contentAsString(result)
-      view mustBe viewAsStringOrganisationOnly(request)
+        status(result) mustBe OK
+        contentAsString(result) mustBe viewAsString()
+      }
     }
+  }
 
-    "When a user is an agent, render the you can't add this business account view" in {
-      val request = ServiceInfoRequest[AnyContent](
-        AuthenticatedRequest(FakeRequest().withMethod("GET"), "", Enrolments(Set()), Some(Agent), groupId, providerId, confidenceLevel, None),
-        HtmlFormat.empty)
-
-      val result = controller(fakeAuthAction = new FakeAuthActionAgent(parser)).onPageLoad()(request)
-
-      status(result) mustBe OK
-      val view = contentAsString(result)
-      view mustBe viewAsStringOrganisationOnly(request)
-    }
-
+  "onSubmit" must {
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", OtherTaxes.options.head.value)).withMethod("POST")
 
@@ -166,169 +269,13 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
 
     "return a Bad Request and errors when invalid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value")).withMethod("POST")
-      val boundForm = form.bind(Map("value" -> "invalid value"))
+      val boundForm   = form.bind(Map("value" -> "invalid value"))
 
       val result = controller().onSubmit()(postRequest)
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe viewAsString(boundForm)
     }
-
-    "redirect to next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", OtherTaxes.options.head.value)).withMethod("POST")
-      val result = controller().onSubmit()(postRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
-    }
-
-    "display all options" in {
-      val request = requestWithEnrolments(keys = "")
-      val result = controller().getOptions(request)
-
-      result mustBe removeRadioOptionFromList()
-    }
-
-    "display alcohol if the user has HMCE-ATWD-ORG, HMRC-AWRS-ORG " in {
-      val request = requestWithEnrolments("HMCE-ATWD-ORG", "HMRC-AWRS-ORG")
-      val result = controller().getOptions(request)
-
-      result mustBe removeRadioOptionFromList()
-    }
-
-    "display new ADP radio button if the user has HMCE-ATWD-ORG, HMRC-AWRS-ORG and newADPJourney feature is enabled" in {
-      val request = requestWithEnrolments("HMCE-ATWD-ORG", "HMRC-AWRS-ORG")
-      val result = controller().getOptions(request)
-
-      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "alcoholAndTobaccoWholesalingAndWarehousing")))
-    }
-
-    "not display AEOI if the user has HMRC-FATCA-ORG" in {
-      val request = requestWithEnrolments("HMRC-FATCA-ORG")
-      val result = controller().getOptions(request)
-
-      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "automaticExchangeOfInformation")))
-    }
-
-    "not display Charities if the user has HMRC-CHAR-ORG" in {
-      val request = requestWithEnrolments("HMRC-CHAR-ORG")
-      val result = controller().getOptions(request)
-
-      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "charities")))
-    }
-    "not display Child Trust Fund if the user has IR-CTF" in {
-      val request = requestWithEnrolments("IR-CTF")
-      val result = controller().getOptions(request)
-
-      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "childTrustFund")))
-    }
-    "not display ECL if the user has ECL" in {
-      val request = requestWithEnrolments("HMRC-ECL-ORG")
-      val result = controller().getOptions(request)
-
-      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "economicCrimeLevy")))
-    }
-
-    "not display ECL if the user doesnt have ECL but the feature is off" in {
-      disable(ECLSwitch)
-      val request = requestWithEnrolments("")
-      val result = controller().getOptions(request)
-
-      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "economicCrimeLevy")))
-    }
-
-    "display ECL if the user doesnt have ECL but the feature is on" in {
-      enable(ECLSwitch)
-
-      val request = requestWithEnrolments("")
-      val result = controller().getOptions(request)
-
-      result mustBe removeRadioOptionFromList().sortBy(_.value)
-    }
-
-    "not display PLRID if the user has PLRID" in {
-      val request = requestWithEnrolments("HMRC-PILLAR2-ORG")
-      val result = controller().getOptions(request)
-
-      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "pillar2")))
-    }
-
-    "not display PLRID if the user doesnt have PLRID but the feature is off" in {
-
-      disable(Pillar2Switch)
-      val request = requestWithEnrolments("")
-      val result = controller().getOptions(request)
-
-      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "pillar2")))
-    }
-
-    "display PLRID if the user doesnt have PLRID but the feature is on" in {
-      enable(Pillar2Switch)
-
-      val request = requestWithEnrolments("")
-      val result = controller().getOptions(request)
-      result mustBe removeRadioOptionFromList().sortBy(_.value)
-
-    }
-
-    "not display Gambling and Gaming if the user has HMRC-MGD-ORG, HMRC-GTS-GBD, HMRC-GTS-PBD, HMRC-GTS-RGD" in {
-      val request = requestWithEnrolments("HMRC-MGD-ORG", "HMRC-GTS-GBD", "HMRC-GTS-PBD", "HMRC-GTS-RGD")
-      val result = controller().getOptions(request)
-
-      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "gamblingAndGaming")))
-    }
-    "not display Oil and Fuel if the user has HMCE-RO, HMCE-TO" in {
-      val request = requestWithEnrolments("HMCE-RO", "HMCE-TO")
-      val result = controller().getOptions(request)
-
-      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "oilAndFuel")))
-    }
-
-    "not display Manage pensions if the user has both HMRC-PODS-ORG and HMRC-PODSPP-ORG" in {
-      val request = requestWithEnrolments("HMRC-PODS-ORG", "HMRC-PODSPP-ORG")
-      val result = controller().getOptions(request)
-
-      result mustBe removeRadioOptionFromList(Some(RadioOption("otherTaxes", "pods")))
-    }
-
-    "not display Manage pensions if the user has HMRC-PODS-ORG" in {
-      val request = requestWithEnrolments("HMRC-PODS-ORG")
-      val result = controller().getOptions(request)
-
-      result mustBe listOfAllRadioOptions
-    }
-
-    "not display Manage pensions if the user has HMRC-PODSPP-ORG" in {
-      val request = requestWithEnrolments("HMRC-PODSPP-ORG")
-      val result = controller().getOptions(request)
-
-      result mustBe listOfAllRadioOptions
-    }
-
-    "not display Manage pensions if the user has HMRC-PPT-ORG" in {
-      val request = requestWithEnrolments("HMRC-PPT-ORG")
-      val result = controller().getOptions(request)
-
-      result mustBe removeRadioOptionFromList(None)
-    }
-
-    "not display Fulfilment House if the user has HMRC-OBTDS-ORG and an EtmpRegistrationNumber" in {
-      val enrolment =
-        Enrolment("HMRC-OBTDS-ORG", Seq(EnrolmentIdentifier("EtmpRegistrationNumber", "123")), "Activated")
-      val request = ServiceInfoRequest[AnyContent](
-        AuthenticatedRequest(FakeRequest().withMethod("GET"), "", Enrolments(Set(enrolment)), Some(Organisation), groupId, providerId, confidenceLevel, None),
-        HtmlFormat.empty)
-      val result = controller().getOptions(request)
-
-      result mustBe removeRadioOptionFromList(
-        Some(RadioOption("otherTaxes", "fulfilmentHouseDueDiligenceSchemeIntegration")))
-    }
-
-    "display Fulfilment House if the user has HMRC-OBTDS-ORG but no EtmpRegistrationNumber" in {
-      val request = requestWithEnrolments("HMRC-OBTDS-ORG")
-      val result = controller().getOptions(request)
-
-      result mustBe removeRadioOptionFromList(None)
-    }
   }
+
 }

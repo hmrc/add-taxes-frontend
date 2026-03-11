@@ -64,41 +64,39 @@ class OtherTaxesViewSpec extends ViewBehaviours {
           "Imports and exports",
           "Oil and fuel",
           "Fulfilment House Due Diligence Scheme",
-          "Manage and register pension schemes"
+          "Manage and register pension schemes",
+          "Vaping Products Duty"
         )
 
         val listOfElements =
           doc.getElementsByClass("govuk-form-group").first().getElementsByClass("multiple-choice").asScala.toList
 
-        listOfElements.zip(listOfOptions).foreach {
-          case (element, answer) => element.text mustBe answer
+        listOfElements.zip(listOfOptions).foreach { case (element, answer) =>
+          element.text mustBe answer
         }
       }
 
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- OtherTaxes.options) {
+        for (option <- OtherTaxes.options)
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
-        }
       }
     }
 
-    for (option <- OtherTaxes.options) {
+    for (option <- OtherTaxes.options)
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
-          for (unselectedOption <- OtherTaxes.options.filterNot(o => o == option)) {
+          for (unselectedOption <- OtherTaxes.options.filterNot(o => o == option))
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
-          }
         }
       }
-    }
 
     "invalid data is sent" must {
       "prepend title with Error: " in {
-        val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> ""))))
+        val doc   = asDocument(createViewUsingForm(form.bind(Map("value" -> ""))))
         val title = messages("site.service_title", messages(s"$messageKeyPrefix.title"))
 
         assertEqualsMessage(doc, "title", "error.browser.title", title)
