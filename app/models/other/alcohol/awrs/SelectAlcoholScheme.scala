@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,20 +16,26 @@
 
 package models.other.alcohol.awrs
 
-import utils.{Enumerable, RadioOption, WithName}
+import utils.{Enrolments, Enumerable, RadioOption, WithName}
 
-sealed trait SelectAlcoholScheme
+sealed trait SelectAlcoholScheme {
+  def toRadioOption: RadioOption = RadioOption("selectAlcoholScheme", this.toString)
+}
 
 object SelectAlcoholScheme {
 
   case object ATWD extends WithName("atwd") with SelectAlcoholScheme
   case object AWRS extends WithName("awrs") with SelectAlcoholScheme
-  case object AD extends WithName("ad") with SelectAlcoholScheme
+  case object AD   extends WithName("ad") with SelectAlcoholScheme
+  case object VPD extends WithName("vpd") with SelectAlcoholScheme {
+    val enrolmentKey: String = Enrolments.VPD.identifier
+  }
 
   val values: Set[SelectAlcoholScheme] = Set(
     ATWD,
     AWRS,
-    AD
+    AD,
+    VPD
   )
 
   val options: Set[RadioOption] = values.map { value =>

@@ -17,11 +17,14 @@
 package controllers.other.alcohol.awrs
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.VapingDutySwitch
+import config.featureToggles.FeatureToggleSupport
 import controllers.actions._
 import forms.other.alcohol.awrs.SelectAlcoholSchemeFormProvider
 import identifiers.SelectAlcoholSchemeId
-import javax.inject.Inject
 import models.other.alcohol.awrs.SelectAlcoholScheme
+import models.other.alcohol.awrs.SelectAlcoholScheme.VPD
+import models.requests.ServiceInfoRequest
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
@@ -29,29 +32,43 @@ import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Enumerable, Navigator}
 import views.html.other.alcohol.awrs.selectAlcoholScheme
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
-class SelectAlcoholSchemeController @Inject()(appConfig: FrontendAppConfig,
-                                              mcc: MessagesControllerComponents,
-                                              navigator: Navigator[Call],
-                                              authenticate: AuthAction,
-                                              serviceInfoData: ServiceInfoAction,
-                                              formProvider: SelectAlcoholSchemeFormProvider,
-                                              selectAlcoholScheme: selectAlcoholScheme)
-  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
+class SelectAlcoholSchemeController @Inject() (appConfig: FrontendAppConfig,
+                                               mcc: MessagesControllerComponents,
+                                               navigator: Navigator[Call],
+                                               authenticate: AuthAction,
+                                               serviceInfoData: ServiceInfoAction,
+                                               formProvider: SelectAlcoholSchemeFormProvider,
+                                               selectAlcoholScheme: selectAlcoholScheme)
+    extends FrontendController(mcc)
+    with FeatureToggleSupport
+    with I18nSupport
+    with Enumerable.Implicits {
 
   val form: Form[SelectAlcoholScheme] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(selectAlcoholScheme(appConfig, form)(request.serviceInfoContent))
+    Ok(selectAlcoholScheme(appConfig, form, getFilteredAlcoholValues(request, appConfig))(request.serviceInfoContent))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
-    form.bindFromRequest()
+    form
+      .bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(selectAlcoholScheme(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(
+            BadRequest(selectAlcoholScheme(appConfig, formWithErrors, getFilteredAlcoholValues(request, appConfig))(request.serviceInfoContent))),
         value => Future.successful(Redirect(navigator.nextPage(SelectAlcoholSchemeId, value)))
       )
   }
+
+  private[controllers] def getFilteredAlcoholValues(implicit request: ServiceInfoRequest[AnyContent], config: FrontendAppConfig): Seq[SelectAlcoholScheme] = {
+    val vapingDutyIsDisabled       = isDisabled(VapingDutySwitch)
+    val alcoholOptions             = SelectAlcoholScheme.values.toSeq
+    val userAlreadyHasVpdEnrolment = request.request.enrolments.getEnrolment(VPD.enrolmentKey).isDefined
+    if (userAlreadyHasVpdEnrolment || vapingDutyIsDisabled) alcoholOptions.filterNot(_ == VPD) else alcoholOptions
+  }
+
 }
