@@ -460,6 +460,7 @@ selectAlcoholScheme.heading = Pa gynllun sydd ei angen arnoch?
 selectAlcoholScheme.atwd = Datganiadau Warysu Alcohol a Thybaco (ATWD)
 selectAlcoholScheme.awrs = Cynllun Cofrestru Cyfanwerthwyr Alcohol (AWRS)
 selectAlcoholScheme.ad = Toll Alcohol (AD)
+selectAlcoholScheme.vpd = Toll Cynhyrchion Fepio
 selectAlcoholScheme.error.required = Dewiswch pa gynllun sydd ei angen arnoch
 
 #######################################################

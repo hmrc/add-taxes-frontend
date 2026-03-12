@@ -436,6 +436,7 @@ selectAlcoholScheme.heading = Which scheme do you need?
 selectAlcoholScheme.atwd = Alcohol & Tobacco Warehousing Declarations (ATWD)
 selectAlcoholScheme.awrs = Alcohol Wholesaler Registration Scheme (AWRS)
 selectAlcoholScheme.ad = Alcohol Duty (AD)
+selectAlcoholScheme.vpd = Vaping Products Duty
 selectAlcoholScheme.error.required = Select which scheme you need
 
 #######################################################

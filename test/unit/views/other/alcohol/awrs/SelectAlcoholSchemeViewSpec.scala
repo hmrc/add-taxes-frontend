@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,10 +32,10 @@ class SelectAlcoholSchemeViewSpec extends ViewBehaviours {
   val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new selectAlcoholScheme(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    new selectAlcoholScheme(formWithCSRF, mainTemplate)(frontendAppConfig, form, SelectAlcoholScheme.values.toSeq)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
-    new selectAlcoholScheme(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
+    new selectAlcoholScheme(formWithCSRF, mainTemplate)(frontendAppConfig, form, SelectAlcoholScheme.values.toSeq)(serviceInfoContent)(fakeRequest, messages)
 
   "SelectAlcoholScheme view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -52,6 +52,8 @@ class SelectAlcoholSchemeViewSpec extends ViewBehaviours {
         val doc = asDocument(createViewUsingForm(form))
         doc.text() must include("Alcohol & Tobacco Warehousing Declarations (ATWD)")
         doc.text() must include("Alcohol Wholesaler Registration Scheme (AWRS)")
+        doc.text() must include("Alcohol Duty (AD)")
+        doc.text() must include("Vaping Products Duty")
 
         for (option <- SelectAlcoholScheme.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)

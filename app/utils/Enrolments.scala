@@ -55,8 +55,10 @@ object Enrolments {
 
   case object ATED extends WithName("HMRC-ATED-ORG") with Enrolments
 
+  // Alcohol & Tobacco Warehousing Declarations
   case object ATWD extends WithName("HMCE-ATWD-ORG") with Enrolments
 
+  // Alcohol Wholesaler Registration Scheme
   case object AWRS extends WithName("HMRC-AWRS-ORG") with Enrolments
 
   // CommonTransitConvention is the new NewComputerisedTransitSystem

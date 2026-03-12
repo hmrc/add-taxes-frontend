@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,22 +17,20 @@
 package utils.nextpage.other.alcohol.awrs
 
 import config.FrontendAppConfig
+import config.featureToggles.FeatureSwitch.AWRSJourneyRedirect
+import config.featureToggles.FeatureToggleSupport
+import controllers.other.alcohol.atwd.{routes => atwdRoutes}
 import identifiers.SelectAlcoholSchemeId
 import models.other.alcohol.awrs.SelectAlcoholScheme
 import models.requests.ServiceInfoRequest
 import play.api.mvc.Call
 import utils.NextPage
-import config.featureToggles.FeatureSwitch.AWRSJourneyRedirect
-import config.featureToggles.FeatureToggleSupport
-import controllers.other.alcohol.atwd.{routes => atwdRoutes}
 
 trait SelectAlcoholSchemeNextPage extends FeatureToggleSupport {
 
-  implicit val selectAlcoholScheme: NextPage[SelectAlcoholSchemeId.type, SelectAlcoholScheme, Call] = {
+  implicit val selectAlcoholScheme: NextPage[SelectAlcoholSchemeId.type, SelectAlcoholScheme, Call] =
     new NextPage[SelectAlcoholSchemeId.type, SelectAlcoholScheme, Call] {
-      override def get(b: SelectAlcoholScheme)(
-        implicit appConfig: FrontendAppConfig,
-        request: ServiceInfoRequest[_]): Call =
+      override def get(b: SelectAlcoholScheme)(implicit appConfig: FrontendAppConfig, request: ServiceInfoRequest[_]): Call =
         b match {
           case SelectAlcoholScheme.ATWD => atwdRoutes.AreYouRegisteredWarehousekeeperController.onPageLoad()
           case SelectAlcoholScheme.AWRS =>
@@ -41,8 +39,8 @@ trait SelectAlcoholSchemeNextPage extends FeatureToggleSupport {
             } else {
               Call("GET", "/business-customer/business-verification/awrs")
             }
-          case SelectAlcoholScheme.AD => Call("GET", appConfig.getAdrUrl)
+          case SelectAlcoholScheme.AD  => Call("GET", appConfig.getAdrUrl)
+          case SelectAlcoholScheme.VPD => Call("GET", appConfig.vapingDutyHandOff)
         }
     }
-  }
 }

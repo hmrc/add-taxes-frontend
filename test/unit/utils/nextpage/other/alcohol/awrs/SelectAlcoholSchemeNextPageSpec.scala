@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,5 +40,12 @@ class SelectAlcoholSchemeNextPageSpec extends NextPageSpecBase {
       SelectAlcoholScheme.AD,
       "http://localhost:16000/manage-alcohol-duty/enrol/approval-id"
     )
+
+    behave like nextPage(
+      NextPage.selectAlcoholScheme,
+      SelectAlcoholScheme.VPD,
+      "http://localhost:9730/vaping-duty/enrolment/do-you-have-an-approval-id"
+    )
   }
+
 }
