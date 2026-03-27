@@ -26,7 +26,7 @@
     main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig, form: Form[_], radioOptions: Seq[RadioOption])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_], radioOptions: Seq[RadioOption], hasVatEnrolment: Boolean)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("whichVATServicesToAdd.title"),
@@ -36,7 +36,7 @@
 
     @uiForm(action = WhichVATServicesToAddController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-        @components.error_summary(form.errors, Some("whichVATServicesToAdd.vat"))
+        @components.error_summary(form.errors, if (!hasVatEnrolment) Some("whichVATServicesToAdd.vat") else Some("whichVATServicesToAdd.ecsales"))
 
         @components.input_radio(
             field = form("value"),
