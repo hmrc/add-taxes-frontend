@@ -60,8 +60,8 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
     )
   }
 
-  def viewAsString(form: Form[_] = form, radioOptions: Seq[RadioOption] = WhichVATServicesToAdd.options): String =
-    new whichVATServicesToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form, radioOptions: Seq[RadioOption] = WhichVATServicesToAdd.options, hasVatEnrolment: Boolean = false): String =
+    new whichVATServicesToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, radioOptions, hasVatEnrolment)(HtmlFormat.empty)(fakeRequest, messages).toString
 
   "WhichVATServicesToAdd Controller" must {
     "return OK and the correct view for a GET" in {
@@ -130,7 +130,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
         val result = controller()(HmrcEnrolmentType.MTDVAT).onPageLoad()(fakeRequest.withMethod("GET"))
 
         contentAsString(result) mustBe viewAsString(
-          radioOptions = WhichVATServicesToAdd.options)
+          radioOptions = WhichVATServicesToAdd.options.filterNot(_.value == "vat"))
       }
 
       "page is loaded and OSS is enrolled" in {
@@ -152,7 +152,8 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
         val result = controller()(HmrcEnrolmentType.VAT).onSubmit()(postRequest)
 
         contentAsString(result) mustBe viewAsString(boundForm,
-          radioOptions = WhichVATServicesToAdd.options.filterNot(_.value == "vat"))
+          radioOptions = WhichVATServicesToAdd.options.filterNot(_.value == "vat"),
+          hasVatEnrolment = true)
       }
     }
   }
