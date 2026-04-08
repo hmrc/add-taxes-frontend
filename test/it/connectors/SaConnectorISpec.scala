@@ -41,12 +41,37 @@ class SaConnectorISpec extends PlaySpec with AddTaxesIntegrationTest {
         StubSaConnector.verifyGetIvLinks(1, testUtr, origin)
       }
 
+      "return None when NOT_FOUND is returned" in {
+        StubSaConnector.linkNotFound(testUtr, origin)
+
+        val result = connector.getIvLinks(testUtr, origin)
+
+        await(result) mustBe None
+        StubSaConnector.verifyGetIvLinks(1, testUtr, origin)
+      }
+
       "returns None when an exception is returned from Iv" in {
         StubSaConnector.unSuccessfulLinkRetrieval(testUtr, origin)
         val result: Future[Option[IvLinks]] = connector.getIvLinks(testUtr, origin)
 
         await(result) mustBe None
         StubSaConnector.verifyGetIvLinks(1, testUtr, origin)
+      }
+
+      "return None when JSON is invalid" in {
+        StubSaConnector.invalidIvLinksJson(testUtr, origin)
+
+        val result = connector.getIvLinks(testUtr, origin)
+
+        await(result) mustBe None
+      }
+
+      "return None when 500 is returned" in {
+        StubSaConnector.serverErrorIvLinks(testUtr, origin)
+
+        val result = connector.getIvLinks(testUtr, origin)
+
+        await(result) mustBe None
       }
     }
 
@@ -65,6 +90,31 @@ class SaConnectorISpec extends PlaySpec with AddTaxesIntegrationTest {
 
         await(result) mustBe None
         StubSaConnector.verifyDetailsRetrieval(1, testNino, testIdentifier)
+      }
+
+      "return None when NOT_FOUND is returned" in {
+        StubSaConnector.detailsNotFound(testNino, testIdentifier)
+
+        val result = connector.getBusinessDetails(testNino, testIdentifier)
+
+        await(result) mustBe None
+        StubSaConnector.verifyDetailsRetrieval(1, testNino, testIdentifier)
+      }
+
+      "return None when JSON is invalid" in {
+        StubSaConnector.invalidBusinessDetailsJson(testNino, testIdentifier)
+
+        val result = connector.getBusinessDetails(testNino, testIdentifier)
+
+        await(result) mustBe None
+      }
+
+      "return None when 500 is returned" in {
+        StubSaConnector.serverErrorBusinessDetails(testNino, testIdentifier)
+
+        val result = connector.getBusinessDetails(testNino, testIdentifier)
+
+        await(result) mustBe None
       }
     }
   }

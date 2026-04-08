@@ -61,6 +61,38 @@ class IvConnectorISpec extends PlaySpec with AddTaxesIntegrationTest {
         await(result) mustBe JourneyLinkResponse("Success", "token")
         StubIvConnector.verifyCheckJourneyLink(1)
       }
+
+      "throw an exception when 404 is returned" in {
+        StubIvConnector.withResponseCheckJourneyLink()(NOT_FOUND, None)
+
+        assertThrows[Exception] {
+          await(connector.checkJourneyLink("/mdtp/journey/journeyId/iv-stub-data"))
+        }
+      }
+
+      "throw an exception when 500 is returned" in {
+        StubIvConnector.withResponseCheckJourneyLink()(INTERNAL_SERVER_ERROR, None)
+
+        assertThrows[Exception] {
+          await(connector.checkJourneyLink("/mdtp/journey/journeyId/iv-stub-data"))
+        }
+      }
+
+      "throw an exception when JSON is invalid" in {
+        StubIvConnector.withResponseCheckJourneyLink()(OK, Some("""{ invalid-json }"""))
+
+        assertThrows[Exception] {
+          await(connector.checkJourneyLink("/mdtp/journey/journeyId/iv-stub-data"))
+        }
+      }
+
+      "call the correct URL" in {
+        StubIvConnector.withResponseCheckJourneyLink()(OK, checkJourneyLinkJson)
+
+        await(connector.checkJourneyLink("/mdtp/journey/journeyId/iv-stub-data"))
+
+        StubIvConnector.verifyCheckJourneyLink(1)
+      }
     }
 
     "checkJourneyLinkUplift" should {
@@ -71,6 +103,22 @@ class IvConnectorISpec extends PlaySpec with AddTaxesIntegrationTest {
 
         await(result) mustBe JourneyLinkResponse("Success", "token")
         StubIvConnector.verifyCheckJourneyLinkUplift(1, "12345")
+      }
+
+      "throw an exception when 404 is returned" in {
+        StubIvConnector.withResponseCheckJourneyLinkUplift()(NOT_FOUND, None, "12345")
+
+        assertThrows[Exception] {
+          await(connector.checkJourneyLinkUplift("12345"))
+        }
+      }
+
+      "throw an exception when JSON is invalid" in {
+        StubIvConnector.withResponseCheckJourneyLinkUplift()(OK, Some("""{ invalid-json }"""), "12345")
+
+        assertThrows[Exception] {
+          await(connector.checkJourneyLinkUplift("12345"))
+        }
       }
     }
   }
