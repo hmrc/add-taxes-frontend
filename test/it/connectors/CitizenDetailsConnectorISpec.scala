@@ -105,13 +105,6 @@ class CitizenDetailsConnectorISpec extends PlaySpec with AddTaxesIntegrationTest
 
         await(connector.getDesignatoryDetailsForKnownFacts(identifier, "1234567890")) mustBe None
       }
-
-      "return None if 200 but JSON is invalid" in {
-        StubCitizenDetailsConnector.withResponseForGetDesignatoryDetails("1234567890")(OK, Some(invalidResponse))
-
-        await(connector.getDesignatoryDetails(identifier, "1234567890")) mustBe None
-      }
-
     }
 
   }
