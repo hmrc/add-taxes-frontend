@@ -17,6 +17,7 @@
 package support.stubs
 
 import com.github.tomakehurst.wiremock.client.WireMock._
+import com.github.tomakehurst.wiremock.http.Fault
 import models.sa.{KnownFacts, SaEnrolment}
 import play.api.http.Status._
 
@@ -251,5 +252,28 @@ object StubEnrolmentStoreConnector extends StubHelper {
 
   def verifyQueryKnownFacts(count: Int): Unit =
     verify(count, postRequestedFor(urlEqualTo(s"/enrolment-store-proxy/enrolment-store/enrolments")))
+
+  def stubCheckUtrFailure(utr: String): Unit =
+    stubFor(get(urlEqualTo(s"/enrolment-store-proxy/enrolment-store/enrolments/IR-SA~UTR~$utr/users?type=all&ignore-assignments=true"))
+      .willReturn(aResponse().withFault(Fault.CONNECTION_RESET_BY_PEER)))
+
+  def stubCheckSaGroupFailure(groupId: String): Unit =
+    stubFor(get(urlEqualTo(s"/enrolment-store-proxy/enrolment-store/groups/$groupId/enrolments?type=principal&service=IR-SA"))
+      .willReturn(aResponse().withFault(Fault.CONNECTION_RESET_BY_PEER)))
+
+  def stubExistingEmpRefFailure(officeNumber: String, payeReference: String): Unit =
+    stubFor(get(urlEqualTo(s"/enrolment-store-proxy/enrolment-store/enrolments/IR-PAYE~TaxOfficeNumber~$officeNumber~TaxOfficeReference~$payeReference/users?type=principal"))
+      .willReturn(aResponse().withFault(Fault.CONNECTION_RESET_BY_PEER)))
+
+  def stubQueryKnownFactsFailure(): Unit =
+    stubFor(post(urlEqualTo("/enrolment-store-proxy/enrolment-store/enrolments"))
+      .willReturn(aResponse().withFault(Fault.CONNECTION_RESET_BY_PEER)))
+
+  def unsuccessfulQueryKnownFacts(postBody: String): Unit =
+    withResponseForQueryKnownFacts(postBody)(INTERNAL_SERVER_ERROR, None)
+
+  def checkUtrInvalidJsonResponse(utr: String): Unit =
+    stubFor(get(urlMatching(s".*/enrolment-store-proxy.*$utr.*"))
+      .willReturn(ok("""{ invalid-json }""")))
 
 }

@@ -1,7 +1,7 @@
 package connectors
 
-import models.{DesignatoryDetails, DesignatoryDetailsForKnownFacts}
 import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
+import models.{DesignatoryDetails, DesignatoryDetailsForKnownFacts}
 import org.scalatestplus.play.PlaySpec
 import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
@@ -34,27 +34,29 @@ class CitizenDetailsConnectorISpec extends PlaySpec with AddTaxesIntegrationTest
     HtmlFormat.empty
   )
 
-  val designatoryDetails: String =  s"""
-                                      |{
-                                      |  "name": {
-                                      |    "current": {
-                                      |      "firstName": "$firstName",
-                                      |      "lastName": "$surname"
-                                      |    },
-                                      |    "previous": []
-                                      |  },
-                                      |  "ids": {
-                                      |    "nino": "$nino"
-                                      |  },
-                                      |  "dateOfBirth": "$dateOfBirthShortFormat"
-                                      |}
-                                      |""".stripMargin
+  val designatoryDetails: String =
+    s"""
+       |{
+       |  "name": {
+       |    "current": {
+       |      "firstName": "$firstName",
+       |      "lastName": "$surname"
+       |    },
+       |    "previous": []
+       |  },
+       |  "ids": {
+       |    "nino": "$nino"
+       |  },
+       |  "dateOfBirth": "$dateOfBirthShortFormat"
+       |}
+       |""".stripMargin
 
-  val invalidResponse: String = s"""
-                                   |{
-                                   |  "error": "[RATE LIMITED] status: 503"
-                                   |}
-                                   |""".stripMargin
+  val invalidResponse: String =
+    s"""
+       |{
+       |  "error": "[RATE LIMITED] status: 503"
+       |}
+       |""".stripMargin
 
   "Citizen details connector" when {
 
@@ -76,7 +78,7 @@ class CitizenDetailsConnectorISpec extends PlaySpec with AddTaxesIntegrationTest
       "return a None if the Data cannot be parsed" in {
         StubCitizenDetailsConnector.withResponseForGetDesignatoryDetails("1234567890")(INTERNAL_SERVER_ERROR, Some(invalidResponse))
 
-          await(connector.getDesignatoryDetails(identifier, "1234567890")) mustBe None
+        await(connector.getDesignatoryDetails(identifier, "1234567890")) mustBe None
       }
 
 
@@ -103,7 +105,6 @@ class CitizenDetailsConnectorISpec extends PlaySpec with AddTaxesIntegrationTest
 
         await(connector.getDesignatoryDetailsForKnownFacts(identifier, "1234567890")) mustBe None
       }
-
     }
 
   }
