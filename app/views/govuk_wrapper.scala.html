@@ -19,6 +19,7 @@
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcReportTechnicalIssue
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcLanguageSelect
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.LanguageSelect
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearchBanner
 @import uk.gov.hmrc.hmrcfrontend.views.Aliases.Cy
 @import uk.gov.hmrc.hmrcfrontend.views.Aliases.En
 @import config.FrontendAppConfig
@@ -135,10 +136,15 @@ appConfig.languageLinks: _*
 @govukTemplate(pageTitle = Some(title),
     headBlock = Some(hmrcHead(Some(head))),
     headerBlock = hmrcStandardHeader(
-    serviceName = Some(messages("site.service_name")),
-    serviceUrl = Some(appConfig.getTarUrl),
-    signOutUrl = Some(appConfig.getBusinessAccountUrl("signout"))
-),
+        serviceName = Some(messages("site.service_name")),
+        serviceUrl = Some(appConfig.getTarUrl),
+        signOutUrl = Some(appConfig.getBusinessAccountUrl("signout")),
+        userResearchBanner =
+            Option.when(appConfig.showUserResearchBanner)(UserResearchBanner(
+                url = appConfig.urBannerUrl(messages.lang.code),
+                language = if(messages.lang.code == "en") En else Cy)
+            )
+    ),
     bodyEndBlock = Some(bodyEnd),
     footerBlock = footerDefault,
     beforeContentBlock = Some(beforeContentBlock)
