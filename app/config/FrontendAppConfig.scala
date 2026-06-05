@@ -289,6 +289,12 @@ class FrontendAppConfig @Inject() (val config: ServicesConfig, val conf: Configu
       .map(_.toBoolean)
       .getOrElse(config.getBoolean("feature-toggles.vanContentChanges"))
 
+  lazy val showUserResearchBanner: Boolean = config.getBoolean("feature-toggles.showUserResearchBanner")
+
+ def urBannerUrl(language: String): String = language match {
+    case "cy" => config.getString("urls.urBanner") + "&Q_Language=CY"
+    case _ => config.getString("urls.urBanner")
+  }
 }
 
 trait FeatureToggles {

@@ -57,11 +57,11 @@ class ClaimVATInterstitialOldPageViewSpec extends ViewBehaviours with FeatureTog
 
   "ClaimVATInterstitialPage view" when {
     "rendered" must {
-      "have all five headings and have the link that opens in new tab" in {
+      "have all six headings and have the link that opens in new tab" in {
         val doc = asDocument(createView())
         val headingSection = doc.getElementsByClass("govuk-heading-s")
 
-        headingSection.size() mustBe 5
+        headingSection.size() mustBe 6
 
         assertLinkById(doc, "check-vat-number-link", expectedText = "Check a UK VAT Number service (opens in new tab)",
           "https://www.gov.uk/check-uk-vat-number",expectedOpensInNewTab = true)
