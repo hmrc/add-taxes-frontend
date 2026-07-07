@@ -91,7 +91,7 @@ case "en" => En
 case "cy" => Cy
 }
 
-if(appConfig.languageTranslationEnabled) {
+if(appConfig.languageTranslationEnabled && !appConfig.isServiceNavigationEnabled) {
 hmrcLanguageSelect(LanguageSelect(
 playLangToUiLanguage(messages.lang),
 appConfig.languageLinks: _*
@@ -139,6 +139,7 @@ appConfig.languageLinks: _*
         serviceName = Some(messages("site.service_name")),
         serviceUrl = Some(appConfig.getTarUrl),
         signOutUrl = Some(appConfig.getBusinessAccountUrl("signout")),
+        isWelshTranslationAvailable = true,
         userResearchBanner =
             Option.when(appConfig.showUserResearchBanner)(UserResearchBanner(
                 url = appConfig.urBannerUrl(messages.lang.code),
