@@ -47,7 +47,7 @@ class WhatIsYourVATRegNumberViewSpec extends ViewBehaviours {
 
   "WhatIsYourVATRegNumber view" must {
     "have the correct banner title" in {
-      val nav = renderedDoc.getElementsByClass("govuk-header__link govuk-header__service-name")
+      val nav = renderedDoc.getElementsByClass("govuk-service-navigation__service-name")
       nav.text mustBe "Business tax account"
     }
     "display the correct browser title" in {
