@@ -78,5 +78,10 @@ class OtherTaxesNextPageSpec extends NextPageSpecBase {
       OtherTaxes.VapingDuty,
       "http://localhost:9730/vaping-duty/enrolment/do-you-have-an-approval-id"
     )
+    behave like nextPage(
+      NextPage.otherTaxes,
+      OtherTaxes.SAO,
+      "https://www.staging.tax.service.gov.uk/senior-accounting-officer"
+    )
   }
 }

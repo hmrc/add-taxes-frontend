@@ -41,6 +41,7 @@ object OtherTaxes {
       extends WithName("fulfilmentHouseDueDiligenceSchemeIntegration")
       with OtherTaxes
   case object VapingDuty extends WithName("vapingDuty") with OtherTaxes
+  case object SAO extends WithName("seniorAccountingOfficer") with OtherTaxes
 
 
   val values: Seq[OtherTaxes] = Seq(
@@ -58,7 +59,8 @@ object OtherTaxes {
     PODS,
     PPT,
     PLRID,
-    VapingDuty
+    VapingDuty,
+    SAO
   )
 
   val options: Seq[RadioOption] = values.map {

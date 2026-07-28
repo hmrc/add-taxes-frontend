@@ -57,7 +57,7 @@ class OtherTaxesController @Inject() (mcc: MessagesControllerComponents,
     val permanentRadios: Set[RadioOption] =
       Set(AlcoholAndTobacco, HousingAndLand, ImportsExports, PPT).map(_.toRadioOption)
 
-    val singleEnrolmentChecks: Set[OtherTaxEnrolment] = Set(AEOI, Charities, CTF, ECL, OtherBusinessTaxDutyScheme, PLRID, VPD)
+    val singleEnrolmentChecks: Set[OtherTaxEnrolment] = Set(AEOI, Charities, CTF, DSAO, ECL, OtherBusinessTaxDutyScheme, PLRID, VPD)
     val radiosFromSingleChecksWithSwitches: Set[RadioOption] =
       singleEnrolmentChecks.flatMap(returnFeatureSwitchedRadioIfSingleEnrolmentIsNotPresent(_, allUserEnrolments))
 

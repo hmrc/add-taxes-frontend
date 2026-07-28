@@ -53,6 +53,7 @@ trait OtherTaxesNextPage {
           case OtherTaxes.ECL                                          => Call("GET", appConfig.eclHandOff)
           case OtherTaxes.PLRID                                        => Call("GET", appConfig.pillar2Url)
           case OtherTaxes.VapingDuty                                   => Call("GET", appConfig.vapingDutyHandOff)
+          case OtherTaxes.SAO                                          => Call("GET", appConfig.saoHandOff)
         }
     }
 }
