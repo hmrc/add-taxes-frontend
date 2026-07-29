@@ -24,43 +24,42 @@ sealed trait OtherTaxes {
 
 object OtherTaxes {
 
-  case object AlcoholAndTobaccoOld extends WithName("alcoholAndTobaccoWholesalingAndWarehousing") with OtherTaxes
   case object AlcoholAndTobacco extends WithName("alcoholAndTobacco") with OtherTaxes
+  case object AlcoholAndTobaccoOld extends WithName("alcoholAndTobaccoWholesalingAndWarehousing") with OtherTaxes
   case object AutomaticExchangeOfInformation extends WithName("automaticExchangeOfInformation") with OtherTaxes
   case object Charities extends WithName("charities") with OtherTaxes
-  case object ECL extends WithName("economicCrimeLevy") with OtherTaxes
-  case object GamblingAndGaming extends WithName("gamblingAndGaming") with OtherTaxes
   case object ChildTrustFund extends WithName("childTrustFund") with OtherTaxes
-  case object HousingAndLand extends WithName("housingAndLand") with OtherTaxes
-  case object ImportsExports extends WithName("importsExports") with OtherTaxes
-  case object OilAndFuel extends WithName("oilAndFuel") with OtherTaxes
-  case object PODS extends WithName("pods") with OtherTaxes
-  case object PPT extends WithName("ppt") with OtherTaxes
-  case object PLRID extends WithName("pillar2") with OtherTaxes
+  case object ECL extends WithName("economicCrimeLevy") with OtherTaxes
   case object FulfilmentHouseDueDiligenceSchemeIntegration
       extends WithName("fulfilmentHouseDueDiligenceSchemeIntegration")
       with OtherTaxes
-  case object VapingDuty extends WithName("vapingDuty") with OtherTaxes
+  case object GamblingAndGaming extends WithName("gamblingAndGaming") with OtherTaxes
+  case object HousingAndLand extends WithName("housingAndLand") with OtherTaxes
+  case object ImportsExports extends WithName("importsExports") with OtherTaxes
+  case object OilAndFuel extends WithName("oilAndFuel") with OtherTaxes
+  case object PLRID extends WithName("pillar2") with OtherTaxes
+  case object PODS extends WithName("pods") with OtherTaxes
+  case object PPT extends WithName("ppt") with OtherTaxes
   case object STT extends WithName("securityTransferTax") with OtherTaxes
-
+  case object VapingDuty extends WithName("vapingDuty") with OtherTaxes
 
   val values: Seq[OtherTaxes] = Seq(
-    AlcoholAndTobaccoOld,
     AlcoholAndTobacco,
+    AlcoholAndTobaccoOld,
     AutomaticExchangeOfInformation,
     Charities,
-    ECL,
-    GamblingAndGaming,
     ChildTrustFund,
+    ECL,
+    FulfilmentHouseDueDiligenceSchemeIntegration,
+    GamblingAndGaming,
     HousingAndLand,
     ImportsExports,
     OilAndFuel,
-    FulfilmentHouseDueDiligenceSchemeIntegration,
+    PLRID,
     PODS,
     PPT,
-    PLRID,
-    VapingDuty,
-    STT
+    STT,
+    VapingDuty
   )
 
   val options: Seq[RadioOption] = values.map {

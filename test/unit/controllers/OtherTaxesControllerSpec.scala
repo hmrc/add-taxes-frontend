@@ -71,7 +71,6 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
     RadioOption("otherTaxes", "pillar2"),
     RadioOption("otherTaxes", "pods"),
     RadioOption("otherTaxes", "ppt"),
-    RadioOption("otherTaxes", "securityTransferTax"),
     RadioOption("otherTaxes", "vapingDuty")
   )
   private val allEnrolmentKeys: Seq[String] = utils.Enrolments.values.map(_.identifier).toSeq
@@ -131,6 +130,16 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
       }
     }
 
+    "show the SecurityTransferTax radio option" when {
+      "the sttSwitch feature is turned ON" in {
+        enable(SttSwitch)
+        val request = requestWithEnrolments(keys = "")
+        val result  = controller().getOptions(request)
+
+        result.contains(RadioOption("otherTaxes", "securityTransferTax")) mustBe true
+      }
+    }
+
     "do NOT show the SecurityTransferTax radio option" when {
       "the sttSwitch feature is turned OFF" in {
         disable(SttSwitch)
@@ -138,7 +147,6 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
         val result  = controller().getOptions(request)
 
         result.contains(RadioOption("otherTaxes", "securityTransferTax")) mustBe false
-        enable(SttSwitch)
       }
     }
 

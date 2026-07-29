@@ -38,22 +38,22 @@ trait OtherTaxesNextPage {
     new NextPage[OtherTaxesId.type, OtherTaxes, Call] {
       override def get(b: OtherTaxes)(implicit appConfig: FrontendAppConfig, request: ServiceInfoRequest[_]): Call =
         b match {
-          case OtherTaxes.AlcoholAndTobaccoOld                         => alcoholRoutes.SelectAlcoholSchemeController.onPageLoad()
           case OtherTaxes.AlcoholAndTobacco                            => alcoholRoutes.SelectAlcoholSchemeController.onPageLoad()
+          case OtherTaxes.AlcoholAndTobaccoOld                         => alcoholRoutes.SelectAlcoholSchemeController.onPageLoad()
           case OtherTaxes.AutomaticExchangeOfInformation               => aeoiRoutes.HaveYouRegisteredAEOIController.onPageLoad()
           case OtherTaxes.Charities                                    => charityRoutes.DoYouHaveCharityReferenceController.onPageLoad()
-          case OtherTaxes.GamblingAndGaming                            => gamblingRoutes.SelectGamblingOrGamingDutyController.onPageLoad()
           case OtherTaxes.ChildTrustFund                               => ctfRoutes.AreYouApprovedCTFController.onPageLoad()
+          case OtherTaxes.ECL                                          => Call("GET", appConfig.eclHandOff)
+          case OtherTaxes.FulfilmentHouseDueDiligenceSchemeIntegration => Call("GET", appConfig.fulfilmentHouse)
+          case OtherTaxes.GamblingAndGaming                            => gamblingRoutes.SelectGamblingOrGamingDutyController.onPageLoad()
           case OtherTaxes.HousingAndLand                               => landRoutes.SelectATaxController.onPageLoad()
           case OtherTaxes.ImportsExports                               => importexportsRoutes.DoYouWantToAddImportExportController.onPageLoad()
           case OtherTaxes.OilAndFuel                                   => oilRoutes.SelectAnOilServiceController.onPageLoad()
-          case OtherTaxes.FulfilmentHouseDueDiligenceSchemeIntegration => Call("GET", appConfig.fulfilmentHouse)
+          case OtherTaxes.PLRID                                        => Call("GET", appConfig.pillar2Url)
           case OtherTaxes.PODS                                         => Call("GET", appConfig.pods)
           case OtherTaxes.PPT                                          => pptRoutes.DoYouHaveAPPTRefController.onPageLoad()
-          case OtherTaxes.ECL                                          => Call("GET", appConfig.eclHandOff)
-          case OtherTaxes.PLRID                                        => Call("GET", appConfig.pillar2Url)
-          case OtherTaxes.VapingDuty                                   => Call("GET", appConfig.vapingDutyHandOff)
           case OtherTaxes.STT                                          => Call("GET", appConfig.sttHandOff)
+          case OtherTaxes.VapingDuty                                   => Call("GET", appConfig.vapingDutyHandOff)
         }
     }
 }
