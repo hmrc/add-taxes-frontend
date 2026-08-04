@@ -35,7 +35,15 @@ import views.html.{organisation_only, otherTaxes}
 
 class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEach {
 
-  override def beforeEach(): Unit = {}
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    disable(SttSwitch)
+  }
+
+  override def afterEach(): Unit = {
+    resetValue(SttSwitch)
+    super.afterEach()
+  }
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
 

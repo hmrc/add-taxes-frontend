@@ -41,7 +41,6 @@ trait OtherTaxesNextPage {
           // Internal routes
           case OtherTaxes.AlcoholAndTobaccoOld                         => alcoholRoutes.SelectAlcoholSchemeController.onPageLoad()
           case OtherTaxes.AlcoholAndTobacco                            => alcoholRoutes.SelectAlcoholSchemeController.onPageLoad()
-          case OtherTaxes.AlcoholAndTobaccoOld                         => alcoholRoutes.SelectAlcoholSchemeController.onPageLoad()
           case OtherTaxes.AutomaticExchangeOfInformation               => aeoiRoutes.HaveYouRegisteredAEOIController.onPageLoad()
           case OtherTaxes.Charities                                    => charityRoutes.DoYouHaveCharityReferenceController.onPageLoad()
           case OtherTaxes.ChildTrustFund                               => ctfRoutes.AreYouApprovedCTFController.onPageLoad()
