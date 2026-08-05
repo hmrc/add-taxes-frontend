@@ -16,6 +16,7 @@
 
 package controllers
 
+import config.featureToggles.FeatureSwitch.SttSwitch
 import controllers.actions._
 import forms.OtherTaxesFormProvider
 import models.OtherTaxes
@@ -34,7 +35,15 @@ import views.html.{organisation_only, otherTaxes}
 
 class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEach {
 
-  override def beforeEach(): Unit = {}
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    disable(SttSwitch)
+  }
+
+  override def afterEach(): Unit = {
+    resetValue(SttSwitch)
+    super.afterEach()
+  }
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
 
@@ -114,6 +123,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
       ("ECL", "HMRC-ECL-ORG", "economicCrimeLevy"),
       ("FulfilmentHouseDueDiligenceSchemeIntegration", "EtmpRegistrationNumber", "fulfilmentHouseDueDiligenceSchemeIntegration"),
       ("Pillar2", "HMRC-PILLAR2-ORG", "pillar2"),
+      ("SecurityTransferTax", "HMRC-STC-ORG", "securityTransferTax"),
       ("VapingProductsDuty", "HMRC-VPD-ORG", "vapingDuty")
     )
 
@@ -125,6 +135,26 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
 
           result mustBe allOtherTaxOptions.filterNot(_ == RadioOption("otherTaxes", radioOptionName))
         }
+      }
+    }
+
+    "show the SecurityTransferTax radio option" when {
+      "the sttSwitch feature is turned ON" in {
+        enable(SttSwitch)
+        val request = requestWithEnrolments(keys = "")
+        val result  = controller().getOptions(request)
+
+        result.contains(RadioOption("otherTaxes", "securityTransferTax")) mustBe true
+      }
+    }
+
+    "do NOT show the SecurityTransferTax radio option" when {
+      "the sttSwitch feature is turned OFF" in {
+        disable(SttSwitch)
+        val request = requestWithEnrolments(keys = "")
+        val result  = controller().getOptions(request)
+
+        result.contains(RadioOption("otherTaxes", "securityTransferTax")) mustBe false
       }
     }
 

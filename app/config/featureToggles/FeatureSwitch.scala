@@ -30,7 +30,8 @@ object FeatureSwitch {
     AWRSJourneyRedirect,
     VATKnownFactsCheck,
     VANContentChanges,
-    VapingDutySwitch
+    VapingDutySwitch,
+    SttSwitch
   )
 
   def apply(str: String): FeatureSwitch =
@@ -105,6 +106,11 @@ object FeatureSwitch {
   case object VapingDutySwitch extends FeatureSwitch {
     override val name: String        = s"$prefix.vapingDutySwitch"
     override val displayText: String = "Vaping Duty option enabled"
+  }
+
+  case object SttSwitch extends FeatureSwitch {
+    override val name: String        = s"$prefix.sttSwitch"
+    override val displayText: String = "Security Transfer Tax option enabled"
   }
 
 }
