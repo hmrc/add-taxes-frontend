@@ -32,10 +32,10 @@ class WhichVATServicesToAddViewSpec extends ViewBehaviours {
   val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
-      new whichVATServicesToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, WhichVATServicesToAdd.options)(serviceInfoContent)(fakeRequest, messages)
+      new whichVATServicesToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, WhichVATServicesToAdd.options, true)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
-      new whichVATServicesToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, WhichVATServicesToAdd.options)(serviceInfoContent)(fakeRequest, messages)
+      new whichVATServicesToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, WhichVATServicesToAdd.options, true)(serviceInfoContent)(fakeRequest, messages)
 
   "WhichVATServicesToAdd view" must {
     behave like normalPage(createView, messageKeyPrefix)
