@@ -51,6 +51,14 @@ class RegisterRebatedOilsViewSpec extends ViewBehaviours {
           .getElementById("register-for-rebatedoils")
           .text() mustBe "Register for the Rebated Oils Enquiry Service"
       }
+
+      "contain the correct href for the register button" in {
+        val doc = asDocument(createView())
+
+        val link = doc.getElementById("register-for-rebatedoils")
+
+        link.attr("href") mustBe "https://www.gov.uk/government/publications/fuel-duty-registered-dealers-in-controlled-oil-application-form-for-approval-ho4"
+      }
     }
   }
 }

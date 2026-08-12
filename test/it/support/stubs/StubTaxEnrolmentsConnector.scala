@@ -24,4 +24,19 @@ object StubTaxEnrolmentsConnector extends StubHelper {
 
   def verifyEnrolForSa(count: Int, groupId: String, utr: String): Unit =
     verify(count, postRequestedFor(urlEqualTo(s"/tax-enrolments/groups/$groupId/enrolments/IR-SA~UTR~$utr")))
+
+  def fourXxEnrolForSa(saEnrolment: SaEnrolment, utr: String, groupId: String) =
+    withResponseForEnrolForSa(saEnrolment, utr, groupId)(BAD_REQUEST, None)
+
+  def serverErrorEnrolForSa(saEnrolment: SaEnrolment, utr: String, groupId: String) =
+    withResponseForEnrolForSa(saEnrolment, utr, groupId)(INTERNAL_SERVER_ERROR, None)
+
+  def invalidJsonEnrolForSa(saEnrolment: SaEnrolment, utr: String, groupId: String) =
+    withResponseForEnrolForSa(saEnrolment, utr, groupId)(CREATED, Some("""{ invalid-json }"""))
+
+  def throwUpstream4xx(saEnrolment: SaEnrolment, utr: String, groupId: String): Unit =
+    withResponseForEnrolForSa(saEnrolment, utr, groupId)(BAD_REQUEST, None)
+
+  def throwException(saEnrolment: SaEnrolment, utr: String, groupId: String): Unit =
+    stubPost(s"/tax-enrolments/groups/$groupId/enrolments/IR-SA~UTR~$utr", 500, enrolForSaPost(saEnrolment), None)
 }

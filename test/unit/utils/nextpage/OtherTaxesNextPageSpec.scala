@@ -45,6 +45,11 @@ class OtherTaxesNextPageSpec extends NextPageSpecBase {
     )
     behave like nextPage(
       NextPage.otherTaxes,
+      OtherTaxes.ECL,
+      "http://localhost:14007/add-economic-crime-levy/do-you-have-an-ecl-reference-number"
+    )
+    behave like nextPage(
+      NextPage.otherTaxes,
       OtherTaxes.GamblingAndGaming,
       "/business-account/add-tax/other/gambling"
     )
@@ -62,6 +67,16 @@ class OtherTaxesNextPageSpec extends NextPageSpecBase {
       NextPage.otherTaxes,
       OtherTaxes.OilAndFuel,
       "/business-account/add-tax/other/oil"
+    )
+    behave like nextPage(
+      NextPage.otherTaxes,
+      OtherTaxes.PLRID,
+      "http://localhost:10050/report-pillar2-top-up-taxes/bta/pillar2-id"
+    )
+    behave like nextPage(
+      NextPage.otherTaxes,
+      OtherTaxes.PPT,
+      "/business-account/add-tax/other/ppt"
     )
     behave like nextPage(
       NextPage.otherTaxes,
