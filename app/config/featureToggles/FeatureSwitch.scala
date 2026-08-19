@@ -31,7 +31,8 @@ object FeatureSwitch {
     VATKnownFactsCheck,
     VANContentChanges,
     VapingDutySwitch,
-    SaoSwitch
+    SaoSwitch,
+    SttSwitch
   )
 
   def apply(str: String): FeatureSwitch =
@@ -111,6 +112,11 @@ object FeatureSwitch {
   case object SaoSwitch extends FeatureSwitch {
     override val name: String        = s"$prefix.saoSwitch"
     override val displayText: String = "Senior Accounting Officer option enabled"
+  }
+
+  case object SttSwitch extends FeatureSwitch {
+    override val name: String        = s"$prefix.sttSwitch"
+    override val displayText: String = "Security Transfer Tax option enabled"
   }
 
 }

@@ -16,7 +16,7 @@
 
 package utils
 
-import config.featureToggles.FeatureSwitch.{ECLSwitch, FeatureSwitch, Pillar2Switch, SaoSwitch, VapingDutySwitch}
+import config.featureToggles.FeatureSwitch.{ECLSwitch, FeatureSwitch, Pillar2Switch, SaoSwitch, SttSwitch, VapingDutySwitch}
 import models.OtherTaxes
 import models.OtherTaxes.FulfilmentHouseDueDiligenceSchemeIntegration
 import uk.gov.hmrc.auth.core
@@ -151,6 +151,12 @@ object Enrolments {
     override val featureSwitch: Option[FeatureSwitch] = Some(SaoSwitch)
   }
 
+  // HMRC-STC-ORG could be renamed to HMRC-STT-ORG
+  case object STT extends WithName("HMRC-STC-ORG") with OtherTaxEnrolment {
+    override val toOtherTaxRadioOption: RadioOption   = OtherTaxes.STT.toRadioOption
+    override val featureSwitch: Option[FeatureSwitch] = Some(SttSwitch)
+  }
+
   case object VPD extends WithName("HMRC-VPD-ORG") with OtherTaxEnrolment {
     override val toOtherTaxRadioOption: RadioOption   = OtherTaxes.VapingDuty.toRadioOption
     override val featureSwitch: Option[FeatureSwitch] = Some(VapingDutySwitch)
@@ -225,7 +231,8 @@ object Enrolments {
     PPT,
     ATaR,
     VPD,
-    DSAO
+    DSAO,
+    STT
   )
 
 }

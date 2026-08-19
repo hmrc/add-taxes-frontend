@@ -50,6 +50,9 @@ class FrontendAppConfig @Inject() (val config: ServicesConfig, val conf: Configu
   private lazy val saoHost: String = config.getString("urls.DSAO-Handoff.host")
   lazy val saoHandOff: String      = saoHost + config.getString("urls.DSAO-Handoff.url")
 
+  private lazy val sttHost: String = config.getString("urls.STT-Handoff.host")
+  lazy val sttHandOff: String      = sttHost + config.getString("urls.STT-Handoff.url")
+
   private lazy val podsHost: String = config.getString("urls.manage-pensions-frontend.host")
   lazy val pods: String             = podsHost + config.getString("urls.manage-pensions-frontend.schemesOverview")
 
