@@ -86,7 +86,7 @@ class OtherTaxesNextPageSpec extends NextPageSpecBase {
     behave like nextPage(
       NextPage.otherTaxes,
       OtherTaxes.SAO,
-      "https://www.staging.tax.service.gov.uk/senior-accounting-officer"
+      "http://localhost:10056/senior-accounting-officer"
     )
   }
 }
