@@ -56,6 +56,7 @@ trait OtherTaxesNextPage {
           case OtherTaxes.PODS                                         => Call("GET", appConfig.pods)
           case OtherTaxes.STT                                          => Call("GET", appConfig.sttHandOff)
           case OtherTaxes.VapingDuty                                   => Call("GET", appConfig.vapingDutyHandOff)
+          case OtherTaxes.SAO                                          => Call("GET", appConfig.saoHandOff)
         }
     }
 }

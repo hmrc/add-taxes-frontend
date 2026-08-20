@@ -31,6 +31,7 @@ object FeatureSwitch {
     VATKnownFactsCheck,
     VANContentChanges,
     VapingDutySwitch,
+    SaoSwitch,
     SttSwitch
   )
 
@@ -106,6 +107,11 @@ object FeatureSwitch {
   case object VapingDutySwitch extends FeatureSwitch {
     override val name: String        = s"$prefix.vapingDutySwitch"
     override val displayText: String = "Vaping Duty option enabled"
+  }
+
+  case object SaoSwitch extends FeatureSwitch {
+    override val name: String        = s"$prefix.saoSwitch"
+    override val displayText: String = "Senior Accounting Officer option enabled"
   }
 
   case object SttSwitch extends FeatureSwitch {

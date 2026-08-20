@@ -83,5 +83,10 @@ class OtherTaxesNextPageSpec extends NextPageSpecBase {
       OtherTaxes.STT,
       "http://localhost:30037/security-transfer-tax"
     )
+    behave like nextPage(
+      NextPage.otherTaxes,
+      OtherTaxes.SAO,
+      "http://localhost:10056/senior-accounting-officer"
+    )
   }
 }

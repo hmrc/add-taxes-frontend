@@ -16,7 +16,7 @@
 
 package controllers
 
-import config.featureToggles.FeatureSwitch.SttSwitch
+import config.featureToggles.FeatureSwitch.{SaoSwitch, SttSwitch}
 import controllers.actions._
 import forms.OtherTaxesFormProvider
 import models.OtherTaxes
@@ -79,6 +79,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
     RadioOption("otherTaxes", "pillar2"),
     RadioOption("otherTaxes", "pods"),
     RadioOption("otherTaxes", "ppt"),
+    RadioOption("otherTaxes", "seniorAccountingOfficer"),
     RadioOption("otherTaxes", "vapingDuty")
   )
   private val allEnrolmentKeys: Seq[String] = utils.Enrolments.values.map(_.identifier).toSeq
@@ -124,6 +125,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
       ("FulfilmentHouseDueDiligenceSchemeIntegration", "EtmpRegistrationNumber", "fulfilmentHouseDueDiligenceSchemeIntegration"),
       ("Pillar2", "HMRC-PILLAR2-ORG", "pillar2"),
       ("SecurityTransferTax", "HMRC-STC-ORG", "securityTransferTax"),
+      ("SeniorAccountingOfficer", "HMRC-DSAO-ORG", "seniorAccountingOfficer"),
       ("VapingProductsDuty", "HMRC-VPD-ORG", "vapingDuty")
     )
 
@@ -135,6 +137,17 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
 
           result mustBe allOtherTaxOptions.filterNot(_ == RadioOption("otherTaxes", radioOptionName))
         }
+      }
+    }
+
+    "do NOT show the SeniorAccountingOfficer radio option" when {
+      "the saoSwitch feature is turned OFF" in {
+        disable(SaoSwitch)
+        val request = requestWithEnrolments(keys = "")
+        val result  = controller().getOptions(request)
+
+        result.contains(RadioOption("otherTaxes", "seniorAccountingOfficer")) mustBe false
+        enable(SaoSwitch)
       }
     }
 
