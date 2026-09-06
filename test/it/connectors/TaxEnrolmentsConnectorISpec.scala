@@ -86,6 +86,24 @@ class TaxEnrolmentsConnectorISpec extends PlaySpec with AddTaxesIntegrationTest 
         await(result) mustBe false
         StubTaxEnrolmentsConnector.verifyEnrolForSa(1, groupId, testUtr)
       }
+
+      "return false when a 4xx error is returned from Enrolment Store" in {
+        StubTaxEnrolmentsConnector.throwUpstream4xx(saEnrolment, testUtr, groupId)
+
+        val result: Future[Boolean] = connector.enrolForSa(testUtr, enrolActivate)
+
+        await(result) mustBe false
+        StubTaxEnrolmentsConnector.verifyEnrolForSa(1, groupId, testUtr)
+      }
+
+      "return false when an unexpected exception occurs" in {
+        StubTaxEnrolmentsConnector.throwException(saEnrolment, testUtr, groupId)
+
+        val result: Future[Boolean] = connector.enrolForSa(testUtr, enrolActivate)
+
+        await(result) mustBe false
+        StubTaxEnrolmentsConnector.verifyEnrolForSa(1, groupId, testUtr)
+      }
     }
   }
 }

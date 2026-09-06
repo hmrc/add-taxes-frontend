@@ -69,6 +69,13 @@ class SessionRepositoryISpec extends PlaySpec with BeforeAndAfterEach with Guice
         testDataRepo.apply().collection.drop().toFuture().futureValue
 
       }
+
+      "id does not exist" should {
+        "return None" in {
+          val result = testDataRepo.apply().get("nonexistentId")
+          await(result) mustBe None
+        }
+      }
     }
   }
 }

@@ -62,11 +62,11 @@ class ServiceInfoPartialConnectorISpec extends PlaySpec with AddTaxesIntegration
       "Return the correct json for Navlinks" in {
 
         val expectedNavlinks = Some(NavContent(
-            home = NavLinks("Home", "Hafan", "http://localhost:9020/business-account"),
-            account = NavLinks("Manage account", "Rheoli'r cyfrif", "http://localhost:9020/business-account/manage-account"),
-            messages = NavLinks("Messages", "Negeseuon", "http://localhost:9020/business-account/messages", Some(5)),
-            help = NavLinks("Help and contact", "Cymorth a chysylltu", "http://localhost:9733/business-account/help"),
-            forms = NavLinks("Track your forms{0}", "Gwirio cynnydd eich ffurflenni{0}", "/track/bta", Some(0))))
+          home = NavLinks("Home", "Hafan", "http://localhost:9020/business-account"),
+          account = NavLinks("Manage account", "Rheoli'r cyfrif", "http://localhost:9020/business-account/manage-account"),
+          messages = NavLinks("Messages", "Negeseuon", "http://localhost:9020/business-account/messages", Some(5)),
+          help = NavLinks("Help and contact", "Cymorth a chysylltu", "http://localhost:9733/business-account/help"),
+          forms = NavLinks("Track your forms{0}", "Gwirio cynnydd eich ffurflenni{0}", "/track/bta", Some(0))))
 
         StubServiceInfoPartialConnector.withResponseForNavLinks()(200, Some(testNavLinkJson))
 
