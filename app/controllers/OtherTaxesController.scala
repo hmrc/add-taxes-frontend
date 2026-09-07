@@ -26,13 +26,14 @@ import models.OtherTaxes.{AlcoholAndTobacco, GamblingAndGaming, HousingAndLand, 
 import models.requests.ServiceInfoRequest
 import play.api.data.Form
 import play.api.i18n.I18nSupport
+import play.api.mvc.Results.Redirect
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
-import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
+import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.auth.core.{Enrolments => CoreEnrolments}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.Enrolments._
 import utils._
-import views.html.{organisation_only, otherTaxes}
+import views.html.otherTaxes
 
 import javax.inject.Inject
 import scala.concurrent.Future
@@ -43,7 +44,6 @@ class OtherTaxesController @Inject() (mcc: MessagesControllerComponents,
                                       serviceInfoData: ServiceInfoAction,
                                       formProvider: OtherTaxesFormProvider,
                                       otherTaxes: otherTaxes,
-                                      organisation_only: organisation_only,
                                       implicit val appConfig: FrontendAppConfig)
     extends FrontendController(mcc)
     with I18nSupport
@@ -93,8 +93,11 @@ class OtherTaxesController @Inject() (mcc: MessagesControllerComponents,
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     request.request.affinityGroup match {
-      case Some(Organisation) => Ok(otherTaxes(appConfig, form, getOptions)(request.serviceInfoContent))
-      case _                  => Ok(organisation_only(appConfig)(request.serviceInfoContent))
+      case Some(Organisation) | Some(Individual) =>
+        Ok(otherTaxes(appConfig, form, getOptions)(request.serviceInfoContent))
+
+      case _ =>
+        Redirect(Call("GET", appConfig.getBusinessAccountUrl("agent-kick-out")))
     }
   }
 

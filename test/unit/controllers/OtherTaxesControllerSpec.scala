@@ -31,7 +31,7 @@ import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual}
 import uk.gov.hmrc.auth.core.Enrolments
 import utils.{FakeNavigator, RadioOption}
-import views.html.{organisation_only, otherTaxes}
+import views.html.{otherTaxes, unauthorised}
 
 class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEach {
 
@@ -51,7 +51,6 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
   val form: Form[OtherTaxes] = formProvider()
 
   private val otherTaxesView: otherTaxes              = injector.instanceOf[otherTaxes]
-  private val organisationOnlyView: organisation_only = injector.instanceOf[organisation_only]
 
   def controller(fakeAuthAction: AuthAction = FakeAuthAction): OtherTaxesController =
     new OtherTaxesController(
@@ -61,7 +60,6 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
       FakeServiceInfoAction,
       formProvider,
       otherTaxesView,
-      organisationOnlyView,
       frontendAppConfig
     )
 
@@ -87,8 +85,8 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
   def viewAsString(form: Form[_] = form): String =
     new otherTaxes(formWithCSRF, mainTemplate)(frontendAppConfig, form, allOtherTaxOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  def viewAsStringOrganisationOnly(request: ServiceInfoRequest[AnyContent]): String =
-    new organisation_only(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(request, messages).toString()
+  def viewAsStringUnauthorised(request: ServiceInfoRequest[AnyContent]): String =
+    new unauthorised(formWithCSRF, mainTemplate)(frontendAppConfig)(request, messages).toString()
 
   def removeOptionsFromListOfAllRadioOptions(radioOptionsToRemove: Seq[RadioOption]): Seq[RadioOption] = allOtherTaxOptions.diff(radioOptionsToRemove)
 
@@ -264,7 +262,20 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
   }
 
   "onPageLoad" must {
-    "render the 'You can't add this business account' view" when {
+    "redirect to the '/business-account/agent-kick-out' page" when {
+      "the user is an agent" in {
+        val request = ServiceInfoRequest[AnyContent](
+          AuthenticatedRequest(FakeRequest().withMethod("GET"), "", Enrolments(Set()), Some(Agent), groupId, providerId, confidenceLevel, None),
+          HtmlFormat.empty)
+
+        val result = controller(fakeAuthAction = new FakeAuthActionAgent(parser)).onPageLoad()(request)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result).value must include("/business-account/agent-kick-out")
+      }
+    }
+
+    "render the 'Select a category' other tax view" when {
       "the user is an individual" in {
         val request = ServiceInfoRequest[AnyContent](
           AuthenticatedRequest(FakeRequest().withMethod("GET"), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
@@ -273,30 +284,15 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
         val result = controller(new FakeAuthActionIndividual(parser)).onPageLoad()(request)
 
         status(result) mustBe OK
-        val view = contentAsString(result)
-        view mustBe viewAsStringOrganisationOnly(request)
+        contentAsString(result) must include("Select a category")
       }
-
-      "the user is an agent" in {
-        val request = ServiceInfoRequest[AnyContent](
-          AuthenticatedRequest(FakeRequest().withMethod("GET"), "", Enrolments(Set()), Some(Agent), groupId, providerId, confidenceLevel, None),
-          HtmlFormat.empty)
-
-        val result = controller(fakeAuthAction = new FakeAuthActionAgent(parser)).onPageLoad()(request)
-
-        status(result) mustBe OK
-        val view = contentAsString(result)
-        view mustBe viewAsStringOrganisationOnly(request)
-      }
-    }
-
-    "render the 'Select a category' other tax view" when {
       "the user is an 'Organisation'" in {
         val result = controller().onPageLoad()(fakeRequest.withMethod("GET"))
 
         status(result) mustBe OK
         contentAsString(result) mustBe viewAsString()
       }
+
     }
   }
 
