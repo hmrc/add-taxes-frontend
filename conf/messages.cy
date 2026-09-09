@@ -150,20 +150,6 @@ otherTaxes.vapingDuty = Toll Cynhyrchion Fepio
 otherTaxes.securityTransferTax = Treth ar Drosglwyddo Gwarantau (STT)
 otherTaxes.seniorAccountingOfficer = Uwch-swyddog Cyfrifyddu
 
-#######################################################
-##  OrganisationOnly
-#######################################################
-organisationOnly.title = Sefydlu cyfrif newydd
-organisationOnly.heading = Sefydlu cyfrif newydd
-organisationOnly.p1 = Ni allwch ychwanegu treth busnes at y cyfrif hwn.
-organisationOnly.bulletTitle = Mae angen i chi wneud y canlynol:
-organisationOnly.bullet1 = Creu cyfrif Sefydliad ar wefan Porth y Llywodraeth.
-organisationOnly.bullet2 = Mewngofnodi i CThEM gyda’r manylion mewngofnodi newydd.
-organisationOnly.bullet3 = Ychwanegu trethi busnes yn y cyfrif hwnnw.
-organisationOnly.panelIndent = Peidiwch â cheisio ychwanegu trethi busnes ar wefan Porth y Llywodraeth.
-organisationOnly.signOut = Allgofnodi a chreu cyfrif ‘Sefydliad’
-organisationOnly.notNow = Dydw i ddim eisiau gwneud hyn ar hyn o bryd
-
 
 #######################################################
 ##  RegisterExciseMovementControlSystem
