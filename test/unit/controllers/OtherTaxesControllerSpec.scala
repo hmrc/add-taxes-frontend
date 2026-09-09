@@ -85,9 +85,6 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
   def viewAsString(form: Form[_] = form): String =
     new otherTaxes(formWithCSRF, mainTemplate)(frontendAppConfig, form, allOtherTaxOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
 
-  def viewAsStringUnauthorised(request: ServiceInfoRequest[AnyContent]): String =
-    new unauthorised(formWithCSRF, mainTemplate)(frontendAppConfig)(request, messages).toString()
-
   def removeOptionsFromListOfAllRadioOptions(radioOptionsToRemove: Seq[RadioOption]): Seq[RadioOption] = allOtherTaxOptions.diff(radioOptionsToRemove)
 
   "getOptions" must {
