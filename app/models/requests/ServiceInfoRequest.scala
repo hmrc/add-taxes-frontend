@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,9 @@ package models.requests
 
 import play.api.libs.json.{Json, OFormat}
 import play.api.mvc.WrappedRequest
-import play.twirl.api.Html
 import utils.Enrolments
 
-case class ServiceInfoRequest[A](request: AuthenticatedRequest[A], serviceInfoContent: Html)
+case class ServiceInfoRequest[A](request: AuthenticatedRequest[A], serviceInfoContent: ServiceNavigationInfo)
   extends WrappedRequest[A](request) {
 
   def hasEnrolments(enrolments: Seq[Enrolments])(implicit request: ServiceInfoRequest[_]): Boolean = {
@@ -55,3 +54,5 @@ case class NavContent(home: NavLinks,
 object NavContent {
   implicit val format: OFormat[NavContent] = Json.format[NavContent]
 }
+
+case class ServiceNavigationInfo(navLinks: Seq[ListLinks] = Seq(), activeTab: String = "home")

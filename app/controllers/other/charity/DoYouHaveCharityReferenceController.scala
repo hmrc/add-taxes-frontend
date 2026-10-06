@@ -43,7 +43,7 @@ class DoYouHaveCharityReferenceController @Inject()(appConfig: FrontendAppConfig
   val form: Form[DoYouHaveCharityReference] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouHaveCharityReference(appConfig, form)(request.serviceInfoContent))
+    Ok(doYouHaveCharityReference(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
@@ -51,7 +51,7 @@ class DoYouHaveCharityReferenceController @Inject()(appConfig: FrontendAppConfig
       .fold(
         formWithErrors =>
           Future.successful(
-            BadRequest(doYouHaveCharityReference(appConfig, formWithErrors)(request.serviceInfoContent))),
+            BadRequest(doYouHaveCharityReference(appConfig, formWithErrors)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(DoYouHaveCharityReferenceId, value)))
       )
   }

@@ -41,13 +41,13 @@ class StampDutyController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[StampDuty] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(stampDuty(appConfig, form)(request.serviceInfoContent))
+    Ok(stampDuty(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(stampDuty(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(stampDuty(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(StampDutyId, value))
       )
   }

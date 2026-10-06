@@ -43,14 +43,14 @@ class AreYouRegisteredWarehousekeeperController @Inject()(appConfig: FrontendApp
   val form: Form[AreYouRegisteredWarehousekeeper] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(areYouRegisteredWarehousekeeper(appConfig, form)(request.serviceInfoContent))
+    Ok(areYouRegisteredWarehousekeeper(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(areYouRegisteredWarehousekeeper(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(areYouRegisteredWarehousekeeper(appConfig, formWithErrors)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(AreYouRegisteredWarehousekeeperId, value)))
       )
   }

@@ -41,13 +41,13 @@ class DoYouHavePBDRegistrationController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[DoYouHavePBDRegistration] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouHavePBDRegistration(appConfig, form)(request.serviceInfoContent))
+    Ok(doYouHavePBDRegistration(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(doYouHavePBDRegistration(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(doYouHavePBDRegistration(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(DoYouHavePBDRegistrationId, value))
       )
   }

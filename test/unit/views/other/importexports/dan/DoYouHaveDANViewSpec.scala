@@ -29,8 +29,6 @@ class DoYouHaveDANViewSpec extends ViewBehaviours {
 
   val form = new DoYouHaveDANFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouHaveDAN(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

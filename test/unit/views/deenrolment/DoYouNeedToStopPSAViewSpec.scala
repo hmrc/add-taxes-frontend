@@ -19,7 +19,7 @@ package views.deenrolment
 import forms.deenrolment.DoYouNeedToStopPSAFormProvider
 import models.deenrolment.DoYouNeedToStopPSA
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.deenrolment.doYouNeedToStopPSA
 
@@ -28,8 +28,6 @@ class DoYouNeedToStopPSAViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "doYouNeedToStopPSA"
 
   val form = new DoYouNeedToStopPSAFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouNeedToStopPSA(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

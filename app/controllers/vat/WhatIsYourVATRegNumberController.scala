@@ -51,7 +51,7 @@ class WhatIsYourVATRegNumberController @Inject() (appConfig: FrontendAppConfig,
   private val isKnownFactsCheckEnabled: Boolean = isEnabled(VATKnownFactsCheck)(appConfig)
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(whatIsYourVATRegNumber(appConfig, form, isKnownFactsCheckEnabled)(request.serviceInfoContent))
+    Ok(whatIsYourVATRegNumber(appConfig, form, isKnownFactsCheckEnabled)(Some(request.serviceInfoContent)))
   }
 
   def onPageLoadVatUnavailable(): Action[AnyContent] = authenticate { implicit request =>
@@ -65,7 +65,7 @@ class WhatIsYourVATRegNumberController @Inject() (appConfig: FrontendAppConfig,
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     def handleErrorSubmission(formWithErrors: Form[String]): Future[Result] =
-      Future.successful(BadRequest(whatIsYourVATRegNumber(appConfig, formWithErrors, isKnownFactsCheckEnabled)(request.serviceInfoContent)))
+      Future.successful(BadRequest(whatIsYourVATRegNumber(appConfig, formWithErrors, isKnownFactsCheckEnabled)(Some(request.serviceInfoContent))))
 
     def handleSuccessfulSubmission(submittedVrn: String): Future[Result] =
       knownFactsService.checkVrnMatchesPreviousAttempts(submittedVrn).map {

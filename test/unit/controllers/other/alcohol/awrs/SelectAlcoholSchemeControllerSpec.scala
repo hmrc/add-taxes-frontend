@@ -24,7 +24,7 @@ import models.other.alcohol.awrs.SelectAlcoholScheme.{AD, ATWD, AWRS, VPD}
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.{Enrolments, FakeNavigator}
 import views.html.other.alcohol.awrs.selectAlcoholScheme
 
@@ -49,7 +49,7 @@ class SelectAlcoholSchemeControllerSpec extends ControllerSpecBase {
     )
 
   def viewAsString(form: Form[_] = form): String =
-    new selectAlcoholScheme(formWithCSRF, mainTemplate)(frontendAppConfig, form, SelectAlcoholScheme.values.toSeq)(HtmlFormat.empty)(
+    new selectAlcoholScheme(formWithCSRF, mainTemplate)(frontendAppConfig, form, SelectAlcoholScheme.values.toSeq)(Some(serviceNavigationInfo))(
       fakeRequest,
       messages).toString
 

@@ -25,7 +25,7 @@ class RequestActivationTokenViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "requestActivationToken"
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new requestActivationToken(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+    new requestActivationToken(formWithCSRF, mainTemplate)(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
 
   "RequestActivationToken view" must {
     behave like normalPage(createView, messageKeyPrefix)

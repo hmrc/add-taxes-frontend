@@ -19,7 +19,7 @@ package views.deenrolment
 import forms.deenrolment.DoYouNeedToCloseCharityFormProvider
 import models.deenrolment.DoYouNeedToCloseCharity
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.deenrolment.doYouNeedToCloseCharity
 
@@ -28,8 +28,6 @@ class DoYouNeedToCloseCharityViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "doYouNeedToCloseCharity"
 
   val form = new DoYouNeedToCloseCharityFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouNeedToCloseCharity(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

@@ -41,13 +41,13 @@ class DoYouNeedToStopEPAYEController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[DoYouNeedToStopEPAYE] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouNeedToStopEPAYE(appConfig, form)(request.serviceInfoContent))
+    Ok(doYouNeedToStopEPAYE(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(doYouNeedToStopEPAYE(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(doYouNeedToStopEPAYE(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(DoYouNeedToStopEPAYEId, value))
       )
   }

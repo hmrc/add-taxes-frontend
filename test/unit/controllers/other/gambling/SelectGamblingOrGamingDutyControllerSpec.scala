@@ -22,7 +22,7 @@ import models.other.gambling.SelectGamblingOrGamingDuty
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import views.html.other.gambling.selectGamblingOrGamingDuty
 
@@ -47,7 +47,7 @@ class SelectGamblingOrGamingDutyControllerSpec extends ControllerSpecBase {
     )
 
   def viewAsString(form: Form[_] = form): String =
-    new selectGamblingOrGamingDuty(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new selectGamblingOrGamingDuty(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "SelectGamblingOrGamingDuty Controller" must {
 

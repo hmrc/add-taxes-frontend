@@ -18,7 +18,7 @@ package controllers.other.charity
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.other.charity.registerForCharity
 
 class RegisterForCharityControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class RegisterForCharityControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new registerForCharity(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new registerForCharity(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "RegisterForCharity Controller" must {
 

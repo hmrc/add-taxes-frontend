@@ -36,7 +36,7 @@ class TaxEnrolmentsConnectorISpec extends PlaySpec with AddTaxesIntegrationTest 
 
       implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
         AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, userId, confidenceLevel, None),
-        HtmlFormat.empty
+        serviceNavigationInfo
       )
 
       "return a true when a enrolment is created" in {
@@ -64,7 +64,7 @@ class TaxEnrolmentsConnectorISpec extends PlaySpec with AddTaxesIntegrationTest 
 
         implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
           AuthenticatedRequest(FakeRequest(), "", Enrolments(Set(saAuthEnrolment)), Some(Individual), groupId, userId, confidenceLevel, None),
-          HtmlFormat.empty
+          serviceNavigationInfo
         )
 
         val result: Future[Boolean] = connector.enrolForSa(testUtr, enrolActivate)
@@ -78,7 +78,7 @@ class TaxEnrolmentsConnectorISpec extends PlaySpec with AddTaxesIntegrationTest 
 
         implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
           AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, userId, confidenceLevel, None),
-          HtmlFormat.empty
+          serviceNavigationInfo
         )
 
         val result: Future[Boolean] = connector.enrolForSa(testUtr, enrolActivate)

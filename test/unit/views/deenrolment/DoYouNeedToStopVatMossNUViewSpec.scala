@@ -19,7 +19,7 @@ package views.deenrolment
 import forms.deenrolment.DoYouNeedToStopVatMossNUFormProvider
 import models.deenrolment.DoYouNeedToStopVatMossNU
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.deenrolment.doYouNeedToStopVatMossNU
 
@@ -28,8 +28,6 @@ class DoYouNeedToStopVatMossNUViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "doYouNeedToStopVatMossNU"
 
   val form = new DoYouNeedToStopVatMossNUFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouNeedToStopVatMossNU(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

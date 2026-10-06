@@ -3,7 +3,7 @@ package views.sa
 import forms.sa.CaptureSAUTRFormProvider
 import models.sa.DoYouHaveSAUTR
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.sa.captureSAUTR
 
@@ -12,8 +12,6 @@ class CaptureSAUTRViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "captureSAUTR"
 
   val form = new CaptureSAUTRFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new captureSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

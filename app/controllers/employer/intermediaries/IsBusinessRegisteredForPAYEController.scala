@@ -44,13 +44,13 @@ class IsBusinessRegisteredForPAYEController @Inject()(appConfig: FrontendAppConf
   lazy val action: ViewAction = ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddIntermediaries")
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(isBusinessRegisteredForPAYE(appConfig, form, action)(request.serviceInfoContent))
+    Ok(isBusinessRegisteredForPAYE(appConfig, form, action)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(isBusinessRegisteredForPAYE(appConfig, formWithErrors, action)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(isBusinessRegisteredForPAYE(appConfig, formWithErrors, action)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(IsBusinessRegisteredForPAYEId.EI, value))
       )
   }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,11 +25,9 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.auth.core.{ConfidenceLevel, Enrolments}
 import views.html.ct.individual_add_corporation_tax
-
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -56,7 +54,7 @@ class IndividualAddCorporationTaxControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new individual_add_corporation_tax(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new individual_add_corporation_tax(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "IndividualAddCorporationTaxControllerSpec" should {
     "return OK when called through route" in {

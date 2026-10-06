@@ -41,13 +41,13 @@ class DoesBusinessHave1To9DirectorsController @Inject()(appConfig: FrontendAppCo
   val form: Form[DoesBusinessHave1To9Directors] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doesBusinessHave1To9Directors(appConfig, form)(request.serviceInfoContent))
+    Ok(doesBusinessHave1To9Directors(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(doesBusinessHave1To9Directors(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(doesBusinessHave1To9Directors(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(DoesBusinessHave1To9DirectorsId, value))
       )
   }

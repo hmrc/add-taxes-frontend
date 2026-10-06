@@ -42,8 +42,6 @@ class DoYouWantToAddImportExportViewSpec extends ViewBehaviours with BeforeAndAf
   val messageKeyPrefix = "doYouWantToAddImportExport"
   val form = new DoYouWantToAddImportExportFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm")
   val mockServiceConfig: ServicesConfig = app.injector.instanceOf[ServicesConfig]
   val mockConfiguration: Configuration = mock[Configuration]

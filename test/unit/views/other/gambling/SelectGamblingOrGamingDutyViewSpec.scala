@@ -29,8 +29,6 @@ class SelectGamblingOrGamingDutyViewSpec extends ViewBehaviours {
 
   val form = new SelectGamblingOrGamingDutyFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new selectGamblingOrGamingDuty(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

@@ -25,7 +25,7 @@ class RegisterForVatByPostViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "registerForVatByPost"
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new registerForVatByPost(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+    new registerForVatByPost(formWithCSRF, mainTemplate)(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
 
   "RegisterForVatByPost view" must {
     behave like normalPage(createView, messageKeyPrefix)

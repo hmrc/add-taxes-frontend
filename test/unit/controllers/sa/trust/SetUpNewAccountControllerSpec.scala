@@ -18,7 +18,7 @@ package controllers.sa.trust
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.sa.trust.setUpNewAccount
 
 class SetUpNewAccountControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class SetUpNewAccountControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new setUpNewAccount(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new setUpNewAccount(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "SetUpNewAccount Controller" must {
     "return OK and the correct view for a GET" in {

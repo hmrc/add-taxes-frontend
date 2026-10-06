@@ -1,14 +1,12 @@
 package views.other.ppt
 
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.other.ppt.you_need_a_ppt_ref
 
 class YouNeedAPptRefViewSpec extends ViewBehaviours {
 
   val messagePrefix: String = "needPpt"
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new you_need_a_ppt_ref(mainTemplate)(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)

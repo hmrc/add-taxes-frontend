@@ -30,10 +30,10 @@ class HaveYouRegisteredForRebatedOilsViewSpec extends ViewBehaviours {
   val form = new HaveYouRegisteredForRebatedOilsFormProvider()()
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new haveYouRegisteredForRebatedOils(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages)
+    new haveYouRegisteredForRebatedOils(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm: Form[_] => HtmlFormat.Appendable = (form: Form[_]) =>
-    new haveYouRegisteredForRebatedOils(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages)
+    new haveYouRegisteredForRebatedOils(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   "HaveYouRegisteredForRebatedOils view" must {
     behave like normalPage(createView, messageKeyPrefix)

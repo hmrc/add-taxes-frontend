@@ -22,7 +22,7 @@ import models.other.gambling.gbd.AreYouRegisteredGTS
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import viewmodels.ViewAction
 import views.html.other.gambling.areYouRegisteredGTS
@@ -49,7 +49,7 @@ class AreYouRegisteredGTSControllerSpec extends ControllerSpecBase {
     )
 
   def viewAsString(form: Form[_] = form): String =
-    new areYouRegisteredGTS(formWithCSRF, mainTemplate)(frontendAppConfig, form, viewAction)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new areYouRegisteredGTS(formWithCSRF, mainTemplate)(frontendAppConfig, form, viewAction)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "AreYouRegisteredGTS Controller" must {
 

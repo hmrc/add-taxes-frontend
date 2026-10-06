@@ -41,13 +41,13 @@ class StopFilingSelfAssessmentController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[StopFilingSelfAssessment] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(stopFilingSelfAssessment(appConfig, form)(request.serviceInfoContent))
+    Ok(stopFilingSelfAssessment(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(stopFilingSelfAssessment(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(stopFilingSelfAssessment(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(StopFilingSelfAssessmentId, value))
       )
   }

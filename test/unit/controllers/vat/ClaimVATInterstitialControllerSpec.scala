@@ -4,7 +4,7 @@ package controllers.vat
 import controllers.ControllerSpecBase
 import controllers.actions.DataRetrievalAction
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.vat.claimVATInterstitialPage
 
 class ClaimVATInterstitialControllerSpec extends ControllerSpecBase {
@@ -23,7 +23,7 @@ class ClaimVATInterstitialControllerSpec extends ControllerSpecBase {
 
   "Claim VAT Interstitial Page Controller" must {
     "return 200 and the correct view for a GET" in {
-      val expected = new claimVATInterstitialPage(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+      val expected = new claimVATInterstitialPage(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
       val result = controller().onPageLoad()(fakeRequest)
       status(result) mustBe OK
       contentAsString(result) mustBe expected

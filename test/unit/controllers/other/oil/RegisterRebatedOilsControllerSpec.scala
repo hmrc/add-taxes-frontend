@@ -18,7 +18,7 @@ package controllers.other.oil
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.other.oil.registerRebatedOils
 
 class RegisterRebatedOilsControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class RegisterRebatedOilsControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new registerRebatedOils(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new registerRebatedOils(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "RegisterRebatedOils Controller" must {
 

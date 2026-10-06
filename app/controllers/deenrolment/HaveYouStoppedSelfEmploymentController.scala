@@ -49,7 +49,7 @@ class HaveYouStoppedSelfEmploymentController @Inject()(appConfig: FrontendAppCon
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     redirectWhenHasCT {
-      Ok(haveYouStoppedSelfEmployment(appConfig, form)(request.serviceInfoContent))
+      Ok(haveYouStoppedSelfEmployment(appConfig, form)(Some(request.serviceInfoContent)))
     }
   }
 
@@ -58,7 +58,7 @@ class HaveYouStoppedSelfEmploymentController @Inject()(appConfig: FrontendAppCon
       form.bindFromRequest()
         .fold(
           formWithErrors =>
-            BadRequest(haveYouStoppedSelfEmployment(appConfig, formWithErrors)(request.serviceInfoContent)),
+            BadRequest(haveYouStoppedSelfEmployment(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
           value => Redirect(navigator.nextPage(HaveYouStoppedSelfEmploymentId, value))
         )
     }

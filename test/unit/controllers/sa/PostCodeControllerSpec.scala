@@ -28,7 +28,7 @@ import play.api.data.{Form, FormError}
 import play.api.mvc.Call
 import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import service.KnownFactsService
 import utils.KnownFactsFormValidator
 import views.html.sa.postcodeKnownFacts
@@ -60,10 +60,10 @@ class PostCodeControllerSpec extends ControllerSpecBase with MockitoSugar with F
 
 
   def viewAsString(form: Form[KnownFactsPostcode] = form, origin: String): String = {
-    injector.instanceOf[postcodeKnownFacts].apply(frontendAppConfig, form, origin)(HtmlFormat.empty)(fakeRequest, messages).toString
+    injector.instanceOf[postcodeKnownFacts].apply(frontendAppConfig, form, origin)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
   }
   def viewAsString(origin: String): String = {
-     injector.instanceOf[postcodeKnownFacts].apply(frontendAppConfig, form, origin)(HtmlFormat.empty)(fakeRequest, messages).toString
+     injector.instanceOf[postcodeKnownFacts].apply(frontendAppConfig, form, origin)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
   }
 
   "Postcode  Controller" must {

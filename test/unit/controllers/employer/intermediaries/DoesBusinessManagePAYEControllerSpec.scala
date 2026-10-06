@@ -22,7 +22,7 @@ import models.employer.DoesBusinessManagePAYE
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import viewmodels.ViewAction
 import views.html.employer.doesBusinessManagePAYE
@@ -51,7 +51,7 @@ class DoesBusinessManagePAYEControllerSpec extends ControllerSpecBase {
   def viewAsString(form: Form[_] = form): String =
     new doesBusinessManagePAYE(
       formWithCSRF, mainTemplate
-    )(frontendAppConfig, form, ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "AddIntermediariesEpayeOnline"))(HtmlFormat.empty)(fakeRequest, messages).toString
+    )(frontendAppConfig, form, ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "AddIntermediariesEpayeOnline"))(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "DoesBusinessManagePAYEController Controller" must {
 

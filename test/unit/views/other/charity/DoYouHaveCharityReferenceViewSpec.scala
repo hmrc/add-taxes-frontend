@@ -19,7 +19,7 @@ package views.other.charity
 import forms.other.charity.DoYouHaveCharityReferenceFormProvider
 import models.other.charity.DoYouHaveCharityReference
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.other.charity.doYouHaveCharityReference
 
@@ -28,8 +28,6 @@ class DoYouHaveCharityReferenceViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "doYouHaveCharityReference"
 
   val form = new DoYouHaveCharityReferenceFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouHaveCharityReference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

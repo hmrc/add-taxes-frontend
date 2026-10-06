@@ -26,7 +26,6 @@ import models.OtherTaxes.{AlcoholAndTobacco, GamblingAndGaming, HousingAndLand, 
 import models.requests.ServiceInfoRequest
 import play.api.data.Form
 import play.api.i18n.I18nSupport
-import play.api.mvc.Results.Redirect
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.auth.core.{Enrolments => CoreEnrolments}
@@ -94,7 +93,7 @@ class OtherTaxesController @Inject() (mcc: MessagesControllerComponents,
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     request.request.affinityGroup match {
       case Some(Organisation) | Some(Individual) =>
-        Ok(otherTaxes(appConfig, form, getOptions)(request.serviceInfoContent))
+        Ok(otherTaxes(appConfig, form, getOptions)(Some(request.serviceInfoContent)))
 
       case _ =>
         Redirect(Call("GET", appConfig.getBusinessAccountUrl("agent-kick-out")))
@@ -105,7 +104,7 @@ class OtherTaxesController @Inject() (mcc: MessagesControllerComponents,
     form
       .bindFromRequest()
       .fold(
-        formWithErrors => Future.successful(BadRequest(otherTaxes(appConfig, formWithErrors, getOptions)(request.serviceInfoContent))),
+        formWithErrors => Future.successful(BadRequest(otherTaxes(appConfig, formWithErrors, getOptions)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(OtherTaxesId, value)))
       )
   }

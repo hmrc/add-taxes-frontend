@@ -22,7 +22,7 @@ import models.wrongcredentials.FindingYourAccount
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import views.html.wrongcredentials.findingYourAccount
 
@@ -48,7 +48,7 @@ class FindingYourAccountControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new findingYourAccount(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new findingYourAccount(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "FindingYourAccount Controller" must {
 

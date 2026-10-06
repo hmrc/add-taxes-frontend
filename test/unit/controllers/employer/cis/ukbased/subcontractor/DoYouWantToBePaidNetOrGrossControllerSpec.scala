@@ -22,7 +22,7 @@ import models.employer.cis.uk.subcontractor.DoYouWantToBePaidNetOrGross
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import views.html.employer.cis.ukbased.subcontractor.doYouWantToBePaidNetOrGross
 
@@ -48,7 +48,7 @@ class DoYouWantToBePaidNetOrGrossControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new doYouWantToBePaidNetOrGross(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new doYouWantToBePaidNetOrGross(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "DoYouWantToBePaidNetOrGross Controller" must {
 

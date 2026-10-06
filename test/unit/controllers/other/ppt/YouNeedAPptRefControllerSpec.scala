@@ -7,7 +7,7 @@ import play.api.http.Status.OK
 import play.api.i18n.MessagesApi
 import play.api.mvc.Call
 import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout, status}
-import play.twirl.api.HtmlFormat
+
 import views.html.other.ppt.you_need_a_ppt_ref
 
 class YouNeedAPptRefControllerSpec extends ControllerSpecBase {
@@ -33,7 +33,7 @@ class YouNeedAPptRefControllerSpec extends ControllerSpecBase {
     )
 
   def viewAsString(): String =
-    new you_need_a_ppt_ref(mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new you_need_a_ppt_ref(mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "YouNeedAPptRef Controller" must {
       "return OK and the correct view for a GET" in {

@@ -18,7 +18,7 @@ package controllers.employer.intermediaries
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.employer.intermediaries.registerForPAYE
 
 class RegisterForPAYEControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class RegisterForPAYEControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new registerForPAYE(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new registerForPAYE(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "RegisterForPAYE Controller" must {
     "return OK and the correct view for a GET" in {

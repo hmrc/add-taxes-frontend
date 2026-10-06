@@ -41,13 +41,13 @@ class DoYouWantToBePaidNetOrGrossController @Inject()(appConfig: FrontendAppConf
   val form: Form[DoYouWantToBePaidNetOrGross] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouWantToBePaidNetOrGross(appConfig, form)(request.serviceInfoContent))
+    Ok(doYouWantToBePaidNetOrGross(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(doYouWantToBePaidNetOrGross(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(doYouWantToBePaidNetOrGross(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(DoYouWantToBePaidNetOrGrossId, value))
       )
   }

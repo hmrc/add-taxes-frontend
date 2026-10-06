@@ -22,6 +22,7 @@ import com.github.tomakehurst.wiremock.common.ConsoleNotifier
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
 import config.featureToggles.{FeatureSwitch, FeatureToggleSupport}
+import models.requests.{ListLinks, ServiceNavigationInfo}
 import org.scalatest.concurrent.{Eventually, IntegrationPatience}
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, TestSuite}
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
@@ -109,6 +110,8 @@ trait AddTaxesIntegrationTest
   val providerId="provider-id"
   val confidenceLevel: ConfidenceLevel = ConfidenceLevel.L50
 
+  val serviceNavigationInfo: ServiceNavigationInfo =
+    ServiceNavigationInfo(navLinks = Seq(ListLinks(message = "Home", url = "/home")))
 }
 
 object AddTaxesIntegrationTest {

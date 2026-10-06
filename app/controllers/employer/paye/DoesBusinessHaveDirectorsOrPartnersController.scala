@@ -41,13 +41,13 @@ class DoesBusinessHaveDirectorsOrPartnersController @Inject()(appConfig: Fronten
   val form: Form[DoesBusinessHaveDirectorsOrPartners] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doesBusinessHaveDirectorsOrPartners(appConfig, form)(request.serviceInfoContent))
+    Ok(doesBusinessHaveDirectorsOrPartners(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(doesBusinessHaveDirectorsOrPartners(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(doesBusinessHaveDirectorsOrPartners(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(DoesBusinessHaveDirectorsOrPartnersId, value))
       )
   }

@@ -19,7 +19,7 @@ package views.vat
 import forms.vat.CompanyDivisionFormProvider
 import models.vat.CompanyDivision
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.vat.companyDivision
 
@@ -28,8 +28,6 @@ class CompanyDivisionViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "companyDivision"
 
   val form = new CompanyDivisionFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new companyDivision(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

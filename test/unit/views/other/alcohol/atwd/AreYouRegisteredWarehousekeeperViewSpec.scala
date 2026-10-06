@@ -19,7 +19,7 @@ package views.other.alcohol.atwd
 import forms.other.alcohol.atwd.AreYouRegisteredWarehousekeeperFormProvider
 import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.other.alcohol.atwd.areYouRegisteredWarehousekeeper
 
@@ -28,8 +28,6 @@ class AreYouRegisteredWarehousekeeperViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "areYouRegisteredWarehousekeeper"
 
   val form = new AreYouRegisteredWarehousekeeperFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new areYouRegisteredWarehousekeeper(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

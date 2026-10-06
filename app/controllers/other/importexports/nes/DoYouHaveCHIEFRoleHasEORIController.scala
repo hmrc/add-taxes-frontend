@@ -46,7 +46,7 @@ class DoYouHaveCHIEFRoleHasEORIController @Inject()(appConfig: FrontendAppConfig
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(
-      doYouHaveCHIEFRole(appConfig, form, ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit(), "AddNESHasEori"))(request.serviceInfoContent))
+      doYouHaveCHIEFRole(appConfig, form, ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit(), "AddNESHasEori"))(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
@@ -57,7 +57,7 @@ class DoYouHaveCHIEFRoleHasEORIController @Inject()(appConfig: FrontendAppConfig
               doYouHaveCHIEFRole(
                 appConfig,
                 formWithErrors,
-                ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit(), "AddNESHasEori"))(request.serviceInfoContent)
+                ViewAction(DoYouHaveCHIEFRoleHasEORIController.onSubmit(), "AddNESHasEori"))(Some(request.serviceInfoContent))
           )),
         value => Future.successful(Redirect(navigator.nextPage(DoYouHaveCHIEFRoleId.HasEORI, value)))
       )

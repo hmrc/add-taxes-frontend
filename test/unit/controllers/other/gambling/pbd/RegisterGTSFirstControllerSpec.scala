@@ -18,7 +18,7 @@ package controllers.other.gambling.pbd
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.other.gambling.pbd.registerGTSFirst
 
 class RegisterGTSFirstControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class RegisterGTSFirstControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new registerGTSFirst(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new registerGTSFirst(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "RegisterGTSFirst Controller" must {
 

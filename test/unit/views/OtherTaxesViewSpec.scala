@@ -19,19 +19,17 @@ package views
 import forms.OtherTaxesFormProvider
 import models.OtherTaxes
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.otherTaxes
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 class OtherTaxesViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "otherTaxes"
 
   val form = new OtherTaxesFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new otherTaxes(formWithCSRF, mainTemplate)(frontendAppConfig, form, OtherTaxes.options)(serviceInfoContent)(fakeRequest, messages)

@@ -37,7 +37,7 @@ extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
-        Ok(signInDifferent(appConfig, origin)(request.serviceInfoContent))
+        Ok(signInDifferent(appConfig, origin)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {

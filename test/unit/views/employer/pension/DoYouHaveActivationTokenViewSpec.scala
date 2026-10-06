@@ -29,8 +29,6 @@ class DoYouHaveActivationTokenViewSpec extends ViewBehaviours {
 
   val form = new DoYouHaveActivationTokenFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouHaveActivationToken(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

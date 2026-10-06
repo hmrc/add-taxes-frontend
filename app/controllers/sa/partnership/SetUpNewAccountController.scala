@@ -32,6 +32,6 @@ class SetUpNewAccountController @Inject()(appConfig: FrontendAppConfig,
   extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(setUpNewAccount(appConfig)(request.serviceInfoContent))
+    Ok(setUpNewAccount(appConfig)(Some(request.serviceInfoContent)))
   }
 }

@@ -22,7 +22,7 @@ import models.other.land.SelectATax
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
 import views.html.other.land.selectATax
 
@@ -47,7 +47,7 @@ class SelectATaxControllerSpec extends ControllerSpecBase {
     )
 
   def viewAsString(form: Form[_] = form, radioOptions: Set[RadioOption] = SelectATax.options): String =
-    new selectATax(formWithCSRF, mainTemplate)(frontendAppConfig, form, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new selectATax(formWithCSRF, mainTemplate)(frontendAppConfig, form, radioOptions)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "SelectATax Controller" must {
 

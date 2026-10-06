@@ -46,7 +46,7 @@ class DoYouHaveEORINumberController @Inject()(appConfig: FrontendAppConfig,
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(
-      doYouHaveEORINumber(appConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddEBTITax"))(request.serviceInfoContent)
+      doYouHaveEORINumber(appConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddEBTITax"))(Some(request.serviceInfoContent))
     )
   }
 
@@ -58,7 +58,7 @@ class DoYouHaveEORINumberController @Inject()(appConfig: FrontendAppConfig,
               doYouHaveEORINumber(
                 appConfig,
                 formWithErrors,
-                ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddEBTITax"))(request.serviceInfoContent)
+                ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddEBTITax"))(Some(request.serviceInfoContent))
           )),
         value => Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.EBTI, value)))
       )

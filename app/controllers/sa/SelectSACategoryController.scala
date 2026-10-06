@@ -62,7 +62,7 @@ class SelectSACategoryController @Inject()(mcc: MessagesControllerComponents,
         credFinderService.redirectSACategory(form, action, origin)
       } else {
         redirectWhenHasSAAndRT {
-          Future.successful(Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments))(request.serviceInfoContent)))
+          Future.successful(Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments))(Some(request.serviceInfoContent))))
         }
       }
   }
@@ -91,7 +91,7 @@ class SelectSACategoryController @Inject()(mcc: MessagesControllerComponents,
                   Future(
                     BadRequest(
                       selectSACategory(appConfig, formWithErrors, action, origin, credFinderService.getRadioOptions(request.request.enrolments, subscribedForMtdItBool))
-                      (request.serviceInfoContent))
+                      (Some(request.serviceInfoContent)))
                   ),
                 value => selectSaCategoryService.saCategoryResult(value, answer, origin)
               )
@@ -102,7 +102,7 @@ class SelectSACategoryController @Inject()(mcc: MessagesControllerComponents,
           form.bindFromRequest()
             .fold(
               formWithErrors =>
-                Future(BadRequest(selectSACategory(appConfig, formWithErrors, action, origin, getRadioOptions(request.request.enrolments))(request.serviceInfoContent))),
+                Future(BadRequest(selectSACategory(appConfig, formWithErrors, action, origin, getRadioOptions(request.request.enrolments))(Some(request.serviceInfoContent)))),
               value => selectSaCategoryService.saCategoryResult(value, answer, origin)
             )
         }

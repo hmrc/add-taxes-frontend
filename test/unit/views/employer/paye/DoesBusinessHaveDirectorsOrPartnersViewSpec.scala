@@ -29,8 +29,6 @@ class DoesBusinessHaveDirectorsOrPartnersViewSpec extends ViewBehaviours {
 
   val form = new DoesBusinessHaveDirectorsOrPartnersFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new doesBusinessHaveDirectorsOrPartners(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

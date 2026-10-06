@@ -32,6 +32,6 @@ class PartnershipRegisterByPhoneController @Inject()(appConfig: FrontendAppConfi
   extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(partnershipRegisterByPhone(appConfig)(request.serviceInfoContent))
+    Ok(partnershipRegisterByPhone(appConfig)(Some(request.serviceInfoContent)))
   }
 }

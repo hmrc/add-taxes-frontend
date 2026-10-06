@@ -45,14 +45,14 @@ class RegisteredForVATECSalesController @Inject()(appConfig: FrontendAppConfig,
   lazy val viewAction: ViewAction = ViewAction(routes.RegisteredForVATECSalesController.onSubmit(), "VatECNoVat")
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(registeredForVAT(appConfig, form, viewAction)(request.serviceInfoContent))
+    Ok(registeredForVAT(appConfig, form, viewAction)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(registeredForVAT(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
+          Future.successful(BadRequest(registeredForVAT(appConfig, formWithErrors, viewAction)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(RegisteredForVATECSalesId, value)))
       )
   }

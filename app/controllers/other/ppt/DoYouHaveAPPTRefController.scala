@@ -45,14 +45,14 @@ class DoYouHaveAPPTRefController @Inject()(mcc: MessagesControllerComponents,
   val form: Form[DoYouHaveAPptReference] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-      Ok(doYouHaveAPPTRefView(appConfig, form)(request.serviceInfoContent))
+      Ok(doYouHaveAPPTRefView(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(doYouHaveAPPTRefView(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(doYouHaveAPPTRefView(appConfig, formWithErrors)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(DoYouHaveAPptRegId, value)))
       )
   }

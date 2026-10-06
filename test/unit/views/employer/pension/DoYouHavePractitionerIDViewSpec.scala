@@ -29,8 +29,6 @@ class DoYouHavePractitionerIDViewSpec extends ViewBehaviours {
 
   val form = new DoYouHavePractitionerIDFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouHavePractitionerID(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

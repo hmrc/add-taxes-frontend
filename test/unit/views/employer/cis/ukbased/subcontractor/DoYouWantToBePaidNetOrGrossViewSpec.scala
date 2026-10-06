@@ -29,8 +29,6 @@ class DoYouWantToBePaidNetOrGrossViewSpec extends ViewBehaviours {
 
   val form = new DoYouWantToBePaidNetOrGrossFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouWantToBePaidNetOrGross(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

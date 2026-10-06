@@ -49,13 +49,13 @@ class WhatIsYourPAYEReferenceController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[PAYEReference] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-      Ok(whatIsYourPAYEReference(appConfig, form)(request.serviceInfoContent))
+      Ok(whatIsYourPAYEReference(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => Future(BadRequest(whatIsYourPAYEReference(appConfig, formWithErrors)(request.serviceInfoContent))),
+        formWithErrors => Future(BadRequest(whatIsYourPAYEReference(appConfig, formWithErrors)(Some(request.serviceInfoContent)))),
         empRef =>
           enrolmentStoreProxyConnector.checkExistingEmpRef(empRef.officeNumber, empRef.payeReference).map { enrolmentStoreResult =>
             auditService.auditEPAYE(request.request.credId, s"${empRef.officeNumber}/${empRef.payeReference}", enrolmentStoreResult)

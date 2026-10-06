@@ -41,13 +41,13 @@ class DoYouHavePAYEReferenceController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[DoYouHavePAYEReference] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouHavePAYEReference(appConfig, form)(request.serviceInfoContent))
+    Ok(doYouHavePAYEReference(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(doYouHavePAYEReference(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(doYouHavePAYEReference(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(DoYouHavePAYEReferenceId, value))
       )
   }

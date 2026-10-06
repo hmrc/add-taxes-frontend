@@ -25,7 +25,7 @@ class RegisterGBDViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "registerGBD"
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new registerGBD(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+    new registerGBD(formWithCSRF, mainTemplate)(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
 
   "RegisterGBD view" must {
     behave like normalPage(createView, messageKeyPrefix)

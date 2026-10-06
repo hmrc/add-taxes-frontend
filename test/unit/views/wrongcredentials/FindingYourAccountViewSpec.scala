@@ -19,7 +19,7 @@ package views.wrongcredentials
 import forms.wrongcredentials.FindingYourAccountFormProvider
 import models.wrongcredentials.FindingYourAccount
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.wrongcredentials.findingYourAccount
 
@@ -28,8 +28,6 @@ class FindingYourAccountViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "findingYourAccount"
 
   val form = new FindingYourAccountFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new findingYourAccount(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

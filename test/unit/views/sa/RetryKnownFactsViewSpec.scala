@@ -6,10 +6,8 @@ import views.html.sa.retryKnownFacts
 
 class RetryKnownFactsViewSpec extends ViewBehaviours {
 
-  val serviceInfoContent = HtmlFormat.empty
   val ninoBoolean: Boolean = true
   val btaOrigin: String = "bta-sa"
-
 
   def createView: (String) => HtmlFormat.Appendable = (origin: String) =>
     new retryKnownFacts(formWithCSRF, mainTemplate)(frontendAppConfig, origin, ninoBoolean)(serviceInfoContent)(fakeRequest, messages)

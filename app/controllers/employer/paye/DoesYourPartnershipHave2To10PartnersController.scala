@@ -41,13 +41,13 @@ class DoesYourPartnershipHave2To10PartnersController @Inject()(appConfig: Fronte
   val form: Form[DoesYourPartnershipHave2To10Partners] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doesYourPartnershipHave2To10Partners(appConfig, form)(request.serviceInfoContent))
+    Ok(doesYourPartnershipHave2To10Partners(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(doesYourPartnershipHave2To10Partners(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(doesYourPartnershipHave2To10Partners(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(DoesYourPartnershipHave2To10PartnersId, value))
       )
   }

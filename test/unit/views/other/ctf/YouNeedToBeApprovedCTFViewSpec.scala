@@ -25,7 +25,7 @@ class YouNeedToBeApprovedCTFViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "youNeedToBeApprovedCTF"
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new youNeedToBeApprovedCTF(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+    new youNeedToBeApprovedCTF(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages)
 
   "YouNeedToBeApprovedCTF view" must {
     behave like normalPage(createView, messageKeyPrefix)

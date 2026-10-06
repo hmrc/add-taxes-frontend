@@ -16,6 +16,7 @@
 
 package views.behaviours
 
+import models.requests.{ListLinks, ServiceNavigationInfo}
 import play.api.i18n.Lang
 import play.twirl.api.HtmlFormat
 import views.ViewSpecBase
@@ -25,6 +26,10 @@ trait ViewBehaviours extends ViewSpecBase {
   implicit val lang: Lang = Lang("en")
 
   val signOutAndRegisterAsOrgLink = "http://localhost:9553/bas-gateway/register?continueUrl=%2Fbusiness-account%2Fadd-tax&origin=unknown&accountType=organisation"
+
+  val listLinks = Seq(ListLinks(message = "Home", url = "/home"))
+
+  val serviceInfoContent: Option[ServiceNavigationInfo] = Some(ServiceNavigationInfo(navLinks = listLinks))
 
   def normalPage(view: () => HtmlFormat.Appendable, messageKeyPrefix: String, expectedGuidanceKeys: String*): Unit =
     "behave like a normal page" when {

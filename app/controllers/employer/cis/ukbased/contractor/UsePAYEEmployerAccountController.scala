@@ -32,6 +32,6 @@ class UsePAYEEmployerAccountController @Inject()(appConfig: FrontendAppConfig,
   extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(usePAYEEmployerAccount(appConfig)(request.serviceInfoContent))
+    Ok(usePAYEEmployerAccount(appConfig)(Some(request.serviceInfoContent)))
   }
 }

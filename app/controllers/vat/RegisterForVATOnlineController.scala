@@ -44,13 +44,13 @@ class RegisterForVATOnlineController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[RegisterForVATOnline] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(registerForVATOnline(appConfig, form, thresholdService.formattedVatThreshold())(request.serviceInfoContent))
+    Ok(registerForVATOnline(appConfig, form, thresholdService.formattedVatThreshold())(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(registerForVATOnline(appConfig, formWithErrors, thresholdService.formattedVatThreshold())(request.serviceInfoContent)),
+        formWithErrors => BadRequest(registerForVATOnline(appConfig, formWithErrors, thresholdService.formattedVatThreshold())(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(RegisterForVATOnlineId, value))
       )
   }

@@ -20,7 +20,7 @@ import connectors.DataCacheConnector
 import controllers.ControllerSpecBase
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.sa.retryKnownFacts
 
 
@@ -43,7 +43,7 @@ class RetryKnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar
   }
 
   def viewAsString(origin: String): String =
-    new retryKnownFacts(formWithCSRF, mainTemplate)(frontendAppConfig, origin, ninoExists)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new retryKnownFacts(formWithCSRF, mainTemplate)(frontendAppConfig, origin, ninoExists)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   if(ninoExists) {
 

@@ -31,8 +31,6 @@ class DoesBusinessManagePAYEViewSpec extends ViewBehaviours {
 
   val form = new DoesBusinessManagePAYEFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   val viewAction: ViewAction = ViewAction(controllers.routes.IndexController.onPageLoad, "")
 
   def createView: () => HtmlFormat.Appendable = () =>

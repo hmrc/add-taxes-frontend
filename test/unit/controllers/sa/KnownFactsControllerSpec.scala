@@ -28,7 +28,6 @@ import play.api.data.Form
 import play.api.mvc.Call
 import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
 import service.KnownFactsService
 import utils.KnownFactsFormValidator
 import views.html.sa.knownFacts
@@ -60,10 +59,10 @@ class KnownFactsControllerSpec extends ControllerSpecBase with MockitoSugar with
 
 
   def viewAsString(form: Form[KnownFactsNino] = form, origin: String): String = {
-    injector.instanceOf[knownFacts].apply(frontendAppConfig, form, origin, false)(HtmlFormat.empty)(fakeRequest, messages).toString
+    injector.instanceOf[knownFacts].apply(frontendAppConfig, form, origin, false)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
   }
   def viewAsString(origin: String): String = {
-     injector.instanceOf[knownFacts].apply(frontendAppConfig, form, origin, false)(HtmlFormat.empty)(fakeRequest, messages).toString
+     injector.instanceOf[knownFacts].apply(frontendAppConfig, form, origin, false)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
   }
 
   "KnownFacts Controller" must {

@@ -29,8 +29,6 @@ class WhatEmployerTaxDoYouWantToAddViewSpec extends ViewBehaviours {
 
   val form = new WhatEmployerTaxDoYouWantToAddFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
       new whatEmployerTaxDoYouWantToAdd(
         formWithCSRF, mainTemplate

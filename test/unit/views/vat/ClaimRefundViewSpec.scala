@@ -19,7 +19,7 @@ package views.vat
 import forms.vat.ClaimRefundFormProvider
 import models.vat.ClaimRefund
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.vat.claimRefund
 
@@ -28,8 +28,6 @@ class ClaimRefundViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "claimRefund"
 
   val form = new ClaimRefundFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new claimRefund(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

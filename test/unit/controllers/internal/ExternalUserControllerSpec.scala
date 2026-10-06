@@ -9,7 +9,7 @@ import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AnyContentAsJson, Request}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import service.IvService
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.auth.core.Enrolments
@@ -22,7 +22,7 @@ class ExternalUserControllerSpec extends ControllerSpecBase with MockitoSugar {
 
   implicit val request: Request[_] = Request(
     AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
-    HtmlFormat.empty
+    Some(serviceNavigationInfo)
   )
 
   val  validJsonWithUtr: JsValue = Json.parse(

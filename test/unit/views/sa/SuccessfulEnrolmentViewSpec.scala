@@ -6,7 +6,6 @@ import views.html.sa.successfulEnrolment
 
 class SuccessfulEnrolmentViewSpec extends ViewBehaviours {
 
-  val serviceInfoContent = HtmlFormat.empty
   val btaOrigin: String = "bta-sa"
   val ptaOrigin: String = "pta-sa"
 

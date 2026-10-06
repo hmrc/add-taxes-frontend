@@ -25,7 +25,7 @@ class YouDoNotNeedVATViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "youDoNotNeedVAT"
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new youDoNotNeedVAT(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+    new youDoNotNeedVAT(formWithCSRF, mainTemplate)(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
 
   "YouDoNotNeedVAT view" must {
     behave like normalPage(createView, messageKeyPrefix)

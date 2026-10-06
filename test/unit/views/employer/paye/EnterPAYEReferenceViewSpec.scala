@@ -29,10 +29,8 @@ class EnterPAYEReferenceViewSpec extends ViewBehaviours {
 
   val form = new PAYEReferenceFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
-    new enterPAYEReference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages)
+    new enterPAYEReference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm: Form[PAYEReference] => HtmlFormat.Appendable = (form: Form[PAYEReference]) =>
     new enterPAYEReference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

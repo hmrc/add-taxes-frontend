@@ -29,8 +29,6 @@ class DoYouHavePAYEReferenceViewSpec extends ViewBehaviours {
 
   val form = new DoYouHavePAYEReferenceFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouHavePAYEReference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

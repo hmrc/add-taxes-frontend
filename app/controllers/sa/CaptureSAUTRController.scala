@@ -46,7 +46,7 @@ class CaptureSAUTRController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[CaptureSAUTRModel] = captureFormProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(captureSAUTR(appConfig, form)(request.serviceInfoContent))
+    Ok(captureSAUTR(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
@@ -54,7 +54,7 @@ class CaptureSAUTRController @Inject()(appConfig: FrontendAppConfig,
     form.bindFromRequest()
       .fold(
         formWithErrors => {
-          BadRequest(captureSAUTR(appConfig, formWithErrors)(request.serviceInfoContent))
+          BadRequest(captureSAUTR(appConfig, formWithErrors)(Some(request.serviceInfoContent)))
         },
         value => {
           value.value match {

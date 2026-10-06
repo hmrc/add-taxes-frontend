@@ -18,7 +18,7 @@ package controllers.other.importexports.dan
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.other.importexports.dan.registerDefermentApprovalNumber
 
 class RegisterDefermentApprovalNumberControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class RegisterDefermentApprovalNumberControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new registerDefermentApprovalNumber(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new registerDefermentApprovalNumber(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "RegisterDefermentApprovalNumber Controller" must {
 

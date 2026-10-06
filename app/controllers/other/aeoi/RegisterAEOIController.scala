@@ -32,6 +32,6 @@ class RegisterAEOIController @Inject()(appConfig: FrontendAppConfig,
   extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(registerAEOI(appConfig)(request.serviceInfoContent))
+    Ok(registerAEOI(appConfig)(Some(request.serviceInfoContent)))
   }
 }

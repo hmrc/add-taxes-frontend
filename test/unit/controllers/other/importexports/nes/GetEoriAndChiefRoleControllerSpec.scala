@@ -18,7 +18,7 @@ package controllers.other.importexports.nes
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.other.importexports.nes.getEoriAndChiefRole
 
 class GetEoriAndChiefRoleControllerSpec extends ControllerSpecBase {
@@ -34,7 +34,7 @@ class GetEoriAndChiefRoleControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new getEoriAndChiefRole(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new getEoriAndChiefRole(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "GetEoriAndChiefRole Controller" must {
 

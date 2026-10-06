@@ -25,7 +25,7 @@ class VatEligibilityCheckViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "vatEligibilityCheck"
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new vatEligibilityCheck(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+    new vatEligibilityCheck(formWithCSRF, mainTemplate)(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
 
   "VatEligibilityCheck view" must {
     behave like normalPage(createView, messageKeyPrefix)

@@ -19,7 +19,7 @@ package views.sa
 import forms.sa.AreYouSelfEmployedFormProvider
 import models.sa.AreYouSelfEmployed
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.sa.areYouSelfEmployed
 
@@ -28,8 +28,6 @@ class AreYouSelfEmployedViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "areYouSelfEmployed"
 
   val form = new AreYouSelfEmployedFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new areYouSelfEmployed(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

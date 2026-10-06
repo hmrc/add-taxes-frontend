@@ -50,7 +50,7 @@ class SelectAlcoholSchemeController @Inject() (appConfig: FrontendAppConfig,
   val form: Form[SelectAlcoholScheme] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(selectAlcoholScheme(appConfig, form, getFilteredAlcoholValues(request, appConfig))(request.serviceInfoContent))
+    Ok(selectAlcoholScheme(appConfig, form, getFilteredAlcoholValues(request, appConfig))(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
@@ -59,7 +59,7 @@ class SelectAlcoholSchemeController @Inject() (appConfig: FrontendAppConfig,
       .fold(
         formWithErrors =>
           Future.successful(
-            BadRequest(selectAlcoholScheme(appConfig, formWithErrors, getFilteredAlcoholValues(request, appConfig))(request.serviceInfoContent))),
+            BadRequest(selectAlcoholScheme(appConfig, formWithErrors, getFilteredAlcoholValues(request, appConfig))(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(SelectAlcoholSchemeId, value)))
       )
   }

@@ -20,7 +20,7 @@ import controllers.ControllerSpecBase
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.employer.cis.ukbased.contractor.registerForPAYE
 
 class RegisterForPAYEControllerSpec extends ControllerSpecBase with MockitoSugar with BeforeAndAfterEach {
@@ -38,7 +38,7 @@ class RegisterForPAYEControllerSpec extends ControllerSpecBase with MockitoSugar
   }
 
   def viewAsString(): String =
-    new registerForPAYE(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new registerForPAYE(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "RegisterForPAYE Controller" must {
     "return OK and the correct view for a GET" in {

@@ -5,7 +5,6 @@ import views.behaviours.ViewBehaviours
 import views.html.sa.tryPinInPost
 
 class TryPinInPostViewSpec extends ViewBehaviours {
-  val serviceInfoContent = HtmlFormat.empty
   val btaOrigin: String = "bta-sa"
 
   def createView: (String, Option[String]) => HtmlFormat.Appendable = (origin: String, status: Option[String]) =>

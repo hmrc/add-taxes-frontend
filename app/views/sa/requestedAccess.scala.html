@@ -15,17 +15,19 @@
  *@
 
 @import config.FrontendAppConfig
+@import models.requests.ServiceNavigationInfo
 
 @this(
-        main_template: main_template
+    main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig, origin: String)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, origin: String)(serviceInfoContent: Option[ServiceNavigationInfo])(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("requestedAccess.title"),
     appConfig = appConfig,
-    serviceInfoContent = Some(serviceInfoContent)) {
+    serviceInfoContent = serviceInfoContent) {
+
     <div class="govuk-box-highlight">
         @components.heading("requested-access-heading", "requestedAccess.heading", "govuk-heading-l")
     </div>

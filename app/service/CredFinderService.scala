@@ -90,31 +90,31 @@ class CredFinderService @Inject()(citizensDetailsConnector: CitizensDetailsConne
       case (true, true, false, true) => Future.successful(Redirect(DoYouWantToAddPartnerController.onPageLoad()))
       case (true, true, true, true) => Future.successful(Redirect(DoYouWantToAddPartnerController.onPageLoad()))
       case (true, _, _, true) => Future.successful(
-        Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, false))(request.serviceInfoContent))
+        Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, false))(Some(request.serviceInfoContent)))
       )
       case (true, true, true, false) =>
         for {mtdBoolCheck <- mtdItsaSubscribedCheck(getEnrolmentIdentifier(enrolments))
              } yield {
           if(mtdBoolCheck){
-            Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, mtdBoolCheck))(request.serviceInfoContent))
+            Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, mtdBoolCheck))(Some(request.serviceInfoContent)))
           } else {
             Redirect(DoYouWantToAddPartnerController.onPageLoad())
           }
         }
       case (_, _, _, true) => Future.successful(
-        Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, mtdBool = false))(request.serviceInfoContent))
+        Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, mtdBool = false))(Some(request.serviceInfoContent)))
       )
       case (true, _, _, _) =>
         for {mtdBoolCheck <- mtdItsaSubscribedCheck(getEnrolmentIdentifier(enrolments))
              } yield {
-            Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, mtdBoolCheck))(request.serviceInfoContent))
+            Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, mtdBoolCheck))(Some(request.serviceInfoContent)))
         }
       case (_, _, _, _) =>
         for {
           utr <- dataCacheConnector.getEntry[SAUTR](request.request.credId, EnterSAUTRId.toString)
           mtdBoolCheck <- mtdItsaSubscribedCheck(Some(EnrolmentIdentifier("IR-SA", utr.getOrElse(SAUTR("")).value)))
              } yield {
-            Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, mtdBoolCheck))(request.serviceInfoContent))
+            Ok(selectSACategory(appConfig, form, action, origin, getRadioOptions(request.request.enrolments, mtdBoolCheck))(Some(request.serviceInfoContent)))
         }
     }
     }

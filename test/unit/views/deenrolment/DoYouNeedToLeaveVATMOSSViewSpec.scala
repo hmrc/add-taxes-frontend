@@ -19,7 +19,7 @@ package views.deenrolment
 import forms.deenrolment.DoYouNeedToLeaveVATMOSSFormProvider
 import models.deenrolment.DoYouNeedToLeaveVATMOSS
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.deenrolment.doYouNeedToLeaveVATMOSS
 
@@ -28,8 +28,6 @@ class DoYouNeedToLeaveVATMOSSViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "doYouNeedToLeaveVATMOSS"
 
   val form = new DoYouNeedToLeaveVATMOSSFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouNeedToLeaveVATMOSS(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

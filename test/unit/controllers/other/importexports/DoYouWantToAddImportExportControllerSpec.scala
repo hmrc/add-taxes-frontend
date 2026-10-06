@@ -25,7 +25,7 @@ import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import service.AuditService
 import utils.{FakeNavigator, RadioOption}
 import views.html.other.importexports.doYouWantToAddImportExport
@@ -55,7 +55,7 @@ class DoYouWantToAddImportExportControllerSpec extends ControllerSpecBase {
     )
 
   def viewAsString(form: Form[_] = form): String =
-    new doYouWantToAddImportExport(formWithCSRF, mainTemplate)(form)(HtmlFormat.empty)(request, messages, frontendAppConfig).toString
+    new doYouWantToAddImportExport(formWithCSRF, mainTemplate)(form)(Some(serviceNavigationInfo))(request, messages, frontendAppConfig).toString
 
   "DoYouWantToAddImportExport Controller" when {
 

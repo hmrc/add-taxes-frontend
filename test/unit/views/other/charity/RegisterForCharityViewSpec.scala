@@ -25,7 +25,7 @@ class RegisterForCharityViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "registerForCharity"
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new registerForCharity(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+    new registerForCharity(formWithCSRF, mainTemplate)(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
 
   "RegisterForCharity view" must {
     behave like normalPage(createView, messageKeyPrefix)

@@ -46,13 +46,13 @@ class DoYouNeedToStopVatMossNUController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[DoYouNeedToStopVatMossNU] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouNeedToStopVatMossNU(appConfig, form)(request.serviceInfoContent))
+    Ok(doYouNeedToStopVatMossNU(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(doYouNeedToStopVatMossNU(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(doYouNeedToStopVatMossNU(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         value => {
           val nextPage = navigator.nextPage(DoYouNeedToStopVatMossNUId, (value, vatMossNUEnrolment))
 

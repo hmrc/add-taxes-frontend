@@ -23,7 +23,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers.{contentAsString, redirectLocation, status, _}
-import play.twirl.api.HtmlFormat
+
 import service.SaService
 import utils.HmrcEnrolmentType
 import views.html.sa.yourSaIsNotInThisAccount
@@ -50,7 +50,7 @@ class YourSaIsNotInThisAccountControllerSpec extends ControllerSpecBase with Moc
   }
 
   def viewAsString(form: Form[_] = form, origin: String): String =
-    new yourSaIsNotInThisAccount(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new yourSaIsNotInThisAccount(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "Not in this account controller" must {
     "return OK and the correct view for a GET" in {

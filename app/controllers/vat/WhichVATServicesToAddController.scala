@@ -70,13 +70,13 @@ class WhichVATServicesToAddController @Inject()(mcc: MessagesControllerComponent
   }
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(whichVATServicesToAdd(appConfig, form, radioOptions)(request.serviceInfoContent))
+    Ok(whichVATServicesToAdd(appConfig, form, radioOptions)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => Future.successful(BadRequest(whichVATServicesToAdd(appConfig, formWithErrors, radioOptions)(request.serviceInfoContent))),
+        formWithErrors => Future.successful(BadRequest(whichVATServicesToAdd(appConfig, formWithErrors, radioOptions)(Some(request.serviceInfoContent)))),
         value =>
           value match {
             case _ if(value == WhichVATServicesToAdd.VATIOSS || value == WhichVATServicesToAdd.VATOSS) =>

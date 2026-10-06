@@ -59,14 +59,14 @@ class SelectAnOilServiceController @Inject()(appConfig: FrontendAppConfig,
       .fold[Option[RadioOption]](Some(TiedOilsEnquiryService.toRadioOption))(_ => None)
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(selectAnOilService(appConfig, form, getOptions)(request.serviceInfoContent))
+    Ok(selectAnOilService(appConfig, form, getOptions)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(selectAnOilService(appConfig, formWithErrors, getOptions)(request.serviceInfoContent))),
+          Future.successful(BadRequest(selectAnOilService(appConfig, formWithErrors, getOptions)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(SelectAnOilServiceId, value)))
       )
   }

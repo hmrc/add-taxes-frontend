@@ -43,14 +43,14 @@ class HaveYouRegisteredForTiedOilsController @Inject()(appConfig: FrontendAppCon
   val form: Form[HaveYouRegisteredForTiedOils] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(haveYouRegisteredForTiedOils(appConfig, form)(request.serviceInfoContent))
+    Ok(haveYouRegisteredForTiedOils(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(haveYouRegisteredForTiedOils(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(haveYouRegisteredForTiedOils(appConfig, formWithErrors)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(HaveYouRegisteredForTiedOilsId, value)))
       )
   }

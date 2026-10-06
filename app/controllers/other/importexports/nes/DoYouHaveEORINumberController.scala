@@ -45,14 +45,14 @@ class DoYouHaveEORINumberController @Inject()(appConfig: FrontendAppConfig,
   lazy val action: ViewAction = ViewAction(routes.DoYouHaveEORINumberController.onSubmit(), "AddNESTax")
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(doYouHaveEORINumber(appConfig, form, action)(request.serviceInfoContent))
+    Ok(doYouHaveEORINumber(appConfig, form, action)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfo).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, action)(request.serviceInfoContent))),
+          Future.successful(BadRequest(doYouHaveEORINumber(appConfig, formWithErrors, action)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.NES, value)))
       )
   }

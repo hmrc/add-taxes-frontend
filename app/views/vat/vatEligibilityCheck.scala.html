@@ -17,20 +17,21 @@
 @import config.FrontendAppConfig
 @import controllers.vat.routes._
 @import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
+@import models.requests.ServiceNavigationInfo
 
 @this(
     uiForm: FormWithCSRF,
     main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig)(serviceInfoContent: Option[ServiceNavigationInfo])(implicit request: Request[_], messages: Messages)
 
 @dataPageId = { data-page-id="eligibility" }
 
 @main_template(
     title = messages("vatEligibilityCheck.title"),
     appConfig = appConfig,
-    serviceInfoContent = Some(serviceInfoContent),
+    serviceInfoContent = serviceInfoContent,
     articleClass= Some("article-body-width"),
     mainDataAttributes = Some(dataPageId)) {
 

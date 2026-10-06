@@ -31,7 +31,6 @@ import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AnyContent, Request}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{status, _}
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.http.HeaderCarrier
@@ -53,18 +52,18 @@ class IvServiceSpec extends ControllerSpecBase with MockitoSugar with BeforeAndA
   implicit val hc: HeaderCarrier = HeaderCarrier()
   implicit val serviceInfoRequest: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
     AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, nino),
-    HtmlFormat.empty)
+    serviceNavigationInfo)
 
   implicit val request: Request[_] = Request(
     AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, nino),
-    HtmlFormat.empty
+    serviceNavigationInfo
   )
 
   val designatoryDetails: DesignatoryDetailsForKnownFacts = DesignatoryDetailsForKnownFacts("AA123456A")
 
   implicit val requestWithJson: ServiceInfoRequest[JsValue] = ServiceInfoRequest[JsValue](
     AuthenticatedRequest(FakeRequest().withBody(Json.parse(s"""{}""")), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, nino),
-    HtmlFormat.empty)
+    serviceNavigationInfo)
 
   def verifyDataCacheSave(expectedTimes: Int): Unit =
     verify(mockDataCacheConnector, times(expectedTimes)).save(any(), any(), any())(any())

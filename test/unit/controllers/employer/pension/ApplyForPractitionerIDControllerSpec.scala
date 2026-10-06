@@ -18,7 +18,7 @@ package controllers.employer.pension
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.employer.pension.applyForPractitionerID
 
 class ApplyForPractitionerIDControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class ApplyForPractitionerIDControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new applyForPractitionerID(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new applyForPractitionerID(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "ApplyForPractitionerID Controller" must {
 

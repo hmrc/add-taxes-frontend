@@ -14,7 +14,6 @@ class PostcodeKnownFactsViewSpec extends ViewBehaviours {
   val mockKnownFactsValidator: KnownFactsFormValidator = injector.instanceOf[KnownFactsFormValidator]
   val formProvider = new KnownFactsPostcodeFormProvider(mockKnownFactsValidator, frontendAppConfig)
   val form = formProvider()
-  val serviceInfoContent = HtmlFormat.empty
   val btaOrigin: String = "bta-sa"
 
   def createView: (String) => HtmlFormat.Appendable = (origin: String) =>

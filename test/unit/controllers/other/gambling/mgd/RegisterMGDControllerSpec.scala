@@ -18,7 +18,7 @@ package controllers.other.gambling.mgd
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.other.gambling.mgd.registerMGD
 
 class RegisterMGDControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class RegisterMGDControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new registerMGD(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new registerMGD(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "RegisterMGD Controller" must {
 

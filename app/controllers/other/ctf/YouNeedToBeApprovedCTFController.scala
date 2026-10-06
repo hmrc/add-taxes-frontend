@@ -32,6 +32,6 @@ class YouNeedToBeApprovedCTFController @Inject()(appConfig: FrontendAppConfig,
   extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(youNeedToBeApprovedCTF(appConfig)(request.serviceInfoContent))
+    Ok(youNeedToBeApprovedCTF(appConfig)(Some(request.serviceInfoContent)))
   }
 }

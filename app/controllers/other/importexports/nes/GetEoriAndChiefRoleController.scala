@@ -32,6 +32,6 @@ class GetEoriAndChiefRoleController @Inject()(appConfig: FrontendAppConfig,
   extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(getEoriAndChiefRole(appConfig)(request.serviceInfoContent))
+    Ok(getEoriAndChiefRole(appConfig)(Some(request.serviceInfoContent)))
   }
 }

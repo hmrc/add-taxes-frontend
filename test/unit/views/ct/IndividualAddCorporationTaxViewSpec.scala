@@ -24,8 +24,6 @@ class IndividualAddCorporationTaxViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "individualAddCorporationTax"
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new individual_add_corporation_tax(formWithCSRF, mainTemplate)(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
 

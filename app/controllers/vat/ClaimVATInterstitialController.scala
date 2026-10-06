@@ -33,7 +33,7 @@ class ClaimVATInterstitialController @Inject()(appConfig: FrontendAppConfig,
 
   def onPageLoad: Action[AnyContent] = {
     (authenticate andThen serviceInfoData) { implicit request =>
-      Ok(claimVATInterstitialPage(appConfig)(request.serviceInfoContent))
+      Ok(claimVATInterstitialPage(appConfig)(Some(request.serviceInfoContent)))
     }
   }
 

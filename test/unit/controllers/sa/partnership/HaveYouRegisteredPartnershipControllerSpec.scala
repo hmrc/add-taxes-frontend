@@ -22,7 +22,7 @@ import models.sa.partnership.HaveYouRegisteredPartnership
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.{Html, HtmlFormat}
+
 import utils.FakeNavigator
 import views.html.sa.partnership.haveYouRegisteredPartnership
 
@@ -34,11 +34,10 @@ class HaveYouRegisteredPartnershipControllerSpec extends ControllerSpecBase {
   val form: Form[HaveYouRegisteredPartnership] = formProvider()
 
   val view: haveYouRegisteredPartnership = injector.instanceOf[haveYouRegisteredPartnership]
-  val serviceInfoContent: Html = HtmlFormat.empty
-  
+
   def applyView(form: Form[HaveYouRegisteredPartnership] = form,
-                saBoolean: Boolean = false): HtmlFormat.Appendable =
-    view.apply(frontendAppConfig, saBoolean, form)(serviceInfoContent)(fakeRequest, messages)
+                saBoolean: Boolean = false) =
+    view.apply(frontendAppConfig, saBoolean, form)(Some(serviceNavigationInfo))(fakeRequest, messages)
 
   val saBoolean: Boolean = false
 

@@ -32,6 +32,6 @@ class RegisterRebatedOilsController @Inject()(appConfig: FrontendAppConfig,
   extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(registerRebatedOils(appConfig)(request.serviceInfoContent))
+    Ok(registerRebatedOils(appConfig)(Some(request.serviceInfoContent)))
   }
 }

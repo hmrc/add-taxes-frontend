@@ -19,7 +19,7 @@ package views.sa.partnership
 import forms.sa.partnership.DoYouWantToAddPartnerFormProvider
 import models.sa.partnership.DoYouWantToAddPartner
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.sa.partnership.doYouWantToAddPartner
 
@@ -28,8 +28,6 @@ class DoYouWantToAddPartnerViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "doYouWantToAddPartner"
 
   val form = new DoYouWantToAddPartnerFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouWantToAddPartner(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

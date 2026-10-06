@@ -22,7 +22,7 @@ import models.sa.AreYouSelfEmployed
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import views.html.sa.areYouSelfEmployed
 
@@ -47,7 +47,7 @@ class AreYouSelfEmployedControllerSpec extends ControllerSpecBase {
     )
 
   def viewAsString(form: Form[_] = form): String =
-    new areYouSelfEmployed(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new areYouSelfEmployed(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "AreYouSelfEmployed Controller" must {
 

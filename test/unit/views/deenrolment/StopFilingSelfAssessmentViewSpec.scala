@@ -29,8 +29,6 @@ class StopFilingSelfAssessmentViewSpec extends ViewBehaviours {
 
   val form = new StopFilingSelfAssessmentFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new stopFilingSelfAssessment(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

@@ -27,7 +27,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import service.AuditService
 import uk.gov.hmrc.play.audit.http.connector.AuditResult
 import utils.{Enrolments, FakeNavigator}
@@ -66,10 +66,10 @@ class EnterYourPAYEReferenceControllerSpec extends ControllerSpecBase with Mocki
   }
 
   def viewAsString(): String =
-    new enterPAYEReference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new enterPAYEReference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   def viewAsString(form: Form[PAYEReference] = form): String =
-    new enterPAYEReference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new enterPAYEReference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "EnterYourPAYEReferenceController Controller" must {
 

@@ -29,8 +29,6 @@ class DoYouNeedToCancelVATViewSpec extends ViewBehaviours {
 
   val form = new DoYouNeedToCancelVATFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouNeedToCancelVAT(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

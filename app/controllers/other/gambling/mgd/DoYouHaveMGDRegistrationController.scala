@@ -43,14 +43,14 @@ class DoYouHaveMGDRegistrationController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[DoYouHaveMGDRegistration] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouHaveMGDRegistration(appConfig, form)(request.serviceInfoContent))
+    Ok(doYouHaveMGDRegistration(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(doYouHaveMGDRegistration(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(doYouHaveMGDRegistration(appConfig, formWithErrors)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(DoYouHaveMGDRegistrationId, value)))
       )
   }

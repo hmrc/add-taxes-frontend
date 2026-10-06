@@ -43,14 +43,14 @@ class DoYouWantToAddPartnerController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[DoYouWantToAddPartner] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouWantToAddPartner(appConfig, form)(request.serviceInfoContent))
+    Ok(doYouWantToAddPartner(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(doYouWantToAddPartner(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(doYouWantToAddPartner(appConfig, formWithErrors)(Some(request.serviceInfoContent)))),
         value =>
           Future.successful(Redirect(navigator.nextPage(DoYouWantToAddPartnerId, (value, request.request.enrolments))))
       )

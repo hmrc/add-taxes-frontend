@@ -43,14 +43,14 @@ class SelectGamblingOrGamingDutyController @Inject()(appConfig: FrontendAppConfi
   val form: Form[SelectGamblingOrGamingDuty] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(selectGamblingOrGamingDuty(appConfig, form)(request.serviceInfoContent))
+    Ok(selectGamblingOrGamingDuty(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(selectGamblingOrGamingDuty(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(selectGamblingOrGamingDuty(appConfig, formWithErrors)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(SelectGamblingOrGamingDutyId, value)))
       )
   }

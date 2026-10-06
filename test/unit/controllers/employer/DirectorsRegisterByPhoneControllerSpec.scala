@@ -18,7 +18,7 @@ package controllers.employer
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.employer.directorsRegisterByPhone
 
 class DirectorsRegisterByPhoneControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class DirectorsRegisterByPhoneControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new directorsRegisterByPhone(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new directorsRegisterByPhone(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "DirectorsRegisterByPhone Controller" must {
 

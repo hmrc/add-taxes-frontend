@@ -18,7 +18,7 @@ package controllers.employer.pension
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.employer.pension.requestActivationToken
 
 class RequestActivationTokenControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class RequestActivationTokenControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new requestActivationToken(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new requestActivationToken(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "RequestActivationToken Controller" must {
 

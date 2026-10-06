@@ -17,18 +17,19 @@
 @import config.FrontendAppConfig
 @import controllers.sa.routes._
 @import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
+@import models.requests.ServiceNavigationInfo
 
 @this(
         uiForm: FormWithCSRF,
         main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig, status: Option[String] = Some("Failed"), origin: String)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, status: Option[String] = Some("Failed"), origin: String)(serviceInfoContent: Option[ServiceNavigationInfo])(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("tryPinInPost.title"),
     appConfig = appConfig,
-    serviceInfoContent = Some(serviceInfoContent)) {
+    serviceInfoContent = serviceInfoContent) {
 
     @components.heading("tryPinInPost", "tryPinInPost.heading")
 

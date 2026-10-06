@@ -43,13 +43,13 @@ class FindingYourAccountController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[FindingYourAccount] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(findingYourAccount(appConfig, form)(request.serviceInfoContent))
+    Ok(findingYourAccount(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => Future.successful(BadRequest(findingYourAccount(appConfig, formWithErrors)(request.serviceInfoContent))),
+        formWithErrors => Future.successful(BadRequest(findingYourAccount(appConfig, formWithErrors)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(FindingYourAccountId, value)))
       )
   }

@@ -29,8 +29,6 @@ class DoesYourPartnershipHave2To10PartnersViewSpec extends ViewBehaviours {
 
   val form = new DoesYourPartnershipHave2To10PartnersFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
       new doesYourPartnershipHave2To10Partners(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

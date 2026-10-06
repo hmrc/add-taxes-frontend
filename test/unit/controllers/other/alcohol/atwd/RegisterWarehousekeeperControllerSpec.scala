@@ -18,7 +18,7 @@ package controllers.other.alcohol.atwd
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.other.alcohol.atwd.registerWarehousekeeper
 
 class RegisterWarehousekeeperControllerSpec extends ControllerSpecBase {
@@ -35,7 +35,7 @@ class RegisterWarehousekeeperControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new registerWarehousekeeper(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new registerWarehousekeeper(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "RegisterWarehousekeeper Controller" must {
 

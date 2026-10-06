@@ -18,14 +18,14 @@
 @import controllers.vat.routes._
 @import models.vat.DistanceSelling
 @import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
-
+@import models.requests.ServiceNavigationInfo
 
 @this(
     uiForm: FormWithCSRF,
     main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_])(serviceInfoContent: Option[ServiceNavigationInfo])(implicit request: Request[_], messages: Messages)
 
 @dataPageId = { data-page-id="is-distance-selling" }
 
@@ -33,7 +33,7 @@
     title = messages("distanceSelling.title"),
     appConfig = appConfig,
     form = Some(form),
-    serviceInfoContent = Some(serviceInfoContent),
+    serviceInfoContent = serviceInfoContent,
     mainDataAttributes = Some(dataPageId)) {
 
     @uiForm(action = DistanceSellingController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {

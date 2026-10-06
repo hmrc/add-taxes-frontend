@@ -32,6 +32,6 @@ class YouDoNotNeedVATController @Inject()(appConfig: FrontendAppConfig,
   extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(youDoNotNeedVAT(appConfig)(request.serviceInfoContent))
+    Ok(youDoNotNeedVAT(appConfig)(Some(request.serviceInfoContent)))
   }
 }

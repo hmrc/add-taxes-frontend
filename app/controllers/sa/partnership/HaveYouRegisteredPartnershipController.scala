@@ -45,7 +45,7 @@ class HaveYouRegisteredPartnershipController @Inject()(appConfig: FrontendAppCon
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     val saBoolean: Boolean = request.request.enrolments.getEnrolment("IR-SA").isDefined
-    Ok(haveYouRegisteredPartnership(appConfig, saBoolean, form)(request.serviceInfoContent))
+    Ok(haveYouRegisteredPartnership(appConfig, saBoolean, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
@@ -53,7 +53,7 @@ class HaveYouRegisteredPartnershipController @Inject()(appConfig: FrontendAppCon
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(haveYouRegisteredPartnership(appConfig, saBoolean, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(haveYouRegisteredPartnership(appConfig, saBoolean, formWithErrors)(Some(request.serviceInfoContent)))),
         value =>
           Future.successful(Redirect(navigator.nextPage(HaveYouRegisteredPartnershipId, (value, request.request.enrolments))))
       )

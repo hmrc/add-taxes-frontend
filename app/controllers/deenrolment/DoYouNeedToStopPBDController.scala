@@ -41,13 +41,13 @@ class DoYouNeedToStopPBDController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[DoYouNeedToStopPBD] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouNeedToStopPBD(appConfig, form)(request.serviceInfoContent))
+    Ok(doYouNeedToStopPBD(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(doYouNeedToStopPBD(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(doYouNeedToStopPBD(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(DoYouNeedToStopPBDId, value))
       )
   }

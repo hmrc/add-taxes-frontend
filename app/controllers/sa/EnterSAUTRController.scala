@@ -50,13 +50,13 @@ class EnterSAUTRController @Inject()(appConfig: FrontendAppConfig,
       case _ => "bta-sa"
     }
 
-    Ok(enterSAUTR(appConfig, form, originBta)(request.serviceInfoContent))
+    Ok(enterSAUTR(appConfig, form, originBta)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfo).async { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => Future(BadRequest(enterSAUTR(appConfig, formWithErrors, origin)(request.serviceInfoContent))),
+        formWithErrors => Future(BadRequest(enterSAUTR(appConfig, formWithErrors, origin)(Some(request.serviceInfoContent)))),
         saUTR => {
           lazy val tryAgainBoolean: Future[Boolean] = {
             for {

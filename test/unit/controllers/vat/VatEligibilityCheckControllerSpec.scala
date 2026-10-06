@@ -21,7 +21,7 @@ import controllers.ControllerSpecBase
 import controllers.actions._
 import org.scalatest.BeforeAndAfterEach
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.vat.vatEligibilityCheck
 
 class VatEligibilityCheckControllerSpec extends ControllerSpecBase with BeforeAndAfterEach with FeatureToggleSupport {
@@ -40,7 +40,7 @@ class VatEligibilityCheckControllerSpec extends ControllerSpecBase with BeforeAn
   }
 
   def viewAsString(): String =
-    new vatEligibilityCheck(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new vatEligibilityCheck(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   override def beforeEach(): Unit = {
     super.beforeEach()

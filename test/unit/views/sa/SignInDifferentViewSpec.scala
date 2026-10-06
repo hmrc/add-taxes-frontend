@@ -6,7 +6,6 @@ import views.html.sa.signInDifferent
 
 class SignInDifferentViewSpec extends ViewBehaviours {
 
-  val serviceInfoContent = HtmlFormat.empty
   val btaOrigin: String = "bta-sa"
 
 

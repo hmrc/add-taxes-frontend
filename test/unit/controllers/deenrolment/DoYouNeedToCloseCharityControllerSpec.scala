@@ -22,7 +22,6 @@ import models.deenrolment.DoYouNeedToCloseCharity
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
 import utils.FakeNavigator
 import views.html.deenrolment.doYouNeedToCloseCharity
 
@@ -48,7 +47,7 @@ class DoYouNeedToCloseCharityControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new doYouNeedToCloseCharity(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new doYouNeedToCloseCharity(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "DoYouNeedToCloseCharity Controller" must {
 

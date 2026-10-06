@@ -28,7 +28,7 @@ import play.api.data.Form
 import play.api.mvc.Call
 import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import service.{AuditService, SelectSaCategoryService}
 import views.html.sa.enterSAUTR
 
@@ -65,10 +65,10 @@ class EnterSAUTRControllerSpec extends PlaySpec with ControllerSpecBase with Moc
   }
 
   def viewAsString(origin: String): String =
-    new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   def viewAsString(form: Form[SAUTR] = form, origin: String): String =
-    new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "EnterSAUTR Controller" must {
 

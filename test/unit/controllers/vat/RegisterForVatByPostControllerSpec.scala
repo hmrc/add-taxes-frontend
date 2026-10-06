@@ -18,7 +18,7 @@ package controllers.vat
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.vat.registerForVatByPost
 
 class RegisterForVatByPostControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class RegisterForVatByPostControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new registerForVatByPost(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new registerForVatByPost(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "RegisterForVatByPost Controller" must {
     "return OK and the correct view for a GET" in {

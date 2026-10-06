@@ -19,7 +19,7 @@ package views.sa
 import forms.sa.SAUTRFormProvider
 import models.sa.SAUTR
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.sa.enterSAUTR
 
@@ -29,11 +29,10 @@ class EnterSAUTRViewSpec extends ViewBehaviours {
 
   val form = new SAUTRFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
   val btaOrigin: String = "bta-sa"
 
   def createView: (String) => HtmlFormat.Appendable = (origin: String) =>
-    new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(HtmlFormat.empty)(fakeRequest, messages)
+    new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm: (Form[SAUTR], String) => HtmlFormat.Appendable = (form: Form[SAUTR], origin: String) =>
     new enterSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(serviceInfoContent)(fakeRequest, messages)

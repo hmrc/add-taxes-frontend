@@ -20,7 +20,7 @@ import connectors.DataCacheConnector
 import controllers.ControllerSpecBase
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.sa.signInDifferent
 
 
@@ -42,7 +42,7 @@ class SignInDifferentControllerSpec extends ControllerSpecBase with MockitoSugar
   }
 
   def viewAsString(origin: String): String =
-    new signInDifferent(mainTemplate)(frontendAppConfig, origin)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new signInDifferent(mainTemplate)(frontendAppConfig, origin)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
 
 

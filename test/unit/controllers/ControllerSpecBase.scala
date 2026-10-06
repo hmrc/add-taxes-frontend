@@ -23,7 +23,6 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.mvc.{AnyContent, PlayBodyParsers}
 import play.api.test.FakeRequest
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -52,6 +51,6 @@ trait ControllerSpecBase extends SpecBase  {
     val enrolments = Enrolments(keys.map(Enrolment(_)).toSet)
     ServiceInfoRequest[AnyContent](
       AuthenticatedRequest(FakeRequest(), "", enrolments, Some(Organisation), groupId, providerId, confidenceLevel, None),
-      HtmlFormat.empty)
+      serviceNavigationInfo)
   }
 }

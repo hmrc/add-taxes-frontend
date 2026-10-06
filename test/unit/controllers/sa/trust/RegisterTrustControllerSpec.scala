@@ -18,7 +18,7 @@ package controllers.sa.trust
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.sa.trust.registerTrust
 
 class RegisterTrustControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class RegisterTrustControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new registerTrust(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new registerTrust(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "RegisterTrust Controller" must {
 

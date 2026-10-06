@@ -25,7 +25,7 @@ class RegisterDefermentApprovalNumberViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "registerDefermentApprovalNumber"
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new registerDefermentApprovalNumber(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+    new registerDefermentApprovalNumber(formWithCSRF, mainTemplate)(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
 
   "RegisterDefermentApprovalNumber view" must {
     behave like normalPage(createView, messageKeyPrefix)

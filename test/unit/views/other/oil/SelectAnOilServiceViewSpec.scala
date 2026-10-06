@@ -19,7 +19,7 @@ package views.other.oil
 import forms.other.oils.SelectAnOilServiceFormProvider
 import models.other.oil.SelectAnOilService
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.other.oil.selectAnOilService
 
@@ -28,8 +28,6 @@ class SelectAnOilServiceViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "selectAnOilService"
 
   val form = new SelectAnOilServiceFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new selectAnOilService(formWithCSRF, mainTemplate)(frontendAppConfig, form, SelectAnOilService.options.toSeq)(serviceInfoContent)(fakeRequest, messages)

@@ -32,6 +32,6 @@ class RegisterGBDController @Inject()(appConfig: FrontendAppConfig,
   extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(registerGBD(appConfig)(request.serviceInfoContent))
+    Ok(registerGBD(appConfig)(Some(request.serviceInfoContent)))
   }
 }

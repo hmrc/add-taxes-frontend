@@ -20,7 +20,7 @@ import forms.vat.RegisterForVATOnlineFormProvider
 import models.vat.RegisterForVATOnline
 import play.api.data.Form
 import play.api.mvc.Request
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import service.ThresholdService
 import views.behaviours.ViewBehaviours
 import views.html.vat.registerForVATOnline
@@ -32,8 +32,6 @@ class RegisterForVATOnlineViewSpec extends ViewBehaviours {
   implicit val request: Request[_] = fakeRequest
 
   val form = new RegisterForVATOnlineFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new registerForVATOnline(formWithCSRF, mainTemplate)(

@@ -27,7 +27,6 @@ import play.api.http.Status.{CREATED, INTERNAL_SERVER_ERROR, NO_CONTENT}
 import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.auth.core.{ConfidenceLevel, Enrolment, Enrolments}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
@@ -61,7 +60,7 @@ class TaxEnrolmentsConnectorSpec extends SpecBase with MockitoSugar with ScalaFu
 
       implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
         AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
-        HtmlFormat.empty)
+        serviceNavigationInfo)
 
       "return created when the call is successful (201)" in {
         when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
@@ -120,7 +119,7 @@ class TaxEnrolmentsConnectorSpec extends SpecBase with MockitoSugar with ScalaFu
 
         implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
           AuthenticatedRequest(FakeRequest(), "", Enrolments(Set(saEnrolment)), Some(Individual), groupId, providerId, confidenceLevel, None),
-          HtmlFormat.empty
+          serviceNavigationInfo
         )
 
         when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
@@ -137,7 +136,7 @@ class TaxEnrolmentsConnectorSpec extends SpecBase with MockitoSugar with ScalaFu
 
         implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
           AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
-          HtmlFormat.empty
+          serviceNavigationInfo
         )
 
         when(mockHttp.POST[SaEnrolment, HttpResponse](any(), any(), any())(any(), any(), any(), any()))

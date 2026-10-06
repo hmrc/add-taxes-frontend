@@ -46,14 +46,14 @@ class DoYouHaveCHIEFRoleNoEORIController @Inject()(appConfig: FrontendAppConfig,
   lazy val viewAction: ViewAction = ViewAction(DoYouHaveCHIEFRoleNoEORIController.onSubmit(), "AddNESNoEori")
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouHaveCHIEFRole(appConfig, form, viewAction)(request.serviceInfoContent))
+    Ok(doYouHaveCHIEFRole(appConfig, form, viewAction)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(doYouHaveCHIEFRole(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
+          Future.successful(BadRequest(doYouHaveCHIEFRole(appConfig, formWithErrors, viewAction)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(DoYouHaveCHIEFRoleId.NoEORI, value)))
       )
   }

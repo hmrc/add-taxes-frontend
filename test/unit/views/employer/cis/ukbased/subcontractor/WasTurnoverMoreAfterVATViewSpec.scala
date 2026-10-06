@@ -29,8 +29,6 @@ class WasTurnoverMoreAfterVATViewSpec extends ViewBehaviours {
 
   val form = new WasTurnoverMoreAfterVATFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new wasTurnoverMoreAfterVAT(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

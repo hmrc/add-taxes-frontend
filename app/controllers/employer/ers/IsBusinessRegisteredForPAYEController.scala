@@ -43,13 +43,13 @@ class IsBusinessRegisteredForPAYEController @Inject()(appConfig: FrontendAppConf
   lazy val viewAction: ViewAction = ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddErsEpayeRegistered")
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(isBusinessRegisteredForPAYE(appConfig, form, viewAction)(request.serviceInfoContent))
+    Ok(isBusinessRegisteredForPAYE(appConfig, form, viewAction)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(isBusinessRegisteredForPAYE(appConfig, formWithErrors, viewAction)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(isBusinessRegisteredForPAYE(appConfig, formWithErrors, viewAction)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(IsBusinessRegisteredForPAYEId.ERS, value))
       )
   }

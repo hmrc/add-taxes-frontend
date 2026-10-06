@@ -30,8 +30,6 @@ class WhatIsYourVATRegNumberViewSpec extends ViewBehaviours {
 
   val form = new WhatIsYourVATRegNumberFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   val whatIsYourVATRegNumberPage: whatIsYourVATRegNumber = app.injector.instanceOf[whatIsYourVATRegNumber]
 
   def createView(isKnownFactsCheckEnabled: Boolean): () => Html =

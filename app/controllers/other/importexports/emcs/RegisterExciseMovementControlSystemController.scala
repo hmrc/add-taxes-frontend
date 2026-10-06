@@ -32,6 +32,6 @@ class RegisterExciseMovementControlSystemController @Inject()(appConfig: Fronten
   extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(registerExciseMovementControlSystem(appConfig)(request.serviceInfoContent))
+    Ok(registerExciseMovementControlSystem(appConfig)(Some(request.serviceInfoContent)))
   }
 }

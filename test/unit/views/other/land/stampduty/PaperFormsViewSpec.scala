@@ -25,7 +25,7 @@ class PaperFormsViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "paperForms"
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new paperForms(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+    new paperForms(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages)
 
   "PaperForms view" must {
     behave like normalPage(createView, messageKeyPrefix)

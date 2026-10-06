@@ -22,7 +22,7 @@ import models.other.aeoi.HaveYouRegisteredAEOI
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import views.html.other.aeoi.haveYouRegisteredAEOI
 
@@ -48,7 +48,7 @@ class HaveYouRegisteredAEOIControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new haveYouRegisteredAEOI(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new haveYouRegisteredAEOI(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "HaveYouRegisteredAEOI Controller" must {
 

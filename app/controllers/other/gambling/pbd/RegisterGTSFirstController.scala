@@ -32,6 +32,6 @@ class RegisterGTSFirstController @Inject()(appConfig: FrontendAppConfig,
   extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(registerGTSFirst(appConfig)(request.serviceInfoContent))
+    Ok(registerGTSFirst(appConfig)(Some(request.serviceInfoContent)))
   }
 }
