@@ -18,7 +18,7 @@ package controllers.other.land.stampduty
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.other.land.stampduty.paperForms
 
 class PaperFormsControllerSpec extends ControllerSpecBase {
@@ -29,7 +29,7 @@ class PaperFormsControllerSpec extends ControllerSpecBase {
     new PaperFormsController(frontendAppConfig, mcc, FakeAuthAction, FakeServiceInfoAction, view)
   }
 
-  def viewAsString(): String = new paperForms(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(): String = new paperForms(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "PaperForms Controller" must {
 

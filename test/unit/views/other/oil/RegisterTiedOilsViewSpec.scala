@@ -25,7 +25,7 @@ class RegisterTiedOilsViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "registerTiedOils"
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new registerTiedOils(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+    new registerTiedOils(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages)
 
   "RegisterTiedOils view" must {
     behave like normalPage(createView, messageKeyPrefix)

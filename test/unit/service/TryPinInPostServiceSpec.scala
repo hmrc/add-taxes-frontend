@@ -14,7 +14,6 @@ import play.api.http.Status.{INTERNAL_SERVER_ERROR, SEE_OTHER}
 import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{defaultAwaitTimeout, redirectLocation, status}
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.auth.core.Enrolments
 import uk.gov.hmrc.http.HeaderCarrier
@@ -31,7 +30,7 @@ class TryPinInPostServiceSpec extends ControllerSpecBase with MockitoSugar with 
   implicit val hc: HeaderCarrier = HeaderCarrier()
   implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
     AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
-    HtmlFormat.empty)
+    serviceNavigationInfo)
 
   def service = new TryPinInPostService(
     mockDataCacheConnector,

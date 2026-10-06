@@ -44,7 +44,7 @@ class ImportedGoodsController @Inject()(appConfig: FrontendAppConfig,
   def onPageLoad(): Action[AnyContent] = {
     (authenticate andThen serviceInfoData) { implicit request =>
       val form: Form[ImportedGoods] = formProvider(thresholdService.formattedVatThreshold())
-      Ok(importedGoods(appConfig, form, thresholdService.formattedVatThreshold())(request.serviceInfoContent))
+      Ok(importedGoods(appConfig, form, thresholdService.formattedVatThreshold())(Some(request.serviceInfoContent)))
     }
   }
 
@@ -52,7 +52,7 @@ class ImportedGoodsController @Inject()(appConfig: FrontendAppConfig,
     val form: Form[ImportedGoods] = formProvider(thresholdService.formattedVatThreshold())
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(importedGoods(appConfig, formWithErrors, thresholdService.formattedVatThreshold())(request.serviceInfoContent)),
+        formWithErrors => BadRequest(importedGoods(appConfig, formWithErrors, thresholdService.formattedVatThreshold())(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(ImportedGoodsId, value))
       )
   }

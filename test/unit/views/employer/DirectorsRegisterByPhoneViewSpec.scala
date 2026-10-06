@@ -25,7 +25,7 @@ class DirectorsRegisterByPhoneViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "directorsRegisterByPhone"
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new directorsRegisterByPhone(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+    new directorsRegisterByPhone(formWithCSRF, mainTemplate)(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
 
   "DirectorsRegisterByPhone view" must {
     behave like normalPage(createView, messageKeyPrefix)

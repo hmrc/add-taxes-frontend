@@ -12,7 +12,7 @@ import play.api.mvc.AnyContent
 import play.api.mvc.Results._
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, status, _}
-import play.twirl.api.HtmlFormat
+
 import service.TryPinInPostService
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.auth.core.Enrolments
@@ -27,7 +27,7 @@ class TryPinInPostControllerSpec extends ControllerSpecBase with MockitoSugar wi
   val errorHandler: ErrorHandler = injector.instanceOf[ErrorHandler]
   implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
     AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
-    HtmlFormat.empty)
+    serviceNavigationInfo)
   val btaOrigin: String = "bta-sa"
 
   def controller(): TryPinInPostController = {
@@ -42,7 +42,7 @@ class TryPinInPostControllerSpec extends ControllerSpecBase with MockitoSugar wi
   }
 
   def viewAsString(origin: String, status: Option[String] = Some("Failed")): String =
-    new tryPinInPost(formWithCSRF, mainTemplate)(frontendAppConfig, status, origin)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new tryPinInPost(formWithCSRF, mainTemplate)(frontendAppConfig, status, origin)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "TryPinInPost Controller" must {
 

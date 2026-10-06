@@ -45,13 +45,13 @@ class DoesBusinessManagePAYEController @Inject()(appConfig: FrontendAppConfig,
     ViewAction(routes.DoesBusinessManagePAYEController.onSubmit(), "AddIntermediariesEpayeOnline")
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doesBusinessManagePAYE(appConfig, form, action)(request.serviceInfoContent))
+    Ok(doesBusinessManagePAYE(appConfig, form, action)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(doesBusinessManagePAYE(appConfig, formWithErrors, action)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(doesBusinessManagePAYE(appConfig, formWithErrors, action)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(DoesBusinessManagePAYEId.EI, value))
       )
   }

@@ -20,7 +20,7 @@ import forms.sa.partnership.HaveYouRegisteredPartnershipFormProvider
 import models.sa.partnership.HaveYouRegisteredPartnership
 import org.jsoup.nodes.Document
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.sa.partnership.haveYouRegisteredPartnership
 
@@ -28,7 +28,6 @@ class HaveYouRegisteredPartnershipViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "haveYouRegisteredPartnership"
 
-  val serviceInfoContent: Html = HtmlFormat.empty
   val form: Form[HaveYouRegisteredPartnership] = new HaveYouRegisteredPartnershipFormProvider()()
 
   val view: haveYouRegisteredPartnership = app.injector.instanceOf[haveYouRegisteredPartnership]

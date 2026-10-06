@@ -30,8 +30,6 @@ class AreYouRegisteredGTSViewSpec extends ViewBehaviours {
 
   val form = new AreYouRegisteredGTSFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   val viewAction: ViewAction = ViewAction(controllers.routes.IndexController.onPageLoad, "")
 
   def createView: () => HtmlFormat.Appendable = () =>

@@ -29,10 +29,8 @@ class WhatIsYourPAYEReferenceViewSpec extends ViewBehaviours {
 
   val form = new WhatIsYourPAYEReferenceFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
-    new whatIsYourPAYEReference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages)
+    new whatIsYourPAYEReference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 
   def createViewUsingForm: Form[PAYEReference] => HtmlFormat.Appendable = (form: Form[PAYEReference]) =>
     new whatIsYourPAYEReference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

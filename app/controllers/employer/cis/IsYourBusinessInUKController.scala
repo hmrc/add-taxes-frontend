@@ -41,13 +41,13 @@ class IsYourBusinessInUKController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[IsYourBusinessInUK] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(isYourBusinessInUK(appConfig, form)(request.serviceInfoContent))
+    Ok(isYourBusinessInUK(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(isYourBusinessInUK(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(isYourBusinessInUK(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(IsYourBusinessInUKId, value))
       )
   }

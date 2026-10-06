@@ -25,7 +25,7 @@ class RegisterRGDViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "registerRGD"
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new registerRGD(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+    new registerRGD(formWithCSRF, mainTemplate)(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
 
   "RegisterRGD view" must {
     behave like normalPage(createView, messageKeyPrefix)

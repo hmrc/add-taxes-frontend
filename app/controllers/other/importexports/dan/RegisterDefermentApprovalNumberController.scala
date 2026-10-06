@@ -32,6 +32,6 @@ class RegisterDefermentApprovalNumberController @Inject()(appConfig: FrontendApp
   extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(registerDefermentApprovalNumber(appConfig)(request.serviceInfoContent))
+    Ok(registerDefermentApprovalNumber(appConfig)(Some(request.serviceInfoContent)))
   }
 }

@@ -32,7 +32,7 @@ class IndividualAddCorporationTaxController @Inject()(appConfig: FrontendAppConf
   extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(individual_add_corporation_tax(appConfig)(request.serviceInfoContent))
+    Ok(individual_add_corporation_tax(appConfig)(Some(request.serviceInfoContent)))
   }
 
 }

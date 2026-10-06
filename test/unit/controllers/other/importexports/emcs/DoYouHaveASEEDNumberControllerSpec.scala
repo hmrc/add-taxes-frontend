@@ -22,7 +22,7 @@ import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import views.html.other.importexports.emcs.doYouHaveASEEDNumber
 
@@ -48,7 +48,7 @@ class DoYouHaveASEEDNumberControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new doYouHaveASEEDNumber(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new doYouHaveASEEDNumber(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "DoYouHaveASEEDNumber Controller" must {
 

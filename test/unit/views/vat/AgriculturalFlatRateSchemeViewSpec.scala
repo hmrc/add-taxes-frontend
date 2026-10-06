@@ -19,7 +19,7 @@ package views.vat
 import forms.vat.AgriculturalFlatRateSchemeFormProvider
 import models.vat.AgriculturalFlatRateScheme
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.vat.agriculturalFlatRateScheme
 
@@ -28,8 +28,6 @@ class AgriculturalFlatRateSchemeViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "agriculturalFlatRateScheme"
 
   val form = new AgriculturalFlatRateSchemeFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new agriculturalFlatRateScheme(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

@@ -41,13 +41,13 @@ class StopCorporationTaxController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[StopCorporationTax] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(stopCorporationTax(appConfig, form)(request.serviceInfoContent))
+    Ok(stopCorporationTax(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(stopCorporationTax(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(stopCorporationTax(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(StopCorporationTaxId, value))
       )
   }

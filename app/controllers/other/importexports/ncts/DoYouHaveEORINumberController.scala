@@ -48,7 +48,7 @@ class DoYouHaveEORINumberController @Inject()(appConfig: FrontendAppConfig,
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(
-      doYouHaveEORINumber(appConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddNCTSTax"))(request.serviceInfoContent)
+      doYouHaveEORINumber(appConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddNCTSTax"))(Some(request.serviceInfoContent))
     )
   }
 
@@ -60,7 +60,7 @@ class DoYouHaveEORINumberController @Inject()(appConfig: FrontendAppConfig,
             doYouHaveEORINumber(
               appConfig,
               formWithErrors,
-              ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddNCTSTax"))(request.serviceInfoContent)
+              ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddNCTSTax"))(Some(request.serviceInfoContent))
           )),
         value => Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.NCTS, value)))
       )

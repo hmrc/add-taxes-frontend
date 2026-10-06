@@ -29,8 +29,6 @@ class WhatTypeOfSubcontractorViewSpec extends ViewBehaviours {
 
   val form = new WhatTypeOfSubcontractorFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new whatTypeOfSubcontractor(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

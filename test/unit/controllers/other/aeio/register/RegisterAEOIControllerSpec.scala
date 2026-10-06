@@ -19,7 +19,7 @@ package controllers.other.aeio.register
 import controllers.ControllerSpecBase
 import controllers.other.aeoi.RegisterAEOIController
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.other.aeio.register.registerAEOI
 
 class RegisterAEOIControllerSpec extends ControllerSpecBase {
@@ -37,7 +37,7 @@ class RegisterAEOIControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new registerAEOI(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new registerAEOI(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "RegisterAEOI Controller" must {
 

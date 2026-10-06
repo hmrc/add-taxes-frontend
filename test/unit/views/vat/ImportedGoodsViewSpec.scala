@@ -21,7 +21,7 @@ import models.vat.ImportedGoods
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.Request
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import service.ThresholdService
 import views.behaviours.ViewBehaviours
 import views.html.vat.importedGoods
@@ -35,8 +35,6 @@ class ImportedGoodsViewSpec extends ViewBehaviours {
   implicit val msg: Messages = messages
 
   val form = new ImportedGoodsFormProvider()(thresholdService.formattedVatThreshold())
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new importedGoods(formWithCSRF, mainTemplate)(frontendAppConfig, form, thresholdService.formattedVatThreshold())(serviceInfoContent)(fakeRequest, messages)

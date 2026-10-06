@@ -3,7 +3,7 @@ package views.vat
 import config.featureToggles.FeatureSwitch.VANContentChanges
 import config.featureToggles.FeatureToggleSupport
 import org.scalatest.BeforeAndAfterEach
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.vat.claimVATInterstitialPage
 
@@ -20,8 +20,6 @@ class ClaimVATInterstitialPageViewSpec extends ViewBehaviours with FeatureToggle
   }
 
   val messageKeyPrefix = "claimVATInterstitialPage"
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new claimVATInterstitialPage(formWithCSRF, mainTemplate)(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)

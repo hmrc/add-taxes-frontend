@@ -24,7 +24,7 @@ import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import views.html.deenrolment.doYouNeedToLeaveVATMOSS
 
@@ -54,7 +54,7 @@ class DoYouNeedToLeaveVATMOSSControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new doYouNeedToLeaveVATMOSS(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new doYouNeedToLeaveVATMOSS(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "DoYouNeedToLeaveVATMOSS Controller" must {
 

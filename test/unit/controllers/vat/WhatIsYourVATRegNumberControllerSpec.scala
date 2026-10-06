@@ -28,7 +28,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.data.Form
 import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import service.KnownFactsService
 import uk.gov.hmrc.http.HeaderNames
 import views.html.vat.{differentVatRegistrationNumbers, vatAccountUnavailable, vatRegistrationException, whatIsYourVATRegNumber}
@@ -65,7 +65,7 @@ class WhatIsYourVATRegNumberControllerSpec extends ControllerSpecBase with Mocki
     reset(mockKnownFactsService)
 
   def whatIsYourVATRegNumberViewAsString(isKnownFactsCheckEnabled: Boolean, form: Form[_] = form): String =
-    whatIsYourVATRegNumberPage(frontendAppConfig, form, isKnownFactsCheckEnabled)(HtmlFormat.empty)(fakeRequest, messages).toString
+    whatIsYourVATRegNumberPage(frontendAppConfig, form, isKnownFactsCheckEnabled)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   def vatAccountUnavailableViewAsString(): String =
     vatAccountUnavailablePage(frontendAppConfig)(fakeRequest, messages).toString

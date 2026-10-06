@@ -19,7 +19,7 @@ package views.deenrolment
 import forms.deenrolment.DoYouNeedToStopGBDFormProvider
 import models.deenrolment.DoYouNeedToStopGBD
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.deenrolment.doYouNeedToStopGBD
 
@@ -28,8 +28,6 @@ class DoYouNeedToStopGBDViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "doYouNeedToStopGBD"
 
   val form = new DoYouNeedToStopGBDFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouNeedToStopGBD(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

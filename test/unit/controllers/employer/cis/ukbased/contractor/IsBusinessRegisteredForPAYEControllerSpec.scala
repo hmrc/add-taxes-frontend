@@ -22,7 +22,7 @@ import models.employer.IsBusinessRegisteredForPAYE
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import viewmodels.ViewAction
 import views.html.employer.isBusinessRegisteredForPAYE
@@ -53,7 +53,7 @@ class IsBusinessRegisteredForPAYEControllerSpec extends ControllerSpecBase {
   def viewAsString(form: Form[_] = form): String =
     new isBusinessRegisteredForPAYE(
       formWithCSRF, mainTemplate
-    )(frontendAppConfig, form, ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddCisUkContractor"))(HtmlFormat.empty)(fakeRequest, messages).toString
+    )(frontendAppConfig, form, ViewAction(routes.IsBusinessRegisteredForPAYEController.onSubmit(), "AddCisUkContractor"))(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "IsBusinessRegisteredForPAYE Controller" must {
 

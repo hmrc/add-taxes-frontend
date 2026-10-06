@@ -27,7 +27,7 @@ import play.api.data.Form
 import play.api.mvc.Call
 import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import service.{CredFinderService, SelectSaCategoryService}
 import utils.{HmrcEnrolmentType, RadioOption}
 import views.html.sa.selectSACategory
@@ -65,12 +65,12 @@ class SelectSACategoryControllerSpec extends ControllerSpecBase with MockitoSuga
   def viewAsString(form: Form[_] = form, radioOptions: Set[RadioOption] = radioButtonOptions, origin: String): String =
     new selectSACategory(
       formWithCSRF, mainTemplate
-    )(frontendAppConfig, form, routes.SelectSACategoryController.onSubmitHasUTR(origin), origin, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
+    )(frontendAppConfig, form, routes.SelectSACategoryController.onSubmitHasUTR(origin), origin, radioOptions)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   def viewAsStringNoUTR(form: Form[_] = form, radioOptions: Set[RadioOption] = radioButtonOptions, origin: String): String =
     new selectSACategory(
       formWithCSRF, mainTemplate
-    )(frontendAppConfig, form, routes.SelectSACategoryController.onSubmitNoUTR(), origin, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
+    )(frontendAppConfig, form, routes.SelectSACategoryController.onSubmitNoUTR(), origin, radioOptions)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "SelectSACategory Controller" must {
 

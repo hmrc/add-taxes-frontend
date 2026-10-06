@@ -43,14 +43,14 @@ class HaveYouRegisteredAEOIController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[HaveYouRegisteredAEOI] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(haveYouRegisteredAEOI(appConfig, form)(request.serviceInfoContent))
+    Ok(haveYouRegisteredAEOI(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(haveYouRegisteredAEOI(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(haveYouRegisteredAEOI(appConfig, formWithErrors)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(HaveYouRegisteredAEOIId, value)))
       )
   }

@@ -18,7 +18,7 @@ package controllers.employer.ers
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.employer.ers.addEmployersPAYE
 
 class AddEmployersPAYEControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class AddEmployersPAYEControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new addEmployersPAYE(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new addEmployersPAYE(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "AddEmployersPAYE Controller" must {
     "return OK and the correct view for a GET" in {

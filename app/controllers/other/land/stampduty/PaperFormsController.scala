@@ -32,6 +32,6 @@ class PaperFormsController @Inject()(appConfig: FrontendAppConfig,
   extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(paperForms(appConfig)(request.serviceInfoContent))
+    Ok(paperForms(appConfig)(Some(request.serviceInfoContent)))
   }
 }

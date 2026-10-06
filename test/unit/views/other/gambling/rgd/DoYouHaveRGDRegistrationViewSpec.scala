@@ -29,8 +29,6 @@ class DoYouHaveRGDRegistrationViewSpec extends ViewBehaviours {
 
   val form = new DoYouHaveRGDRegistrationFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouHaveRGDRegistration(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

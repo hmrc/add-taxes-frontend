@@ -3,7 +3,7 @@ package views.other.ppt
 import forms.other.ppt.PptReferenceFormProvider
 import models.other.ppt.DoYouHaveAPptReference
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.other.ppt.do_you_have_a_ppt_reference
 
@@ -12,8 +12,6 @@ class DoYouHaveAPptRefViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "doYouHaveAPptRef"
 
   val form = new PptReferenceFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new do_you_have_a_ppt_reference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

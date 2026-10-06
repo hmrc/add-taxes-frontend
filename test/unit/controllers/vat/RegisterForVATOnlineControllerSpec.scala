@@ -22,7 +22,7 @@ import models.vat.RegisterForVATOnline
 import play.api.data.Form
 import play.api.mvc.{Call, Request}
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import service.ThresholdService
 import utils.FakeNavigator
 import views.html.vat.registerForVATOnline
@@ -53,7 +53,7 @@ class RegisterForVATOnlineControllerSpec extends ControllerSpecBase {
 
   def viewAsString(form: Form[_] = form): String =
     new registerForVATOnline(formWithCSRF, mainTemplate)(
-      frontendAppConfig, form, thresholdService.formattedVatThreshold())(HtmlFormat.empty)(fakeRequest, messages).toString
+      frontendAppConfig, form, thresholdService.formattedVatThreshold())(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "RegisterForVATOnline Controller" must {
 

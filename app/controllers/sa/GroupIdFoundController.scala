@@ -36,7 +36,7 @@ class GroupIdFoundController @Inject()(authenticate: AuthAction,
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
-        Ok(groupIdError(appConfig)(request.serviceInfoContent))
+        Ok(groupIdError(appConfig)(Some(request.serviceInfoContent)))
   }
 
 }

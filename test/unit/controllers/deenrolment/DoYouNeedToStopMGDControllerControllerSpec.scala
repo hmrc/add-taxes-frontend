@@ -23,7 +23,7 @@ import models.deenrolment.DoYouNeedToStopMGD
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import views.html.deenrolment.doYouNeedToStopMGD
 
@@ -53,7 +53,7 @@ class DoYouNeedToStopMGDControllerControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new doYouNeedToStopMGD(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new doYouNeedToStopMGD(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "DoYouNeedToStopMGDController Controller" must {
 

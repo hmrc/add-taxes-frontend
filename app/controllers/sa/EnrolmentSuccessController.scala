@@ -35,7 +35,7 @@ class EnrolmentSuccessController @Inject()(authenticate: AuthAction,
 
   def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
-        Future.successful(Ok(successfulEnrolment(appConfig, origin)(request.serviceInfoContent)))
+        Future.successful(Ok(successfulEnrolment(appConfig, origin)(Some(request.serviceInfoContent))))
   }
 
 }

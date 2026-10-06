@@ -29,8 +29,6 @@ class DoesBusinessHave1To9DirectorsViewSpec extends ViewBehaviours {
 
   val form = new DoesBusinessHave1To9DirectorsFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new doesBusinessHave1To9Directors(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

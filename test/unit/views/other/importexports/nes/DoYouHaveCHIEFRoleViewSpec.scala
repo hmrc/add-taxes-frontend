@@ -20,7 +20,7 @@ import controllers.other.importexports.nes.routes._
 import forms.other.importexports.nes.DoYouHaveCHIEFRoleFormProvider
 import models.other.importexports.nes.DoYouHaveCHIEFRole
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import viewmodels.ViewAction
 import views.behaviours.ViewBehaviours
 import views.html.other.importexports.nes.doYouHaveCHIEFRole
@@ -30,8 +30,6 @@ class DoYouHaveCHIEFRoleViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "doYouHaveCHIEFRole"
 
   val form = new DoYouHaveCHIEFRoleFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouHaveCHIEFRole(

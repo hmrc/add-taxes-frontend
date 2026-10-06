@@ -41,14 +41,14 @@ class WasTurnoverMoreAfterVATController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[WasTurnoverMoreAfterVAT] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(wasTurnoverMoreAfterVAT(appConfig, form)(request.serviceInfoContent))
+    Ok(wasTurnoverMoreAfterVAT(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
         (formWithErrors: Form[_]) =>
-          BadRequest(wasTurnoverMoreAfterVAT(appConfig, formWithErrors)(request.serviceInfoContent)),
+          BadRequest(wasTurnoverMoreAfterVAT(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         (value) => Redirect(navigator.nextPage(WasTurnoverMoreAfterVATId, value))
       )
   }

@@ -19,7 +19,7 @@ package views.deenrolment
 import forms.deenrolment.DoYouNeedToCancelMTDVATFormProvider
 import models.deenrolment.DoYouNeedToCancelMTDVAT
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.deenrolment.doYouNeedToCancelMTDVAT
 
@@ -28,8 +28,6 @@ class DoYouNeedToCancelMTDVATViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "doYouNeedToCancelMTDVAT"
 
   val form = new DoYouNeedToCancelMTDVATFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouNeedToCancelMTDVAT(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

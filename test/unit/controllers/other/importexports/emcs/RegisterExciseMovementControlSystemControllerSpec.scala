@@ -18,7 +18,7 @@ package controllers.other.importexports.emcs
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.other.importexports.emcs.registerExciseMovementControlSystem
 
 class RegisterExciseMovementControlSystemControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class RegisterExciseMovementControlSystemControllerSpec extends ControllerSpecBa
   }
 
   def viewAsString(): String =
-    new registerExciseMovementControlSystem(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new registerExciseMovementControlSystem(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "RegisterExciseMovementControlSystem Controller" must {
 

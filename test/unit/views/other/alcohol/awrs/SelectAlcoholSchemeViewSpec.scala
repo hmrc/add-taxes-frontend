@@ -29,8 +29,6 @@ class SelectAlcoholSchemeViewSpec extends ViewBehaviours {
 
   val form = new SelectAlcoholSchemeFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new selectAlcoholScheme(formWithCSRF, mainTemplate)(frontendAppConfig, form, SelectAlcoholScheme.values.toSeq)(serviceInfoContent)(fakeRequest, messages)
 

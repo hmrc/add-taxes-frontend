@@ -25,7 +25,7 @@ class SetUpNewAccountViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "setUpNewAccount"
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new setUpNewAccount(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+    new setUpNewAccount(formWithCSRF, mainTemplate)(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
 
   "SetUpNewAccount view" must {
     behave like normalPage(createView, messageKeyPrefix)

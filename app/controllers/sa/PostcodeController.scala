@@ -47,19 +47,19 @@ class PostcodeController@Inject()(
 
   def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
-        Ok(postcodePage(appConfig, form, origin)(request.serviceInfoContent))
+        Ok(postcodePage(appConfig, form, origin)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {
     implicit request =>
       form.bindFromRequest().fold(
         formWithErrors => {
-          Future(BadRequest(postcodePage(appConfig, formWithErrors, origin)(request.serviceInfoContent)))
+          Future(BadRequest(postcodePage(appConfig, formWithErrors, origin)(Some(request.serviceInfoContent))))
         },
         value =>
           (value.kfPostcode, value.kfAbroad) match {
-            case (Some(_), Some(_)) => Future(BadRequest(postcodePage(appConfig, form.withError(FormError("postcode", "enterKnownFacts.postcode.error.required")).withError(FormError("isAbroad", "enterKnownFacts.postcode.error.required")), origin)(request.serviceInfoContent)))
-            case (None, None)       => Future(BadRequest(postcodePage(appConfig, form.withError(FormError("postcode", "enterKnownFacts.postcode.error.required")).withError(FormError("isAbroad", "enterKnownFacts.postcode.error.required")), origin)(request.serviceInfoContent)))
+            case (Some(_), Some(_)) => Future(BadRequest(postcodePage(appConfig, form.withError(FormError("postcode", "enterKnownFacts.postcode.error.required")).withError(FormError("isAbroad", "enterKnownFacts.postcode.error.required")), origin)(Some(request.serviceInfoContent))))
+            case (None, None)       => Future(BadRequest(postcodePage(appConfig, form.withError(FormError("postcode", "enterKnownFacts.postcode.error.required")).withError(FormError("isAbroad", "enterKnownFacts.postcode.error.required")), origin)(Some(request.serviceInfoContent))))
             case _                  => knownFactsService.knownFactsLocation(KnownFacts(value.kfPostcode, None, value.kfAbroad), origin)
           }
       )

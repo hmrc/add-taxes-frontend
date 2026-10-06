@@ -1,8 +1,8 @@
 $govuk-assets-path: "/business-account/add-tax/assets/lib/govuk-frontend/dist/govuk/assets/";
 $hmrc-assets-path: "/business-account/add-tax/assets/lib/hmrc-frontend/hmrc/";
-@import "lib/govuk-frontend/dist/govuk/all";
-@import "lib/hmrc-frontend/hmrc/all";
 
+@import "lib/govuk-frontend/dist/govuk/index";
+@import "lib/hmrc-frontend/hmrc/all";
 
 .padding-top-medium {
     padding-top: 15px !important;

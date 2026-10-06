@@ -27,11 +27,10 @@ import play.api.data.Form
 import play.api.mvc.{AnyContent, Call}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual}
 import uk.gov.hmrc.auth.core.Enrolments
 import utils.{FakeNavigator, RadioOption}
-import views.html.{otherTaxes, unauthorised}
+import views.html.otherTaxes
 
 class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEach {
 
@@ -83,7 +82,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
   private val allEnrolmentKeys: Seq[String] = utils.Enrolments.values.map(_.identifier).toSeq
 
   def viewAsString(form: Form[_] = form): String =
-    new otherTaxes(formWithCSRF, mainTemplate)(frontendAppConfig, form, allOtherTaxOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new otherTaxes(formWithCSRF, mainTemplate)(frontendAppConfig, form, allOtherTaxOptions)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   def removeOptionsFromListOfAllRadioOptions(radioOptionsToRemove: Seq[RadioOption]): Seq[RadioOption] = allOtherTaxOptions.diff(radioOptionsToRemove)
 
@@ -263,7 +262,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
       "the user is an agent" in {
         val request = ServiceInfoRequest[AnyContent](
           AuthenticatedRequest(FakeRequest().withMethod("GET"), "", Enrolments(Set()), Some(Agent), groupId, providerId, confidenceLevel, None),
-          HtmlFormat.empty)
+          serviceNavigationInfo)
 
         val result = controller(fakeAuthAction = new FakeAuthActionAgent(parser)).onPageLoad()(request)
 
@@ -276,7 +275,7 @@ class OtherTaxesControllerSpec extends ControllerSpecBase with BeforeAndAfterEac
       "the user is an individual" in {
         val request = ServiceInfoRequest[AnyContent](
           AuthenticatedRequest(FakeRequest().withMethod("GET"), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
-          HtmlFormat.empty)
+          serviceNavigationInfo)
 
         val result = controller(new FakeAuthActionIndividual(parser)).onPageLoad()(request)
 

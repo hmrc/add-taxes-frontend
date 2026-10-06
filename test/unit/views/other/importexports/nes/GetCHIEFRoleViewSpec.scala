@@ -25,7 +25,7 @@ class GetCHIEFRoleViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "getCHIEFRole"
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new getCHIEFRole(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+    new getCHIEFRole(formWithCSRF, mainTemplate)(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
 
   "GetCHIEFRole view" must {
     behave like normalPage(createView, messageKeyPrefix)

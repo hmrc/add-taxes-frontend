@@ -19,7 +19,7 @@ package views.vat
 import forms.vat.DoYouHaveVATRegNumberFormProvider
 import models.vat.DoYouHaveVATRegNumber
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.vat.doYouHaveVATRegNumber
 
@@ -28,8 +28,6 @@ class DoYouHaveVATRegNumberViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "doYouHaveVATRegNumber"
 
   val form = new DoYouHaveVATRegNumberFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouHaveVATRegNumber(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

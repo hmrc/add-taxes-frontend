@@ -25,7 +25,7 @@ class ApplyForPractitionerIDViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "applyForPractitionerID"
 
   def createView: () => HtmlFormat.Appendable = () =>
-    new applyForPractitionerID(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages)
+    new applyForPractitionerID(formWithCSRF, mainTemplate)(frontendAppConfig)(serviceInfoContent)(fakeRequest, messages)
 
   "ApplyForPractitionerID view" must {
     behave like normalPage(createView, messageKeyPrefix)

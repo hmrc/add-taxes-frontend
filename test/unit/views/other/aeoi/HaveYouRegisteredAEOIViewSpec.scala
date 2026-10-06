@@ -19,7 +19,7 @@ package views.other.aeoi
 import forms.other.aeoi.HaveYouRegisteredAEOIFormProvider
 import models.other.aeoi.HaveYouRegisteredAEOI
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.other.aeoi.haveYouRegisteredAEOI
 
@@ -28,8 +28,6 @@ class HaveYouRegisteredAEOIViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "haveYouRegisteredAEOI"
 
   val form = new HaveYouRegisteredAEOIFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new haveYouRegisteredAEOI(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

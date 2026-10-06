@@ -18,7 +18,7 @@ package controllers.other.ctf
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.other.ctf.youNeedToBeApprovedCTF
 
 class YouNeedToBeApprovedCTFControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class YouNeedToBeApprovedCTFControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new youNeedToBeApprovedCTF(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new youNeedToBeApprovedCTF(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "YouNeedToBeApprovedCTF Controller" must {
 

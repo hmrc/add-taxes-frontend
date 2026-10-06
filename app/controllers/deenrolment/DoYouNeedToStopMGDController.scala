@@ -46,13 +46,13 @@ class DoYouNeedToStopMGDController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[DoYouNeedToStopMGD] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouNeedToStopMGD(appConfig, form)(request.serviceInfoContent))
+    Ok(doYouNeedToStopMGD(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(doYouNeedToStopMGD(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(doYouNeedToStopMGD(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         value => {
           val nextPage = navigator.nextPage(DoYouNeedToStopMGDId, (value, mgdEnrolment))
 

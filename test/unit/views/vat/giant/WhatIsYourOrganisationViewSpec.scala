@@ -19,7 +19,7 @@ package views.vat.giant
 import forms.vat.giant.WhatIsYourOrganisationFormProvider
 import models.vat.giant.WhatIsYourOrganisation
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.vat.giant.whatIsYourOrganisation
 
@@ -28,8 +28,6 @@ class WhatIsYourOrganisationViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "whatIsYourOrganisation"
 
   val form = new WhatIsYourOrganisationFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new whatIsYourOrganisation(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

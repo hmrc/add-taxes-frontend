@@ -19,7 +19,7 @@ package views.deenrolment
 import forms.deenrolment.DoYouNeedToStopRGDFormProvider
 import models.deenrolment.DoYouNeedToStopRGD
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.deenrolment.doYouNeedToStopRGD
 
@@ -28,8 +28,6 @@ class DoYouNeedToStopRGDViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "doYouNeedToStopRGD"
 
   val form = new DoYouNeedToStopRGDFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouNeedToStopRGD(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

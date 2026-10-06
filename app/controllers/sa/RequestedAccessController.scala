@@ -32,7 +32,7 @@ class RequestedAccessController @Inject()(authenticate: AuthAction,
 
   def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
-        Ok(requestedAccess(appConfig, origin)(request.serviceInfoContent))
+        Ok(requestedAccess(appConfig, origin)(Some(request.serviceInfoContent)))
   }
 
 }

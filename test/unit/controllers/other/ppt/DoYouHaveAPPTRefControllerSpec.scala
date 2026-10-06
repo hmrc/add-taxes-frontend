@@ -10,7 +10,7 @@ import play.api.http.Status.{BAD_REQUEST, OK, SEE_OTHER}
 import play.api.i18n.MessagesApi
 import play.api.mvc.Call
 import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout, redirectLocation, status}
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import views.html.other.ppt.do_you_have_a_ppt_reference
 
@@ -43,7 +43,7 @@ class DoYouHaveAPPTRefControllerSpec extends ControllerSpecBase {
     )
 
   def viewAsString(form: Form[_] = form): String =
-    new do_you_have_a_ppt_reference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new do_you_have_a_ppt_reference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
     "DoYouHaveAPPTRef Controller" must {
       "return OK and the correct view for a GET" in {

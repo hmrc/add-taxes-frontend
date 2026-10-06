@@ -19,7 +19,7 @@ package views.other.land.stampduty
 import forms.other.land.stampduty.StampDutyFormProvider
 import models.other.land.stampduty.StampDuty
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.other.land.stampduty.stampDuty
 
@@ -28,8 +28,6 @@ class StampDutyViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "stampDuty"
 
   val form = new StampDutyFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new stampDuty(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

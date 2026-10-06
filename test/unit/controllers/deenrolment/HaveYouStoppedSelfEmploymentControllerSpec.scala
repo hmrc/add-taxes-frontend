@@ -23,7 +23,7 @@ import models.deenrolment.HaveYouStoppedSelfEmployment
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.HmrcEnrolmentType.CORP_TAX
 import utils.{FakeNavigator, HmrcEnrolmentType}
 import views.html.deenrolment.haveYouStoppedSelfEmployment
@@ -49,7 +49,7 @@ class HaveYouStoppedSelfEmploymentControllerSpec extends ControllerSpecBase {
     )
 
   def viewAsString(form: Form[_] = form): String =
-    new haveYouStoppedSelfEmployment(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new haveYouStoppedSelfEmployment(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "HaveYouStoppedSelfEmployment Controller" must {
 

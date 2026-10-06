@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package base
 
 import config.FrontendAppConfig
 import config.featureToggles.FeatureToggleSupport
-import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
+import models.requests.{AuthenticatedRequest, ListLinks, ServiceInfoRequest, ServiceNavigationInfo}
 import org.apache.pekko.stream.Materializer
 import org.scalatest.BeforeAndAfterAll
 import org.scalatestplus.play.PlaySpec
@@ -28,7 +28,6 @@ import play.api.i18n.Messages
 import play.api.inject.Injector
 import play.api.mvc.{AnyContent, MessagesControllerComponents, Request}
 import play.api.test.FakeRequest
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.auth.core.{ConfidenceLevel, Enrolments}
 import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
@@ -38,7 +37,6 @@ import views.html.main_template
 
 import scala.concurrent.ExecutionContextExecutor
 
-
 trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with FeatureToggleSupport with BeforeAndAfterAll {
 
   val injector: Injector = app.injector
@@ -47,6 +45,8 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with FeatureToggleSuppo
   val formWithCSRF: FormWithCSRF = injector.instanceOf[FormWithCSRF]
   val mainTemplate: main_template = injector.instanceOf[main_template]
   val conditionalRadio: conditional_radio = injector.instanceOf[conditional_radio]
+  val serviceNavigationInfo: ServiceNavigationInfo =
+    ServiceNavigationInfo(navLinks = Seq(ListLinks(message = "Home", url = "/home")))
 
   implicit def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
 
@@ -58,7 +58,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with FeatureToggleSuppo
     val authEnrolments: Enrolments = Enrolments(enrolments.map(_.toAuthEnrolment).toSet)
     ServiceInfoRequest[AnyContent](
       AuthenticatedRequest(request, "", authEnrolments, Some(Organisation), groupId, providerId, confidenceLevel, None),
-      HtmlFormat.empty)
+      serviceNavigationInfo)
   }
 
   def messages: Messages = mcc.messagesApi.preferred(fakeRequest)

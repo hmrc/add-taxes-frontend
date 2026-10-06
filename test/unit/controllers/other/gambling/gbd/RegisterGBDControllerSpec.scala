@@ -18,7 +18,7 @@ package controllers.other.gambling.gbd
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.other.gambling.gbd.registerGBD
 
 class RegisterGBDControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class RegisterGBDControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new registerGBD(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new registerGBD(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "RegisterGBD Controller" must {
 

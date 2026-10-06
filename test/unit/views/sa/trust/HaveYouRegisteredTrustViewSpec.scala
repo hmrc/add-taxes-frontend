@@ -19,7 +19,7 @@ package views.sa.trust
 import forms.sa.trust.HaveYouRegisteredTrustFormProvider
 import models.sa.trust.HaveYouRegisteredTrust
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.sa.trust.haveYouRegisteredTrust
 
@@ -28,8 +28,6 @@ class HaveYouRegisteredTrustViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "haveYouRegisteredTrust"
 
   val form = new HaveYouRegisteredTrustFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new haveYouRegisteredTrust(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

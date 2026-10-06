@@ -47,7 +47,7 @@ class OssConnectorISpec extends PlaySpec with AddTaxesIntegrationTest {
 
       implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
         AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, userId, confidenceLevel, None),
-        HtmlFormat.empty
+        serviceNavigationInfo
       )
 
       "return a url when successful response is returned with VAT OSS" in {

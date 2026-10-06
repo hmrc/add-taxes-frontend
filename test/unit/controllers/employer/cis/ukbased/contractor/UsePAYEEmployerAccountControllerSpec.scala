@@ -18,7 +18,7 @@ package controllers.employer.cis.ukbased.contractor
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.employer.cis.ukbased.contractor.usePAYEEmployerAccount
 
 class UsePAYEEmployerAccountControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class UsePAYEEmployerAccountControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new usePAYEEmployerAccount(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new usePAYEEmployerAccount(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "UsePAYEEmployerAccount Controller" must {
     "return OK and the correct view for a GET" in {

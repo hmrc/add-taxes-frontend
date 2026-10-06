@@ -6,7 +6,6 @@ import org.scalatestplus.play.PlaySpec
 import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
 import support.AddTaxesIntegrationTest
 import support.stubs.StubEnrolmentStoreConnector
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
@@ -32,7 +31,7 @@ class EnrolmentStoreProxyConnectorISpec extends PlaySpec with AddTaxesIntegratio
 
   implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
     AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
-    HtmlFormat.empty
+    serviceNavigationInfo
   )
 
   "EnrolmentStoreProxyConnector" when {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,13 +41,13 @@ class DoYouNeedToCancelVATController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[DoYouNeedToCancelVAT] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouNeedToCancelVAT(appConfig, form)(request.serviceInfoContent))
+    Ok(doYouNeedToCancelVAT(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(doYouNeedToCancelVAT(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(doYouNeedToCancelVAT(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(DoYouNeedToCancelVATId, value))
       )
   }

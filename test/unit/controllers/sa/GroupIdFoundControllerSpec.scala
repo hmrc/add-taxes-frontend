@@ -4,7 +4,7 @@ import controllers.ControllerSpecBase
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.http.Status.OK
 import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout, status}
-import play.twirl.api.HtmlFormat
+
 import views.html.sa.groupIdError
 
 class GroupIdFoundControllerSpec extends ControllerSpecBase with MockitoSugar {
@@ -22,7 +22,7 @@ class GroupIdFoundControllerSpec extends ControllerSpecBase with MockitoSugar {
   }
 
   def viewAsString(): String =
-    new groupIdError(mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new groupIdError(mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "EnrolmentSuccess Controller" must {
     "return OK and the correct view for a GET" in {

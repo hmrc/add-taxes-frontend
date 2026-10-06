@@ -22,7 +22,7 @@ import models.employer.WhatEmployerTaxDoYouWantToAdd
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
 import views.html.employer.whatEmployerTaxDoYouWantToAdd
 
@@ -48,7 +48,7 @@ class WhatEmployerTaxDoYouWantToAddControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(form: Form[_] = form, radioOptions: Seq[RadioOption] = WhatEmployerTaxDoYouWantToAdd.options): String =
-    new whatEmployerTaxDoYouWantToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new whatEmployerTaxDoYouWantToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, radioOptions)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "WhatEmployerTaxDoYouWantToAdd Controller" must {
 

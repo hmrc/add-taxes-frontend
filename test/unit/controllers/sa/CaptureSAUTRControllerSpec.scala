@@ -16,7 +16,7 @@ import play.api.mvc.Results.Redirect
 import play.api.mvc.{AnyContent, Call}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout, redirectLocation, status}
-import play.twirl.api.HtmlFormat
+
 import service.SelectSaCategoryService
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.auth.core.Enrolments
@@ -31,7 +31,7 @@ class CaptureSAUTRControllerSpec extends ControllerSpecBase with BeforeAndAfterE
 
   implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
     AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
-    HtmlFormat.empty
+    serviceNavigationInfo
   )
 
   val formProvider = new CaptureSAUTRFormProvider()
@@ -60,7 +60,7 @@ class CaptureSAUTRControllerSpec extends ControllerSpecBase with BeforeAndAfterE
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new captureSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new captureSAUTR(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "CaptureSAUTR Controller" must {
 

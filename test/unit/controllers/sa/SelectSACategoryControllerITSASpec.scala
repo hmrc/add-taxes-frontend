@@ -14,7 +14,7 @@ import play.api.mvc.{AnyContent, Call}
 import play.api.mvc.Results.Redirect
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import service.{CredFinderService, SelectSaCategoryService}
 import uk.gov.hmrc.auth.core.AffinityGroup.Individual
 import uk.gov.hmrc.auth.core.Enrolments
@@ -37,7 +37,7 @@ class SelectSACategoryControllerITSASpec extends ControllerSpecBase with Mockito
   val invalidValue: String = "invalid value"
   implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
     AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
-    HtmlFormat.empty
+    serviceNavigationInfo
   )
   val radioButtonOptions: Set[RadioOption] = SelectSACategory.options.filterNot(_.value == SelectSACategory.MtdIT.toString)
 
@@ -58,12 +58,12 @@ class SelectSACategoryControllerITSASpec extends ControllerSpecBase with Mockito
   def viewAsString(form: Form[_] = form, radioOptions: Set[RadioOption] = radioButtonOptions, origin: String): String =
     new selectSACategory(
       formWithCSRF, mainTemplate
-    )(frontendAppConfig, form, routes.SelectSACategoryController.onSubmitHasUTR(origin), origin, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
+    )(frontendAppConfig, form, routes.SelectSACategoryController.onSubmitHasUTR(origin), origin, radioOptions)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   def viewAsStringNoUTR(form: Form[_] = form, radioOptions: Set[RadioOption] = radioButtonOptions, origin: String): String =
     new selectSACategory(
       formWithCSRF, mainTemplate
-    )(frontendAppConfig, form, routes.SelectSACategoryController.onSubmitNoUTR(), origin, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
+    )(frontendAppConfig, form, routes.SelectSACategoryController.onSubmitNoUTR(), origin, radioOptions)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   override def beforeAll(): Unit = {
     reset(mockCredFinderService)

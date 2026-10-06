@@ -32,6 +32,6 @@ class RegisterRGDController @Inject()(appConfig: FrontendAppConfig,
   extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(registerRGD(appConfig)(request.serviceInfoContent))
+    Ok(registerRGD(appConfig)(Some(request.serviceInfoContent)))
   }
 }

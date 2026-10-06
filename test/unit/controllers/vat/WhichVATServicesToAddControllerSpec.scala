@@ -29,7 +29,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.{FakeNavigator, HmrcEnrolmentType, RadioOption}
 import views.html.vat.whichVATServicesToAdd
 
@@ -61,7 +61,7 @@ class WhichVATServicesToAddControllerSpec extends ControllerSpecBase with Mockit
   }
 
   def viewAsString(form: Form[_] = form, radioOptions: Seq[RadioOption] = WhichVATServicesToAdd.options): String =
-    new whichVATServicesToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, radioOptions)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new whichVATServicesToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, radioOptions)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "WhichVATServicesToAdd Controller" must {
     "return OK and the correct view for a GET" in {

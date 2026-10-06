@@ -19,7 +19,7 @@ package views.vat
 import forms.vat.DistanceSellingFormProvider
 import models.vat.DistanceSelling
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.vat.distanceSelling
 
@@ -28,8 +28,6 @@ class DistanceSellingViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "distanceSelling"
 
   val form = new DistanceSellingFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new distanceSelling(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

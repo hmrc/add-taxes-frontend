@@ -29,8 +29,6 @@ class HaveYouStoppedSelfEmploymentViewSpec extends ViewBehaviours {
 
   val form = new HaveYouStoppedSelfEmploymentFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new haveYouStoppedSelfEmployment(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

@@ -43,14 +43,14 @@ class HaveYouRegisteredTrustController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[HaveYouRegisteredTrust] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(haveYouRegisteredTrust(appConfig, form)(request.serviceInfoContent))
+    Ok(haveYouRegisteredTrust(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(haveYouRegisteredTrust(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(haveYouRegisteredTrust(appConfig, formWithErrors)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(HaveYouRegisteredTrustId, value)))
       )
   }

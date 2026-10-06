@@ -22,7 +22,7 @@ import models.employer.cis.uk.subcontractor.WasTurnoverMoreAfterVAT
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import views.html.employer.cis.ukbased.subcontractor.wasTurnoverMoreAfterVAT
 
@@ -48,7 +48,7 @@ class WasTurnoverMoreAfterVATControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new wasTurnoverMoreAfterVAT(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new wasTurnoverMoreAfterVAT(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "WasTurnoverMoreAfterVAT Controller" must {
 

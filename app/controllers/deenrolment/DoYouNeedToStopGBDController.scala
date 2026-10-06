@@ -41,13 +41,13 @@ class DoYouNeedToStopGBDController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[DoYouNeedToStopGBD] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouNeedToStopGBD(appConfig, form)(request.serviceInfoContent))
+    Ok(doYouNeedToStopGBD(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(doYouNeedToStopGBD(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(doYouNeedToStopGBD(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(DoYouNeedToStopGBDId, value))
       )
   }

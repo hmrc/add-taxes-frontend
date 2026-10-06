@@ -1,5 +1,5 @@
 @*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,19 +20,20 @@
 @import models.other.gambling.gbd.AreYouRegisteredGTS
 @import viewmodels.ViewAction
 @import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
+@import models.requests.ServiceNavigationInfo
 
 @this(
     uiForm: FormWithCSRF,
     main_template: main_template
 )
 
-@(appConfig: FrontendAppConfig, form: Form[_], viewAction: ViewAction)(serviceInfoContent: Html)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_], viewAction: ViewAction)(serviceInfoContent: Option[ServiceNavigationInfo])(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("areYouRegisteredGTS.title"),
     appConfig = appConfig,
     form = Some(form),
-    serviceInfoContent = Some(serviceInfoContent)) {
+    serviceInfoContent = serviceInfoContent) {
 
     @uiForm(action = viewAction.call, 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 

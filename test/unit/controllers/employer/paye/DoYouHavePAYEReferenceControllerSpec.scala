@@ -22,7 +22,7 @@ import models.employer.paye.DoYouHavePAYEReference
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import views.html.employer.paye.doYouHavePAYEReference
 
@@ -48,7 +48,7 @@ class DoYouHavePAYEReferenceControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new doYouHavePAYEReference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new doYouHavePAYEReference(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "DoYouHavePAYEReference Controller" must {
 

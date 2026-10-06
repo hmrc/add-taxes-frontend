@@ -20,7 +20,7 @@ import forms.sa.SelectSACategoryFormProvider
 import models.sa.SelectSACategory
 import play.api.data.Form
 import play.api.mvc.Call
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.sa.selectSACategory
 
@@ -32,7 +32,6 @@ class SelectSACategoryViewSpec extends ViewBehaviours {
 
   val form = new SelectSACategoryFormProvider()()
   val btaOrigin: String = "bta-sa"
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: (String) => HtmlFormat.Appendable = (origin: String) =>
     new selectSACategory(

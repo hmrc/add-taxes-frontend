@@ -41,13 +41,13 @@ class AreYouContractorOrSubcontractorController @Inject()(appConfig: FrontendApp
   val form: Form[AreYouContractorOrSubcontractor] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(areYouContractorOrSubcontractor(appConfig, form)(request.serviceInfoContent))
+    Ok(areYouContractorOrSubcontractor(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(areYouContractorOrSubcontractor(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(areYouContractorOrSubcontractor(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(AreYouContractorOrSubcontractorId, (value, request.request.enrolments)))
       )
   }

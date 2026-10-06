@@ -48,14 +48,14 @@ class DoYouWantToAddImportExportController @Inject()(mcc: MessagesControllerComp
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request: ServiceInfoRequest[_] =>
 
-    Ok(doYouWantToAddImportExport(form)(request.serviceInfoContent))
+    Ok(doYouWantToAddImportExport(form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(doYouWantToAddImportExport(formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(doYouWantToAddImportExport(formWithErrors)(Some(request.serviceInfoContent)))),
         value => {auditService.auditSelectIOCategory(request.request.credId, value, request.request.enrolments)
           Future.successful(Redirect(navigator.nextPage(DoYouWantToAddImportExportId, value)))}
       )

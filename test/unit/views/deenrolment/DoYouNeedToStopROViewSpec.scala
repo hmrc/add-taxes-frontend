@@ -19,7 +19,7 @@ package views.deenrolment
 import forms.deenrolment.DoYouNeedToStopROFormProvider
 import models.deenrolment.DoYouNeedToStopRO
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.deenrolment.doYouNeedToStopRO
 
@@ -28,8 +28,6 @@ class DoYouNeedToStopROViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "doYouNeedToStopRO"
 
   val form = new DoYouNeedToStopROFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouNeedToStopRO(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

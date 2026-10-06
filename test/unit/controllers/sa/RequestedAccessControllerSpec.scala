@@ -5,7 +5,7 @@ import controllers.ControllerSpecBase
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.http.Status.OK
 import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout, status}
-import play.twirl.api.HtmlFormat
+
 import views.html.sa.requestedAccess
 
 class RequestedAccessControllerSpec extends ControllerSpecBase with MockitoSugar {
@@ -23,7 +23,7 @@ class RequestedAccessControllerSpec extends ControllerSpecBase with MockitoSugar
   }
 
   def viewAsString(origin: String, returnUrl: Option[String] = None): String =
-    new requestedAccess(mainTemplate)(frontendAppConfig, origin)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new requestedAccess(mainTemplate)(frontendAppConfig, origin)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "EnrolmentSuccess Controller" must {
     "return OK and the correct view for a GET" in {

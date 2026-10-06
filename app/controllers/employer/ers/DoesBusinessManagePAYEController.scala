@@ -45,14 +45,14 @@ class DoesBusinessManagePAYEController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[DoesBusinessManagePAYE] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doesBusinessManagePAYE(appConfig, form, viewAction)(request.serviceInfoContent))
+    Ok(doesBusinessManagePAYE(appConfig, form, viewAction)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(doesBusinessManagePAYE(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
+          Future.successful(BadRequest(doesBusinessManagePAYE(appConfig, formWithErrors, viewAction)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(DoesBusinessManagePAYEId.ERS, value)))
       )
   }

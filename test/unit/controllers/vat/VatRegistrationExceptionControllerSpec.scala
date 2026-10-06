@@ -25,7 +25,7 @@ import org.scalatest.BeforeAndAfterEach
 import play.api.data.Form
 import play.api.mvc.{Call, Request}
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import service.ThresholdService
 import utils.FakeNavigator
 import views.html.vat.vatRegistrationException
@@ -61,7 +61,7 @@ class VatRegistrationExceptionControllerSpec
 
   def viewAsString(form: Form[_] = form): String =
     new vatRegistrationException(formWithCSRF, mainTemplate)(
-      frontendAppConfig, form, thresholdService.formattedVatDeregThreshold())(HtmlFormat.empty)(fakeRequest, messages).toString
+      frontendAppConfig, form, thresholdService.formattedVatDeregThreshold())(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   override def beforeEach(): Unit = {
     super.beforeEach()

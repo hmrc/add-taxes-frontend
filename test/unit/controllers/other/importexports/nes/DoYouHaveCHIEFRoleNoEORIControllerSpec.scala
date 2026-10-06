@@ -23,7 +23,7 @@ import models.other.importexports.nes.DoYouHaveCHIEFRole
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import viewmodels.ViewAction
 import views.html.other.importexports.nes.doYouHaveCHIEFRole
@@ -52,7 +52,7 @@ class DoYouHaveCHIEFRoleNoEORIControllerSpec extends ControllerSpecBase {
   def viewAsString(form: Form[_] = form): String =
     new doYouHaveCHIEFRole(
       formWithCSRF, mainTemplate
-    )(frontendAppConfig, form, ViewAction(DoYouHaveCHIEFRoleNoEORIController.onSubmit(), "AddNESNoEori"))(HtmlFormat.empty)(fakeRequest, messages).toString
+    )(frontendAppConfig, form, ViewAction(DoYouHaveCHIEFRoleNoEORIController.onSubmit(), "AddNESNoEori"))(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "DoYouHaveCHIEFRole Controller" must {
 

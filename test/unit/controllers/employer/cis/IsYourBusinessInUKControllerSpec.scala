@@ -22,7 +22,7 @@ import models.employer.cis.IsYourBusinessInUK
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import views.html.employer.cis.isYourBusinessInUK
 
@@ -48,7 +48,7 @@ class IsYourBusinessInUKControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new isYourBusinessInUK(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new isYourBusinessInUK(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "IsYourBusinessInUK Controller" must {
 

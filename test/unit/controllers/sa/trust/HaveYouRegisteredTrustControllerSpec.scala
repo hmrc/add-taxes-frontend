@@ -22,7 +22,7 @@ import models.sa.trust.HaveYouRegisteredTrust
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import views.html.sa.trust.haveYouRegisteredTrust
 
@@ -48,7 +48,7 @@ class HaveYouRegisteredTrustControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new haveYouRegisteredTrust(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new haveYouRegisteredTrust(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "HaveYouRegisteredTrust Controller" must {
 

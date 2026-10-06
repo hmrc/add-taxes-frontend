@@ -22,7 +22,7 @@ import models.other.oil.SelectAnOilService
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.{FakeNavigator, RadioOption}
 import views.html.other.oil.selectAnOilService
 
@@ -50,7 +50,7 @@ class SelectAnOilServiceControllerSpec extends ControllerSpecBase {
   def viewAsString(form: Form[_] = form): String =
     new selectAnOilService(
       formWithCSRF, mainTemplate
-    )(frontendAppConfig, form, SelectAnOilService.options.toSeq)(HtmlFormat.empty)(fakeRequest, messages).toString
+    )(frontendAppConfig, form, SelectAnOilService.options.toSeq)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "SelectAnOilService Controller" must {
 

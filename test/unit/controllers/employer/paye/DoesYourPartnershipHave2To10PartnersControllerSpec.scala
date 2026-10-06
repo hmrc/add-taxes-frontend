@@ -22,7 +22,7 @@ import models.employer.paye.DoesYourPartnershipHave2To10Partners
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import views.html.employer.paye.doesYourPartnershipHave2To10Partners
 
@@ -48,7 +48,7 @@ class DoesYourPartnershipHave2To10PartnersControllerSpec extends ControllerSpecB
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new doesYourPartnershipHave2To10Partners(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new doesYourPartnershipHave2To10Partners(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "DoesYourPartnershipHave2To10Partners Controller" must {
 

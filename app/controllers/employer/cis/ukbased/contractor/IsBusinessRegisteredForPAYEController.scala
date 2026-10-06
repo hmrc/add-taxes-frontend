@@ -43,14 +43,14 @@ class IsBusinessRegisteredForPAYEController @Inject()(appConfig: FrontendAppConf
   val form: Form[IsBusinessRegisteredForPAYE] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(isBusinessRegisteredForPAYE(appConfig, form, viewAction)(request.serviceInfoContent))
+    Ok(isBusinessRegisteredForPAYE(appConfig, form, viewAction)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          BadRequest(isBusinessRegisteredForPAYE(appConfig, formWithErrors, viewAction)(request.serviceInfoContent)),
+          BadRequest(isBusinessRegisteredForPAYE(appConfig, formWithErrors, viewAction)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(IsBusinessRegisteredForPAYEId.CIS, value))
       )
   }

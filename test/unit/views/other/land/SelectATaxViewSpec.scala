@@ -19,7 +19,7 @@ package views.other.land
 import forms.other.land.SelectATaxFormProvider
 import models.other.land.SelectATax
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.other.land.selectATax
 
@@ -28,8 +28,6 @@ class SelectATaxViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "selectATax"
 
   val form = new SelectATaxFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new selectATax(formWithCSRF, mainTemplate)(frontendAppConfig, form, SelectATax.options)(serviceInfoContent)(fakeRequest, messages)

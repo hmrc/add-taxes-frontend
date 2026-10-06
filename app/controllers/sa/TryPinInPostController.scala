@@ -39,7 +39,7 @@ extends FrontendController(mcc) with I18nSupport {
   def onPageLoad(status: Option[String] = Some("Failed"),
                  origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) {
     implicit request =>
-        Ok(tryPinInPost(appConfig, status, origin)(request.serviceInfoContent))
+        Ok(tryPinInPost(appConfig, status, origin)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async {

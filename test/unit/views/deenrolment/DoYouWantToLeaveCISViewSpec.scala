@@ -19,7 +19,7 @@ package views.deenrolment
 import forms.deenrolment.DoYouWantToLeaveCISFormProvider
 import models.deenrolment.DoYouWantToLeaveCIS
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.deenrolment.doYouWantToLeaveCIS
 
@@ -28,8 +28,6 @@ class DoYouWantToLeaveCISViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "doYouWantToLeaveCIS"
 
   val form = new DoYouWantToLeaveCISFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouWantToLeaveCIS(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

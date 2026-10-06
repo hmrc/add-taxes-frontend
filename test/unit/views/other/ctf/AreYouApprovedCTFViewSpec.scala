@@ -19,7 +19,7 @@ package views.other.ctf
 import forms.other.ctf.AreYouApprovedCTFFormProvider
 import models.other.ctf.AreYouApprovedCTF
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.other.ctf.areYouApprovedCTF
 
@@ -28,8 +28,6 @@ class AreYouApprovedCTFViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "areYouApprovedCTF"
 
   val form = new AreYouApprovedCTFFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new areYouApprovedCTF(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

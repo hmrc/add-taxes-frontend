@@ -34,7 +34,7 @@ class VatEligibilityCheckController @Inject()(appConfig: FrontendAppConfig,
 
   def onPageLoad: Action[AnyContent] = {
     (authenticate andThen serviceInfo) { implicit request =>
-      Ok(vatEligibilityCheck(appConfig)(request.serviceInfoContent))
+      Ok(vatEligibilityCheck(appConfig)(Some(request.serviceInfoContent)))
     }
   }
 }

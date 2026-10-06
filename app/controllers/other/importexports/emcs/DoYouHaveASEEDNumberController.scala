@@ -43,14 +43,14 @@ class DoYouHaveASEEDNumberController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[DoYouHaveASEEDNumber] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouHaveASEEDNumber(appConfig, form)(request.serviceInfoContent))
+    Ok(doYouHaveASEEDNumber(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(doYouHaveASEEDNumber(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(doYouHaveASEEDNumber(appConfig, formWithErrors)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(DoYouHaveASEEDNumberId, value)))
       )
   }

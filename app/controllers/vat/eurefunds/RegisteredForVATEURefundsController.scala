@@ -46,14 +46,14 @@ class RegisteredForVATEURefundsController @Inject()(appConfig: FrontendAppConfig
     ViewAction(routes.RegisteredForVATEURefundsController.onSubmit(), "VatEuRefundsNoVat")
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(registeredForVAT(appConfig, form, viewAction)(request.serviceInfoContent))
+    Ok(registeredForVAT(appConfig, form, viewAction)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit: Action[AnyContent] = (authenticate andThen serviceInfo).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(registeredForVAT(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
+          Future.successful(BadRequest(registeredForVAT(appConfig, formWithErrors, viewAction)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(RegisteredForVATEURefundsId, value)))
       )
   }

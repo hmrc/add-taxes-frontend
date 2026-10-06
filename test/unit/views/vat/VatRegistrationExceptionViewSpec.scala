@@ -20,7 +20,7 @@ import forms.vat.VatRegistrationExceptionFormProvider
 import models.vat.VatRegistrationException
 import play.api.data.Form
 import play.api.mvc.Request
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import service.ThresholdService
 import views.behaviours.ViewBehaviours
 import views.html.vat.vatRegistrationException
@@ -30,8 +30,6 @@ class VatRegistrationExceptionViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "vatRegistrationException"
 
   val form = new VatRegistrationExceptionFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   val thresholdService: ThresholdService = injector.instanceOf[ThresholdService]
   implicit val request: Request[_] = fakeRequest

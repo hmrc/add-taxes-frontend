@@ -22,7 +22,7 @@ import models.deenrolment.DoYouWantToLeaveCIS
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import views.html.deenrolment.doYouWantToLeaveCIS
 
@@ -48,7 +48,7 @@ class DoYouWantToLeaveCISControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new doYouWantToLeaveCIS(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new doYouWantToLeaveCIS(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "DoYouWantToLeaveCIS Controller" must {
 

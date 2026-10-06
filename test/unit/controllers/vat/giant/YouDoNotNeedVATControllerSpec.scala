@@ -18,7 +18,7 @@ package controllers.vat.giant
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.vat.giant.youDoNotNeedVAT
 
 class YouDoNotNeedVATControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class YouDoNotNeedVATControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new youDoNotNeedVAT(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new youDoNotNeedVAT(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "YouDoNotNeedVAT Controller" must {
 

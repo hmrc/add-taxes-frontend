@@ -18,7 +18,7 @@ package controllers.vat.giant
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.vat.giant.setupNewAccount
 
 class SetupNewAccountControllerSpec extends ControllerSpecBase {
@@ -29,7 +29,7 @@ class SetupNewAccountControllerSpec extends ControllerSpecBase {
     new SetupNewAccountController(frontendAppConfig, mcc, FakeAuthAction, FakeServiceInfoAction, view)
   }
 
-  def viewAsString(): String = new setupNewAccount(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(): String = new setupNewAccount(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "SetupNewAccount Controller" must {
     "return OK and the correct view for a GET" in {

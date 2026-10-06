@@ -35,7 +35,7 @@ class YouNeedAPptRefController @Inject()(mcc: MessagesControllerComponents,
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
 
-      Ok(youNeedAPptRefView(appConfig)(request.serviceInfoContent))
+      Ok(youNeedAPptRefView(appConfig)(Some(request.serviceInfoContent)))
 
   }
 }

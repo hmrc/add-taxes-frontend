@@ -21,7 +21,7 @@ import controllers.ControllerSpecBase
 import controllers.actions._
 import org.scalatest.BeforeAndAfterEach
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.vat.cannotRegisterVAT
 
 class CannotRegisterVATControllerSpec extends ControllerSpecBase with FeatureToggleSupport with BeforeAndAfterEach {
@@ -40,7 +40,7 @@ class CannotRegisterVATControllerSpec extends ControllerSpecBase with FeatureTog
   }
 
   def viewAsString(): String =
-    new cannotRegisterVAT(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new cannotRegisterVAT(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   override def beforeEach(): Unit = {
     super.beforeEach()

@@ -34,7 +34,7 @@ class CannotRegisterVATController @Inject()(appConfig: FrontendAppConfig,
 
   def onPageLoad: Action[AnyContent] = {
     (authenticate andThen serviceInfo) { implicit request =>
-      Ok(cannotRegisterVAT(appConfig)(request.serviceInfoContent))
+      Ok(cannotRegisterVAT(appConfig)(Some(request.serviceInfoContent)))
     }
   }
 }

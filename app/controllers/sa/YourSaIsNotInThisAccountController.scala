@@ -45,7 +45,7 @@ class YourSaIsNotInThisAccountController @Inject()(appConfig: FrontendAppConfig,
 
   def onPageLoad(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     if (request.session.get("tryingToAccessSa").contains("true")) {
-      Ok(yourSaIsNotInThisAccount(appConfig, form, origin)(request.serviceInfoContent))
+      Ok(yourSaIsNotInThisAccount(appConfig, form, origin)(Some(request.serviceInfoContent)))
     } else {
       SeeOther(appConfig.getBusinessAccountUrl("home"))
     }
@@ -54,7 +54,7 @@ class YourSaIsNotInThisAccountController @Inject()(appConfig: FrontendAppConfig,
   def onSubmit(origin: String): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => Future(BadRequest(yourSaIsNotInThisAccount(appConfig, formWithErrors, origin)(request.serviceInfoContent))),
+        formWithErrors => Future(BadRequest(yourSaIsNotInThisAccount(appConfig, formWithErrors, origin)(Some(request.serviceInfoContent)))),
         value => saService.yourSaIsNotInThisAccount(value, origin)
       )
   }

@@ -11,7 +11,6 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.{AnyContent, Result}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{status, _}
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.auth.core.{AffinityGroup, ConfidenceLevel, Enrolments}
 import uk.gov.hmrc.http.HeaderCarrier
@@ -24,7 +23,7 @@ class SelectSaCategoryServiceITSASpec extends ControllerSpecBase with MockitoSug
 
   def test(affinityGroup: AffinityGroup, confidenceLevel: ConfidenceLevel = ConfidenceLevel.L50, nino: Option[String] = None ): ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
     AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(affinityGroup), groupId, providerId, confidenceLevel, None),
-    HtmlFormat.empty)
+    serviceNavigationInfo)
 
   val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
   val mockKnownFactsService: KnownFactsService = mock[KnownFactsService]

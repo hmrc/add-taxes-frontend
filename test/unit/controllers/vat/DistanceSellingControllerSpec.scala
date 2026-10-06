@@ -25,7 +25,7 @@ import org.scalatest.BeforeAndAfterEach
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import views.html.vat.distanceSelling
 
@@ -52,7 +52,7 @@ class DistanceSellingControllerSpec extends ControllerSpecBase with FeatureToggl
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new distanceSelling(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new distanceSelling(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   override def beforeEach(): Unit = {
     super.beforeEach()

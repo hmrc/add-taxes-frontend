@@ -50,13 +50,13 @@ class SelectATaxController @Inject()(appConfig: FrontendAppConfig,
     }
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(selectATax(appConfig, form, radioOptions)(request.serviceInfoContent))
+    Ok(selectATax(appConfig, form, radioOptions)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(selectATax(appConfig, formWithErrors, radioOptions)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(selectATax(appConfig, formWithErrors, radioOptions)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(SelectATaxId, value))
       )
   }

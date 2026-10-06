@@ -18,7 +18,7 @@ package controllers.other.importexports.ncts
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.other.importexports.ncts.registerEORI
 
 class RegisterEORIControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class RegisterEORIControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String =
-    new registerEORI(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new registerEORI(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "RegisterEORI Controller" must {
 

@@ -43,14 +43,14 @@ class DoYouHaveDANController @Inject()(appConfig: FrontendAppConfig,
   val form: Form[DoYouHaveDAN] = formProvider()
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(doYouHaveDAN(appConfig, form)(request.serviceInfoContent))
+    Ok(doYouHaveDAN(appConfig, form)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(doYouHaveDAN(appConfig, formWithErrors)(request.serviceInfoContent))),
+          Future.successful(BadRequest(doYouHaveDAN(appConfig, formWithErrors)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(DoYouHaveDANId, value)))
       )
   }

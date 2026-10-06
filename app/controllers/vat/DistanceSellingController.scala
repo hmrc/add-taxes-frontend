@@ -43,14 +43,14 @@ class DistanceSellingController @Inject()(appConfig: FrontendAppConfig,
 
   def onPageLoad(): Action[AnyContent] = {
     (authenticate andThen serviceInfoData) { implicit request =>
-      Ok(distanceSelling(appConfig, form)(request.serviceInfoContent))
+      Ok(distanceSelling(appConfig, form)(Some(request.serviceInfoContent)))
     }
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     form.bindFromRequest()
       .fold(
-        formWithErrors => BadRequest(distanceSelling(appConfig, formWithErrors)(request.serviceInfoContent)),
+        formWithErrors => BadRequest(distanceSelling(appConfig, formWithErrors)(Some(request.serviceInfoContent))),
         value => Redirect(navigator.nextPage(DistanceSellingId, value))
       )
   }

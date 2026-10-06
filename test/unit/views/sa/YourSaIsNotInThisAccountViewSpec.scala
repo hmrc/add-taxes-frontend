@@ -20,7 +20,7 @@ import forms.sa.YourSaIsNotInThisAccountFormProvider
 import models.sa.YourSaIsNotInThisAccount
 import play.api.data.Form
 import play.api.mvc.Call
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.sa.yourSaIsNotInThisAccount
 
@@ -31,7 +31,7 @@ class YourSaIsNotInThisAccountViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "yourSaIsNotInThisAccount"
 
   val form = new YourSaIsNotInThisAccountFormProvider()()
-  val serviceInfoContent: Html = HtmlFormat.empty
+
 
   def createView: (String) => HtmlFormat.Appendable = (origin: String) =>
     new yourSaIsNotInThisAccount(formWithCSRF, mainTemplate)(frontendAppConfig, form, origin)(serviceInfoContent)(fakeRequest, messages)

@@ -22,7 +22,7 @@ import models.other.alcohol.atwd.AreYouRegisteredWarehousekeeper
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import views.html.other.alcohol.atwd.areYouRegisteredWarehousekeeper
 
@@ -48,7 +48,7 @@ class AreYouRegisteredWarehousekeeperControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new areYouRegisteredWarehousekeeper(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new areYouRegisteredWarehousekeeper(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "AreYouRegisteredWarehousekeeper Controller" must {
 

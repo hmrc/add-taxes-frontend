@@ -29,8 +29,6 @@ class AreYouContractorOrSubcontractorViewSpec extends ViewBehaviours {
 
   val form = new AreYouContractorOrSubcontractorFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
       new areYouContractorOrSubcontractor(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

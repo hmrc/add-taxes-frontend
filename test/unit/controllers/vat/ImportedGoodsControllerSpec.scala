@@ -26,7 +26,7 @@ import play.api.i18n.Messages
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import service.ThresholdService
 import utils.FakeNavigator
 import views.html.vat.importedGoods
@@ -57,7 +57,7 @@ class ImportedGoodsControllerSpec extends ControllerSpecBase with BeforeAndAfter
 
   def viewAsString(form: Form[_] = form): String =
     new importedGoods(formWithCSRF, mainTemplate)(
-      frontendAppConfig, form, thresholdService.formattedVatThreshold())(HtmlFormat.empty)(fakeRequest, messages).toString
+      frontendAppConfig, form, thresholdService.formattedVatThreshold())(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   override def beforeEach(): Unit = {
     super.beforeEach()

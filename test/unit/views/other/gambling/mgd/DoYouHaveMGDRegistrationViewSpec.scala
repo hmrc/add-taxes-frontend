@@ -29,8 +29,6 @@ class DoYouHaveMGDRegistrationViewSpec extends ViewBehaviours {
 
   val form = new DoYouHaveMGDRegistrationFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouHaveMGDRegistration(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

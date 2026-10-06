@@ -19,7 +19,7 @@ package views.vat
 import forms.vat.WhichVATServicesToAddFormProvider
 import models.vat.WhichVATServicesToAdd
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.vat.whichVATServicesToAdd
 
@@ -28,8 +28,6 @@ class WhichVATServicesToAddViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "whichVATServicesToAdd"
 
   val form = new WhichVATServicesToAddFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
       new whichVATServicesToAdd(formWithCSRF, mainTemplate)(frontendAppConfig, form, WhichVATServicesToAdd.options)(serviceInfoContent)(fakeRequest, messages)

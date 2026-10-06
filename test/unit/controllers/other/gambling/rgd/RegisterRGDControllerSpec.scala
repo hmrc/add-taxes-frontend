@@ -18,7 +18,7 @@ package controllers.other.gambling.rgd
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.other.gambling.rgd.registerRGD
 
 class RegisterRGDControllerSpec extends ControllerSpecBase {
@@ -28,7 +28,7 @@ class RegisterRGDControllerSpec extends ControllerSpecBase {
   def controller() =
     new RegisterRGDController(frontendAppConfig, mcc, FakeAuthAction, FakeServiceInfoAction, view)
 
-  def viewAsString(): Any = new registerRGD(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+  def viewAsString(): Any = new registerRGD(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "RegisterRGD Controller" must {
 

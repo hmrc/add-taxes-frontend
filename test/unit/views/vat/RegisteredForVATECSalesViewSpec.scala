@@ -19,7 +19,7 @@ package views.vat
 import forms.vat.RegisteredForVATFormProvider
 import models.vat.RegisteredForVAT
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import viewmodels.ViewAction
 import views.behaviours.ViewBehaviours
 import views.html.vat.registeredForVAT
@@ -30,8 +30,6 @@ class RegisteredForVATECSalesViewSpec extends ViewBehaviours {
 
   val form = new RegisteredForVATFormProvider()()
   lazy val viewAction: ViewAction = ViewAction(controllers.routes.IndexController.onPageLoad, "")
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new registeredForVAT(formWithCSRF, mainTemplate)(frontendAppConfig, form, viewAction)(serviceInfoContent)(fakeRequest, messages)

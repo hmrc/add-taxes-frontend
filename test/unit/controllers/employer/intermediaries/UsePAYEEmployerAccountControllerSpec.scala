@@ -18,7 +18,7 @@ package controllers.employer.intermediaries
 
 import controllers.ControllerSpecBase
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import views.html.employer.intermediaries.usePAYEEmployerAccount
 
 class UsePAYEEmployerAccountControllerSpec extends ControllerSpecBase {
@@ -36,7 +36,7 @@ class UsePAYEEmployerAccountControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(): String = {
-    new usePAYEEmployerAccount(formWithCSRF, mainTemplate)(frontendAppConfig)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new usePAYEEmployerAccount(formWithCSRF, mainTemplate)(frontendAppConfig)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
   }
 
   "UsePAYEEmployerAccount Controller" must {

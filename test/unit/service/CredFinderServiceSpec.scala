@@ -16,7 +16,6 @@ import play.api.data.Form
 import play.api.mvc.{AnyContent, Call}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.auth.core.{AffinityGroup, Enrolment, EnrolmentIdentifier, Enrolments}
 import uk.gov.hmrc.http.HeaderCarrier
@@ -41,7 +40,7 @@ class CredFinderServiceSpec extends ControllerSpecBase with MockitoSugar with Be
 
     def test(affinityGroup: AffinityGroup, enrolments: Enrolments): ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
       AuthenticatedRequest(FakeRequest(), "", enrolments, Some(affinityGroup), groupId, providerId, confidenceLevel, None),
-      HtmlFormat.empty)
+      serviceNavigationInfo)
 
     val mockDataCacheConnector: DataCacheConnector = mock[DataCacheConnector]
     val mockCitizensDetailsConnector: CitizensDetailsConnector = mock[CitizensDetailsConnector]

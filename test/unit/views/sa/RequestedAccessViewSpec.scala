@@ -1,6 +1,6 @@
 package views.sa
 
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.sa.requestedAccess
 
@@ -8,7 +8,6 @@ class RequestedAccessViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "requestedAccess"
 
-  val serviceInfoContent: Html = HtmlFormat.empty
   val btaOrigin: String = "bta-sa"
 
   def createView: (String) => HtmlFormat.Appendable = (origin: String) =>

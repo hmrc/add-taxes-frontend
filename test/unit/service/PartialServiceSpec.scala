@@ -58,7 +58,7 @@ class PartialServiceSpec extends ControllerSpecBase with MockitoSugar with Scala
 
     "formsNav" should {
       "return en messages when there is 1 alert and lang is set to eng" in {
-        implicit val lang = mcc.messagesApi.preferred(Seq(Lang("en"))).lang
+        implicit val lang: Lang = mcc.messagesApi.preferred(Seq(Lang("en"))).lang
         val testNavLinks = NavLinks("testEn", "testCy", "testUrl", Some(1))
         val result = mockService.formsNav(testNavLinks)
         result mustBe ListLinks("testEn", "testUrl", Some("1"))

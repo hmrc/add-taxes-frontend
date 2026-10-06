@@ -32,7 +32,6 @@ class KnownFactsViewSpec extends ViewBehaviours {
 
   val formProvider = new KnownFactsNinoFormProvider(mockKnownFactsValidator, frontendAppConfig)
   val form: Form[KnownFactsNino] = formProvider()
-  val serviceInfoContent = HtmlFormat.empty
 
 
   def createView: (String) => HtmlFormat.Appendable = (origin: String) =>

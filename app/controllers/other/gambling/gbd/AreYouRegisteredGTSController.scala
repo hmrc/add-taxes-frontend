@@ -46,14 +46,14 @@ class AreYouRegisteredGTSController @Inject()(appConfig: FrontendAppConfig,
   lazy val viewAction: ViewAction = ViewAction(routes.AreYouRegisteredGTSController.onSubmit(), "AddGbdGamblingTax")
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
-    Ok(areYouRegisteredGTS(appConfig, form, viewAction)(request.serviceInfoContent))
+    Ok(areYouRegisteredGTS(appConfig, form, viewAction)(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
     form.bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(BadRequest(areYouRegisteredGTS(appConfig, formWithErrors, viewAction)(request.serviceInfoContent))),
+          Future.successful(BadRequest(areYouRegisteredGTS(appConfig, formWithErrors, viewAction)(Some(request.serviceInfoContent)))),
         value => Future.successful(Redirect(navigator.nextPage(AreYouRegisteredGTSId.GBD, value)))
       )
   }

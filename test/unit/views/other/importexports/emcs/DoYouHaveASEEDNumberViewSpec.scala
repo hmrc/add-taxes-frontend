@@ -19,7 +19,7 @@ package views.other.importexports.emcs
 import forms.other.importexports.emcs.DoYouHaveASEEDNumberFormProvider
 import models.other.importexports.emcs.DoYouHaveASEEDNumber
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.other.importexports.emcs.doYouHaveASEEDNumber
 
@@ -28,8 +28,6 @@ class DoYouHaveASEEDNumberViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "doYouHaveASEEDNumber"
 
   val form = new DoYouHaveASEEDNumberFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouHaveASEEDNumber(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

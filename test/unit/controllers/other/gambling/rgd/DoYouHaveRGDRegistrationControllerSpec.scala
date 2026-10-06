@@ -22,7 +22,7 @@ import models.other.gambling.rgd.DoYouHaveRGDRegistration
 import play.api.data.Form
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.HtmlFormat
+
 import utils.FakeNavigator
 import views.html.other.gambling.rgd.doYouHaveRGDRegistration
 
@@ -48,7 +48,7 @@ class DoYouHaveRGDRegistrationControllerSpec extends ControllerSpecBase {
   }
 
   def viewAsString(form: Form[_] = form): String =
-    new doYouHaveRGDRegistration(formWithCSRF, mainTemplate)(frontendAppConfig, form)(HtmlFormat.empty)(fakeRequest, messages).toString
+    new doYouHaveRGDRegistration(formWithCSRF, mainTemplate)(frontendAppConfig, form)(Some(serviceNavigationInfo))(fakeRequest, messages).toString
 
   "DoYouHaveRGDRegistration Controller" must {
 

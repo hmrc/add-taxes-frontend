@@ -29,8 +29,6 @@ class StopCorporationTaxViewSpec extends ViewBehaviours {
 
   val form = new StopCorporationTaxFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new stopCorporationTax(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

@@ -29,8 +29,6 @@ class IsYourBusinessInUKViewSpec extends ViewBehaviours {
 
   val form = new IsYourBusinessInUKFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new isYourBusinessInUK(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

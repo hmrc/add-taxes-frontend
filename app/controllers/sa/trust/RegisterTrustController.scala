@@ -32,6 +32,6 @@ class RegisterTrustController @Inject()(appConfig: FrontendAppConfig,
   extends FrontendController(mcc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (authenticate andThen serviceInfo) { implicit request =>
-    Ok(registerTrust(appConfig)(request.serviceInfoContent))
+    Ok(registerTrust(appConfig)(Some(request.serviceInfoContent)))
   }
 }

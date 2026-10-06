@@ -19,7 +19,7 @@ package views.other.importexports
 import forms.other.importexports.DoYouHaveEORINumberFormProvider
 import models.other.importexports.DoYouHaveEORINumber
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import viewmodels.ViewAction
 import views.behaviours.ViewBehaviours
 import views.html.other.importexports.doYouHaveEORINumber
@@ -29,8 +29,6 @@ class DoYouHaveEORINumberViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "economicOperatorsRegistrationAndIdentification"
 
   val form = new DoYouHaveEORINumberFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouHaveEORINumber(

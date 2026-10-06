@@ -19,7 +19,7 @@ package views.deenrolment
 import forms.deenrolment.DoYouNeedToStopPBDFormProvider
 import models.deenrolment.DoYouNeedToStopPBD
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.deenrolment.doYouNeedToStopPBD
 
@@ -28,8 +28,6 @@ class DoYouNeedToStopPBDViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "doYouNeedToStopPBD"
 
   val form = new DoYouNeedToStopPBDFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouNeedToStopPBD(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)

@@ -28,7 +28,7 @@ class SaConnectorISpec extends PlaySpec with AddTaxesIntegrationTest {
 
   implicit val request: ServiceInfoRequest[AnyContent] = ServiceInfoRequest[AnyContent](
     AuthenticatedRequest(FakeRequest(), "", Enrolments(Set()), Some(Individual), groupId, providerId, confidenceLevel, None),
-    HtmlFormat.empty
+    serviceNavigationInfo
   )
 
   "SaConnector" when {

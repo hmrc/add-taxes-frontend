@@ -29,8 +29,6 @@ class DoYouHavePBDRegistrationViewSpec extends ViewBehaviours {
 
   val form = new DoYouHavePBDRegistrationFormProvider()()
 
-  val serviceInfoContent: Html = HtmlFormat.empty
-
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouHavePBDRegistration(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
 

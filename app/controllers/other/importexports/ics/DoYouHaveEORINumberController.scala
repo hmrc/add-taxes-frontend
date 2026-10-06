@@ -46,7 +46,7 @@ class DoYouHaveEORINumberController @Inject()(appConfig: FrontendAppConfig,
 
   def onPageLoad(): Action[AnyContent] = (authenticate andThen serviceInfoData) { implicit request =>
     Ok(
-      doYouHaveEORINumber(appConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddICSTax"))(request.serviceInfoContent))
+      doYouHaveEORINumber(appConfig, form, ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddICSTax"))(Some(request.serviceInfoContent)))
   }
 
   def onSubmit(): Action[AnyContent] = (authenticate andThen serviceInfoData).async { implicit request =>
@@ -57,7 +57,7 @@ class DoYouHaveEORINumberController @Inject()(appConfig: FrontendAppConfig,
               doYouHaveEORINumber(
                 appConfig,
                 formWithErrors,
-                ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddICSTax"))(request.serviceInfoContent)
+                ViewAction(DoYouHaveEORINumberController.onSubmit(), "AddICSTax"))(Some(request.serviceInfoContent))
           )),
         value => Future.successful(Redirect(navigator.nextPage(DoYouHaveEORINumberId.ICS, value)))
       )

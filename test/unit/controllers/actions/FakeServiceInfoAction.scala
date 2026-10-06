@@ -17,8 +17,7 @@
 package controllers.actions
 
 import controllers.ServiceInfoController
-import models.requests.{AuthenticatedRequest, ServiceInfoRequest}
-import play.twirl.api.HtmlFormat
+import models.requests.{AuthenticatedRequest, ListLinks, ServiceInfoRequest, ServiceNavigationInfo}
 import uk.gov.hmrc.auth.core.{Enrolment, Enrolments}
 import utils.HmrcEnrolmentType
 
@@ -31,7 +30,10 @@ class FakeServiceInfoAction(sipc: ServiceInfoController) extends ServiceInfoActi
     new FakeServiceInfoActionWithEnrolments(enrolments: _*)(sipc)
 
   override protected def transform[A](request: AuthenticatedRequest[A]): Future[ServiceInfoRequest[A]] = {
-    Future.successful(ServiceInfoRequest(request, HtmlFormat.empty))
+    val listLinks = Seq(ListLinks(message = "Home", url = "/home"))
+    val serviceNavigation: ServiceNavigationInfo = ServiceNavigationInfo(navLinks = listLinks)
+
+    Future.successful(ServiceInfoRequest(request, serviceNavigation))
   }
 }
 
@@ -41,7 +43,9 @@ class FakeServiceInfoActionWithEnrolments(enrolmentTypes: HmrcEnrolmentType*)
     val enrolments = Enrolments(enrolmentTypes.map(e => Enrolment(e.toString)).toSet)
     val requestWithEnrolments =
       AuthenticatedRequest(request.request, request.externalId, enrolments, request.affinityGroup, request.groupId, request.credId, request.confidenceLevel, request.nino)
+    val listLinks = Seq(ListLinks(message = "Home", url = "/home"))
+    val serviceNavigation: ServiceNavigationInfo = ServiceNavigationInfo(navLinks = listLinks)
 
-    Future.successful(ServiceInfoRequest(requestWithEnrolments, HtmlFormat.empty))
+    Future.successful(ServiceInfoRequest(requestWithEnrolments, serviceNavigation))
   }
 }

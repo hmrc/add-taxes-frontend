@@ -19,7 +19,7 @@ package views.deenrolment
 import forms.deenrolment.DoYouNeedToStopEPAYEFormProvider
 import models.deenrolment.DoYouNeedToStopEPAYE
 import play.api.data.Form
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.deenrolment.doYouNeedToStopEPAYE
 
@@ -28,8 +28,6 @@ class DoYouNeedToStopEPAYEViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "doYouNeedToStopEPAYE"
 
   val form = new DoYouNeedToStopEPAYEFormProvider()()
-
-  val serviceInfoContent: Html = HtmlFormat.empty
 
   def createView: () => HtmlFormat.Appendable = () =>
     new doYouNeedToStopEPAYE(formWithCSRF, mainTemplate)(frontendAppConfig, form)(serviceInfoContent)(fakeRequest, messages)
