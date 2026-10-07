@@ -57,7 +57,7 @@ class OssConnectorISpec extends PlaySpec with AddTaxesIntegrationTest {
         val result: Future[VatOneStopRecievedDetails] = connector.vatOneStopRegistrationJourneyLink(WhichVATServicesToAdd.VATOSS, lang)
 
         await(result) mustBe VatOneStopRecievedDetails(Some("/test-url"))
-        StubOssConnector.verifyOneStopRegistrationLink(count = 1, iossBool = false,lang = lang)
+        StubOssConnector.verifyOneStopRegistrationLink(count = 1, iossBool = false, lang = lang)
       }
 
       "return a url when successful response is returned with VAT IOSS and english lang is passed" in {

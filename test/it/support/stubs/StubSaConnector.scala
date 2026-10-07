@@ -16,6 +16,7 @@
 
 package support.stubs
 import com.github.tomakehurst.wiremock.client.WireMock._
+import play.api.http.Status.INTERNAL_SERVER_ERROR
 import play.api.test.Helpers.{NOT_FOUND, OK}
 
 object StubSaConnector extends StubHelper {
@@ -58,5 +59,37 @@ object StubSaConnector extends StubHelper {
 
   def verifyDetailsRetrieval(count: Int, value: String, identifier: String): Unit =
     verify(count, getRequestedFor(urlMatching(s"/sa/business-details/$value/$identifier")))
+
+  def linkNotFound(utr: String, origin: String): Unit =
+    withResponseForIvLinks(utr, origin)(NOT_FOUND, None)
+
+  def detailsNotFound(value: String, identifier: String): Unit =
+    withResponseForBusinessDetails(value, identifier)(NOT_FOUND, None)
+
+  def serverErrorIvLinks(utr: String, origin: String): Unit =
+    withResponseForIvLinks(utr, origin)(INTERNAL_SERVER_ERROR, None)
+
+  def serverErrorBusinessDetails(value: String, identifier: String): Unit =
+    withResponseForBusinessDetails(value, identifier)(INTERNAL_SERVER_ERROR, None)
+
+  def invalidIvLinksJson(utr: String, origin: String): Unit =
+    withResponseForIvLinks(utr, origin)(OK, Some("""{ invalid-json }"""))
+
+  def invalidBusinessDetailsJson(value: String, identifier: String): Unit =
+    withResponseForBusinessDetails(value, identifier)(OK, Some("""{ invalid-json }"""))
+
+  def withResponseForIvLinks(utr: String, origin: String)(status: Int, body: Option[String]): Unit =
+    stubGet(
+      s"/sa/individual/$utr/details-for-iv?origin=$origin",
+      status,
+      body
+    )
+
+  def withResponseForBusinessDetails(value: String, identifier: String)(status: Int, body: Option[String]): Unit =
+    stubGet(
+      s"/sa/business-details/$value/$identifier",
+      status,
+      body
+    )
 
 }

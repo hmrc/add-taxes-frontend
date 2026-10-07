@@ -71,6 +71,14 @@ class EnrolmentStoreProxyConnectorISpec extends PlaySpec with AddTaxesIntegratio
         await(result) mustBe false
         StubEnrolmentStoreConnector.verifyCheckUtr(1, testUtr)
       }
+
+      "return false when OK but JSON is invalid" in {
+        StubEnrolmentStoreConnector.checkUtrInvalidJsonResponse(testUtr)
+
+        val result: Future[Boolean] = connector.checkExistingUTR(testUtr, "IR-SA")
+
+        await(result) mustBe false
+      }
     }
 
     "checkSaGroup" should {
@@ -120,6 +128,7 @@ class EnrolmentStoreProxyConnectorISpec extends PlaySpec with AddTaxesIntegratio
         await(result) mustBe false
         StubEnrolmentStoreConnector.verifyExistingEmpRef(1, testTaxOfficeNumber, testTaxOfficeReference)
       }
+
       "return false when a status other than OK and NO_CONTENT is received" in {
         StubEnrolmentStoreConnector.unsuccessfulExistingEmpRefResponse(testTaxOfficeNumber, testTaxOfficeReference)
 
@@ -177,6 +186,25 @@ class EnrolmentStoreProxyConnectorISpec extends PlaySpec with AddTaxesIntegratio
 
         await(result) mustBe KnownFactsReturn(testUtr, knownFactsResult = true)
         StubEnrolmentStoreConnector.verifyQueryKnownFacts(1)
+      }
+
+      "return KnownFactsReturn(false) when an exception occurs" in {
+        StubEnrolmentStoreConnector.stubQueryKnownFactsFailure()
+
+        val result: Future[KnownFactsReturn] = connector.queryKnownFacts(SAUTR(testUtr), testAllKnownFacts)
+
+        await(result) mustBe KnownFactsReturn(testUtr, knownFactsResult = false)
+      }
+
+
+      "return KnownFactsReturn(false) when non-OK status is returned" in {
+        val postBody = StubEnrolmentStoreConnector.queryKnownFactsAllDataPost(testUtr, testAllKnownFacts)
+
+        StubEnrolmentStoreConnector.unsuccessfulQueryKnownFacts(postBody)
+
+        val result: Future[KnownFactsReturn] = connector.queryKnownFacts(SAUTR(testUtr), testAllKnownFacts)
+
+        await(result) mustBe KnownFactsReturn(testUtr, knownFactsResult = false)
       }
     }
 
