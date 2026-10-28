@@ -26,7 +26,7 @@ import models.OtherTaxes.{AlcoholAndTobacco, GamblingAndGaming, HousingAndLand, 
 import models.requests.ServiceInfoRequest
 import play.api.data.Form
 import play.api.i18n.I18nSupport
-import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents, Request}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.auth.core.{Enrolments => CoreEnrolments}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
@@ -46,7 +46,7 @@ class OtherTaxesController @Inject() (mcc: MessagesControllerComponents,
                                       implicit val appConfig: FrontendAppConfig)
     extends FrontendController(mcc)
     with I18nSupport
-    with Enumerable.Implicits {
+    with Enumerable.Implicits with LoggingUtil {
 
   val form: Form[OtherTaxes] = formProvider()
 
@@ -76,9 +76,14 @@ class OtherTaxesController @Inject() (mcc: MessagesControllerComponents,
   }
 
   private def returnFeatureSwitchedRadioIfSingleEnrolmentIsNotPresent(enrolmentToCheck: OtherTaxEnrolment,
-                                                                      allUserEnrolments: CoreEnrolments): Option[RadioOption] = {
+                                                                      allUserEnrolments: CoreEnrolments)(implicit request: Request[_]): Option[RadioOption] = {
     val notYetEnrolled     = allUserEnrolments.getEnrolment(enrolmentToCheck.identifier).isEmpty
     val switchOnOrNoSwitch = enrolmentToCheck.featureSwitch.forall(isEnabled)
+
+    if (enrolmentToCheck == DSAO) {
+      infoLog(s"[DsaoGoLive] User has HMRC-DSAO-ORG enrolment\nuser is not enrolled (so option will show) = $notYetEnrolled" +
+        s"\nswitch is on (so option will show) = $switchOnOrNoSwitch\nradio option is shown = ${notYetEnrolled && switchOnOrNoSwitch}")
+    }
 
     if (notYetEnrolled && switchOnOrNoSwitch) Some(enrolmentToCheck.toOtherTaxRadioOption) else None
   }
