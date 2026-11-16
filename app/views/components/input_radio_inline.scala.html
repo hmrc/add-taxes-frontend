@@ -29,7 +29,8 @@
 <div class="govuk-form-group @if(field.hasErrors){form-group-error govuk-form-group--error}">
     <fieldset class="govuk-fieldset" id="@{field.id}" @if(hint.isDefined){aria-describedby="form-hint-text"}>
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <span class="bold-small @if(legendClass.nonEmpty){@{legendClass.get} span-inline-block}">@Html(legend)</span>
+            @Html(legend)
+        </legend>
 
             <div class="govuk-hint">
                 @if(hint.nonEmpty){
@@ -39,7 +40,6 @@
                     <span class="govuk-error-message margin-bottom-small" id="error-message-@{field.id}-input"><span id="visually-hidden-error-prefix" class="govuk-visually-hidden">@messages("error.message.prefix")</span> @messages(error.message, error.args: _*)</span>
                 }
             </div>
-        </legend>
         <div class="govuk-radios govuk-radios--inline">
         @for(input <- inputs) {
             <div class="govuk-radios__item">
