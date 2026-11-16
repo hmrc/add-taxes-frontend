@@ -39,7 +39,7 @@
 
     @uiForm(action = CaptureSAUTRController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-    @components.heading("do-you-have-sa-utr", "captureSAUTR.heading")
+    <p class="govuk-heading-l">@messages("captureSAUTR.heading")</p>
 
     <p class="govuk-body">@messages("captureSAUTR.p1") @messages("captureSAUTR.p2")</p>
 
@@ -51,13 +51,13 @@
         <a class="govuk-link" href='@appConfig.getGovUKUrl("sautrHelp")' id='sautrHelpId' target="_blank">@messages("captureSAUTR.help.linkText")</a>
     </p>
 
-    <h1 class="govuk-heading-m govuk-!-margin-bottom-2">@messages("captureSAUTR.question")</h1>
-
     @components.yesNoUtrRadio(
     field = form("value"),
     field2 = form("sautrValue"),
     inputs = DoYouHaveSAUTR.options.toSeq,
-    enterSautrHeadingKey = "captureSAUTR.enterUTR"
+    enterSautrHeadingKey = "captureSAUTR.enterUTR",
+    headingKey = Some("captureSAUTR.question"),
+    headingId = Some("do-you-have-sa-utr")
 
     )
 

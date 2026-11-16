@@ -31,11 +31,15 @@
 <div class="govuk-form-group @if(field.hasErrors){form-group-error govuk-form-group--error}">
     <fieldset class="govuk-fieldset" id="@{field.id}" @if(hint.isDefined){aria-describedby="form-hint-text"}>
             @if(headingKey.isDefined && headingId.isDefined) {
-                @components.heading(headingId.get, headingKey.get)
+                <legend class="govuk-fieldset__legend">
+                    @components.heading(headingId.get, headingKey.get)
+                </legend>
             }
 
             @if(legendText.isDefined && legendClass.isDefined) {
-                <span class="bold-small @if(legendClass.nonEmpty){@{legendClass.get} span-inline-block}">@legendText</span>
+                <legend class="govuk-fieldset__legend">
+                    <span class="bold-small @if(legendClass.nonEmpty){@{legendClass.get} span-inline-block}">@legendText</span>
+                </legend>
             }
 
             <div class="govuk-hint">
