@@ -31,9 +31,9 @@
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <span class="bold-small @if(legendClass.nonEmpty){@{legendClass.get} span-inline-block}">@Html(legend)</span>
 
-            <div class="govuk-hint">
+            <div id="form-hint-text" class="govuk-hint">
                 @if(hint.nonEmpty){
-                    <span id="form-hint-text" class="govuk-hint @{hintTextSpacing}">@Html(hint.get)</span>
+                    <span class="@{hintTextSpacing}">@Html(hint.get)</span>
                 }
                 @field.errors.map { error =>
                     <span class="govuk-error-message margin-bottom-small" id="error-message-@{field.id}-input"><span id="visually-hidden-error-prefix" class="govuk-visually-hidden">@messages("error.message.prefix")</span> @messages(error.message, error.args: _*)</span>
