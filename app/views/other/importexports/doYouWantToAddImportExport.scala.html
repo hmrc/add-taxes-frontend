@@ -29,6 +29,8 @@
 
 @(form: Form[_])(serviceInfoContent: Option[ServiceNavigationInfo])(implicit request: ServiceInfoRequest[_], messages: Messages, appConfig: FrontendAppConfig)
 
+@sortedOptions = @{DoYouWantToAddImportExport.options().toSeq.sortWith((x1, x2) => messages(x1.messageKey) < messages(x2.messageKey))}
+
 @main_template(
     title = messages("doYouWantToAddImportExport.title"),
     appConfig = appConfig,
@@ -37,13 +39,13 @@
 
     @uiForm(action = DoYouWantToAddImportExportController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-        @components.error_summary(form.errors, Some("doYouWantToAddImportExport.DDES"))
+        @components.error_summary(form.errors, sortedOptions.headOption.map(_.id))
 
         @components.input_radio(
             field = form("value"),
             headingKey = Some("doYouWantToAddImportExport.heading"),
             headingId = Some("do-you-want-to-add-import-export"),
-            inputs = DoYouWantToAddImportExport.options().toSeq.sortWith((x1, x2) => messages(x1.messageKey) < messages(x2.messageKey))
+            inputs = sortedOptions
         )
 
         @components.submit_button(gaEvent = "AddImportExportTax")
