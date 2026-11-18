@@ -40,11 +40,15 @@
       @messages("vatEligibilityCheck.p1")
     </p>
 
-    <a data-module="govuk-button" id="continue"
-       role="button"
-       href='@VatRegistrationExceptionController.onPageLoad()'
-       class="govuk-button">
-
-        @messages("vatEligibilityCheck.continue")
-    </a>
+    <div>
+        <a
+            data-module="govuk-button"
+            id="continue"
+            role="button"
+            href='@VatRegistrationExceptionController.onPageLoad()'
+            class="govuk-button"
+        >
+            @messages("vatEligibilityCheck.continue")
+        </a>
+    </div>
 }
