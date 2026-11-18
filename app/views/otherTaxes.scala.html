@@ -28,6 +28,8 @@
 
 @(appConfig: FrontendAppConfig, form: Form[_], options: Seq[RadioOption])(serviceInfoContent: Option[ServiceNavigationInfo])(implicit request: Request[_], messages: Messages)
 
+@sortedOptions = @{options.sortWith((x1, x2) => messages(x1.messageKey) < messages(x2.messageKey))}
+
 @main_template(
     title = messages("otherTaxes.title"),
     appConfig = appConfig,
@@ -36,12 +38,12 @@
 
     @uiForm(action = OtherTaxesController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
-        @components.error_summary(form.errors, Some("otherTaxes.alcoholAndTobaccoWholesalingAndWarehousing"))
+        @components.error_summary(form.errors, sortedOptions.headOption.map(_.id))
         @components.input_radio(
             field = form("value"),
             headingId = Some("other-taxes"),
             headingKey = Some("otherTaxes.heading"),
-            inputs = options.sortWith((x1, x2) => messages(x1.messageKey) < messages(x2.messageKey))
+            inputs = sortedOptions
         )
 
         @components.submit_button(gaEvent = "OtherTaxes")

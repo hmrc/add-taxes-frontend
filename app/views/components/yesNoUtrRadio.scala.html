@@ -31,7 +31,7 @@ hintTextSpacing: Option[String] = None
 )(implicit messages: Messages)
 
 <div class="govuk-form-group @if(field.hasErrors){form-group-error govuk-form-group--error}">
-    <fieldset class="govuk-fieldset">
+    <fieldset class="govuk-fieldset" @if(field.hasErrors){aria-describedby="error-message-@{field.id}-input"}>
         <div class="govuk-hint">
             @field.errors.map { error =>
             <span class="govuk-error-message margin-bottom-small" id="error-message-@{field.id}-input"><span id="visually-hidden-error-prefix" class="govuk-visually-hidden">@messages("error.message.prefix")</span> @messages(error.message, error.args: _*)</span>
@@ -54,7 +54,7 @@ hintTextSpacing: Option[String] = None
             @if(input.value=="Yes"){
                 <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-value" >
                     <div class="govuk-form-group @if(field2.hasErrors){form-group-error govuk-form-group--error}">
-                        <fieldset class="govuk-fieldset">
+                        <fieldset class="govuk-fieldset" @if(field2.hasErrors){aria-describedby="error-message-sautrValue"}>
 
                         <label class="govuk-label" for="@{field2.id}">
                             @messages(enterSautrHeadingKey)
@@ -65,7 +65,8 @@ hintTextSpacing: Option[String] = None
                             }
                         </div>
                         <input class="govuk-input govuk-!-width-one-third"
-                               id="@{field2.id}" name="@{field2.id}" type="text" value="@{field2.value}">
+                               id="@{field2.id}" name="@{field2.id}" type="text" value="@{field2.value}"
+                               @if(field2.hasErrors){aria-describedby="error-message-sautrValue"}>
                         </fieldset>
                     </div>
                 </div>

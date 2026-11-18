@@ -29,7 +29,7 @@
 )(implicit messages: Messages)
 
 <div class="govuk-form-group @if(field.hasErrors){form-group-error govuk-form-group--error}">
-    <fieldset class="govuk-fieldset" id="@{field.id}" @if(hint.isDefined){aria-describedby="form-hint-text"}>
+    <fieldset class="govuk-fieldset" id="@{field.id}" @if(hint.isDefined || field.hasErrors){aria-describedby="@if(hint.isDefined){form-hint-text}@if(field.hasErrors){@if(hint.isDefined){ }error-message-@{field.id}-input}"}>
             @if(headingKey.isDefined && headingId.isDefined) {
                 @components.heading(headingId.get, headingKey.get)
             }
@@ -40,7 +40,7 @@
 
             <div class="govuk-hint">
                 @if(hint.nonEmpty){
-                  <span id="form-hint-text" class="govuk-hint @{hintTextSpacing}">@Html(hint.get)</span>
+                  <div id="form-hint-text" class="govuk-hint @{hintTextSpacing}">@Html(hint.get)</div>
                 }
                 @field.errors.map { error =>
                             <span class="govuk-error-message margin-bottom-small" id="error-message-@{field.id}-input"><span id="visually-hidden-error-prefix" class="govuk-visually-hidden">@messages("error.message.prefix")</span> @messages(error.message, error.args: _*)</span>
