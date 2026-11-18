@@ -20,7 +20,7 @@ class VerifiedUserErrorViewSpec extends ViewBehaviours {
     }
 
     "contain the correct content" in {
-      val content = doc.select("article > p")
+      val content = doc.select("main p")
 
       content.first().text mustBe "You need to sign in with a different Government Gateway user ID."
       content.get(1).text mustBe "If you are still unable to access this service, contact HMRC."

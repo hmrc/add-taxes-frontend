@@ -32,7 +32,6 @@
   mainClass: Option[String] = None,
   scriptElem: Option[Html] = None,
   serviceInfoContent: Option[ServiceNavigationInfo] = None,
-  articleClass: Option[String] = None,
   mainDataAttributes: Option[Html] = None)(mainContent: Html)(implicit request : Request[_], messages: Messages)
 
 @sidebar = {
@@ -62,6 +61,5 @@
     navLinks = serviceInfoContent.map(_.navLinks).getOrElse(Seq()),
     activeTab = serviceInfoContent.map(_.activeTab).getOrElse("home"),
     scriptElem = Some(scriptElem),
-    articleClass = articleClass,
     mainDataAttributes = mainDataAttributes
 )

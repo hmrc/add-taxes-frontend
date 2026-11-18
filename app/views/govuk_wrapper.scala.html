@@ -47,7 +47,6 @@
   mainContent: Option[Html] = None,
   serviceInfoContent: Option[Html] = None,
   scriptElem: Option[Html] = None,
-  articleClass: Option[String] = None,
   navLinks: Seq[ListLinks] = Seq(),
   activeTab: String = "home")(implicit request: Request[_], messages: Messages)
 
@@ -100,7 +99,7 @@
         <div class="govuk-grid-column-two-thirds">
             <main id="wrapper" class="site-wrapper" role="main" @mainClass.map { mainClassVal => class="@mainClass" } @mainDataAttributes>
               <div id="content">
-                @components.article(headerAndMainContent, false, articleClass)
+                @headerAndMainContent
                 @sidebar
                 @hmrcReportTechnicalIssueHelper()
               </div>
