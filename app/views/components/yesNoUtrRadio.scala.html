@@ -41,13 +41,13 @@ hintTextSpacing: Option[String] = None
 
         @for(input <- inputs) {
         <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="@{field.id}" type="radio" name="@{field.id}" value="@{input.value}"
+            <input class="govuk-radios__input" id="@{input.id}" type="radio" name="@{field.id}" value="@{input.value}"
                    @if(field.value == Some(input.value)){checked="checked"}
                    @if(input.value == "Yes"){data-aria-controls="conditional-value"}
 
                    data-journey-val="@{input.value}" />
 
-            <label class="govuk-label govuk-radios__label">
+            <label class="govuk-label govuk-radios__label" for="@{input.id}">
                 @messages(input.messageKey)
             </label>
         </div>
