@@ -98,13 +98,13 @@
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <main id="wrapper" class="site-wrapper" role="main" @mainClass.map { mainClassVal => class="@mainClass" } @mainDataAttributes>
+            <div id="wrapper" class="site-wrapper" @mainClass.map { mainClassVal => class="@mainClass" } @mainDataAttributes>
               <div id="content">
                 @components.article(headerAndMainContent, false, articleClass)
                 @sidebar
                 @hmrcReportTechnicalIssueHelper()
               </div>
-            </main>
+            </div>
         </div>
     </div>
 }
