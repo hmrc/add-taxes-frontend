@@ -31,7 +31,6 @@
     title = messages("cannotRegisterVAT.title"),
     appConfig = appConfig,
     serviceInfoContent = serviceInfoContent,
-    articleClass= Some("article-body-width"),
     mainDataAttributes = Some(dataPageId)) {
 
     @components.heading("cannot-register-vat", "cannotRegisterVAT.heading")
@@ -40,11 +39,15 @@
 
     <p class="govuk-body">@messages("registerForVatByPost.p1")</p>
 
-    <a data-module="govuk-button" id="continue"
-       role="button"
-       href='@appConfig.getGovUKUrl("VATRegistration")'
-       class="govuk-button margin-top-small">
-
-        @messages("cannotRegisterVAT.continue")
-    </a>
+    <div>
+        <a
+            data-module="govuk-button"
+            id="continue"
+            role="button"
+            href='@appConfig.getGovUKUrl("VATRegistration")'
+            class="govuk-button margin-top-small"
+        >
+            @messages("cannotRegisterVAT.continue")
+        </a>
+    </div>
 }

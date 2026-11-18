@@ -32,7 +32,6 @@
     title = messages("vatEligibilityCheck.title"),
     appConfig = appConfig,
     serviceInfoContent = serviceInfoContent,
-    articleClass= Some("article-body-width"),
     mainDataAttributes = Some(dataPageId)) {
 
     @components.heading("vat-eligibility-check", "vatEligibilityCheck.heading")
@@ -41,11 +40,15 @@
       @messages("vatEligibilityCheck.p1")
     </p>
 
-    <a data-module="govuk-button" id="continue"
-       role="button"
-       href='@VatRegistrationExceptionController.onPageLoad()'
-       class="govuk-button">
-
-        @messages("vatEligibilityCheck.continue")
-    </a>
+    <div>
+        <a
+            data-module="govuk-button"
+            id="continue"
+            role="button"
+            href='@VatRegistrationExceptionController.onPageLoad()'
+            class="govuk-button"
+        >
+            @messages("vatEligibilityCheck.continue")
+        </a>
+    </div>
 }
