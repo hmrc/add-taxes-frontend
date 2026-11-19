@@ -32,7 +32,7 @@ class CaptureSAUTRViewSpec extends ViewBehaviours {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
         for (option <- DoYouHaveSAUTR.options) {
-          assertContainsRadioButton(doc, "value", "value", "Yes", isChecked = false)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
         }
       }
     }
@@ -40,7 +40,7 @@ class CaptureSAUTRViewSpec extends ViewBehaviours {
       s"rendered with a value of Yes" must {
         s"have the Yes radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> "Yes"))))
-          assertContainsRadioButton(doc, "value", "value", "Yes", isChecked = true)
+          assertContainsRadioButton(doc, "doYouHaveSAUTR.Yes", "value", "Yes", isChecked = true)
         }
       }
 

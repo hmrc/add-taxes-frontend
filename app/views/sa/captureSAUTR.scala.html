@@ -35,7 +35,9 @@
 
     <a href='@appConfig.getBusinessAccountUrl("addTax")' class="govuk-back-link" >@messages("backLink.text")</a>
 
-    @components.error_summary(form.errors, if(form.errors.nonEmpty) Some(form.errors(0).key) else Some("value"))
+    @components.error_summary(form.errors, form.errors.headOption.map { error =>
+        if(error.key == "value") DoYouHaveSAUTR.options.toSeq.head.id else error.key
+    })
 
     @uiForm(action = CaptureSAUTRController.onSubmit(), 'autoComplete -> "off", Symbol("data-journey-dynamic-radios") -> "") {
 
