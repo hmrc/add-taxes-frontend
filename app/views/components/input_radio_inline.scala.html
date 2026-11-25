@@ -27,7 +27,7 @@
 )(implicit messages: Messages)
 
 <div class="govuk-form-group @if(field.hasErrors){form-group-error govuk-form-group--error}">
-    <fieldset class="govuk-fieldset" id="@{field.id}" @if(hint.isDefined){aria-describedby="form-hint-text"}>
+    <fieldset class="govuk-fieldset" id="@{field.id}" @if(hint.isDefined || field.hasErrors){aria-describedby="@if(hint.isDefined){form-hint-text}@if(field.hasErrors){@if(hint.isDefined){ }error-message-@{field.id}-input}"}>
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <span class="bold-small @if(legendClass.nonEmpty){@{legendClass.get} span-inline-block}">@Html(legend)</span>
 
